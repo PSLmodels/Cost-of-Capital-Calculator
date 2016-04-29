@@ -61,7 +61,7 @@ def init_depr_rates(asset_tree=naics.generate_tree(), get_econ=False,
     # Calculating the depreciation rates:
     
     econ_depr_tree = calc_rates.calc_depr_rates(fixed_asset_tree, inv_tree, land_tree)
- #   tax_depr_tree = calc_rates.calc_tax_depr_rates(fixed_asset_tree, inv_tree, land_tree)
+    tax_depr_tree = calc_rates.calc_tax_depr_rates(fixed_asset_tree, inv_tree, land_tree)
     #naics.pop_rates(tax_depr_tree)
     
-    return {"Econ": econ_depr_tree}#, "Tax": tax_depr_tree}
+    return {"Econ": econ_depr_tree, "Tax": tax_depr_tree}
