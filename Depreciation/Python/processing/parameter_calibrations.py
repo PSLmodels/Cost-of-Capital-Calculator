@@ -69,9 +69,9 @@ def calibrate_depr_rates(data_tree=naics.generate_tree(), get_all=False,
            rate. It is uses IRS tax documents to decide which assets fall
            under which tax depreciation methods.
     :param get_tax_150: Get the depreciation rates under the assumption that
-           assets are depreciated under the GDS 150% declining balance method.
+           assets are depreciated under the GDS 150 declining balance method.
     :param get_tax_200: Get the depreciation rates under the assumption that
-           assets are depreciated under the GDS 200% declining balance method.
+           assets are depreciated under the GDS 200 declining balance method.
     :param get_tax_sl: Get the depreciation rates under the assumption that
            assets are depreciated under the straight line method.
     :param get_tax_ads: Get the depreciation rates under the assumption that
@@ -102,12 +102,12 @@ def calibrate_depr_rates(data_tree=naics.generate_tree(), get_all=False,
     Lines 104-105 and 108 are commented out and replaced by lines 110 and 111, which load the same information from memory
     '''
     #soi_tree = pull_soi_data(get_all=True, from_out=soi_from_out,
-                      #       output_data=(not soi_from_out))
+    #                          output_data=(not soi_from_out))
     ''' Initialize NAICS tree with all assets--fixed assets, inventories, 
     and land--by sector:'''
     #asset_tree = calc_soi_assets(soi_tree=soi_tree)
     # Use the asset_tree to initialize all the depreciation rates:
-    input_file = open('myfile.pkl', 'rb')
+    input_file = open('assetTree.pkl', 'rb')
     asset_tree = pickle.load(input_file)
     input_file.close()
     depr_tree = depr.init_depr_rates(asset_tree=asset_tree, get_econ=get_econ,

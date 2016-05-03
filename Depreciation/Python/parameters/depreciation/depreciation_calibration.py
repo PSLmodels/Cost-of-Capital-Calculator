@@ -41,7 +41,8 @@ def init_depr_rates(asset_tree=naics.generate_tree(), get_econ=False,
                     output_data=False):
     import cPickle as pickle
     #all the fixed asset/inventroy/land trees are stored in memory in .pkl files
-    fa_file = open('FAtree.pkl', 'rb')
+    
+    fa_file = open('faTree.pkl', 'rb')
     fixed_asset_tree = pickle.load(fa_file)
     fa_file.close()
     inv_file = open('invTree.pkl', 'rb')
@@ -61,7 +62,7 @@ def init_depr_rates(asset_tree=naics.generate_tree(), get_econ=False,
     # Calculating the depreciation rates:
     
     econ_depr_tree = calc_rates.calc_depr_rates(fixed_asset_tree, inv_tree, land_tree)
- #   tax_depr_tree = calc_rates.calc_tax_depr_rates(fixed_asset_tree, inv_tree, land_tree)
+    tax_depr_tree = calc_rates.calc_tax_depr_rates(fixed_asset_tree, inv_tree, land_tree)
     #naics.pop_rates(tax_depr_tree)
     
-    return {"Econ": econ_depr_tree}#, "Tax": tax_depr_tree}
+    return {"Econ": econ_depr_tree, "Tax": tax_depr_tree}

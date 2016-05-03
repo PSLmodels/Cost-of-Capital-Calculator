@@ -45,7 +45,6 @@ import cPickle as pickle
 Creating NAICS trees with all the relevant firm parameters calibrated using
 helper functions from the parameter_calibrations module.
 """
-#Breakpoint used for debugging
 ipdb.set_trace()
 #calculates the depreciation rates
 depr_rates = clbr.calibrate_depr_rates(get_all = True)
@@ -59,8 +58,7 @@ relevant_industries = [11, 211, 212, 213, 22, 23, 31, 32411, 336, 3391, 42, 44, 
 N = len(depr_rates['Econ'].enum_inds)
 M = len(relevant_industries)
 econ_rates_df = pd.DataFrame(index=np.arange(0,M),columns=('NAICS','All','Corp','Non-Corp', 'Owner-Occupied'))
-tax_rates_df = pd.DataFrame(index=np.arange(0,M),columns=('Type', 'All', 'Corp', 'Non-Corp'))
-#types = ['GDS 150%', 'ADS SL', 'GDS 200%', 'Recommended', 'GDS SL']
+tax_rates_df = pd.DataFrame(index=np.arange(0,M),columns=('NAICS', 'All', 'Corp', 'Non-Corp'))
 j = 0
 for i in xrange(0,N):
     # storing the NAICS code in another variable that we can index
@@ -72,36 +70,26 @@ for i in xrange(0,N):
         econ_rates_df['All'].iloc[j]= depr_rates['Econ'].enum_inds[i].data.dfs['Economic']['All'].iloc[0]
         econ_rates_df['Corp'].iloc[j]= depr_rates['Econ'].enum_inds[i].data.dfs['Economic']['Corp'].iloc[0]
         econ_rates_df['Non-Corp'].iloc[j]= depr_rates['Econ'].enum_inds[i].data.dfs['Economic']['Non-Corp'].iloc[0]
+
+        tax_rates_df['NAICS'].iloc[j]= depr_rates['Econ'].enum_inds[i].data.dfs['Codes:'].values
+        tax_rates_df['All'].iloc[j] = depr_rates['Tax'].enum_inds[i].data.dfs['Tax']['All'].iloc[0]
+        tax_rates_df['Corp'].iloc[j] = depr_rates['Tax'].enum_inds[i].data.dfs['Tax']['Corp'].iloc[0]
+        tax_rates_df['Non-Corp'].iloc[j] = depr_rates['Tax'].enum_inds[i].data.dfs['Tax']['Non-Corp'].iloc[0]
         # adds the owner occupied housing information for the Real estate industry
         if(relevant_industries[j] == 531):
-            econ_rates_df['Owner-Occupied'].iloc[j] = 00.0146
+            econ_rates_df['Owner-Occupied'].iloc[j] = 0.0146
         else:
             econ_rates_df['Owner-Occupied'].iloc[j] = 0
-        '''
-        for k in types:
-            tax_rates_df['Type'].iloc[j+l] = k
-            tax_rates_df['All'].iloc[j+l]= depr_rates['Tax'].enum_inds[i].data.dfs[k]['All'].iloc[0]
-            tax_rates_df['Corp'].iloc[j+l]= depr_rates['Tax'].enum_inds[i].data.dfs[k]['Corp'].iloc[0]
-            tax_rates_df['Non-Corp'].iloc[j+l]= depr_rates['Tax'].enum_inds[i].data.dfs[k]['Non-Corp'].iloc[0]
-            l += 1
-        '''
+
+        if(relevant_industries[j] == 92):    
+            econ_rates_df['All'].iloc[j] = 0.052374232
+
         # prevents the relevant industry list from passing its bounds
         if(j < len(relevant_industries)-1): 
             j += 1 
 #writes the dataframe to a file
-econ_rates_df.to_csv(_CUR_DIR+'relevant_industries_output3.csv', index=False)
+econ_rates_df.to_csv('econDepreciation.csv', index = False)
+tax_rates_df.to_csv('taxDepreciation.csv', index = False)
 
-
-'''
-for i in xrange(0,N):
-    econ_rates_df['NAICS'].iloc[i]= depr_rates['Econ'].enum_inds[i].data.dfs['Codes:'].values
-    econ_rates_df['All'].iloc[i]= depr_rates['Econ'].enum_inds[i].data.dfs['Economic']['All'].iloc[0]
-    econ_rates_df['Corp'].iloc[i]= depr_rates['Econ'].enum_inds[i].data.dfs['Economic']['Corp'].iloc[0]
-    econ_rates_df['Non-Corp'].iloc[i]= depr_rates['Econ'].enum_inds[i].data.dfs['Economic']['Non-Corp'].iloc[0]
-    
-
-econ_rates_df.to_csv(_CUR_DIR+'depr_rates_output.csv', index=False)
-
-'''
 
 
