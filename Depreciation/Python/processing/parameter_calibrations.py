@@ -80,12 +80,15 @@ def calibrate_depr_rates(data_tree=naics.generate_tree(), get_all=False,
     :param output_data: Whether to output the depreciation rates.
     """
     # The depreciation rate directory:
-    depr_dir = os.path.abspath(_PARAM_DIR +"//depreciation")
+    depr_dir = os.path.abspath(_PARAM_DIR +'//depreciation')
+    pkl_dir = os.path.abspath(_MAIN_DIR + '//pickleFiles')
     ''' Importing the module for gathering and processing the depreciation
     rate data: '''
     sys.path.append(depr_dir)
+    sys.path.append(pkl_dir)
     import depreciation_calibration as depr
     import cPickle as pickle
+    '''
     # If get_all, set all booleans to true:
     if get_all:
         get_econ = True
@@ -97,6 +100,7 @@ def calibrate_depr_rates(data_tree=naics.generate_tree(), get_all=False,
         get_tax_sl = True
         get_tax_ads = True
         get_tax_est = True
+        '''
     # Initialize NAICS tree with all the soi tax data:
     '''
     Lines 104-105 and 108 are commented out and replaced by lines 110 and 111, which load the same information from memory
@@ -107,13 +111,10 @@ def calibrate_depr_rates(data_tree=naics.generate_tree(), get_all=False,
     and land--by sector:'''
     #asset_tree = calc_soi_assets(soi_tree=soi_tree)
     # Use the asset_tree to initialize all the depreciation rates:
-    input_file = open('assetTree.pkl', 'rb')
+    input_file = open(os.path.join(pkl_dir, 'assetTree.pkl'), 'rb')
     asset_tree = pickle.load(input_file)
     input_file.close()
-    depr_tree = depr.init_depr_rates(asset_tree=asset_tree, get_econ=get_econ,
-                            get_tax_est=get_tax_est, get_tax_150=get_tax_150,
-                            get_tax_200=get_tax_200, get_tax_sl=get_tax_sl,
-                            get_tax_ads=get_tax_ads, output_data=output_data)
+    depr_tree = depr.init_depr_rates(asset_tree=asset_tree)
     
     #
     return depr_tree

@@ -10,8 +10,8 @@ import os.path
 import sys
 import numpy as np
 import pandas as pd
-import ipdb
 # Directories:
+_MAIN_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 _CUR_DIR = os.path.dirname(__file__)
 _DATA_DIR = os.path.join(_CUR_DIR, "data")
 _PROC_DIR = os.path.join(_CUR_DIR, "processing")
@@ -34,21 +34,18 @@ _NON_CORP_TAX_SECTORS_NMS_DICT = cst.NON_CORP_TAX_SECTORS_NMS_DICT
 _NCORP_NMS = _NON_CORP_TAX_SECTORS_NMS_DICT.values()
 
 
-def init_depr_rates(asset_tree=naics.generate_tree(), get_econ=False, 
-                    get_tax_est=False, get_tax_150=False,
-                    get_tax_200=False, get_tax_sl=False,
-                    get_tax_ads=False, soi_from_out=False,
-                    output_data=False):
+def init_depr_rates(asset_tree=naics.generate_tree()):
     import cPickle as pickle
     #all the fixed asset/inventroy/land trees are stored in memory in .pkl files
     
-    fa_file = open('faTree.pkl', 'rb')
+    _PKL_DIR = os.path.abspath(_MAIN_DIR + "//pickleFiles")
+    fa_file = open(os.path.join(_PKL_DIR,'faTree.pkl'), 'rb')
     fixed_asset_tree = pickle.load(fa_file)
     fa_file.close()
-    inv_file = open('invTree.pkl', 'rb')
+    inv_file = open(os.path.join(_PKL_DIR,'invTree.pkl'), 'rb')
     inv_tree = pickle.load(inv_file)
     inv_file.close()
-    land_file = open('landTree.pkl', 'rb')
+    land_file = open(os.path.join(_PKL_DIR,'landTree.pkl'), 'rb')
     land_tree = pickle.load(land_file)
     land_file.close()
 

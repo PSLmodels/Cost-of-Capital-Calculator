@@ -93,7 +93,8 @@ def calc_tax_depr_rates(asset_tree, inv_tree, land_tree):
                       + ((np.exp(-1*tax_beta*tax_star)/((tax_life-tax_star)*r))* (np.exp(-1*r*tax_star)-np.exp(-1*r*tax_life))))
             tax_rates.iloc[i,0] = r/((1/tax_z)-1)
         else:
-            tax_rates.iloc[i,0] = tax_beta
+            tax_z = ((1-np.exp(-1*r*tax_life)) / (r*tax_life))
+            tax_rates.iloc[i,0] = (tax_z * r) / (1 + r - tax_z)
     #
     types = ["All", "Corp", "Non-Corp"]
     # Initialize tax depreciation rates tree:
