@@ -21,9 +21,9 @@ import pandas as pd
 import ipdb
 # Directories:
 _CUR_DIR = os.path.dirname(__file__)
-_SCRIPT_DIR = os.path.join(_CUR_DIR, 'auxScripts')
-_OUT_DIR = os.path.join(_CUR_DIR, 'outputFiles')
-_DATA_DIR = os.path.join(_CUR_DIR, 'dataFiles')
+_SCRIPT_DIR = os.path.join(_CUR_DIR, 'aux_scripts')
+_OUT_DIR = os.path.join(_CUR_DIR, 'output')
+_DATA_DIR = os.path.join(_CUR_DIR, 'data')
 #_SOI_DIR = os.path.join(_DATA_DIR, "soi")
 #_DATA_STRUCT_DIR = os.path.join(_CUR_DIR, "data_structures")
 #_CST_DIR = os.path.join(_CUR_DIR, "constants")

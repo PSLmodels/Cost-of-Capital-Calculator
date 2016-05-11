@@ -17,7 +17,7 @@ import ipdb
 # Relevant directories:
 _CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 _MAIN_DIR = os.path.dirname(_CUR_DIR)
-_DATA_DIR = os.path.join(_MAIN_DIR,'dataFiles')
+_DATA_DIR = os.path.join(_MAIN_DIR,'data')
 #_DATA_STRCT_DIR = os.path.abspath(_MAIN_DIR + "//data_structures")
 #_PARAM_DIR = os.path.abspath(_MAIN_DIR + "//parameters")
 #_OUT_DIR = os.path.abspath(_MAIN_DIR + "//output")
@@ -79,7 +79,7 @@ def calibrate_depr_rates(get_all=False,
     :param soi_from_out: Whether to recalibrate the relevant soi tax data.
     :param output_data: Whether to output the depreciation rates.
     """
-    pkl_dir = os.path.abspath(_DATA_DIR + '//pickleFiles')
+    pkl_dir = os.path.abspath(_DATA_DIR + '//pickles')
     ''' Importing the module for gathering and processing the depreciation
     rate data: '''
     sys.path.append(pkl_dir)

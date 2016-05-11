@@ -16,7 +16,7 @@ import xlrd
 # Directories:
 _CUR_DIR = os.path.dirname(__file__)
 _MAIN_DIR = os.path.dirname(_CUR_DIR)
-_DATA_DIR = os.path.abspath(_MAIN_DIR + '//dataFiles' + '//rawData')
+_DATA_DIR = os.path.abspath(_MAIN_DIR + '//data' + '//raw_data')
 _BEA_DIR = os.path.join(_DATA_DIR, 'BEA') # Directory with BEA data.
 # Importing custom modules:
 import naics_processing as naics

@@ -13,11 +13,11 @@ import pandas as pd
 import xlrd
 # Directories:
 _CUR_DIR = os.path.dirname(__file__)
-_DATA_DIR = os.path.join(os.path.dirname(_CUR_DIR), 'dataFiles')
-_RAW_DIR = os.path.join(_DATA_DIR, 'rawData')
+_DATA_DIR = os.path.join(os.path.dirname(_CUR_DIR), 'data')
+_RAW_DIR = os.path.join(_DATA_DIR, 'raw_data')
 _SOI_DIR = os.path.join(_RAW_DIR, 'soi')
-_OUT_DIR = os.path.join(os.path.dirname(_CUR_DIR), 'outputFiles')
-_INT_DIR = os.path.join(_OUT_DIR, 'intermedOut')
+_OUT_DIR = os.path.join(os.path.dirname(_CUR_DIR), 'output')
+_INT_DIR = os.path.join(_OUT_DIR, 'intermed_outOut')
 _PROP_DIR = os.path.join(_SOI_DIR, 'soi_proprietorship')
 # Importing custom packages:
 import naics_processing as naics

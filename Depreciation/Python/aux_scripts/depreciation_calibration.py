@@ -14,8 +14,8 @@ import cPickle as pickle
 # Directories:
 _CUR_DIR = os.path.dirname(__file__)
 _MAIN_DIR = os.path.dirname(_CUR_DIR)
-_DATA_DIR = os.path.join(_MAIN_DIR, 'dataFiles')
-_PKL_DIR = os.path.join(_DATA_DIR, 'pickleFiles')
+_DATA_DIR = os.path.join(_MAIN_DIR, 'data')
+_PKL_DIR = os.path.join(_DATA_DIR, 'pickles')
 # Importing custom modules:
 import naics_processing as naics
 import constants as cst

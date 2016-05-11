@@ -16,7 +16,7 @@ import xlrd
 # Relevant directories:
 _CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 _MAIN_DIR = os.path.dirname(_CUR_DIR)
-_DATA_DIR = os.path.join(_MAIN_DIR, 'dataFiles')
+_DATA_DIR = os.path.join(_MAIN_DIR, 'data')
 _NAICS_CODE_PATH = os.path.abspath(_DATA_DIR + "//NAICS_Codes.csv")
 # Importing custom modules:
 import data_class as dc
