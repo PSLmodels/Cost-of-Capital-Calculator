@@ -35,6 +35,7 @@ sys.path.append(_DATA_DIR)
 #sys.path.append(_SOI_DIR)
 
 # Importing custom modules:
+ipdb.set_trace()
 import constants as cst
 import naics_processing as naics
 import soi_processing as soi
@@ -47,7 +48,6 @@ Creating NAICS trees with all the relevant firm parameters calibrated using
 helper functions from the parameter_calibrations module.
 """
 #calculates the depreciation rates
-ipdb.set_trace()
 depr_rates = clbr.calibrate_depr_rates(get_all = True)
 #soi_tree = clbr.pull_soi_data(get_all=True, output_data=True)
 #debt_tree = clbr.calibrate_debt(soi_tree=soi_tree)

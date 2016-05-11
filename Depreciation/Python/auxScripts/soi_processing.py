@@ -35,7 +35,7 @@ _ALL_SECTORS = cst.ALL_SECTORS_NMS_LIST
 _ALL_SECTORS_DICT = cst.ALL_SECTORS_NMS_DICT
 
 
-def load_corporate(soi_tree=naics.generate_tree(),
+def load_corporate(soi_tree,
                    from_out=False, get_all=False,
                    get_tot=False, get_s=False, get_c=False,
                    output_data=False, out_path=None):
@@ -91,7 +91,7 @@ def load_corporate(soi_tree=naics.generate_tree(),
     return soi_tree
     
 
-def load_partner(soi_tree=naics.generate_tree(),
+def load_partner(soi_tree,
                  from_out=False, output_data=False,
                  out_path=None):
     """ Loading the partnership tax soi data into a NAICS Tree.
@@ -120,7 +120,7 @@ def load_partner(soi_tree=naics.generate_tree(),
     return soi_tree
 
 
-def load_proprietorship(soi_tree=naics.generate_tree(),
+def load_proprietorship(soi_tree,
                        from_out=False, get_all=False,
                        get_nonfarm=False, get_farm=False,
                        output_data=False, out_path=None):
@@ -154,7 +154,7 @@ def load_proprietorship(soi_tree=naics.generate_tree(),
     return soi_tree
 
 
-def calc_assets(soi_tree, asset_tree=naics.generate_tree()):
+def calc_assets(soi_tree, asset_tree):
     """ Calculating a breakdown of the various sector type's assets
     into fixed assets, inventories, and land. 
     

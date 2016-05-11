@@ -306,7 +306,7 @@ def print_tree_dfs(tree, out_path, file_name = None,
             cur_pd.to_csv(out_path + "\\" + file_name + ".csv", index = False)
 
 
-def load_tree_dfs(input_path, dfs_name=None, tree=generate_tree()):
+def load_tree_dfs(input_path, dfs_name, tree):
     """ This takes in an input csv file that describes a dataframe to be added
     to each industry in the tree. The header in the input file describes the 
     columns in the dataframe, and each row corresponds to a NAICS industry.
@@ -347,7 +347,7 @@ def load_tree_dfs(input_path, dfs_name=None, tree=generate_tree()):
 
 
 def load_data_with_cross(data_df, cross_df,
-                         data_tree=generate_tree(),
+                         data_tree,
                          df_nm="", df_cols=None, 
                          bluetree=None, blueprint=None):
     """ Given a a dataset and a mapping of rows in the data set to NAICS codes,

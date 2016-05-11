@@ -14,8 +14,10 @@ import xlrd
 # Directories:
 _CUR_DIR = os.path.dirname(__file__)
 _DATA_DIR = os.path.join(os.path.dirname(_CUR_DIR), 'dataFiles')
-_SOI_DIR = os.path.join(_DATA_DIR, 'rawData//soi')
-_OUT_DIR = os.path.join(_SOI_DIR, 'output')
+_RAW_DIR = os.path.join(_DATA_DIR, 'rawData')
+_SOI_DIR = os.path.join(_RAW_DIR, 'soi')
+_OUT_DIR = os.path.join(os.path.dirname(_CUR_DIR), 'outputFiles')
+_INT_DIR = os.path.join(_OUT_DIR, 'intermedOut')
 _PROP_DIR = os.path.join(_SOI_DIR, 'soi_proprietorship')
 # Importing custom packages:
 import naics_processing as naics
@@ -39,8 +41,8 @@ _DDCT_IN_CROSS_FILE = fp.get_file(dirct=_PROP_DIR,
 _DDCT_IN_PATH = os.path.join(_PROP_DIR, _DDCT_IN_FILE)
 _FARM_IN_PATH = os.path.join(_PROP_DIR, _FARM_IN_FILE)
 _DDCT_IN_CROSS_PATH = os.path.join(_PROP_DIR, _DDCT_IN_CROSS_FILE)
-_NFARM_PROP_OUT_PATH = os.path.join(_OUT_DIR, _NFARM_DF_NM+".csv")
-_FARM_PROP_OUT_PATH = os.path.join(_OUT_DIR, _FARM_DF_NM+".csv")
+_NFARM_PROP_OUT_PATH = os.path.join(_INT_DIR, _NFARM_DF_NM+".csv")
+_FARM_PROP_OUT_PATH = os.path.join(_INT_DIR, _FARM_DF_NM+".csv")
 # Constant factors:
 _DDCT_FILE_FCTR = 10**3
 # Dataframe columns:
@@ -58,7 +60,7 @@ _DDCT_COL1 = "Depreciation\ndeduction"
 _DDCT_COL2 = "Depreciation\ndeduction"
 
 
-def load_soi_nonfarm_prop(data_tree=naics.generate_tree(), 
+def load_soi_nonfarm_prop(data_tree, 
                           blue_tree=None, blueprint=None, 
                           from_out=False, out_path=_NFARM_PROP_OUT_PATH):
     """ This function loads the soi nonfarm proprietorship data:
@@ -126,7 +128,7 @@ def load_soi_nonfarm_prop(data_tree=naics.generate_tree(),
     return data_tree
 
 
-def load_soi_farm_prop(data_tree=naics.generate_tree(),
+def load_soi_farm_prop(data_tree,
                        blue_tree=None, blueprint=None,
                        from_out=False, out_path=_FARM_PROP_OUT_PATH):
     """ This function loads the soi nonfarm proprietorship data:

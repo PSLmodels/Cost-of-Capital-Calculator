@@ -15,8 +15,10 @@ import pandas as pd
 # Directory names:
 _CUR_DIR = os.path.dirname(__file__)
 _DATA_DIR = os.path.join(os.path.dirname(_CUR_DIR), 'dataFiles')
-_SOI_DIR = os.path.join(_DATA_DIR, 'rawData//soi')
-_OUT_DIR = os.path.join(_SOI_DIR, 'output')
+_RAW_DIR = os.path.join(_DATA_DIR, 'rawData')
+_SOI_DIR = os.path.join(_RAW_DIR, 'soi')
+_OUT_DIR = os.path.join(os.path.dirname(_CUR_DIR), 'outputFiles')
+_INT_DIR = os.path.join(_OUT_DIR, 'intermedOut')
 _CORP_DIR = os.path.join(_SOI_DIR, 'soi_corporate')
 # Importing custom modules:
 import naics_processing as naics
@@ -35,9 +37,9 @@ _S_CORP_IN_FILE = fp.get_file(dirct=_CORP_DIR, contains=[_YR+"sb3.csv"])
 # Full path for files:
 _TOT_CORP_IN_PATH = os.path.join(_CORP_DIR, _TOT_CORP_IN_FILE)
 _S_CORP_IN_PATH = os.path.join(_CORP_DIR, _S_CORP_IN_FILE)
-_TOT_CORP_OUT_PATH = os.path.join(_OUT_DIR, _TOT_DF_NM+".csv")
-_S_CORP_OUT_PATH = os.path.join(_OUT_DIR, _S_DF_NM+".csv")
-_C_CORP_OUT_PATH = os.path.join(_OUT_DIR, _C_DF_NM+".csv")
+_TOT_CORP_OUT_PATH = os.path.join(_INT_DIR, _TOT_DF_NM+".csv")
+_S_CORP_OUT_PATH = os.path.join(_INT_DIR, _S_DF_NM+".csv")
+_C_CORP_OUT_PATH = os.path.join(_INT_DIR, _C_DF_NM+".csv")
 # Constant factors:
 _TOT_CORP_IN_FILE_FCTR = 10**3
 _S_CORP_IN_FILE_FCTR = 10**3
@@ -48,7 +50,7 @@ _DFLT_S_CORP_COLS_DICT = cst.DFLT_S_CORP_COLS_DICT
 _NAICS_COL_NM = "INDY_CD"
 
 
-def load_soi_tot_corp(data_tree=naics.generate_tree(),
+def load_soi_tot_corp(data_tree,
                       cols_dict=_DFLT_TOT_CORP_COLS_DICT, 
                       blueprint=None, blue_tree=None,
                       from_out=False, output_path=_TOT_CORP_OUT_PATH):
@@ -118,7 +120,7 @@ def load_soi_tot_corp(data_tree=naics.generate_tree(),
     return data_tree
 
 
-def load_soi_s_corp(data_tree=naics.generate_tree(),
+def load_soi_s_corp(data_tree,
                     cols_dict=_DFLT_S_CORP_COLS_DICT,
                     blue_tree=None, blueprint=None,
                     from_out=False, out_path=_S_CORP_OUT_PATH):
@@ -191,7 +193,7 @@ def load_soi_s_corp(data_tree=naics.generate_tree(),
     return data_tree
 
 
-def calc_c_corp(data_tree=naics.generate_tree(), from_out=False,
+def calc_c_corp(data_tree, from_out=False,
                 out_path=_C_CORP_OUT_PATH):
     """ This function calculates the soi c-corporation data based of the
     s and the aggregate corporation data.

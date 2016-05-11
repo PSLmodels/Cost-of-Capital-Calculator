@@ -51,7 +51,7 @@ def calibrate_incomes(output_data=True):
     return inc_tree
 '''
 
-def calibrate_depr_rates(data_tree=naics.generate_tree(), get_all=False,
+def calibrate_depr_rates(get_all=False,
                          get_econ=False, get_tax=False,
                          get_tax_est=False, get_tax_150=False,
                          get_tax_200=False, get_tax_sl=False,
@@ -150,7 +150,7 @@ def calibrate_debt(debt_tree=naics.generate_tree(), soi_tree=None,
     return debt_tree
     
 '''
-def pull_soi_data(soi_tree=naics.generate_tree(), from_out=False,
+def pull_soi_data(soi_tree, from_out=False,
                   get_all=False, get_corp=False,
                   get_tot=False, get_s=False,
                   get_c=False, get_prt=False,
@@ -191,7 +191,7 @@ def pull_soi_data(soi_tree=naics.generate_tree(), from_out=False,
     return soi_tree
 
 
-def calc_soi_assets(soi_tree, asset_tree=naics.generate_tree()):
+def calc_soi_assets(soi_tree, asset_tree):
     """ Calculating a breakdown of the various sector type's assets
     into fixed assets, inventories, and land. 
     

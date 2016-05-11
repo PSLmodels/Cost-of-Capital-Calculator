@@ -14,8 +14,10 @@ import xlrd
 # Directories:
 _CUR_DIR = os.path.dirname(__file__)
 _DATA_DIR = os.path.join(os.path.dirname(_CUR_DIR), 'dataFiles')
-_SOI_DIR = os.path.join(_DATA_DIR, 'rawData//soi')
-_OUT_DIR = os.path.join(_SOI_DIR, 'output')
+_RAW_DIR = os.path.join(_DATA_DIR, 'rawData')
+_SOI_DIR = os.path.join(_RAW_DIR, 'soi')
+_OUT_DIR = os.path.join(os.path.dirname(_CUR_DIR), 'outputFiles')
+_INT_DIR = os.path.join(_OUT_DIR, 'intermedOut')
 _PRT_DIR = os.path.join(_SOI_DIR, 'soi_partner')
 # Importing custom modules:
 import naics_processing as naics
@@ -49,9 +51,9 @@ _TYP_IN_PATH = os.path.join(_PRT_DIR, _TYP_IN_FILE)
 _INC_IN_CROSS_PATH = os.path.join(_PRT_DIR, _INC_IN_CROSS_FILE)
 _AST_IN_CROSS_PATH = os.path.join(_PRT_DIR, _AST_IN_CROSS_FILE)
 _TYP_IN_CROSS_PATH = os.path.join(_PRT_DIR, _TYP_IN_CROSS_FILE)
-_INC_OUT_PATH = os.path.join(_OUT_DIR, _INC_OUT_FILE)
-_AST_OUT_PATH = os.path.join(_OUT_DIR, _AST_OUT_FILE)
-_TYP_OUT_PATH = os.path.join(_OUT_DIR, _TYP_OUT_FILE)
+_INC_OUT_PATH = os.path.join(_INT_DIR, _INC_OUT_FILE)
+_AST_OUT_PATH = os.path.join(_INT_DIR, _AST_OUT_FILE)
+_TYP_OUT_PATH = os.path.join(_INT_DIR, _TYP_OUT_FILE)
 # Constant factors:
 _INC_FILE_FCTR = 10**3
 _AST_FILE_FCTR = 10**3
@@ -100,7 +102,7 @@ _TYP_IN_ROW_NMS = _TYP_IN_ROWS_DF_DICT.keys()
 _TYP_DF_DICT = cst.DFLT_PRT_TYP_DF_COL_NMS_DICT
 
 
-def load_income(data_tree=naics.generate_tree(),
+def load_income(data_tree,
                 blue_tree=None, blueprint=None,
                 from_out=False, out_path=None):
     """ This function loads the soi partnership income data.
@@ -157,7 +159,7 @@ def load_income(data_tree=naics.generate_tree(),
     return data_tree
     
     
-def load_asset(data_tree=naics.generate_tree(),
+def load_asset(data_tree,
              blue_tree=None, blueprint=None,
              from_out=False, out_path=None):
     """ This function loads the soi partnership asset data.
@@ -231,7 +233,7 @@ def load_asset(data_tree=naics.generate_tree(),
     return data_tree
 
 
-def load_type(data_tree=naics.generate_tree(),
+def load_type(data_tree,
                blue_tree = None, blueprint = None,
                from_out=False, out_path=None):
     """ This function loads the soi partnership asset data.
