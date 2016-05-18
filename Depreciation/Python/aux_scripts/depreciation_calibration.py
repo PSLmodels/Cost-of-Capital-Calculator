@@ -35,6 +35,7 @@ _NCORP_NMS = _NON_CORP_TAX_SECTORS_NMS_DICT.values()
 
 def init_depr_rates(asset_tree):
     #all the fixed asset/inventroy/land trees are stored in memory in .pkl files
+    
     fa_file = open(os.path.join(_PKL_DIR,'faTree.pkl'), 'rb')
     fixed_asset_tree = pickle.load(fa_file)
     fa_file.close()

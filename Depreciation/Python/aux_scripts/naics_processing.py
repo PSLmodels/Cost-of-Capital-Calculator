@@ -100,7 +100,7 @@ def pop_forward(tree, df_list, blueprint = None, blue_tree = None,
     a "flat" sense.
     
     If no blueprints are entered, then the default is that all of the data is
-    allocated in porportion to any data already entered in the sub-industries.
+    allocated in proportion to any data already entered in the sub-industries.
     If there are no blueprints, and no data has been entered in the
     sub-industries, then the data is evenly divided among them.
     
@@ -134,7 +134,7 @@ def pop_forward(tree, df_list, blueprint = None, blue_tree = None,
                     cur_ind = tree.enum_inds[i]
                     cur_dfs = cur_ind.data.dfs[corps]
                     sum_dfs = pd.DataFrame(np.zeros((1,len(header))), 
-                                           columns = header)
+                                           corpslumns = header)
                     proportion = 1
                     for j in cur_ind.sub_ind:
                         sum_dfs += j.data.dfs[corps]

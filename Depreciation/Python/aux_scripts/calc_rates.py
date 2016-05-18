@@ -17,6 +17,7 @@ import ipdb
 _CUR_DIR = os.path.dirname(__file__)
 _MAIN_DIR = os.path.dirname(_CUR_DIR)
 _DATA_DIR = os.path.join(_MAIN_DIR, 'data')
+_NAICS_CODE_PATH = os.path.abspath(_DATA_DIR + "//NAICS_Codes.csv")
 _DEPR_DIR = os.path.join(_DATA_DIR, 'depreciation_rates')
 # Importing custom modules:
 import naics_processing as naics
@@ -26,43 +27,35 @@ _ECON_DEPR_IN_PATH = os.path.join(_DEPR_DIR, "Economic Depreciation Rates.csv")
 _TAX_DEPR_IN_PATH = os.path.join(_DEPR_DIR, "BEA_IRS_Crosswalk.csv")
 
 def calc_depr_rates(asset_tree, inv_tree, land_tree):
-    # Opening file containing depreciation rates by asset type:
+    #opens the file containing depreciation rates by asset type:
     depr_econ = pd.read_csv(_ECON_DEPR_IN_PATH)
     depr_econ = depr_econ.fillna(0)
-    econ_assets = depr_econ["Asset"]
-    econ_rates = depr_econ["Economic Depreciation Rate"]
-    #
-    types = ["All", "Corp", "Non-Corp"]
-    #Initialize tree for depreciation rates:
-    depr_tree = naics.generate_tree()
-    depr_tree.append_all(df_nm="Economic", df_cols=types)
-    #Makes a list of all the assets
-    asset_list = asset_tree.enum_inds[0].data.dfs['Corp'].columns
-    asset_list = asset_list.values.tolist()
-    #Runs three times, once for all the assets, once for the corporate assets, and once for non-corporate assets
+    #stores the economic depreciation rates in a 1xN matrix
+    econ_rates = np.array(depr_econ['Economic Depreciation Rate'])
+    #creates a dataframe that is returned at the end of the function with a list of all corp and non-corp industry averages
+    econ_depr = pd.DataFrame(index = np.arange(0,2210), columns = ('NAICS', 'Corp', 'Non-Corp'))
+    #retrieves the naics code
+    naics_codes = pd.read_csv(_NAICS_CODE_PATH)
+    #sets the first column of the dataframe with the naics values
+    econ_depr['NAICS'] = naics_codes
+    types = ['Corp', 'Non-Corp']
+    #Runs for the corporate assets and for non-corporate assets
     for i in types:        
-        #Iterates over every industry in the tree       
-        for j in xrange(0, len(depr_tree.enum_inds)):
-            asset_depreciation = 0
-            total_depreciation = 0
-            #grabs the assets for the industry
-            asset_df = asset_tree.enum_inds[j].data.dfs[i]
-            #Iterates over each asset in the industry
-            for k in xrange(0, len(asset_list)):
-                #calculates the sum of all the depreciation in the industry, multiplying the amount of each asset by its corresponding depreciation rate
-                asset_depreciation += (asset_df.iloc[0,k] * econ_rates[k])
-            #calculates the total capital stock in the industry
-            tot_assets = sum(asset_tree.enum_inds[j].data.dfs[i].iloc[0,:])
-            tot_inv = inv_tree.enum_inds[j].data.dfs["Inventories"][i][0]
-            tot_land = land_tree.enum_inds[j].data.dfs["Land"][i][0]
-            total_capital_stock = tot_assets + tot_inv + tot_land
-            if(total_capital_stock != 0):
-                #calculates the weighted average depreciation rate for assets only (can be changed to include inventories and land)
-                depr_tree.enum_inds[j].data.dfs['Economic'][i].iloc[0] = asset_depreciation / tot_assets
-            else:
-                depr_tree.enum_inds[j].data.dfs['Economic'][i].iloc[0] = 0
-     
-    return depr_tree
+        depr_list = []
+        #Iterates over every industry in the tree     
+        for j in xrange(0, 2210):
+            #retrieves the fixed asset values for each industry
+            asset_row = np.array(asset_tree.enum_inds[j].data.dfs[i])[0]
+            #calculates the depreciation for each asset in that industry
+            depr_row = np.multiply(asset_row, econ_rates)
+            #takes the weighted average of depreciation
+            avg_depr = np.sum(depr_row) / np.sum(asset_row)
+            #stores the weighted average in a list
+            depr_list.append(avg_depr)
+        #stores the depreciation rate list in the dataframe 
+        econ_depr[i] = depr_list
+
+    return econ_depr
 
 def calc_tax_depr_rates(asset_tree, inv_tree, land_tree):
     #

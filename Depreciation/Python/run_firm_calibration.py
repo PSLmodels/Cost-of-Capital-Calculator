@@ -89,8 +89,8 @@ for i in xrange(0,N):
         if(j < len(relevant_industries)-1): 
             j += 1 
 #writes the dataframe to a file
-econ_rates_df.to_csv(os.path.join(_OUT_DIR,'econDepreciation.csv'), index = False)
-tax_rates_df.to_csv(os.path.join(_OUT_DIR,'taxDepreciation.csv'), index = False)
+econ_rates_df.to_csv(os.path.join(_OUT_DIR,'econ_depreciation.csv'), index = False)
+tax_rates_df.to_csv(os.path.join(_OUT_DIR,'tax_depreciation.csv'), index = False)
 
 
 
