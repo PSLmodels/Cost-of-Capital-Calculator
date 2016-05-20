@@ -47,7 +47,10 @@ def calc_depr_rates(asset_tree, inv_tree, land_tree):
             #grabs the assets for the industry
             asset_df = asset_tree.enum_inds[j].data.dfs[i]
             asdfT = asset_df.T
+            # calculates the sum of all the depreciation in the industry,
+            # multiplying the amount of each asset by its corresponding depreciation rate
             asset_depreciation = (asdfT[0].values * econ_rates).sum()
+            #calculates the total capital stock in the industry
             tot_assets = sum(asset_tree.enum_inds[j].data.dfs[i].iloc[0,:])
             tot_inv = inv_tree.enum_inds[j].data.dfs["Inventories"][i][0]
             tot_land = land_tree.enum_inds[j].data.dfs["Land"][i][0]
@@ -103,6 +106,8 @@ def calc_tax_depr_rates(asset_tree, inv_tree, land_tree):
             #grabs the assets for the industry
             asset_df = asset_tree.enum_inds[j].data.dfs[i]
             asdfT = asset_df.T
+            # calculates the sum of all the depreciation in the industry,
+            # multiplying the amount of each asset by its corresponding depreciation rate
             asset_depreciation = (asdfT[0].values * tax_rates['Tax_Depreciation_Rate']).sum()
             #calculates the total capital stock in the industry
             tot_assets = sum(asset_tree.enum_inds[j].data.dfs[i].iloc[0,:])
