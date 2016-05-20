@@ -18,7 +18,6 @@ import sys
 from pprint import pprint
 import numpy as np
 import pandas as pd
-import ipdb
 # Directories:
 _CUR_DIR = os.path.dirname(__file__)
 _SCRIPT_DIR = os.path.join(_CUR_DIR, 'aux_scripts')
@@ -35,7 +34,6 @@ sys.path.append(_DATA_DIR)
 #sys.path.append(_SOI_DIR)
 
 # Importing custom modules:
-ipdb.set_trace()
 import constants as cst
 import naics_processing as naics
 import soi_processing as soi
