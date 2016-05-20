@@ -12,7 +12,6 @@ import os.path
 import numpy as np
 import pandas as pd
 import xlrd
-import ipdb
 # Directories:
 _CUR_DIR = os.path.dirname(__file__)
 _MAIN_DIR = os.path.dirname(_CUR_DIR)
@@ -47,11 +46,8 @@ def calc_depr_rates(asset_tree, inv_tree, land_tree):
             total_depreciation = 0
             #grabs the assets for the industry
             asset_df = asset_tree.enum_inds[j].data.dfs[i]
-            #Iterates over each asset in the industry
-            for k in xrange(0, len(asset_list)):
-                #calculates the sum of all the depreciation in the industry, multiplying the amount of each asset by its corresponding depreciation rate
-                asset_depreciation += (asset_df.iloc[0,k] * econ_rates[k])
-            #calculates the total capital stock in the industry
+            asdfT = asset_df.T
+            asset_depreciation = (asdfT[0].values * econ_rates).sum()
             tot_assets = sum(asset_tree.enum_inds[j].data.dfs[i].iloc[0,:])
             tot_inv = inv_tree.enum_inds[j].data.dfs["Inventories"][i][0]
             tot_land = land_tree.enum_inds[j].data.dfs["Land"][i][0]
@@ -106,11 +102,8 @@ def calc_tax_depr_rates(asset_tree, inv_tree, land_tree):
             total_depreciation = 0
             #grabs the assets for the industry
             asset_df = asset_tree.enum_inds[j].data.dfs[i]
-            #Iterates over each asset in the industry
-            for k in xrange(0, len(asset_list)):   
-                #calculates the sum of all the depreciation in the industry, multiplying the amount of each asset by its corresponding depreciation rate
-                asset_depreciation += (asset_df.iloc[0,k] * tax_rates['Tax_Depreciation_Rate'][k])
-            
+            asdfT = asset_df.T
+            asset_depreciation = (asdfT[0].values * tax_rates['Tax_Depreciation_Rate']).sum()
             #calculates the total capital stock in the industry
             tot_assets = sum(asset_tree.enum_inds[j].data.dfs[i].iloc[0,:])
             tot_inv = inv_tree.enum_inds[j].data.dfs["Inventories"][i][0]

@@ -13,7 +13,6 @@ import os.path
 import sys
 import numpy as np
 import pandas as pd
-import ipdb
 # Relevant directories:
 _CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 _MAIN_DIR = os.path.dirname(_CUR_DIR)
