@@ -64,21 +64,30 @@ This will be the section in the dynamic scoring model handbook on calibrating th
 
 \section{Calibrating the Financial Policy Parameters}
 
-Firm financial policy is endogenous, and is determined as a result of decisions that incorporate the benefits of new investment with the costs of financing that investment.  This guide will describe how the parameters directly affecting the costs of external finance are calibrated.  We have two cost functions that relate to external financing costs.  The cost of debt is a function of debt to the firm's stock of capital:
+Financial policy affects the firm's cost of capital, and thus marginal effective tax rate (METR) through its affect on the firm's nominal discount rate, $r_{C,m}$:
 
 \begin{equation}
-\label{eqn:debt_cost}
-c(B_{t+1},K_{t}) = \chi_{bk}\left(\frac{B_{t+1}}{K_{t}}\right)^{\ve_{bk}},
+r_{C,m} = f_{C,m} \left[i(1-u_{C})\right]+ (1-f_{C,m})(E_{C,m}+\pi),
 \end{equation}
 
-\noindent\noindent The costs associated with raising new equity include are given by:
+where $f_{C,m}$ is the fraction of investment financed by debt,  $i$ is the nominal market interest rate, $u_{C}$ is the statutory tax rate at the business entity level, and $E_{C}$ is the required real rate of return on firm equity (i.e., the rate savers could earn if they owned shares in other firms).  The subscripts denote tax treatment, $C\in \{\text{Corporate}, \text{Noncorporate}\}$, and production industry, $m\in \{1, 2, ..., M\}$. 
 
-\begin{equation}
-\label{eqn:equity_cost}
-\Psi(VN_{t})= \psi_{1}VN_{t} + \psi_{2}VN_{t}^{2}
-\end{equation}
+This guide explains the calibration of the $f_{C,m}$ parameters.  Note that $u_{C,m}$, $i$, $\pi$ and $E_{C,m}$ will be taken as given. 
+%Firm financial policy is endogenous, and is determined as a result of decisions that incorporate the benefits of new investment with the costs of financing that investment.  This guide will describe how the parameters directly affecting the costs of external finance are calibrated.  We have two cost functions that relate to external financing costs.  The cost of debt is a function of debt to the firm's stock of capital:
+%
+%\begin{equation}
+%\label{eqn:debt_cost}
+%c(B_{t+1},K_{t}) = \chi_{bk}\left(\frac{B_{t+1}}{K_{t}}\right)^{\ve_{bk}},
+%\end{equation}
+%
+%\noindent\noindent The costs associated with raising new equity include are given by:
+%
+%\begin{equation}
+%\label{eqn:equity_cost}
+%\Psi(VN_{t})= \psi_{1}VN_{t} + \psi_{2}VN_{t}^{2}
+%\end{equation}
 
-\noindent\noindent These costs are reduced form representations of costs associated with asymmetric information in the debt and equity markets and other financial frictions.
+%\noindent\noindent These costs are reduced form representations of costs associated with asymmetric information in the debt and equity markets and other financial frictions.
 
 
  Note that our treatment of sector will correspond to the tax-treatment of the business entity.  Therefore, we consider subchapter S corporations as non-corporate since they do not remit an entity level tax.  See Table \ref{tab:org_form} for this breakdown.  Note that these definitions are in contrast to the methodology used by BEA, where both subchapter C and subchapter S corporations fall into the ``corporate" sector and partnership and proprietorships fall under the non-corporate grouping.  
@@ -113,16 +122,49 @@ c(B_{t+1},K_{t}) = \chi_{bk}\left(\frac{B_{t+1}}{K_{t}}\right)^{\ve_{bk}},
 We measure total debt from the \href{http://www.federalreserve.gov/apps/fof/FOFTables.aspx}{Financial Accounts of the United States}.  In particular, we use the following tables to capture debt, which we measure separately for corporate financial and nonfinancial businesss, noncorporate business, and household mortgage debt:
 
 \begin{itemize}
-\item B.100: Value of owner-occupied houses;\item L.102: Liabilities of nonfarm nonfinancial corporations, by type of instrument;\item L.103: Liabilities of nonfarm noncorporate business, by type of instrument;\item L.104: Liabilities of farm businesses, by type of instrument;\item L.208: Commercial paper outstanding (financial corporations);\item L.210: Agency- and GSE- (government-sponsored enterprise) backed securities outstanding (financial corporations);\item L.212: Corporate bonds outstanding (financial corporations);\item L.213: Corporate equity outstanding, by sector (nonfinancial, financial);\item L.215: Bank loans (n.e.c., not elsewhere classified) outstanding (financial corporations);
-\item L.216: Other loans and advances outstanding (financial corporations);\item L.217: Total mortgages (financial corporations);\item L.218: Home mortgages (households); and\item L.228: Proprietors’ equity in noncorporate business, by sector (farm, nonfarm).
+\item B.100: Value of owner-occupied houses;
+\item L.102: Liabilities of nonfarm nonfinancial corporations, by type of instrument;
+\item L.103: Liabilities of nonfarm noncorporate business, by type of instrument;
+\item L.104: Liabilities of farm businesses, by type of instrument;
+\item L.208: Commercial paper outstanding (financial corporations);
+\item L.210: Agency- and GSE- (government-sponsored enterprise) backed securities outstanding (financial corporations);
+\item L.212: Corporate bonds outstanding (financial corporations);
+\item L.213: Corporate equity outstanding, by sector (nonfinancial, financial);
+\item L.215: Bank loans (n.e.c., not elsewhere classified) outstanding (financial corporations);
+\item L.216: Other loans and advances outstanding (financial corporations);
+\item L.217: Total mortgages (financial corporations);
+\item L.218: Home mortgages (households); and
+\item L.228: Proprietors’ equity in noncorporate business, by sector (farm, nonfarm).
 \end{itemize}
 
-To allocate debt across tax treatment, we use SOI Tax Stats Data (see the \href{https://github.com/OpenSourcePolicyCenter/dynamic/blob/master/Data/Calibration/DepreciationParameters/Depreciation_Calibration_Guide.pdf}{Depreciation Calibration Guide} for details on the specific files to use).  The Financial Account Data combine both S corporations and C corporations in the ``corporation" definition.  We thus use SOI data to identify the portion of debt and equity attributable to S corporations. Debt is assigned in proportion to interest deductions. Equity is assigned in proportion to the sum of capital stock, additional paid-in capital, and retained earnings minus treasury stock. The resulting S corporation amounts were subtracted from corporate totals (leaving the amount for C corporations) and added to noncorporate businesses.  We do the same to allocate the noncorporate across sole proprietorships and partnerhships.  We further allocate the amount of debt and equity attributable to corporate partnerships using a similar method.
+To allocate debt across tax treatment, we use SOI Tax Stats Data (see the \href{https://github.com/OpenSourcePolicyCenter/dynamic/blob/master/Data/Calibration/DepreciationParameters/Depreciation_Calibration_Guide.pdf}{Depreciation Calibration Guide} for details on the specific files to use).  The Financial Account Data combine both S corporations and C corporations in the ``corporation" definition.  We thus use SOI data to identify the portion of debt and equity attributable to S corporations. Debt is assigned in proportion to interest deductions. Equity is assigned in proportion to the sum of capital stock, additional paid-in capital, and retained earnings minus treasury stock. The resulting S corporation amounts were subtracted from corporate totals (leaving the amount for C corporations) and added to noncorporate businesses.  We do the same to allocate the noncorporate across sole proprietorships and partnerships.  We further allocate the amount of debt and equity attributable to corporate partnerships using a similar method.
 
-\textcolor{red}{We should confirm that we can't find equity by industry.}  The Census' \href{http://www.census.gov/econ/qfr/}{Quarterly Financial Reports}. The has industry breaktouts and include balance sheet data.  If totals don't match the Financial Accounts data, we can use an adjustment to hit.
+Specifically, we make the following calculations:  
 
-We then allocate this equity across industry (if we don't get it from the QFR data) and tax treatment using the distribution of capital across industry and tax treatment.  The assumption here is that the equity/capital ratio is the same (within industry) across corporate and non-corporate.
+Let $debt_{corp}$ be the total amount of nonfinancial corporate debt reported in the Financial Accounts of the Untied States Table L.102.  We then allocate this total across S-corporations and C-corporations and industry $m$ as follows:
 
+\begin{equation}
+debt_{C,m} = debt_{corp}\frac{INTRST\_PD_{C,m}}{\sum_{C\in{s,c}}\sum_{m=1}^{M}INTRST\_PD_{C,m}}
+\end{equation}
+
+Similarly, for equity.  Let $X =CAP\_STCK + PD\_CAP\_SRPLS +  RTND\_ERNGS\_APPR+COMP\_RTND\_ERNGS_UNAPPR - CST\_TRSRY\_STCK$ and $equity_{corp}$ be total nonfinancial corporate equity from the Financial Accounts of the United States Table L.213. We have:
+
+\begin{equation}
+equity_{C,m} = equity_{corp}\frac{X_{C,m}}{\sum_{C\in{s,c}}\sum_{m=1}^{M}X_{C,m}}
+\end{equation}
+
+We then have calculate $f_{C,m} = \frac{debt_{C,m}}{equity_{C,m}+debt_{C,m}}$.
+
+For the corporate financial services industry, we use the the debt and equity totals directly from Tables L.104, L.208, L.210, and L.212 (for debt) and Table L.213 (for equity).
+
+
+For non-corporate debt, we can divide between partnerships and sole props by industry using
+
+\begin{equation}
+debt_{NC,m} = debt_{noncorp}\frac{INTRST\_PD_{NC,m}}{\sum_{NC\in{p,sp}}\sum_{m=1}^{M}INTRST\_PD_{NC,m}}
+\end{equation}
+
+Not quite sure how to separate equity.  We can see partners capital accounts for partnerships, but for sole props we don't have a good measure of the equity of proprietors.  Let's just allocate across industry in the same way for each.  And since we don't really need to separate partnership and sole prop equity (we'll just care about ``non-corporate").
 
 
 \subsection{Owner-Occupied Housing} 
@@ -144,16 +186,16 @@ To measure equity outstanding, we use the Financial Accounts of the United State
 
 We then allocate this equity across industry (if we don't get it from the QFR data) and tax treatment using the distribution of capital across industry and tax treatment.  The assumption here is that the equity/capital ratio is the same (within industry) across corporate and non-corporate.
 
-
-\section{Measuring Capital Stock by Industry}
-\label{sec:step3}
-
-Done with the calibration of the depreciation parameters.
-
-
-\section{Calibrating Parameters}
-
-It is not yet determined exactly how we will use these data to calibrate parameters.  Using a generalized method of moments (GMM) estimator on the first order conditions of the firms is probably the best way to do this.
+%
+%\section{Measuring Capital Stock by Industry}
+%\label{sec:step3}
+%
+%Done with the calibration of the depreciation parameters.
+%
+%
+%\section{Calibrating Parameters}
+%
+%It is not yet determined exactly how we will use these data to calibrate parameters.  Using a generalized method of moments (GMM) estimator on the first order conditions of the firms is probably the best way to do this.
 
 
 \section{A Note on Industry Classifications}
