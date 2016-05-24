@@ -123,68 +123,85 @@ We measure total debt from the \href{http://www.federalreserve.gov/apps/fof/FOFT
 
 \begin{itemize}
 \item B.100: Value of owner-occupied houses;
-\item L.102: Liabilities of nonfarm nonfinancial corporations, by type of instrument;
-\item L.103: Liabilities of nonfarm noncorporate business, by type of instrument;
-\item L.104: Liabilities of farm businesses, by type of instrument;
-\item L.208: Commercial paper outstanding (financial corporations);
-\item L.210: Agency- and GSE- (government-sponsored enterprise) backed securities outstanding (financial corporations);
-\item L.212: Corporate bonds outstanding (financial corporations);
-\item L.213: Corporate equity outstanding, by sector (nonfinancial, financial);
-\item L.215: Bank loans (n.e.c., not elsewhere classified) outstanding (financial corporations);
-\item L.216: Other loans and advances outstanding (financial corporations);
-\item L.217: Total mortgages (financial corporations);
+\item L.103: Liabilities of nonfinancial corporations, by type of instrument;
+\item L.104: Liabilities of nonfinancial noncorporate business, by type of instrument;
+\item L.208: Total liabilities (financial corporations);
+\item L.223: Corporate equity outstanding, by sector (nonfinancial, financial);
 \item L.218: Home mortgages (households); and
-\item L.228: Proprietors? equity in noncorporate business, by sector (farm, nonfarm).
+\item L.229: Proprietors equity in noncorporate business
 \end{itemize}
 
 To allocate debt across tax treatment, we use SOI Tax Stats Data (see the \href{https://github.com/OpenSourcePolicyCenter/dynamic/blob/master/Data/Calibration/DepreciationParameters/Depreciation_Calibration_Guide.pdf}{Depreciation Calibration Guide} for details on the specific files to use).  The Financial Account Data combine both S corporations and C corporations in the ``corporation" definition.  We thus use SOI data to identify the portion of debt and equity attributable to S corporations. Debt is assigned in proportion to interest deductions. Equity is assigned in proportion to the sum of capital stock, additional paid-in capital, and retained earnings minus treasury stock. The resulting S corporation amounts were subtracted from corporate totals (leaving the amount for C corporations) and added to noncorporate businesses.  We do the same to allocate the noncorporate across sole proprietorships and partnerships.  We further allocate the amount of debt and equity attributable to corporate partnerships using a similar method.
 
 Specifically, we make the following calculations:  
 
-Let $debt_{corp}$ be the total amount of nonfinancial corporate debt reported in the Financial Accounts of the Untied States Table L.102.  We then allocate this total across S-corporations and C-corporations and industry $m$ as follows:
+Let $debt_{corp}$ be the total amount of nonfinancial corporate debt reported in the Financial Accounts of the Untied States Table L.103, variable FL104122005.  We then allocate this total across S-corporations and C-corporations and industry $m$ as follows:
 
 \begin{equation}
-debt_{C,m} = debt_{corp}\frac{INTRST\_PD_{C,m}}{\sum_{C\in{s,c}}\sum_{m=1}^{M}INTRST\_PD_{C,m}}
+debt_{c,m} = debt_{corp}\frac{INTRST\_PD_{c,m}}{\sum_{S\in{s,c}}\sum_{m=1}^{M}INTRST\_PD_{S,m}}
 \end{equation}
 
-Similarly, for equity.  Let $X =CAP\_STCK + PD\_CAP\_SRPLS +  RTND\_ERNGS\_APPR+COMP\_RTND\_ERNGS_UNAPPR - CST\_TRSRY\_STCK$ and $equity_{corp}$ be total nonfinancial corporate equity from the Financial Accounts of the United States Table L.213. We have:
+Note that we exclude finance from the industries above since we have their debt and equity separately.
 
 \begin{equation}
-equity_{C,m} = equity_{corp}\frac{X_{C,m}}{\sum_{C\in{s,c}}\sum_{m=1}^{M}X_{C,m}}
+debt_{s,m} = debt_{corp}\frac{INTRST\_PD_{s,m}}{\sum_{S\in{s,c}}\sum_{m=1}^{M}INTRST\_PD_{S,m}}
 \end{equation}
 
-We then have calculate $f_{C,m} = \frac{debt_{C,m}}{equity_{C,m}+debt_{C,m}}$.
+Similarly, for equity.  Let $X =CAP\_STCK + PD\_CAP\_SRPLS +  RTND\_ERNGS\_APPR+COMP\_RTND\_ERNGS\_UNAPPR - CST\_TRSRY\_STCK$ and $equity_{corp}$ be total nonfinancial corporate equity from the Financial Accounts of the United States Table L.223, series LM103164103.  For C-corps, we have:
 
-For the corporate financial services industry, we use the the debt and equity totals directly from Tables L.104, L.208, L.210, and L.212 (for debt) and Table L.213 (for equity).
+\begin{equation}
+equity_{c,m} = equity_{corp}\frac{X_{c,m}}{\sum_{S\in{s,c}}\sum_{m=1}^{M}X_{S,m}}
+\end{equation}
+
+And for S-corps:
+\begin{equation}
+equity_{s,m} = equity_{corp}\frac{X_{s,m}}{\sum_{S\in{s,c}}\sum_{m=1}^{M}X_{S,m}}
+\end{equation}
+
+For financial businesses, we use Table L.208, series FL794122005 for corporate debt and Table L.224 series LM793164105 for equity.  Here we can split the financial business amount across subindustries in finance (to the extent the SOI data contain such detail) and between S corp and C corp.  The methodology is the same as above, replacing the industry list with the list of finance subindustries and using the total equity and debt for financial businesses reported in the Financial Accounts.
+
+We then calculate the fraction of investment financed with debt for those under the corporate income tax as: $f_{C,m} = \frac{debt_{c,m}}{equity_{cm}+debt_{c,m}}$.
+
+For the corporate financial services industry, we use Table L.208 series FL794122005 for debt and Table L.223 series LM793164105 for equity.
 
 
-For non-corporate debt, we can divide between partnerships and sole props by industry using
+Noncorporate, nonfinancial debt totals come from Table L.104, series FL114123005.  For non-corporate debt, we can divide between partnerships and sole props by industry using
 
 \begin{equation}
 debt_{NC,m} = debt_{noncorp}\frac{INTRST\_PD_{NC,m}}{\sum_{NC\in{p,sp}}\sum_{m=1}^{M}INTRST\_PD_{NC,m}}
 \end{equation}
 
-Not quite sure how to separate equity.  We can see partners capital accounts for partnerships, but for sole props we don't have a good measure of the equity of proprietors.  Let's just allocate across industry in the same way for each.  And since we don't really need to separate partnership and sole prop equity (we'll just care about ``non-corporate").
+Note that we do have partnerships and sole proprietorships in the tax data that are financial firms.  I don't know where this debt is in the Financial Accounts.  Because of this, let's exclude the finance industry from the above calculation. 
+
+Noncorporate equity total comes from Table L.229, series FL152090205.  Not quite sure how to separate equity.  We can see partners capital accounts for partnerships, but for sole props we don't have a good measure of the equity of proprietors.  Let's just allocate across industry in the same way for each.  And since we don't really need to separate partnership and sole prop equity (we'll just care about ``non-corporate".  Do this as: 
+
+\begin{equation}
+equity_{p+sp,m} = equity_{noncorp}\frac{PCA_{p,m}}{sum_{m=1}^{M}PCA_{p,m}}
+\end{equation}
+
+Where $PCA_{p,m}$ are the ``partnership capital accounts" for partnerships in industry $m$.  $equity_{p+sp,m}$ denotes the total amount of equity for partnerships and sole proprietorships in industry $m$.  We then find total non-corp equity for industry $m$ as $equity_{NC,m} = equity_{p+sp,m} + equity{s,m}$.  Note that one will need to be careful about the industry detail that varies across the data for corporations and that for sole props and partnerships.
+
+We then calculate the fraction of investment financed with debt for the non-corporate businesses by industry as: $f_{NC,m} = \frac{debt_{NC,m}}{equity_{NC,m}+debt_{NC,m}}$.  The exception here are financial, noncorporate businesses (see issue above with debt for these businesses).  Because of this limitation, let's use $f_{NC,finance}=f_{s,finance}$ (i.e. w use S-corp financials policy and apply it to all non-corporate financial businesses).
 
 
 \subsection{Owner-Occupied Housing} 
 
 Financial Accounts Data:
-B B.100: Value of owner-occupied houses;
-B L.218: Home mortgages (households)
+B B.101: Value of owner-occupied houses, series LM155035015;
+B L.218: Home mortgages (households), series FL153165105
 
-For purposes of an analysis of effective tax rates, home- owner debt consists entirely of home mortgages?\$5,909.5 billion, according to the Flow of Funds report. The total value of owner-occupied housing was \$13,701.4 billion, and the average share financed by debt was 43.1 percent. As with the corporate and noncorporate sectors, CBO assumed that the marginal investment in owner- occupied housing, fh, is funded with the same share of debt.
+For purposes of an analysis of effective tax rates, home- owner debt consists entirely of home mortgages: \$9,490.8 billion, according to the Financial Accounts report. The total value of owner-occupied housing was \$17,576.3 billion, in 2012 and the average share financed by debt was 54 percent. As with the corporate and noncorporate sectors, CBO assumed that the marginal investment in owner- occupied housing, $f_{h}$, is funded with the same share of debt.
 
-Of course, individual homeowners typically have their highest debt share at the time of purchase. The share of debt is gradually reduced as the mortgage is paid off and as the home appreciates in value. Refinancing interrupts the process, but the trend is still toward a lower share of debt over time. The methodology of effective tax rates, how- ever, is concerned with the debt share over the life of an investment, not with the vari- ation within those years. From that perspective, the average share of debt among all homeowners is a better guide to the debt share of a marginal investment than is the debt share at the time a home is purchased.
+Of course, individual homeowners typically have their highest debt share at the time of purchase. The share of debt is gradually reduced as the mortgage is paid off and as the home appreciates in value. Refinancing interrupts the process, but the trend is still toward a lower share of debt over time. The methodology of effective tax rates, however, is concerned with the debt share over the life of an investment, not with the variation within those years. From that perspective, the average share of debt among all homeowners is a better guide to the debt share of a marginal investment than is the debt share at the time a home is purchased.
 
-\section{Measuring New Equity Issues by Industry}
-\label{sec:step3}
-
-To measure equity outstanding, we use the Financial Accounts of the United States, Table L.213: Corporate equity outstanding, by sector (nonfinancial, financial) and Table L.228: Proprietors? equity in noncorporate business, by sector (farm, nonfarm).
-
-\textcolor{red}{We should confirm that we can't find equity by industry.}  The Census' \href{http://www.census.gov/econ/qfr/}{Quarterly Financial Reports}. The has industry breaktouts and include balance sheet data.  If totals don't match the Financial Accounts data, we can use an adjustment to hit.
-
-We then allocate this equity across industry (if we don't get it from the QFR data) and tax treatment using the distribution of capital across industry and tax treatment.  The assumption here is that the equity/capital ratio is the same (within industry) across corporate and non-corporate.
+%\section{Measuring New Equity Issues by Industry}
+%\label{sec:step3}
+%
+%To measure equity outstanding, we use the Financial Accounts of the United States, Table L.213: Corporate equity outstanding, by sector (nonfinancial, financial) and Table L.228: Proprietors? equity in noncorporate business, by sector (farm, nonfarm).
+%
+%\textcolor{red}{We should confirm that we can't find equity by industry.}  The Census' \href{http://www.census.gov/econ/qfr/}{Quarterly Financial Reports}. The has industry breaktouts and include balance sheet data.  If totals don't match the Financial Accounts data, we can use an adjustment to hit.
+%
+%We then allocate this equity across industry (if we don't get it from the QFR data) and tax treatment using the distribution of capital across industry and tax treatment.  The assumption here is that the equity/capital ratio is the same (within industry) across corporate and non-corporate.
 
 %
 %\section{Measuring Capital Stock by Industry}
