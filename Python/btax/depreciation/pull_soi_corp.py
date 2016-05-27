@@ -14,11 +14,11 @@ import numpy as np
 import pandas as pd
 # Directory names:
 _CUR_DIR = os.path.dirname(__file__)
-_DATA_DIR = os.path.join(os.path.dirname(_CUR_DIR), 'data')
+_DATA_DIR = os.path.join(_CUR_DIR, 'data')
 _RAW_DIR = os.path.join(_DATA_DIR, 'raw_data')
 _SOI_DIR = os.path.join(_RAW_DIR, 'soi')
-_OUT_DIR = os.path.join(os.path.dirname(_CUR_DIR), 'output')
-_INT_DIR = os.path.join(_OUT_DIR, 'intermed_outOut')
+_OUT_DIR = os.path.join(os.path.join(_CUR_DIR, 'output'),'soi')
+_INT_DIR = os.path.join(_OUT_DIR, 'intermed_out')
 _CORP_DIR = os.path.join(_SOI_DIR, 'soi_corporate')
 # Importing custom modules:
 import naics_processing as naics
@@ -37,9 +37,9 @@ _S_CORP_IN_FILE = fp.get_file(dirct=_CORP_DIR, contains=[_YR+"sb3.csv"])
 # Full path for files:
 _TOT_CORP_IN_PATH = os.path.join(_CORP_DIR, _TOT_CORP_IN_FILE)
 _S_CORP_IN_PATH = os.path.join(_CORP_DIR, _S_CORP_IN_FILE)
-_TOT_CORP_OUT_PATH = os.path.join(_INT_DIR, _TOT_DF_NM+".csv")
-_S_CORP_OUT_PATH = os.path.join(_INT_DIR, _S_DF_NM+".csv")
-_C_CORP_OUT_PATH = os.path.join(_INT_DIR, _C_DF_NM+".csv")
+_TOT_CORP_OUT_PATH = os.path.join(_OUT_DIR, _TOT_DF_NM+".csv")
+_S_CORP_OUT_PATH = os.path.join(_OUT_DIR, _S_DF_NM+".csv")
+_C_CORP_OUT_PATH = os.path.join(_OUT_DIR, _C_DF_NM+".csv")
 # Constant factors:
 _TOT_CORP_IN_FILE_FCTR = 10**3
 _S_CORP_IN_FILE_FCTR = 10**3

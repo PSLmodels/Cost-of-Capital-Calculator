@@ -109,7 +109,7 @@ def calibrate_debt(debt_tree=naics.generate_tree(), soi_tree=None,
     return debt_tree
     
 '''
-'''
+
 def pull_soi_data(soi_tree, from_out=False,
                   get_all=False, get_corp=False,
                   get_tot=False, get_s=False,
@@ -126,7 +126,8 @@ def pull_soi_data(soi_tree, from_out=False,
         get_prop = True
         get_farm_prop = True
     # Import the soi_processing custom module:
-    soi_dir = os.path.join(_DATA_DIR, "soi")
+    _RAW_DATA = os.path.join(_DATA_DIR, 'raw_data')
+    soi_dir = os.path.join(_RAW_DATA, 'soi')
     sys.path.append(soi_dir)
     import soi_processing as soi
     # Loading the soi corporate data into the NAICS tree:
@@ -150,7 +151,7 @@ def pull_soi_data(soi_tree, from_out=False,
                             )
     return soi_tree
 
-
+'''
 def calc_soi_assets(soi_tree, asset_tree):
     """ Calculating a breakdown of the various sector type's assets
     into fixed assets, inventories, and land. 

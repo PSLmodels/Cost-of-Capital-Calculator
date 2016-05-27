@@ -16,7 +16,7 @@ import xlrd
 # Relevant directories:
 _CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 _MAIN_DIR = os.path.dirname(_CUR_DIR)
-_DATA_DIR = os.path.join(_MAIN_DIR, 'data')
+_DATA_DIR = os.path.join(_CUR_DIR, 'data')
 _NAICS_CODE_PATH = os.path.abspath(_DATA_DIR + "//NAICS_Codes.csv")
 # Importing custom modules:
 import data_class as dc
@@ -287,8 +287,8 @@ def print_tree_dfs(tree, out_path, file_name = None,
                 cur_data = tree.enum_inds[j].data.dfs[i].iloc[0,:]
             except KeyError:
                 continue
-            if(np.sum((cur_data != np.zeros(len(cur_cols)-1))) == 0):
-                continue
+           # if(np.sum((cur_data != np.zeros(len(cur_cols)-1))) == 0):
+            #    continue
             cur_code = str(tree.enum_inds[j].data.dfs[_CODE_DF_NM].iloc[0,0])
             for k in xrange(1, tree.enum_inds[j].data.dfs[_CODE_DF_NM].shape[0]):
                 cur_code += "." + str(tree.enum_inds[j].data.dfs[_CODE_DF_NM].iloc[k,0])
