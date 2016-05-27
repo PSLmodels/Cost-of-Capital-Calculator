@@ -126,3 +126,4 @@ def calc_finance_param(total_equity, total_liab):
 	total_debt_f = pd.concat([pd.read_csv(_NAICS_CODES),debt_f_corp, debt_f_non_corp], axis=1)
 	total_debt_f.columns = ['NAICS', 'corp', 'non_corp']
 	return total_debt_f
+	
