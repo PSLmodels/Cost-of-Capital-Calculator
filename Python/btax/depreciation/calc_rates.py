@@ -1,4 +1,4 @@
-"""
+'''
 Calculate Depreciation Rates (calc_rates):
 -------------------------------------------------------------------------------
 Last updated: 4/29/2016.
@@ -6,7 +6,7 @@ Last updated: 4/29/2016.
 This module provides functions for calculating economic and tax depreciation
 rates. All of the data is processed into NAICS trees by other modules, and
 taken in as input of these functions. 
-"""
+'''
 # Packages:
 import os.path
 import sys
@@ -16,15 +16,15 @@ import pandas as pd
 _CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 _MAIN_DIR = os.path.dirname(_CUR_DIR)
 _DATA_DIR = os.path.join(_CUR_DIR, 'data')
-_NAICS_CODE_PATH = os.path.abspath(_DATA_DIR + "//NAICS_Codes.csv")
 _DEPR_DIR = os.path.join(_DATA_DIR, 'depreciation_rates')
 sys.path.append(_DATA_DIR)
 # Importing custom modules:
 import naics_processing as naics
 import constants as cst
 # Full file paths:
-_ECON_DEPR_IN_PATH = os.path.join(_DEPR_DIR, "Economic Depreciation Rates.csv")
-_TAX_DEPR_IN_PATH = os.path.join(_DEPR_DIR, "BEA_IRS_Crosswalk.csv")
+_ECON_DEPR_IN_PATH = os.path.join(_DEPR_DIR, 'Economic Depreciation Rates.csv')
+_TAX_DEPR_IN_PATH = os.path.join(_DEPR_DIR, 'BEA_IRS_Crosswalk.csv')
+_NAICS_CODE_PATH = os.path.join(_DATA_DIR, 'NAICS_Codes.csv')
 
 def calc_depr_rates(asset_tree, inv_tree, land_tree):
     #opens the file containing depreciation rates by asset type:
@@ -60,10 +60,10 @@ def calc_depr_rates(asset_tree, inv_tree, land_tree):
 def calc_tax_depr_rates(asset_tree, inv_tree, land_tree):
     #
     tax_data = pd.read_csv(_TAX_DEPR_IN_PATH).fillna(0)
-    tax_assets = tax_data["Asset Type"]
+    tax_assets = tax_data['Asset Type']
     # Real Interest Rate:
     r = .05  
-    tax_mthds = {"GDS 200%": 2.0, "GDS 150%": 1.5, "GDS SL": 1.0, "ADS SL": 1.0}
+    tax_mthds = {'GDS 200%': 2.0, 'GDS 150%': 1.5, 'GDS SL': 1.0, 'ADS SL': 1.0}
     tax_rates = np.zeros(len(tax_assets))
 
     # Compute the tax depreciation rates:
