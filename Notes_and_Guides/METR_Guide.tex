@@ -68,6 +68,10 @@ The B-Tax model produces estimates of the marginal effective tax rates on new in
 
 As \cn{FullertonMETR} notes, calculations of METRs depend on several assumptions.  These include those relating to equilibrium in capital markets. discount rates, inflation rates, investor expectations, churning, who investments are financed, how risk is treated, and whether one believes the ``old view" or ``new view" of dividend taxes better represents investment incentives.  Our equilibrium assumptions include the assumption that the marginal investment earns an after-tax rate of return equal to the market rate of return, returns across asset types are equalized, investors' risk-adjusted returns from debt and equity are equalized.  Real discount rats and inflation rates are taken from the Congressional Budget Offices forecasts of nominal interest rates and inflation (\textcolor{red}{unclear if we should use the series or just have constant rates}).  Regarding risk and expectations, we assume no uncertainty in investment returns.  We use historical data on the time equities are held and how investment is financed to inform effective tax rates on capital gains and financial policy decisions, respectively.  We use the ``old view" of dividend taxation in our calculations of the METTRs, implying that dividend taxes affect investment incentives.  We further describe the implications of these assumptions in the relevant sections below.
 
+The methodology to calculate METRs and METTRs follows closely \cn{CBO_ETRs}.
+
+One should note that these METR and METTR calculations include only federal tax policy (current law or the user specified proposal) and therefore exclude the effects of state and local tax policy on investment incentives.  Integrating such policies is a worthwhile project, but the results here are generally sufficient for comparing alternative federal tax proposals.
+
 
 This guide is organized as follows...
 
@@ -86,6 +90,20 @@ METR = \frac{\rho - (r-\pi)}{\rho},
 \end{equation}  
 
 \noindent\noindent where $\delta$ is the rate of economic depreciation, $u$ is the statutory income tax rate at the business entity level, $z$ is the net present value of deprecation deductions from a dollar of new investment, and $w$ is the property tax rate.  
+
+We calculate the cost of capital, $\rho$, separately for each type of asset, production industry, and tax treatment (corporate or non-corporate).  See the accompanying tables for the degree to which the various parameters vary across these three dimensions - and note that the subscripts have been excluded above for clarity.  We then compute a weighted average cost of capital for each production industry and tax treatment as follows:
+
+\begin{equation}
+\rho_{m,c} = \frac{\sum_{i=1}^{I}FA_{i,m,c}\rho_{i,m,c}}{\sum_{i=1}^{I}FA_{i,m,c}} ,
+\end{equation}
+
+\noindent\noindent where the subscripts $i$, $m$, and $c\in\{C,NC\}$, refer to the asset type, production industry, and tax treatment.  The calculation of the variable $FA_{i,m,c}$ is discussed in the Depreciation Calibration Guide.
+
+With the cost of capital for all fixed assets in an industry-tax treatment grouping, we then compute the METR of the industry and tax treatment as:
+
+\begin{equation}
+METR_{m,c} =  \frac{\rho_{m,c} - (r_{m,c}-\pi)}{\rho_{m,c}},
+\end{equation}
 
 \subsection{Nominal Discount Rates}
 
@@ -128,7 +146,78 @@ Need to talk about inventory accounting methods....
 
 \section{Marginal Effective Total Tax Rates}
 
+METTRs include taxation at all levels, at the business entity and the individual to whom the returns from investment ultimately accrue.  Note that when there is not entity level tax (as is the case with non-C-corporate entities under current law), then the METTR is equal to the METR.  The METTR is computed as:
 
+\begin{equation}
+METTR = \frac{\rho-s}{\rho}
+\end{equation}
+
+\noindent\noindent In equation above, $s$ is the overall after-tax return to savers from an investment in the business entity.  We compute this return as:
+
+\begin{equation}
+s = fs_{d} + (1-f)s_{e},
+\end{equation}
+
+\noindent\noindent where $f$ is the fraction of the investment that is financed with debt (and corresponds to the same fraction used in the calculation of the cost of capital noted above) and $s_{d}$ and $s_{e}$ are the after-tax returns to the saver from debt and equity, respectively.  These in turn are found as:
+
+\begin{equation}
+s_{d} = \alpha_{d,ft}\times \left[i(1-\tau_{int}-\pi\right] + \alpha_{e,td}\times s_{d,td} + \alpha_{d,nt}\times (i-\pi)
+\end{equation}
+
+Here, $\alpha_{d,ft}$, $\alpha_{d,td}$, and $\alpha_{d,nt}$ are the fraction of debt held in fully taxable, tax deferred, and non-taxable accounts.  The variable $s_{d,td}$ are the after-tax returns of tax-deferred debt investors.  The tax rate on interest income is $\tau_{int}$ and the nominal interest rate and inflation are given by $i$ and $\pi$.
+
+
+ The return on tax deferred accounts is:
+ 
+ \begin{equation}
+s_{d,td} = \frac{1}{Y_{td}}ln \left[(1-\tau_{td})e^{iY_{td}}+\tau_{td}\right]-\pi
+\end{equation}
+
+
+The after-tax return on equity investments are given by:
+
+\begin{equation}
+s_{e} = \alpha_{e,ft}\times s_{e,ft} + \alpha_{e,td}\times s_{e,td} + \alpha_{e,nt}\times E
+\end{equation}
+
+ 
+
+Here, $\alpha_{e,ft}$, $\alpha_{e,td}$, and $\alpha_{e,nt}$ are the fraction of equity held in fully taxable, tax deferred, and non-taxable accounts.  The variables, $s_{e,ft}$ and $s_{e,td}$ are the after-tax returns of fully taxable and tax-deferred investors, respectively.  
+
+The return on fully taxable accounts is given by:
+
+\begin{equation}
+s_{e,ft} = (1-m)E(1-\tau_{div}) + g,
+\end{equation}
+
+\noindent\noindent where $m$ are the fraction of earnings that are retained, $\tau_{div}$ is the dividend tax rate on the marginal equity investor, and $g$ is the real return paid on retained earnings after the capital gains tax on the marginal equity investor.\footnote{If one subscribes to the ``new view", so that dividend taxes do not affect investment incentives, then the first term in this equation would be zero.}
+ 
+ The return on tax deferred accounts is:
+ 
+ \begin{equation}
+s_{e,td} = \frac{1}{Y_{td}}ln \left[(1-\tau_{td})e^{(\pi+E)Y_{td}}+\tau_{td}\right]-\pi
+\end{equation}
+ 
+
+\subsection{Computing After-Tax Capital Gains}
+
+Capital gains are not taxed until those gains are realized through the sale of stock.  The ability to defer the tax liability from gains complicates the calculation of the after-tax gains that accrue to investors. Further complicating this calculation is that, under current law, short and long term gains are taxed at differential rates and the basis for capital gains is ``stepped-up" on equity passed along to decedents upon death.  
+
+\begin{equation}
+g = \omega_{scg}\times g_{scg} + \omega_{lcg}\times g_{lcg} + \omega_{xcg}\times mE,
+\end{equation}
+ 
+ \noindent\noindent wehre $\omega_{scg}$, $\omega_{lcg}$, and $\omega_{xcg}$ are the fractions of capital gains that are held for less than one year, more than one year but not until the owner's death, and those held until death, respectively.  The variables $g_{scg}$ and $g_{lcg}$ are the after-tax, real, annualized returns to short and long term capital gains.
+ 
+\begin{equation}
+g_{scg} = \frac{1}{Y_{scg}}\times ln\left[(1-\tau_{scg})e^{(\pi+mE)Y_{scg}}+\tau_{scg}\right]+\pi
+\end{equation}
+
+\noindent\noindent and
+
+\begin{equation}
+g_{lcg} = \frac{1}{Y_{lcg}}\times ln\left[(1-\tau_{lcg})e^{(\pi+mE)Y_{lcg}}+\tau_{lcg}\right]+\pi
+\end{equation}
 
 \bibliography{BTax_bib}
 
