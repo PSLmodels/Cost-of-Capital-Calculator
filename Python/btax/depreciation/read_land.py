@@ -15,7 +15,7 @@ import xlrd
 # Directories:
 _CUR_DIR = os.path.dirname(__file__)
 _MAIN_DIR = os.path.dirname(_CUR_DIR)
-_DATA_DIR = os.path.abspath(_MAIN_DIR + '//data' + '//raw_data')
+_DATA_DIR = os.path.abspath(_CUR_DIR + '//data' + '//raw_data')
 _LAND_DIR = os.path.join(_DATA_DIR, 'Land')
 # Importing custom modules:
 import naics_processing as naics
@@ -56,8 +56,10 @@ def read_land(asset_tree):
     land_df["All"][0] = (land_data["Corporate"][0]+
                             land_data["Non-Corporate"][0])
     # Use the asset_tree to populate the rest:
+    '''
     naics.pop_back(land_tree, ["Land"])
     naics.pop_forward(land_tree, ["Land"], "LAND", asset_tree)
+    '''
     return land_tree
 
 

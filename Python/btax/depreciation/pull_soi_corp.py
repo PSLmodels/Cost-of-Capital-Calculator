@@ -114,9 +114,11 @@ def load_soi_tot_corp(data_tree,
                 cur_dfs[j][0] = sum(indicators * tot_corp_data[cols_dict[j]])/2.0
                 cur_dfs[j][0] = cur_dfs[j] * _TOT_CORP_IN_FILE_FCTR
     # Populate all levels of specificity in the NAICS tree:
+    '''
     naics.pop_back(tree=data_tree, df_list=[_TOT_DF_NM])
     naics.pop_forward(tree=data_tree, df_list=[_TOT_DF_NM],
                       blueprint=blueprint, blue_tree=blue_tree)
+'''
     return data_tree
 
 
@@ -149,6 +151,14 @@ def load_soi_s_corp(data_tree,
     except IOError:
         print "IOError: S-Corp soi data file not found."
         return None
+    '''
+    columns = [(v) for k,v in cols_dict.iteritems()]
+    columns.remove('')
+    columns.insert(0,'INDY_CD')
+    s_corp_data = s_corp_data[(s_corp_data.AC == 1)]
+    s_corp_data = s_corp_data[columns] * _S_CORP_IN_FILE_FCTR
+    s_corp_data['INDY_CD'] = s_corp_data['INDY_CD'] / _S_CORP_IN_FILE_FCTR
+    '''
     # Initializing dataframes for all NAICS industries:
     data_tree.append_all(df_nm=_S_DF_NM, df_cols=data_cols)
     # Reading the S-corporation data into the NAICS tree:
@@ -187,9 +197,11 @@ def load_soi_s_corp(data_tree,
     if blueprint == None and has_tot_df:
         blueprint = _TOT_DF_NM
     # Populate all levels of specificity in the NAICS tree:
+    '''
     naics.pop_back(tree=data_tree, df_list=[_S_DF_NM])
     naics.pop_forward(tree=data_tree, df_list=[_S_DF_NM],
                       blueprint=blueprint, blue_tree=blue_tree)
+'''
     return data_tree
 
 

@@ -20,6 +20,8 @@ S_CORP_DF_NM = 's_corps'
 C_CORP_DF_NM = 'c_corps'
 FARM_PROP_DF_NM = 'farm_prop'
 NON_FARM_PROP_DF_NM = 'soi_prop'
+# Default depreciation output column names:
+DEPR_COLS = ['NAICS', 'Econ_All', 'Econ_Corp', 'Econ_Non_Corp', 'Tax_All', 'Tax_Corp', 'Tax_Non_Corp']
 # Default total-corporations data columns dictionary:
 DFLT_TOT_CORP_COLS_DICT = dict([
                     ('depreciable_assets','DPRCBL_ASSTS'),

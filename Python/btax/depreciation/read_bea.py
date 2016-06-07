@@ -13,11 +13,10 @@ import os.path
 import numpy as np
 import pandas as pd
 import xlrd
-import ipdb
 # Directories:
 _CUR_DIR = os.path.dirname(__file__)
 _MAIN_DIR = os.path.dirname(_CUR_DIR)
-_DATA_DIR = os.path.abspath(_MAIN_DIR + '//data' + '//raw_data')
+_DATA_DIR = os.path.abspath(_CUR_DIR + '//data' + '//raw_data')
 _BEA_DIR = os.path.join(_DATA_DIR, 'BEA') # Directory with BEA data.
 # Importing custom modules:
 import naics_processing as naics
@@ -212,6 +211,7 @@ def read_bea(asset_tree):
             if(tot_share == 1):
                 break
     #
+    '''
     naics.pop_back(fixed_asset_tree, ["All", "Corp", "Non-Corp"])
     naics.pop_forward(tree=fixed_asset_tree, df_list=["All"],
                       blueprint="FA", blue_tree=asset_tree)
@@ -221,4 +221,5 @@ def read_bea(asset_tree):
     naics.pop_forward(tree=fixed_asset_tree, df_list=["Non-Corp"],
                       blueprint="FA", blue_tree=asset_tree, 
                       sub_print=_NCORP_NMS)
+    '''
     return fixed_asset_tree

@@ -13,8 +13,8 @@ import pandas as pd
 import cPickle as pickle
 # Directories:
 _CUR_DIR = os.path.dirname(__file__)
-_MAIN_DIR = os.path.dirname(_CUR_DIR)
-_DATA_DIR = os.path.join(_MAIN_DIR, 'data')
+_DATA_DIR = os.path.join(_CUR_DIR, 'data')
+_OUT_DIR = os.path.join(_CUR_DIR, 'output')
 _PKL_DIR = os.path.join(_DATA_DIR, 'pickles')
 # Importing custom modules:
 import naics_processing as naics
@@ -63,6 +63,6 @@ def init_depr_rates(asset_tree):
     depr_rates['Econ_Non_Corp'] = econ_depr['Non-Corp']
     depr_rates['Tax_Corp'] = tax_depr['Corp']
     depr_rates['Tax_Non_Corp'] = tax_depr['Non-Corp']
-    #naics.pop_rates(tax_depr_tree)
     
     return depr_rates
+
