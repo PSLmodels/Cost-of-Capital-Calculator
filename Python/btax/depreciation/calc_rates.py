@@ -49,7 +49,10 @@ def calc_depr_rates(asset_tree, inv_tree, land_tree):
             #calculates the depreciation for each asset in that industry
             depr_row = np.multiply(asset_row, econ_rates)
             #takes the weighted average of depreciation
-            avg_depr = np.sum(depr_row) / np.sum(asset_row)
+            if(np.sum(asset_row) != 0):
+                avg_depr = np.sum(depr_row) / np.sum(asset_row)
+            else:
+                avg_depr = 0
             #stores the weighted average in a list
             depr_list.append(avg_depr)
         #stores the depreciation list in the dataframe 
@@ -97,7 +100,10 @@ def calc_tax_depr_rates(asset_tree, inv_tree, land_tree):
             #calculates the depreciation for each asset in that industry
             depr_row = np.multiply(asset_row, tax_rates)
             #takes the weighted average of depreciation
-            avg_depr = np.sum(depr_row) / np.sum(asset_row)
+            if(np.sum(asset_row) != 0):
+                avg_depr = np.sum(depr_row) / np.sum(asset_row)
+            else:
+                avg_depr = 0
             #stores the weighted average in a list
             depr_list.append(avg_depr)
         tax_depr[i] = depr_list    

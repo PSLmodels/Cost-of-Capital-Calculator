@@ -158,9 +158,11 @@ def load_income(data_tree,
     if blueprint == None and has_tot_df:
         blueprint = _TOT_CORP_DF_NM
     # Populate all levels of specificity in the NAICS tree:
+    '''
     naics.pop_back(tree=data_tree, df_list=[_INC_DF_NM])
     naics.pop_forward(tree=data_tree, df_list=[_INC_DF_NM],
                       blueprint=blueprint, blue_tree=blue_tree)
+    '''
     
     return data_tree
     
@@ -233,9 +235,11 @@ def load_asset(data_tree,
     if blueprint == None and has_tot_df:
         blueprint = _TOT_CORP_DF_NM
     # Populate all levels of specificity in the NAICS tree:
+    '''
     naics.pop_back(tree=data_tree, df_list=[_AST_DF_NM])
     naics.pop_forward(tree=data_tree, df_list=[_AST_DF_NM],
                       blueprint=blueprint, blue_tree=blue_tree)
+    '''
     return data_tree
 
 
@@ -294,8 +298,10 @@ def load_type(data_tree,
     elif blueprint == None and has_tot_df:
         blueprint = _TOT_CORP_DF_NM
     # Populate all levels of specificity in the NAICS tree:
+    '''
     naics.pop_back(tree=data_tree, df_list=[_TYP_DF_NM])
     naics.pop_forward(tree=data_tree, df_list=[_TYP_DF_NM],
                       blueprint=blueprint, blue_tree=blue_tree)
+    '''
     return data_tree
 

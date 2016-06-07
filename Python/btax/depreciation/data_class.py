@@ -175,12 +175,14 @@ class tree:
         '''
         # Reading in a list of naics codes:
         naics_codes = pd.read_csv(path).fillna(0)
+        codes = naics_codes['NAICS']
         rows = naics_codes.shape[0]
         # Initializing the naics tree:
         self.enum_inds = [industry([]) for i in xrange(0,rows)]
         self.root = self.enum_inds[0]
         self.par = [0]*rows
         # Read the naics codes into the tree:
+        
         for i in xrange(0, rows):
             cur_codes = pd.DataFrame(naics_codes.iloc[i,0].split("-"))
             if(cur_codes.shape[0] == 2):
@@ -190,7 +192,52 @@ class tree:
             cur_rows = self.enum_inds[i].data.dfs["Codes:"].shape[0]
             for j in xrange(0, cur_rows):
                 code = int(self.enum_inds[i].data.dfs["Codes:"].iloc[j,0])
-                self.enum_inds[i].data.dfs["Codes:"].iloc[j,0] = code
+                self.enum_inds[i].data.dfs["Codes:"].iloc[j,0] = code        
+
+        visited = [False] * rows
+        for i in xrange(0,rows):
+            self.enum_inds[i].parent = 0       
+            self.enum_inds[i].children = []  
+        for i in xrange(0, rows):   
+            visited[i] = True
+            self.enum_inds[i].naics = str(codes[i])
+            for j in xrange(i+1, rows):
+                if(len(str(codes[i])) == len(str(codes[j])) and '-' not in str(codes[i])):
+                    break
+                if(visited[j] == False):
+                    self.check_child(str(codes[i]), str(codes[j]), i, j, visited, codes)
+        for i in xrange(0,rows):
+            if(self.enum_inds[i].parent == 0 and self.enum_inds[i].naics != '1'):
+                self.enum_inds[i].parent = self.root
+                self.enum_inds[0].children.append(self.enum_inds[i])
+
+    def check_child(self, code1, code2, index1, index2, visited, codes):
+        if(visited[index2] == True):
+            return
+        if '-' in code1: 
+            self.check_mult_ind(code1, code2, index1, index2, visited, codes)
+        elif(len(code1) + 1 != len(code2)):
+            return
+        elif(code1 == code2[:-1]):
+            visited[index2] = True
+            self.enum_inds[index2].parent = self.enum_inds[index1]
+            self.enum_inds[index1].children.append(self.enum_inds[index2])
+            index1 = index2
+            index2 += 1
+            if(index2 != len(self.enum_inds)):
+                self.check_child(code2, codes[index2], index1, index2, visited, codes)
+
+    def check_mult_ind(self, code1, code2, index1, index2, visited, codes):
+        code_list = np.arange(int(code1[:2]),int(code1[-2:])+1)
+        for i in code_list:
+            if(str(i) == code2[:-1]):
+                visited[index2] = True
+                self.enum_inds[index2].parent = self.enum_inds[index1]
+                self.enum_inds[index1].children.append(self.enum_inds[index2])
+                index1 = index2
+                index2 += 1
+                self.check_child(code2, codes[index2], index1, index2, visited, codes)
+        '''        
         # Creating the tree structure:
         # "levels" keeps track of the path from the root to the current industry.
         levels = [None]
@@ -234,5 +281,5 @@ class tree:
                     del levels_index[cur_lvl]
                     cur_lvl -= 1
         return self
-            
-
+        '''
+ 
