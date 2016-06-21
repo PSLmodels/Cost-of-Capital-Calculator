@@ -323,7 +323,7 @@ The subscript $m2$ refers to the more detailed industry classification in the SO
 If the SOI data have less specific industry groupings than the BEA data (for a specific BEA industry code $m$), then we assume that the split of assets across tax treatment is the same for the ``children" (i.e. more minor industry) is the same as that of the ``parent (i.e., the more major industry).  In particular,
 
 \begin{equation}
-\widetilde{FA}_{i,m,j} = FA_{i,m}\times \frac{FA^{\tau}_{m3,j}}{\sum_{j=1}^{J} FA^{\tau}_{m3,j}}, \text{ where} m3\in m
+\widetilde{FA}_{i,m,j} = FA_{i,m}\times \frac{FA^{\tau}_{m3,j}}{\sum_{j=1}^{J} FA^{\tau}_{m3,j}}, \text{ where } m\in m3
 \end{equation}
 
 Here, $m3$ represents the less specific industry code from the SOI data.
@@ -442,6 +442,23 @@ and for the $METR$:
 \begin{equation}
 METR_{m,j} =  \frac{\rho_{m,j} - (r-\pi)}{\rho_{m,j}},
 \end{equation}
+
+\subsection{Finding the METR at Different Levels of Industry Specificity}
+
+Starting at the baseline level of industry specificity that is given in the BEA detailed fixed asset data, we move up and down the NAICS ``tree", using two assumptions.  First, we assume that if we want to go ``down" the tree, to more detailed industry classifications, we assume the the cost of capital for each subindustry of a major industry is the same that for the major industry.  i.e., 
+
+\begin{equation} 
+\rho_{m2,j} = \rho_{m,j}, \forall m2 \in m
+\end{equation}
+
+This is simplistic, but the specificity in our BEA data sets the limit on the information we have on the mix of assets by industry.
+
+Going ``up" the tree, we simply use the weight average approach noted above, with an additional sum that is over the minor industries making up the more major industry:
+
+\begin{equation}
+\rho_{m3,j} = \frac{\sum_{m\in m3}\sum_{i=1}^{I}\widetilde{FA}_{i,m,j}\rho_{i,j}}{\sum_{m\in m3}\sum_{i=1}^{I}\widetilde{FA}_{i,m,j}} ,
+\end{equation}
+
 
 \bibliography{BTax_bib}
 
