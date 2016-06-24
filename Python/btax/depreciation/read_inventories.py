@@ -15,7 +15,7 @@ import xlrd
 # Directories:
 _CUR_DIR = os.path.dirname(__file__)
 _MAIN_DIR = os.path.dirname(_CUR_DIR)
-_DATA_DIR = os.path.abspath(_MAIN_DIR + '//data' + '//raw_data')
+_DATA_DIR = os.path.abspath(_CUR_DIR + '//data' + '//raw_data')
 _INV_DIR = os.path.join(_DATA_DIR, 'Inventories')
 # Importing custom modules:
 import naics_processing as naics
@@ -87,8 +87,10 @@ def read_inventories(asset_tree):
                 for k in _NCORP_NMS:
                     inv_df["Non-Corp"] += cur_dfs[k][0]
     #
+    '''
     naics.pop_back(inv_tree, ["Inventories"])
     naics.pop_forward(inv_tree, ["Inventories"], "INV", asset_tree)
+    '''
     return inv_tree
 
 

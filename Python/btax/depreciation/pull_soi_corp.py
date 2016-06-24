@@ -14,11 +14,11 @@ import numpy as np
 import pandas as pd
 # Directory names:
 _CUR_DIR = os.path.dirname(__file__)
-_DATA_DIR = os.path.join(os.path.dirname(_CUR_DIR), 'data')
+_DATA_DIR = os.path.join(_CUR_DIR, 'data')
 _RAW_DIR = os.path.join(_DATA_DIR, 'raw_data')
 _SOI_DIR = os.path.join(_RAW_DIR, 'soi')
-_OUT_DIR = os.path.join(os.path.dirname(_CUR_DIR), 'output')
-_INT_DIR = os.path.join(_OUT_DIR, 'intermed_outOut')
+_OUT_DIR = os.path.join(os.path.join(_CUR_DIR, 'output'),'soi')
+_INT_DIR = os.path.join(_OUT_DIR, 'intermed_out')
 _CORP_DIR = os.path.join(_SOI_DIR, 'soi_corporate')
 # Importing custom modules:
 import naics_processing as naics
@@ -37,9 +37,9 @@ _S_CORP_IN_FILE = fp.get_file(dirct=_CORP_DIR, contains=[_YR+"sb3.csv"])
 # Full path for files:
 _TOT_CORP_IN_PATH = os.path.join(_CORP_DIR, _TOT_CORP_IN_FILE)
 _S_CORP_IN_PATH = os.path.join(_CORP_DIR, _S_CORP_IN_FILE)
-_TOT_CORP_OUT_PATH = os.path.join(_INT_DIR, _TOT_DF_NM+".csv")
-_S_CORP_OUT_PATH = os.path.join(_INT_DIR, _S_DF_NM+".csv")
-_C_CORP_OUT_PATH = os.path.join(_INT_DIR, _C_DF_NM+".csv")
+_TOT_CORP_OUT_PATH = os.path.join(_OUT_DIR, _TOT_DF_NM+".csv")
+_S_CORP_OUT_PATH = os.path.join(_OUT_DIR, _S_DF_NM+".csv")
+_C_CORP_OUT_PATH = os.path.join(_OUT_DIR, _C_DF_NM+".csv")
 # Constant factors:
 _TOT_CORP_IN_FILE_FCTR = 10**3
 _S_CORP_IN_FILE_FCTR = 10**3
@@ -114,9 +114,11 @@ def load_soi_tot_corp(data_tree,
                 cur_dfs[j][0] = sum(indicators * tot_corp_data[cols_dict[j]])/2.0
                 cur_dfs[j][0] = cur_dfs[j] * _TOT_CORP_IN_FILE_FCTR
     # Populate all levels of specificity in the NAICS tree:
+    '''
     naics.pop_back(tree=data_tree, df_list=[_TOT_DF_NM])
     naics.pop_forward(tree=data_tree, df_list=[_TOT_DF_NM],
                       blueprint=blueprint, blue_tree=blue_tree)
+'''
     return data_tree
 
 
@@ -149,6 +151,14 @@ def load_soi_s_corp(data_tree,
     except IOError:
         print "IOError: S-Corp soi data file not found."
         return None
+    '''
+    columns = [(v) for k,v in cols_dict.iteritems()]
+    columns.remove('')
+    columns.insert(0,'INDY_CD')
+    s_corp_data = s_corp_data[(s_corp_data.AC == 1)]
+    s_corp_data = s_corp_data[columns] * _S_CORP_IN_FILE_FCTR
+    s_corp_data['INDY_CD'] = s_corp_data['INDY_CD'] / _S_CORP_IN_FILE_FCTR
+    '''
     # Initializing dataframes for all NAICS industries:
     data_tree.append_all(df_nm=_S_DF_NM, df_cols=data_cols)
     # Reading the S-corporation data into the NAICS tree:
@@ -187,9 +197,11 @@ def load_soi_s_corp(data_tree,
     if blueprint == None and has_tot_df:
         blueprint = _TOT_DF_NM
     # Populate all levels of specificity in the NAICS tree:
+    '''
     naics.pop_back(tree=data_tree, df_list=[_S_DF_NM])
     naics.pop_forward(tree=data_tree, df_list=[_S_DF_NM],
                       blueprint=blueprint, blue_tree=blue_tree)
+'''
     return data_tree
 
 

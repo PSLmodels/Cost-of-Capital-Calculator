@@ -13,10 +13,11 @@ import numpy as np
 import pandas as pd
 import sys
 import xlrd
+import math
 # Relevant directories:
 _CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 _MAIN_DIR = os.path.dirname(_CUR_DIR)
-_DATA_DIR = os.path.join(_MAIN_DIR, 'data')
+_DATA_DIR = os.path.join(_CUR_DIR, 'data')
 _NAICS_CODE_PATH = os.path.abspath(_DATA_DIR + "//NAICS_Codes.csv")
 # Importing custom modules:
 import data_class as dc
@@ -42,6 +43,37 @@ def find_naics(tree, code):
                 return i
     return None
 
+def interpolate_data(tree):
+    num_inds = len(tree.enum_inds)
+    parent = None
+    children = tree.root.children
+    visit_children(parent, children, tree)
+    tree_df = tree_to_df(tree)
+    return tree_df
+
+def visit_children(parent, children, tree):
+    if(len(children) == 0):
+        return
+    for child in children:
+        if(child.depr[1] == 0 and parent != tree.root):
+            child.depr = (child.depr[0],) + parent.depr[1:]
+        if(parent == None):
+            continue
+        elif(parent.depr[1] == 0):
+            parent.depr = (parent.depr[0],) + child.depr[1:]
+        visit_children(child, child.children, tree)
+
+def tree_to_df(tree):
+    n1 = np.array(tree.root.depr, ndmin=2)
+    for ind in tree.enum_inds[1:]:
+        n2 = np.array(ind.depr, ndmin=2)
+        n1 = np.concatenate((n1,n2),axis=0)
+
+    tree_df = pd.DataFrame(n1, index = np.arange(0,len(tree.enum_inds)), columns = cst.DEPR_COLS)
+    return tree_df
+
+def calc_avg():
+    # for each industry take the sum of the assets of their children and proportionately average their rates. assign this average to the parent
 
 def pop_back(tree, df_list):
     """ Data is often collected for various levels of NAICS codes. 
@@ -287,8 +319,8 @@ def print_tree_dfs(tree, out_path, file_name = None,
                 cur_data = tree.enum_inds[j].data.dfs[i].iloc[0,:]
             except KeyError:
                 continue
-            if(np.sum((cur_data != np.zeros(len(cur_cols)-1))) == 0):
-                continue
+           # if(np.sum((cur_data != np.zeros(len(cur_cols)-1))) == 0):
+            #    continue
             cur_code = str(tree.enum_inds[j].data.dfs[_CODE_DF_NM].iloc[0,0])
             for k in xrange(1, tree.enum_inds[j].data.dfs[_CODE_DF_NM].shape[0]):
                 cur_code += "." + str(tree.enum_inds[j].data.dfs[_CODE_DF_NM].iloc[k,0])
@@ -306,7 +338,7 @@ def print_tree_dfs(tree, out_path, file_name = None,
             cur_pd.to_csv(out_path + "\\" + file_name + ".csv", index = False)
 
 
-def load_tree_dfs(input_path, dfs_name, tree):
+def load_tree_dfs(input_path, tree, dfs_name=None):
     """ This takes in an input csv file that describes a dataframe to be added
     to each industry in the tree. The header in the input file describes the 
     columns in the dataframe, and each row corresponds to a NAICS industry.
@@ -324,8 +356,12 @@ def load_tree_dfs(input_path, dfs_name, tree):
     input_df = pd.read_csv(input_path)
     #
     data_types = input_df.columns.tolist()
-    data_types.remove(_CODE_DF_NM)
+    data_types.remove('NAICS')
+    for row in input_df.itertuples():
+        tree.enum_inds[row[0]].depr = row[1:]
+    return tree
     #
+    '''
     for ind in tree.enum_inds:
         ind.append_dfs((dfs_name, pd.DataFrame(np.zeros((1,len(data_types))), 
                                                columns = data_types)))
@@ -343,9 +379,8 @@ def load_tree_dfs(input_path, dfs_name, tree):
             if cur_code == ind_code:
                 cur_ind.data.dfs[dfs_name].iloc[0,:] = input_df.iloc[i,1:]
                 break
-    return tree
-
-
+    '''
+    
 def load_data_with_cross(data_df, cross_df,
                          data_tree,
                          df_nm="", df_cols=None, 

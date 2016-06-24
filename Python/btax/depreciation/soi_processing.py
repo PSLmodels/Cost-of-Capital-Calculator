@@ -14,6 +14,8 @@ import pandas as pd
 import xlrd
 # Directories:
 _CUR_DIR = os.path.dirname(__file__)
+_OUT_DIR = os.path.join(_CUR_DIR, 'output')
+_SOI_DIR = os.path.join(_OUT_DIR, 'soi')
 # Importing custom modules
 import naics_processing as naics
 import constants as cst
@@ -59,7 +61,7 @@ def load_corporate(soi_tree,
     """
     # Initializing the output path:
     if out_path == None:
-        out_path = _OUT_DIR
+        out_path = _SOI_DIR
     # Initializing booleans based of initial input booleans:
     if get_all:
         get_tot = True
@@ -106,7 +108,7 @@ def load_partner(soi_tree,
     """
     # Initializing the output path:
     if out_path == None:
-        out_path = _OUT_DIR
+        out_path = _SOI_DIR
     # Load the soi income data into the NAICS tree:
     soi_tree = prt.load_income(data_tree=soi_tree, from_out=from_out)
     # Load the soi asset data into the NAICS tree:
@@ -136,7 +138,7 @@ def load_proprietorship(soi_tree,
     """
     # Initializing the output path:
     if out_path == None:
-        out_path = _OUT_DIR
+        out_path = _SOI_DIR
     # Load the soi nonfarm data into the NAICS tree:
     if get_nonfarm:
         soi_tree = prop.load_soi_nonfarm_prop(

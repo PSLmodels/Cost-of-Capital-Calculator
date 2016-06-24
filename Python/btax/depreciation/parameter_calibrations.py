@@ -14,15 +14,17 @@ import sys
 import numpy as np
 import pandas as pd
 import cPickle as pickle
+import naics_processing as naics
 # Relevant directories:
 _CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 _DATA_DIR = os.path.join(_CUR_DIR,'data')
+_OUT_DIR = os.path.join(_CUR_DIR, 'output')
 _PKL_DIR = os.path.join(_DATA_DIR,'pickles')
 sys.path.append(_PKL_DIR)
 # Importing custom modules:
 from btax.depreciation.calc_rates import calc_tax_depr_rates, calc_depr_rates
 
-def calibrate_depr_rates(get_all=False,get_econ=False, get_tax=False):
+def calibrate_depr_rates():
     """ This calibrates a tree with all the depreciation rate parameters.
     :param get_all: Whether to get all the depreciation parameters or not.
     :param get_econ: Whether to get all the economic depreciation rates.
@@ -42,14 +44,41 @@ def calibrate_depr_rates(get_all=False,get_econ=False, get_tax=False):
     land_file = open(os.path.join(_PKL_DIR,'landTree.pkl'), 'rb')
     land_tree = pickle.load(land_file)
     land_file.close()
+    
+    # Calculating the fixed asset data:
+    #fixed_asset_tree = read_bea.read_bea(asset_tree)
+    # Calculating the inventory data:
+    #inv_tree = read_inv.read_inventories(asset_tree)
+    # Calculating the land data:
+    #land_tree = read_land.read_land(asset_tree)
 
     econ_depr = calc_depr_rates(fixed_asset_tree, inv_tree, land_tree)
     tax_depr = calc_tax_depr_rates(fixed_asset_tree, inv_tree, land_tree)
     tax_depr.columns =  ['NAICS', 'Tax_All', 'Tax_Corp', 'Tax_Non_Corp']
     econ_depr.columns = ['NAICS', 'Econ_All', 'Econ_Corp', 'Econ_Non_Corp'] 
-    depr_rates = econ_depr.merge(tax_depr) 
+    depr_rates = econ_depr.merge(tax_depr)
+    
+    _DPR_FILE = save_rates(depr_rates,save_all=True)
+    depr_tree = naics.load_tree_dfs(_DPR_FILE, naics.generate_tree()) 
+    depr_rates = naics.interpolate_data(depr_tree)    
+    save_rates(depr_rates,save_all=False)
 
     return depr_rates
+
+def save_rates(depr_rates,save_all):
+
+    #save the relevant industry depreciation rates
+    if(save_all == False):
+        depr_rates = depr_rates[(depr_rates.NAICS=='11')|(depr_rates.NAICS=='211')|(depr_rates.NAICS=='212')|(depr_rates.NAICS=='213') 
+        |(depr_rates.NAICS=='22')|(depr_rates.NAICS=='23')|(depr_rates.NAICS=='31-33')|(depr_rates.NAICS=='32411')|(depr_rates.NAICS == '336')
+        |(depr_rates.NAICS=='3391')|(depr_rates.NAICS=='42')|(depr_rates.NAICS=='44-45')|(depr_rates.NAICS=='48-49')|(depr_rates.NAICS == '51')
+        |(depr_rates.NAICS=='52')|(depr_rates.NAICS=='531')|(depr_rates.NAICS=='532')|(depr_rates.NAICS=='533')|(depr_rates.NAICS=='54')
+        |(depr_rates.NAICS=='55')|(depr_rates.NAICS=='56')|(depr_rates.NAICS=='61')|(depr_rates.NAICS=='62')|(depr_rates.NAICS=='71')
+        |(depr_rates.NAICS=='72')|(depr_rates.NAICS=='81')|(depr_rates.NAICS=='92')]
+
+    depr_rates.to_csv(os.path.join(_OUT_DIR,'depreciation.csv'), index = False)
+    return os.path.join(_OUT_DIR,'depreciation.csv')
+
 '''
 def calibrate_incomes(output_data=True):
     """ This calibrates a tree of all the income data parameters.
@@ -109,7 +138,7 @@ def calibrate_debt(debt_tree=naics.generate_tree(), soi_tree=None,
     return debt_tree
     
 '''
-'''
+
 def pull_soi_data(soi_tree, from_out=False,
                   get_all=False, get_corp=False,
                   get_tot=False, get_s=False,
@@ -126,7 +155,8 @@ def pull_soi_data(soi_tree, from_out=False,
         get_prop = True
         get_farm_prop = True
     # Import the soi_processing custom module:
-    soi_dir = os.path.join(_DATA_DIR, "soi")
+    _RAW_DATA = os.path.join(_DATA_DIR, 'raw_data')
+    soi_dir = os.path.join(_RAW_DATA, 'soi')
     sys.path.append(soi_dir)
     import soi_processing as soi
     # Loading the soi corporate data into the NAICS tree:
@@ -151,7 +181,7 @@ def pull_soi_data(soi_tree, from_out=False,
     return soi_tree
 
 
-def calc_soi_assets(soi_tree, asset_tree):
+def calc_soi_assets(asset_tree, soi_tree):
     """ Calculating a breakdown of the various sector type's assets
     into fixed assets, inventories, and land. 
     
@@ -164,4 +194,4 @@ def calc_soi_assets(soi_tree, asset_tree):
     import soi_processing as soi
     # Use soi processing helper function to do all the work:
     return soi.calc_assets(asset_tree=asset_tree, soi_tree=soi_tree)
-'''
+
