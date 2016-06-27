@@ -1,5 +1,5 @@
 Industry,Codes:
-All nonfarm industries,
+All nonfarm industries,1
 "Agriculture, forestry, hunting, and fishing",11
 Animal production (including breeding of cats and dogs),112
 "Forestry and logging (including forest nurseries, timber tracts)",113
@@ -14,9 +14,9 @@ Construction,23
 Construction of buildings,236
 Heavy and civil engineering construction  ,237
 Specialty trade contractors,238
-Manufacturing,31.32.33
+Manufacturing,31
 Food manufacturing,311
-Textile and textile product mills,313.314
+Textile and textile product mills,313
 Apparel,315
 Leather and allied products,316
 Wood products,321
@@ -38,7 +38,7 @@ Wholesale trade (merchant wholesalers),42
 "Durable goods, including machinery, wood, metals, etc.",423
 "Nondurable goods, including food, fiber, chemicals, etc.",424
 Wholesale electronic markets and agents and brokers,425
-Retail trade,44.45
+Retail trade,44
 Motor vehicle and parts dealers,441
 Furniture and home furnishing stores,442
 Electronic stores and household appliance stores,443
@@ -51,27 +51,27 @@ Clothing and accessories stores,448
 General merchandise stores,452
 Miscellaneous store retailers,453
 Nonstore retailers,454
-Transportation and warehousing,48.49
-Air and rail transportation,481.482
-Water transportation,483
+Transportation and warehousing,48
+Air and rail transportation,481000
+Water transportation,483000
 Truck transportation,484
 Other transit and ground transportation,485
 Pipeline transportation,486
 Scenic and sightseeing transportation,487
-Support activities for transportation (including motor vehicle towing),488
+Support activities for transportation (including motor vehicle towing),487
 Couriers and messengers,492
 Warehousing and storage facilities,493
 Information,51
 Publishing industries (except internet),511
 Motion picture and sound recording,512
-Broadcasting (except internet) and telecommunications and internet service providers,515.517
-"Data processing, internet publishing and broadcasting, and web search portals",518.51913
+Broadcasting (except internet) and telecommunications and internet service providers,515
+"Data processing, internet publishing and broadcasting, and web search portals",518
 Finance and insurance,52
 Credit intermediation and related activities,522
 "Securities, commodity contracts, and other financial investments",523
 Investment bankers and securities dealers,52311
 Securities brokers,52312
-Commodity contracts brokers and dealers,52313.52314
+Commodity contracts brokers and dealers,52313
 Securities and commodity exchanges,5232
 Other financial investment activities (investment advice),5239
 "Insurance agents, brokers, and related activities",5242
@@ -80,7 +80,7 @@ Other insurance related activities and other financial vehicles,525
 Real estate and rental and leasing,53
 Real estate,531
 Lessors of real estate (including miniwarehouses and self storage),5311
-"Offices of real estate agents, brokers, property managers, and appraisers",5312.53131.53132
+"Offices of real estate agents, brokers, property managers, and appraisers",5312
 Other activities related to real estate,53139
 Rental and leasing services,532
 Automotive equipment rental and leasing,5321
@@ -97,7 +97,7 @@ Other accounting services,541219
 "Architectural, engineering, and related services",5413
 Architectural services,54131
 Engineering services,54133
-"Drafting, building inspections, and geophysical surveying",54134.54136
+"Drafting, building inspections, and geophysical surveying",54134
 Surveying and mapping (except geophysical) services,54137
 Testing laboratories,54138
 Specialized design services,5414
@@ -121,7 +121,7 @@ Offices of chiropractors,62131
 Offices of optometrists,62132
 Offices of mental health practitioners and social therapists,62133
 Offices of podiatrists,621391
-Outpatient care centers and  other miscellaneous health practitioners,621399.6214
+Outpatient care centers and  other miscellaneous health practitioners,621399
 Medical and diagnostic laboratories,6215
 Home health care services,6216
 "Other ambulatory health care services (including ambulance services, blood and organ banks)",6219
@@ -137,7 +137,7 @@ Accommodation,721
 "Travel accommodation (including hotels, motels, and bed and breakfast inns)",7211
 RV (recreational vehicle) parks and recreational camps,7212
 Rooming and boarding houses,7213
-Restaurants (full & limited service) and drinking places,7224.7225
+Restaurants (full & limited service) and drinking places,7224
 Other services,81
 Auto repair and maintenance,8111
 Automotive mechanical and electrical repair and maintenance,81111
@@ -146,4 +146,3 @@ Automotive body shops,81112
 Miscellaneous repairs,811198
 Personal and laundry services,812
 "Religious, grantmaking, civic, professional and similar organizations",813
-Unclassified establishments,
