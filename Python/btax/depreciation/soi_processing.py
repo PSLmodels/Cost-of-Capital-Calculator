@@ -37,8 +37,7 @@ _ALL_SECTORS = cst.ALL_SECTORS_NMS_LIST
 _ALL_SECTORS_DICT = cst.ALL_SECTORS_NMS_DICT
 
 
-def load_corporate(soi_tree,
-                   from_out=False, get_all=False,
+def load_corporate(from_out=False, get_all=False,
                    get_tot=False, get_s=False, get_c=False,
                    output_data=False, out_path=None):
     """ Loading the corporate tax soi data into a NAICS Tree.
@@ -70,19 +69,24 @@ def load_corporate(soi_tree,
     if not get_tot or not get_s:
         get_c = False
     # Load the total corporate soi data into the NAICS tree:
+    '''
     if get_tot:
         soi_tree = corp.load_soi_tot_corp(data_tree=soi_tree,
                                           from_out=from_out)
         if output_data:
             naics.print_tree_dfs(tree=soi_tree, out_path=out_path,
                                  data_types=[_TOT_CORP_DF_NM])
+    '''
     # Load the S-corporate soi data into the NAICS tree:
+    sector_dfs = {}
+
     if get_s:
-        soi_tree = corp.load_soi_s_corp(data_tree=soi_tree,
-                                        from_out=from_out)
+        sector_dfs.update(corp.load_soi_s_corp(from_out=from_out))
+        '''
         if output_data:
             naics.print_tree_dfs(tree=soi_tree, out_path=out_path,
                                  data_types=[_S_CORP_DF_NM])
+        
     # Calculate the C-corporate soi data for the NAICS tree:
     if get_c:
         soi_tree = corp.calc_c_corp(data_tree=soi_tree,
@@ -90,11 +94,11 @@ def load_corporate(soi_tree,
         if output_data:
             naics.print_tree_dfs(tree=soi_tree, out_path=out_path,
                                  data_types=[_C_CORP_DF_NM])
-    return soi_tree
+    '''
+    return sector_dfs
     
 
-def load_partner(soi_tree,
-                 from_out=False, output_data=False,
+def load_partner(sector_dfs, from_out=False, output_data=False,
                  out_path=None):
     """ Loading the partnership tax soi data into a NAICS Tree.
     
@@ -107,22 +111,26 @@ def load_partner(soi_tree,
            printing to the output file
     """
     # Initializing the output path:
+    '''
     if out_path == None:
         out_path = _SOI_DIR
     # Load the soi income data into the NAICS tree:
     soi_tree = prt.load_income(data_tree=soi_tree, from_out=from_out)
+    '''
     # Load the soi asset data into the NAICS tree:
-    soi_tree = prt.load_asset(data_tree=soi_tree, from_out=from_out)
+    sector_dfs.update(prt.load_asset(from_out=from_out))
+    '''
     # Load the soi partnership types data into the NAICS tree:
     soi_tree = prt.load_type(data_tree=soi_tree, from_out=from_out)
     # Output the data to csv files in the output folder:
     if output_data:
         naics.print_tree_dfs(tree=soi_tree, out_path=out_path,
                              data_types=[_INC_DF_NM, _AST_DF_NM, _TYP_DF_NM])
-    return soi_tree
+    '''
+    return sector_dfs
 
 
-def load_proprietorship(soi_tree,
+def load_proprietorship(sector_dfs,
                        from_out=False, get_all=False,
                        get_nonfarm=False, get_farm=False,
                        output_data=False, out_path=None):
@@ -139,12 +147,12 @@ def load_proprietorship(soi_tree,
     # Initializing the output path:
     if out_path == None:
         out_path = _SOI_DIR
+    
     # Load the soi nonfarm data into the NAICS tree:
     if get_nonfarm:
-        soi_tree = prop.load_soi_nonfarm_prop(
-                                    data_tree=soi_tree, from_out=from_out
-                                    )
+        sector_dfs.update(prop.load_soi_nonfarm_prop(from_out=from_out))
     # Load the farm data into to the NAICS tree:
+    '''
     if get_farm:
         soi_tree = prop.load_soi_farm_prop(
                                     data_tree=soi_tree, from_out=from_out
@@ -153,7 +161,8 @@ def load_proprietorship(soi_tree,
     if output_data:
             naics.print_tree_dfs(tree=soi_tree, out_path=out_path,
                                  data_types=[_NFARM_DF_NM, _FARM_DF_NM])
-    return soi_tree
+    '''
+    return sector_dfs
 
 
 def calc_assets(soi_tree, asset_tree):

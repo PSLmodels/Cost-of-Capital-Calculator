@@ -72,7 +72,7 @@ def tree_to_df(tree):
     tree_df = pd.DataFrame(n1, index = np.arange(0,len(tree.enum_inds)), columns = cst.DEPR_COLS)
     return tree_df
 
-def calc_avg():
+#def calc_avg():
     # for each industry take the sum of the assets of their children and proportionately average their rates. assign this average to the parent
 
 def pop_back(tree, df_list):

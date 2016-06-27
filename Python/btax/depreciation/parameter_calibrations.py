@@ -15,6 +15,7 @@ import numpy as np
 import pandas as pd
 import cPickle as pickle
 import naics_processing as naics
+import read_bea as read_bea
 # Relevant directories:
 _CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 _DATA_DIR = os.path.join(_CUR_DIR,'data')
@@ -24,7 +25,7 @@ sys.path.append(_PKL_DIR)
 # Importing custom modules:
 from btax.depreciation.calc_rates import calc_tax_depr_rates, calc_depr_rates
 
-def calibrate_depr_rates():
+def calibrate_depr_rates(asset_tree):
     """ This calibrates a tree with all the depreciation rate parameters.
     :param get_all: Whether to get all the depreciation parameters or not.
     :param get_econ: Whether to get all the economic depreciation rates.
@@ -35,6 +36,7 @@ def calibrate_depr_rates():
     #asset_tree = calc_soi_assets(soi_tree=soi_tree)
     #Initialize NAICS tree with all assets--fixed assets, inventories, and land--by sector:
     # Use the asset_tree to initialize all the depreciation rates:
+    '''
     fa_file = open(os.path.join(_PKL_DIR,'faTree.pkl'), 'rb')
     fixed_asset_tree = pickle.load(fa_file)
     fa_file.close()
@@ -44,9 +46,9 @@ def calibrate_depr_rates():
     land_file = open(os.path.join(_PKL_DIR,'landTree.pkl'), 'rb')
     land_tree = pickle.load(land_file)
     land_file.close()
-    
+    '''
     # Calculating the fixed asset data:
-    #fixed_asset_tree = read_bea.read_bea(asset_tree)
+    fixed_asset_tree = read_bea.read_bea(asset_tree)
     # Calculating the inventory data:
     #inv_tree = read_inv.read_inventories(asset_tree)
     # Calculating the land data:
@@ -139,7 +141,7 @@ def calibrate_debt(debt_tree=naics.generate_tree(), soi_tree=None,
     
 '''
 
-def pull_soi_data(soi_tree, from_out=False,
+def pull_soi_data(from_out=False,
                   get_all=False, get_corp=False,
                   get_tot=False, get_s=False,
                   get_c=False, get_prt=False,
@@ -160,25 +162,25 @@ def pull_soi_data(soi_tree, from_out=False,
     sys.path.append(soi_dir)
     import soi_processing as soi
     # Loading the soi corporate data into the NAICS tree:
+    sector_dfs = {}
+
     if get_corp or get_tot or get_s or get_c:
-        soi_tree = soi.load_corporate(
-                                soi_tree=soi_tree, from_out=from_out,
+        sector_dfs.update(soi.load_corporate(from_out=from_out,
                                 get_all=get_corp, get_tot=get_tot,
                                 get_s=get_s, get_c=get_c,
                                 output_data=output_data, out_path=out_path
-                                )
+                                ))
     # Loading the soi partnership data into the NAICS tree:
     if get_prt:
-        soi_tree = soi.load_partner(soi_tree=soi_tree, from_out=from_out,
-                                    output_data=output_data, out_path=out_path)
+        sector_dfs.update(soi.load_partner(sector_dfs=sector_dfs, from_out=from_out,
+                                    output_data=output_data, out_path=out_path))
     # Loading the soi proprietorship data into the NAICS tree:
     if get_prop or get_farm_prop:
-        soi_tree = soi.load_proprietorship(
-                            soi_tree=soi_tree, from_out=from_out,
+        sector_dfs.update(soi.load_proprietorship(sector_dfs=sector_dfs, from_out=from_out,
                             get_nonfarm=get_prop, get_farm=get_farm_prop,
                             output_data=output_data, out_path=out_path
-                            )
-    return soi_tree
+                            ))
+    return sector_dfs
 
 
 def calc_soi_assets(asset_tree, soi_tree):

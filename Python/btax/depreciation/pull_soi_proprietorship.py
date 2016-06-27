@@ -19,6 +19,7 @@ _SOI_DIR = os.path.join(_RAW_DIR, 'soi')
 _OUT_DIR = os.path.join(os.path.join(_CUR_DIR, 'output'),'soi')
 _INT_DIR = os.path.join(_OUT_DIR, 'intermed_out')
 _PROP_DIR = os.path.join(_SOI_DIR, 'soi_proprietorship')
+_PRT_DIR = os.path.join(_SOI_DIR, 'soi_partner')
 # Importing custom packages:
 import naics_processing as naics
 import file_processing as fp
@@ -39,6 +40,12 @@ _DDCT_IN_CROSS_FILE = fp.get_file(dirct=_PROP_DIR,
                                   contains=[_YR+'sp01br_Crosswalk.csv'])
 # Full path for files:
 _DDCT_IN_PATH = os.path.join(_PROP_DIR, _DDCT_IN_FILE)
+_NFARM_PATH = os.path.join(_PROP_DIR, '12sp01br.csv')
+_PRT_INC = os.path.join(_PRT_DIR, '12pa01.csv')
+_PRT_ASST = os.path.join(_PRT_DIR, '12pa03.csv')
+_NFARM_INV = os.path.join(_PROP_DIR, '12sp02is.csv')
+_PRT_CROSS = os.path.join(_PRT_DIR, '12pa01_Crosswalk.csv')
+_SOI_CODES = os.path.join(_SOI_DIR, 'SOI_codes.csv')
 _FARM_IN_PATH = os.path.join(_PROP_DIR, _FARM_IN_FILE)
 _DDCT_IN_CROSS_PATH = os.path.join(_PROP_DIR, _DDCT_IN_CROSS_FILE)
 _NFARM_PROP_OUT_PATH = os.path.join(_OUT_DIR, _NFARM_DF_NM+'.csv')
@@ -64,8 +71,7 @@ _DDCT_COL3 = 'Interest paid\ndeduction'
 _DDCT_COL4 = 'Interest paid\ndeduction'
 
 
-def load_soi_nonfarm_prop(data_tree, 
-                          blue_tree=None, blueprint=None, 
+def load_soi_nonfarm_prop(blue_tree=None, blueprint=None, 
                           from_out=False, out_path=_NFARM_PROP_OUT_PATH):
     ''' This function loads the soi nonfarm proprietorship data:
     
@@ -79,7 +85,85 @@ def load_soi_nonfarm_prop(data_tree,
     :param from_out: Whether to read in the data from output.
     :param output_path: The path of the output file.
     '''
+    nonfarm_df = pd.read_csv(_NFARM_PATH)
+    crosswalk = pd.read_csv(_DDCT_IN_CROSS_PATH)
+    nonfarm_inv = format_dataframe(pd.read_csv(_NFARM_INV).T,crosswalk)
+    prt_crosswalk = pd.read_csv(_PRT_CROSS)
+    prt_deduct = pd.read_csv(_PRT_INC).T
+    prt_deduct = format_dataframe(prt_deduct, prt_crosswalk)
+    prt_asst = pd.read_csv(_PRT_ASST).T
+    prt_asst = format_dataframe(prt_asst, prt_crosswalk)
+    nonfarm_df.insert(1, 'Codes:', crosswalk['Codes:'])
+    columns = nonfarm_df.columns.tolist()
+    for i in xrange(0,len(columns)):
+        column = columns[i]
+        if '.1' in column:
+            column = column[:-2]
+        if '\n' in column:
+            column = column.replace('\n', ' ')
+        column = column.rstrip()
+        columns[i] = column
+    nonfarm_df.columns = columns
+    names = nonfarm_df['Industrial sector']
+    codes = nonfarm_df['Codes:']
+    nonfarm_df = nonfarm_df * _DDCT_FILE_FCTR
+    nonfarm_df['Industrial sector'] = names
+    nonfarm_df['Codes:'] = codes
+    nonfarm_df = nonfarm_df.T.groupby(sort=False,level=0).first().T
+    prt_deduct = prt_deduct.T.groupby(sort=False,level=0).first().T
+    prt_asst = prt_asst.T.groupby(sort=False,level=0).first().T
+    nonfarm_inv = nonfarm_inv.T.groupby(sort=False,level=0).first().T
+    sp_inv = nonfarm_inv[['Codes:', 'Inventory, beginning of year']]
+    sp_depr = nonfarm_df[['Codes:','Depreciation deduction']]
+    prt_depr = prt_deduct[['Codes:', 'Depreciation']]
+    prt_depr = prt_depr.groupby('Codes:',sort=False).sum()
+    codes = prt_depr.index.tolist()
+    prt_depr.insert(0,'Codes:', codes)
+    prt_depr.index = np.arange(0,len(prt_depr))
+
+    prt_capital = prt_asst[['Codes:', 'Depreciable assets', 'Less:  Accumulated depreciation', 'Land']]
+    prt_capital = prt_capital.groupby('Codes:',sort=False).sum()
+    codes = prt_capital.index.tolist()
+    prt_capital.insert(0,'Codes:', codes)
+    prt_capital.index = np.arange(0,len(prt_depr))
+    capital_data = np.array(sp_inv.merge(sp_depr.merge(prt_capital.merge(prt_depr))))
+    
+    fixed_assets = []
+    land_data =[]
+    inv_data = []
+    for array in capital_data:
+        if(array[6] != 0):
+            land = np.array([array[0],(array[5]*array[2]/float(array[6]))])
+            fixed_asset = np.array([array[0],(array[3]-array[4])*array[2]/float(array[6])])
+            inventory = np.array([array[0], array[1]])
+            fixed_assets.append(fixed_asset)
+            land_data.append(land)
+            inv_data.append(inventory)
+    cstock_list = []
+    for i in xrange(0,len(fixed_assets)):    
+        nfarm_cstock = np.array([int(fixed_assets[i][0]), float(fixed_assets[i][1]), float(inv_data[i][1]), float(land_data[i][1])])
+        cstock_list.append(nfarm_cstock)
+
+    nfarm_df = pd.DataFrame(cstock_list, index=np.arange(0,len(cstock_list)), columns=['Codes:', 'FA', 'Inv', 'Land'])
+    baseline_codes = pd.read_csv(_SOI_CODES)
+    nfarm_df = baseline_codes.merge(nfarm_df, how = 'outer').fillna(0)
+    nfarm_df = baseline_codes.merge(nfarm_df, how = 'inner')
+    farm_df = pd.read_csv(_FARM_IN_PATH)
+    asst_land = farm_df['R_p'][0] + farm_df['Q_p'][0]
+    agr_capital = prt_capital[prt_capital.index == 1]
+    assts_agr = float(agr_capital['Depreciable assets'][1] - agr_capital['Less:  Accumulated depreciation'][1])
+    land_agr = float(agr_capital['Land'])
+    prt_farm_land = land_agr / (land_agr + assts_agr) * asst_land
+    sp_farm_land = farm_df['A_sp'][0] * prt_farm_land / farm_df['A_p'][0]
+    sp_farm_assts = farm_df['R_sp'][0] + farm_df['Q_sp'][0] - sp_farm_land
+    sp_farm_cstock = np.array([sp_farm_assts, 0, sp_farm_land])
+
+    #data_tree.enum_inds[index].farm_cstock = sp_farm_cstock
+
+    sole_prop_cstock = {'sole_prop': nfarm_df}
+    return sole_prop_cstock
     # If from_out, load the data tree from output:
+    '''
     if from_out:
         data_tree = naics.load_tree_dfs(input_path=out_path, tree=data_tree)
         return data_tree
@@ -136,7 +220,27 @@ def load_soi_nonfarm_prop(data_tree,
                       blueprint=blueprint, blue_tree=blue_tree)
     #
     return data_tree
+'''
 
+def format_dataframe(df, crosswalk):
+    indices = []
+    for string in df.index:
+        indices.append(string.replace('\n',' '))
+    df.insert(0,indices[0],indices)
+    columns = df.iloc[0].tolist()
+    df = df[df.Item != 'Item']
+    for i in xrange(0,len(columns)):
+        columns[i] = columns[i].strip()
+    df.columns = columns
+    
+    df.index = np.arange(0,len(crosswalk['Codes:']))
+    df.insert(1,'Codes:',crosswalk['Codes:'])
+    names = df['Item']
+    codes = df['Codes:'] 
+    df = df * _DDCT_FILE_FCTR
+    df['Item'] = names
+    df['Codes:'] = codes
+    return df
 
 def load_soi_farm_prop(data_tree,
                        blue_tree=None, blueprint=None,

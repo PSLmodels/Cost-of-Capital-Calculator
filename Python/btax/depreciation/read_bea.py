@@ -23,6 +23,8 @@ import naics_processing as naics
 import constants as cst
 # Full file paths:
 _BEA_ASSET_PATH = os.path.join(_BEA_DIR, "detailnonres_stk1.xlsx")
+_BEA_CROSS = os.path.join(_BEA_DIR, 'BEA_Crosswalk.csv')
+_SOI_CROSS = os.path.join(_BEA_DIR, 'BEA_SOI_crosswalk.csv')
 # Dataframe column names:
 _CORP_TAX_SECTORS_NMS_DICT = cst.CORP_TAX_SECTORS_NMS_DICT
 _CORP_NMS = _CORP_TAX_SECTORS_NMS_DICT.values()
@@ -30,14 +32,77 @@ _NON_CORP_TAX_SECTORS_NMS_DICT = cst.NON_CORP_TAX_SECTORS_NMS_DICT
 _NCORP_NMS = _NON_CORP_TAX_SECTORS_NMS_DICT.values()
 # Constant factors:
 _BEA_IN_FILE_FCTR = 10**6
+_START_POS = 8
+_SKIP1 = 47
+_SKIP2 = 80
+_CORP_PRT = [1,2]
+_NCORP_PRT = [3,4,5,6,7,8,9,10]
 '''
 Reads in the detailnonres_stk1.xlsx BEA file:
 '''
-def read_bea(asset_tree):
+def read_bea(sector_dfs):
     # Opening BEA's excel file on depreciable assets by industry:
+
     bea_book = xlrd.open_workbook(_BEA_ASSET_PATH)
     sht_names = bea_book.sheet_names()
     num_shts = bea_book.nsheets
+    bea_cross = pd.read_csv(_BEA_CROSS)
+    bea_cross = bea_cross.set_index('BEA').to_dict()['NAICS']
+    for k, v in bea_cross.iteritems():
+        if '.' in v:
+            ind_list = v.split('.')
+            bea_cross[k] = ind_list
+        else:
+            bea_cross[k] = [v]
+    bea_data = []
+
+    corp_tax_entity = ['c_corp','corp_gen', 'corp_lim']
+    non_corp_entity = ['indv_gen', 'indv_lim', 'prt_gen',
+     'prt_lim', 'tax_gen', 'tax_lim', 'nom_gen', 'nom_lim', 'sole_prop']
+
+    ratios = []
+    for i in xrange(0,len(sector_dfs['c_corp'])):
+        corp_fa = 0
+        non_corp_fa = 0
+        for entity in corp_tax_entity:
+            corp_fa += sector_dfs[entity]['FA'][i]
+        for entity in non_corp_entity:
+            non_corp_fa += sector_dfs[entity]['FA'][i]
+        total_fa = non_corp_fa + corp_fa
+        if(total_fa != 0):    
+            corp_ratio = corp_fa / total_fa
+            non_corp_ratio = non_corp_fa / total_fa
+            ratios.append((sector_dfs['corp_gen']['Codes:'][i],corp_ratio, non_corp_ratio))
+    df = pd.DataFrame(ratios, index = np.arange(0,len(ratios)), columns = ['Codes:', 'corp', 'non_corp'])
+    soi = pd.read_csv(_SOI_CROSS)
+    soi = soi.merge(df, how = 'inner')
+    import ipdb
+    ipdb.set_trace()
+
+    total_fa = ind.s_corp_cstock[0] + ind.c_corp_cstock[0] + sum(ind.prt_types[1:]) + ind.nfarm_cstock[0]
+    c_corp_fa = ind.c_corp_cstock[0]
+    s_corp_fa = ind.s_corp_cstock[0]
+    n_corp_fa = ind.nfarm_cstock[0]
+    if(len(ind.prt_types) != 1):
+        c_corp_fa += sum([ind.prt_types[i] for i in _CORP_PRT])
+        n_corp_fa += sum([ind.prt_types[i] for i in _NCORP_PRT])
+    if(total_fa != 0):
+        ind.c_corp_ratio = c_corp_fa / total_fa
+        ind.s_corp_ratio = s_corp_fa / total_fa
+        ind.n_corp_ratio = n_corp_fa / total_fa
+
+    for sheet in bea_book.sheets():
+        if(sheet.name != 'readme' and sheet.name != 'Datasets'):
+            code = sheet.cell_value(0,0).encode('ascii','ignore').partition(' ')[0]
+            asst_vals = []
+            for index in xrange(_START_POS, sheet.nrows):
+                if(index != _SKIP1 or index != _SKIP2):
+                    asst_vals.append(sheet.cell_value(index, sheet.ncols-1)*_BEA_IN_FILE_FCTR)
+            for naics in cross[code]:
+                if(asset_tree.codes.has_key(naics)):
+                    index = asset_tree.codes[naics]
+                    asset_tree.enum_inds[index].asset_data = np.array(asst_vals)
+            bea_data.append(asst_vals)
     # Opening "readme" sheet:
     try:
         bea_readme = bea_book.sheet_by_name("readme")

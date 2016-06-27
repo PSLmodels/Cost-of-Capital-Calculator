@@ -54,6 +54,10 @@ _TYP_IN_CROSS_PATH = os.path.join(_PRT_DIR, _TYP_IN_CROSS_FILE)
 _INC_OUT_PATH = os.path.join(_OUT_DIR, _INC_OUT_FILE)
 _AST_OUT_PATH = os.path.join(_OUT_DIR, _AST_OUT_FILE)
 _TYP_OUT_PATH = os.path.join(_OUT_DIR, _TYP_OUT_FILE)
+_INC_FILE = os.path.join(_PRT_DIR, '12pa01.csv')
+_AST_FILE = os.path.join(_PRT_DIR, '12pa03.csv')
+_TYP_FILE = os.path.join(_PRT_DIR, '12pa05.csv')
+_SOI_CODES = os.path.join(_SOI_DIR, 'SOI_codes.csv')
 # Constant factors:
 _INC_FILE_FCTR = 10**3
 _AST_FILE_FCTR = 10**3
@@ -104,6 +108,9 @@ _TYP_IN_ROWS_DF_DICT = dict([
                     ])
 _TYP_IN_ROW_NMS = _TYP_IN_ROWS_DF_DICT.keys()
 _TYP_DF_DICT = cst.DFLT_PRT_TYP_DF_COL_NMS_DICT
+_SHAPE = (131,4)
+_CODE_RANGE = ['32', '33', '45', '49']
+_PARENTS = {'32':'31','33':'31','45':'44','49':'48'}
 
 
 def load_income(data_tree,
@@ -167,8 +174,7 @@ def load_income(data_tree,
     return data_tree
     
     
-def load_asset(data_tree,
-             blue_tree=None, blueprint=None,
+def load_asset(blue_tree=None, blueprint=None,
              from_out=False, out_path=None):
     ''' This function loads the soi partnership asset data.
     
@@ -188,15 +194,128 @@ def load_asset(data_tree,
                                         tree=data_tree)
         return data_tree
     # Opening data on depreciable fixed assets, inventories, and land:
-    wb = xlrd.open_workbook(_AST_IN_PATH)
+    df = pd.read_csv(_AST_FILE).transpose()
+    ast_cross = pd.read_csv(_AST_IN_CROSS_PATH)
+    df = format_dataframe(df, ast_cross)
+    df1 = df.T.groupby(sort=False,level=0).first().T
+    df1 = df1.groupby('Codes:',sort=False).sum()
+    codes = df1.index.tolist()
+    df1.insert(0,'Codes:', codes)
+    df1.index = np.arange(0,len(df1))
+    df2 = df.T.groupby(sort=False,level=0).last().T
+    df2 = df2.groupby('Codes:',sort=False).sum()
+    codes = df2.index.tolist()
+    df2.insert(0,'Codes:', codes)
+    df2.index = np.arange(0,len(df2))
+    codes = pd.read_csv(_SOI_CODES)
+
+    tot_data = np.array(df1)
+    inc_loss = pd.read_csv(_INC_FILE).transpose()
+    inc_cross = pd.read_csv(_INC_IN_CROSS_PATH)
+    inc_loss = format_dataframe(inc_loss, inc_cross)
+    col_list = ['Item', 'Codes:', 'Net income', 'Loss']
+
+    inc_loss = inc_loss.T.groupby(sort=False,level=0).last().T[col_list]
+    inc_loss = inc_loss.groupby('Codes:',sort=False).sum()
+    codes = inc_loss.index.tolist()
+    inc_loss.insert(0,'Codes:', codes)
+    inc_loss.index = np.arange(0,len(inc_loss))
+    inc_loss = np.array(inc_loss)
+    prof_fa_data = np.array(df2['Depreciable assets']-df2['Less:  Accumulated depreciation'])
+    prof_inv_data = np.array(df2['Inventories'])
+    prof_land_data = np.array(df2['Land'])
+    loss_fa_data = np.array((df1['Depreciable assets']-df1['Less:  Accumulated depreciation']-
+        df2['Depreciable assets']+df2['Less:  Accumulated depreciation']))
+    loss_inv_data = np.array(df1['Inventories'] - prof_inv_data)
+    loss_land_data = np.array(df1['Land'] - prof_land_data)
+
+    prt_cstock = np.zeros(_SHAPE)
+    loss_ratios = np.zeros(_SHAPE)
+    prof_ratios = np.zeros(_SHAPE)
+    for i in xrange(0,len(tot_data)):
+        prt_cstock[i] = np.array([int(tot_data[i][0]),float(tot_data[i][16])- float(tot_data[i][17]),
+             float(tot_data[i][9]), float(tot_data[i][20])])
+        if(inc_loss[i][3] != 0):
+            loss_ratios[i] = np.array([int(tot_data[i][0]),loss_fa_data[i] / float(inc_loss[i][3]),
+                loss_inv_data[i] / float(inc_loss[i][3]), loss_land_data[i] / float(inc_loss[i][3])])
+        
+        if(inc_loss[i][2] != 0):
+            prof_ratios[i] = np.array([int(tot_data[i][0]), prof_fa_data[i] / float(inc_loss[i][2]),
+                prof_inv_data[i] / float(inc_loss[i][2]),prof_land_data[i] / float(inc_loss[i][2])])
+
+    prt_types = pd.read_csv(_TYP_FILE).transpose()
+    typ_cross = pd.read_csv(_TYP_IN_CROSS_PATH)
+    prt_types = format_dataframe(prt_types, typ_cross)
+    prt_data = np.array(prt_types)
+    index = {}
+    for i in xrange(0,len(codes)):
+        index[codes[i]] = i
+
+    capital_stock = []
+    code_dict = {}
+    j = 0
+    for array in prt_data:
+        fixed_assets = []
+        land_data = []
+        inventories = []
+        code = int(array[1])
+        code_dict[code] = j
+        if(index.has_key(code)):
+            i = index[code]
+            for element in array[2:]:
+                if(element > 0):
+                    fixed_asset = prof_ratios[i][0] * float(element)
+                    invs = prof_ratios[i][1] * float(element)
+                    land = prof_ratios[i][2] * float(element)
+                else:
+                    fixed_asset = prof_ratios[i][0] * abs(float(element))
+                    invs = prof_ratios[i][1] * abs(float(element))
+                    land = prof_ratios[i][2] * abs(float(element))
+                fixed_assets.append(fixed_asset)
+                land_data.append(land)
+                inventories.append(invs)
+            capital_stock.append([code, np.array(fixed_assets), np.array(land_data), np.array(inventories)])
+            j += 1
+
+    prt_cap_stock = []
+    for ind in prt_cstock:
+        code1 = int(ind[0])
+        if(code_dict.has_key(code1)):
+            prt_cap_stock.append(capital_stock[code_dict[code1]])
+        else:
+            code2 = int(str(code1)[:2])
+            if(str(code2) in _CODE_RANGE):
+                code2 = int(_PARENTS[str(code2)])
+            index1 = index[code2]
+            prt_cap_stock.append([code1, capital_stock[code_dict[code2]][1] * ind[1] / prt_cstock[index1][1], 
+            capital_stock[code_dict[code2]][2] * ind[2] / prt_cstock[index1][2],
+            capital_stock[code_dict[code2]][3] * ind[3] / prt_cstock[index1][3]])
+
+    prt_types = ['corp_gen', 'corp_lim', 'indv_gen', 'indv_lim', 'prt_gen', 'prt_lim', 'tax_gen', 'tax_lim', 'nom_gen', 'nom_lim']
+
+    prt_data = {}
+    baseline_codes = pd.read_csv(_SOI_CODES)
+    for i in xrange(0,len(prt_types)):
+        ind_capital = []
+        for ind in prt_cap_stock:
+            ind_capital.append([ind[0], ind[1][i+1], ind[2][i+1], ind[3][i+1]])      
+        df = pd.DataFrame(ind_capital, index = np.arange(0,len(ind_capital)), columns = ['Codes:', 'FA', 'Inv', 'Land'])
+        df = baseline_codes.merge(df, how = 'outer').fillna(0)
+        df = baseline_codes.merge(df, how = 'inner')
+        prt_data[prt_types[i]] = df
+
+    return prt_data 
+    '''    
+    wb = xlrd.open_workbook(_AST_IN_PATH) 
     ws = wb.sheet_by_index(0)
     num_rows = ws.nrows
     # Columns of the asset dataframe:
     df_cols = _AST_DF_DICT.values()
     # Initializing dataframe to hold pertinent asset data:
     ast_df = pd.DataFrame(np.zeros((ws.ncols-1,len(df_cols))), columns=df_cols)
-    ''' Extracting the data (note that the rows with total data appear first).
-    For each input row:'''
+    
+    Extracting the data (note that the rows with total data appear first).
+    For each input row:
     for in_row_nm in _AST_IN_ROW_NMS:
         # Key corresponding to total asset column:
         df_net_col_key = _AST_IN_ROWS_DF_NET_DICT[in_row_nm]
@@ -235,16 +354,57 @@ def load_asset(data_tree,
     if blueprint == None and has_tot_df:
         blueprint = _TOT_CORP_DF_NM
     # Populate all levels of specificity in the NAICS tree:
-    '''
+    
     naics.pop_back(tree=data_tree, df_list=[_AST_DF_NM])
     naics.pop_forward(tree=data_tree, df_list=[_AST_DF_NM],
                       blueprint=blueprint, blue_tree=blue_tree)
     '''
     return data_tree
 
+def format_dataframe(df, crosswalk):
+    indices = []
+    for string in df.index:
+        indices.append(string.replace('\n',' '))
+    df.insert(0,indices[0],indices)
+    columns = df.iloc[0].tolist()
+    df = df[df.Item != 'Item']
+    for i in xrange(0,len(columns)):
+        columns[i] = columns[i].strip()
+    df.columns = columns
+    
+    df.index = np.arange(0,len(crosswalk['Codes:']))
+    df.insert(1,'Codes:',crosswalk['Codes:'])
+    names = df['Item']
+    codes = df['Codes:'] 
+    df = df * _AST_FILE_FCTR
+    df['Item'] = names
+    df['Codes:'] = codes
+    return df
+
+def calc_proportions(tree):
+    codes = pd.read_csv(_TYP_IN_CROSS_PATH)['Codes:']
+    naics = []
+    for code in codes:
+        if(len(str(code))==2 or '-' in str(code)):
+            naics.append(code)
+    for ind in tree.enum_inds:
+        if(ind.prt_types[0] == 0 and ind.prt_cstock[0] != 0):
+            if('-' in ind.parent.naics):
+                code1 = ind.naics[:5]
+            else:
+                code1 = ind.naics[:2]
+            code2 = ind.naics
+            index1 = tree.codes[code1]
+            index2 = tree.codes[code2]
+            ind.prt_types = tree.enum_inds[index1].prt_types / tree.enum_inds[index1].prt_cstock[0] * tree.enum_inds[index2].prt_cstock[0]
+            ind.inv_types = tree.enum_inds[index1].prt_inv / tree.enum_inds[index1].prt_cstock[1] * tree.enum_inds[index2].prt_cstock[1]
+            ind.land_types = tree.enum_inds[index1].prt_land / tree.enum_inds[index1].prt_cstock[2] * tree.enum_inds[index2].prt_cstock[2]
+    return tree
+
+
 
 def load_type(data_tree,
-               blue_tree = None, blueprint = None,
+               blue_tree = None, blueprint = None, 
                from_out=False, out_path=None):
     ''' This function loads the soi partnership asset data.
     
