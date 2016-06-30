@@ -118,7 +118,7 @@ def load_partner(sector_dfs, from_out=False, output_data=False,
     soi_tree = prt.load_income(data_tree=soi_tree, from_out=from_out)
     '''
     # Load the soi asset data into the NAICS tree:
-    sector_dfs.update(prt.load_asset(from_out=from_out))
+    sector_dfs.update(prt.load_asset(sector_dfs=sector_dfs, from_out=from_out))
     '''
     # Load the soi partnership types data into the NAICS tree:
     soi_tree = prt.load_type(data_tree=soi_tree, from_out=from_out)
@@ -150,7 +150,7 @@ def load_proprietorship(sector_dfs,
     
     # Load the soi nonfarm data into the NAICS tree:
     if get_nonfarm:
-        sector_dfs.update(prop.load_soi_nonfarm_prop(from_out=from_out))
+        sector_dfs.update(prop.load_soi_nonfarm_prop(sector_dfs=sector_dfs, from_out=from_out))
     # Load the farm data into to the NAICS tree:
     '''
     if get_farm:

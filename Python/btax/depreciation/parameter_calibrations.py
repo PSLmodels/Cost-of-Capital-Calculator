@@ -25,7 +25,7 @@ sys.path.append(_PKL_DIR)
 # Importing custom modules:
 from btax.depreciation.calc_rates import calc_tax_depr_rates, calc_depr_rates
 
-def calibrate_depr_rates(asset_tree):
+def calibrate_depr_rates(sector_dfs):
     """ This calibrates a tree with all the depreciation rate parameters.
     :param get_all: Whether to get all the depreciation parameters or not.
     :param get_econ: Whether to get all the economic depreciation rates.
@@ -48,22 +48,27 @@ def calibrate_depr_rates(asset_tree):
     land_file.close()
     '''
     # Calculating the fixed asset data:
-    fixed_asset_tree = read_bea.read_bea(asset_tree)
+    fixed_assets = read_bea.read_bea(sector_dfs)
     # Calculating the inventory data:
     #inv_tree = read_inv.read_inventories(asset_tree)
     # Calculating the land data:
     #land_tree = read_land.read_land(asset_tree)
 
-    econ_depr = calc_depr_rates(fixed_asset_tree, inv_tree, land_tree)
-    tax_depr = calc_tax_depr_rates(fixed_asset_tree, inv_tree, land_tree)
-    tax_depr.columns =  ['NAICS', 'Tax_All', 'Tax_Corp', 'Tax_Non_Corp']
-    econ_depr.columns = ['NAICS', 'Econ_All', 'Econ_Corp', 'Econ_Non_Corp'] 
+    econ_depr = calc_depr_rates(fixed_assets)
+    tax_depr = calc_tax_depr_rates(fixed_assets)
+    depr_rates = {'econ_depr': econ_depr, 'tax_depr': tax_depr}
+
+    return fixed_assets 
+
+    tax_depr.columns =  ['NAICS', 'Tax_Corp', 'Tax_Non_Corp']
+    econ_depr.columns = ['NAICS', 'Econ_Corp', 'Econ_Non_Corp'] 
     depr_rates = econ_depr.merge(tax_depr)
+
     
-    _DPR_FILE = save_rates(depr_rates,save_all=True)
-    depr_tree = naics.load_tree_dfs(_DPR_FILE, naics.generate_tree()) 
-    depr_rates = naics.interpolate_data(depr_tree)    
-    save_rates(depr_rates,save_all=False)
+    #_DPR_FILE = save_rates(depr_rates,save_all=True)
+    #depr_tree = naics.load_tree_dfs(_DPR_FILE, naics.generate_tree()) 
+    #depr_rates = naics.interpolate_data(depr_tree)    
+    #save_rates(depr_rates,save_all=False)
 
     return depr_rates
 

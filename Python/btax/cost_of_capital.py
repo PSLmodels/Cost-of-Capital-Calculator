@@ -9,10 +9,13 @@ _OUT_DIR = os.path.join(_CUR_DIR, 'output')
 _DEPR_DIR = os.path.join(_CUR_DIR, 'depreciation')
 _DATA_DIR = os.path.join(_DEPR_DIR, 'data')
 _RATE_DIR = os.path.join(_DATA_DIR, 'depreciation_rates')
+_RAW_DIR = os.path.join(_DATA_DIR, 'raw_data')
+_BEA_DIR = os.path.join(_RAW_DIR, 'BEA')
+_NAICS_PATH = os.path.join(_BEA_DIR, 'NAICS_SOI_crosswalk.csv')
 _ECON_DEPR_FILE = os.path.join(_RATE_DIR, 'Economic Depreciation Rates.csv')
 _TAX_DEPR_FILE = os.path.join(_RATE_DIR, 'depr_allow.csv')
 
-def asst_cost_of_capital():
+def asset_cost_of_capital(fixed_assets):
 
 	econ_depr = pd.read_csv(_ECON_DEPR_FILE)
 	econ_depr = econ_depr.drop('Code',1)
@@ -35,8 +38,10 @@ def asst_cost_of_capital():
 		for i in xrange(0, len(cost_of_capital)):
 			cost_of_capital[j][i] = ((discount_rate - inflation_rate) + depr_rates[i][1]) * (1 - tax_rate * depr_rates[i][2]) / (1 - tax_rate) - depr_rates[i][1]
 			metr[j][i] = (cost_of_capital[j][i] - discount_rate + inflation_rate) / cost_of_capital[j][i]
-		
-
+	import ipdb
+	ipdb.set_trace()	
+	naics_codes = pd.read_csv(_NAICS_PATH)['2007 NAICS Codes'].tolist()[1:]
+	keys = fixed_assets.keys()
 	return cost_of_capital
 
 def calc_cost_of_capital(depr_params, discount_rates):

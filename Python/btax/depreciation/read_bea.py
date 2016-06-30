@@ -62,7 +62,6 @@ def read_bea(sector_dfs):
     entities = corp_tax_entity + non_corp_entity
     bea_soi_cross = pd.read_csv(_SOI_CROSS)
     soi_codes = bea_soi_cross['SOI Codes'].tolist()
-    import ipdb
     for i in xrange(0,len(soi_codes)):
         if isinstance(soi_codes[i], float):
             continue
@@ -130,6 +129,7 @@ def read_bea(sector_dfs):
             ind_fa = {cross_dict[code][0]: {'corp':corp_asst_vals, 'non_corp': non_corp_vals}}
             total_fa.update(ind_fa)
     return total_fa
+    '''
     # Opening "readme" sheet:
     try:
         bea_readme = bea_book.sheet_by_name("readme")
@@ -303,7 +303,6 @@ def read_bea(sector_dfs):
             if(tot_share == 1):
                 break
     #
-    '''
     naics.pop_back(fixed_asset_tree, ["All", "Corp", "Non-Corp"])
     naics.pop_forward(tree=fixed_asset_tree, df_list=["All"],
                       blueprint="FA", blue_tree=asset_tree)
@@ -313,5 +312,5 @@ def read_bea(sector_dfs):
     naics.pop_forward(tree=fixed_asset_tree, df_list=["Non-Corp"],
                       blueprint="FA", blue_tree=asset_tree, 
                       sub_print=_NCORP_NMS)
-    '''
     return fixed_asset_tree
+'''

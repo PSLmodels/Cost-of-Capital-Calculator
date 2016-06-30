@@ -18,7 +18,7 @@ _MAIN_DIR = os.path.dirname(_CUR_DIR)
 _DATA_DIR = os.path.join(_CUR_DIR, 'data')
 _DEPR_DIR = os.path.join(_DATA_DIR, 'depreciation_rates')
 _RAW_DIR = os.path.join(_DATA_DIR, 'raw_data')
-_BEA_PATH = os.path.join(_RAW_DIR, 'BEA')
+_BEA_DIR = os.path.join(_RAW_DIR, 'BEA')
 sys.path.append(_DATA_DIR)
 # Importing custom modules:
 import naics_processing as naics
@@ -27,7 +27,7 @@ import constants as cst
 _ECON_DEPR_IN_PATH = os.path.join(_DEPR_DIR, 'Economic Depreciation Rates.csv')
 _TAX_DEPR_IN_PATH = os.path.join(_DEPR_DIR, 'BEA_IRS_Crosswalk.csv')
 _NAICS_CODE_PATH = os.path.join(_DATA_DIR, 'NAICS_Codes.csv')
-_NAICS_PATH = os.path.join(_BEA_PATH, 'NAICS_SOI_crosswalk.csv')
+_NAICS_PATH = os.path.join(_BEA_DIR, 'NAICS_SOI_crosswalk.csv')
 def calc_depr_rates(fixed_assets):
     #opens the file containing depreciation rates by asset type:
     depr_econ = pd.read_csv(_ECON_DEPR_IN_PATH)
