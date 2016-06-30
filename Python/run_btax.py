@@ -28,7 +28,7 @@ sys.path.append(_DEPR_DIR)
 sys.path.append(_BTAX_DIR)
 from btax.depreciation.parameter_calibrations import calibrate_depr_rates, calc_soi_assets
 from btax.financial_policy.calibrate_financing import calibrate_financing
-from btax.cost_of_capital import calc_cost_of_capital, asst_cost_of_capital
+from btax.cost_of_capital import calc_cost_of_capital, asset_cost_of_capital
 from btax.financial_policy.calc_discount_rate import calc_real_discount_rate
 import naics_processing as naics
 import soi_processing as soi
@@ -38,10 +38,13 @@ def run_btax(user_params):
 	#calculates the depreciation rates
 	sector_dfs = pull_soi_data(get_all=True, from_out=False,
 	                               output_data=True)
-	depr_rates = calibrate_depr_rates(sector_dfs)
+	fixed_assets = calibrate_depr_rates(sector_dfs)
+	asset_cost_of_capital(fixed_assets)
+	'''
 	debt_ratios = calibrate_financing()
 	discount_rates = calc_real_discount_rate(debt_ratios)
-	calc_cost_of_capital(depr_rates, discount_rates)	
+	calc_cost_of_capital(depr_rates, discount_rates)
+	'''	
 
 run_btax(user_params={})
 '''
