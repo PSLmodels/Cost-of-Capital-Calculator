@@ -24,6 +24,7 @@ _PRT_DIR = os.path.join(_SOI_DIR, 'soi_partner')
 import naics_processing as naics
 import file_processing as fp
 import constants as cst
+import pull_soi_partner as prt
 # Dataframe names:
 _FARM_DF_NM = cst.FARM_PROP_DF_NM
 _NFARM_DF_NM = cst.NON_FARM_PROP_DF_NM
@@ -91,15 +92,17 @@ def load_soi_nonfarm_prop(sector_dfs, blue_tree=None, blueprint=None,
     # Opens the nonfarm data crosswalk
     crosswalk = pd.read_csv(_DDCT_IN_CROSS_PATH)
     # Opens the nonfarm inventory data
-    nonfarm_inv = format_dataframe(pd.read_csv(_NFARM_INV).T,crosswalk)
+    import ipdb
+    ipdb.set_trace()
+    nonfarm_inv = prt.format_dataframe(pd.read_csv(_NFARM_INV).T,crosswalk)
     # Opens the crosswalk for the partner data
     prt_crosswalk = pd.read_csv(_PRT_CROSS)
     # Opens and formatting the partner depreciation deduction data 
     prt_deduct = pd.read_csv(_PRT_INC).T
-    prt_deduct = format_dataframe(prt_deduct, prt_crosswalk)
+    prt_deduct = prt.format_dataframe(prt_deduct, prt_crosswalk)
     # Opens and formatting the partner asset data
     prt_asst = pd.read_csv(_PRT_ASST).T
-    prt_asst = format_dataframe(prt_asst, prt_crosswalk)
+    prt_asst = prt.format_dataframe(prt_asst, prt_crosswalk)
     # Inserts the codes into the nonfarm dataframe
     nonfarm_df.insert(1, 'Codes:', crosswalk['Codes:'])
     # Formats the column names for the nonfarm dataframe 
@@ -109,7 +112,7 @@ def load_soi_nonfarm_prop(sector_dfs, blue_tree=None, blueprint=None,
         if '.1' in column:
             column = column[:-2]
         if '\n' in column:
-            column = column.replace('\n', ' ')
+            column = column.replace('\n', ' ').replace('\r','')
         column = column.rstrip()
         columns[i] = column
     nonfarm_df.columns = columns
@@ -252,35 +255,6 @@ def load_soi_nonfarm_prop(sector_dfs, blue_tree=None, blueprint=None,
     return data_tree
 '''
 
-def format_dataframe(df, crosswalk):
-    indices = []
-    # Removes the extra characters from the industry names
-    for string in df.index:
-        indices.append(string.replace('\n',' '))
-    # Adds the industry names as the first column in the dataframe
-    df.insert(0,indices[0],indices)
-    columns = df.iloc[0].tolist()
-    # Drops the first row because it will become the column labels
-    df = df[df.Item != 'Item']
-    # Removes extra characters from the column labels
-    for i in xrange(0,len(columns)):
-        columns[i] = columns[i].strip()
-    # Sets the new column values
-    df.columns = columns
-    # Creates a new index based on the length of the crosswalk (needs to match)
-    df.index = np.arange(0,len(crosswalk['Codes:']))
-    # Inserts the codes from the crosswalk as the second column in the df
-    df.insert(1,'Codes:',crosswalk['Codes:'])
-    names = df['Item']
-    codes = df['Codes:']
-    # Multiplies the entire dataframe by a factor of a thousand
-    df = df * _DDCT_FILE_FCTR
-    # Replaces the industry names and codes to adjust for the multiplication in the previous step
-    df['Item'] = names
-    df['Codes:'] = codes
-    # Returns the newly formatted dataframe
-    return df
-
 # Fills in the missing values using the proportion of corporate industry values
 def interpolate_data(sector_dfs, df):
     # Takes the total corp values as the baseline
@@ -315,7 +289,7 @@ def interpolate_data(sector_dfs, df):
 def load_soi_farm_prop(data_tree,
                        blue_tree=None, blueprint=None,
                        from_out=False, out_path=_FARM_PROP_OUT_PATH):
-    ''' This function loads the soi nonfarm proprietorship data:
+    This function loads the soi nonfarm proprietorship data:
     
     :param data_tree: The NAICS tree to read the data into.
     :param cols_dict: A dictionary mapping dataframe columns to the name of

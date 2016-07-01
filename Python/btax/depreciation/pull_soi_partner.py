@@ -54,13 +54,11 @@ _TYP_IN_CROSS_PATH = os.path.join(_PRT_DIR, _TYP_IN_CROSS_FILE)
 _INC_OUT_PATH = os.path.join(_OUT_DIR, _INC_OUT_FILE)
 _AST_OUT_PATH = os.path.join(_OUT_DIR, _AST_OUT_FILE)
 _TYP_OUT_PATH = os.path.join(_OUT_DIR, _TYP_OUT_FILE)
-<<<<<<< HEAD
 _INC_FILE = os.path.join(_PRT_DIR, '12pa01.csv')
 _AST_FILE = os.path.join(_PRT_DIR, '12pa03.csv')
 _TYP_FILE = os.path.join(_PRT_DIR, '12pa05.csv')
 _SOI_CODES = os.path.join(_SOI_DIR, 'SOI_codes.csv')
-=======
->>>>>>> upstream/master
+
 # Constant factors:
 _INC_FILE_FCTR = 10**3
 _AST_FILE_FCTR = 10**3
@@ -419,7 +417,7 @@ def format_dataframe(df, crosswalk):
     indices = []
     # Removes the extra characters from the industry names
     for string in df.index:
-        indices.append(string.replace('\n',' '))
+        indices.append(string.replace('\n',' ').replace('\r',''))
     # Adds the industry names as the first column in the dataframe
     df.insert(0,indices[0],indices)
     # Stores the values of the first row in columns
@@ -428,7 +426,7 @@ def format_dataframe(df, crosswalk):
     df = df[df.Item != 'Item']
     # Removes extra characters from the column labels
     for i in xrange(0,len(columns)):
-        columns[i] = columns[i].strip()
+        columns[i] = columns[i].strip().replace('\r','')
     # Sets the new column values
     df.columns = columns
     # Creates a new index based on the length of the crosswalk (needs to match)
