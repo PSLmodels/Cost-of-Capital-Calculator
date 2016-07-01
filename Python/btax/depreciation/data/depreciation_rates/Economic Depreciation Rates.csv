@@ -38,27 +38,27 @@ EO60,Service industry machinery,0.1528
 EO71,Household appliances,0.165
 EO72,Other electrical,0.1834
 EO80,Other,0.1473
-SOO1,Office                                    ,0.0247
-SB31,Hospitals                             ,0.0188
-SB32,Special care                          ,0.0188
-SOO2,Medical buildings                       ,0.0247
-SC03,Multimerchandise shopping            ,0.0262
+SOO1,Office,0.0247
+SB31,Hospitals,0.0188
+SB32,Special care,0.0188
+SOO2,Medical buildings,0.0247
+SC03,Multimerchandise shopping,0.0262
 SC04,Food and beverage establishments,0.0262
-SC01,Warehouses                                ,0.0222
+SC01,Warehouses,0.0222
 SOMO ,Mobile structures,0.0556
 SC02,Other commercial,0.0262
-SI00,Manufacturing                               ,0.0314
-SU30,Electric                                ,0.0211
+SI00,Manufacturing,0.0314
+SU30,Electric,0.0211
 SU60,Wind and solar,0.0303
 SU40,Gas,0.0237
 SU50,Petroleum pipelines,0.0237
-SU20,Communication                             ,0.0237
-SM01,Petroleum and natural gas          ,0.0751
-SM02,Mining                    ,0.045
-SB10,Religious                   ,0.0188
-SB20,Educational and vocational       ,0.0188
-SB41,Lodging                                   ,0.0281
-SB42,Amusement and recreation         ,0.03
+SU20,Communication,0.0237
+SM01,Petroleum and natural gas,0.0751
+SM02,Mining,0.045
+SB10,Religious,0.0188
+SB20,Educational and vocational,0.0188
+SB41,Lodging,0.0281
+SB42,Amusement and recreation,0.03
 SB43,Air transportation,0.0237
 SB45,Other transportation,0.0237
 SU11,Other railroad,0.0176

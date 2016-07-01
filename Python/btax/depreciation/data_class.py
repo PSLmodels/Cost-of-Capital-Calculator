@@ -93,6 +93,28 @@ class industry:
     '''
     def __init__(self, sub_ind, *args):
         self.sub_ind = sub_ind
+        self.s_corp = np.zeros(1)
+        self.s_corp_cstock = np.zeros(1)
+        self.c_corp = np.zeros(1)
+        self.c_corp_cstock = np.zeros(1)
+        self.tot_corp = np.zeros(1)
+        self.tot_corp_cstock = np.zeros(1)
+        self.prt_cstock = np.zeros(1)
+        self.prt_types = np.zeros(1)
+        self.prt_inv = np.zeros(1)
+        self.prt_land = np.zeros(1)
+        self.lf_ratio = 0
+        self.li_ratio = 0
+        self.ll_ratio = 0
+        self.pf_ratio = 0
+        self.pi_ratio = 0
+        self.pl_ratio = 0
+        self.c_corp_ratio = 0
+        self.s_corp_ratio = 0
+        self.n_corp_ratio = 0
+        self.nfarm_cstock = np.zeros(1)
+        self.asset_data = np.zeros(1)
+        self.app_assts = False
         # Initialize the data:
         self.data = pd_dfs(args)
     
@@ -181,6 +203,7 @@ class tree:
         self.enum_inds = [industry([]) for i in xrange(0,rows)]
         self.root = self.enum_inds[0]
         self.par = [0]*rows
+        self.codes = {}
         # Read the naics codes into the tree:
         
         for i in xrange(0, rows):
@@ -200,12 +223,12 @@ class tree:
             self.enum_inds[i].children = []  
         for i in xrange(0, rows):   
             visited[i] = True
-            self.enum_inds[i].naics = str(codes[i])
-            for j in xrange(i+1, rows):
-                if(len(str(codes[i])) == len(str(codes[j])) and '-' not in str(codes[i])):
-                    break
-                if(visited[j] == False):
-                    self.check_child(str(codes[i]), str(codes[j]), i, j, visited, codes)
+            self.codes.update({str(codes[i]):i})
+        for j in xrange(i+1, rows):
+            if(len(str(codes[i])) == len(str(codes[j])) and '-' not in str(codes[i])):
+                break
+            if(visited[j] == False):
+                self.check_child(str(codes[i]), str(codes[j]), i, j, visited, codes)
         for i in xrange(0,rows):
             if(self.enum_inds[i].parent == 0 and self.enum_inds[i].naics != '1'):
                 self.enum_inds[i].parent = self.root

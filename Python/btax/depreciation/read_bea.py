@@ -23,6 +23,8 @@ import naics_processing as naics
 import constants as cst
 # Full file paths:
 _BEA_ASSET_PATH = os.path.join(_BEA_DIR, "detailnonres_stk1.xlsx")
+_BEA_CROSS = os.path.join(_BEA_DIR, 'BEA_Crosswalk.csv')
+_SOI_CROSS = os.path.join(_BEA_DIR, 'NAICS_SOI_crosswalk.csv')
 # Dataframe column names:
 _CORP_TAX_SECTORS_NMS_DICT = cst.CORP_TAX_SECTORS_NMS_DICT
 _CORP_NMS = _CORP_TAX_SECTORS_NMS_DICT.values()
@@ -30,14 +32,104 @@ _NON_CORP_TAX_SECTORS_NMS_DICT = cst.NON_CORP_TAX_SECTORS_NMS_DICT
 _NCORP_NMS = _NON_CORP_TAX_SECTORS_NMS_DICT.values()
 # Constant factors:
 _BEA_IN_FILE_FCTR = 10**6
+_START_POS = 8
+_SKIP1 = 47
+_SKIP2 = 80
+_CORP_PRT = [1,2]
+_NCORP_PRT = [3,4,5,6,7,8,9,10]
 '''
 Reads in the detailnonres_stk1.xlsx BEA file:
 '''
-def read_bea(asset_tree):
+def read_bea(sector_dfs):
     # Opening BEA's excel file on depreciable assets by industry:
+
     bea_book = xlrd.open_workbook(_BEA_ASSET_PATH)
     sht_names = bea_book.sheet_names()
     num_shts = bea_book.nsheets
+    bea_cross = pd.read_csv(_BEA_CROSS)
+    bea_cross = bea_cross.set_index('BEA').to_dict()['NAICS']
+    for k, v in bea_cross.iteritems():
+        if '.' in v:
+            ind_list = v.split('.')
+            bea_cross[k] = ind_list
+        else:
+            bea_cross[k] = [v]
+    bea_data = []
+
+    corp_tax_entity = ['c_corp','corp_gen', 'corp_lim']
+    non_corp_entity = ['indv_gen', 'indv_lim', 'prt_gen',
+     'prt_lim', 'tax_gen', 'tax_lim', 'nom_gen', 'nom_lim', 'sole_prop']
+    entities = corp_tax_entity + non_corp_entity
+    bea_soi_cross = pd.read_csv(_SOI_CROSS)
+    soi_codes = bea_soi_cross['SOI Codes'].tolist()
+    for i in xrange(0,len(soi_codes)):
+        if isinstance(soi_codes[i], float):
+            continue
+        if ',' in soi_codes[i]:
+            code_list = soi_codes[i].split(', ')
+            for entity in entities:
+                df = sector_dfs[entity]
+                for code in code_list:
+                   df.replace(float(code), soi_codes[i], inplace=True)
+              
+    for entity in entities:
+        df = sector_dfs[entity]
+        df = df.groupby('Codes:',sort=False).sum()
+        codes = df.index.tolist()
+        df.insert(0,'Codes:', codes)
+        df.index = np.arange(0,len(df))
+        sector_dfs[entity] = df
+             
+    ratios = []
+    for i in xrange(0,len(sector_dfs['c_corp'])):
+        corp_fa = 0
+        non_corp_fa = 0
+        for entity in corp_tax_entity:
+            corp_fa += sector_dfs[entity]['FA'][i]
+        for entity in non_corp_entity:
+            non_corp_fa += sector_dfs[entity]['FA'][i]
+        total_fa = non_corp_fa + corp_fa
+        if(total_fa != 0):    
+            corp_ratio = corp_fa / total_fa
+            non_corp_ratio = non_corp_fa / total_fa
+            ratios.append((sector_dfs['corp_gen']['Codes:'][i],corp_ratio, non_corp_ratio))
+    rate_df = pd.DataFrame(ratios, index = np.arange(0,len(ratios)), columns = ['Codes:', 'corp', 'non_corp'])
+
+    cross_dict = {}
+    for i in xrange(0, len(bea_soi_cross)):
+        bea_code = str(bea_soi_cross.iloc[i]['BEA CODE'])
+        if bea_code == 'nan':
+            continue
+
+        elif '-' not in bea_code:
+            naics_code = bea_soi_cross.iloc[i]['2007 NAICS Codes']
+            soi_codes = bea_soi_cross.iloc[i]['SOI Codes']
+            cross_dict[bea_code] = (naics_code, soi_codes)
+
+    rates = rate_df.to_dict()
+    codes = rate_df.to_dict()['Codes:']
+    code_dict={}
+    for y,x in codes.iteritems():
+        if isinstance(x, float):
+            code_dict[str(int(x))] = y
+        else:
+            code_dict[x] = y
+    total_fa={}
+    for sheet in bea_book.sheets():
+        if(sheet.name != 'readme' and sheet.name != 'Datasets'):
+            code = sheet.cell_value(0,0).encode('ascii','ignore').partition(' ')[0]
+            asst_vals = []
+            for index in xrange(_START_POS, sheet.nrows):
+                if(index != _SKIP1 and index != _SKIP2):
+                    asst_vals.append(sheet.cell_value(index, sheet.ncols-1)*_BEA_IN_FILE_FCTR)
+            key = cross_dict[code][1]
+            key1 = code_dict[key]
+            corp_asst_vals = np.array(asst_vals) * rates['corp'][key1]
+            non_corp_vals = np.array(asst_vals) * rates['non_corp'][key1]
+            ind_fa = {cross_dict[code][0]: {'corp':corp_asst_vals, 'non_corp': non_corp_vals}}
+            total_fa.update(ind_fa)
+    return total_fa
+    '''
     # Opening "readme" sheet:
     try:
         bea_readme = bea_book.sheet_by_name("readme")
@@ -223,3 +315,4 @@ def read_bea(asset_tree):
                       sub_print=_NCORP_NMS)
     '''
     return fixed_asset_tree
+'''
