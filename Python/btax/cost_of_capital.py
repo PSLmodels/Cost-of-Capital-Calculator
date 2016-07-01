@@ -44,6 +44,7 @@ def asset_cost_of_capital(fixed_assets):
 	keys = fixed_assets.keys()
 	return cost_of_capital
 
+
 def calc_cost_of_capital(depr_params, discount_rates):
 	discount_rate = np.array(discount_rates['corp'])
 	depr_allow = np.array(depr_params['Tax_Corp'])

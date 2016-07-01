@@ -147,7 +147,7 @@ def load_proprietorship(sector_dfs,
     # Initializing the output path:
     if out_path == None:
         out_path = _SOI_DIR
-    
+
     # Load the soi nonfarm data into the NAICS tree:
     if get_nonfarm:
         sector_dfs.update(prop.load_soi_nonfarm_prop(sector_dfs=sector_dfs, from_out=from_out))
@@ -164,7 +164,7 @@ def load_proprietorship(sector_dfs,
     '''
     return sector_dfs
 
-
+'''
 def calc_assets(soi_tree, asset_tree):
     """ Calculating a breakdown of the various sector type's assets
     into fixed assets, inventories, and land. 
@@ -229,4 +229,4 @@ def calc_assets(soi_tree, asset_tree):
                                 )
         out_dfs["LAND"][sector][0] = abs(ratio*cur_df["land_net"][0])
     return asset_tree
-
+'''

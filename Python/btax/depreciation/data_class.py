@@ -224,12 +224,11 @@ class tree:
         for i in xrange(0, rows):   
             visited[i] = True
             self.codes.update({str(codes[i]):i})
-            self.enum_inds[i].naics = str(codes[i])
-            for j in xrange(i+1, rows):
-                if(len(str(codes[i])) == len(str(codes[j])) and '-' not in str(codes[i])):
-                    break
-                if(visited[j] == False):
-                    self.check_child(str(codes[i]), str(codes[j]), i, j, visited, codes)
+        for j in xrange(i+1, rows):
+            if(len(str(codes[i])) == len(str(codes[j])) and '-' not in str(codes[i])):
+                break
+            if(visited[j] == False):
+                self.check_child(str(codes[i]), str(codes[j]), i, j, visited, codes)
         for i in xrange(0,rows):
             if(self.enum_inds[i].parent == 0 and self.enum_inds[i].naics != '1'):
                 self.enum_inds[i].parent = self.root

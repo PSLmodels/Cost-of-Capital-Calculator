@@ -45,7 +45,6 @@ def run_btax(user_params):
 	discount_rates = calc_real_discount_rate(debt_ratios)
 	calc_cost_of_capital(depr_rates, discount_rates)
 	'''	
-
 run_btax(user_params={})
 '''
 if __name__ == '__main__':

@@ -28,7 +28,9 @@ _ECON_DEPR_IN_PATH = os.path.join(_DEPR_DIR, 'Economic Depreciation Rates.csv')
 _TAX_DEPR_IN_PATH = os.path.join(_DEPR_DIR, 'BEA_IRS_Crosswalk.csv')
 _NAICS_CODE_PATH = os.path.join(_DATA_DIR, 'NAICS_Codes.csv')
 _NAICS_PATH = os.path.join(_BEA_DIR, 'NAICS_SOI_crosswalk.csv')
+
 def calc_depr_rates(fixed_assets):
+
     #opens the file containing depreciation rates by asset type:
     depr_econ = pd.read_csv(_ECON_DEPR_IN_PATH)
     depr_econ = depr_econ.fillna(0)
@@ -39,11 +41,8 @@ def calc_depr_rates(fixed_assets):
     naics_list = pd.read_csv(_NAICS_PATH)['2007 NAICS Codes'].tolist()[1:]
     #creates a dataframe that is returned at the end of the function with a list of all corp and non-corp industry averages
     econ_depr = pd.DataFrame(index = np.arange(0,len(fixed_assets)), columns = ('NAICS', 'corp', 'non_corp'))
-    #sets the first column of the dataframe with the naics values
     types = ['corp', 'non_corp']
     #Runs for the corporate assets and for non-corporate assets 
-    #Iterates over every industry in the tree
-
     k = 0     
     for j in xrange(0, len(naics_codes)):
         naics_code = naics_codes[j]
@@ -92,7 +91,6 @@ def calc_tax_depr_rates(fixed_assets):
     naics_codes = pd.read_csv(_NAICS_PATH)['2007 NAICS Codes'].tolist()[1:]
     naics_list = pd.read_csv(_NAICS_PATH)['2007 NAICS Codes'].tolist()[1:]
     #sets the first column of the dataframe with the naics values
-    
     types = ['corp', 'non_corp']
     k = 0     
     for j in xrange(0, len(naics_codes)):

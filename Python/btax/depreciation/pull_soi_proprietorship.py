@@ -85,6 +85,7 @@ def load_soi_nonfarm_prop(sector_dfs, blue_tree=None, blueprint=None,
     :param from_out: Whether to read in the data from output.
     :param output_path: The path of the output file.
     '''
+
     # Opens the file that contains the non farm sole prop data
     nonfarm_df = pd.read_csv(_NFARM_PATH)
     # Opens the nonfarm data crosswalk
@@ -190,6 +191,7 @@ def load_soi_nonfarm_prop(sector_dfs, blue_tree=None, blueprint=None,
     # Creates the dictionary of sector : dataframe that is returned and used to update sector_dfs
     sole_prop_cstock = {'sole_prop': nfarm_df}
     return sole_prop_cstock
+
     # If from_out, load the data tree from output:
     '''
     if from_out:
@@ -309,7 +311,7 @@ def interpolate_data(sector_dfs, df):
             df.set_value(i, 'Land', new_data[2])
     # Returns the sole prop dataframe with all the missing values filled in        
     return df
-
+'''
 def load_soi_farm_prop(data_tree,
                        blue_tree=None, blueprint=None,
                        from_out=False, out_path=_FARM_PROP_OUT_PATH):
@@ -324,7 +326,7 @@ def load_soi_farm_prop(data_tree,
            is the original NAICS tree.
     :param from_out: Whether to read in the data from output.
     :param output_path: The path of the output file.
-    '''
+
     # If from_out, load the data tree from output:
     if from_out:
         data_tree = naics.load_tree_dfs(input_path=out_path, tree=data_tree)
@@ -364,4 +366,4 @@ def load_soi_farm_prop(data_tree,
                       blueprint=blueprint, blue_tree=blue_tree)
     #
     return data_tree
-
+'''

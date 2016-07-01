@@ -121,6 +121,10 @@ def load_soi_tot_corp(data_tree,
     naics.pop_forward(tree=data_tree, df_list=[_TOT_DF_NM],
                       blueprint=blueprint, blue_tree=blue_tree)
 
+    naics.pop_back(tree=data_tree, df_list=[_TOT_DF_NM])
+    naics.pop_forward(tree=data_tree, df_list=[_TOT_DF_NM],
+                      blueprint=blueprint, blue_tree=blue_tree)
+
     return data_tree
 '''
 
@@ -153,6 +157,7 @@ def load_soi_s_corp(cols_dict=_DFLT_S_CORP_COLS_DICT,
     except IOError:
         print "IOError: S-Corp soi data file not found."
         return None
+
     # Formatting the list of columns that will be used to trim the dataframe for the necessary data
     columns = cols_dict.values()
     columns.remove('')
@@ -242,6 +247,7 @@ def load_soi_s_corp(cols_dict=_DFLT_S_CORP_COLS_DICT,
     if blueprint == None and has_tot_df:
         blueprint = _TOT_DF_NM
     # Populate all levels of specificity in the NAICS tree:
+
     naics.pop_back(tree=data_tree, df_list=[_S_DF_NM])
     naics.pop_forward(tree=data_tree, df_list=[_S_DF_NM],
                       blueprint=blueprint, blue_tree=blue_tree)

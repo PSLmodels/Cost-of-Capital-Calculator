@@ -54,10 +54,13 @@ _TYP_IN_CROSS_PATH = os.path.join(_PRT_DIR, _TYP_IN_CROSS_FILE)
 _INC_OUT_PATH = os.path.join(_OUT_DIR, _INC_OUT_FILE)
 _AST_OUT_PATH = os.path.join(_OUT_DIR, _AST_OUT_FILE)
 _TYP_OUT_PATH = os.path.join(_OUT_DIR, _TYP_OUT_FILE)
+<<<<<<< HEAD
 _INC_FILE = os.path.join(_PRT_DIR, '12pa01.csv')
 _AST_FILE = os.path.join(_PRT_DIR, '12pa03.csv')
 _TYP_FILE = os.path.join(_PRT_DIR, '12pa05.csv')
 _SOI_CODES = os.path.join(_SOI_DIR, 'SOI_codes.csv')
+=======
+>>>>>>> upstream/master
 # Constant factors:
 _INC_FILE_FCTR = 10**3
 _AST_FILE_FCTR = 10**3
@@ -116,6 +119,9 @@ _PARENTS = {'32':'31','33':'31','45':'44','49':'48'}
 def load_income(data_tree,
                 blue_tree=None, blueprint=None,
                 from_out=False, out_path=None):
+
+    This function loads the soi partnership income data.
+
     This function loads the soi partnership income data.
     
     :param data_tree: The NAICS tree to read the data into.
@@ -124,7 +130,7 @@ def load_income(data_tree,
     :param blue_tree: A NAICS tree with the 'blueprint' dataframe. The default
            is the original NAICS tree.
     :param from_out: Whether to read in the data from output.
-    
+
     # Initializing the output path:
     if out_path == None:
         out_path = _INC_OUT_PATH
@@ -165,7 +171,8 @@ def load_income(data_tree,
     if blueprint == None and has_tot_df:
         blueprint = _TOT_CORP_DF_NM
     # Populate all levels of specificity in the NAICS tree:
-    
+
+
     naics.pop_back(tree=data_tree, df_list=[_INC_DF_NM])
     naics.pop_forward(tree=data_tree, df_list=[_INC_DF_NM],
                       blueprint=blueprint, blue_tree=blue_tree)
@@ -184,7 +191,7 @@ def load_asset(sector_dfs, blue_tree=None, blueprint=None,
     :param blue_tree: A NAICS tree with the 'blueprint' dataframe. The default
            is the original NAICS tree.
     :param from_out: Whether to read in the data from output.
-    
+
     # Initializing the output path:
     if out_path == None:
         out_path = _AST_OUT_PATH
@@ -396,12 +403,17 @@ def load_asset(sector_dfs, blue_tree=None, blueprint=None,
     if blueprint == None and has_tot_df:
         blueprint = _TOT_CORP_DF_NM
     # Populate all levels of specificity in the NAICS tree:
+
     
     naics.pop_back(tree=data_tree, df_list=[_AST_DF_NM])
     naics.pop_forward(tree=data_tree, df_list=[_AST_DF_NM],
                       blueprint=blueprint, blue_tree=blue_tree)
     
-    return data_tree
+
+    naics.pop_back(tree=data_tree, df_list=[_AST_DF_NM])
+    naics.pop_forward(tree=data_tree, df_list=[_AST_DF_NM],
+                      blueprint=blueprint, blue_tree=blue_tree)
+
 '''
 def format_dataframe(df, crosswalk):
     indices = []
@@ -487,7 +499,9 @@ def calc_proportions(tree):
 def load_type(data_tree,
                blue_tree = None, blueprint = None, 
                from_out=False, out_path=None):
-     This function loads the soi partnership asset data.
+
+    This function loads the soi partnership asset data.
+
     
     :param data_tree: The NAICS tree to read the data into.
     :param blueprint: The key corresponding to a dataframe in a tree to be
@@ -495,7 +509,7 @@ def load_type(data_tree,
     :param blue_tree: A NAICS tree with the 'blueprint' dataframe. The default
            is the original NAICS tree.
     :param from_out: Whether to read in the data from output.
-    
+
     # Initializing the output path:
     if out_path == None:
         out_path = _TYP_OUT_PATH
@@ -543,6 +557,10 @@ def load_type(data_tree,
     naics.pop_back(tree=data_tree, df_list=[_TYP_DF_NM])
     naics.pop_forward(tree=data_tree, df_list=[_TYP_DF_NM],
                       blueprint=blueprint, blue_tree=blue_tree)
-    
+
+    naics.pop_back(tree=data_tree, df_list=[_TYP_DF_NM])
+    naics.pop_forward(tree=data_tree, df_list=[_TYP_DF_NM],
+                      blueprint=blueprint, blue_tree=blue_tree)
+
     return data_tree
 '''
