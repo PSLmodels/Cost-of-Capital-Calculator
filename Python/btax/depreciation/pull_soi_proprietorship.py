@@ -92,8 +92,6 @@ def load_soi_nonfarm_prop(sector_dfs, blue_tree=None, blueprint=None,
     # Opens the nonfarm data crosswalk
     crosswalk = pd.read_csv(_DDCT_IN_CROSS_PATH)
     # Opens the nonfarm inventory data
-    import ipdb
-    ipdb.set_trace()
     nonfarm_inv = prt.format_dataframe(pd.read_csv(_NFARM_INV).T,crosswalk)
     # Opens the crosswalk for the partner data
     prt_crosswalk = pd.read_csv(_PRT_CROSS)
@@ -106,16 +104,7 @@ def load_soi_nonfarm_prop(sector_dfs, blue_tree=None, blueprint=None,
     # Inserts the codes into the nonfarm dataframe
     nonfarm_df.insert(1, 'Codes:', crosswalk['Codes:'])
     # Formats the column names for the nonfarm dataframe 
-    columns = nonfarm_df.columns.tolist()
-    for i in xrange(0,len(columns)):
-        column = columns[i]
-        if '.1' in column:
-            column = column[:-2]
-        if '\n' in column:
-            column = column.replace('\n', ' ').replace('\r','')
-        column = column.rstrip()
-        columns[i] = column
-    nonfarm_df.columns = columns
+    nonfarm_df = format_columns(nonfarm_df)
     # Saves the industry names and codes so they can be reused later
     names = nonfarm_df['Industrial sector']
     codes = nonfarm_df['Codes:']
@@ -190,7 +179,6 @@ def load_soi_nonfarm_prop(sector_dfs, blue_tree=None, blueprint=None,
     sp_farm_assts = farm_df['R_sp'][0] + farm_df['Q_sp'][0] - sp_farm_land
     sp_farm_cstock = np.array([sp_farm_assts, 0, sp_farm_land])
 
-    #data_tree.enum_inds[index].farm_cstock = sp_farm_cstock
     # Creates the dictionary of sector : dataframe that is returned and used to update sector_dfs
     sole_prop_cstock = {'sole_prop': nfarm_df}
     return sole_prop_cstock
@@ -254,6 +242,19 @@ def load_soi_nonfarm_prop(sector_dfs, blue_tree=None, blueprint=None,
     #
     return data_tree
 '''
+def format_columns(nonfarm_df):
+    columns = nonfarm_df.columns.tolist()
+    for i in xrange(0,len(columns)):
+        column = columns[i]
+        if '.1' in column:
+            column = column[:-2]
+        if '\n' in column:
+            column = column.replace('\n', ' ').replace('\r','')
+        column = column.rstrip()
+        columns[i] = column
+    nonfarm_df.columns = columns
+    return nonfarm_df
+
 
 # Fills in the missing values using the proportion of corporate industry values
 def interpolate_data(sector_dfs, df):
