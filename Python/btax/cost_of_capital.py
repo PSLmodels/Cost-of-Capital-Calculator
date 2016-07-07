@@ -13,7 +13,7 @@ _RAW_DIR = os.path.join(_DATA_DIR, 'raw_data')
 _BEA_DIR = os.path.join(_RAW_DIR, 'BEA')
 _NAICS_PATH = os.path.join(_BEA_DIR, 'NAICS_SOI_crosswalk.csv')
 _ECON_DEPR_FILE = os.path.join(_RATE_DIR, 'Economic Depreciation Rates.csv')
-_TAX_DEPR_FILE = os.path.join(_RATE_DIR, 'depr_allow.csv')
+_TAX_DEPR_FILE = os.path.join(_RATE_DIR, 'depr_allow_ads.csv')
 
 def asset_cost_of_capital(fixed_assets):
 
@@ -23,11 +23,18 @@ def asset_cost_of_capital(fixed_assets):
 	depr_rates = np.array(econ_depr.merge(tax_depr_allow))
 	# grabs the constant values from the parameters dictionary
 	params = param.get_params()
-	inflation_rate = params['Inflation rate']
-	corp_tax = params['Corporate tax rate']
-	non_corp_tax = params['Non corporate tax rate']
-	corp_discount_rate = params['Corporate discount rate']
-	non_corp_discount_rate = params['Non corporate discount rate']
+	inflation_rate = params['inflation rate']
+	stat_tax = params['tax rate']
+	discount_rate = params['discount rate']
+	savings = params['savings']
+	delta = params['econ depreciation']
+	delta = np.tile(np.reshape(delta,(96,1,1)),(1,3,2))
+	z = params['depr allow']
+	import ipdb
+	ipdb.set_trace()
+	rho = ((discount_rate - inflation_rate) + delta) * (1- stat_tax * z) / (1- stat_tax) - delta
+	metr = (rho - (discount_rate - inflation_rate)) / rho
+
 	types = ['corp', 'non_corp']
 	column_types = types + ['corp_assets', 'non_corp_assets']
 
@@ -54,6 +61,8 @@ def asset_cost_of_capital(fixed_assets):
 				cost_of_capital[new_type][i] += assets[j][i]
 			# also calculates the marginal effective tax rate by asset and entity type
 			metr[j][i] = (cost_of_capital[j][i] - discount_rate + inflation_rate) / cost_of_capital[j][i]
+
+	cost_of_capital.insert(0, 'Asset', econ_depr['Asset'])
 	import ipdb
 	ipdb.set_trace()
 	agg_cc = pd.DataFrame(index=np.arange(0, len(agg_fa)), columns=['NAICS', 'corp', 'non_corp', 'corp_assets', 'non_corp_assets'])

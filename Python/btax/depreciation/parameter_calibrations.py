@@ -59,9 +59,9 @@ def calibrate_depr_rates(sector_dfs):
     # Calculating the land data:
     #land_tree = read_land.read_land(asset_tree)
 
-    econ_depr = calc_depr_rates(fixed_assets)
-    tax_depr = calc_tax_depr_rates(fixed_assets)
-    depr_rates = {'econ_depr': econ_depr, 'tax_depr': tax_depr}
+    #econ_depr = calc_depr_rates(fixed_assets)
+    #tax_depr = calc_tax_depr_rates()
+    #depr_rates = {'econ_depr': econ_depr, 'tax_depr': tax_depr}
 
     return fixed_assets 
 

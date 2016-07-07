@@ -49,7 +49,7 @@ Mobile structures,6,5,6,GDS,GDS 200%
 Other commercial,40,39,40,GDS,GDS SL
 Manufacturing,40,39,40,GDS,GDS SL
 Electric,19,10,19,GDS,GDS SL
-Wind and solar,6,5,,GDS,GDS 200%
+Wind and solar,6,5,5,GDS,GDS 200%
 Gas,14,7,14,GDS,GDS 200%
 Petroleum pipelines,14,7,14,GDS,GDS 200%
 Communication,6,5,6,GDS,GDS 200%
@@ -75,7 +75,7 @@ Custom software,3,3,3,GDS,GDS 200%
 Own account software,3,3,3,GDS,GDS 200%
 Pharmaceutical and medicine manufacturing,9,5,9,GDS,GDS 200%
 "Chemical manufacturing, ex. pharma and med",9.5,5,9.5,GDS,GDS 200%
-Semiconductor and other component manufacturing   ,5,5,5,GDS,GDS 200%
+Semiconductor and other component manufacturing,5,5,5,GDS,GDS 200%
 Computers and peripheral equipment manufacturing,6,5,6,GDS,GDS 200%
 Communications equipment manufacturing ,6,5,6,GDS,GDS 200%
 Navigational and other instruments manufacturing,6,5,6,GDS,GDS 200%
