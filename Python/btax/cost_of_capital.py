@@ -34,14 +34,14 @@ def asset_cost_of_capital(fixed_assets):
 	ipdb.set_trace()
 	rho = ((discount_rate - inflation_rate) + delta) * (1- stat_tax * z) / (1- stat_tax) - delta
 	metr = (rho - (discount_rate - inflation_rate)) / rho
-
+	'''
 	types = ['corp', 'non_corp']
 	column_types = types + ['corp_assets', 'non_corp_assets']
 
 	# calculates the cost of capital by asset type 
 	cost_of_capital = pd.DataFrame(index=np.arange(0,len(depr_rates)), columns=column_types)
 	metr = pd.DataFrame(index=np.arange(0,len(depr_rates)), columns=types)
-
+	
 	agg_fa = aggregate_fixed_assets(fixed_assets, types)
 
 	for j in types:
@@ -111,7 +111,7 @@ def save_capital(capital_df):
     |(capital_df.NAICS=='72')|(capital_df.NAICS=='81')|(capital_df.NAICS=='92')]
 	
 	capital_df.to_csv(os.path.join(_OUT_DIR,'cost_of_capital.csv'), index = False)
-
+'''
 
 def aggregate_fixed_assets(fixed_assets, types):
 
