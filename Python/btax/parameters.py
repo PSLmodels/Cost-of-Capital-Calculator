@@ -85,7 +85,7 @@ def get_params():
 	r = f_array*(i*(1-(1-int_haircut)*u_array))+(1-f_array)*(E_array+pi - E_array*r_ace*ace_array)
 	r_prime = f_array*i+(1-f_array)*(E_array+pi)
 	tax_methods = {'GDS 200%': 2.0, 'GDS 150%': 1.5, 'GDS SL': 1.0, 'ADS SL': 1.0}
-	z = calc_tax_depr_rates(r, tax_methods)
+	z = calc_tax_depr_rates(r, bonus_deprec, tax_methods)
 	delta = get_econ_depr()
 	
 	parameters = {'inflation rate': pi, 
