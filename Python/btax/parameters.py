@@ -37,6 +37,13 @@ def get_params():
 	u_nc = 0.267
 	u_array = np.array([u_c, u_nc])
 	w = 0.0117
+	inv_credit = 0.
+	ace_c = 0.
+	ace_nc = 0.
+	ace_array = np.array([ace_c, ace_nc])
+	r_ace = i
+	int_haircut = 0.
+	bonus_deprec = 0.
 	tau_div = 0.121
 	tau_int = 0.221
 	tau_scg = 0.28
@@ -75,7 +82,7 @@ def get_params():
 	s_nc = f_nc*s_nc_d + (1-f_nc)*s_nc_e
 	s_array = np.array([[s_c, s_nc], [s_c_d, s_nc_d], [s_c_e, s_nc_e]])
 
-	r = f_array*(i*(1-u_array))+(1-f_array)*(E_array+pi)
+	r = f_array*(i*(1-(1-int_haircut)*u_array))+(1-f_array)*(E_array+pi - E_array*r_ace*ace_array)
 	r_prime = f_array*i+(1-f_array)*(E_array+pi)
 	tax_methods = {'GDS 200%': 2.0, 'GDS 150%': 1.5, 'GDS SL': 1.0, 'ADS SL': 1.0}
 	z = calc_tax_depr_rates(r, tax_methods)
@@ -87,7 +94,11 @@ def get_params():
 	'tax rate': u_array,
 	'discount rate': r,
 	'after-tax rate': r_prime,
-	'return to savers': s_array
+	'return to savers': s_array,
+	'prop tax': w,
+	'inv_credit': inv_credit,
+	'ace':ace_array,
+	'int_haircut':int_haircut
 	}
 
 	return parameters

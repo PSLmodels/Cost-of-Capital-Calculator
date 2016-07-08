@@ -29,6 +29,10 @@ def asset_cost_of_capital(fixed_assets):
 	save_rate = params['return to savers']
 	delta = params['econ depreciation']
 	r_prime = params['after-tax rate']
+	inv_credit = params['inv_credit']
+	ace = params['ace']
+	int_haircut = params['int_haircut']
+	w = params['prop tax']
 	delta = np.tile(np.reshape(delta,(delta.shape[0],1,1)),(1,discount_rate.shape[0],discount_rate.shape[1]))
 	z = params['depr allow']
 	rho = ((discount_rate - inflation_rate) + delta) * (1- stat_tax * z) / (1- stat_tax) - delta
