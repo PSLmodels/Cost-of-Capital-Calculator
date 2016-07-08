@@ -15,10 +15,8 @@ import numpy as np
 import pandas as pd
 import cPickle as pickle
 import naics_processing as naics
-<<<<<<< HEAD
 import read_bea as read_bea
-=======
->>>>>>> upstream/master
+
 # Relevant directories:
 _CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 _DATA_DIR = os.path.join(_CUR_DIR,'data')
@@ -28,11 +26,9 @@ sys.path.append(_PKL_DIR)
 # Importing custom modules:
 from btax.depreciation.calc_rates import calc_tax_depr_rates, calc_depr_rates
 
-<<<<<<< HEAD
+
 def calibrate_depr_rates(sector_dfs):
-=======
-def calibrate_depr_rates():
->>>>>>> upstream/master
+
     """ This calibrates a tree with all the depreciation rate parameters.
     :param get_all: Whether to get all the depreciation parameters or not.
     :param get_econ: Whether to get all the economic depreciation rates.
@@ -53,7 +49,6 @@ def calibrate_depr_rates():
     land_file = open(os.path.join(_PKL_DIR,'landTree.pkl'), 'rb')
     land_tree = pickle.load(land_file)
     land_file.close()
-<<<<<<< HEAD
     '''
     # Calculating the fixed asset data:
     fixed_assets = read_bea.read_bea(sector_dfs)
@@ -64,9 +59,9 @@ def calibrate_depr_rates():
     # Calculating the land data:
     #land_tree = read_land.read_land(asset_tree)
 
-    econ_depr = calc_depr_rates(fixed_assets)
-    tax_depr = calc_tax_depr_rates(fixed_assets)
-    depr_rates = {'econ_depr': econ_depr, 'tax_depr': tax_depr}
+    #econ_depr = calc_depr_rates(fixed_assets)
+    #tax_depr = calc_tax_depr_rates()
+    #depr_rates = {'econ_depr': econ_depr, 'tax_depr': tax_depr}
 
     return fixed_assets 
 

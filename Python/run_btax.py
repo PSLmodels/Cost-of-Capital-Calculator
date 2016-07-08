@@ -23,7 +23,7 @@ _RATE_DIR = os.path.join(_DATA_DIR, 'depreciation_rates')
 _FIN_DIR = os.path.join(_BTAX_DIR, 'financial_policy')
 _FOUT_DIR = os.path.join(_FIN_DIR, 'output')
 _OUT_DIR = os.path.join(_DEPR_DIR, 'output')
-_TAX_DEPR_IN_PATH = os.path.join(_RATE_DIR, 'depr_allow.csv')
+_TAX_DEPR_IN_PATH = os.path.join(_RATE_DIR, 'BEA_IRS_Crosswalk.csv')
 sys.path.append(_DEPR_DIR)
 sys.path.append(_BTAX_DIR)
 from btax.depreciation.parameter_calibrations import calibrate_depr_rates, calc_soi_assets
@@ -33,9 +33,11 @@ from btax.financial_policy.calc_discount_rate import calc_real_discount_rate
 import naics_processing as naics
 import soi_processing as soi
 from btax.depreciation.parameter_calibrations import pull_soi_data
+import parameters as params
 
 def run_btax(user_params):
 	#calculates the depreciation rates
+	params.get_params()
 	sector_dfs = pull_soi_data(get_all=True, from_out=False,
 	                               output_data=True)
 	fixed_assets = calibrate_depr_rates(sector_dfs)
