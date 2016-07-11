@@ -28,7 +28,7 @@ sys.path.append(_DEPR_DIR)
 sys.path.append(_BTAX_DIR)
 from btax.depreciation.parameter_calibrations import calibrate_depr_rates, calc_soi_assets
 from btax.financial_policy.calibrate_financing import calibrate_financing
-from btax.cost_of_capital import calc_cost_of_capital, asset_cost_of_capital
+from btax.cost_of_capital import asset_cost_of_capital
 from btax.financial_policy.calc_discount_rate import calc_real_discount_rate
 import naics_processing as naics
 import soi_processing as soi
@@ -36,12 +36,96 @@ from btax.depreciation.parameter_calibrations import pull_soi_data
 import parameters as params
 
 def run_btax(user_params):
-	#calculates the depreciation rates
-	params.get_params()
-	sector_dfs = pull_soi_data(get_all=True, from_out=False,
-	                               output_data=True)
-	fixed_assets = calibrate_depr_rates(sector_dfs)
-	asset_cost_of_capital(fixed_assets)
+	# get parameters
+	parameters = params.get_params()
+
+	# make calculations
+	rho, metr, mettr = asset_cost_of_capital(parameters)
+
+	# format output
+	numberOfRows = (parameters['econ depreciation']).shape[0]
+	column_list = ('Asset Type', 'delta', 'z_c', 'z_c_d', 'z_c_e', 'z_nc',
+		'rho_c', 'rho_c_d', 'rho_c_e', 'rho_nc', 'metr_c', 'metr_c_d', 'metr_c_e',
+		'metr_nc', 'mettr_c', 'metr_c_d', 'metr_c_e', 'metr_nc', 'mettr_c', 
+		'mettr_c_d', 'mettr_c_e', 'mettr_nc')
+	vars_by_asset = pd.DataFrame(index=np.arange(0, numberOfRows), columns=column_list)
+
+	tax_depr = pd.read_csv(_TAX_DEPR_IN_PATH)
+	vars_by_asset['Asset Type'] = tax_depr['Asset Type']
+	vars_by_asset['delta'] = parameters['econ depreciation']
+	suffix_list = ['', '_d', '_e']
+
+	vars_by_asset['z_nc'] = parameters['depr allow'][:,0,1]
+	vars_by_asset['rho_nc'] = rho[:,0,1]
+	vars_by_asset['metr_nc'] = metr[:,0,1]
+	vars_by_asset['mettr_nc'] = mettr[:,0,1]
+
+	for i in range(rho.shape[1]):
+	    vars_by_asset['z_c'+suffix_list[i]] = parameters['depr allow'][:,i,0]
+	    vars_by_asset['rho_c'+suffix_list[i]] = rho[:,i,0]
+	    vars_by_asset['metr_c'+suffix_list[i]] = metr[:,i,0]
+	    vars_by_asset['mettr_c'+suffix_list[i]] = mettr[:,i,0]
+
+	# save to csv for comparison to CBO
+	vars_by_asset.to_csv(_OUT_DIR+'/calculations_by_asset.csv')
+
+
+	# read in CBO file
+	CBO_data = pd.read_excel('/Users/jasondebacker/repos/B-Tax/References/effective_taxrates.xls',
+		sheetname='Full detail', header=1, skiprows=0, skip_footer=8)
+	CBO_data.columns = [col.encode('ascii', 'ignore') for col in CBO_data]
+	CBO_data.rename(columns = {'Top page (Rows 3-35): Equipment        Bottom page (Rows 36-62): All Other ':'Asset Type'}, inplace = True)
+	CBO_data.to_csv(_OUT_DIR+'/CBO_data.csv',encoding='utf-8')
+
+	# join CBO data to ours
+	# import difflib 
+	# df2 = vars_by_asset.copy()
+	# df1 = CBO_data.copy()
+	# df2['Asset Type'] = df2['Asset Type'].apply(lambda x: difflib.get_close_matches(x, df1['Asset Type'])[0])
+	# df1.merge(df2)
+	# print df1.head(n=5)
+	CBO_v_OSPC = vars_by_asset.merge(CBO_data,how='inner',on='Asset Type')
+
+
+	OSPC_list = ['delta','z_c','z_c_d','z_c_e','z_nc','rho_c','rho_c_d','rho_c_e','rho_nc',
+	       'metr_c', 'metr_c_d', 'metr_c_e', 'mettr_c', 'mettr_c_d', 'mettr_c_e', 
+	       'mettr_nc']
+	CBO_list = ['Economic deprecia- tion rate []','Corporate: total [z(c)]',
+	      'Corporate: debt-financed [z(c,d)]', 'Corporate: equity-financed [z(c,e)]', 
+	      'Non-corporate [z(n)]', 'Corporate: total [(c)]', 'Corporate: debt-financed [(c,d)]', 
+	      'Corporate: equity-financed [(c,e)]', 'Non-corporate [(n)]', 'Corporate: total [ETR(c)]', 
+	      'Corporate: debt-financed [ETR(c,d)]', 'Corporate: equity-financed [ETR(c,e)]',
+	      'Corporate: total [ETTR(c)]', 'Corporate: debt-financed [ETTR(c,d)]', 
+	      'Corporate: equity-financed [ETTR(c,e)]', 'Non-corporate [ETTR(n)]']
+
+	#print CBO_v_OSPC.index
+	# print CBO_v_OSPC.columns
+	# print CBO_v_OSPC.shape
+	# print CBO_v_OSPC.T.drop_duplicates().T
+
+	# quit()
+
+	CBO_v_OSPC = CBO_v_OSPC.T.drop_duplicates().T
+
+
+	diff_list = [None] * len(OSPC_list)
+	for i in xrange(0,len(OSPC_list)):
+		CBO_v_OSPC[OSPC_list[i]+'_diff'] = CBO_v_OSPC[OSPC_list[i]] - CBO_v_OSPC[CBO_list[i]]
+		diff_list[i] = OSPC_list[i]+'_diff'
+
+	cols_to_print = ['Asset Type']+OSPC_list + CBO_list + diff_list
+	CBO_v_OSPC[cols_to_print].to_csv(_OUT_DIR+'/CBO_v_OSPC.csv',encoding='utf-8')
+
+
+
+
+
+
+
+	# sector_dfs = pull_soi_data(get_all=True, from_out=False,
+	#                                output_data=True)
+	# fixed_assets = calibrate_depr_rates(sector_dfs)
+	# asset_cost_of_capital(fixed_assets)
 	'''
 	debt_ratios = calibrate_financing()
 	discount_rates = calc_real_discount_rate(debt_ratios)
