@@ -2,4 +2,4 @@ language: Python
 python: 
 	- "2.7"
 # command to run tests
-script: run_btax
+script: check_output
