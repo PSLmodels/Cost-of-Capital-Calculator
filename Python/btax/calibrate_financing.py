@@ -13,11 +13,6 @@ _DEBT_FCORP = os.path.join(_DATA_DIR, 'l208.csv')
 _DEBT_HOME = os.path.join(_DATA_DIR, 'l218.csv')
 _EQUITY_CORP = os.path.join(_DATA_DIR, 'l223.csv')
 _EQUITY_NCORP = os.path.join(_DATA_DIR, 'l229.csv')
-_SOI_PA_VALUES = os.path.join(os.path.join(os.path.join(os.path.join(os.path.dirname(_CUR_DIR),'depreciation'),'output'),'soi'),'prt_inc_loss.csv')
-_SOI_AS_VALUES = os.path.join(os.path.join(os.path.join(os.path.join(os.path.dirname(_CUR_DIR),'depreciation'),'output'),'soi'),'prt_asset.csv')
-_SOI_PR_VALUES = os.path.join(os.path.join(os.path.join(os.path.join(os.path.dirname(_CUR_DIR),'depreciation'),'output'),'soi'),'soi_prop.csv')
-_SOI_C_VALUES = os.path.join(os.path.join(os.path.join(os.path.join(os.path.dirname(_CUR_DIR),'depreciation'),'output'),'soi'),'c_corps.csv')
-_SOI_S_VALUES = os.path.join(os.path.join(os.path.join(os.path.join(os.path.dirname(_CUR_DIR),'depreciation'),'output'),'soi'),'s_corps.csv')
 _NAICS_CODES = os.path.join(_DATA_DIR, 'NAICS_Codes.csv')
 _CST_FACTOR = 10**6
 
