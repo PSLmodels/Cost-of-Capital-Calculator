@@ -8,6 +8,7 @@ import os.path
 import sys
 import pandas as pd
 import numpy as np
+import cPickle as pickle
 _CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 _MAIN_DIR = os.path.dirname(_CUR_DIR)
 _REF_DIR = os.path.join(_MAIN_DIR, 'References')
@@ -21,6 +22,7 @@ _TAX_DEPR_IN_PATH = os.path.join(_RATE_DIR, 'BEA_IRS_Crosswalk.csv')
 sys.path.append(_BTAX_DIR)
 from btax.soi_processing import pull_soi_data
 from btax.calc_final_outputs import asset_cost_of_capital
+from btax.check_output import check_output
 import soi_processing as soi
 import parameters as params
 
@@ -106,7 +108,11 @@ def run_btax(user_params):
 		diff_list[i] = OSPC_list[i]+'_diff'
 
 	cols_to_print = ['Asset Type']+OSPC_list + CBO_list + diff_list
+
 	CBO_v_OSPC[cols_to_print].to_csv(_OUT_DIR+'/CBO_v_OSPC.csv',encoding='utf-8')
+
+	with open(os.path.join(_OUT_DIR, 'final_output.pkl'), 'wb') as handle:
+		pickle.dump(CBO_v_OSPC[cols_to_print], handle)
 
 	# sector_dfs = pull_soi_data()
 	# fixed_assets = calibrate_depr_rates(sector_dfs)

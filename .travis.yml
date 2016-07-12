@@ -1,0 +1,8 @@
+sudo: false
+
+language: Python
+python:
+  - "2.7"
+
+# command to run tests
+script: cd Python/btax; check_output.py
