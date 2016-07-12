@@ -20,12 +20,12 @@ _OUT_DIR = os.path.join(_BTAX_DIR, 'output')
 _TAX_DEPR_IN_PATH = os.path.join(_RATE_DIR, 'BEA_IRS_Crosswalk.csv')
 sys.path.append(_BTAX_DIR)
 from btax.soi_processing import pull_soi_data
-from btax.cost_of_capital import asset_cost_of_capital
+from btax.calc_final_outputs import asset_cost_of_capital
 import soi_processing as soi
 import parameters as params
 
 def run_btax(user_params):
-	from IPython.core.debugger import Tracer; Tracer()()
+	
 	sector_dfs = pull_soi_data()
 
 	# get parameters

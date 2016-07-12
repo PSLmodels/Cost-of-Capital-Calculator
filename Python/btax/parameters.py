@@ -1,4 +1,4 @@
-from calc_rates import calc_tax_depr_rates, get_econ_depr
+from calc_z import calc_tax_depr_rates, get_econ_depr
 import numpy as np
 
 def get_params():
