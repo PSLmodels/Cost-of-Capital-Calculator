@@ -1,41 +1,33 @@
 '''
-Script (script_firm_calibration.py):
+Script (run_btax.py):
 -------------------------------------------------------------------------------
-Last updated: 6/24/2015.
+Last updated: 7/11/2016.
 
-This script calibrates parameters for firms on all NAICS levels.
-This module splits up the calibration tasks into
-various functions, specifically, there is a function for each set of
-parameters that need to be calibrated. The script uses these functions to
-generate :term:`NAICS trees<NAICS tree>` with all firm parameters calibrated for each NAICS
-code. The script outputs these parameter calibrations and processed data to
-csv files.
 '''
 import os.path
 import sys
 import pandas as pd
 import numpy as np
 _CUR_DIR = os.path.dirname(os.path.abspath(__file__))
+_MAIN_DIR = os.path.dirname(_CUR_DIR)
+_REF_DIR = os.path.join(_MAIN_DIR, 'References')
 _BTAX_DIR = os.path.join(_CUR_DIR, 'btax')
-_DEPR_DIR = os.path.join(_BTAX_DIR,'depreciation')
-_DATA_DIR = os.path.join(_DEPR_DIR, 'data')
+_DATA_DIR = os.path.join(_BTAX_DIR, 'data')
 _RATE_DIR = os.path.join(_DATA_DIR, 'depreciation_rates')
 _FIN_DIR = os.path.join(_BTAX_DIR, 'financial_policy')
 _FOUT_DIR = os.path.join(_FIN_DIR, 'output')
-_OUT_DIR = os.path.join(_DEPR_DIR, 'output')
+_OUT_DIR = os.path.join(_BTAX_DIR, 'output')
 _TAX_DEPR_IN_PATH = os.path.join(_RATE_DIR, 'BEA_IRS_Crosswalk.csv')
-sys.path.append(_DEPR_DIR)
 sys.path.append(_BTAX_DIR)
-from btax.depreciation.parameter_calibrations import calibrate_depr_rates, calc_soi_assets
-from btax.financial_policy.calibrate_financing import calibrate_financing
+from btax.soi_processing import pull_soi_data
 from btax.cost_of_capital import asset_cost_of_capital
-from btax.financial_policy.calc_discount_rate import calc_real_discount_rate
-import naics_processing as naics
 import soi_processing as soi
-from btax.depreciation.parameter_calibrations import pull_soi_data
 import parameters as params
 
 def run_btax(user_params):
+	from IPython.core.debugger import Tracer; Tracer()()
+	sector_dfs = pull_soi_data()
+
 	# get parameters
 	parameters = params.get_params()
 
@@ -71,7 +63,7 @@ def run_btax(user_params):
 
 
 	# read in CBO file
-	CBO_data = pd.read_excel('/Users/jasondebacker/repos/B-Tax/References/effective_taxrates.xls',
+	CBO_data = pd.read_excel(os.path.join(_REF_DIR, 'effective_taxrates.xls'),
 		sheetname='Full detail', header=1, skiprows=0, skip_footer=8)
 	CBO_data.columns = [col.encode('ascii', 'ignore') for col in CBO_data]
 	CBO_data.rename(columns = {'Top page (Rows 3-35): Equipment        Bottom page (Rows 36-62): All Other ':'Asset Type'}, inplace = True)
@@ -116,14 +108,7 @@ def run_btax(user_params):
 	cols_to_print = ['Asset Type']+OSPC_list + CBO_list + diff_list
 	CBO_v_OSPC[cols_to_print].to_csv(_OUT_DIR+'/CBO_v_OSPC.csv',encoding='utf-8')
 
-
-
-
-
-
-
-	# sector_dfs = pull_soi_data(get_all=True, from_out=False,
-	#                                output_data=True)
+	# sector_dfs = pull_soi_data()
 	# fixed_assets = calibrate_depr_rates(sector_dfs)
 	# asset_cost_of_capital(fixed_assets)
 	'''

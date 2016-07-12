@@ -6,8 +6,7 @@ import parameters as param
 
 _CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 _OUT_DIR = os.path.join(_CUR_DIR, 'output')
-_DEPR_DIR = os.path.join(_CUR_DIR, 'depreciation')
-_DATA_DIR = os.path.join(_DEPR_DIR, 'data')
+_DATA_DIR = os.path.join(_CUR_DIR, 'data')
 _RATE_DIR = os.path.join(_DATA_DIR, 'depreciation_rates')
 _RAW_DIR = os.path.join(_DATA_DIR, 'raw_data')
 _BEA_DIR = os.path.join(_RAW_DIR, 'BEA')
