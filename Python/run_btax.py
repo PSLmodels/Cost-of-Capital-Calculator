@@ -27,7 +27,6 @@ import soi_processing as soi
 import parameters as params
 
 def run_btax(user_params):
-	
 	sector_dfs = pull_soi_data()
 
 	# get parameters
@@ -40,8 +39,7 @@ def run_btax(user_params):
 	numberOfRows = (parameters['econ depreciation']).shape[0]
 	column_list = ('Asset Type', 'delta', 'z_c', 'z_c_d', 'z_c_e', 'z_nc',
 		'rho_c', 'rho_c_d', 'rho_c_e', 'rho_nc', 'metr_c', 'metr_c_d', 'metr_c_e',
-		'metr_nc', 'mettr_c', 'metr_c_d', 'metr_c_e', 'metr_nc', 'mettr_c', 
-		'mettr_c_d', 'mettr_c_e', 'mettr_nc')
+		'metr_nc', 'mettr_c', 'mettr_c_d', 'mettr_c_e', 'mettr_nc')
 	vars_by_asset = pd.DataFrame(index=np.arange(0, numberOfRows), columns=column_list)
 
 	tax_depr = pd.read_csv(_TAX_DEPR_IN_PATH)
@@ -62,7 +60,6 @@ def run_btax(user_params):
 
 	# save to csv for comparison to CBO
 	vars_by_asset.to_csv(_OUT_DIR+'/calculations_by_asset.csv')
-
 
 	# read in CBO file
 	CBO_data = pd.read_excel(os.path.join(_REF_DIR, 'effective_taxrates.xls'),
@@ -114,17 +111,7 @@ def run_btax(user_params):
 	with open(os.path.join(_OUT_DIR, 'final_output.pkl'), 'wb') as handle:
 		pickle.dump(CBO_v_OSPC[cols_to_print], handle)
 
-	# sector_dfs = pull_soi_data()
-	# fixed_assets = calibrate_depr_rates(sector_dfs)
-	# asset_cost_of_capital(fixed_assets)
-	'''
-	debt_ratios = calibrate_financing()
-	discount_rates = calc_real_discount_rate(debt_ratios)
-	calc_cost_of_capital(depr_rates, discount_rates)
-	'''	
-run_btax(user_params={})
-'''
 if __name__ == '__main__':
-	run_firm_calibration(user_params={})
-'''
+	run_btax(user_params={})
+
 	
