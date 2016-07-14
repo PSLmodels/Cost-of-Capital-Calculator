@@ -5,4 +5,4 @@ python:
   - "2.7"
 
 # command to run tests
-script: cd Python/btax; check_output.py
+script: python Python/btax/check_output.py
