@@ -27,8 +27,6 @@ import soi_processing as soi
 import parameters as params
 
 def run_btax(user_params):
-	sector_dfs = pull_soi_data()
-
 	# get parameters
 	parameters = params.get_params()
 
@@ -109,7 +107,9 @@ def run_btax(user_params):
 	CBO_v_OSPC[cols_to_print].to_csv(_OUT_DIR+'/CBO_v_OSPC.csv',encoding='utf-8')
 
 	with open(os.path.join(_OUT_DIR, 'final_output.pkl'), 'wb') as handle:
-		pickle.dump(CBO_v_OSPC[cols_to_print], handle)
+		pickle.dump(vars_by_asset, handle)
+
+	return vars_by_asset
 
 if __name__ == '__main__':
 	run_btax(user_params={})
