@@ -16,4 +16,4 @@ install:
   - python setup.py install
 # command to run tests
 script:
-  - cd Python/btax; run check_output.py
+  - python Python/btax/check_output.py
