@@ -16,5 +16,5 @@ setup(name='btax',
 	  url='https://github.com/open-source-economics/B-Tax',
 	  packages=['btax'],
 	  package_dir = {'btax': 'Python/btax'},
-	  install_requires=['numpy','pandas','cPickle']
+	  install_requires=['numpy','pandas']
 	  )

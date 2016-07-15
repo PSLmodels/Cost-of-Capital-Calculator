@@ -11,7 +11,7 @@ install:
   - export PATH="$HOME/miniconda/bin:$PATH"
   - conda config --set always_yes yes --set changeps1 no
   - conda update conda
-  - conda create -n test-environment python=$TRAVIS_PYTHON_VERSION pandas numpy cPickle
+  - conda create -n test-environment python=$TRAVIS_PYTHON_VERSION pandas numpy
   - source activate test-environment
   - python setup.py install
 # command to run tests
