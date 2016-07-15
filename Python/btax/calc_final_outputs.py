@@ -16,10 +16,6 @@ _TAX_DEPR_FILE = os.path.join(_RATE_DIR, 'depr_allow_ads.csv')
 
 def asset_cost_of_capital(fixed_assets):
 
-	econ_depr = pd.read_csv(_ECON_DEPR_FILE)
-	econ_depr = econ_depr.drop('Code',1)
-	tax_depr_allow = pd.read_csv(_TAX_DEPR_FILE)
-	depr_rates = np.array(econ_depr.merge(tax_depr_allow))
 	# grabs the constant values from the parameters dictionary
 	params = param.get_params()
 	inflation_rate = params['inflation rate']
