@@ -14,4 +14,5 @@ def check_output():
 	# assert that the two dataframes from the .pkl files are equivalent
 	pd.util.testing.assert_frame_equal(new_out, base_out)
 
-check_output()
+if __name__ == '__main__':
+	check_output()
