@@ -1,4 +1,4 @@
-sudo: required
+sudo: false
 
 language: Python
 python:
@@ -11,9 +11,9 @@ install:
   - export PATH="$HOME/miniconda/bin:$PATH"
   - conda config --set always_yes yes --set changeps1 no
   - conda update conda
-  - conda create -n test-environment python=$TRAVIS_PYTHON_VERSION pandas numpy
-  - conda install 
+  - conda create -n test-environment python=$TRAVIS_PYTHON_VERSION pandas numpy 
   - source activate test-environment
   - python setup.py install
 # command to run tests
-script: cd Python/btax; run check_output.py
+script:
+  - cd Python/btax; run check_output.py
