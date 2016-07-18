@@ -8,6 +8,7 @@ import os.path
 import sys
 import pandas as pd
 import numpy as np
+import cPickle as pickle
 _CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 _MAIN_DIR = os.path.dirname(_CUR_DIR)
 _REF_DIR = os.path.join(_MAIN_DIR, 'References')
@@ -20,14 +21,12 @@ _OUT_DIR = os.path.join(_BTAX_DIR, 'output')
 _TAX_DEPR_IN_PATH = os.path.join(_RATE_DIR, 'BEA_IRS_Crosswalk.csv')
 sys.path.append(_BTAX_DIR)
 from btax.soi_processing import pull_soi_data
-from btax.cost_of_capital import asset_cost_of_capital
+from btax.calc_final_outputs import asset_cost_of_capital
+from btax.check_output import check_output
 import soi_processing as soi
 import parameters as params
 
 def run_btax(user_params):
-	from IPython.core.debugger import Tracer; Tracer()()
-	sector_dfs = pull_soi_data()
-
 	# get parameters
 	parameters = params.get_params()
 
@@ -38,8 +37,7 @@ def run_btax(user_params):
 	numberOfRows = (parameters['econ depreciation']).shape[0]
 	column_list = ('Asset Type', 'delta', 'z_c', 'z_c_d', 'z_c_e', 'z_nc',
 		'rho_c', 'rho_c_d', 'rho_c_e', 'rho_nc', 'metr_c', 'metr_c_d', 'metr_c_e',
-		'metr_nc', 'mettr_c', 'metr_c_d', 'metr_c_e', 'metr_nc', 'mettr_c', 
-		'mettr_c_d', 'mettr_c_e', 'mettr_nc')
+		'metr_nc', 'mettr_c', 'mettr_c_d', 'mettr_c_e', 'mettr_nc')
 	vars_by_asset = pd.DataFrame(index=np.arange(0, numberOfRows), columns=column_list)
 
 	tax_depr = pd.read_csv(_TAX_DEPR_IN_PATH)
@@ -60,7 +58,6 @@ def run_btax(user_params):
 
 	# save to csv for comparison to CBO
 	vars_by_asset.to_csv(_OUT_DIR+'/calculations_by_asset.csv')
-
 
 	# read in CBO file
 	CBO_data = pd.read_excel(os.path.join(_REF_DIR, 'effective_taxrates.xls'),
@@ -106,19 +103,15 @@ def run_btax(user_params):
 		diff_list[i] = OSPC_list[i]+'_diff'
 
 	cols_to_print = ['Asset Type']+OSPC_list + CBO_list + diff_list
+
 	CBO_v_OSPC[cols_to_print].to_csv(_OUT_DIR+'/CBO_v_OSPC.csv',encoding='utf-8')
 
-	# sector_dfs = pull_soi_data()
-	# fixed_assets = calibrate_depr_rates(sector_dfs)
-	# asset_cost_of_capital(fixed_assets)
-	'''
-	debt_ratios = calibrate_financing()
-	discount_rates = calc_real_discount_rate(debt_ratios)
-	calc_cost_of_capital(depr_rates, discount_rates)
-	'''	
-run_btax(user_params={})
-'''
+	with open(os.path.join(_OUT_DIR, 'final_output.pkl'), 'wb') as handle:
+		pickle.dump(vars_by_asset, handle)
+
+	return vars_by_asset
+
 if __name__ == '__main__':
-	run_firm_calibration(user_params={})
-'''
+	run_btax(user_params={})
+
 	

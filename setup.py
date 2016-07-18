@@ -6,7 +6,7 @@ except ImportError:
 setup(name='btax',
 	  version='0.1',
 	  description ='Business tax calculator',
-	  long_description = 'Calculates the marginal effective tax rate faced by different industries',
+	  long_description = 'Calculates the marginal effective tax rate and marginal effective total tax rate by asset type',
 	  classifiers =[
 	  		'Programming Language :: Python :: 2.7'
 	  		'Topic :: Software Development :: Libraries :: Python Modules'
@@ -16,5 +16,5 @@ setup(name='btax',
 	  url='https://github.com/open-source-economics/B-Tax',
 	  packages=['btax'],
 	  package_dir = {'btax': 'Python/btax'},
-	  install_requires=['numpy','pandas','cPickle']
+	  install_requires=['numpy','pandas']
 	  )
