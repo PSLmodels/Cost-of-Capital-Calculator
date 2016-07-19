@@ -1,0 +1,14 @@
+B-Tax/Python/btax/data/depreciation_rates/BEA_IRS_Crosswalk.csv
+B-Tax/Python/btax/data/depreciation_rates/Economic Depreciation Rates.csv
+B-Tax/Python/btax/data/raw_data/soi/SOI_codes.csv
+B-Tax/Python/btax/data/raw_data/soi/soi_corporate/2011sb1.csv
+B-Tax/Python/btax/data/raw_data/soi/soi_corporate/2011sb3.csv
+B-Tax/Python/btax/data/raw_data/soi/soi_partner/12pa01.csv
+B-Tax/Python/btax/data/raw_data/soi/soi_partner/12pa03.csv
+B-Tax/Python/btax/data/raw_data/soi/soi_partner/12pa05.csv
+B-Tax/Python/btax/data/raw_data/soi/soi_proprietorship/12sp02is.csv
+B-Tax/Python/btax/data/raw_data/soi/soi_proprietorship/12sp01br.csv
+B-Tax/Python/btax/data/raw_data/soi/soi_proprietorship/farm_data.csv
+B-Tax/Python/btax/data/raw_data/BEA/detailnonres_stk1.xlsx
+B-Tax/Python/btax/data/raw_data/BEA/BEA_Crosswalk.csv
+B-Tax/Python/btax/data/raw_data/BEA/NAICS_SOI_crosswalk.csv
