@@ -16,6 +16,8 @@ _PRT_DIR = os.path.join(_SOI_DIR, 'soi_partner')
 _INC_IN_CROSS_PATH = os.path.join(_PRT_DIR, '12pa01_Crosswalk.csv')
 _AST_IN_CROSS_PATH = os.path.join(_PRT_DIR, '12pa03_Crosswalk.csv')
 _TYP_IN_CROSS_PATH = os.path.join(_PRT_DIR, '12pa05_Crosswalk.csv')
+_XLS_FILE_1 = os.path.join(_PRT_DIR, '12pa01.xls')
+_XLS_FILE_2 = os.path.join(_PRT_DIR, '12pa03.xlsx')
 _INC_FILE = os.path.join(_PRT_DIR, '12pa01.csv')
 _AST_FILE = os.path.join(_PRT_DIR, '12pa03.csv')
 _TYP_FILE = os.path.join(_PRT_DIR, '12pa05.csv')
@@ -49,7 +51,6 @@ def load_partner_data(sector_dfs):
     df2.insert(0,'Codes:', codes)
     df2.index = np.arange(0,len(df2))
     codes = pd.read_csv(_SOI_CODES)
-
     # Transfers the total data to a numpy array
     tot_data = np.array(df1)
     # Reads in the income information (profit/loss) and stores it in a dataframe
@@ -57,6 +58,8 @@ def load_partner_data(sector_dfs):
     # Loads the crosswalk and formats the dataframe
     inc_cross = pd.read_csv(_INC_IN_CROSS_PATH)
     inc_loss = soi.format_dataframe(inc_loss, inc_cross)
+    p1 = format_stuff(pd.read_excel(_XLS_FILE_1, skiprows=2, skip_footer=5), inc_cross)
+    p2 = format_stuff(pd.read_excel(_XLS_FILE_2, skiprows=2, skip_footer=5), ast_cross)
     # Creates a list of columns that will be used to trim the data
     col_list = ['Item', 'Codes:', 'Net income', 'Loss']
 
@@ -180,3 +183,28 @@ def load_partner_data(sector_dfs):
         prt_data[prt_types[i]] = df
 
     return prt_data
+
+def format_stuff(p1, cross):
+    for i in xrange(0,len(p1.iloc[0,:])):
+        element = p1.iloc[0,:][i]
+        if isinstance(element, float):
+            element = p1.iloc[1,:][i]
+            if(isinstance(element,float)):
+                element = p1.iloc[2,:][i]
+        p1.iloc[0,:][i] = element.replace('\n', ' ').replace('  ', ' ')
+    p1 = p1.drop(p1.index[[1,2,3,4,5,6,7,8,12]])
+    p1 = p1.T
+    column_names = p1.iloc[0,:].tolist()
+    for i in xrange(0,len(column_names)):
+        column_names[i] = column_names[i].encode('ascii','ignore').lstrip().rstrip()
+    p1.columns = column_names
+    p1 = p1.drop(p1.index[[0,136]])
+    p1 = p1.fillna(0)
+    p1 = p1.replace('[2]  ', 0)
+    p1.index = np.arange(0,len(p1))
+    info = p1['Item']
+    p1 = p1 * _AST_FILE_FCTR
+    p1['Item'] = info
+    p1.insert(1,'Codes:',cross['Codes:'])
+
+    return p1
