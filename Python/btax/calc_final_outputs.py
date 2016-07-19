@@ -38,25 +38,23 @@ def asset_calcs(params, fixed_assets):
 	# aggregates all the fixed assets to the two digit naics code level
 	agg_fa = aggregate_fixed_assets(fixed_assets)
 	# calculates all the previous values: rho, metr, mettr at the industry level
-	ind_rho, ind_metr, ind_mettr = industry_calcs(agg_fa, rho, metr, mettr)
+	ind_rho, ind_metr = industry_calcs(agg_fa, rho, metr)
 
-	return rho, metr, mettr, ind_rho, ind_metr, ind_mettr
+	return rho, metr, mettr, ind_rho, ind_metr
 
-def industry_calcs(agg_fa, rho, metr, mettr):
+def industry_calcs(agg_fa, rho, metr):
 
 	industries = pd.read_csv(_IND_NAICS)
 	rho_data = np.zeros((len(industries), rho.shape[1], rho.shape[2]))
 	metr_data = np.zeros((len(industries), rho.shape[1], rho.shape[2]))
-	mettr_data = np.zeros((len(industries), rho.shape[1], rho.shape[2]))
 	k=0
 	for inds, assets in agg_fa.iteritems(): 
 		ind_assets = np.tile(np.reshape(assets.T,(assets.shape[1],1,2)),((1,rho.shape[1],1)))
 		rho_data[k] = sum(ind_assets * rho) / sum(assets.T)
 		metr_data[k] = sum(ind_assets * metr) / sum(assets.T)
-		mettr_data[k] = sum(ind_assets * mettr) / sum(assets.T)
 		k+=1
 
-	return rho_data, metr_data, mettr_data
+	return rho_data, metr_data
 
 def aggregate_fixed_assets(fixed_assets):
 

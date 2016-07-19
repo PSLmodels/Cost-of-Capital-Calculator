@@ -35,7 +35,7 @@ def run_btax(user_params):
 	parameters = params.get_params()
 
 	# make calculations
-	rho, metr, mettr, ind_rho, ind_metr, ind_mettr = asset_calcs(parameters, fixed_assets)
+	rho, metr, mettr, ind_rho, ind_metr = asset_calcs(parameters, fixed_assets)
 
 	# format output
 	numberOfRows = (parameters['econ depreciation']).shape[0]
@@ -50,7 +50,7 @@ def run_btax(user_params):
 
 	ind_naics = pd.read_csv(_IND_NAICS)
 	ind_columns = ['Industry', 'NAICS', 'rho_c', 'rho_c_d', 'rho_c_e', 'rho_nc', 'metr_c', 'metr_c_d', 'metr_c_e',
-		'metr_nc', 'mettr_c', 'mettr_c_d', 'mettr_c_e', 'mettr_nc']
+		'metr_nc']
 	vars_by_industry = pd.DataFrame(index=np.arange(0, len(ind_naics)), columns=ind_columns)
 	vars_by_industry['Industry'] = ind_naics['Industry']
 	vars_by_industry['NAICS'] = ind_naics['NAICS']
@@ -61,7 +61,6 @@ def run_btax(user_params):
 	vars_by_asset['mettr_nc'] = mettr[:,0,1]
 	vars_by_industry['rho_nc'] = ind_rho[:,0,1]
 	vars_by_industry['metr_nc'] = ind_metr[:,0,1]
-	vars_by_industry['mettr_nc'] = ind_mettr[:,0,1]
 
 	suffix_list = ['', '_d', '_e']
 	for i in range(rho.shape[1]):
@@ -71,12 +70,11 @@ def run_btax(user_params):
 	    vars_by_asset['mettr_c'+suffix_list[i]] = mettr[:,i,0]
 	    vars_by_industry['rho_c'+suffix_list[i]] = ind_rho[:,i,0]
 	    vars_by_industry['metr_c'+suffix_list[i]] = ind_metr[:,i,0]
-	    vars_by_industry['mettr_c'+suffix_list[i]] = ind_mettr[:,i,0]
 
 	vars_by_industry = vars_by_industry.fillna(0)
 	# save to csv for comparison to CBO
-	vars_by_industry.to_csv(os.path.join(_OUT_DIR,'calculations_by_industry.csv'))
-	vars_by_asset.to_csv(_OUT_DIR+'/calculations_by_asset.csv')
+	vars_by_industry.to_csv(os.path.join(_OUT_DIR,'calculations_by_industry.csv'), index=False)
+	vars_by_asset.to_csv(_OUT_DIR+'/calculations_by_asset.csv', index=False)
 
 	# read in CBO file
 	CBO_data = pd.read_excel(os.path.join(_REF_DIR, 'effective_taxrates.xls'),
