@@ -15,48 +15,67 @@ _REF_DIR = os.path.join(_MAIN_DIR, 'References')
 _BTAX_DIR = os.path.join(_CUR_DIR, 'btax')
 _DATA_DIR = os.path.join(_BTAX_DIR, 'data')
 _RATE_DIR = os.path.join(_DATA_DIR, 'depreciation_rates')
-_FIN_DIR = os.path.join(_BTAX_DIR, 'financial_policy')
-_FOUT_DIR = os.path.join(_FIN_DIR, 'output')
+_RAW_DIR = os.path.join(_DATA_DIR, 'raw_data')
+_BEA_DIR = os.path.join(_RAW_DIR, 'BEA')
 _OUT_DIR = os.path.join(_BTAX_DIR, 'output')
-_TAX_DEPR_IN_PATH = os.path.join(_RATE_DIR, 'BEA_IRS_Crosswalk.csv')
+_TAX_DEPR = os.path.join(_RATE_DIR, 'BEA_IRS_Crosswalk.csv')
+_IND_NAICS = os.path.join(_BEA_DIR, 'Industries.csv')
 sys.path.append(_BTAX_DIR)
 from btax.soi_processing import pull_soi_data
-from btax.calc_final_outputs import asset_cost_of_capital
+from btax.calc_final_outputs import asset_calcs
 from btax.check_output import check_output
+import read_bea
 import soi_processing as soi
 import parameters as params
 
 def run_btax(user_params):
+	sector_dfs = pull_soi_data()
+	fixed_assets = read_bea.read_bea(sector_dfs)
 	# get parameters
 	parameters = params.get_params()
 
 	# make calculations
-	rho, metr, mettr = asset_cost_of_capital(parameters)
+	rho, metr, mettr, ind_rho, ind_metr, ind_mettr = asset_calcs(parameters, fixed_assets)
 
 	# format output
 	numberOfRows = (parameters['econ depreciation']).shape[0]
-	column_list = ('Asset Type', 'delta', 'z_c', 'z_c_d', 'z_c_e', 'z_nc',
+	column_list = ['Asset Type', 'delta', 'z_c', 'z_c_d', 'z_c_e', 'z_nc',
 		'rho_c', 'rho_c_d', 'rho_c_e', 'rho_nc', 'metr_c', 'metr_c_d', 'metr_c_e',
-		'metr_nc', 'mettr_c', 'mettr_c_d', 'mettr_c_e', 'mettr_nc')
+		'metr_nc', 'mettr_c', 'mettr_c_d', 'mettr_c_e', 'mettr_nc']
 	vars_by_asset = pd.DataFrame(index=np.arange(0, numberOfRows), columns=column_list)
 
-	tax_depr = pd.read_csv(_TAX_DEPR_IN_PATH)
+	tax_depr = pd.read_csv(_TAX_DEPR)
 	vars_by_asset['Asset Type'] = tax_depr['Asset Type']
 	vars_by_asset['delta'] = parameters['econ depreciation']
-	suffix_list = ['', '_d', '_e']
+
+	ind_naics = pd.read_csv(_IND_NAICS)
+	ind_columns = ['Industry', 'NAICS', 'rho_c', 'rho_c_d', 'rho_c_e', 'rho_nc', 'metr_c', 'metr_c_d', 'metr_c_e',
+		'metr_nc', 'mettr_c', 'mettr_c_d', 'mettr_c_e', 'mettr_nc']
+	vars_by_industry = pd.DataFrame(index=np.arange(0, len(ind_naics)), columns=ind_columns)
+	vars_by_industry['Industry'] = ind_naics['Industry']
+	vars_by_industry['NAICS'] = ind_naics['NAICS']
 
 	vars_by_asset['z_nc'] = parameters['depr allow'][:,0,1]
 	vars_by_asset['rho_nc'] = rho[:,0,1]
 	vars_by_asset['metr_nc'] = metr[:,0,1]
 	vars_by_asset['mettr_nc'] = mettr[:,0,1]
+	vars_by_industry['rho_nc'] = ind_rho[:,0,1]
+	vars_by_industry['metr_nc'] = ind_metr[:,0,1]
+	vars_by_industry['mettr_nc'] = ind_mettr[:,0,1]
 
+	suffix_list = ['', '_d', '_e']
 	for i in range(rho.shape[1]):
 	    vars_by_asset['z_c'+suffix_list[i]] = parameters['depr allow'][:,i,0]
 	    vars_by_asset['rho_c'+suffix_list[i]] = rho[:,i,0]
 	    vars_by_asset['metr_c'+suffix_list[i]] = metr[:,i,0]
 	    vars_by_asset['mettr_c'+suffix_list[i]] = mettr[:,i,0]
+	    vars_by_industry['rho_c'+suffix_list[i]] = ind_rho[:,i,0]
+	    vars_by_industry['metr_c'+suffix_list[i]] = ind_metr[:,i,0]
+	    vars_by_industry['mettr_c'+suffix_list[i]] = ind_mettr[:,i,0]
 
+	vars_by_industry = vars_by_industry.fillna(0)
 	# save to csv for comparison to CBO
+	vars_by_industry.to_csv(os.path.join(_OUT_DIR,'calculations_by_industry.csv'))
 	vars_by_asset.to_csv(_OUT_DIR+'/calculations_by_asset.csv')
 
 	# read in CBO file

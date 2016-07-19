@@ -24,7 +24,7 @@ sys.path.append(_DATA_DIR)
 import parameters as params
 # Full file paths:
 _ECON_DEPR_IN_PATH = os.path.join(_DEPR_DIR, 'Economic Depreciation Rates.csv')
-_TAX_DEPR_IN_PATH = os.path.join(_DEPR_DIR, 'BEA_IRS_Crosswalk.csv')
+_TAX_DEPR = os.path.join(_DEPR_DIR, 'BEA_IRS_Crosswalk.csv')
 _NAICS_CODE_PATH = os.path.join(_DATA_DIR, 'NAICS_Codes.csv')
 _NAICS_PATH = os.path.join(_BEA_DIR, 'NAICS_SOI_crosswalk.csv')
 
@@ -38,7 +38,7 @@ def calc_tax_depr_rates(r, bonus_deprec, tax_methods):
     tax_treat_list = ['Corporate','Non-Corporate']
     fin_list = ['Typical','Debt','Equity']
     
-    tax_data = get_z(_TAX_DEPR_IN_PATH, r, bonus_deprec, tax_treat_list, fin_list, tax_methods)
+    tax_data = get_z(_TAX_DEPR, r, bonus_deprec, tax_treat_list, fin_list, tax_methods)
     return tax_data
 
 
