@@ -70,9 +70,9 @@ Water supply,50,20,50,GDS,GDS 150%
 Sewage and waste disposal,50,20,50,GDS,GDS 150%
 Public safety,40,39,40,GDS,GDS SL
 Highway and conservation and development,20,15,20,GDS,GDS 150%
-Prepackaged software,3,3,3,GDS,GDS SL
-Custom software,3,3,3,GDS,GDS SL
-Own account software,3,3,3,GDS,GDS SL
+Prepackaged software,3,3,3,GDS,GDS 200%
+Custom software,3,3,3,GDS,GDS 200%
+Own account software,3,3,3,GDS,GDS 200%
 Pharmaceutical and medicine manufacturing,9,5,9,GDS,GDS 200%
 "Chemical manufacturing, ex. pharma and med",9.5,5,9.5,GDS,GDS 200%
 Semiconductor and other component manufacturing,5,5,5,GDS,GDS 200%
