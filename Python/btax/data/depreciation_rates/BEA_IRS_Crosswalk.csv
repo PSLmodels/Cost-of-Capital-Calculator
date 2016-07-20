@@ -7,16 +7,16 @@ Terminals,6,5,5,GDS,GDS 200%
 Tape drives,6,5,5,GDS,GDS 200%
 Storage devices,6,5,5,GDS,GDS 200%
 System integrators,6,5,5,GDS,GDS 200%
-Communications,10,7,10,GDS,GDS 200%
-Nonelectro medical instruments,9,5,9,GDS,GDS 200%
-Electro medical instruments,9,5,5,GDS,GDS 200%
+Communications equipment,10,7,10,GDS,GDS 200%
+Nonelectro medical instruments,9,7,9,GDS,GDS 200%
+Electro medical instruments,9,7,5,GDS,GDS 200%
 Nonmedical instruments,9,7,7,GDS,GDS 200%
 Photocopy and related equipment,6,5,5,GDS,GDS 200%
 Office and accounting equipment,10,5,10,GDS,GDS 200%
 Nuclear fuel,5,5,5,GDS,GDS 200%
 Other fabricated metals,15,7,15,GDS,GDS 200%
 Steam engines,28,15,28,GDS,GDS 150%
-Internal combustion engines,20,7,20,GDS,GDS 150%
+Internal combustion engines,20,7,20,GDS,GDS 200%
 Metalworking machinery,14,7,14,GDS,GDS 200%
 Special industrial machinery,4,7,4,GDS,GDS 200%
 General industrial equipment,9,7,9,GDS,GDS 200%
@@ -36,8 +36,8 @@ Construction tractors,4,5,4,GDS,GDS 200%
 Mining and oilfield machinery,10,7,10,GDS,GDS 200%
 Service industry machinery,9,7,9,GDS,GDS 200%
 Household appliances,6,5,9,GDS,GDS 200%
-Other electrical,6,7,9,GDS,GDS 200%
-Other,6,7,9,GDS,GDS 200%
+Other electrical equipment,6,7,9,GDS,GDS 200%
+Other equipment,6,7,9,GDS,GDS 200%
 Office,40,39,40,GDS,GDS SL
 Hospitals,40,39,40,ADS,ADS SL
 Special care,40,39,40,ADS,ADS SL
@@ -52,8 +52,8 @@ Electric,19,10,19,GDS,GDS SL
 Wind and solar,6,5,5,GDS,GDS 200%
 Gas,14,7,14,GDS,GDS 200%
 Petroleum pipelines,14,7,14,GDS,GDS 200%
-Communication,6,5,6,GDS,GDS 200%
-Petroleum and natural gas,14,7,14,GDS,GDS 200%
+Communication,6,15,6,GDS,GDS 150%
+Petroleum and natural gas,14,5,14,GDS,GDS 200%
 Mining,10,7,10,GDS,GDS 200%
 Religious,40,39,40,GDS,GDS 200%
 Educational and vocational,40,39,40,ADS,ADS SL
