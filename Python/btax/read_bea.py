@@ -18,18 +18,10 @@ _CUR_DIR = os.path.dirname(__file__)
 _MAIN_DIR = os.path.dirname(_CUR_DIR)
 _DATA_DIR = os.path.abspath(_CUR_DIR + '//data' + '//raw_data')
 _BEA_DIR = os.path.join(_DATA_DIR, 'BEA') # Directory with BEA data.
-# Importing custom modules:
-import naics_processing as naics
-import constants as cst
 # Full file paths:
 _BEA_ASSET_PATH = os.path.join(_BEA_DIR, "detailnonres_stk1.xlsx")
 _BEA_CROSS = os.path.join(_BEA_DIR, 'BEA_Crosswalk.csv')
 _SOI_CROSS = os.path.join(_BEA_DIR, 'NAICS_SOI_crosswalk.csv')
-# Dataframe column names:
-_CORP_TAX_SECTORS_NMS_DICT = cst.CORP_TAX_SECTORS_NMS_DICT
-_CORP_NMS = _CORP_TAX_SECTORS_NMS_DICT.values()
-_NON_CORP_TAX_SECTORS_NMS_DICT = cst.NON_CORP_TAX_SECTORS_NMS_DICT
-_NCORP_NMS = _NON_CORP_TAX_SECTORS_NMS_DICT.values()
 # Constant factors:
 _BEA_IN_FILE_FCTR = 10**6
 _START_POS = 8
@@ -126,7 +118,7 @@ def read_bea(sector_dfs):
             key1 = code_dict[key]
             corp_asst_vals = np.array(asst_vals) * rates['corp'][key1]
             non_corp_vals = np.array(asst_vals) * rates['non_corp'][key1]
-            ind_fa = {cross_dict[code][0]: {'corp':corp_asst_vals, 'non_corp': non_corp_vals}}
+            ind_fa = {cross_dict[code][0]: np.array([corp_asst_vals, non_corp_vals])}
             total_fa.update(ind_fa)
     return total_fa
     '''
