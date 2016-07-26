@@ -25,7 +25,14 @@ def read_from_egg(tfile):
 
 def get_paths():
     paths = {}
-    paths['_CUR_DIR'] = _CUR_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    _CUR_DIR = os.environ.get('BTAX_CUR_DIR')
+    if _CUR_DIR:
+        _CUR_DIR = os.path.expanduser(_CUR_DIR)
+    if not _CUR_DIR or not os.path.exists(_CUR_DIR):
+
+        paths['_CUR_DIR'] = _CUR_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    else:
+        paths['_CUR_DIR'] = _CUR_DIR
     paths['_MAIN_DIR'] = _MAIN_DIR = os.path.dirname(_CUR_DIR)
     paths['_DATA_DIR'] = _DATA_DIR = os.path.join('btax', 'data')
     paths['_RATE_DIR'] = _RATE_DIR = os.path.join(_DATA_DIR, 'depreciation_rates')
