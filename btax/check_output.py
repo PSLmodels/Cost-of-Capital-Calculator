@@ -1,8 +1,9 @@
 import os.path
 import cPickle as pickle
 import pandas as pd
-_CUR_DIR = os.path.dirname(os.path.abspath(__file__))
-_OUT_DIR = os.path.join(_CUR_DIR, 'output')
+from btax.util import get_paths
+
+globals().update(get_paths())
 
 def check_output():
 	# load the baseline .pkl file

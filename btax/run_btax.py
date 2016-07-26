@@ -9,24 +9,15 @@ import sys
 import pandas as pd
 import numpy as np
 import cPickle as pickle
-_CUR_DIR = os.path.dirname(os.path.abspath(__file__))
-_MAIN_DIR = os.path.dirname(_CUR_DIR)
-_REF_DIR = os.path.join(_MAIN_DIR, 'References')
-_BTAX_DIR = os.path.join(_CUR_DIR, 'btax')
-_DATA_DIR = os.path.join(_BTAX_DIR, 'data')
-_RATE_DIR = os.path.join(_DATA_DIR, 'depreciation_rates')
-_RAW_DIR = os.path.join(_DATA_DIR, 'raw_data')
-_BEA_DIR = os.path.join(_RAW_DIR, 'BEA')
-_OUT_DIR = os.path.join(_BTAX_DIR, 'output')
-_TAX_DEPR = os.path.join(_RATE_DIR, 'BEA_IRS_Crosswalk.csv')
-_IND_NAICS = os.path.join(_BEA_DIR, 'Industries.csv')
-sys.path.append(_BTAX_DIR)
 from btax.soi_processing import pull_soi_data
-from btax.calc_final_outputs import asset_calcs
+from btax.calc_final_outputs import asset_calcs, get_paths
 from btax.check_output import check_output
-import read_bea
-import soi_processing as soi
-import parameters as params
+from btax.util import get_paths, read_from_egg
+import btax.read_bea as read_bea
+import btax.soi_processing as soi
+import btax.parameters as params
+
+globals().update(get_paths())
 
 def run_btax(user_params):
 	sector_dfs = pull_soi_data()
@@ -84,7 +75,7 @@ def run_btax(user_params):
 	CBO_data.to_csv(_OUT_DIR+'/CBO_data.csv',encoding='utf-8')
 
 	# join CBO data to ours
-	# import difflib 
+	# import difflib
 	# df2 = vars_by_asset.copy()
 	# df1 = CBO_data.copy()
 	# df2['Asset Type'] = df2['Asset Type'].apply(lambda x: difflib.get_close_matches(x, df1['Asset Type'])[0])
@@ -94,14 +85,14 @@ def run_btax(user_params):
 
 
 	OSPC_list = ['delta','z_c','z_c_d','z_c_e','z_nc','rho_c','rho_c_d','rho_c_e','rho_nc',
-	       'metr_c', 'metr_c_d', 'metr_c_e', 'mettr_c', 'mettr_c_d', 'mettr_c_e', 
+	       'metr_c', 'metr_c_d', 'metr_c_e', 'mettr_c', 'mettr_c_d', 'mettr_c_e',
 	       'mettr_nc']
 	CBO_list = ['Economic deprecia- tion rate []','Corporate: total [z(c)]',
-	      'Corporate: debt-financed [z(c,d)]', 'Corporate: equity-financed [z(c,e)]', 
-	      'Non-corporate [z(n)]', 'Corporate: total [(c)]', 'Corporate: debt-financed [(c,d)]', 
-	      'Corporate: equity-financed [(c,e)]', 'Non-corporate [(n)]', 'Corporate: total [ETR(c)]', 
+	      'Corporate: debt-financed [z(c,d)]', 'Corporate: equity-financed [z(c,e)]',
+	      'Non-corporate [z(n)]', 'Corporate: total [(c)]', 'Corporate: debt-financed [(c,d)]',
+	      'Corporate: equity-financed [(c,e)]', 'Non-corporate [(n)]', 'Corporate: total [ETR(c)]',
 	      'Corporate: debt-financed [ETR(c,d)]', 'Corporate: equity-financed [ETR(c,e)]',
-	      'Corporate: total [ETTR(c)]', 'Corporate: debt-financed [ETTR(c,d)]', 
+	      'Corporate: total [ETTR(c)]', 'Corporate: debt-financed [ETTR(c,d)]',
 	      'Corporate: equity-financed [ETTR(c,e)]', 'Non-corporate [ETTR(n)]']
 
 	#print CBO_v_OSPC.index
@@ -128,7 +119,9 @@ def run_btax(user_params):
 
 	return vars_by_asset
 
-if __name__ == '__main__':
-	run_btax(user_params={})
+def main():
+    run_btax(user_params={})
 
-	
+if __name__ == '__main__':
+	main()
+
