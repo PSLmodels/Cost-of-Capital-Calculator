@@ -1,3 +1,13 @@
+"""
+SOI Corp Data (pull_soi_corp.py):
+-------------------------------------------------------------------------------
+Module that handles reading in the soi corporate data. Contains a script that loads in the capital stock
+information for total corporations and s corporations. Based on the ratio of assets for total corporations,
+data for s corporations is imputed. Finally, using the difference between the two, the c corporation
+data can be allocated to all the industries. 
+Last updated: 7/26/2016.
+
+"""
 # Packages:
 import os.path
 import numpy as np
@@ -31,8 +41,13 @@ _NAICS_COL_NM = 'INDY_CD'
 _CODE_RANGE = ['32', '33', '45', '49']
 _PARENTS = {'32':'31','33':'31','45':'44','49':'48'}
 
-def load_corp_data(cols_dict=_DFLT_S_CORP_COLS_DICT):    
+def load_corp_data():    
+    """Reads in the total corp and s corp data and calculates the c corp data.
 
+        :returns: soi corporate capital stock data
+        :rtype: dictionary
+    """
+    cols_dict=_DFLT_S_CORP_COLS_DICT
     # Dataframe column names
     data_cols = cols_dict.keys()
     # Opening the soi S-corporate data file:
@@ -95,6 +110,17 @@ def load_corp_data(cols_dict=_DFLT_S_CORP_COLS_DICT):
     return corp_data
 
 def calc_proportions(tot_corp_data, s_corp_data, columns):
+    """Uses the ratio of the minor industry to the major industry to fill in missing s corp data.
+
+        :param tot_corp_data: capital stock for all the corporations
+        :param s_corp_data: capital stock for the s corporations 
+        :param columns: column names for the new DataFrame
+        :type tot_corp_data: DataFrame
+        :type s_corp_data: DataFrame
+        :type columns: list
+        :returns: capital stock for the s corporations with all the industries filled in
+        :rtype: DataFrame
+    """
     # Puts the dataframes into numpy arrays for easier data manipulation
     tot_corp = np.array(tot_corp_data)
     code = str(int(tot_corp[0][0]))

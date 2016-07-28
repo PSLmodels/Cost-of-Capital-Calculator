@@ -1,3 +1,13 @@
+"""
+Check Final Outputs (check_output.py):
+-------------------------------------------------------------------------------
+
+This module loads in the baseline dataframe from a .pkl file and compares it to the
+newly created dataframe (also loaded from a .pkl file) to confirm that none of the final
+calculations have changed. The pandas method assert_frame_equal is used to perform the
+check. Last Updated 7/27/2016
+"""
+
 import os.path
 import cPickle as pickle
 import pandas as pd
@@ -5,6 +15,9 @@ _CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 _OUT_DIR = os.path.join(_CUR_DIR, 'output')
 
 def check_output():
+	"""Asserts that the two dataframes (baseline and new output) are equal
+
+	"""
 	# load the baseline .pkl file
 	with open(os.path.join(_OUT_DIR,'baseline.pkl'), 'rb') as handle:
 	  base_out = pickle.load(handle)
