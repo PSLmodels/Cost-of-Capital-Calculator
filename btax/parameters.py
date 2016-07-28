@@ -1,7 +1,20 @@
+"""
+Parameters (parameters.py):
+-------------------------------------------------------------------------------
+
+This module contains all the parameters used for the calc_final_outputs.py script. It also
+contains intermediate calculations that produce more relevant parameters. The parameters 
+are placed in a dictionary. Last Updated 7/27/2016
+"""
 from calc_z import calc_tax_depr_rates, get_econ_depr
 import numpy as np
 
 def get_params():
+	"""Contains all the parameters
+
+		:returns: Inflation rate, depreciation, tax rate, discount rate, return to savers, property tax
+		:rtype: dictionary
+	"""
 	#macro variables
 	pi = 0.018
 	i = 0.072
@@ -11,7 +24,6 @@ def get_params():
 	f_array = np.array([[f_c, f_nc], [1, 1], [0,0]])
 
 	#calibration variables
-
 	omega_scg = 0.03627
 	omega_lcg = 0.48187
 	omega_xcg = 0.48187
@@ -56,8 +68,6 @@ def get_params():
 	Y_lcg = 8.
 	gamma = 0.3
 	m = 0.4286
-
-
 
 	#intermediate variables
 	sprime_c_td = (1/Y_td)*np.log(((1-tau_td)*np.exp(i*Y_td))+tau_td)-pi

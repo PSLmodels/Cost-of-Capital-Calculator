@@ -1,26 +1,50 @@
+"""
+SOI Auxiliary Script (soi_processing.py):
+-------------------------------------------------------------------------------
+Module that handles reading in the soi data (corporate, partners, and sole proprietorships). Makes calls to a different
+script for each one of these entities. Also provides auxiliary scripts to format the partner and proprietorship dataframes and to
+interpolate missing data.
+Last updated: 7/26/2016.
+
+"""
+# Import packages
 import os.path
 import sys
 import numpy as np
 import pandas as pd
-
+# Import custom modules
 import pull_soi_corp as corp
 import pull_soi_partner as prt
 import pull_soi_proprietorship as prop
-
+# Factor used to adjust dollar values
 _FILE_FCTR = 10**3
 
 def pull_soi_data():
-	sector_dfs = {}
-	sector_dfs.update(corp.load_corp_data())
+    """Creates a dictionary that is updated with the soi entity data after each method. 
 
-	sector_dfs.update(prt.load_partner_data(sector_dfs))
+        :returns: DataFrames organized by entity type (corp, partner, sole prop)
+        :rtype: dictionary 
+    """
+    entity_dfs = {}
+    entity_dfs.update(corp.load_corp_data())
+    
+    entity_dfs.update(prt.load_partner_data(entity_dfs))
 
-	sector_dfs.update(prop.load_proprietorship_data(sector_dfs))
-
-	return sector_dfs
+    entity_dfs.update(prop.load_proprietorship_data(entity_dfs))
+    
+    return entity_dfs
 
 
 def format_dataframe(df, crosswalk):
+    """Formats the dataframe with industry codes as the rows and asset information as the columns.
+
+        :param df: The dataframe to be formatted
+        :param crosswalk: Maps the SOI codes to their respective industries
+        :type df: DataFrame
+        :type crosswalk: DataFrame
+        :returns: A clean dataframe with the data easily acessible
+        :rtype: DataFrame
+    """
     indices = []
     # Removes the extra characters from the industry names
     for string in df.index:
@@ -50,10 +74,19 @@ def format_dataframe(df, crosswalk):
     # Returns the newly formatted dataframe
     return df
 
-# Fills in the missing values using the proportion of corporate industry values
-def interpolate_data(sector_dfs, df):
+
+def interpolate_data(entity_dfs, df):
+    """Fills in the missing values using the proportion of corporate industry values
+
+        :param entity_dfs: Contains all the soi data by entity type
+        :param df: The datframe that will be updated with new values
+        :type entity_dfs: dictionary
+        :type df: DataFrame
+        :returns: The new dataframe with values for all the industries
+        :rtype: DataFrame
+    """
     # Takes the total corp values as the baseline
-    base_df = sector_dfs['tot_corp']
+    base_df = entity_dfs['tot_corp']
     # Stores the dataframe in a numpy array
     corp_data = np.array(base_df)
     # Stores the partner or prop data in a numpy array

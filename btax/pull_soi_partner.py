@@ -1,3 +1,12 @@
+"""
+SOI Partner Data (pull_soi_partner.py):
+-------------------------------------------------------------------------------
+Module that handles reading in the soi partner data. Contains one long script that loads in the capital stock,
+income and entity information. Using the different asset and income information (ratios of assets to income),
+data can be allocated to all the industries in the different partner entities.
+Last updated: 7/26/2016.
+
+"""
 # Packages:
 import os.path
 import numpy as np
@@ -23,12 +32,20 @@ _AST_FILE = os.path.join(_PRT_DIR, '12pa03.csv')
 _TYP_FILE = os.path.join(_PRT_DIR, '12pa05.csv')
 _SOI_CODES = os.path.join(_SOI_DIR, 'SOI_codes.csv')
 
+# Constants
 _AST_FILE_FCTR = 10**3
 _SHAPE = (131,4)
 _CODE_RANGE = ['32', '33', '45', '49']
 _PARENTS = {'32':'31','33':'31','45':'44','49':'48'}
 
-def load_partner_data(sector_dfs):
+def load_partner_data(entity_dfs):
+    """Reads in the partner data and creates new dataframes for each partner type and stores them in the soi dictionary
+
+        :param entity_dfs: Contains all the soi data by entity type
+        :type entity_dfs: dictionary
+        :returns: The soi dictionary updated with the partner dataframe
+        :rtype: dictionary
+    """
     # Opening data on depreciable fixed assets, inventories, and land:
     df = pd.read_csv(_AST_FILE).T
     # Opening the crosswalk for the asset data
@@ -178,7 +195,7 @@ def load_partner_data(sector_dfs):
         # Uses an intersection to remove any data that only exists for partners
         df = baseline_codes.merge(df, how = 'inner')
         # Uses the corporate ratio of capital stock to further fill in missing information
-        df = soi.interpolate_data(sector_dfs, df)
+        df = soi.interpolate_data(entity_dfs, df)
         # Adds the dataframe to the dictionary
         prt_data[prt_types[i]] = df
 

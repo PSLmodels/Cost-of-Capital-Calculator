@@ -1,3 +1,14 @@
+"""
+SOI Proprietorship Data (pull_soi_partner.py):
+-------------------------------------------------------------------------------
+Module that handles reading in the soi proprietorship data. Because no fixed asset and land data is 
+available for sole props, the depreciation deduction is used along with the partner data. The 
+ratio of land and fixed assets to the depreciation deduction for partners is used to impute the data
+for sole props. The sole prop inventory and farm data is also loaded in.
+Last updated: 7/26/2016.
+
+"""
+
 import os.path
 import sys
 import numpy as np
@@ -12,7 +23,7 @@ _RAW_DIR = os.path.join(_DATA_DIR, 'raw_data')
 _SOI_DIR = os.path.join(_RAW_DIR, 'soi')
 _PROP_DIR = os.path.join(_SOI_DIR, 'soi_proprietorship')
 _PRT_DIR = os.path.join(_SOI_DIR, 'soi_partner')
-
+# File paths
 _NFARM_PATH = os.path.join(_PROP_DIR, '12sp01br.csv')
 _FARM_IN_PATH = os.path.join(_PROP_DIR, 'farm_data.csv')
 _PRT_INC = os.path.join(_PRT_DIR, '12pa01.csv')
@@ -23,7 +34,14 @@ _DDCT_IN_CROSS_PATH = os.path.join(_PROP_DIR, '12sp01br_Crosswalk.csv')
 _SOI_CODES = os.path.join(_SOI_DIR, 'SOI_codes.csv')
 _DDCT_FILE_FCTR = 10**3
 
-def load_proprietorship_data(sector_dfs):
+def load_proprietorship_data(entity_dfs):
+    """Using the partner and sole prop data, the capital stock data is imputed.
+
+        :param entity_dfs: Contains all the soi data by entity
+        :type entity_dfs: dictionary
+        :returns: The SOI capital stock data, organized by industry
+        :rtype: dictionary
+    """
 	# Opens the file that contains the non farm sole prop data
     nonfarm_df = pd.read_csv(_NFARM_PATH)
     # Opens the nonfarm data crosswalk
@@ -32,10 +50,10 @@ def load_proprietorship_data(sector_dfs):
     nonfarm_inv = soi.format_dataframe(pd.read_csv(_NFARM_INV).T,crosswalk)
     # Opens the crosswalk for the partner data
     prt_crosswalk = pd.read_csv(_PRT_CROSS)
-    # Opens and formatting the partner depreciation deduction data 
+    # Opens and formats the partner depreciation deduction data 
     prt_deduct = pd.read_csv(_PRT_INC).T
     prt_deduct = soi.format_dataframe(prt_deduct, prt_crosswalk)
-    # Opens and formatting the partner asset data
+    # Opens and formats the partner asset data
     prt_asst = pd.read_csv(_PRT_ASST).T
     prt_asst = soi.format_dataframe(prt_asst, prt_crosswalk)
     # Inserts the codes into the nonfarm dataframe
@@ -103,7 +121,7 @@ def load_proprietorship_data(sector_dfs):
     baseline_codes = pd.read_csv(_SOI_CODES)
     nfarm_df = baseline_codes.merge(nfarm_df, how = 'outer').fillna(0)
     nfarm_df = baseline_codes.merge(nfarm_df, how = 'inner')
-    nfarm_df = soi.interpolate_data(sector_dfs, nfarm_df)
+    nfarm_df = soi.interpolate_data(entity_dfs, nfarm_df)
 
     # Calculates the FA and Land for Farm sole proprietorships. Should be placed in data for industry 11
     farm_df = pd.read_csv(_FARM_IN_PATH)
@@ -116,12 +134,19 @@ def load_proprietorship_data(sector_dfs):
     sp_farm_assts = farm_df['R_sp'][0] + farm_df['Q_sp'][0] - sp_farm_land
     sp_farm_cstock = np.array([sp_farm_assts, 0, sp_farm_land])
 
-    # Creates the dictionary of sector : dataframe that is returned and used to update sector_dfs
+    # Creates the dictionary of sector : dataframe that is returned and used to update entity_dfs
     sole_prop_cstock = {'sole_prop': nfarm_df}
 
     return sole_prop_cstock
 
 def format_columns(nonfarm_df):
+    """Removes extra characters from the columns of the dataframe
+
+        :param nonfarm_df: Contains the nonfarm capital stock data
+        :type nonfarm_df: DataFrame
+        :returns: The formatted dataframe
+        :rtype: DataFrame
+    """ 
     columns = nonfarm_df.columns.tolist()
     for i in xrange(0,len(columns)):
         column = columns[i]
