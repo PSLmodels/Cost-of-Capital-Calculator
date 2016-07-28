@@ -1,0 +1,52 @@
+{
+  "rho_c_e": {
+    "col_label": "Coluolumn label", 
+    "name": "rho_c_e", 
+    "tooltip": "tooltip content"
+  }, 
+  "rho_c_d": {
+    "col_label": "Coluolumn label", 
+    "name": "rho_c_d", 
+    "tooltip": "tooltip content"
+  }, 
+  "rho_c": {
+    "col_label": "Coluolumn label", 
+    "name": "rho_c", 
+    "tooltip": "tooltip content"
+  }, 
+  "NAICS": {
+    "col_label": "Coluolumn label", 
+    "name": "NAICS", 
+    "tooltip": "tooltip content"
+  }, 
+  "Industry": {
+    "col_label": "Coluolumn label", 
+    "name": "Industry", 
+    "tooltip": "tooltip content"
+  }, 
+  "rho_nc": {
+    "col_label": "Coluolumn label", 
+    "name": "rho_nc", 
+    "tooltip": "tooltip content"
+  }, 
+  "metr_nc": {
+    "col_label": "Coluolumn label", 
+    "name": "metr_nc", 
+    "tooltip": "tooltip content"
+  }, 
+  "metr_c": {
+    "col_label": "Coluolumn label", 
+    "name": "metr_c", 
+    "tooltip": "tooltip content"
+  }, 
+  "metr_c_e": {
+    "col_label": "Coluolumn label", 
+    "name": "metr_c_e", 
+    "tooltip": "tooltip content"
+  }, 
+  "metr_c_d": {
+    "col_label": "Coluolumn label", 
+    "name": "metr_c_d", 
+    "tooltip": "tooltip content"
+  }
+}

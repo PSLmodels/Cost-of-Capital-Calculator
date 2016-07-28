@@ -1,0 +1,559 @@
+[
+  [
+    "btax_betr_corp", 
+    {
+      "long_name": "", 
+      "notes": "notes", 
+      "description": "description", 
+      "value": [
+        [
+          0.986
+        ]
+      ]
+    }
+  ], 
+  [
+    "btax_betr_entity_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notes", 
+      "description": "description", 
+      "value": [
+        [
+          0.986
+        ]
+      ]
+    }
+  ], 
+  [
+    "btax_betr_pass", 
+    {
+      "long_name": "", 
+      "notes": "notes", 
+      "description": "description", 
+      "value": [
+        [
+          0.986
+        ]
+      ]
+    }
+  ], 
+  [
+    "btax_depr_10yr_ads_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_10yr_ads_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_10yr_exp", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_10yr_exp", 
+      "description": "description", 
+      "value": [
+        50
+      ]
+    }
+  ], 
+  [
+    "btax_depr_10yr_gds_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_10yr_gds_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_10yr_tax_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_10yr_tax_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_15yr_ads_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_15yr_ads_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_15yr_exp", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_15yr_exp", 
+      "description": "description", 
+      "value": [
+        50
+      ]
+    }
+  ], 
+  [
+    "btax_depr_15yr_gds_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_15yr_gds_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_15yr_tax_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_15yr_tax_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_20yr_ads_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_20yr_ads_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_20yr_exp", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_20yr_exp", 
+      "description": "description", 
+      "value": [
+        50
+      ]
+    }
+  ], 
+  [
+    "btax_depr_20yr_gds_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_20yr_gds_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_20yr_tax_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_20yr_tax_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_25yr_ads_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_25yr_ads_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_25yr_exp", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_25yr_exp", 
+      "description": "description", 
+      "value": [
+        50
+      ]
+    }
+  ], 
+  [
+    "btax_depr_25yr_gds_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_25yr_gds_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_25yr_tax_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_25yr_tax_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_27_5yr_ads_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_27_5yr_ads_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_27_5yr_exp", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_27_5yr_exp", 
+      "description": "description", 
+      "value": [
+        50
+      ]
+    }
+  ], 
+  [
+    "btax_depr_27_5yr_gds_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_27_5yr_gds_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_27_5yr_tax_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_27_5yr_tax_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_39yr_ads_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_39yr_ads_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_39yr_exp", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_39yr_exp", 
+      "description": "description", 
+      "value": [
+        50
+      ]
+    }
+  ], 
+  [
+    "btax_depr_39yr_gds_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_39yr_gds_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_39yr_tax_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_39yr_tax_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_3yr_ads_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_3yr_ads_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_3yr_exp", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_3yr_exp", 
+      "description": "description", 
+      "value": [
+        50
+      ]
+    }
+  ], 
+  [
+    "btax_depr_3yr_gds_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_3yr_gds_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_3yr_tax_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_3yr_tax_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_5yr_ads_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_5yr_ads_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_5yr_exp", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_5yr_exp", 
+      "description": "description", 
+      "value": [
+        50
+      ]
+    }
+  ], 
+  [
+    "btax_depr_5yr_gds_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_5yr_gds_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_5yr_tax_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_5yr_tax_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_7yr_ads_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_7yr_ads_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_7yr_exp", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_7yr_exp", 
+      "description": "description", 
+      "value": [
+        50
+      ]
+    }
+  ], 
+  [
+    "btax_depr_7yr_gds_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_7yr_gds_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_7yr_tax_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_7yr_tax_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_allyr_ads_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_allyr_ads_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_allyr_exp", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_allyr_exp", 
+      "description": "description", 
+      "value": [
+        50
+      ]
+    }
+  ], 
+  [
+    "btax_depr_allyr_gds_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_allyr_gds_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_depr_allyr_tax_Switch", 
+    {
+      "long_name": "", 
+      "notes": "notesbtax_depr_allyr_tax_Switch", 
+      "description": "description", 
+      "value": [
+        ""
+      ]
+    }
+  ], 
+  [
+    "btax_econ_inflat", 
+    {
+      "long_name": "", 
+      "notes": "notes", 
+      "description": "description", 
+      "value": [
+        [
+          0.986
+        ]
+      ]
+    }
+  ], 
+  [
+    "btax_econ_nomint", 
+    {
+      "long_name": "", 
+      "notes": "notes", 
+      "description": "description", 
+      "value": [
+        [
+          0.986
+        ]
+      ]
+    }
+  ], 
+  [
+    "btax_other_corpeq", 
+    {
+      "long_name": "", 
+      "notes": "notes", 
+      "description": "description", 
+      "value": [
+        [
+          0.986
+        ]
+      ]
+    }
+  ], 
+  [
+    "btax_other_hair", 
+    {
+      "long_name": "", 
+      "notes": "notes", 
+      "description": "description", 
+      "value": [
+        [
+          0.986
+        ]
+      ]
+    }
+  ], 
+  [
+    "btax_other_invest", 
+    {
+      "long_name": "", 
+      "notes": "notes", 
+      "description": "description", 
+      "value": [
+        [
+          0.986
+        ]
+      ]
+    }
+  ], 
+  [
+    "btax_other_proptx", 
+    {
+      "long_name": "", 
+      "notes": "notes", 
+      "description": "description", 
+      "value": [
+        [
+          0.986
+        ]
+      ]
+    }
+  ]
+]

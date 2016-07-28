@@ -1,0 +1,92 @@
+{
+  "rho_c_e": {
+    "col_label": "Coluolumn label", 
+    "name": "rho_c_e", 
+    "tooltip": "tooltip content"
+  }, 
+  "rho_c_d": {
+    "col_label": "Coluolumn label", 
+    "name": "rho_c_d", 
+    "tooltip": "tooltip content"
+  }, 
+  "Asset Type": {
+    "col_label": "Coluolumn label", 
+    "name": "Asset Type", 
+    "tooltip": "tooltip content"
+  }, 
+  "rho_c": {
+    "col_label": "Coluolumn label", 
+    "name": "rho_c", 
+    "tooltip": "tooltip content"
+  }, 
+  "metr_nc": {
+    "col_label": "Coluolumn label", 
+    "name": "metr_nc", 
+    "tooltip": "tooltip content"
+  }, 
+  "z_c_d": {
+    "col_label": "Coluolumn label", 
+    "name": "z_c_d", 
+    "tooltip": "tooltip content"
+  }, 
+  "z_c_e": {
+    "col_label": "Coluolumn label", 
+    "name": "z_c_e", 
+    "tooltip": "tooltip content"
+  }, 
+  "mettr_c_d": {
+    "col_label": "Coluolumn label", 
+    "name": "mettr_c_d", 
+    "tooltip": "tooltip content"
+  }, 
+  "rho_nc": {
+    "col_label": "Coluolumn label", 
+    "name": "rho_nc", 
+    "tooltip": "tooltip content"
+  }, 
+  "z_nc": {
+    "col_label": "Coluolumn label", 
+    "name": "z_nc", 
+    "tooltip": "tooltip content"
+  }, 
+  "mettr_c": {
+    "col_label": "Coluolumn label", 
+    "name": "mettr_c", 
+    "tooltip": "tooltip content"
+  }, 
+  "z_c": {
+    "col_label": "Coluolumn label", 
+    "name": "z_c", 
+    "tooltip": "tooltip content"
+  }, 
+  "mettr_nc": {
+    "col_label": "Coluolumn label", 
+    "name": "mettr_nc", 
+    "tooltip": "tooltip content"
+  }, 
+  "delta": {
+    "col_label": "Coluolumn label", 
+    "name": "delta", 
+    "tooltip": "tooltip content"
+  }, 
+  "mettr_c_e": {
+    "col_label": "Coluolumn label", 
+    "name": "mettr_c_e", 
+    "tooltip": "tooltip content"
+  }, 
+  "metr_c": {
+    "col_label": "Coluolumn label", 
+    "name": "metr_c", 
+    "tooltip": "tooltip content"
+  }, 
+  "metr_c_e": {
+    "col_label": "Coluolumn label", 
+    "name": "metr_c_e", 
+    "tooltip": "tooltip content"
+  }, 
+  "metr_c_d": {
+    "col_label": "Coluolumn label", 
+    "name": "metr_c_d", 
+    "tooltip": "tooltip content"
+  }
+}

@@ -13,9 +13,8 @@ def get_data_files():
     root = os.path.join('btax', 'data')
     for r, d, f in os.walk(root):
         files.extend(os.path.join(r, fi) for fi in f)
-    files = [os.path.relpath(f, 'btax') for f in files]
-    print('\n'.join(files))
-    return files
+    files += glob.glob(os.path.join('btax', 'param_defaults', '*.json'))
+    return [os.path.relpath(f, 'btax') for f in files]
 
 setup(name='btax',
 	  version=VERSION,
