@@ -25,7 +25,7 @@ def get_params():
 
 	#calibration variables
 	omega_scg = 0.03627
-	omega_lcg = 0.48187 
+	omega_lcg = 0.48187
 	omega_xcg = 0.48187
 
 	alpha_c_e_ft = 0.584
@@ -38,7 +38,7 @@ def get_params():
 
 	alpha_nc_d_ft = 0.691
 	alpha_nc_d_td = 0.142
-	alpha_nc_d_nt = 0.167 
+	alpha_nc_d_nt = 0.167
 
 	alpha_h_d_ft = 0.716
 	alpha_h_d_td = 0.071
@@ -97,9 +97,9 @@ def get_params():
 	tax_methods = {'GDS 200%': 2.0, 'GDS 150%': 1.5, 'GDS SL': 1.0, 'ADS SL': 1.0}
 	z = calc_tax_depr_rates(r, bonus_deprec, tax_methods)
 	delta = get_econ_depr()
-	
-	parameters = {'inflation rate': pi, 
-	'econ depreciation': delta, 
+
+	parameters = {'inflation rate': pi,
+	'econ depreciation': delta,
 	'depr allow': z,
 	'tax rate': u_array,
 	'discount rate': r,

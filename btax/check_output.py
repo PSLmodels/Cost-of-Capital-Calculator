@@ -11,8 +11,9 @@ check. Last Updated 7/27/2016
 import os.path
 import cPickle as pickle
 import pandas as pd
-_CUR_DIR = os.path.dirname(os.path.abspath(__file__))
-_OUT_DIR = os.path.join(_CUR_DIR, 'output')
+from btax.util import get_paths
+
+globals().update(get_paths())
 
 def check_output():
 	"""Asserts that the two dataframes (baseline and new output) are equal

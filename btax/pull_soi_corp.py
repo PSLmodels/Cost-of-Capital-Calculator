@@ -27,7 +27,7 @@ _DFLT_S_CORP_COLS_DICT = DFLT_S_CORP_COLS_DICT = dict([
                     ('accumulated_depreciation', 'ACCUM_DPR'),
                     ('land', 'LAND'),
                     ('inventories', 'INVNTRY'),
-                    ('interest_paid', 'INTRST_PD'), 
+                    ('interest_paid', 'INTRST_PD'),
                     ('Capital_stock', 'CAP_STCK'),
                     ('additional_paid-in_capital', 'PD_CAP_SRPLS'),
                     ('earnings_(rtnd_appr.)', ''),
@@ -55,13 +55,13 @@ def load_corp_data():
         s_corp_data = pd.read_csv(_S_CORP_IN_PATH).fillna(0)
     except IOError:
         print "IOError: S-Corp soi data file not found."
-        return None  
-    # Opening the soi Total-corporate data file:      
+        raise
+    # Opening the soi Total-corporate data file:
     try:
         tot_corp_data = pd.read_csv(_TOT_CORP_IN_PATH).fillna(0)
     except IOError:
         print "IOError: S-Corp soi data file not found."
-        return None
+        raise
 
     # Formatting the list of columns that will be used to trim the dataframe for the necessary data
     columns = cols_dict.values()
@@ -133,7 +133,7 @@ def calc_proportions(tot_corp_data, s_corp_data, columns):
             tot_data = array[1:]
             new_array = np.array(s_corp_data[s_corp_data.INDY_CD == float(code[:2])])
             old_array = np.concatenate((old_array, new_array))
-        # Takes the finer-detailed data for the numerator of the ratio calculations  
+        # Takes the finer-detailed data for the numerator of the ratio calculations
         else:
             data = array[1:]
             # Calculates the ratio of finer-detailed to coarser-detailed data
@@ -145,8 +145,8 @@ def calc_proportions(tot_corp_data, s_corp_data, columns):
             ratio = np.insert(ratio, 0, array[0] / float(parent_code))
             # Multiplies the ratio by the two digit naics code data and puts it in the finer-detailed industry
             new_array = np.array(s_corp_data[s_corp_data.INDY_CD == float(parent_code)]) * ratio
-            old_array = np.concatenate((old_array, new_array)) 
-    # Loads the array back into a dataframe with all the finer-detailed industries filled out                       
-    s_corp_data = pd.DataFrame(old_array, index=np.arange(0,len(old_array)), columns = columns)     
+            old_array = np.concatenate((old_array, new_array))
+    # Loads the array back into a dataframe with all the finer-detailed industries filled out
+    s_corp_data = pd.DataFrame(old_array, index=np.arange(0,len(old_array)), columns = columns)
 
     return s_corp_data

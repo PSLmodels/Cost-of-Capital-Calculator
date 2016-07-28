@@ -14,18 +14,9 @@ import sys
 import pandas as pd
 import numpy as np
 import parameters as param
-# File paths
-_CUR_DIR = os.path.dirname(os.path.abspath(__file__))
-_OUT_DIR = os.path.join(_CUR_DIR, 'output')
-_DATA_DIR = os.path.join(_CUR_DIR, 'data')
-_RATE_DIR = os.path.join(_DATA_DIR, 'depreciation_rates')
-_RAW_DIR = os.path.join(_DATA_DIR, 'raw_data')
-_BEA_DIR = os.path.join(_RAW_DIR, 'BEA')
-_IND_NAICS = os.path.join(_BEA_DIR, 'Industries.csv')
-_NAICS_PATH = os.path.join(_BEA_DIR, 'NAICS_SOI_crosswalk.csv')
-_ECON_DEPR_FILE = os.path.join(_RATE_DIR, 'Economic Depreciation Rates.csv')
-_TAX_DEPR_FILE = os.path.join(_RATE_DIR, 'depr_allow_ads.csv')
+from btax.util import get_paths
 
+globals().update(get_paths())
 def asset_calcs(params, fixed_assets):
 	"""Computes rho, METR, and METTR at the asset level.
 
@@ -108,7 +99,7 @@ def aggregate_fixed_assets(fixed_assets):
 			agg_fa[key[:2]] = fixed_assets[key]
 
 	# handles the exceptions where an industry code covers multiple sub industries, summing them together
-	exceptions = {'31-33': ['31','32','33'], '44-45': ['44'], '48-49': ['48', '49']}			
+	exceptions = {'31-33': ['31','32','33'], '44-45': ['44'], '48-49': ['48', '49']}
 	for exc, children in exceptions.iteritems():
 		for child_ind in children:
 			if(agg_fa.has_key(exc)):

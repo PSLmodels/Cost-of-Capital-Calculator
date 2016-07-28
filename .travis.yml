@@ -13,7 +13,10 @@ install:
   - conda update conda
   - conda create -n test-environment python=$TRAVIS_PYTHON_VERSION pandas numpy
   - source activate test-environment
+  - export BTAX_OUT_DIR=btax_output_dir # make an output dir
+  - mkdir btax_output_dir
   - python setup.py install
-# command to run tests
+
 script:
-  - python Python/btax/check_output.py
+  - run-btax                    # ensure the pickles are updated
+  - python btax/check_output.py # check pickles
