@@ -1,557 +1,660 @@
 [
   [
-    "btax_betr_corp", 
+    "btax_betr_corp",
     {
-      "long_name": "", 
-      "notes": "notes", 
-      "description": "description", 
+      "long_name": "Corporate Income Tax Rate",
+      "notes": "This parameter is the top statutory corporate income tax rate.",
+      "description": "Top statutory corporate income tax rate.",
       "value": [
         [
-          0.986
+          0.35
         ]
       ]
     }
-  ], 
+  ],
   [
-    "btax_betr_entity_Switch", 
+    "btax_betr_entity_Switch",
     {
-      "long_name": "", 
-      "notes": "notes", 
-      "description": "description", 
+      "long_name": "Non-corporate Entity Level Income Tax Indicator",
+      "notes": "This parameter is an indicator for a entity-level tax on
+                non-C corporate entities, such as one would find under a
+                comprehensive business income tax (CBIT) system.",
+      "description": "Indicator for non-corporate income tax.",
       "value": [
         [
-          0.986
+          False
         ]
       ]
     }
-  ], 
+  ],
   [
-    "btax_betr_pass", 
+    "btax_betr_pass",
     {
-      "long_name": "", 
-      "notes": "notes", 
-      "description": "description", 
+      "long_name": "Non-corporate Entity Level Income Tax Rate",
+      "notes": "This parameter is the statutory income tax rate on non-C corporate
+                entities at the entity-level.",
+      "description": "Non-corporate entity-level income tax.",
       "value": [
         [
-          0.986
+          0.35
         ]
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_10yr_ads_Switch", 
+    "btax_depr_10yr_ads_Switch",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_10yr_ads_Switch", 
-      "description": "description", 
+      "long_name": "ADS on 10-year property",
+      "notes": "This parameter is an indicator for the use of the Alternative
+                Depreciation System (ADS) on 10-year class property.",
+      "description": "Indicator for Alternative Depreciation System on 10-year
+                    class property.",
       "value": [
-        ""
+        False
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_10yr_exp", 
+    "btax_depr_10yr_exp",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_10yr_exp", 
-      "description": "description", 
-      "value": [
-        50
-      ]
-    }
-  ], 
-  [
-    "btax_depr_10yr_gds_Switch", 
-    {
-      "long_name": "", 
-      "notes": "notesbtax_depr_10yr_gds_Switch", 
-      "description": "description", 
-      "value": [
-        ""
-      ]
-    }
-  ], 
-  [
-    "btax_depr_10yr_tax_Switch", 
-    {
-      "long_name": "", 
-      "notes": "notesbtax_depr_10yr_tax_Switch", 
-      "description": "description", 
-      "value": [
-        ""
-      ]
-    }
-  ], 
-  [
-    "btax_depr_15yr_ads_Switch", 
-    {
-      "long_name": "", 
-      "notes": "notesbtax_depr_15yr_ads_Switch", 
-      "description": "description", 
-      "value": [
-        ""
-      ]
-    }
-  ], 
-  [
-    "btax_depr_15yr_exp", 
-    {
-      "long_name": "", 
-      "notes": "notesbtax_depr_15yr_exp", 
-      "description": "description", 
+      "long_name": "Rate of bonus depreciation on 10-year property",
+      "notes": "This parameter gives the rate of bonus depreciation on 10-year
+                class property.  A rate of 100% results in full expensing.",
+      "description": "Rate of bonus depreciation on 10-year class property.",
       "value": [
         50
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_15yr_gds_Switch", 
+    "btax_depr_10yr_gds_Switch",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_15yr_gds_Switch", 
-      "description": "description", 
+      "long_name": "GDS on 10-year property",
+      "notes": "This parameter is an indicator for the use of the General
+                Depreciation System (GDS) on 10-year class property.",
+      "description": "Indicator for General Depreciation System on 10-year
+                    class property.",
       "value": [
-        ""
+        True
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_15yr_tax_Switch", 
+    "btax_depr_10yr_tax_Switch",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_15yr_tax_Switch", 
-      "description": "description", 
+      "long_name": "Economic depreciation on 10-year property",
+      "notes": "This parameter is an indicator for the use of the economic
+               depreciation on 10-year class property.  This means that the
+               tax depreciatin schedule for each asset is set equal to the
+               BEA's estimated rate of economic depreciation.",
+      "description": "Indicator for economic depreciation on 10-year
+                    class property.",
       "value": [
-        ""
+        False
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_20yr_ads_Switch", 
+    "btax_depr_15yr_ads_Switch",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_20yr_ads_Switch", 
-      "description": "description", 
+      "long_name": "ADS on 15-year property",
+      "notes": "This parameter is an indicator for the use of the Alternative
+                Depreciation System (ADS) on 15-year class property.",
+      "description": "Indicator for Alternative Depreciation System on 15-year
+                    class property.",
       "value": [
-        ""
+        False
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_20yr_exp", 
+    "btax_depr_15yr_exp",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_20yr_exp", 
-      "description": "description", 
-      "value": [
-        50
-      ]
-    }
-  ], 
-  [
-    "btax_depr_20yr_gds_Switch", 
-    {
-      "long_name": "", 
-      "notes": "notesbtax_depr_20yr_gds_Switch", 
-      "description": "description", 
-      "value": [
-        ""
-      ]
-    }
-  ], 
-  [
-    "btax_depr_20yr_tax_Switch", 
-    {
-      "long_name": "", 
-      "notes": "notesbtax_depr_20yr_tax_Switch", 
-      "description": "description", 
-      "value": [
-        ""
-      ]
-    }
-  ], 
-  [
-    "btax_depr_25yr_ads_Switch", 
-    {
-      "long_name": "", 
-      "notes": "notesbtax_depr_25yr_ads_Switch", 
-      "description": "description", 
-      "value": [
-        ""
-      ]
-    }
-  ], 
-  [
-    "btax_depr_25yr_exp", 
-    {
-      "long_name": "", 
-      "notes": "notesbtax_depr_25yr_exp", 
-      "description": "description", 
+      "long_name": "Rate of bonus depreciation on 10-year property",
+      "notes": "This parameter gives the rate of bonus depreciation on 15-year
+                class property.  A rate of 100% results in full expensing.",
+      "description": "Rate of bonus depreciation on 15-year class property.",
       "value": [
         50
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_25yr_gds_Switch", 
+    "btax_depr_15yr_gds_Switch",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_25yr_gds_Switch", 
-      "description": "description", 
+      "long_name": "GDS on 15-year property",
+      "notes": "This parameter is an indicator for the use of the General
+                Depreciation System (GDS) on 15-year class property.",
+      "description": "Indicator for General Depreciation System on 15-year
+                    class property.",
       "value": [
-        ""
+        True
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_25yr_tax_Switch", 
+    "btax_depr_15yr_tax_Switch",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_25yr_tax_Switch", 
-      "description": "description", 
+      "long_name": "Economic depreciation on 15-year property",
+      "notes": "This parameter is an indicator for the use of the economic
+               depreciation on 15-year class property.  This means that the
+               tax depreciatin schedule for each asset is set equal to the
+               BEA's estimated rate of economic depreciation.",
+      "description": "Indicator for economic depreciation on 15-year
+                    class property.",
       "value": [
-        ""
+        False
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_27_5yr_ads_Switch", 
+    "btax_depr_20yr_ads_Switch",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_27_5yr_ads_Switch", 
-      "description": "description", 
+      "long_name": "ADS on 20-year property",
+      "notes": "This parameter is an indicator for the use of the Alternative
+                Depreciation System (ADS) on 20-year class property.",
+      "description": "Indicator for Alternative Depreciation System on 20-year
+                    class property.",
       "value": [
-        ""
+        False
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_27_5yr_exp", 
+    "btax_depr_20yr_exp",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_27_5yr_exp", 
-      "description": "description", 
-      "value": [
-        50
-      ]
-    }
-  ], 
-  [
-    "btax_depr_27_5yr_gds_Switch", 
-    {
-      "long_name": "", 
-      "notes": "notesbtax_depr_27_5yr_gds_Switch", 
-      "description": "description", 
-      "value": [
-        ""
-      ]
-    }
-  ], 
-  [
-    "btax_depr_27_5yr_tax_Switch", 
-    {
-      "long_name": "", 
-      "notes": "notesbtax_depr_27_5yr_tax_Switch", 
-      "description": "description", 
-      "value": [
-        ""
-      ]
-    }
-  ], 
-  [
-    "btax_depr_39yr_ads_Switch", 
-    {
-      "long_name": "", 
-      "notes": "notesbtax_depr_39yr_ads_Switch", 
-      "description": "description", 
-      "value": [
-        ""
-      ]
-    }
-  ], 
-  [
-    "btax_depr_39yr_exp", 
-    {
-      "long_name": "", 
-      "notes": "notesbtax_depr_39yr_exp", 
-      "description": "description", 
+      "long_name": "Rate of bonus depreciation on 20-year property",
+      "notes": "This parameter gives the rate of bonus depreciation on 20-year
+                class property.  A rate of 100% results in full expensing.",
+      "description": "Rate of bonus depreciation on 20-year class property.",
       "value": [
         50
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_39yr_gds_Switch", 
+    "btax_depr_20yr_gds_Switch",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_39yr_gds_Switch", 
-      "description": "description", 
+      "long_name": "GDS on 20-year property",
+      "notes": "This parameter is an indicator for the use of the General
+                Depreciation System (GDS) on 20-year class property.",
+      "description": "Indicator for General Depreciation System on 20-year
+                    class property.",
       "value": [
-        ""
+        True
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_39yr_tax_Switch", 
+    "btax_depr_20yr_tax_Switch",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_39yr_tax_Switch", 
-      "description": "description", 
+      "long_name": "Economic depreciation on 20-year property",
+      "notes": "This parameter is an indicator for the use of the economic
+               depreciation on 20-year class property.  This means that the
+               tax depreciatin schedule for each asset is set equal to the
+               BEA's estimated rate of economic depreciation.",
+      "description": "Indicator for economic depreciation on 20-year
+                    class property.",
       "value": [
-        ""
+        False
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_3yr_ads_Switch", 
+    "btax_depr_25yr_ads_Switch",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_3yr_ads_Switch", 
-      "description": "description", 
+      "long_name": "ADS on 10-year property",
+      "notes": "This parameter is an indicator for the use of the Alternative
+                Depreciation System (ADS) on 25-year class property.",
+      "description": "Indicator for Alternative Depreciation System on 25-year
+                    class property.",
       "value": [
-        ""
+        False
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_3yr_exp", 
+    "btax_depr_25yr_exp",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_3yr_exp", 
-      "description": "description", 
+      "long_name": "Rate of bonus depreciation on 25-year property",
+      "notes": "This parameter gives the rate of bonus depreciation on 25-year
+                class property.  A rate of 100% results in full expensing.",
+      "description": "Rate of bonus depreciation on 25-year class property.",
+      "value": [
+        0
+      ]
+    }
+  ],
+  [
+    "btax_depr_25yr_gds_Switch",
+    {
+      "long_name": "GDS on 25-year property",
+      "notes": "This parameter is an indicator for the use of the General
+                Depreciation System (GDS) on 25-year class property.",
+      "description": "Indicator for General Depreciation System on 25-year
+                    class property.",
+      "value": [
+        True
+      ]
+    }
+  ],
+  [
+    "btax_depr_25yr_tax_Switch",
+    {
+      "long_name": "Economic depreciation on 25-year property",
+      "notes": "This parameter is an indicator for the use of the economic
+               depreciation on 25-year class property.  This means that the
+               tax depreciatin schedule for each asset is set equal to the
+               BEA's estimated rate of economic depreciation.",
+      "description": "Indicator for economic depreciation on 25-year
+                    class property.",
+      "value": [
+        False
+      ]
+    }
+  ],
+  [
+    "btax_depr_27_5yr_ads_Switch",
+    {
+      "long_name": "ADS on 27.5-year property",
+      "notes": "This parameter is an indicator for the use of the Alternative
+                Depreciation System (ADS) on 27.5-year class property.",
+      "description": "Indicator for Alternative Depreciation System on 27.5-year
+                    class property.",
+      "value": [
+        False
+      ]
+    }
+  ],
+  [
+    "btax_depr_27_5yr_exp",
+    {
+      "long_name": "Rate of bonus depreciation on 27.5-year property",
+      "notes": "This parameter gives the rate of bonus depreciation on 27.5-year
+                class property.  A rate of 100% results in full expensing.",
+      "description": "Rate of bonus depreciation on 27.5-year class property.",
+      "value": [
+        0
+      ]
+    }
+  ],
+  [
+    "btax_depr_27_5yr_gds_Switch",
+    {
+      "long_name": "GDS on 27.5-year property",
+      "notes": "This parameter is an indicator for the use of the General
+                Depreciation System (GDS) on 27.5-year class property.",
+      "description": "Indicator for General Depreciation System on 27.5-year
+                    class property.",
+      "value": [
+        True
+      ]
+    }
+  ],
+  [
+    "btax_depr_27_5yr_tax_Switch",
+    {
+      "long_name": "Economic depreciation on 27.5-year property",
+      "notes": "This parameter is an indicator for the use of the economic
+               depreciation on 27.5-year class property.  This means that the
+               tax depreciatin schedule for each asset is set equal to the
+               BEA's estimated rate of economic depreciation.",
+      "description": "Indicator for economic depreciation on 27.5-year
+                    class property.",
+      "value": [
+        False
+      ]
+    }
+  ],
+  [
+    "btax_depr_39yr_ads_Switch",
+    {
+      "long_name": "ADS on 39-year property",
+      "notes": "This parameter is an indicator for the use of the Alternative
+                Depreciation System (ADS) on 39-year class property.",
+      "description": "Indicator for Alternative Depreciation System on 39-year
+                    class property.",
+      "value": [
+        False
+      ]
+    }
+  ],
+  [
+    "btax_depr_39yr_exp",
+    {
+      "long_name": "Rate of bonus depreciation on 39-year property",
+      "notes": "This parameter gives the rate of bonus depreciation on 39-year
+                class property.  A rate of 100% results in full expensing.",
+      "description": "Rate of bonus depreciation on 39-year class property.",
+      "value": [
+        0
+      ]
+    }
+  ],
+  [
+    "btax_depr_39yr_gds_Switch",
+    {
+      "long_name": "GDS on 39-year property",
+      "notes": "This parameter is an indicator for the use of the General
+                Depreciation System (GDS) on 39-year class property.",
+      "description": "Indicator for General Depreciation System on 39-year
+                    class property.",
+      "value": [
+        True
+      ]
+    }
+  ],
+  [
+    "btax_depr_39yr_tax_Switch",
+    {
+      "long_name": "Economic depreciation on 39-year property",
+      "notes": "This parameter is an indicator for the use of the economic
+               depreciation on 39-year class property.  This means that the
+               tax depreciatin schedule for each asset is set equal to the
+               BEA's estimated rate of economic depreciation.",
+      "description": "Indicator for economic depreciation on 39-year
+                    class property.",
+      "value": [
+        False
+      ]
+    }
+  ],
+  [
+    "btax_depr_3yr_ads_Switch",
+    {
+      "long_name": "ADS on 3-year property",
+      "notes": "This parameter is an indicator for the use of the Alternative
+                Depreciation System (ADS) on 3-year class property.",
+      "description": "Indicator for Alternative Depreciation System on 3-year
+                    class property.",
+      "value": [
+        False
+      ]
+    }
+  ],
+  [
+    "btax_depr_3yr_exp",
+    {
+      "long_name": "Rate of bonus depreciation on 3-year property",
+      "notes": "This parameter gives the rate of bonus depreciation on 3-year
+                class property.  A rate of 100% results in full expensing.",
+      "description": "Rate of bonus depreciation on 3-year class property.",
       "value": [
         50
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_3yr_gds_Switch", 
+    "btax_depr_3yr_gds_Switch",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_3yr_gds_Switch", 
-      "description": "description", 
+      "long_name": "GDS on 3-year property",
+      "notes": "This parameter is an indicator for the use of the General
+                Depreciation System (GDS) on 3-year class property.",
+      "description": "Indicator for General Depreciation System on 3-year
+                    class property.",
       "value": [
-        ""
+        True
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_3yr_tax_Switch", 
+    "btax_depr_3yr_tax_Switch",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_3yr_tax_Switch", 
-      "description": "description", 
+      "long_name": "Economic depreciation on 3-year property",
+      "notes": "This parameter is an indicator for the use of the economic
+               depreciation on 3-year class property.  This means that the
+               tax depreciatin schedule for each asset is set equal to the
+               BEA's estimated rate of economic depreciation.",
+      "description": "Indicator for economic depreciation on 3-year
+                    class property.",
       "value": [
-        ""
+        False
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_5yr_ads_Switch", 
+    "btax_depr_5yr_ads_Switch",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_5yr_ads_Switch", 
-      "description": "description", 
+      "long_name": "ADS on 5-year property",
+      "notes": "This parameter is an indicator for the use of the Alternative
+                Depreciation System (ADS) on 5-year class property.",
+      "description": "Indicator for Alternative Depreciation System on 5-year
+                    class property.",
       "value": [
-        ""
+        False
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_5yr_exp", 
+    "btax_depr_5yr_exp",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_5yr_exp", 
-      "description": "description", 
-      "value": [
-        50
-      ]
-    }
-  ], 
-  [
-    "btax_depr_5yr_gds_Switch", 
-    {
-      "long_name": "", 
-      "notes": "notesbtax_depr_5yr_gds_Switch", 
-      "description": "description", 
-      "value": [
-        ""
-      ]
-    }
-  ], 
-  [
-    "btax_depr_5yr_tax_Switch", 
-    {
-      "long_name": "", 
-      "notes": "notesbtax_depr_5yr_tax_Switch", 
-      "description": "description", 
-      "value": [
-        ""
-      ]
-    }
-  ], 
-  [
-    "btax_depr_7yr_ads_Switch", 
-    {
-      "long_name": "", 
-      "notes": "notesbtax_depr_7yr_ads_Switch", 
-      "description": "description", 
-      "value": [
-        ""
-      ]
-    }
-  ], 
-  [
-    "btax_depr_7yr_exp", 
-    {
-      "long_name": "", 
-      "notes": "notesbtax_depr_7yr_exp", 
-      "description": "description", 
+      "long_name": "Rate of bonus depreciation on 5-year property",
+      "notes": "This parameter gives the rate of bonus depreciation on 5-year
+                class property.  A rate of 100% results in full expensing.",
+      "description": "Rate of bonus depreciation on 5-year class property.",
       "value": [
         50
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_7yr_gds_Switch", 
+    "btax_depr_5yr_gds_Switch",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_7yr_gds_Switch", 
-      "description": "description", 
+      "long_name": "GDS on 3-year property",
+      "notes": "This parameter is an indicator for the use of the General
+                Depreciation System (GDS) on 5-year class property.",
+      "description": "Indicator for General Depreciation System on 5-year
+                    class property.",
       "value": [
-        ""
+        True
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_7yr_tax_Switch", 
+    "btax_depr_5yr_tax_Switch",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_7yr_tax_Switch", 
-      "description": "description", 
+      "long_name": "Economic depreciation on 5-year property",
+      "notes": "This parameter is an indicator for the use of the economic
+               depreciation on 5-year class property.  This means that the
+               tax depreciatin schedule for each asset is set equal to the
+               BEA's estimated rate of economic depreciation.",
+      "description": "Indicator for economic depreciation on 5-year
+                    class property.",
       "value": [
-        ""
+        False
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_allyr_ads_Switch", 
+    "btax_depr_7yr_ads_Switch",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_allyr_ads_Switch", 
-      "description": "description", 
+      "long_name": "ADS on 7-year property",
+      "notes": "This parameter is an indicator for the use of the Alternative
+                Depreciation System (ADS) on 7-year class property.",
+      "description": "Indicator for Alternative Depreciation System on 7-year
+                    class property.",
       "value": [
-        ""
+        False
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_allyr_exp", 
+    "btax_depr_7yr_exp",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_allyr_exp", 
-      "description": "description", 
+      "long_name": "Rate of bonus depreciation on 7-year property",
+      "notes": "This parameter gives the rate of bonus depreciation on 7-year
+                class property.  A rate of 100% results in full expensing.",
+      "description": "Rate of bonus depreciation on 7-year class property.",
       "value": [
         50
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_allyr_gds_Switch", 
+    "btax_depr_7yr_gds_Switch",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_allyr_gds_Switch", 
-      "description": "description", 
+      "long_name": "GDS on 7-year property",
+      "notes": "This parameter is an indicator for the use of the General
+                Depreciation System (GDS) on 7-year class property.",
+      "description": "Indicator for General Depreciation System on 7-year
+                    class property.",
       "value": [
-        ""
+        True
       ]
     }
-  ], 
+  ],
   [
-    "btax_depr_allyr_tax_Switch", 
+    "btax_depr_7yr_tax_Switch",
     {
-      "long_name": "", 
-      "notes": "notesbtax_depr_allyr_tax_Switch", 
-      "description": "description", 
+      "long_name": "Economic depreciation on 7-year property",
+      "notes": "This parameter is an indicator for the use of the economic
+               depreciation on 7-year class property.  This means that the
+               tax depreciatin schedule for each asset is set equal to the
+               BEA's estimated rate of economic depreciation.",
+      "description": "Indicator for economic depreciation on 7-year
+                    class property.",
       "value": [
-        ""
+        False
       ]
     }
-  ], 
+  ],
   [
-    "btax_econ_inflat", 
+    "btax_depr_allyr_ads_Switch",
     {
-      "long_name": "", 
-      "notes": "notes", 
-      "description": "description", 
+      "long_name": "ADS on all classes of property",
+      "notes": "This parameter is an indicator for the use of the Alternative
+                Depreciation System (ADS) on all classes of property.",
+      "description": "Indicator for Alternative Depreciation System on all
+                    classes of property.",
+      "value": [
+        False
+      ]
+    }
+  ],
+  [
+    "btax_depr_allyr_exp",
+    {
+      "long_name": "Rate of bonus depreciation on all classes of property",
+      "notes": "This parameter gives the rate of bonus depreciation on all
+                classes of property.  A rate of 100% results in full expensing.",
+      "description": "Rate of bonus depreciation on all classes of property.",
+      "value": [
+        0
+      ]
+    }
+  ],
+  [
+    "btax_depr_allyr_gds_Switch",
+    {
+      "long_name": "GDS on all classes of property",
+      "notes": "This parameter is an indicator for the use of the General
+                Depreciation System (GDS) on all classes of property.",
+      "description": "Indicator for General Depreciation System on all
+                    classes of property.",
+      "value": [
+        True
+      ]
+    }
+  ],
+  [
+    "btax_depr_allyr_tax_Switch",
+    {
+      "long_name": "Economic depreciation on alll classes of property",
+      "notes": "This parameter is an indicator for the use of the economic
+               depreciation on all classes of property.  This means that the
+               tax depreciatin schedule for each asset is set equal to the
+               BEA's estimated rate of economic depreciation.",
+      "description": "Indicator for economic depreciation on all
+                    classes of property.",
+      "value": [
+        False
+      ]
+    }
+  ],
+  [
+    "btax_econ_inflat",
+    {
+      "long_name": "Inflation rate",
+      "notes": "The default inflation rate is determined by the forecast of the
+                Congressional Budget Office (CBO).",
+      "description": "The inflation rate.",
       "value": [
         [
-          0.986
+          0.018
         ]
       ]
     }
-  ], 
+  ],
   [
-    "btax_econ_nomint", 
+    "btax_econ_nomint",
     {
-      "long_name": "", 
-      "notes": "notes", 
-      "description": "description", 
+      "long_name": "Nominal Interest Rate",
+      "notes": "The default nominal interest rate is taken as the yeild on BBB
+                corporate bonds.",
+      "description": "The nominal interest rate paid on business debt.",
       "value": [
         [
-          0.986
+          0.072
         ]
       ]
     }
-  ], 
+  ],
   [
-    "btax_other_corpeq", 
+    "btax_other_corpeq",
     {
-      "long_name": "", 
-      "notes": "notes", 
-      "description": "description", 
+      "long_name": "Allowance for corporate equity",
+      "notes": "This parameter gives the allowance for corporate equity (ACE).
+                Under an ACE system, companies can deduct a notional interest
+                on their equity.  The default rate used in B-Tax is the nominal
+                interest rate on corporate debt.  Moving this parameter up from
+                zero allows the corporate to have partial to full deductibility
+                of the notional interest on equity.",
+      "description": "Allowance for corporate equity.",
       "value": [
         [
-          0.986
+          0.0
         ]
       ]
     }
-  ], 
+  ],
   [
-    "btax_other_hair", 
+    "btax_other_hair",
     {
-      "long_name": "", 
-      "notes": "notes", 
-      "description": "description", 
+      "long_name": "Haircut on interest deductibility",
+      "notes": "This parameter gives the fraction of interest payments that are
+                not allowable as deductions against corporate income.",
+      "description": "Haircut on interest deductibility.",
       "value": [
         [
-          0.986
+          0.0
         ]
       ]
     }
-  ], 
+  ],
   [
-    "btax_other_invest", 
+    "btax_other_invest",
     {
-      "long_name": "", 
-      "notes": "notes", 
-      "description": "description", 
+      "long_name": "Investment tax credit rate",
+      "notes": "The investment tax credit rate gives the rate at which the cost
+                of new investments are credited against the firm's tax
+                liability.",
+      "description": "Investment tax credit rate.",
       "value": [
         [
-          0.986
+          0.0
         ]
       ]
     }
-  ], 
+  ],
   [
-    "btax_other_proptx", 
+    "btax_other_proptx",
     {
-      "long_name": "", 
-      "notes": "notes", 
-      "description": "description", 
+      "long_name": "Property tax rate",
+      "notes": "Tax rate on business property.",
+      "description": "Property tax rate.",
       "value": [
         [
-          0.986
+          0.0
         ]
       ]
     }
