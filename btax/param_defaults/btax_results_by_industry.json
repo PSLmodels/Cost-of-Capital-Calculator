@@ -22,42 +22,31 @@
   "rho_c": {
     "col_label": "Cost of capital, typically financed corporate investment",
     "name": "rho_c",
-    "tooltip": "Cost of capital, corporate investment financed with historical
-                mix of debt and equity."
-  },
-
+    "tooltip": "Cost of capital, corporate investment financed with historical mix of debt and equity."
   },
   "rho_nc": {
     "col_label": "Cost of capital, typically financed non-corporate investment",
     "name": "rho_nc",
-    "tooltip": "Cost of capital, non-corporate investment financed with historical
-                mix of debt and equity."
+    "tooltip": "Cost of capital, non-corporate investment financed with historical mix of debt and equity."
   },
   "metr_nc": {
     "col_label": "Cost of capital, typically financed non-corporate investment",
     "name": "metr_nc",
-    "tooltip": "Cost of capital, non-corporate investment financed with
-                historical mix of debt and equity."
+    "tooltip": "Cost of capital, non-corporate investment financed with historical mix of debt and equity."
   },
   "metr_c": {
-    "col_label": "METTR, corporate typically financed
-                  investment",
+    "col_label": "METTR, corporate typically financed investment",
     "name": "mettr_c",
-    "tooltip": "Marginal Effective Total Tax Rate on new investments, corporate
-                investment financed by historical mix of debt and equity."
+    "tooltip": "Marginal Effective Total Tax Rate on new investments, corporate investment financed by historical mix of debt and equity."
   },
   "metr_c_e": {
-    "col_label": "METR, corporate equity financed
-                  investment",
+    "col_label": "METR, corporate equity financed investment",
     "name": "metr_c_e",
-    "tooltip": "Marginal Effective Tax Rate on new investments, corporate
-                equity financed investment."
+    "tooltip": "Marginal Effective Tax Rate on new investments, corporate equity financed investment."
   },
   "metr_c_d": {
-    "col_label": "METR, corporate debt financed
-                  investment",
+    "col_label": "METR, corporate debt financed investment",
     "name": "metr_c_e",
-    "tooltip": "Marginal Effective Tax Rate on new investments, corporate
-                debt financed investment."
+    "tooltip": "Marginal Effective Tax Rate on new investments, corporate debt financed investment."
   }
 }
