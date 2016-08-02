@@ -3,11 +3,20 @@ Parameters (parameters.py):
 -------------------------------------------------------------------------------
 
 This module contains all the parameters used for the calc_final_outputs.py script. It also
-contains intermediate calculations that produce more relevant parameters. The parameters 
+contains intermediate calculations that produce more relevant parameters. The parameters
 are placed in a dictionary. Last Updated 7/27/2016
 """
+import json
+import os
+
 from calc_z import calc_tax_depr_rates, get_econ_depr
 import numpy as np
+
+from btax.util import read_from_egg
+
+DEFAULTS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_defaults.json')))
+DEFAULT_ASSET_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_asset.json')))
+DEFAULT_INDUSTRY_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_industry.json')))
 
 def get_params():
 	"""Contains all the parameters
