@@ -12,7 +12,7 @@ import os
 from calc_z import calc_tax_depr_rates, get_econ_depr
 import numpy as np
 
-from btax.util import read_from_egg
+from util import read_from_egg
 
 DEFAULTS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_defaults.json')))
 DEFAULT_ASSET_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_asset.json')))

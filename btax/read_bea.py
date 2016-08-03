@@ -13,15 +13,10 @@ import os.path
 import numpy as np
 import pandas as pd
 import xlrd
+
 # Directories:
-_CUR_DIR = os.path.dirname(__file__)
-_MAIN_DIR = os.path.dirname(_CUR_DIR)
-_DATA_DIR = os.path.abspath(_CUR_DIR + '//data' + '//raw_data')
-_BEA_DIR = os.path.join(_DATA_DIR, 'BEA') # Directory with BEA data.
-# Full file paths:
-_BEA_ASSET_PATH = os.path.join(_BEA_DIR, "detailnonres_stk1.xlsx")
-_BEA_CROSS = os.path.join(_BEA_DIR, 'BEA_Crosswalk.csv')
-_SOI_CROSS = os.path.join(_BEA_DIR, 'NAICS_SOI_crosswalk.csv')
+globals().update(get_paths())
+
 # Constant factors:
 _BEA_IN_FILE_FCTR = 10**6
 _START_POS = 8
@@ -36,7 +31,7 @@ def read_bea(entity_dfs):
         :param entity_dfs: Contains all the soi data by entity type
         :type entity_dfs: dictionary
         :returns: Fixed asset data organized by industry, entity, and asset type
-        :rtype: dictionary 
+        :rtype: dictionary
     """
     # Opening BEA's excel file on depreciable assets by industry:
     bea_book = xlrd.open_workbook(_BEA_ASSET_PATH)
@@ -71,7 +66,7 @@ def read_bea(entity_dfs):
                 for code in code_list:
                    df.replace(float(code), soi_codes[i], inplace=True)
 
-    # Second the industries with identical codes are summed together       
+    # Second the industries with identical codes are summed together
     for entity in entities:
         df = entity_dfs[entity]
         df = df.groupby('Codes:',sort=False).sum()
@@ -79,8 +74,8 @@ def read_bea(entity_dfs):
         df.insert(0,'Codes:', codes)
         df.index = np.arange(0,len(df))
         entity_dfs[entity] = df
-    
-    # For each different industry the ratio of corp fixed assets and non-corp fixed assets are calculated        
+
+    # For each different industry the ratio of corp fixed assets and non-corp fixed assets are calculated
     ratios = []
     for i in xrange(0,len(entity_dfs['c_corp'])):
         corp_fa = 0
@@ -91,7 +86,7 @@ def read_bea(entity_dfs):
         for entity in non_corp_entity:
             non_corp_fa += entity_dfs[entity]['FA'][i]
         total_fa = non_corp_fa + corp_fa
-        if(total_fa != 0):    
+        if(total_fa != 0):
             corp_ratio = corp_fa / total_fa
             non_corp_ratio = non_corp_fa / total_fa
             ratios.append((entity_dfs['corp_gen']['Codes:'][i],corp_ratio, non_corp_ratio))

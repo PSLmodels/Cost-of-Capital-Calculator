@@ -2,8 +2,8 @@
 Runner Script (run_btax.py):
 -------------------------------------------------------------------------------
 Initial module that contains the method to start the calculations in B-Tax. Makes function calls to split out fixed assets by entity type
-(pull_soi_data), allocate fixed assets to industries (read_bea), grab all the parameters for the final calculations (get_params), and 
-calculate the Cost of Capital, Marginal Effective Tax Rates, and Marginal Effective Total Tax Rates (asset_calcs). Additionally, this 
+(pull_soi_data), allocate fixed assets to industries (read_bea), grab all the parameters for the final calculations (get_params), and
+calculate the Cost of Capital, Marginal Effective Tax Rates, and Marginal Effective Total Tax Rates (asset_calcs). Additionally, this
 method compares the calculated values with those produced by the CBO.
 Last updated: 7/25/2016.
 
@@ -14,13 +14,14 @@ import sys
 import pandas as pd
 import numpy as np
 import cPickle as pickle
-from btax.soi_processing import pull_soi_data
-from btax.calc_final_outputs import asset_calcs, get_paths
-from btax.check_output import check_output
-from btax.util import get_paths, read_from_egg
-import btax.read_bea as read_bea
-import btax.soi_processing as soi
-import btax.parameters as params
+from soi_processing import pull_soi_data
+import calc_final_outputs
+from check_output import check_output
+from util import get_paths, read_from_egg
+import read_bea as read_bea
+import soi_processing as soi
+import parameters as params
+import format_output as format_output
 
 globals().update(get_paths())
 
@@ -39,8 +40,25 @@ def run_btax(user_params):
 	# get parameters
 	parameters = params.get_params()
 
-	# make calculations
-	rho, metr, mettr, ind_rho, ind_metr = asset_calcs(parameters, fixed_assets)
+	# make calculations by asset and create formated output
+	rho, metr, mettr = calc_final_outputs.asset_calcs(parameters, fixed_assets)
+	vars_by_asset = format_output.create_dfs(rho, metr, mettr,
+											 parameters['econ depreciation'],
+											 parameters['depr allow'], True)
+
+	# make calculations by industry and create formated output
+	agg_fixed_assets = calc_final_outputs.aggregate_fixed_assets(fixed_assets)
+	print agg_fixed_assets.keys()
+	quit()
+	rho, metr, mettr, delta, z = calc_final_outputs.industry_calcs(agg_fixed_assets, rho, parameters)
+	vars_by_industry = format_output.create_dfs(rho, metr, mettr, delta, z, False)
+
+	print vars_by_industry.head(n=10)
+	quit()
+
+
+	format_output.create_dfs(rho, metr, mettr, ind_rho, ind_metr, parameters)
+	quit()
 
 	# format output
 	numberOfRows = (parameters['econ depreciation']).shape[0]
@@ -68,9 +86,9 @@ def run_btax(user_params):
 		new_rho[i] = array
 
 	for i, array in enumerate(np.array(ind_metr['Data Array'])):
-		new_metr[i] = array	
+		new_metr[i] = array
 
-	# fills in the output columns on the dataframe from the output arrays 
+	# fills in the output columns on the dataframe from the output arrays
 	vars_by_asset['z_nc'] = parameters['depr allow'][:,0,1]
 	vars_by_asset['rho_nc'] = rho[:,0,1]
 	vars_by_asset['metr_nc'] = metr[:,0,1]
@@ -137,4 +155,3 @@ def main():
 
 if __name__ == '__main__':
 	main()
-

@@ -14,9 +14,10 @@ import sys
 import pandas as pd
 import numpy as np
 import parameters as param
-from btax.util import get_paths
+from util import get_paths
 
 globals().update(get_paths())
+
 def asset_calcs(params, fixed_assets):
 	"""Computes rho, METR, and METTR at the asset level.
 
@@ -45,14 +46,11 @@ def asset_calcs(params, fixed_assets):
 	metr = (rho - (r_prime - inflation_rate)) / rho
 	# calculates the marginal effective total tax rate
 	mettr = ((rho-save_rate)/rho)
-	# aggregates all the fixed assets to the two digit naics code level
-	agg_fa = aggregate_fixed_assets(fixed_assets)
-	# calculates all the previous values: rho, metr, mettr at the industry level
-	ind_rho, ind_metr = industry_calcs(agg_fa, rho, metr)
 
-	return rho, metr, mettr, ind_rho, ind_metr
 
-def industry_calcs(agg_fa, rho, metr):
+	return rho, metr, mettr
+
+def industry_calcs(agg_fa, rho_asset, parameters):
 	"""Calculates the cost of capital and marginal effective tax rates by industry
 
 		:param agg_fa: Fixed assets organized by entity, asset, and industry
@@ -62,7 +60,7 @@ def industry_calcs(agg_fa, rho, metr):
 		:type rho: 96x3x2 Array
 		:type metr: 96x3x2 Array
 		:returns: The result of the weighted average of the cost of capital and METR for each BEA industry
-		:rtype: DataFrame  
+		:rtype: DataFrame
 	"""
 	industries = pd.read_csv(_IND_NAICS)
 	rho_df = pd.DataFrame(industries)
@@ -72,14 +70,14 @@ def industry_calcs(agg_fa, rho, metr):
 	metr_df['Data Array'] =  [np.zeros((rho.shape[1], rho.shape[2]))]*len(industries)
 
 	for inds, assets in agg_fa.iteritems():
-		index=rho_df[rho_df.NAICS==inds].index 
+		index=rho_df[rho_df.NAICS==inds].index
 		ind_assets = np.tile(np.reshape(assets.T,(assets.shape[1],1,2)),((1,rho.shape[1],1)))
-		# Calculates the weighted average for the cost of capital 
+		# Calculates the weighted average for the cost of capital
 		rho_df['Data Array'][index] = [sum(ind_assets * rho) / sum(assets.T)]
 		# Calculates the weighted average for the marginal effective tax rate
 		metr_df['Data Array'][index] = [sum(ind_assets * metr) / sum(assets.T)]
 
-	return rho_df, metr_df
+	return rho, metr, mettr, delta, z
 
 def aggregate_fixed_assets(fixed_assets):
 	"""Aggregates the fixed assets of the industries to the 2 digit NAICS code level
@@ -87,7 +85,7 @@ def aggregate_fixed_assets(fixed_assets):
 		:param fixed_assets: Fixed asset data for each industry
 		:type fixed_assets: dictionary
 		:returns: The aggregation of the fixed assets
-		:rtype: dictionary 
+		:rtype: dictionary
 	"""
 	keys = fixed_assets.keys()
 	# aggregates the sub industries up to the 2 digit NAICS code level
