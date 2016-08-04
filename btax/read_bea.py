@@ -13,6 +13,7 @@ import os.path
 import numpy as np
 import pandas as pd
 import xlrd
+from util import get_paths
 
 # Directories:
 globals().update(get_paths())
@@ -24,6 +25,66 @@ _SKIP1 = 47
 _SKIP2 = 80
 _CORP_PRT = [1,2]
 _NCORP_PRT = [3,4,5,6,7,8,9,10]
+
+
+def read_bea2(entity_dfs):
+    """Opens the BEA workbook and pulls out the asset info
+
+        :param entity_dfs: Contains all the soi data by entity type
+        :type entity_dfs: dictionary
+        :returns: Fixed asset data organized by industry, entity, and asset type
+        :rtype: dictionary
+    """
+    # Read in BEA fixed asset table
+    bea_FA = pd.read_excel(_BEA_ASSET_PATH, sheetname="Datasets")
+    bea_FA = bea_FA[['2013']]
+    bea_FA['long_code'] = bea_FA.index
+    bea_FA.dropna(subset = ['long_code'],inplace=True)
+    bea_FA.reset_index(drop=True,inplace=True)
+    bea_FA.rename(columns={"2013": "assets"},inplace=True)
+    bea_FA['bea_asset_code'] = bea_FA.long_code.str[-6:-2]
+    bea_FA['bea_ind_code'] = bea_FA.long_code.str[3:7]
+
+    # Read in BEA asset names
+    bea_asset_names = pd.read_excel(_BEA_ASSET_PATH, sheetname="110C",
+                header=5)
+    bea_asset_names = bea_asset_names[['Asset Codes','NIPA Asset Types']]
+    bea_asset_names.dropna(subset = ['Asset Codes'],inplace=True)
+    bea_asset_names.rename(columns={"Asset Codes": "bea_asset_code", "NIPA Asset Types": "Asset Type"},inplace=True)
+
+    # Merge asset names to asset data
+    bea_FA = pd.merge(bea_FA, bea_asset_names, how='inner', on=['bea_asset_code'],
+      left_index=False, right_index=False, sort=False,
+      copy=True, indicator=False)
+
+    # Read in BEA industry names
+    bea_ind_names = pd.read_excel(_BEA_ASSET_PATH, sheetname="readme",
+                header=14)
+    bea_ind_names = bea_ind_names[['INDUSTRY TITLE ','BEA CODE']]
+    bea_ind_names.dropna(subset = ['BEA CODE'],inplace=True)
+    bea_ind_names.rename(columns={"INDUSTRY TITLE ": "Industry", "BEA CODE": "bea_ind_code"},inplace=True)
+
+    # Merge industry names to asset data
+    bea_FA = pd.merge(bea_FA, bea_ind_names, how='inner', on=['bea_ind_code'],
+      left_index=False, right_index=False, sort=False,
+      copy=True, indicator=False)
+
+
+    # Read in cross-walk between IRS and BEA Industries
+    soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS)
+    soi_bea_ind_codes.drop('notes', axis=1, inplace=True)
+
+    # Merge SOI codes to BEA data
+    bea_FA = pd.merge(bea_FA, soi_bea_ind_codes, how='left', left_on=['bea_ind_code'],
+      right_on=['bea_code'], left_index=False, right_index=False, sort=False,
+      copy=True, indicator=False)
+    print bea_FA.head(n=10)
+    quit()
+
+    # Collapse by SOI code?  Or were we doing to aggregate to  BEA industry detail?
+
+
+
 
 def read_bea(entity_dfs):
     """Opens the BEA workbook and pulls out the asset info

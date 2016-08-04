@@ -18,7 +18,7 @@ from soi_processing import pull_soi_data
 import calc_final_outputs
 from check_output import check_output
 from util import get_paths, read_from_egg
-import read_bea as read_bea
+import read_bea
 import soi_processing as soi
 import parameters as params
 import format_output as format_output
@@ -36,7 +36,11 @@ def run_btax(user_params):
 	# break out the asset data by entity type (c corp, s corp, sole proprietorships, and partners)
 	entity_dfs = pull_soi_data()
 	# read in the BEA data on fixed assets and separate them by corp and non-corp
+	fixed_assets = read_bea.read_bea2(entity_dfs)
 	fixed_assets = read_bea.read_bea(entity_dfs)
+	print fixed_assets
+	print fixed_assets.keys()
+	quit()
 	# get parameters
 	parameters = params.get_params()
 
