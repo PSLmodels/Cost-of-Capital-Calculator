@@ -36,17 +36,18 @@ def run_btax(user_params):
 	# break out the asset data by entity type (c corp, s corp, sole proprietorships, and partners)
 	entity_dfs = pull_soi_data()
 	# read in the BEA data on fixed assets and separate them by corp and non-corp
-	fixed_assets = read_bea.read_bea2(entity_dfs)
-	#fixed_assets = read_bea.read_bea(entity_dfs)
+	fixed_assets = read_bea.read_bea(entity_dfs)
 
 	# get parameters
 	parameters = params.get_params()
 
 	# make calculations by asset and create formated output
-	rho, metr, mettr = calc_final_outputs.asset_calcs2(parameters, fixed_assets)
-	vars_by_asset = format_output.create_dfs(rho, metr, mettr,
-											 parameters['econ depreciation'],
-											 parameters['depr allow'], True)
+	output_by_asset = calc_final_outputs.asset_calcs(parameters, fixed_assets)
+
+	# check against CBO
+	format_output.CBO_compare(output_by_asset)
+	print 'TO HERE'
+	quit()
 
 	# make calculations by industry and create formated output
 	agg_fixed_assets = calc_final_outputs.aggregate_fixed_assets(fixed_assets)

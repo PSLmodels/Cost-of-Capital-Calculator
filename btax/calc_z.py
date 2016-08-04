@@ -67,8 +67,8 @@ def npv_tax_deprec(df, r, bonus_deprec, tax_methods, financing_list, entity_list
     df['b'] = df['Method']
     df['b'].replace(tax_methods,inplace=True)
 
-    df_gds = dbsl(df.loc[df['System']=='GDS'], r, bonus_deprec, financing_list, entity_list)
-    df_ads = sl(df.loc[df['System']=='ADS'], r, bonus_deprec, financing_list, entity_list)
+    df_gds = dbsl(df.loc[df['System']=='GDS'].copy(), r, bonus_deprec, financing_list, entity_list)
+    df_ads = sl(df.loc[df['System']=='ADS'].copy(), r, bonus_deprec, financing_list, entity_list)
 
     # append gds and ads results
     df_all = df_gds.append(df_ads, ignore_index=True)
@@ -92,7 +92,7 @@ def dbsl(df, r, bonus_deprec, financing_list, entity_list):
     """
     if bonus_deprec > 0.:
         df['Y'] = df['GDS']
-        df['beta'] = df['Y']/df['b']
+        df['beta'] = df['b']/df['Y']
         df['Y_star'] = (df['GDS']-1)*(1-(1/df['b']))
         for i in range(r.shape[0]):
             for j in range(r.shape[1]):
@@ -108,8 +108,8 @@ def dbsl(df, r, bonus_deprec, financing_list, entity_list):
         df.drop(['z1', 'beta', 'Y', 'Y_star'], axis=1, inplace=True)
     else:
         df['Y'] = df['GDS']
-        df['beta'] = df['Y']/df['b']
-        df['Y_star'] = (df['GDS']-1)*(1-(1/df['b']))
+        df['beta'] = df['b']/df['Y']
+        df['Y_star'] = (df['GDS'])*(1-(1/df['b']))
         for i in range(r.shape[0]):
             for j in range(r.shape[1]):
                 df['z'+entity_list[j]+financing_list[i]] = \
@@ -151,6 +151,6 @@ def sl(df, r, bonus_deprec, financing_list, entity_list):
             for j in range(r.shape[1]):
                 df['z'+entity_list[j]+financing_list[i]] = \
                     np.exp(-1*r[i,j]*df['Y'])/(r[i,j]*df['Y'])
-        df.drop('Y', axis=1, inplace=True)
+        df.drop(['Y'], axis=1, inplace=True)
 
     return df

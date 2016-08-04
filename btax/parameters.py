@@ -57,7 +57,7 @@ def get_params():
 	u_c = 0.35
 	u_nc = 0.267
 	u_array = np.array([u_c, u_nc])
-	w = 0.0117
+	w = 0. #0.0117
 	inv_credit = 0.
 	ace_c = 0.
 	ace_nc = 0.
@@ -119,7 +119,9 @@ def get_params():
 	'prop tax': w,
 	'inv_credit': inv_credit,
 	'ace':ace_array,
-	'int_haircut':int_haircut
+	'int_haircut':int_haircut,
+	'financing_list':financing_list,
+	'entity_list':entity_list
 	}
 
 	return parameters

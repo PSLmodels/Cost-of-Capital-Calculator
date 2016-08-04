@@ -7,7 +7,7 @@ EP1E,Terminals,0.27
 EP1F,Tape drives,0.28
 EP1G,Storage devices,0.28
 EP1H,System integrators,0.3
-EP20,Communications,0.1129
+EP20,Communications equipment,0.1129
 EP34,Nonelectro medical instruments,0.135
 EP35,Electro medical instruments,0.1834
 EP36,Nonmedical instruments,0.135
@@ -36,8 +36,8 @@ EO22,Construction tractors,0.1633
 EO50,Mining and oilfield machinery,0.15
 EO60,Service industry machinery,0.1528
 EO71,Household appliances,0.165
-EO72,Other electrical,0.1834
-EO80,Other,0.1473
+EO72,Other electrical equipment,0.1834
+EO80,Other equipment,0.1473
 SOO1,Office,0.0247
 SB31,Hospitals,0.0188
 SB32,Special care,0.0188
