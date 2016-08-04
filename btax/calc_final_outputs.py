@@ -18,6 +18,69 @@ from util import get_paths
 
 globals().update(get_paths())
 
+
+def asset_calcs2(params, fixed_assets):
+	"""Computes rho, METR, and METTR at the asset level.
+
+		:param params: Constants used in the calculation
+		:param fixed_assets: Fixed asset data for each industry
+		:type params: dictionary
+		:type fixed_assets: dictionary
+		:returns: rho, METR, METTR, ind_rho, ind_METR
+		:rtype: 96x3x2, DataFrame
+	"""
+	# grabs the constant values from the parameters dictionary
+	inflation_rate = params['inflation rate']
+	stat_tax = params['tax rate']
+	discount_rate = params['discount rate']
+	save_rate = params['return to savers']
+	delta = params['econ depreciation']
+	r_prime = params['after-tax rate']
+	inv_credit = params['inv_credit']
+	w = params['prop tax']
+	z = params['depr allow']
+
+	# initialize dataframe - start w/ z output
+	calcs_by_asset = z.copy()
+	print 'shape of calc before merge: ', calcs_by_asset.shape
+	# merge in econ depreciation rates
+	calcs_by_asset = pd.merge(calcs_by_asset, delta, how='left', left_on=['Asset Type'],
+      right_on=['Asset'], left_index=False, right_index=False, sort=False,
+      copy=True, indicator=False)
+	print 'shape of calc after merge: ', calcs_by_asset.shape
+	print calcs_by_asset.head(n=10)
+	quit()
+
+	# fill in z's
+	for entity in entity_list:
+		for fin in financing_list:
+			calcs_by_asset['z'+entity+fin] = z['z'+entity+fin]
+
+
+
+	# calculate the cost of capital
+	for i in range(r.shape[0]):
+		for j in range(r.shape[1]):
+			df['z1'+entity_list[j]+financing_list[i]] = \
+				(((df['beta']/(df['beta']+r[i,j]))*(1-np.exp(-1*(df['beta']
+					+r[i,j])*df['Y_star']))) +
+				((np.exp(-1*df['beta']*df['Y_star'])/(((df['Y']-1)-
+				df['Y_star'])*r[i,j]))*(np.exp(-1*r[i,j]*df['Y_star'])-
+										np.exp(-1*r[i,j]*(df['Y']-1)))))
+			df['z'+entity_list[j]+financing_list[i]] = \
+				np.max(bonus_deprec+df['beta'] + ((1-bonus_deprec+df['beta'])*
+			   (df['z1'+entity_list[j]+financing_list[i]]/(1+r[i,j]))),1.0)
+
+	rho = ((discount_rate - inflation_rate) + delta) * (1- inv_credit- stat_tax * z) / (1- stat_tax) + w - delta
+	# calculates the marginal effective tax rate
+	metr = (rho - (r_prime - inflation_rate)) / rho
+	# calculates the marginal effective total tax rate
+	mettr = ((rho-save_rate)/rho)
+
+
+	return rho, metr, mettr
+
+
 def asset_calcs(params, fixed_assets):
 	"""Computes rho, METR, and METTR at the asset level.
 

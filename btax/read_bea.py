@@ -42,6 +42,7 @@ def read_bea2(entity_dfs):
     bea_FA.dropna(subset = ['long_code'],inplace=True)
     bea_FA.reset_index(drop=True,inplace=True)
     bea_FA.rename(columns={"2013": "assets"},inplace=True)
+    bea_FA['assets'] = bea_FA['assets']*_BEA_IN_FILE_FCTR
     bea_FA['bea_asset_code'] = bea_FA.long_code.str[-6:-2]
     bea_FA['bea_ind_code'] = bea_FA.long_code.str[3:7]
 
@@ -78,12 +79,8 @@ def read_bea2(entity_dfs):
     bea_FA = pd.merge(bea_FA, soi_bea_ind_codes, how='left', left_on=['bea_ind_code'],
       right_on=['bea_code'], left_index=False, right_index=False, sort=False,
       copy=True, indicator=False)
-    print bea_FA.head(n=10)
-    quit()
 
-    # Collapse by SOI code?  Or were we doing to aggregate to  BEA industry detail?
-
-
+    return bea_FA
 
 
 def read_bea(entity_dfs):
