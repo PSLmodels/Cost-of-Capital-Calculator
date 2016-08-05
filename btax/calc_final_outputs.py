@@ -105,9 +105,23 @@ def industry_calcs(params, fixed_assets, output_by_asset):
       copy=True, indicator=False)
 
 	# create weighted averages by industry/tax treatment
-	# by_industry_asset['rho_c_ind'] = by_industry_asset.groupby("bea_ind_code").apply(wavg, "rho_c", "assets")
-	rho_c_ind = by_industry_asset.groupby('bea_ind_code')['rho_c'].mean()
-	print rho_c_ind[:20]
+	by_industry = pd.DataFrame({'delta' : by_industry_asset.groupby( ["bea_ind_code"] ).apply(wavg, "delta", "assets")}).reset_index()
+	col_list = ['z_c','z_c_d','z_c_e','z_nc', 'z_nc_d',
+						'z_nc_e', 'rho_c','rho_c_d','rho_c_e','rho_nc',
+						'rho_nc_d', 'rho_nc_e']
+	for item in col_list:
+		by_industry[item] = {item : by_industry_asset.groupby( ["bea_ind_code"] ).apply(wavg, item, "assets")}
+
+	print by_industry.head(n=10)
+	quit()
+	
+	df3 = pd.DataFrame({'rho_c_ind' : by_industry_asset.groupby( ["bea_ind_code"] ).apply(wavg, "rho_c", "assets")}).reset_index()
+	print df3.head(n=10)
+	by_industry_asset = pd.merge(by_industry_asset, df3, how='left', left_on=['bea_ind_code'],
+      right_on=['bea_ind_code'], left_index=False, right_index=False, sort=False,
+      copy=True, indicator=False)
+	print by_industry_asset.head(n=10)
+
 	quit()
 
 	# question - do we need to merge in SOI data or is mix of fixed-assets same
