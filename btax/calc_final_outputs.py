@@ -110,11 +110,11 @@ def industry_calcs(params, fixed_assets, output_by_asset):
 						'z_nc_e', 'rho_c','rho_c_d','rho_c_e','rho_nc',
 						'rho_nc_d', 'rho_nc_e']
 	for item in col_list:
-		by_industry[item] = {item : by_industry_asset.groupby( ["bea_ind_code"] ).apply(wavg, item, "assets")}
+		by_industry[item] = (pd.DataFrame({item : by_industry_asset.groupby( ["bea_ind_code"] ).apply(wavg, item, "assets")}).reset_index())[item]
 
 	print by_industry.head(n=10)
 	quit()
-	
+
 	df3 = pd.DataFrame({'rho_c_ind' : by_industry_asset.groupby( ["bea_ind_code"] ).apply(wavg, "rho_c", "assets")}).reset_index()
 	print df3.head(n=10)
 	by_industry_asset = pd.merge(by_industry_asset, df3, how='left', left_on=['bea_ind_code'],
