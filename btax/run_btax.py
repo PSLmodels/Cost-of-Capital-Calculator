@@ -42,14 +42,17 @@ def run_btax(user_params):
 	parameters = params.get_params()
 
 	# make calculations by asset and create formated output
-	output_by_asset = calc_final_outputs.asset_calcs(parameters, fixed_assets)
+	output_by_asset = calc_final_outputs.asset_calcs(parameters)
 
 	# check against CBO
 	format_output.CBO_compare(output_by_asset)
-	print 'TO HERE'
-	quit()
 
 	# make calculations by industry and create formated output
+	output_by_industry = calc_final_outputs.industry_calcs(parameters, fixed_assets, output_by_asset)
+
+	print output_by_industry.head(n=10)
+	quit()
+
 	agg_fixed_assets = calc_final_outputs.aggregate_fixed_assets(fixed_assets)
 	print agg_fixed_assets.keys()
 	quit()

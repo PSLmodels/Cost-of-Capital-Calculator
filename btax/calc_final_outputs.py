@@ -19,7 +19,7 @@ from util import get_paths
 globals().update(get_paths())
 
 
-def asset_calcs(params, fixed_assets):
+def asset_calcs(params):
 	"""Computes rho, METR, and METTR at the asset level.
 
 		:param params: Constants used in the calculation
@@ -68,7 +68,84 @@ def asset_calcs(params, fixed_assets):
 	return output_by_asset
 
 
-def industry_calcs(agg_fa, rho_asset, parameters):
+def industry_calcs(params, fixed_assets, output_by_asset):
+	"""Calculates the cost of capital and marginal effective tax rates by industry
+
+		:param agg_fa: Fixed assets organized by entity, asset, and industry
+		:param rho: Cost of capital by asset
+		:param metr: Marginal effective tax rate by asset
+		:type agg_fa: dictionary
+		:type rho: 96x3x2 Array
+		:type metr: 96x3x2 Array
+		:returns: The result of the weighted average of the cost of capital and METR for each BEA industry
+		:rtype: DataFrame
+	"""
+	# grabs the constant values from the parameters dictionary
+	inflation_rate = params['inflation rate']
+	stat_tax = params['tax rate']
+	discount_rate = params['discount rate']
+	save_rate = params['return to savers']
+	delta = params['econ depreciation']
+	r_prime = params['after-tax rate']
+	inv_credit = params['inv_credit']
+	w = params['prop tax']
+	z = params['depr allow']
+	financing_list = params['financing_list']
+	entity_list = params['entity_list']
+
+	# initialize dataframe - start w/ z output
+	by_industry_asset = fixed_assets.copy()
+
+	# merge cost of capital, depreciation rates by asset
+	df2 = output_by_asset[['bea_asset_code', 'delta','z_c','z_c_d','z_c_e','z_nc', 'z_nc_d',
+						'z_nc_e', 'rho_c','rho_c_d','rho_c_e','rho_nc',
+						'rho_nc_d', 'rho_nc_e']]
+	by_industry_asset = pd.merge(by_industry_asset, df2, how='left', left_on=['bea_asset_code'],
+      right_on=['bea_asset_code'], left_index=False, right_index=False, sort=False,
+      copy=True, indicator=False)
+
+	# create weighted averages by industry/tax treatment
+	# by_industry_asset['rho_c_ind'] = by_industry_asset.groupby("bea_ind_code").apply(wavg, "rho_c", "assets")
+	rho_c_ind = by_industry_asset.groupby('bea_ind_code')['rho_c'].mean()
+	print rho_c_ind[:20]
+	quit()
+
+	# question - do we need to merge in SOI data or is mix of fixed-assets same
+	# across corp/non-corp so no need? - yes, need to if allocating across
+	# corp/non-corp partners
+
+	# start w/o that - that's what CBO does, right?
+
+	industries = pd.read_csv(_IND_NAICS)
+	rho_df = pd.DataFrame(industries)
+	# Creates dataframes with the industry names, NAICS codes and 3x2 Arrays
+	rho_df['Data Array'] =  [np.zeros((rho.shape[1], rho.shape[2]))]*len(industries)
+	metr_df = pd.DataFrame(industries)
+	metr_df['Data Array'] =  [np.zeros((rho.shape[1], rho.shape[2]))]*len(industries)
+
+	for inds, assets in agg_fa.iteritems():
+		index=rho_df[rho_df.NAICS==inds].index
+		ind_assets = np.tile(np.reshape(assets.T,(assets.shape[1],1,2)),((1,rho.shape[1],1)))
+		# Calculates the weighted average for the cost of capital
+		rho_df['Data Array'][index] = [sum(ind_assets * rho) / sum(assets.T)]
+		# Calculates the weighted average for the marginal effective tax rate
+		metr_df['Data Array'][index] = [sum(ind_assets * metr) / sum(assets.T)]
+
+	return output_by_industry
+
+def wavg(group, avg_name, weight_name):
+    """
+    Computes a weighted average
+    """
+    d = group[avg_name]
+    w = group[weight_name]
+    try:
+        #return (d * w).sum() / w.sum()
+		return d.mean()
+    except ZeroDivisionError:
+        return d.mean()
+
+def industry_calcs_old(agg_fa, rho_asset, parameters):
 	"""Calculates the cost of capital and marginal effective tax rates by industry
 
 		:param agg_fa: Fixed assets organized by entity, asset, and industry
