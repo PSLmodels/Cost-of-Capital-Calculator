@@ -27,7 +27,7 @@ _CORP_PRT = [1,2]
 _NCORP_PRT = [3,4,5,6,7,8,9,10]
 
 
-def read_bea(entity_dfs):
+def read_bea():
     """Opens the BEA workbook and pulls out the asset info
 
         :param entity_dfs: Contains all the soi data by entity type

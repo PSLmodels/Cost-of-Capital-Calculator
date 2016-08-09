@@ -35,9 +35,9 @@ def run_btax(user_params):
 		:rtype: DataFrame
 	"""
 	# break out the asset data by entity type (c corp, s corp, sole proprietorships, and partners)
-	entity_dfs = pull_soi_data()
+	#entity_dfs = pull_soi_data()
 	# read in the BEA data on fixed assets and separate them by corp and non-corp
-	fixed_assets = read_bea.read_bea(entity_dfs)
+	fixed_assets = read_bea.read_bea()
 
 	# get parameters
 	parameters = params.get_params()
