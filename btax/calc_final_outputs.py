@@ -264,6 +264,8 @@ def industry_calcs(params, fixed_assets, output_by_asset):
 	by_industry['major_industry'] = by_industry['Industry']
 	by_industry['major_industry'].replace(ind_dict,inplace=True)
 
+	## the above is not quite working
+
 	return by_industry
 
 def wavg(group, avg_name, weight_name):
