@@ -105,47 +105,24 @@ def industry_calcs(params, fixed_assets, output_by_asset):
       copy=True, indicator=False)
 
 	# create weighted averages by industry/tax treatment
-	by_industry = pd.DataFrame({'delta' : by_industry_asset.groupby( ["bea_ind_code"] ).apply(wavg, "delta", "assets")}).reset_index()
+	by_industry = pd.DataFrame({'delta' : by_industry_asset.groupby( ['bea_ind_code'] ).apply(wavg, "delta", "assets")}).reset_index()
 	col_list = ['z_c','z_c_d','z_c_e','z_nc', 'z_nc_d',
 						'z_nc_e', 'rho_c','rho_c_d','rho_c_e','rho_nc',
 						'rho_nc_d', 'rho_nc_e']
 	for item in col_list:
-		by_industry[item] = (pd.DataFrame({item : by_industry_asset.groupby( ["bea_ind_code"] ).apply(wavg, item, "assets")}).reset_index())[item]
+		by_industry[item] = (pd.DataFrame({item : by_industry_asset.groupby('bea_ind_code').apply(wavg, item, "assets")})).reset_index()[item]
 
-	print by_industry.head(n=10)
-	quit()
 
-	df3 = pd.DataFrame({'rho_c_ind' : by_industry_asset.groupby( ["bea_ind_code"] ).apply(wavg, "rho_c", "assets")}).reset_index()
-	print df3.head(n=10)
-	by_industry_asset = pd.merge(by_industry_asset, df3, how='left', left_on=['bea_ind_code'],
+	## Why giving same means for all industries???
+
+	# merge in industry names
+	df3 = fixed_assets[['Industry','bea_ind_code']]
+	by_industry = pd.merge(by_industry, df3, how='left', left_on=['bea_ind_code'],
       right_on=['bea_ind_code'], left_index=False, right_index=False, sort=False,
       copy=True, indicator=False)
-	print by_industry_asset.head(n=10)
 
-	quit()
 
-	# question - do we need to merge in SOI data or is mix of fixed-assets same
-	# across corp/non-corp so no need? - yes, need to if allocating across
-	# corp/non-corp partners
-
-	# start w/o that - that's what CBO does, right?
-
-	industries = pd.read_csv(_IND_NAICS)
-	rho_df = pd.DataFrame(industries)
-	# Creates dataframes with the industry names, NAICS codes and 3x2 Arrays
-	rho_df['Data Array'] =  [np.zeros((rho.shape[1], rho.shape[2]))]*len(industries)
-	metr_df = pd.DataFrame(industries)
-	metr_df['Data Array'] =  [np.zeros((rho.shape[1], rho.shape[2]))]*len(industries)
-
-	for inds, assets in agg_fa.iteritems():
-		index=rho_df[rho_df.NAICS==inds].index
-		ind_assets = np.tile(np.reshape(assets.T,(assets.shape[1],1,2)),((1,rho.shape[1],1)))
-		# Calculates the weighted average for the cost of capital
-		rho_df['Data Array'][index] = [sum(ind_assets * rho) / sum(assets.T)]
-		# Calculates the weighted average for the marginal effective tax rate
-		metr_df['Data Array'][index] = [sum(ind_assets * metr) / sum(assets.T)]
-
-	return output_by_industry
+	return by_industry
 
 def wavg(group, avg_name, weight_name):
     """

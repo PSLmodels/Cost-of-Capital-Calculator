@@ -51,22 +51,10 @@ def run_btax(user_params):
 	# make calculations by industry and create formated output
 	output_by_industry = calc_final_outputs.industry_calcs(parameters, fixed_assets, output_by_asset)
 
-	print output_by_industry.head(n=10)
-	quit()
-
-	agg_fixed_assets = calc_final_outputs.aggregate_fixed_assets(fixed_assets)
-	print agg_fixed_assets.keys()
-	quit()
-	rho, metr, mettr, delta, z = calc_final_outputs.industry_calcs(agg_fixed_assets, rho, parameters)
-	vars_by_industry = format_output.create_dfs(rho, metr, mettr, delta, z, False)
-
-	print vars_by_industry.head(n=10)
-	quit()
 
 	# create plots
 	# by asset
-	visuals.asset_crossfilter(output_by_asset)
-
+	# visuals.asset_crossfilter(output_by_asset)
 
 	return output_by_asset, output_by_industry
 
