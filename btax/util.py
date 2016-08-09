@@ -66,3 +66,7 @@ def get_paths():
     paths['_NAICS_CODE_PATH'] = _NAICS_CODE_PATH = os.path.join(_DATA_DIR, 'NAICS_Codes.csv')
     paths['_NAICS_PATH'] = _NAICS_PATH = os.path.join(_BEA_DIR, 'NAICS_SOI_crosswalk.csv')
     return paths
+
+
+def dataframe_to_json_table(df):
+    return df.to_dict()

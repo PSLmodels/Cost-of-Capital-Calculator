@@ -14,10 +14,10 @@ import sys
 import pandas as pd
 import numpy as np
 import cPickle as pickle
-from soi_processing import pull_soi_data
+from btax.soi_processing import pull_soi_data
 import calc_final_outputs
-from check_output import check_output
-from util import get_paths, read_from_egg
+from btax.check_output import check_output
+from btax.util import get_paths, read_from_egg, dataframe_to_json_table
 import read_bea
 import soi_processing as soi
 import parameters as params
@@ -58,6 +58,12 @@ def run_btax(**user_params):
 
 	print output_by_industry.head(n=50)
 	return output_by_asset, output_by_industry
+
+
+def run_btax_to_json_tables(**user_params):
+    output_by_asset, output_by_industry = run_btax(**user_params)
+    return {'output_by_asset': dataframe_to_json_table(output_by_asset),
+            'output_by_industry': dataframe_to_json_table(output_by_industry)}
 
 def main():
     run_btax()
