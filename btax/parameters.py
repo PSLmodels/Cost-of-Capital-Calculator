@@ -18,6 +18,64 @@ DEFAULTS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_default
 DEFAULT_ASSET_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_asset.json')))
 DEFAULT_INDUSTRY_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_industry.json')))
 
+def translate_param_names():
+	"""Takes parameters names from UI and turns them into names used in btax
+
+	"""
+
+	# btax_betr_entity_Switch # If this parameter =True, then u_nc default to corp rate
+
+	## All depr parameters are going to have to affect rules currently read in
+	## from csv file
+	# btax_depr_10yr_ads_Switch
+	# btax_depr_10yr_exp
+	# btax_depr_10yr_gds_Switch
+	# btax_depr_10yr_tax_Switch
+	# btax_depr_15yr_ads_Switch
+	# btax_depr_15yr_exp
+	# btax_depr_15yr_gds_Switch
+	# btax_depr_15yr_tax_Switch
+	# btax_depr_20yr_ads_Switch
+	# btax_depr_20yr_exp
+	# btax_depr_20yr_gds_Switch
+	# btax_depr_20yr_tax_Switch
+	# btax_depr_25yr_ads_Switch
+	# btax_depr_25yr_exp
+	# btax_depr_25yr_gds_Switch
+	# btax_depr_25yr_tax_Switch
+	# btax_depr_27_5yr_ads_Switch
+	# btax_depr_27_5yr_exp
+	# btax_depr_27_5yr_gds_Switch
+	# btax_depr_27_5yr_tax_Switch
+	# btax_depr_39yr_ads_Switch
+	# btax_depr_39yr_exp
+	# btax_depr_39yr_gds_Switch
+	# btax_depr_39yr_tax_Switch
+	# btax_depr_3yr_ads_Switch
+	# btax_depr_3yr_exp
+	# btax_depr_3yr_gds_Switch
+	# btax_depr_3yr_tax_Switch
+	# btax_depr_5yr_ads_Switch
+	# btax_depr_5yr_exp
+	# btax_depr_5yr_gds_Switch
+	# btax_depr_5yr_tax_Switch
+	# btax_depr_7yr_ads_Switch
+	# btax_depr_7yr_exp
+	# btax_depr_7yr_gds_Switch
+	# btax_depr_7yr_tax_Switch
+	# btax_depr_allyr_ads_Switch
+	# btax_depr_allyr_exp
+	# btax_depr_allyr_gds_Switch
+	# btax_depr_allyr_tax_Switch
+
+	user_params={'u_c': btax_betr_corp, 'u_nc': btax_betr_pass, 'pi': btax_econ_inflat,
+				'i': btax_econ_nomint, 'ace_c': btax_other_corpeq,
+				'int_haircut': btax_other_hair, 'inv_credit': btax_other_invest,
+				'w': btax_other_proptx}
+
+	return user_params
+
+
 def get_params():
 	"""Contains all the parameters
 
