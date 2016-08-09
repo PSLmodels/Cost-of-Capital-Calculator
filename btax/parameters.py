@@ -12,7 +12,7 @@ import os
 from calc_z import calc_tax_depr_rates, get_econ_depr
 import numpy as np
 
-from btax.util import read_from_egg
+from util import read_from_egg
 
 DEFAULTS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_defaults.json')))
 DEFAULT_ASSET_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_asset.json')))
@@ -57,7 +57,7 @@ def get_params():
 	u_c = 0.35
 	u_nc = 0.267
 	u_array = np.array([u_c, u_nc])
-	w = 0.0117
+	w = 0. #0.0117
 	inv_credit = 0.
 	ace_c = 0.
 	ace_nc = 0.
@@ -104,7 +104,9 @@ def get_params():
 	r = f_array*(i*(1-(1-int_haircut)*u_array))+(1-f_array)*(E_array+pi - E_array*r_ace*ace_array)
 	r_prime = f_array*i+(1-f_array)*(E_array+pi)
 	tax_methods = {'GDS 200%': 2.0, 'GDS 150%': 1.5, 'GDS SL': 1.0, 'ADS SL': 1.0}
-	z = calc_tax_depr_rates(r, bonus_deprec, tax_methods)
+	financing_list = ['', '_d', '_e']
+	entity_list = ['_c', '_nc']
+	z = calc_tax_depr_rates(r, bonus_deprec, tax_methods, financing_list, entity_list)
 	delta = get_econ_depr()
 
 	parameters = {'inflation rate': pi,
@@ -117,7 +119,9 @@ def get_params():
 	'prop tax': w,
 	'inv_credit': inv_credit,
 	'ace':ace_array,
-	'int_haircut':int_haircut
+	'int_haircut':int_haircut,
+	'financing_list':financing_list,
+	'entity_list':entity_list
 	}
 
 	return parameters
