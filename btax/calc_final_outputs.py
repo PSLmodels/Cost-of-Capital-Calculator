@@ -20,113 +20,112 @@ globals().update(get_paths())
 
 
 def asset_calcs(params):
-	"""Computes rho, METR, and METTR at the asset level.
+    """Computes rho, METR, and METTR at the asset level.
 
-		:param params: Constants used in the calculation
-		:param fixed_assets: Fixed asset data for each industry
-		:type params: dictionary
-		:type fixed_assets: dictionary
-		:returns: rho, METR, METTR, ind_rho, ind_METR
-		:rtype: 96x3x2, DataFrame
-	"""
-	# grabs the constant values from the parameters dictionary
-	inflation_rate = params['inflation rate']
-	stat_tax = params['tax rate']
-	discount_rate = params['discount rate']
-	save_rate = params['return to savers']
-	delta = params['econ depreciation']
-	r_prime = params['after-tax rate']
-	inv_credit = params['inv_credit']
-	w = params['prop tax']
-	z = params['depr allow']
-	financing_list = params['financing_list']
-	entity_list = params['entity_list']
+    	:param params: Constants used in the calculation
+    	:param fixed_assets: Fixed asset data for each industry
+    	:type params: dictionary
+    	:type fixed_assets: dictionary
+    	:returns: rho, METR, METTR, ind_rho, ind_METR
+    	:rtype: 96x3x2, DataFrame
+    """
+    # grabs the constant values from the parameters dictionary
+    inflation_rate = params['inflation rate']
+    stat_tax = params['tax rate']
+    discount_rate = params['discount rate']
+    save_rate = params['return to savers']
+    delta = params['econ depreciation']
+    r_prime = params['after-tax rate']
+    inv_credit = params['inv_credit']
+    w = params['prop tax']
+    z = params['depr allow']
+    financing_list = params['financing_list']
+    entity_list = params['entity_list']
 
-	# initialize dataframe - start w/ z output
-	output_by_asset = z.copy()
+    # initialize dataframe - start w/ z output
+    output_by_asset = z.copy()
 
-	# merge in econ depreciation rates
-	output_by_asset = pd.merge(output_by_asset, delta, how='left', left_on=['Asset Type'],
+    # merge in econ depreciation rates
+    output_by_asset = pd.merge(output_by_asset, delta, how='left', left_on=['Asset Type'],
       right_on=['Asset'], left_index=False, right_index=False, sort=False,
       copy=True)
+    # calculate the cost of capital, metr, mettr
+    for i in range(save_rate.shape[0]):
+    	for j in range(save_rate.shape[1]):
+    		output_by_asset['rho'+entity_list[j]+financing_list[i]] = \
+    			((((discount_rate[i,j] - inflation_rate) +
+    			output_by_asset['delta']) * (1- inv_credit- (stat_tax[j] *
+    			output_by_asset['z'+entity_list[j]+financing_list[i]])) /
+    			(1-stat_tax[j])) + w - output_by_asset['delta'])
+    		output_by_asset['metr'+entity_list[j]+financing_list[i]] = \
+    			(output_by_asset['rho'+entity_list[j]+financing_list[i]] -
+    			(r_prime[i,j] - inflation_rate))/ output_by_asset['rho'+entity_list[j]+financing_list[i]]
+    		output_by_asset['mettr'+entity_list[j]+financing_list[i]] = \
+    			(output_by_asset['rho'+entity_list[j]+financing_list[i]] -
+    			save_rate[i,j])/ output_by_asset['rho'+entity_list[j]+financing_list[i]]
 
-	# calculate the cost of capital, metr, mettr
-	for i in range(save_rate.shape[0]):
-		for j in range(save_rate.shape[1]):
-			output_by_asset['rho'+entity_list[j]+financing_list[i]] = \
-				((((discount_rate[i,j] - inflation_rate) +
-				output_by_asset['delta']) * (1- inv_credit- (stat_tax[j] *
-				output_by_asset['z'+entity_list[j]+financing_list[i]])) /
-				(1-stat_tax[j])) + w - output_by_asset['delta'])
-			output_by_asset['metr'+entity_list[j]+financing_list[i]] = \
-				(output_by_asset['rho'+entity_list[j]+financing_list[i]] -
-				(r_prime[i,j] - inflation_rate))/ output_by_asset['rho'+entity_list[j]+financing_list[i]]
-			output_by_asset['mettr'+entity_list[j]+financing_list[i]] = \
-				(output_by_asset['rho'+entity_list[j]+financing_list[i]] -
-				save_rate[i,j])/ output_by_asset['rho'+entity_list[j]+financing_list[i]]
+    '''
+    ------------------------------------------
+    Define asset categories
+    ------------------------------------------
+    '''
 
-	'''
-	------------------------------------------
-	Define asset categories
-	------------------------------------------
-	'''
+    asset_categories = {'Computers and Software', 'Office and Residential Equipment',
+        'Instruments and Communications Equipment', 'Transportation Equipment',
+        'Industrial Machinery', 'Other Industrial Equipment', 'Other Equipment',
+        'Residential Buildings', 'Nonresidential Buildings',
+        'Mining and Drilling Structures', 'Other Structures'}
+    asset_dict = dict.fromkeys(['Mainframes','PCs','DASDs','Printers',
+          'Terminals','Tape drives','Storage devices','System integrators',
+          'Prepackaged software','Custom software','Own account software'],'Computers and Software')
+    asset_dict.update(dict.fromkeys(['Communications','Nonelectro medical instruments',
+          'Electro medical instruments','Nonmedical instruments','Photocopy and related equipment',
+          'Office and accounting equipment'],'Instruments and Communications Equipment'))
+    asset_dict.update(dict.fromkeys(['Household furniture','Other furniture','Household appliances'],
+          'Office and Residential Equipment'))
+    asset_dict.update(dict.fromkeys(['Light trucks (including utility vehicles)',
+          'Other trucks, buses and truck trailers','Autos','Aircraft',
+          'Ships and boats','Railroad equipment','Steam engines','Internal combustion engines'],
+          'Transportation Equipment'))
+    asset_dict.update(dict.fromkeys(['Special industrial machinery','General industrial equipment'],
+          'Industrial Machinery'))
+    asset_dict.update(dict.fromkeys(['Nuclear fuel','Other fabricated metals',
+          'Metalworking machinery','Electric transmission and distribution',
+          'Other agricultural machinery','Farm tractors','Other construction machinery',
+          'Construction tractors','Mining and oilfield machinery'],
+          'Other Industrial Equipment'))
+    asset_dict.update(dict.fromkeys(['Service industry machinery','Other electrical','Other'],
+          'Other Equipment'))
+    # my_dict.update(dict.fromkeys([],
+    #       'Residential Buildings'))
+    asset_dict.update(dict.fromkeys(['Office','Hospitals','Special care','Medical buildings','Multimerchandise shopping',
+          'Food and beverage establishments','Warehouses','Mobile structures','Other commercial',
+          'Religious','Educational and vocational','Lodging'],
+          'Nonresidential Buildings'))
+    asset_dict.update(dict.fromkeys(['Gas','Petroleum pipelines','Communication',
+          'Petroleum and natural gas','Mining'],'Mining and Drilling Structures'))
+    asset_dict.update(dict.fromkeys(['Manufacturing','Electric','Wind and solar',
+          'Amusement and recreation','Air transportation','Other transportation',
+          'Other railroad','Track replacement','Local transit structures',
+          'Other land transportation','Farm','Water supply','Sewage and waste disposal',
+          'Public safety','Highway and conservation and development'],
+          'Other Structures'))
+    asset_dict.update(dict.fromkeys(['Pharmaceutical and medicine manufacturing',
+          'Chemical manufacturing, ex. pharma and med','Semiconductor and other component manufacturing',
+          'Computers and peripheral equipment manufacturing','Communications equipment manufacturing',
+          'Navigational and other instruments manufacturing','Other computer and electronic manufacturing, n.e.c.',
+          'Motor vehicles and parts manufacturing','Aerospace products and parts manufacturing',
+          'Other manufacturing','Scientific research and development services','Software publishers',
+          'Financial and real estate services','Computer systems design and related services','All other nonmanufacturing, n.e.c.',
+          'Private universities and colleges','Other nonprofit institutions','Theatrical movies','Long-lived television programs',
+          'Books','Music'],'Intellectual Property'))
 
-	asset_categories = {'Computers and Software', 'Office and Residential Equipment',
-	    'Instruments and Communications Equipment', 'Transportation Equipment',
-	    'Industrial Machinery', 'Other Industrial Equipment', 'Other Equipment',
-	    'Residential Buildings', 'Nonresidential Buildings',
-	    'Mining and Drilling Structures', 'Other Structures'}
-	asset_dict = dict.fromkeys(['Mainframes','PCs','DASDs','Printers',
-	      'Terminals','Tape drives','Storage devices','System integrators',
-	      'Prepackaged software','Custom software','Own account software'],'Computers and Software')
-	asset_dict.update(dict.fromkeys(['Communications','Nonelectro medical instruments',
-	      'Electro medical instruments','Nonmedical instruments','Photocopy and related equipment',
-	      'Office and accounting equipment'],'Instruments and Communications Equipment'))
-	asset_dict.update(dict.fromkeys(['Household furniture','Other furniture','Household appliances'],
-	      'Office and Residential Equipment'))
-	asset_dict.update(dict.fromkeys(['Light trucks (including utility vehicles)',
-	      'Other trucks, buses and truck trailers','Autos','Aircraft',
-	      'Ships and boats','Railroad equipment','Steam engines','Internal combustion engines'],
-	      'Transportation Equipment'))
-	asset_dict.update(dict.fromkeys(['Special industrial machinery','General industrial equipment'],
-	      'Industrial Machinery'))
-	asset_dict.update(dict.fromkeys(['Nuclear fuel','Other fabricated metals',
-	      'Metalworking machinery','Electric transmission and distribution',
-	      'Other agricultural machinery','Farm tractors','Other construction machinery',
-	      'Construction tractors','Mining and oilfield machinery'],
-	      'Other Industrial Equipment'))
-	asset_dict.update(dict.fromkeys(['Service industry machinery','Other electrical','Other'],
-	      'Other Equipment'))
-	# my_dict.update(dict.fromkeys([],
-	#       'Residential Buildings'))
-	asset_dict.update(dict.fromkeys(['Office','Hospitals','Special care','Medical buildings','Multimerchandise shopping',
-	      'Food and beverage establishments','Warehouses','Mobile structures','Other commercial',
-	      'Religious','Educational and vocational','Lodging'],
-	      'Nonresidential Buildings'))
-	asset_dict.update(dict.fromkeys(['Gas','Petroleum pipelines','Communication',
-	      'Petroleum and natural gas','Mining'],'Mining and Drilling Structures'))
-	asset_dict.update(dict.fromkeys(['Manufacturing','Electric','Wind and solar',
-	      'Amusement and recreation','Air transportation','Other transportation',
-	      'Other railroad','Track replacement','Local transit structures',
-	      'Other land transportation','Farm','Water supply','Sewage and waste disposal',
-	      'Public safety','Highway and conservation and development'],
-	      'Other Structures'))
-	asset_dict.update(dict.fromkeys(['Pharmaceutical and medicine manufacturing',
-	      'Chemical manufacturing, ex. pharma and med','Semiconductor and other component manufacturing',
-	      'Computers and peripheral equipment manufacturing','Communications equipment manufacturing',
-	      'Navigational and other instruments manufacturing','Other computer and electronic manufacturing, n.e.c.',
-	      'Motor vehicles and parts manufacturing','Aerospace products and parts manufacturing',
-	      'Other manufacturing','Scientific research and development services','Software publishers',
-	      'Financial and real estate services','Computer systems design and related services','All other nonmanufacturing, n.e.c.',
-	      'Private universities and colleges','Other nonprofit institutions','Theatrical movies','Long-lived television programs',
-	      'Books','Music'],'Intellectual Property'))
-
-	# create asset category variable
-	output_by_asset['asset_category'] = output_by_asset['Asset Type']
-	output_by_asset['asset_category'].replace(asset_dict,inplace=True)
+    # create asset category variable
+    output_by_asset['asset_category'] = output_by_asset['Asset Type']
+    output_by_asset['asset_category'].replace(asset_dict,inplace=True)
 
 
-	return output_by_asset
+    return output_by_asset
 
 
 def industry_calcs(params, fixed_assets, output_by_asset):

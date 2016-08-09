@@ -36,11 +36,12 @@ def run_btax(**user_params):
 	"""
 	# break out the asset data by entity type (c corp, s corp, sole proprietorships, and partners)
 	#entity_dfs = pull_soi_data()
-	# read in the BEA data on fixed assets and separate them by corp and non-corp
-	fixed_assets = read_bea.read_bea()
 
 	# get parameters
 	parameters = params.get_params(**user_params)
+
+	# read in the BEA data on fixed assets and separate them by corp and non-corp
+	fixed_assets = read_bea.read_bea()
 
 	# make calculations by asset and create formated output
 	output_by_asset = calc_final_outputs.asset_calcs(parameters)
