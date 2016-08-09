@@ -69,6 +69,18 @@ def translate_param_names():
 	# btax_depr_allyr_gds_Switch
 	# btax_depr_allyr_tax_Switch
 
+	class_list = [3, 5, 7, 10, 15, 20, 25, 27.5, 39]
+
+	user_bonus_deprec={'3':btax_depr_3yr_exp, '5':btax_depr_5yr_exp,
+					'7':btax_depr_7yr_exp, '10':btax_depr_10yr_exp,
+					'15':btax_depr_15yr_exp, '20':btax_depr_20yr_exp,
+					'25':btax_depr_25yr_exp, '27.5':btax_depr_27_5yr_exp,
+					'39':btax_depr_39yr_exp}
+	user_deprec_system={'3':btax_depr_3yr_exp, '5':btax_depr_5yr_exp,
+					'7':btax_depr_7yr_exp, '10':btax_depr_10yr_exp,
+					'15':btax_depr_15yr_exp, '20':btax_depr_20yr_exp,
+					'25':btax_depr_25yr_exp, '27.5':btax_depr_27_5yr_exp,
+					'39':btax_depr_39yr_exp}
 	user_params={'u_c': btax_betr_corp, 'u_nc': btax_betr_pass, 'pi': btax_econ_inflat,
 				'i': btax_econ_nomint, 'ace_c': btax_other_corpeq,
 				'int_haircut': btax_other_hair, 'inv_credit': btax_other_invest,
