@@ -45,11 +45,6 @@ def asset_calcs(params):
 	# initialize dataframe - start w/ z output
 	output_by_asset = z.copy()
 
-	# merge in econ depreciation rates
-	output_by_asset = pd.merge(output_by_asset, delta, how='left', left_on=['Asset Type'],
-      right_on=['Asset'], left_index=False, right_index=False, sort=False,
-      copy=True, indicator=False)
-
 	# calculate the cost of capital, metr, mettr
 	for i in range(save_rate.shape[0]):
 		for j in range(save_rate.shape[1]):
