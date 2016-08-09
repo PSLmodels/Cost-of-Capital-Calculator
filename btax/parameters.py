@@ -6,6 +6,7 @@ This module contains all the parameters used for the calc_final_outputs.py scrip
 contains intermediate calculations that produce more relevant parameters. The parameters
 are placed in a dictionary. Last Updated 7/27/2016
 """
+from argparse import Namespace
 import json
 import os
 
@@ -76,66 +77,68 @@ def translate_param_names():
 	return user_params
 
 
-def get_params():
+def get_base_param_defaults(**user_params):
 	"""Contains all the parameters
 
 		:returns: Inflation rate, depreciation, tax rate, discount rate, return to savers, property tax
 		:rtype: dictionary
 	"""
 	#macro variables
-	pi = 0.018
-	i = 0.072
-	E_c = 0.07
-	f_c = 0.41
-	f_nc = 0.32
-	f_array = np.array([[f_c, f_nc], [1, 1], [0,0]])
+	params =  Namespace(pi=0.018,
+                    	i=0.072,
+                    	E_c=0.07,
+                    	f_c=0.41,
+                    	f_nc=0.32,
+                    	f_array=np.array([[f_c, f_nc], [1, 1], [0,0]]),
 
-	#calibration variables
-	omega_scg = 0.03627
-	omega_lcg = 0.48187
-	omega_xcg = 0.48187
+                    	#calibration variables
+                    	omega_scg=0.03627,
+                    	omega_lcg=0.48187,
+                    	omega_xcg=0.48187,
 
-	alpha_c_e_ft = 0.584
-	alpha_c_e_td = 0.058
-	alpha_c_e_nt = 0.358
+                    	alpha_c_e_ft=0.584,
+                    	alpha_c_e_td=0.058,
+                    	alpha_c_e_nt=0.358,
 
-	alpha_c_d_ft = 0.460
-	alpha_c_d_td = 0.213
-	alpha_c_d_nt = 0.327
+                    	alpha_c_d_ft=0.460,
+                    	alpha_c_d_td=0.213,
+                    	alpha_c_d_nt=0.327,
 
-	alpha_nc_d_ft = 0.691
-	alpha_nc_d_td = 0.142
-	alpha_nc_d_nt = 0.167
+                    	alpha_nc_d_ft=0.691,
+                    	alpha_nc_d_td=0.142,
+                    	alpha_nc_d_nt=0.167,
 
-	alpha_h_d_ft = 0.716
-	alpha_h_d_td = 0.071
-	alpha_h_d_nt = 0.213
+                    	alpha_h_d_ft=0.716,
+                    	alpha_h_d_td=0.071,
+                    	alpha_h_d_nt=0.213,
+                    	#user defined variables
+                    	u_c=0.35,
+                    	u_nc=0.267,
+                    	u_array=np.array([u_c, u_nc]),
+                    	w=0., #0.0117
+                    	inv_credit=0.,
+                    	ace_c=0.,
+                    	ace_nc=0.,
+                    	ace_array=np.array([ace_c, ace_nc]),
+                    	r_ace=i,
+                    	int_haircut=0.,
+                    	bonus_deprec=0.,
+                    	tau_div=0.121,
+                    	tau_int=0.221,
+                    	tau_scg=0.28,
+                    	tau_lcg=0.145,
+                    	tau_xcg=0.00,
+                    	tau_td=0.209,
+                    	tau_h=0.194,
+                    	Y_td=8.,
+                    	Y_scg=4/12.,
+                    	Y_lcg=8.,
+                    	gamma=0.3,
+                    	m=0.4286)
 
-	#user defined variables
-	u_c = 0.35
-	u_nc = 0.267
-	u_array = np.array([u_c, u_nc])
-	w = 0. #0.0117
-	inv_credit = 0.
-	ace_c = 0.
-	ace_nc = 0.
-	ace_array = np.array([ace_c, ace_nc])
-	r_ace = i
-	int_haircut = 0.
-	bonus_deprec = 0.
-	tau_div = 0.121
-	tau_int = 0.221
-	tau_scg = 0.28
-	tau_lcg = 0.145
-	tau_xcg = 0.00
-	tau_td = 0.209
-	tau_h = 0.194
-	Y_td = 8.
-	Y_scg = 4/12.
-	Y_lcg = 8.
-	gamma = 0.3
-	m = 0.4286
+    return params
 
+def get_params():
 	#intermediate variables
 	sprime_c_td = (1/Y_td)*np.log(((1-tau_td)*np.exp(i*Y_td))+tau_td)-pi
 	s_c_d_td = gamma*(i-pi) + (1-gamma)*sprime_c_td
