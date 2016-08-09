@@ -7,7 +7,9 @@
       "description": "Top statutory corporate income tax rate",
       "value": [
           0.35
-      ]
+        ],
+        "min": [5.0],
+        "max": [-1.0]
     }
   ],
   [
@@ -29,7 +31,9 @@
       "description": "Non-corporate entity-level income tax rate",
       "value": [
           0.35
-      ]
+        ],
+        "min": [5.0],
+        "max": [-1.0]
     }
   ],
   [
@@ -50,8 +54,10 @@
       "notes": "This parameter gives the rate of bonus depreciation on 10-year class property.  A rate of 100% results in full expensing.",
       "description": "Rate of bonus depreciation on 10-year class property",
       "value": [
-        50
-      ]
+        50.0
+      ],
+      "min": [100.0],
+      "max": [-100.0]
     }
   ],
   [
@@ -95,7 +101,9 @@
       "description": "Rate of bonus depreciation on 15-year class property",
       "value": [
         50
-      ]
+      ],
+      "min": [100.0],
+      "max": [-100.0]
     }
   ],
   [
@@ -138,8 +146,10 @@
       "notes": "This parameter gives the rate of bonus depreciation on 20-year class property.  A rate of 100% results in full expensing.",
       "description": "Rate of bonus depreciation on 20-year class property",
       "value": [
-        50
-      ]
+        50.0
+      ],
+      "min": [100.0],
+      "max": [-100.0]
     }
   ],
   [
@@ -182,8 +192,10 @@
       "notes": "This parameter gives the rate of bonus depreciation on 25-year class property.  A rate of 100% results in full expensing.",
       "description": "Rate of bonus depreciation on 25-year class property",
       "value": [
-        0
-      ]
+        0.0
+      ],
+      "min": [100.0],
+      "max": [-100.0]
     }
   ],
   [
@@ -226,8 +238,10 @@
       "notes": "This parameter gives the rate of bonus depreciation on 27.5-year class property.  A rate of 100% results in full expensing.",
       "description": "Rate of bonus depreciation on 27.5-year class property",
       "value": [
-        0
-      ]
+        0.0
+      ],
+      "min": [100.0],
+      "max": [-100.0]
     }
   ],
   [
@@ -270,8 +284,10 @@
       "notes": "This parameter gives the rate of bonus depreciation on 39-year class property.  A rate of 100% results in full expensing.",
       "description": "Rate of bonus depreciation on 39-year class property",
       "value": [
-        0
-      ]
+        0.0
+      ],
+      "min": [100.0],
+      "max": [-100.0]
     }
   ],
   [
@@ -314,8 +330,10 @@
       "notes": "This parameter gives the rate of bonus depreciation on 3-year class property.  A rate of 100% results in full expensing.",
       "description": "Rate of bonus depreciation on 3-year class property",
       "value": [
-        50
-      ]
+        50.0
+      ],
+      "min": [100.0],
+      "max": [-100.0]
     }
   ],
   [
@@ -358,8 +376,10 @@
       "notes": "This parameter gives the rate of bonus depreciation on 5-year class property.  A rate of 100% results in full expensing.",
       "description": "Rate of bonus depreciation on 5-year class property",
       "value": [
-        50
-      ]
+        50.0
+      ],
+      "min": [100.0],
+      "max": [-100.0]
     }
   ],
   [
@@ -402,8 +422,10 @@
       "notes": "This parameter gives the rate of bonus depreciation on 7-year class property.  A rate of 100% results in full expensing.",
       "description": "Rate of bonus depreciation on 7-year class property",
       "value": [
-        50
-      ]
+        50.0
+      ],
+      "min": [100.0],
+      "max": [-100.0]
     }
   ],
   [
@@ -446,8 +468,10 @@
       "notes": "This parameter gives the rate of bonus depreciation on all classes of property.  A rate of 100% results in full expensing.",
       "description": "Rate of bonus depreciation on all classes of property",
       "value": [
-        0
-      ]
+        0.0
+      ],
+      "min": [100.0],
+      "max": [-100.0]
     }
   ],
   [
@@ -480,7 +504,9 @@
       "description": "Inflation rate",
       "value": [
           0.018
-      ]
+        ],
+        "min": [0.5],
+        "max": [-0.5]
     }
   ],
   [
@@ -491,7 +517,9 @@
       "description": "Nominal interest rate paid on business debt",
       "value": [
           0.072
-      ]
+        ],
+        "min": [0.75],
+        "max": [-0.5]
     }
   ],
   [
@@ -502,7 +530,9 @@
       "description": "Allowance for corporate equity (fraction of equity deductible)",
       "value": [
           0.0
-      ]
+        ],
+        "min": [2.0],
+        "max": [-1.0]
     }
   ],
   [
@@ -513,7 +543,9 @@
       "description": "Haircut on interest deductibility (fractin of interst deductible)",
       "value": [
           0.0
-      ]
+      ],
+        "min": [2.0],
+        "max": [-1.0]
     }
   ],
   [
@@ -524,7 +556,9 @@
       "description": "Investment tax credit rate",
       "value": [
           0.0
-      ]
+        ],
+        "min": [5.0],
+        "max": [-1.0]
     }
   ],
   [
@@ -535,7 +569,9 @@
       "description": "Property tax rate",
       "value": [
           0.0
-      ]
+        ],
+        "min": [5.0],
+        "max": [-1.0]
     }
   ]
 ]
