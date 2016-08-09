@@ -6,9 +6,7 @@
       "notes": "This parameter is the top statutory corporate income tax rate.",
       "description": "Top statutory corporate income tax rate",
       "value": [
-        [
           0.35
-        ]
       ]
     }
   ],
@@ -19,9 +17,7 @@
       "notes": "This parameter is an indicator for an entity-level tax on non-C corporate entities, such as one would find under a comprehensive business income tax (CBIT) system.",
       "description": "Indicator for non-corporate income tax",
       "value": [
-        [
           false
-        ]
       ]
     }
   ],
@@ -32,9 +28,7 @@
       "notes": "This parameter is the statutory income tax rate on non-C corporate entities at the entity-level.",
       "description": "Non-corporate entity-level income tax rate",
       "value": [
-        [
           0.35
-        ]
       ]
     }
   ],
@@ -485,9 +479,7 @@
       "notes": "The default inflation rate is determined by the forecast of the Congressional Budget Office (CBO).",
       "description": "Inflation rate",
       "value": [
-        [
           0.018
-        ]
       ]
     }
   ],
@@ -498,9 +490,7 @@
       "notes": "The default nominal interest rate is taken as the yeild on BBB corporate bonds.",
       "description": "Nominal interest rate paid on business debt",
       "value": [
-        [
           0.072
-        ]
       ]
     }
   ],
@@ -511,9 +501,7 @@
       "notes": "This parameter gives the allowance for corporate equity (ACE). Under an ACE system, companies can deduct a notional interest on their equity.  The default rate used in B-Tax is the nominal interest rate on corporate debt.  Moving this parameter up from zero allows the corporate to have partial to full deductibility of the notional interest on equity.",
       "description": "Allowance for corporate equity (fraction of equity deductible)",
       "value": [
-        [
           0.0
-        ]
       ]
     }
   ],
@@ -524,9 +512,7 @@
       "notes": "This parameter gives the fraction of interest payments that are not allowable as deductions against corporate income.",
       "description": "Haircut on interest deductibility (fractin of interst deductible)",
       "value": [
-        [
           0.0
-        ]
       ]
     }
   ],
@@ -537,9 +523,7 @@
       "notes": "The investment tax credit rate gives the rate at which the cost of new investments are credited against the firm's tax liability.",
       "description": "Investment tax credit rate",
       "value": [
-        [
           0.0
-        ]
       ]
     }
   ],
@@ -550,9 +534,7 @@
       "notes": "Tax rate on business property.",
       "description": "Property tax rate",
       "value": [
-        [
           0.0
-        ]
       ]
     }
   ]

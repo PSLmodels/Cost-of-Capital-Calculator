@@ -48,7 +48,7 @@ def asset_calcs(params):
 	# merge in econ depreciation rates
 	output_by_asset = pd.merge(output_by_asset, delta, how='left', left_on=['Asset Type'],
       right_on=['Asset'], left_index=False, right_index=False, sort=False,
-      copy=True, indicator=False)
+      copy=True)
 
 	# calculate the cost of capital, metr, mettr
 	for i in range(save_rate.shape[0]):
@@ -163,7 +163,7 @@ def industry_calcs(params, fixed_assets, output_by_asset):
 						'rho_nc_d', 'rho_nc_e']]
 	by_industry_asset = pd.merge(by_industry_asset, df2, how='left', left_on=['bea_asset_code'],
       right_on=['bea_asset_code'], left_index=False, right_index=False, sort=False,
-      copy=True, indicator=False)
+      copy=True)
 
 	# create weighted averages by industry/tax treatment
 	by_industry = pd.DataFrame({'delta' : by_industry_asset.groupby( ['bea_ind_code'] ).apply(wavg, "delta", "assets")}).reset_index()
@@ -180,7 +180,7 @@ def industry_calcs(params, fixed_assets, output_by_asset):
 	df3.drop_duplicates(inplace=True)
 	by_industry = pd.merge(by_industry, df3, how='left', left_on=['bea_ind_code'],
       right_on=['bea_ind_code'], left_index=False, right_index=False, sort=False,
-      copy=True, indicator=False)
+      copy=True)
 
 	# define major industry groupings
 	major_industries = {'Agriculture, forestry, fishing, and hunting', 'Mining',

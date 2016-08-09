@@ -26,7 +26,7 @@ import visuals
 
 globals().update(get_paths())
 
-def run_btax(user_params):
+def run_btax(**user_params):
 	"""Runner script that kicks off the calculations for B-Tax
 
 		:param user_params: The user input for implementing reforms
@@ -40,7 +40,7 @@ def run_btax(user_params):
 	fixed_assets = read_bea.read_bea()
 
 	# get parameters
-	parameters = params.get_params()
+	parameters = params.get_params(**user_params)
 
 	# make calculations by asset and create formated output
 	output_by_asset = calc_final_outputs.asset_calcs(parameters)
@@ -60,7 +60,7 @@ def run_btax(user_params):
 	return output_by_asset, output_by_industry
 
 def main():
-    run_btax(user_params={})
+    run_btax()
 
 if __name__ == '__main__':
 	main()
