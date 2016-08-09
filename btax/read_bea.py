@@ -56,7 +56,7 @@ def read_bea():
     # Merge asset names to asset data
     bea_FA = pd.merge(bea_FA, bea_asset_names, how='inner', on=['bea_asset_code'],
       left_index=False, right_index=False, sort=False,
-      copy=True, indicator=False)
+      copy=True)
 
 
     # Read in BEA industry names
@@ -70,7 +70,7 @@ def read_bea():
     # Merge industry names to asset data
     bea_FA = pd.merge(bea_FA, bea_ind_names, how='inner', on=['bea_ind_code'],
       left_index=False, right_index=False, sort=False,
-      copy=True, indicator=False)
+      copy=True)
 
     # Read in cross-walk between IRS and BEA Industries
     soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS, dtype={'bea_ind_code':str})
@@ -79,6 +79,6 @@ def read_bea():
     # Merge SOI codes to BEA data
     bea_FA = pd.merge(bea_FA, soi_bea_ind_codes, how='left', left_on=['bea_ind_code'],
       right_on=['bea_code'], left_index=False, right_index=False, sort=False,
-      copy=True, indicator=False)
+      copy=True)
 
     return bea_FA

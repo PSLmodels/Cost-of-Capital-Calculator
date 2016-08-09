@@ -25,16 +25,28 @@ def read_from_egg(tfile):
 
 def get_paths():
     paths = {}
-    # _CUR_DIR = os.environ.get('BTAX_CUR_DIR')
-    # if _CUR_DIR:
-    #     _CUR_DIR = os.path.expanduser(_CUR_DIR)
-    # if not _CUR_DIR or not os.path.exists(_CUR_DIR):
-    #     paths['_CUR_DIR'] = _CUR_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    # else:
-    #     paths['_CUR_DIR'] = _CUR_DIR
-    paths['_CUR_DIR'] = _CUR_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    paths['_MAIN_DIR'] = _MAIN_DIR = os.path.dirname(_CUR_DIR)
-    paths['_DATA_DIR'] = _DATA_DIR = os.path.join('data')
+    _CUR_DIR = os.environ.get('BTAX_CUR_DIR', '.')
+    if _CUR_DIR:
+         _CUR_DIR = os.path.expanduser(_CUR_DIR)
+    if not _CUR_DIR or not os.path.exists(_CUR_DIR):
+         paths['_CUR_DIR'] = _CUR_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    else:
+         paths['_CUR_DIR'] = _CUR_DIR
+    data_dir_guesses = (os.path.join(_CUR_DIR, 'data'),
+                        os.path.join(_CUR_DIR, 'btax', 'data'),)
+    _MAIN_DIR = None
+    for _DATA_DIR in data_dir_guesses:
+        if os.path.exists(_DATA_DIR):
+            if 'btax' in _DATA_DIR:
+                _MAIN_DIR = _CUR_DIR
+            else:
+                _MAIN_DIR = os.path.dirname(_CUR_DIR)
+            break
+    if _MAIN_DIR is None:
+        raise IOError('Expected one of {} to exist.  Change '
+                      'working directory or define '
+                      'BTAX_CUR_DIR env var'.format(data_dir_guesses))
+    paths['_MAIN_DIR'] = _MAIN_DIR
     paths['_RATE_DIR'] = _RATE_DIR = os.path.join(_DATA_DIR, 'depreciation_rates')
     paths['_REF_DIR'] = os.path.join(_DATA_DIR, 'reference_data')
     paths['_RAW_DIR'] = _RAW_DIR = os.path.join(_DATA_DIR, 'raw_data')
@@ -54,3 +66,7 @@ def get_paths():
     paths['_NAICS_CODE_PATH'] = _NAICS_CODE_PATH = os.path.join(_DATA_DIR, 'NAICS_Codes.csv')
     paths['_NAICS_PATH'] = _NAICS_PATH = os.path.join(_BEA_DIR, 'NAICS_SOI_crosswalk.csv')
     return paths
+
+
+def dataframe_to_json_table(df):
+    return df.to_dict()

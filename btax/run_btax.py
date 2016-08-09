@@ -14,10 +14,10 @@ import sys
 import pandas as pd
 import numpy as np
 import cPickle as pickle
-from soi_processing import pull_soi_data
+from btax.soi_processing import pull_soi_data
 import calc_final_outputs
-from check_output import check_output
-from util import get_paths, read_from_egg
+from btax.check_output import check_output
+from btax.util import get_paths, read_from_egg, dataframe_to_json_table
 import read_bea
 import soi_processing as soi
 import parameters as params
@@ -26,7 +26,7 @@ import visuals
 
 globals().update(get_paths())
 
-def run_btax(user_params):
+def run_btax(**user_params):
 	"""Runner script that kicks off the calculations for B-Tax
 
 		:param user_params: The user input for implementing reforms
@@ -38,7 +38,7 @@ def run_btax(user_params):
 	#entity_dfs = pull_soi_data()
 
 	# get parameters
-	parameters = params.get_params()
+	parameters = params.get_params(**user_params)
 
 	# read in the BEA data on fixed assets and separate them by corp and non-corp
 	fixed_assets = read_bea.read_bea()
@@ -60,8 +60,14 @@ def run_btax(user_params):
 	print output_by_industry.head(n=50)
 	return output_by_asset, output_by_industry
 
+
+def run_btax_to_json_tables(**user_params):
+    output_by_asset, output_by_industry = run_btax(**user_params)
+    return {'output_by_asset': dataframe_to_json_table(output_by_asset),
+            'output_by_industry': dataframe_to_json_table(output_by_industry)}
+
 def main():
-    run_btax(user_params={})
+    run_btax()
 
 if __name__ == '__main__':
 	main()

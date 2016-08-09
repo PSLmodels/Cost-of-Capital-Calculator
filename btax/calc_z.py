@@ -60,7 +60,7 @@ def calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, tax_methods, fina
     # merge in econ depreciation rates
     tax_deprec_rates = pd.merge(tax_deprec_rates, delta, how='left', left_on=['Asset Type'],
       right_on=['Asset'], left_index=False, right_index=False, sort=False,
-      copy=True, indicator=False)
+      copy=True)
 
     z = npv_tax_deprec(tax_deprec_rates, r, tax_methods, financing_list, entity_list)
     return z
