@@ -4,7 +4,7 @@ SOI Corp Data (pull_soi_corp.py):
 Module that handles reading in the soi corporate data. Contains a script that loads in the capital stock
 information for total corporations and s corporations. Based on the ratio of assets for total corporations,
 data for s corporations is imputed. Finally, using the difference between the two, the c corporation
-data can be allocated to all the industries. 
+data can be allocated to all the industries.
 Last updated: 7/26/2016.
 
 """
@@ -13,9 +13,8 @@ import os.path
 import numpy as np
 import pandas as pd
 # Directory names:
-_CUR_DIR = os.path.dirname(__file__)
-_DATA_DIR = os.path.join(_CUR_DIR, 'data')
-_RAW_DIR = os.path.join(_DATA_DIR, 'raw_data')
+from btax.util import get_paths
+globals().update(get_paths())
 _SOI_DIR = os.path.join(_RAW_DIR, 'soi')
 _CORP_DIR = os.path.join(_SOI_DIR, 'soi_corporate')
 
@@ -41,7 +40,7 @@ _NAICS_COL_NM = 'INDY_CD'
 _CODE_RANGE = ['32', '33', '45', '49']
 _PARENTS = {'32':'31','33':'31','45':'44','49':'48'}
 
-def load_corp_data():    
+def load_corp_data():
     """Reads in the total corp and s corp data and calculates the c corp data.
 
         :returns: soi corporate capital stock data
@@ -113,7 +112,7 @@ def calc_proportions(tot_corp_data, s_corp_data, columns):
     """Uses the ratio of the minor industry to the major industry to fill in missing s corp data.
 
         :param tot_corp_data: capital stock for all the corporations
-        :param s_corp_data: capital stock for the s corporations 
+        :param s_corp_data: capital stock for the s corporations
         :param columns: column names for the new DataFrame
         :type tot_corp_data: DataFrame
         :type s_corp_data: DataFrame

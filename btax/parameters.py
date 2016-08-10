@@ -6,6 +6,8 @@ This module contains all the parameters used for the calc_final_outputs.py scrip
 contains intermediate calculations that produce more relevant parameters. The parameters
 are placed in a dictionary. Last Updated 7/27/2016
 """
+from argparse import Namespace
+import copy
 import json
 import os
 
@@ -18,107 +20,56 @@ DEFAULTS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_default
 DEFAULT_ASSET_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_asset.json')))
 DEFAULT_INDUSTRY_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_industry.json')))
 
-def translate_param_names():
-	"""Takes parameters names from UI and turns them into names used in btax
 
-	"""
-	# set some values for testing - will take params from UI here
-	btax_betr_corp = 0.35
-	btax_betr_pass = 0.
-	btax_econ_inflat = 0.018
-	btax_econ_nomint = 0.072
-	btax_other_corpeq = 0.
-	btax_other_hair = 0.
-	btax_other_invest = 0.
-	btax_other_proptx = 0.
+def translate_param_names(**user_mods):
+    """Takes parameters names from UI and turns them into names used in btax
 
+    """
 
-	# btax_betr_entity_Switch # If this parameter =True, then u_nc default to corp rate
+    # btax_betr_entity_Switch # If this parameter =True, then u_nc default to corp rate
 
-	## All depr parameters are going to have to affect rules currently read in
-	## from csv file
-	btax_depr_10yr_ads_Switch = False
-	btax_depr_10yr_exp = 0.
-	btax_depr_10yr_gds_Switch = True
-	btax_depr_10yr_tax_Switch = False
-	btax_depr_15yr_ads_Switch = False
-	btax_depr_15yr_exp = 0.
-	btax_depr_15yr_gds_Switch = True
-	btax_depr_15yr_tax_Switch = False
-	btax_depr_20yr_ads_Switch = False
-	btax_depr_20yr_exp = 0.
-	btax_depr_20yr_gds_Switch = True
-	btax_depr_20yr_tax_Switch = False
-	btax_depr_25yr_ads_Switch = False
-	btax_depr_25yr_exp = 0.
-	btax_depr_25yr_gds_Switch = True
-	btax_depr_25yr_tax_Switch = False
-	btax_depr_27_5yr_ads_Switch = False
-	btax_depr_27_5yr_exp = 0.
-	btax_depr_27_5yr_gds_Switch = True
-	btax_depr_27_5yr_tax_Switch = False
-	btax_depr_39yr_ads_Switch = False
-	btax_depr_39yr_exp = 0.
-	btax_depr_39yr_gds_Switch = True
-	btax_depr_39yr_tax_Switch = False
-	btax_depr_3yr_ads_Switch = False
-	btax_depr_3yr_exp =0.
-	btax_depr_3yr_gds_Switch = True
-	btax_depr_3yr_tax_Switch = False
-	btax_depr_5yr_ads_Switch = False
-	btax_depr_5yr_exp = 0.
-	btax_depr_5yr_gds_Switch = True
-	btax_depr_5yr_tax_Switch = False
-	btax_depr_7yr_ads_Switch = False
-	btax_depr_7yr_exp = 0.
-	btax_depr_7yr_gds_Switch = True
-	btax_depr_7yr_tax_Switch= False
-	btax_depr_27_5yr_ads_Switch = False
-	btax_depr_27_5yr_exp = 0.
-	btax_depr_27_5yr_gds_Switch = True
-	btax_depr_27_5yr_tax_Switch = False
+    defaults = dict(DEFAULTS)
+    user_mods.update({k: v['value'][0] for k,v in defaults.iteritems()})
+    radio_tags = ('gds', 'ads', 'tax',)
+    class_list = [3, 5, 7, 10, 15, 20, 25, 27.5, 39]
+    class_list_str = [(str(i) if i != 27.5 == 0 else '27_5') for i in class_list]
+    gds_ads_econ_deprec = {}
+    for cl in class_list_str:
+        for tag in radio_tags:
+            for key, value in user_mods.iteritems():
+                if hasattr(value, '__in__') and ('_{}_'.format(tag) in value and '{}yr_'.format(cl) in key):
+                    # Detect a key like:
+                    #    btax_depr_39yr
+                    # With a value like:
+                    #    btax_depr_39yr_gds_Switch
+                    gds_ads_econ_deprec[cl] = tag
+                    break
+
+    user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]
+                         for cl in class_list_str}
+    user_deprec_system = copy.deepcopy(user_bonus_deprec)
+    if user_mods['btax_betr_entity_Switch'] in (True, 'True'):
+        u_nc = user_mods['btax_betr_corp']
+    else:
+        u_nc = user_mods['btax_betr_pass']
+    user_params = {
+                'u_c': user_mods['btax_betr_corp'],
+                'u_nc': u_nc,
+                'pi': user_mods['btax_econ_inflat'],
+    			'i': user_mods['btax_econ_nomint'],
+                'ace_c': user_mods['btax_other_corpeq'],
+    			'int_haircut': user_mods['btax_other_hair'],
+                'inv_credit': user_mods['btax_other_invest'],
+    			'w': user_mods['btax_other_proptx'],
+                'bonus_deprec': user_bonus_deprec,
+                'deprec_system': user_deprec_system,
+                'gds_ads_econ_deprec': gds_ads_econ_deprec,
+    }
+
+    return user_params
 
 
-	# btax_depr_allyr_ads_Switch
-	# btax_depr_allyr_exp
-	# btax_depr_allyr_gds_Switch
-	# btax_depr_allyr_tax_Switch
-
-	user_deprec_system = {}
-	class_list = ('3', '5', '7', '10', '15', '20', '25', '39')
-	for item in class_list:
-		if 'btax_depr_'+str(item)+'yr_gds_Switch':
-			user_deprec_system[item] = 'GDS'
-		elif 'btax_depr_'+str(item)+'yr_ads_Switch':
-			user_deprec_system[item] = 'ADS'
-		elif 'btax_depr_'+str(item)+'yr_tax_Switch':
-			user_deprec_system[item] = 'Economic'
-
-	# can't do 27.5 yrs in loop
-	if btax_depr_27_5yr_gds_Switch:
-		user_deprec_system['27.5'] = 'GDS'
-	elif btax_depr_27_5yr_ads_Switch:
-		user_deprec_system['27.5'] = 'ADS'
-	elif btax_depr_27_5yr_tax_Switch:
-		user_deprec_system['27.5'] = 'Economic'
-	# do something here for the "all" switch
-
-	user_bonus_deprec={'3':btax_depr_3yr_exp, '5':btax_depr_5yr_exp,
-					'7':btax_depr_7yr_exp, '10':btax_depr_10yr_exp,
-					'15':btax_depr_15yr_exp, '20':btax_depr_20yr_exp,
-					'25':btax_depr_25yr_exp, '27.5':btax_depr_27_5yr_exp,
-					'39':btax_depr_39yr_exp}
-
-	user_params={'u_c': btax_betr_corp, 'u_nc': btax_betr_pass, 'pi': btax_econ_inflat,
-				'i': btax_econ_nomint, 'ace_c': btax_other_corpeq,
-				'int_haircut': btax_other_hair, 'inv_credit': btax_other_invest,
-				'w': btax_other_proptx, 'bonus_deprec':user_bonus_deprec,
-				'deprec_system':user_deprec_system}
-
-	return user_params
-
-
-def get_params():
+def get_params(**user_mods):
 	"""Contains all the parameters
 
 		:returns: Inflation rate, depreciation, tax rate, discount rate, return to savers, property tax
@@ -154,8 +105,7 @@ def get_params():
 	#user defined variables
 
 	# those in UI now:
-	user_params = translate_param_names()
-
+	user_params = translate_param_names(**user_mods)
 	pi = user_params['pi']
 	i = user_params['i']
 	u_c = user_params['u_c']
@@ -228,7 +178,9 @@ def get_params():
 	'ace':ace_array,
 	'int_haircut':int_haircut,
 	'financing_list':financing_list,
-	'entity_list':entity_list
+	'entity_list':entity_list,
+    'delta': delta
 	}
 
 	return parameters
+

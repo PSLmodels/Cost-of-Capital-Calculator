@@ -1,8 +1,8 @@
 """
 SOI Proprietorship Data (pull_soi_partner.py):
 -------------------------------------------------------------------------------
-Module that handles reading in the soi proprietorship data. Because no fixed asset and land data is 
-available for sole props, the depreciation deduction is used along with the partner data. The 
+Module that handles reading in the soi proprietorship data. Because no fixed asset and land data is
+available for sole props, the depreciation deduction is used along with the partner data. The
 ratio of land and fixed assets to the depreciation deduction for partners is used to impute the data
 for sole props. The sole prop inventory and farm data is also loaded in.
 Last updated: 7/26/2016.
@@ -16,10 +16,8 @@ import pandas as pd
 
 import soi_processing as soi
 
-# Directories:
-_CUR_DIR = os.path.dirname(__file__)
-_DATA_DIR = os.path.join(_CUR_DIR, 'data')
-_RAW_DIR = os.path.join(_DATA_DIR, 'raw_data')
+from btax.util import get_paths
+globals().update(get_paths())
 _SOI_DIR = os.path.join(_RAW_DIR, 'soi')
 _PROP_DIR = os.path.join(_SOI_DIR, 'soi_proprietorship')
 _PRT_DIR = os.path.join(_SOI_DIR, 'soi_partner')
@@ -50,7 +48,7 @@ def load_proprietorship_data(entity_dfs):
     nonfarm_inv = soi.format_dataframe(pd.read_csv(_NFARM_INV).T,crosswalk)
     # Opens the crosswalk for the partner data
     prt_crosswalk = pd.read_csv(_PRT_CROSS)
-    # Opens and formats the partner depreciation deduction data 
+    # Opens and formats the partner depreciation deduction data
     prt_deduct = pd.read_csv(_PRT_INC).T
     prt_deduct = soi.format_dataframe(prt_deduct, prt_crosswalk)
     # Opens and formats the partner asset data
@@ -58,13 +56,13 @@ def load_proprietorship_data(entity_dfs):
     prt_asst = soi.format_dataframe(prt_asst, prt_crosswalk)
     # Inserts the codes into the nonfarm dataframe
     nonfarm_df.insert(1, 'Codes:', crosswalk['Codes:'])
-    # Formats the column names for the nonfarm dataframe 
+    # Formats the column names for the nonfarm dataframe
     nonfarm_df = format_columns(nonfarm_df)
     # Saves the industry names and codes so they can be reused later
     names = nonfarm_df['Industrial sector']
     codes = nonfarm_df['Codes:']
     nonfarm_df = nonfarm_df * _DDCT_FILE_FCTR
-    # Puts back the original industry names and codes 
+    # Puts back the original industry names and codes
     nonfarm_df['Industrial sector'] = names
     nonfarm_df['Codes:'] = codes
     # Takes only the overall values and removes duplicate columns for all the partner and sole prop data
@@ -89,7 +87,7 @@ def load_proprietorship_data(entity_dfs):
     prt_capital.index = np.arange(0,len(prt_depr))
     # Joins all four of the dataframes into one (the common column is the industry codes) and stores the data in numpy arrays
     capital_data = np.array(sp_inv.merge(sp_depr.merge(prt_capital.merge(prt_depr))))
-    
+
     fixed_assets = []
     land_data =[]
     inv_data = []
@@ -108,10 +106,10 @@ def load_proprietorship_data(entity_dfs):
             inv_data.append(inventory)
     cstock_list = []
     # Iterates over the filled capital stock lists and converts them to numpy industry arrays
-    for i in xrange(0,len(fixed_assets)):    
+    for i in xrange(0,len(fixed_assets)):
         nfarm_cstock = np.array([int(fixed_assets[i][0]), float(fixed_assets[i][1]), float(inv_data[i][1]), float(land_data[i][1])])
         cstock_list.append(nfarm_cstock)
-    # Stores the newly created sole proprietorship capital stock data in a dataframe then sums duplicate codes    
+    # Stores the newly created sole proprietorship capital stock data in a dataframe then sums duplicate codes
     nfarm_df = pd.DataFrame(cstock_list, index=np.arange(0,len(cstock_list)), columns=['Codes:', 'FA', 'Inv', 'Land'])
     nfarm_df = nfarm_df.groupby('Codes:',sort=False).sum()
     codes = nfarm_df.index.tolist()
@@ -146,7 +144,7 @@ def format_columns(nonfarm_df):
         :type nonfarm_df: DataFrame
         :returns: The formatted dataframe
         :rtype: DataFrame
-    """ 
+    """
     columns = nonfarm_df.columns.tolist()
     for i in xrange(0,len(columns)):
         column = columns[i]

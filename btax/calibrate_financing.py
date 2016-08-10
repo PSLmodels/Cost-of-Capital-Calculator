@@ -3,9 +3,8 @@ import os.path
 import sys
 import numpy as np
 import pandas as pd
-_CUR_DIR = os.path.dirname(os.path.abspath(__file__))
-_OUT_DIR = os.path.join(_CUR_DIR, 'output')
-_DATA_DIR = os.path.join(_CUR_DIR,'data')
+from btax.util import get_paths
+globals().update(get_paths())
 _OOH_VALUE = os.path.join(_DATA_DIR, 'b101.csv')
 _DEBT_NFCORP = os.path.join(_DATA_DIR, 'l103.csv')
 _DEBT_NCORP = os.path.join(_DATA_DIR, 'l104.csv')
@@ -22,27 +21,27 @@ def calibrate_financing():
 	column_name = ['Type', 'Amount']
 	num_rows = [1,4]
 	#reads the equity data from the .csv file. Specifies which columns and rows to read in the file
-	corp_equity_df = pd.read_csv(_EQUITY_CORP, skiprows=skipped[5], 
+	corp_equity_df = pd.read_csv(_EQUITY_CORP, skiprows=skipped[5],
 		usecols=columns, header=None, names=column_name, nrows=num_rows[1])
 
 	non_fin_corp_equity = corp_equity_df[corp_equity_df.index==0]['Amount'][0] * _CST_FACTOR
 	#apportions the equity based on the ratio of equity held by each industry
 	equity_values = apportion_equity({'non_fin_corp_equity':non_fin_corp_equity})
-	non_fin_corp_debt = pd.read_csv(_DEBT_NFCORP, skiprows=skipped[0], usecols=columns, 
+	non_fin_corp_debt = pd.read_csv(_DEBT_NFCORP, skiprows=skipped[0], usecols=columns,
 		header=None, names=column_name, nrows=num_rows[0])['Amount'][0] * _CST_FACTOR
 	#apportions the debt based on the ratio of interest paid by each industry
 	debt_values = apportion_debt({'non_fin_corp_debt': non_fin_corp_debt})
 
 	fin_corp_equity = corp_equity_df[corp_equity_df.index==3]['Amount'][3] * _CST_FACTOR
 	equity_values.update(apportion_equity({'fin_corp_equity':fin_corp_equity}))
-	fin_corp_debt = pd.read_csv(_DEBT_FCORP, skiprows=skipped[2], usecols=columns, 
+	fin_corp_debt = pd.read_csv(_DEBT_FCORP, skiprows=skipped[2], usecols=columns,
 		header=None, names=column_name, nrows=num_rows[0])['Amount'][0] * _CST_FACTOR
 	debt_values.update(apportion_debt({'fin_corp_debt':fin_corp_debt}))
 
-	non_corp_equity = pd.read_csv(_EQUITY_NCORP, skiprows=skipped[4], usecols=columns, 
+	non_corp_equity = pd.read_csv(_EQUITY_NCORP, skiprows=skipped[4], usecols=columns,
 		header=None, names=column_name, nrows=num_rows[0])['Amount'][0] * _CST_FACTOR
 	equity_values.update(apportion_equity({'non_corp_equity':non_corp_equity}))
-	non_corp_debt = pd.read_csv(_DEBT_NCORP, skiprows=skipped[1], usecols=columns, 
+	non_corp_debt = pd.read_csv(_DEBT_NCORP, skiprows=skipped[1], usecols=columns,
 		header=None, names=column_name, nrows=num_rows[0])['Amount'][0] * _CST_FACTOR
 	debt_values.update(apportion_debt({'non_corp_debt':non_corp_debt}))
 
@@ -50,13 +49,13 @@ def calibrate_financing():
 	debt_params = calc_debt(equity_values, debt_values)
 	return debt_params
 
-	mortg_debt = pd.read_csv(_DEBT_HOME, skiprows=skipped[3], usecols=columns, 
+	mortg_debt = pd.read_csv(_DEBT_HOME, skiprows=skipped[3], usecols=columns,
 		header=None, names=column_name, nrows=num_rows[0])['Amount'][0] * _CST_FACTOR
-	house_value = pd.read_csv(_OOH_VALUE, skiprows=skipped[6], usecols=columns, 
+	house_value = pd.read_csv(_OOH_VALUE, skiprows=skipped[6], usecols=columns,
 		header=None, names=column_name, nrows=num_rows[0])['Amount'][0] * _CST_FACTOR
 
 def apportion_debt(total_liab):
-	#use the ratio of total liabilities in an industry to total interest paid by all industries to proportionally distribute debt 
+	#use the ratio of total liabilities in an industry to total interest paid by all industries to proportionally distribute debt
 	keyword = total_liab.keys()[0]
 	#choose interest paid for either corporate or non-corporate businesses
 	if((keyword=='non_fin_corp_debt') or (keyword=='fin_corp_debt')):
@@ -68,10 +67,10 @@ def apportion_debt(total_liab):
 	else:
 		columns = [2]
 		intrst_pd_1 = pd.read_csv(_SOI_PA_VALUES, usecols=columns)
-		intrst_pd_2 = pd.read_csv(_SOI_PR_VALUES, usecols=columns)	
+		intrst_pd_2 = pd.read_csv(_SOI_PR_VALUES, usecols=columns)
 		types = ['partner', 'prop']
 		intrst_pd = {'partner':intrst_pd_1, 'prop':intrst_pd_2}
-	
+
 	#runs the debt calculation twice for s-corps and c-corps or partnerships and sole proprietorships
 	debt_df = pd.DataFrame(index=np.arange(0,len(intrst_pd_1)), columns=types)
 	for i in types:
@@ -100,7 +99,7 @@ def apportion_equity(total_equity):
 			indust_equity = np.array(equity_rows) * ratio
 			equity_df[i] = indust_equity
 
-		return {keyword:equity_df}	
+		return {keyword:equity_df}
 
 	else:
 		columns = [7]
@@ -133,7 +132,7 @@ def calc_debt(total_equity, total_liab):
 	save_ratios(total_debt_f)
 
 	return total_debt_f
-	
+
 
 def calc_after_return(indust_debt):
 	#calculates the real after-tax return paid by a corporation
@@ -147,7 +146,7 @@ def calc_after_return(indust_debt):
 	after_tax_return = debt_ratio * (nominal_mrkt_intrst - inflation_rate) + equity_ratio * real_rate_return
 
 def save_ratios(debt_ratios):
-	debt_ratios = debt_ratios[(debt_ratios.NAICS=='11')|(debt_ratios.NAICS=='211')|(debt_ratios.NAICS=='212')|(debt_ratios.NAICS=='213') 
+	debt_ratios = debt_ratios[(debt_ratios.NAICS=='11')|(debt_ratios.NAICS=='211')|(debt_ratios.NAICS=='212')|(debt_ratios.NAICS=='213')
 	|(debt_ratios.NAICS=='22')|(debt_ratios.NAICS=='23')|(debt_ratios.NAICS=='31-33')|(debt_ratios.NAICS=='32411')|(debt_ratios.NAICS == '336')
 	|(debt_ratios.NAICS=='3391')|(debt_ratios.NAICS=='42')|(debt_ratios.NAICS=='44-45')|(debt_ratios.NAICS=='48-49')|(debt_ratios.NAICS == '51')
 	|(debt_ratios.NAICS=='52')|(debt_ratios.NAICS=='531')|(debt_ratios.NAICS=='532')|(debt_ratios.NAICS=='533')|(debt_ratios.NAICS=='54')
