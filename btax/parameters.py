@@ -45,7 +45,7 @@ def translate_param_names(**user_mods):
                     break
 
     user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]
-    					 for cl in class_list_str}
+    			 for cl in class_list_str}
     #user_deprec_system = copy.deepcopy(user_bonus_deprec)
 
     btax_depr_10yr_ads_Switch = False
@@ -135,7 +135,6 @@ def get_params(**user_mods):
     	:rtype: dictionary
     """
     from btax.calc_z import calc_tax_depr_rates, get_econ_depr
-
     #macro variables
     E_c = 0.07
     f_c = 0.41
@@ -242,5 +241,5 @@ def get_params(**user_mods):
         'entity_list':entity_list,
         'delta': delta
     }
-
     return parameters
+
