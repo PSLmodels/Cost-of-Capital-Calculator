@@ -89,6 +89,9 @@ def npv_tax_deprec(df, r, tax_methods, financing_list, entity_list):
     # append gds and ads results
     df_all = df_gds.append(df_ads.append(df_econ,ignore_index=True), ignore_index=True)
 
+    print df_all.head(n=20)
+    quit()
+
     return df_all
 
 def dbsl(df, r, financing_list, entity_list):
@@ -110,6 +113,9 @@ def dbsl(df, r, financing_list, entity_list):
     df['beta'] = df['b']/df['Y']
     df['Y_star'] = ((df['Y']-1)*(1-(1/df['b']))).where(df['bonus']!=0.)
     df['Y_star'] = (df['Y']*(1-(1/df['b']))).where(df['bonus']==0.)
+
+    print df.head(n=20)
+    quit()
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
             df['z1'+entity_list[j]+financing_list[i]] = \

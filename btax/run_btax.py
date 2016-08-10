@@ -39,7 +39,8 @@ def run_btax(**user_params):
 
 	# get parameters
 	parameters = params.get_params(**user_params)
-
+	print parameters['depr allow'].head(n=20)
+	quit()
 	# read in the BEA data on fixed assets and separate them by corp and non-corp
 	fixed_assets = read_bea.read_bea()
 
