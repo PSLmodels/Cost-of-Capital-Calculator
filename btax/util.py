@@ -91,5 +91,12 @@ def get_paths():
     return paths
 
 
+def str_modified(i):
+    if i == 27.5:
+        str_i = '27_5'
+    else:
+        str_i = str(i)
+    return str_i
+
 def dataframe_to_json_table(df):
     return df.to_dict()

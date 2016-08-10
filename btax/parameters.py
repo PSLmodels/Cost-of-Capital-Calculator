@@ -31,80 +31,20 @@ def translate_param_names(**user_mods):
     user_mods.update({k: v['value'][0] for k,v in defaults.iteritems()})
     radio_tags = ('gds', 'ads', 'tax',)
     class_list = [3, 5, 7, 10, 15, 20, 25, 27.5, 39]
-    class_list_str = [(str(i) if i != 27.5 == 0 else '27_5') for i in class_list]
-    gds_ads_econ_deprec = {}
-    for cl in class_list_str:
-        for tag in radio_tags:
-            for key, value in user_mods.iteritems():
-                if hasattr(value, '__in__') and ('_{}_'.format(tag) in value and '{}yr_'.format(cl) in key):
-                    # Detect a key like:
-                    #    btax_depr_39yr
-                    # With a value like:
-                    #    btax_depr_39yr_gds_Switch
-                    gds_ads_econ_deprec[cl] = tag
-                    break
-
-    user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]
-    			 for cl in class_list_str}
-    #user_deprec_system = copy.deepcopy(user_bonus_deprec)
-
-    btax_depr_10yr_ads_Switch = False
-    btax_depr_10yr_exp = 0.
-    btax_depr_10yr_gds_Switch = True
-    btax_depr_10yr_tax_Switch = False
-    btax_depr_15yr_ads_Switch = False
-    btax_depr_15yr_exp = 0.
-    btax_depr_15yr_gds_Switch = True
-    btax_depr_15yr_tax_Switch = False
-    btax_depr_20yr_ads_Switch = False
-    btax_depr_20yr_exp = 0.
-    btax_depr_20yr_gds_Switch = True
-    btax_depr_20yr_tax_Switch = False
-    btax_depr_25yr_ads_Switch = False
-    btax_depr_25yr_exp = 0.
-    btax_depr_25yr_gds_Switch = True
-    btax_depr_25yr_tax_Switch = False
-    btax_depr_27_5yr_ads_Switch = False
-    btax_depr_27_5yr_exp = 0.
-    btax_depr_27_5yr_gds_Switch = True
-    btax_depr_27_5yr_tax_Switch = False
-    btax_depr_39yr_ads_Switch = False
-    btax_depr_39yr_exp = 0.
-    btax_depr_39yr_gds_Switch = True
-    btax_depr_39yr_tax_Switch = False
-    btax_depr_3yr_ads_Switch = False
-    btax_depr_3yr_exp =0.
-    btax_depr_3yr_gds_Switch = True
-    btax_depr_3yr_tax_Switch = False
-    btax_depr_5yr_ads_Switch = False
-    btax_depr_5yr_exp = 0.
-    btax_depr_5yr_gds_Switch = True
-    btax_depr_5yr_tax_Switch = False
-    btax_depr_7yr_ads_Switch = False
-    btax_depr_7yr_exp = 0.
-    btax_depr_7yr_gds_Switch = True
-    btax_depr_7yr_tax_Switch= False
-    btax_depr_27_5yr_ads_Switch = False
-    btax_depr_27_5yr_exp = 0.
-    btax_depr_27_5yr_gds_Switch = True
-    btax_depr_27_5yr_tax_Switch = False
+    class_list_str = [(str(i) if i != 27.5 else '27_5') for i in class_list]
     user_deprec_system = {}
-    class_list = ('3', '5', '7', '10', '15', '20', '25', '39')
-    for item in class_list:
-        if 'btax_depr_'+str(item)+'yr_gds_Switch':
-            user_deprec_system[item] = 'GDS'
-        elif 'btax_depr_'+str(item)+'yr_ads_Switch':
-            user_deprec_system[item] = 'ADS'
-        elif 'btax_depr_'+str(item)+'yr_tax_Switch':
-            user_deprec_system[item] = 'Economic'
 
-    # can't do 27.5 yrs in loop
-    if btax_depr_27_5yr_gds_Switch:
-        user_deprec_system['27.5'] = 'GDS'
-    elif btax_depr_27_5yr_ads_Switch:
-        user_deprec_system['27.5'] = 'ADS'
-    elif btax_depr_27_5yr_tax_Switch:
-        user_deprec_system['27.5'] = 'Economic'
+    for cl in class_list_str:
+        if 'btax_depr_'+cl+'yr_gds_Switch':
+            user_deprec_system[cl] = 'GDS'
+        elif 'btax_depr_'+cl+'yr_ads_Switch':
+            user_deprec_system[cl] = 'ADS'
+        elif 'btax_depr_'+cl+'yr_tax_Switch':
+            user_deprec_system[cl] = 'Economic'
+
+    user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
+    			 for cl in class_list_str}
+
 
     if user_mods['btax_betr_entity_Switch'] in (True, 'True'):
         u_nc = user_mods['btax_betr_corp']
@@ -121,7 +61,6 @@ def translate_param_names(**user_mods):
         'w': user_mods['btax_other_proptx'],
         'bonus_deprec': user_bonus_deprec,
         'deprec_system': user_deprec_system,
-        'gds_ads_econ_deprec': gds_ads_econ_deprec,
     }
 
     return user_params
@@ -225,7 +164,6 @@ def get_params(**user_mods):
     entity_list = ['_c', '_nc']
     z = calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, tax_methods, financing_list, entity_list)
 
-
     parameters = {'inflation rate': pi,
         'econ depreciation': delta,
         'depr allow': z,
@@ -242,4 +180,3 @@ def get_params(**user_mods):
         'delta': delta
     }
     return parameters
-

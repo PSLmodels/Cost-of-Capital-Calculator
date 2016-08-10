@@ -13,9 +13,9 @@ import sys
 import numpy as np
 import pandas as pd
 # Import custom modules
-import btax.pull_soi_corp as corp
-import btax.pull_soi_partner as prt
-import btax.pull_soi_proprietorship as prop
+import pull_soi_corp as corp
+import pull_soi_partner as prt
+import pull_soi_proprietorship as prop
 # Factor used to adjust dollar values
 _FILE_FCTR = 10**3
 

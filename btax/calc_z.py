@@ -14,12 +14,10 @@ import pandas as pd
 
 # Importing custom modules:
 from btax import parameters as params
-from btax.util import get_paths
+from btax.util import get_paths, str_modified
 
 # Directories:
 globals().update(get_paths())
-
-
 
 
 def get_econ_depr():
@@ -50,11 +48,11 @@ def calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, tax_methods, fina
 
 
     # update tax_deprec_rates based on user defined parameters
-    tax_deprec_rates['System'] = tax_deprec_rates['GDS'].apply(str)
+    tax_deprec_rates['System'] = tax_deprec_rates['GDS'].apply(str_modified)
     tax_deprec_rates['System'].replace(deprec_system,inplace=True)
 
     # add bonus depreciation to tax deprec parameters dataframe
-    tax_deprec_rates['bonus'] = tax_deprec_rates['GDS'].apply(str)
+    tax_deprec_rates['bonus'] = tax_deprec_rates['GDS'].apply(str_modified)
     tax_deprec_rates['bonus'].replace(bonus_deprec,inplace=True)
 
     # merge in econ depreciation rates
@@ -63,6 +61,7 @@ def calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, tax_methods, fina
       copy=True)
 
     z = npv_tax_deprec(tax_deprec_rates, r, tax_methods, financing_list, entity_list)
+
     return z
 
 def npv_tax_deprec(df, r, tax_methods, financing_list, entity_list):
@@ -82,13 +81,13 @@ def npv_tax_deprec(df, r, tax_methods, financing_list, entity_list):
     df['b'] = df['Method']
     df['b'].replace(tax_methods,inplace=True)
 
+
     df_gds = dbsl(df.loc[df['System']=='GDS'].copy(), r, financing_list, entity_list)
     df_ads = sl(df.loc[df['System']=='ADS'].copy(), r, financing_list, entity_list)
     df_econ = econ(df.loc[df['System']=='Economic'].copy(), r, financing_list, entity_list)
 
     # append gds and ads results
     df_all = df_gds.append(df_ads.append(df_econ,ignore_index=True), ignore_index=True)
-
 
     return df_all
 
@@ -109,25 +108,43 @@ def dbsl(df, r, financing_list, entity_list):
     """
     df['Y'] = df['GDS']
     df['beta'] = df['b']/df['Y']
-    df['Y_star'] = ((df['Y']-1)*(1-(1/df['b']))).where(df['bonus']!=0.)
-    df['Y_star'] = (df['Y']*(1-(1/df['b']))).where(df['bonus']==0.)
+    # df['Y_star'] = ((df['Y']-1)*(1-(1/df['b']))).where(df['bonus']!=0., inplace=True)
+    # df['Y_star'] = (df['Y']*(1-(1/df['b']))).where(df['bonus']==0., inplace=True)
+    df['Y_star'] = ((((df['Y']-1)*(1-(1/df['b'])))*(df['bonus']!=0.)) +
+                    ((1-(df['bonus']!=0.))*(df['Y']*(1-(1/df['b'])))))
+
 
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
+            # df['z1'+entity_list[j]+financing_list[i]] = \
+            #     (((df['beta']/(df['beta']+r[i,j]))*(1-np.exp(-1*(df['beta']
+            #         +r[i,j])*df['Y_star']))) +
+            #     ((np.exp(-1*df['beta']*df['Y_star'])/(((df['Y']-1)-
+            #     df['Y_star'])*r[i,j]))*(np.exp(-1*r[i,j]*df['Y_star'])-
+            #                             np.exp(-1*r[i,j]*(df['Y']-1))))).where(df['bonus']!=0.)
+            # df['z'+entity_list[j]+financing_list[i]] = \
+            #     ((df['bonus']+df['beta'] + ((1-(df['bonus']-df['beta']))*
+            #    (df['z1'+entity_list[j]+financing_list[i]]/(1+r[i,j]))))).where(df['bonus']!=0.)
+            # df['z'+entity_list[j]+financing_list[i]] = \
+            #     (((df['beta']/(df['beta']+r[i,j]))*(1-np.exp(-1*(df['beta']+r[i,j])*
+            #         df['Y_star']))) +
+            #     ((np.exp(-1*df['beta']*df['Y_star'])/((df['Y']-df['Y_star'])
+            #         *r[i,j]))*(np.exp(-1*r[i,j]*df['Y_star'])-np.exp(-1*r[i,j]*df['Y'])))).where(df['bonus']==0.)
             df['z1'+entity_list[j]+financing_list[i]] = \
-                (((df['beta']/(df['beta']+r[i,j]))*(1-np.exp(-1*(df['beta']
-                    +r[i,j])*df['Y_star']))) +
-                ((np.exp(-1*df['beta']*df['Y_star'])/(((df['Y']-1)-
-                df['Y_star'])*r[i,j]))*(np.exp(-1*r[i,j]*df['Y_star'])-
-                                        np.exp(-1*r[i,j]*(df['Y']-1))))).where(df['bonus']!=0.)
+                            (((((df['beta']/(df['beta']+r[i,j]))*(1-np.exp(-1*(df['beta']
+                                +r[i,j])*df['Y_star']))) +
+                            ((np.exp(-1*df['beta']*df['Y_star'])/(((df['Y']-1)-
+                            df['Y_star'])*r[i,j]))*(np.exp(-1*r[i,j]*df['Y_star'])-
+                                                    np.exp(-1*r[i,j]*(df['Y']-1))))))*(df['bonus']!=0.))
             df['z'+entity_list[j]+financing_list[i]] = \
-                ((df['bonus']+df['beta'] + ((1-(df['bonus']-df['beta']))*
-               (df['z1'+entity_list[j]+financing_list[i]]/(1+r[i,j]))))).where(df['bonus']!=0.)
-            df['z'+entity_list[j]+financing_list[i]] = \
-                (((df['beta']/(df['beta']+r[i,j]))*(1-np.exp(-1*(df['beta']+r[i,j])*
-                    df['Y_star']))) +
-                ((np.exp(-1*df['beta']*df['Y_star'])/((df['Y']-df['Y_star'])
-                    *r[i,j]))*(np.exp(-1*r[i,j]*df['Y_star'])-np.exp(-1*r[i,j]*df['Y'])))).where(df['bonus']==0.)
+                            ((((df['bonus']+df['beta'] + ((1-(df['bonus']-df['beta']))*
+                           (df['z1'+entity_list[j]+financing_list[i]]/(1+r[i,j])))))*(df['bonus']!=0.))
+                           + (((((df['beta']/(df['beta']+r[i,j]))*(1-np.exp(-1*(df['beta']+r[i,j])*
+                               df['Y_star']))) +
+                           ((np.exp(-1*df['beta']*df['Y_star'])/((df['Y']-df['Y_star'])
+                               *r[i,j]))*(np.exp(-1*r[i,j]*df['Y_star'])-np.exp(-1*r[i,j]*df['Y']))))
+                              *(1-(df['bonus']!=0.)))))
+
             # don't allow bonus to give NPV > 1
             df.ix[df['z'+entity_list[j]+financing_list[i]] > 1., 'z'+entity_list[j]+financing_list[i]] = 1.
 
@@ -152,13 +169,20 @@ def sl(df, r, financing_list, entity_list):
     df['Y'] = df['ADS']
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
+            # df['z1'+entity_list[j]+financing_list[i]] = \
+            #     (np.exp(-1*r[i,j]*(df['Y']-1)/(r[i,j]*(df['Y']-1)))).where(df['bonus']!=0.)
+            # df['z'+entity_list[j]+financing_list[i]] = \
+            #     (df['bonus']+(1./df['Y']) + ((1-df['bonus']-(1./df['Y']))*
+            #    (df['z1'+entity_list[j]+financing_list[i]]/(1+r[i,j])))).where(df['bonus']!=0.)
+            # df['z'+entity_list[j]+financing_list[i]] = \
+            #     (np.exp(-1*r[i,j]*df['Y'])/(r[i,j]*df['Y'])).where(df['bonus']==0.)
             df['z1'+entity_list[j]+financing_list[i]] = \
-                (np.exp(-1*r[i,j]*(df['Y']-1)/(r[i,j]*(df['Y']-1)))).where(df['bonus']!=0.)
+                ((np.exp(-1*r[i,j]*(df['Y']-1)/(r[i,j]*(df['Y']-1))))*(df['bonus']!=0.))
             df['z'+entity_list[j]+financing_list[i]] = \
-                (df['bonus']+(1./df['Y']) + ((1-df['bonus']-(1./df['Y']))*
-               (df['z1'+entity_list[j]+financing_list[i]]/(1+r[i,j])))).where(df['bonus']!=0.)
-            df['z'+entity_list[j]+financing_list[i]] = \
-                (np.exp(-1*r[i,j]*df['Y'])/(r[i,j]*df['Y'])).where(df['bonus']==0.)
+                (((df['bonus']+(1./df['Y']) + ((1-df['bonus']-(1./df['Y']))*
+               (df['z1'+entity_list[j]+financing_list[i]]/(1+r[i,j]))))*(df['bonus']!=0.))
+                + ((np.exp(-1*r[i,j]*df['Y'])/(r[i,j]*df['Y']))**(1-(df['bonus']!=0.))))
+
             # don't allow bonus to give NPV > 1
             df.ix[df['z'+entity_list[j]+financing_list[i]] > 1., 'z'+entity_list[j]+financing_list[i]] = 1.
 
@@ -182,11 +206,16 @@ def econ(df, r, financing_list, entity_list):
     """
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
+            # df['z'+entity_list[j]+financing_list[i]] = \
+            #     (df['bonus']+(df['delta']) + ((1-df['bonus']-df['delta'])*
+            #    (df['delta']/((df['delta']+r[i,j])*(1+r[i,j]))))).where(df['bonus']!=0.)
+            # df['z'+entity_list[j]+financing_list[i]] = \
+            #     (df['delta']/(df['delta']+r[i,j])).where(df['bonus']==0.)
             df['z'+entity_list[j]+financing_list[i]] = \
-                (df['bonus']+(df['delta']) + ((1-df['bonus']-df['delta'])*
-               (df['delta']/((df['delta']+r[i,j])*(1+r[i,j]))))).where(df['bonus']!=0.)
-            df['z'+entity_list[j]+financing_list[i]] = \
-                (df['delta']/(df['delta']+r[i,j])).where(df['bonus']==0.)
+                (((df['bonus']+(df['delta']) + ((1-df['bonus']-df['delta'])*
+               (df['delta']/((df['delta']+r[i,j])*(1+r[i,j])))))*(df['bonus']!=0.))
+                + ((df['delta']/(df['delta']+r[i,j]))*(1-(df['bonus']==0.))))
+
             # don't allow bonus to give NPV > 1
             df.ix[df['z'+entity_list[j]+financing_list[i]] > 1., 'z'+entity_list[j]+financing_list[i]] = 1.
 
