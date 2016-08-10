@@ -48,12 +48,13 @@ def calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, tax_methods, fina
 
 
     # update tax_deprec_rates based on user defined parameters
-    tax_deprec_rates['System'] = tax_deprec_rates['GDS'].apply(str_modified)
-    tax_deprec_rates['System'].replace(deprec_system,inplace=True)
+    #tax_deprec_rates['System'] = tax_deprec_rates['GDS'].apply(str_modified)
+    #tax_deprec_rates['System'].replace(deprec_system,inplace=True)
 
     # add bonus depreciation to tax deprec parameters dataframe
-    tax_deprec_rates['bonus'] = tax_deprec_rates['GDS'].apply(str_modified)
-    tax_deprec_rates['bonus'].replace(bonus_deprec,inplace=True)
+    #tax_deprec_rates['bonus'] = tax_deprec_rates['GDS'].apply(str_modified)
+    #tax_deprec_rates['bonus'].replace(bonus_deprec,inplace=True)
+    tax_deprec_rates['bonus'] = 0.
 
     # merge in econ depreciation rates
     tax_deprec_rates = pd.merge(tax_deprec_rates, delta, how='left', left_on=['Asset Type'],

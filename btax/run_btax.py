@@ -52,7 +52,6 @@ def run_btax(**user_params):
     # make calculations by industry and create formated output
     output_by_industry = calc_final_outputs.industry_calcs(parameters, fixed_assets, output_by_asset)
 
-
     # create plots
     # by asset
     # visuals.asset_crossfilter(output_by_asset)
