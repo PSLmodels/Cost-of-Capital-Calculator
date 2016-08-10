@@ -13,8 +13,8 @@ import numpy as np
 import pandas as pd
 import xlrd
 
-import soi_processing as soi
-from util import get_paths
+
+from btax.util import get_paths
 globals().update(get_paths())
 
 # Constants
@@ -31,6 +31,7 @@ def load_partner_data(entity_dfs):
         :returns: The soi dictionary updated with the partner dataframe
         :rtype: dictionary
     """
+    import btax.soi_processing as soi
     # Opening data on depreciable fixed assets, inventories, and land:
     df = pd.read_csv(_AST_FILE).T
     # Opening the crosswalk for the asset data

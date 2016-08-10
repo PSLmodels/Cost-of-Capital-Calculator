@@ -14,9 +14,7 @@ import sys
 import numpy as np
 import pandas as pd
 
-import soi_processing as soi
-
-from util import get_paths
+from btax.util import get_paths
 globals().update(get_paths())
 
 _DDCT_FILE_FCTR = 10**3
@@ -29,6 +27,7 @@ def load_proprietorship_data(entity_dfs):
         :returns: The SOI capital stock data, organized by industry
         :rtype: dictionary
     """
+    import btax.soi_processing as soi
 	# Opens the file that contains the non farm sole prop data
     nonfarm_df = pd.read_csv(_NFARM_PATH)
     # Opens the nonfarm data crosswalk

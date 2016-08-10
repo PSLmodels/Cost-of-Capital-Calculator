@@ -11,10 +11,9 @@ import copy
 import json
 import os
 
-from calc_z import calc_tax_depr_rates, get_econ_depr
 import numpy as np
 
-from util import read_from_egg
+from btax.util import read_from_egg
 
 DEFAULTS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_defaults.json')))
 DEFAULT_ASSET_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_asset.json')))
@@ -46,7 +45,7 @@ def translate_param_names(**user_mods):
                     break
 
     user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]
-                         for cl in class_list_str}
+    			 for cl in class_list_str}
     #user_deprec_system = copy.deepcopy(user_bonus_deprec)
 
     btax_depr_10yr_ads_Switch = False
@@ -92,12 +91,12 @@ def translate_param_names(**user_mods):
     user_deprec_system = {}
     class_list = ('3', '5', '7', '10', '15', '20', '25', '39')
     for item in class_list:
-     if 'btax_depr_'+str(item)+'yr_gds_Switch':
-         user_deprec_system[item] = 'GDS'
-     elif 'btax_depr_'+str(item)+'yr_ads_Switch':
-        user_deprec_system[item] = 'ADS'
-     elif 'btax_depr_'+str(item)+'yr_tax_Switch':
-        user_deprec_system[item] = 'Economic'
+        if 'btax_depr_'+str(item)+'yr_gds_Switch':
+            user_deprec_system[item] = 'GDS'
+        elif 'btax_depr_'+str(item)+'yr_ads_Switch':
+            user_deprec_system[item] = 'ADS'
+        elif 'btax_depr_'+str(item)+'yr_tax_Switch':
+            user_deprec_system[item] = 'Economic'
 
     # can't do 27.5 yrs in loop
     if btax_depr_27_5yr_gds_Switch:
@@ -112,28 +111,30 @@ def translate_param_names(**user_mods):
     else:
         u_nc = user_mods['btax_betr_pass']
     user_params = {
-                'u_c': user_mods['btax_betr_corp'],
-                'u_nc': u_nc,
-                'pi': user_mods['btax_econ_inflat'],
-                'i': user_mods['btax_econ_nomint'],
-                'ace_c': user_mods['btax_other_corpeq'],
-                'int_haircut': user_mods['btax_other_hair'],
-                'inv_credit': user_mods['btax_other_invest'],
-                'w': user_mods['btax_other_proptx'],
-                'bonus_deprec': user_bonus_deprec,
-                'deprec_system': user_deprec_system,
-                'gds_ads_econ_deprec': gds_ads_econ_deprec,
+        'u_c': user_mods['btax_betr_corp'],
+        'u_nc': u_nc,
+        'pi': user_mods['btax_econ_inflat'],
+        'i': user_mods['btax_econ_nomint'],
+        'ace_c': user_mods['btax_other_corpeq'],
+        'int_haircut': user_mods['btax_other_hair'],
+        'inv_credit': user_mods['btax_other_invest'],
+        'w': user_mods['btax_other_proptx'],
+        'bonus_deprec': user_bonus_deprec,
+        'deprec_system': user_deprec_system,
+        'gds_ads_econ_deprec': gds_ads_econ_deprec,
     }
 
     return user_params
 
 
 def get_params(**user_mods):
+
     """Contains all the parameters
 
-        :returns: Inflation rate, depreciation, tax rate, discount rate, return to savers, property tax
-        :rtype: dictionary
+    	:returns: Inflation rate, depreciation, tax rate, discount rate, return to savers, property tax
+    	:rtype: dictionary
     """
+    from btax.calc_z import calc_tax_depr_rates, get_econ_depr
     #macro variables
     E_c = 0.07
     f_c = 0.41
@@ -226,19 +227,19 @@ def get_params(**user_mods):
 
 
     parameters = {'inflation rate': pi,
-    'econ depreciation': delta,
-    'depr allow': z,
-    'tax rate': u_array,
-    'discount rate': r,
-    'after-tax rate': r_prime,
-    'return to savers': s_array,
-    'prop tax': w,
-    'inv_credit': inv_credit,
-    'ace':ace_array,
-    'int_haircut':int_haircut,
-    'financing_list':financing_list,
-    'entity_list':entity_list,
-    'delta': delta
+        'econ depreciation': delta,
+        'depr allow': z,
+        'tax rate': u_array,
+        'discount rate': r,
+        'after-tax rate': r_prime,
+        'return to savers': s_array,
+        'prop tax': w,
+        'inv_credit': inv_credit,
+        'ace':ace_array,
+        'int_haircut':int_haircut,
+        'financing_list':financing_list,
+        'entity_list':entity_list,
+        'delta': delta
     }
-
     return parameters
+

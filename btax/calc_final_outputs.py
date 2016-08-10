@@ -14,7 +14,7 @@ import sys
 import pandas as pd
 import numpy as np
 import parameters as param
-from util import get_paths
+from btax.util import get_paths
 
 globals().update(get_paths())
 
