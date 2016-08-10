@@ -13,7 +13,7 @@ import os.path
 import numpy as np
 import pandas as pd
 import xlrd
-from util import get_paths
+from btax.util import get_paths
 
 # Directories:
 globals().update(get_paths())

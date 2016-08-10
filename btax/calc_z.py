@@ -13,8 +13,8 @@ import numpy as np
 import pandas as pd
 
 # Importing custom modules:
-import parameters as params
-from util import get_paths
+from btax import parameters as params
+from btax.util import get_paths
 
 # Directories:
 globals().update(get_paths())

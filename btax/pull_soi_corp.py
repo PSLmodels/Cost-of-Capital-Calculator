@@ -13,7 +13,7 @@ import os.path
 import numpy as np
 import pandas as pd
 # Directory names:
-from util import get_paths
+from btax.util import get_paths
 globals().update(get_paths())
 
 _DFLT_S_CORP_COLS_DICT = DFLT_S_CORP_COLS_DICT = dict([
