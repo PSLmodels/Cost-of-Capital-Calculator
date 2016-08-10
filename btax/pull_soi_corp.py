@@ -13,13 +13,8 @@ import os.path
 import numpy as np
 import pandas as pd
 # Directory names:
-from btax.util import get_paths
+from util import get_paths
 globals().update(get_paths())
-_SOI_DIR = os.path.join(_RAW_DIR, 'soi')
-_CORP_DIR = os.path.join(_SOI_DIR, 'soi_corporate')
-
-_TOT_CORP_IN_PATH = os.path.join(_CORP_DIR, '2011sb1.csv')
-_S_CORP_IN_PATH = os.path.join(_CORP_DIR, '2011sb3.csv')
 
 _DFLT_S_CORP_COLS_DICT = DFLT_S_CORP_COLS_DICT = dict([
                     ('depreciable_assets','DPRCBL_ASSTS'),

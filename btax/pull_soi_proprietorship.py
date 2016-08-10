@@ -16,20 +16,9 @@ import pandas as pd
 
 import soi_processing as soi
 
-from btax.util import get_paths
+from util import get_paths
 globals().update(get_paths())
-_SOI_DIR = os.path.join(_RAW_DIR, 'soi')
-_PROP_DIR = os.path.join(_SOI_DIR, 'soi_proprietorship')
-_PRT_DIR = os.path.join(_SOI_DIR, 'soi_partner')
-# File paths
-_NFARM_PATH = os.path.join(_PROP_DIR, '12sp01br.csv')
-_FARM_IN_PATH = os.path.join(_PROP_DIR, 'farm_data.csv')
-_PRT_INC = os.path.join(_PRT_DIR, '12pa01.csv')
-_PRT_ASST = os.path.join(_PRT_DIR, '12pa03.csv')
-_NFARM_INV = os.path.join(_PROP_DIR, '12sp02is.csv')
-_PRT_CROSS = os.path.join(_PRT_DIR, '12pa01_Crosswalk.csv')
-_DDCT_IN_CROSS_PATH = os.path.join(_PROP_DIR, '12sp01br_Crosswalk.csv')
-_SOI_CODES = os.path.join(_SOI_DIR, 'SOI_codes.csv')
+
 _DDCT_FILE_FCTR = 10**3
 
 def load_proprietorship_data(entity_dfs):

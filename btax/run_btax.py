@@ -14,10 +14,10 @@ import sys
 import pandas as pd
 import numpy as np
 import cPickle as pickle
-from btax.soi_processing import pull_soi_data
+from soi_processing import pull_soi_data
 import calc_final_outputs
-from btax.check_output import check_output
-from btax.util import get_paths, read_from_egg, dataframe_to_json_table
+from check_output import check_output
+from util import get_paths, read_from_egg, dataframe_to_json_table
 import read_bea
 import soi_processing as soi
 import parameters as params

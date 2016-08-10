@@ -14,21 +14,8 @@ import pandas as pd
 import xlrd
 
 import soi_processing as soi
-from btax.util import get_paths
+from util import get_paths
 globals().update(get_paths())
-_SOI_DIR = os.path.join(_RAW_DIR, 'soi')
-_PRT_DIR = os.path.join(_SOI_DIR, 'soi_partner')
-
-# File paths
-_INC_IN_CROSS_PATH = os.path.join(_PRT_DIR, '12pa01_Crosswalk.csv')
-_AST_IN_CROSS_PATH = os.path.join(_PRT_DIR, '12pa03_Crosswalk.csv')
-_TYP_IN_CROSS_PATH = os.path.join(_PRT_DIR, '12pa05_Crosswalk.csv')
-_XLS_FILE_1 = os.path.join(_PRT_DIR, '12pa01.xls')
-_XLS_FILE_2 = os.path.join(_PRT_DIR, '12pa03.xlsx')
-_INC_FILE = os.path.join(_PRT_DIR, '12pa01.csv')
-_AST_FILE = os.path.join(_PRT_DIR, '12pa03.csv')
-_TYP_FILE = os.path.join(_PRT_DIR, '12pa05.csv')
-_SOI_CODES = os.path.join(_SOI_DIR, 'SOI_codes.csv')
 
 # Constants
 _AST_FILE_FCTR = 10**3
