@@ -1,92 +1,146 @@
-{
-  "rho_c_e": {
-    "col_label": "Cost of capital, equity financed corporate investment",
-    "name": "rho_c_e",
-    "tooltip": "Cost of capital, investment financed 100% by equity"
-  },
-  "rho_c_d": {
-    "col_label": "Cost of capital, debt financed corporate investment",
-    "name": "rho_c_d",
-    "tooltip": "Cost of capital, investment financed 100% by debt"
-  },
-  "Asset Type": {
-    "col_label": "Asset",
-    "name": "Asset Type",
-    "tooltip": "Asset"
-  },
-  "rho_c": {
-    "col_label": "Cost of capital, typically financed corporate investment",
-    "name": "rho_c",
-    "tooltip": "Cost of capital, corporate investment financed with historical mix of debt and equity."
-  },
-  "metr_nc": {
-    "col_label": "Cost of capital, typically financed non-corporate investment",
-    "name": "metr_nc",
-    "tooltip": "Cost of capital, non-corporate investment financed with historical mix of debt and equity."
-  },
-  "z_c_d": {
-    "col_label": "NPV of depreciation deductions, corporate debt financed investment",
-    "name": "z_c_d",
-    "tooltip": "Net Present value of depreciation deductions, corporate debt financed investment"
-  },
-  "z_c_e": {
-    "col_label": "NPV of depreciation deductions, corporate equity financed investment",
-    "name": "z_c_e",
-    "tooltip": "Net Present value of depreciation deductions, corporate equity financed investment"
-  },
-  "mettr_c_d": {
-    "col_label": "METR, corporate debt financed investment",
-    "name": "mettr_c_d",
-    "tooltip": "Marginal Effective Tax Rate on new investments, corporate debt financed investment"
-  },
-  "rho_nc": {
-    "col_label": "Cost of capital, typically financed non-corporate investment",
-    "name": "rho_nc",
-    "tooltip": "Cost of capital, non-corporate investment financed with historical mix of debt and equity."
-  },
-  "z_nc": {
-    "col_label": "NPV of depreciation deductions, non-corporate typically financed investment",
-    "name": "z_nc",
-    "tooltip": "Net Present value of depreciation deductions, non-corporate investment financed by historical mix of debt and equity."
-  },
-  "mettr_c": {
-    "col_label": "METTR, corporate typically financed investment",
-    "name": "mettr_c",
-    "tooltip": "Marginal Effective Total Tax Rate on new investments, corporate investment financed by historical mix of debt and equity."
-  },
-  "z_c": {
-    "col_label": "NPV of depreciation deductions, corporate typically financed investment",
-    "name": "z_c",
-    "tooltip": "Net Present value of depreciation deductions, corporate investment financed by historical mix of debt and equity."
-  },
-  "mettr_nc": {
-    "col_label": "METTR, non-corporate typically financed investment",
-    "name": "mettr_nc",
-    "tooltip": "Marginal Effective Total Tax Rate on new investments, non-corporate investment financed by historical mix of debt and equity."
-  },
-  "delta": {
-    "col_label": "Economic Depreciation Rate",
-    "name": "delta",
-    "tooltip": "Economic Depreciation Rate"
-  },
-  "mettr_c_e": {
-    "col_label": "METTR, corporate equity financed investment",
-    "name": "mettr_c_e",
-    "tooltip": "Marginal Effective Total Tax Rate on new investments, corporate equity financed investment."
-  },
-  "metr_c": {
-    "col_label": "METTR, corporate typically financed investment",
-    "name": "mettr_c",
-    "tooltip": "Marginal Effective Total Tax Rate on new investments, corporate investment financed by historical mix of debt and equity."
-  },
-  "metr_c_e": {
-    "col_label": "METR, corporate equity financed investment",
-    "name": "metr_c_e",
-    "tooltip": "Marginal Effective Tax Rate on new investments, corporate equity financed investment."
-  },
-  "metr_c_d": {
-    "col_label": "METR, corporate debt financed investment",
-    "name": "metr_c_e",
-    "tooltip": "Marginal Effective Tax Rate on new investments, corporate debt financed investment."
-  }
-}
+[
+  [
+    "rho_c_e",
+    {
+      "col_label": "Cost of capital, equity financed corporate investment",
+      "name": "rho_c_e",
+      "tooltip": "Cost of capital, investment financed 100% by equity"
+    }
+  ],
+  [
+    "rho_c_d",
+    {
+      "col_label": "Cost of capital, debt financed corporate investment",
+      "name": "rho_c_d",
+      "tooltip": "Cost of capital, investment financed 100% by debt"
+    }
+  ],
+  [
+    "Asset Type",
+    {
+      "col_label": "Asset",
+      "name": "Asset Type",
+      "tooltip": "Asset"
+    }
+  ],
+  [
+    "rho_c",
+    {
+      "col_label": "Cost of capital, typically financed corporate investment",
+      "name": "rho_c",
+      "tooltip": "Cost of capital, corporate investment financed with historical mix of debt and equity."
+    }
+  ],
+  [
+    "metr_nc",
+    {
+      "col_label": "Cost of capital, typically financed non-corporate investment",
+      "name": "metr_nc",
+      "tooltip": "Cost of capital, non-corporate investment financed with historical mix of debt and equity."
+    }
+  ],
+  [
+    "z_c_d",
+    {
+      "col_label": "NPV of depreciation deductions, corporate debt financed investment",
+      "name": "z_c_d",
+      "tooltip": "Net Present value of depreciation deductions, corporate debt financed investment"
+    }
+  ],
+  [
+    "z_c_e",
+    {
+      "col_label": "NPV of depreciation deductions, corporate equity financed investment",
+      "name": "z_c_e",
+      "tooltip": "Net Present value of depreciation deductions, corporate equity financed investment"
+    }
+  ],
+  [
+    "mettr_c_d",
+    {
+      "col_label": "METR, corporate debt financed investment",
+      "name": "mettr_c_d",
+      "tooltip": "Marginal Effective Tax Rate on new investments, corporate debt financed investment"
+    }
+  ],
+  [
+    "rho_nc",
+    {
+      "col_label": "Cost of capital, typically financed non-corporate investment",
+      "name": "rho_nc",
+      "tooltip": "Cost of capital, non-corporate investment financed with historical mix of debt and equity."
+    }
+  ],
+  [
+    "z_nc",
+    {
+      "col_label": "NPV of depreciation deductions, non-corporate typically financed investment",
+      "name": "z_nc",
+      "tooltip": "Net Present value of depreciation deductions, non-corporate investment financed by historical mix of debt and equity."
+    }
+  ],
+  [
+    "mettr_c",
+    {
+      "col_label": "METTR, corporate typically financed investment",
+      "name": "mettr_c",
+      "tooltip": "Marginal Effective Total Tax Rate on new investments, corporate investment financed by historical mix of debt and equity."
+    }
+  ],
+  [
+    "z_c",
+    {
+      "col_label": "NPV of depreciation deductions, corporate typically financed investment",
+      "name": "z_c",
+      "tooltip": "Net Present value of depreciation deductions, corporate investment financed by historical mix of debt and equity."
+    }
+  ],
+  [
+    "metr_c_e",
+    {
+      "col_label": "METR, corporate equity financed investment",
+      "name": "metr_c_e",
+      "tooltip": "Marginal Effective Tax Rate on new investments, corporate equity financed investment."
+    }
+  ],
+  [
+    "delta",
+    {
+      "col_label": "Economic Depreciation Rate",
+      "name": "delta",
+      "tooltip": "Economic Depreciation Rate"
+    }
+  ],
+  [
+    "mettr_c_e",
+    {
+      "col_label": "METTR, corporate equity financed investment",
+      "name": "mettr_c_e",
+      "tooltip": "Marginal Effective Total Tax Rate on new investments, corporate equity financed investment."
+    }
+  ],
+  [
+    "metr_c",
+    {
+      "col_label": "METTR, corporate typically financed investment",
+      "name": "mettr_c",
+      "tooltip": "Marginal Effective Total Tax Rate on new investments, corporate investment financed by historical mix of debt and equity."
+    }
+  ],
+  [
+    "mettr_nc",
+    {
+      "col_label": "METTR, non-corporate typically financed investment",
+      "name": "mettr_nc",
+      "tooltip": "Marginal Effective Total Tax Rate on new investments, non-corporate investment financed by historical mix of debt and equity."
+    }
+  ],
+  [
+    "metr_c_d",
+    {
+      "col_label": "METR, corporate debt financed investment",
+      "name": "metr_c_e",
+      "tooltip": "Marginal Effective Tax Rate on new investments, corporate debt financed investment."
+    }
+  ]
+]

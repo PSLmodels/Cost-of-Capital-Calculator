@@ -98,5 +98,25 @@ def str_modified(i):
         str_i = str(i)
     return str_i
 
-def dataframe_to_json_table(df):
-    return df.to_dict()
+
+def _dataframe_to_json_table(df, defaults):
+    df.to_pickle('check_df1.pkl')
+    new_column_names = [x[1]['col_label'] for x in defaults]
+    keep_columns = [x[0] for x in defaults]
+    df = df[keep_columns]
+    df.columns = new_column_names
+    header = list(df.columns)
+    df.to_pickle('check_df2.pkl')
+    rows = [[k,] + list(v) for k, v in df.T.iteritems()]
+    return header + rows
+
+
+def output_by_asset_to_json_table(df):
+    from btax.parameters import DEFAULT_ASSET_COLS
+    return _dataframe_to_json_table(df, DEFAULT_ASSET_COLS)
+
+
+def output_by_industry_to_json_table(df):
+    from btax.parameters import DEFAULT_INDUSTRY_COLS
+    return _dataframe_to_json_table(df, DEFAULT_INDUSTRY_COLS)
+
