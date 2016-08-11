@@ -24,19 +24,51 @@
     }
   ],
   [
-    "NAICS",
+    "metr_nc_d",
     {
-      "col_label": "NAICS Code",
-      "name": "NAICS",
-      "tooltip": "North American Industry Classifcation System Code"
+      "col_label": "METR, non-corporate debt financed investment",
+      "name": "metr_c_e",
+      "tooltip": "Marginal effective tax rate on new investments, non-corporate debt financed investment."
     }
   ],
   [
     "metr_nc",
     {
-      "col_label": "Cost of capital, typically financed non-corporate investment",
-      "name": "metr_nc",
-      "tooltip": "Cost of capital, non-corporate investment financed with historical mix of debt and equity."
+      "col_label": "METR, non-corporate typically financed investment",
+      "name": "mettr_c",
+      "tooltip": "Marginal effective tax rate on new investments, non-corporate investment financed by historical mix of debt and equity."
+    }
+  ],
+  [
+    "metr_nc_e",
+    {
+      "col_label": "METR, non-corporate equity financed investment",
+      "name": "metr_c_e",
+      "tooltip": "Marginal effective tax rate on new investments, non-corporate equity financed investment."
+    }
+  ],
+  [
+    "mettr_nc_d",
+    {
+      "col_label": "METTR, non-corporate debt financed investment",
+      "name": "metr_c_e",
+      "tooltip": "Marginal effective total tax rate on new investments, non-corporate debt financed investment."
+    }
+  ],
+  [
+    "mettr_nc",
+    {
+      "col_label": "METTR, non-corporate typically financed investment",
+      "name": "mettr_c",
+      "tooltip": "Marginal effective total tax rate on new investments, non-corporate investment financed by historical mix of debt and equity."
+    }
+  ],
+  [
+    "mettr_nc_e",
+    {
+      "col_label": "METTR, non-corporate equity financed investment",
+      "name": "metr_c_e",
+      "tooltip": "Marginal effective total tax rate on new investments, non-corporate equity financed investment."
     }
   ],
   [
@@ -52,15 +84,15 @@
     {
       "col_label": "METR, corporate debt financed investment",
       "name": "metr_c_e",
-      "tooltip": "Marginal Effective Tax Rate on new investments, corporate debt financed investment."
+      "tooltip": "Marginal effective tax rate on new investments, corporate debt financed investment."
     }
   ],
   [
     "metr_c",
     {
-      "col_label": "METTR, corporate typically financed investment",
+      "col_label": "METR, corporate typically financed investment",
       "name": "mettr_c",
-      "tooltip": "Marginal Effective Total Tax Rate on new investments, corporate investment financed by historical mix of debt and equity."
+      "tooltip": "Marginal effective tax rate on new investments, corporate investment financed by historical mix of debt and equity."
     }
   ],
   [
@@ -68,14 +100,54 @@
     {
       "col_label": "METR, corporate equity financed investment",
       "name": "metr_c_e",
-      "tooltip": "Marginal Effective Tax Rate on new investments, corporate equity financed investment."
+      "tooltip": "Marginal effective tax rate on new investments, corporate equity financed investment."
+    }
+  ],
+  [
+    "mettr_c_d",
+    {
+      "col_label": "METTR, corporate debt financed investment",
+      "name": "metr_c_e",
+      "tooltip": "Marginal effective total tax rate on new investments, corporate debt financed investment."
+    }
+  ],
+  [
+    "mettr_c",
+    {
+      "col_label": "METTR, corporate typically financed investment",
+      "name": "mettr_c",
+      "tooltip": "Marginal effective total tax rate on new investments, corporate investment financed by historical mix of debt and equity."
+    }
+  ],
+  [
+    "mettr_c_e",
+    {
+      "col_label": "METTR, corporate equity financed investment",
+      "name": "metr_c_e",
+      "tooltip": "Marginal effective total tax rate on new investments, corporate equity financed investment."
+    }
+  ],
+  [
+    "rho_nc_e",
+    {
+      "col_label": "Cost of capital, equity financed non-corporate investment",
+      "name": "rho_c_e",
+      "tooltip": "Cost of capital, investment financed 100% by equity"
+    }
+  ],
+  [
+    "rho_nc_d",
+    {
+      "col_label": "Cost of capital, debt financed non-corporate investment",
+      "name": "rho_c_d",
+      "tooltip": "Cost of capital, investment financed 100% by debt"
     }
   ],
   [
     "rho_nc",
     {
       "col_label": "Cost of capital, typically financed non-corporate investment",
-      "name": "rho_nc",
+      "name": "rho_c",
       "tooltip": "Cost of capital, non-corporate investment financed with historical mix of debt and equity."
     }
   ]
