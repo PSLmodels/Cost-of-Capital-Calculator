@@ -115,17 +115,29 @@ def industry_calcs(params, fixed_assets, output_by_asset):
     for item in col_list:
         by_industry[item] = (pd.DataFrame({item : by_industry_asset.groupby('bea_ind_code').apply(wavg, item, "assets")})).reset_index()[item]
 
+    # calculate the cost of capital, metr, mettr
+    for i in range(save_rate.shape[0]):
+        for j in range(save_rate.shape[1]):
+            by_industry['metr'+entity_list[j]+financing_list[i]] = \
+                ((by_industry['rho'+entity_list[j]+financing_list[i]] -
+                (r_prime[i,j] - inflation_rate))/(by_industry['rho'+entity_list[j]+financing_list[i]]))
+            by_industry['mettr'+entity_list[j]+financing_list[i]] = \
+                ((by_industry['rho'+entity_list[j]+financing_list[i]] -
+                save_rate[i,j])/(by_industry['rho'+entity_list[j]+financing_list[i]]))
+
     # merge in industry names
     df3 = fixed_assets[['Industry','bea_ind_code']]
     df3.drop_duplicates(inplace=True)
     by_industry = pd.merge(by_industry, df3, how='left', left_on=['bea_ind_code'],
       right_on=['bea_ind_code'], left_index=False, right_index=False, sort=False,
       copy=True)
+    by_industry['Industry'].replace(by_industry['Industry'].str.strip(),inplace=True)
 
     # create major industry variable
     by_industry['major_industry'] = by_industry['Industry']
     by_industry['major_industry'].replace(ind_dict,inplace=True)
 
+    by_industry['test'] = by_industry['Industry']=='   Farms'
     print by_industry.head(n=20)
     quit()
 
