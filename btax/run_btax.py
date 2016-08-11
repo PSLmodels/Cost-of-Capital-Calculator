@@ -45,6 +45,8 @@ def run_btax(**user_params):
 
     # make calculations by asset and create formated output
     output_by_asset = calc_final_outputs.asset_calcs(parameters)
+    output_by_asset.to_csv('testDF.csv', ecoding='utf-8')
+    print output_by_asset.head(n=50)
 
     # check against CBO
     format_output.CBO_compare(output_by_asset)
