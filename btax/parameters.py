@@ -119,6 +119,9 @@ def get_params(**user_mods):
     int_haircut = user_params['int_haircut']
     bonus_deprec = user_params['bonus_deprec']
     deprec_system = user_params['deprec_system']
+    # we don't have IP class in user params, so put here
+    bonus_deprec['50'] = 0.
+    deprec_system['50'] = 'ADS'
 
     tau_div = 0.121 # tax rate on dividend income
     tau_int = 0.221 # tax rate on interest income
