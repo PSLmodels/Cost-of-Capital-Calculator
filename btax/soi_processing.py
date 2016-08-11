@@ -20,18 +20,18 @@ import pull_soi_proprietorship as prop
 _FILE_FCTR = 10**3
 
 def pull_soi_data():
-    """Creates a dictionary that is updated with the soi entity data after each method. 
+    """Creates a dictionary that is updated with the soi entity data after each method.
 
         :returns: DataFrames organized by entity type (corp, partner, sole prop)
-        :rtype: dictionary 
+        :rtype: dictionary
     """
     entity_dfs = {}
     entity_dfs.update(corp.load_corp_data())
-    
+
     entity_dfs.update(prt.load_partner_data(entity_dfs))
 
     entity_dfs.update(prop.load_proprietorship_data(entity_dfs))
-    
+
     return entity_dfs
 
 
@@ -66,7 +66,7 @@ def format_dataframe(df, crosswalk):
     df.insert(1,'Codes:',crosswalk['Codes:'])
     names = df['Item']
     codes = df['Codes:']
-    # Multiplies the entire dataframe by a factor of a thousand 
+    # Multiplies the entire dataframe by a factor of a thousand
     df = df * _FILE_FCTR
     # Replaces the industry names and codes to adjust for the multiplication in the previous step
     df['Item'] = names
@@ -111,5 +111,5 @@ def interpolate_data(entity_dfs, df):
             df.set_value(i, 'FA', new_data[0])
             df.set_value(i, 'Inv', new_data[1])
             df.set_value(i, 'Land', new_data[2])
-    # Returns the partner or prop dataframe with all the missing values filled in        
+    # Returns the partner or prop dataframe with all the missing values filled in
     return df

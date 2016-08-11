@@ -15,9 +15,11 @@ install:
   - source activate test-environment
   - conda install --file conda-requirements.txt # xlrd, possibly others
   - export BTAX_OUT_DIR=btax_output_dir # make an output dir
+  - export BTAX_CUR_DIR=btax
   - mkdir btax_output_dir
   - python setup.py install
 
 script:
   - run-btax                    # ensure the pickles are updated
   - python btax/check_output.py # check pickles
+  #- python -c "from btax.run_btax import run_btax;run_btax(btax_betr_corp=0.2,btax_betr_entity_Switch=True, btax_betr_pass=.3)"

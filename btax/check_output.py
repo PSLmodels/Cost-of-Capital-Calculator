@@ -11,7 +11,7 @@ check. Last Updated 7/27/2016
 import os.path
 import cPickle as pickle
 import pandas as pd
-from btax.util import get_paths
+from util import get_paths
 
 globals().update(get_paths())
 

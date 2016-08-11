@@ -13,24 +13,9 @@ import numpy as np
 import pandas as pd
 import xlrd
 
-import soi_processing as soi
-# Directories:
-_CUR_DIR = os.path.dirname(__file__)
-_DATA_DIR = os.path.join(_CUR_DIR, 'data')
-_RAW_DIR = os.path.join(_DATA_DIR, 'raw_data')
-_SOI_DIR = os.path.join(_RAW_DIR, 'soi')
-_PRT_DIR = os.path.join(_SOI_DIR, 'soi_partner')
 
-# File paths
-_INC_IN_CROSS_PATH = os.path.join(_PRT_DIR, '12pa01_Crosswalk.csv')
-_AST_IN_CROSS_PATH = os.path.join(_PRT_DIR, '12pa03_Crosswalk.csv')
-_TYP_IN_CROSS_PATH = os.path.join(_PRT_DIR, '12pa05_Crosswalk.csv')
-_XLS_FILE_1 = os.path.join(_PRT_DIR, '12pa01.xls')
-_XLS_FILE_2 = os.path.join(_PRT_DIR, '12pa03.xlsx')
-_INC_FILE = os.path.join(_PRT_DIR, '12pa01.csv')
-_AST_FILE = os.path.join(_PRT_DIR, '12pa03.csv')
-_TYP_FILE = os.path.join(_PRT_DIR, '12pa05.csv')
-_SOI_CODES = os.path.join(_SOI_DIR, 'SOI_codes.csv')
+from btax.util import get_paths
+globals().update(get_paths())
 
 # Constants
 _AST_FILE_FCTR = 10**3
@@ -46,6 +31,7 @@ def load_partner_data(entity_dfs):
         :returns: The soi dictionary updated with the partner dataframe
         :rtype: dictionary
     """
+    import btax.soi_processing as soi
     # Opening data on depreciable fixed assets, inventories, and land:
     df = pd.read_csv(_AST_FILE).T
     # Opening the crosswalk for the asset data
@@ -116,7 +102,7 @@ def load_partner_data(entity_dfs):
             prof_ratios[i] = np.array([int(tot_data[i][0]), prof_fa_data[i] / float(inc_loss[i][2]),
                 prof_inv_data[i] / float(inc_loss[i][2]),prof_land_data[i] / float(inc_loss[i][2])])
 
-    # Load and format the income data, which is separated by the different partner types       
+    # Load and format the income data, which is separated by the different partner types
     prt_types = pd.read_csv(_TYP_FILE).T
     typ_cross = pd.read_csv(_TYP_IN_CROSS_PATH)
     prt_types = soi.format_dataframe(prt_types, typ_cross)
@@ -158,7 +144,7 @@ def load_partner_data(entity_dfs):
             # Stores all the capital stock lists, along with the SOI code, in one list
             capital_stock.append([code, np.array(fixed_assets), np.array(land_data), np.array(inventories)])
             j += 1
-    # Fills in the missing values by taking the ratio of finer industry to broader industry multiplied by broader income values 
+    # Fills in the missing values by taking the ratio of finer industry to broader industry multiplied by broader income values
     prt_cap_stock = []
     for ind in prt_cstock:
         code1 = int(ind[0])
@@ -170,10 +156,10 @@ def load_partner_data(entity_dfs):
             code2 = int(str(code1)[:2])
             if(str(code2) in _CODE_RANGE):
                 code2 = int(_PARENTS[str(code2)])
-            # Uses the dictionary to find the index of that industry    
+            # Uses the dictionary to find the index of that industry
             index1 = index[code2]
-            # Performs the calculation as outlined at the beginning of the for loop and adds it to the list 
-            prt_cap_stock.append([code1, capital_stock[code_dict[code2]][1] * ind[1] / prt_cstock[index1][1], 
+            # Performs the calculation as outlined at the beginning of the for loop and adds it to the list
+            prt_cap_stock.append([code1, capital_stock[code_dict[code2]][1] * ind[1] / prt_cstock[index1][1],
             capital_stock[code_dict[code2]][2] * ind[2] / prt_cstock[index1][2],
             capital_stock[code_dict[code2]][3] * ind[3] / prt_cstock[index1][3]])
 
@@ -187,8 +173,8 @@ def load_partner_data(entity_dfs):
         ind_capital = []
         # Organizes the data by partner type instead of industry
         for ind in prt_cap_stock:
-            ind_capital.append([ind[0], ind[1][i+1], ind[2][i+1], ind[3][i+1]])  
-        # Stores the new partner type lists in a dataframe    
+            ind_capital.append([ind[0], ind[1][i+1], ind[2][i+1], ind[3][i+1]])
+        # Stores the new partner type lists in a dataframe
         df = pd.DataFrame(ind_capital, index = np.arange(0,len(ind_capital)), columns = ['Codes:', 'FA', 'Inv', 'Land'])
         # Performs a union to add in the corporate codes that are missing
         df = baseline_codes.merge(df, how = 'outer').fillna(0)
