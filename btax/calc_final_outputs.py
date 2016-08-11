@@ -131,15 +131,11 @@ def industry_calcs(params, fixed_assets, output_by_asset):
     by_industry = pd.merge(by_industry, df3, how='left', left_on=['bea_ind_code'],
       right_on=['bea_ind_code'], left_index=False, right_index=False, sort=False,
       copy=True)
-    by_industry['Industry'].replace(by_industry['Industry'].str.strip(),inplace=True)
+    by_industry['Industry'] = by_industry['Industry'].str.strip()
 
     # create major industry variable
     by_industry['major_industry'] = by_industry['Industry']
     by_industry['major_industry'].replace(ind_dict,inplace=True)
-
-    by_industry['test'] = by_industry['Industry']=='   Farms'
-    print by_industry.head(n=20)
-    quit()
 
     return by_industry
 

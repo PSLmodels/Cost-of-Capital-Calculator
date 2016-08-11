@@ -34,10 +34,10 @@ Plot results
 def asset_crossfilter(output_by_assets):
     """Creates a crossfilter bokeh plot of results by asset
 
-        :param entity_dfs: Contains all the soi data by entity type
-        :type entity_dfs: dictionary
-        :returns: Fixed asset data organized by industry, entity, and asset type
-        :rtype: dictionary
+        :output_by_assets: Contains output by asset
+        :type output_by_assets: dataframe
+        :returns:
+        :rtype:
     """
     df = output_by_assets.copy()
 
