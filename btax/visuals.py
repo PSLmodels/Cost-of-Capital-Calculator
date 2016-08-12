@@ -22,6 +22,8 @@ from bokeh.models import Select
 from bokeh.palettes import Spectral5
 from bokeh.plotting import curdoc, figure
 from bokeh.client import push_session
+from bokeh.resources import CDN
+from bokeh.embed import file_html
 
 
 '''
@@ -68,11 +70,19 @@ def asset_crossfilter(output_by_assets):
     curdoc().add_root(layout)
     curdoc().title = "Crossfilter"
 
-    # open a session to keep our local document in sync with server
-    session = push_session(curdoc())
-    session.show() # open the document in a browser
+    # # open a session to keep our local document in sync with server
+    # session = push_session(curdoc())
+    # session.show() # open the document in a browser
+    #
+    # session.loop_until_closed() # run forever
 
-    session.loop_until_closed() # run forever
+    # save plot to html
+    plot = curdoc()
+    #plot.circle([1,2], [3,4])
+    html = file_html(plot, CDN, "my plot")
+    file = open("crossfilter_html.html","wb") #open file in binary mode
+    file.writelines(html)
+    file.close()
 
 
 def create_figure(df,x,y,discrete,quantileable,continuous,size,color,controls):
