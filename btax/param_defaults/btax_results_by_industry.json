@@ -4,7 +4,8 @@
       {
         "col_label": "Industry",
         "name": "Industry",
-        "tooltip": "Production Industry"
+        "tooltip": "Production Industry",
+        "table_id": "all"
       }
     ],
     [
@@ -96,7 +97,7 @@
         "table_id": "group_2",
         "tooltip": "Marginal effective total tax rate on new investments, non-corporate equity financed investment."
       }
-    ]
+    ],
     [
       "mettr_c_d",
       {

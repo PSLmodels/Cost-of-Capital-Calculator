@@ -66,8 +66,10 @@ def run_btax(**user_params):
 
 def run_btax_to_json_tables(**user_params):
     output_by_asset, output_by_industry = run_btax(**user_params)
-    return {'output_by_asset': output_by_asset_to_json_table(output_by_asset),
-            'output_by_industry': output_by_industry_to_json_table(output_by_industry)}
+    tables = output_by_asset_to_json_table(output_by_asset)
+    tables.update(output_by_industry_to_json_table(output_by_industry))
+    return tables
+
 
 def main():
     run_btax()
