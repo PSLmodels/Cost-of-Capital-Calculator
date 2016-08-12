@@ -17,7 +17,9 @@ import cPickle as pickle
 from btax.soi_processing import pull_soi_data
 from btax import calc_final_outputs
 from btax import check_output
-from btax.util import get_paths, read_from_egg, dataframe_to_json_table
+from btax.util import (get_paths, read_from_egg,
+                       output_by_asset_to_json_table,
+                       output_by_industry_to_json_table)
 from btax import read_bea
 import btax.soi_processing as soi
 import btax.parameters as params
@@ -29,10 +31,10 @@ globals().update(get_paths())
 def run_btax(**user_params):
     """Runner script that kicks off the calculations for B-Tax
 
-        :param user_params: The user input for implementing reforms
-        :type user_params: dictionary
-        :returns: METR (by industry and asset) and METTR (by asset)
-        :rtype: DataFrame
+	:param user_params: The user input for implementing reforms
+	:type user_params: dictionary
+	:returns: METR (by industry and asset) and METTR (by asset)
+	:rtype: DataFrame
     """
     # break out the asset data by entity type (c corp, s corp, sole proprietorships, and partners)
     #entity_dfs = pull_soi_data()
@@ -52,6 +54,7 @@ def run_btax(**user_params):
     # make calculations by industry and create formated output
     output_by_industry = calc_final_outputs.industry_calcs(parameters, fixed_assets, output_by_asset)
 
+
     # create plots
     # by asset
     visuals.asset_crossfilter(output_by_asset)
@@ -63,8 +66,10 @@ def run_btax(**user_params):
 
 def run_btax_to_json_tables(**user_params):
     output_by_asset, output_by_industry = run_btax(**user_params)
-    return {'output_by_asset': dataframe_to_json_table(output_by_asset),
-            'output_by_industry': dataframe_to_json_table(output_by_industry)}
+    tables = output_by_asset_to_json_table(output_by_asset)
+    tables.update(output_by_industry_to_json_table(output_by_industry))
+    return tables
+
 
 def main():
     run_btax()
