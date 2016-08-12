@@ -503,7 +503,7 @@
       "notes": "The default inflation rate is determined by the forecast of the Congressional Budget Office (CBO).",
       "description": "Inflation rate",
       "value": [
-          0.018
+          0.024
         ],
         "min": [0.5],
         "max": [-0.5]
@@ -516,7 +516,7 @@
       "notes": "The default nominal interest rate is taken as the yeild on BBB corporate bonds.",
       "description": "Nominal interest rate paid on business debt",
       "value": [
-          0.072
+          0.068
         ],
         "min": [0.75],
         "max": [-0.5]

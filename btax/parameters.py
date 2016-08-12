@@ -77,7 +77,7 @@ def get_params(**user_mods):
     """
     from btax.calc_z import calc_tax_depr_rates, get_econ_depr
     #macro variables
-    E_c = 0.07
+    E_c = 0.058 # CBO (2014) 0.07
     f_c = 0.41
     f_nc = 0.32
     f_array = np.array([[f_c, f_nc], [1, 1], [0,0]])
