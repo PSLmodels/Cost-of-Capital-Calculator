@@ -138,7 +138,7 @@ def dbsl(df, r, financing_list, entity_list):
                             df['Y_star'])*r[i,j]))*(np.exp(-1*r[i,j]*df['Y_star'])-
                                                     np.exp(-1*r[i,j]*(df['Y']-1))))))*(df['bonus']!=0.))
             df['z'+entity_list[j]+financing_list[i]] = \
-                            ((((df['bonus']+df['beta'] + ((1-(df['bonus']-df['beta']))*
+                            ((((df['bonus']+(df['beta']*(1-(df['bonus']))) + ((1-(df['bonus']+(df['beta']*(1-(df['bonus'])))))*
                            (df['z1'+entity_list[j]+financing_list[i]]/(1+r[i,j])))))*(df['bonus']!=0.))
                            + (((((df['beta']/(df['beta']+r[i,j]))*(1-np.exp(-1*(df['beta']+r[i,j])*
                                df['Y_star']))) +
@@ -180,7 +180,7 @@ def sl(df, r, financing_list, entity_list):
             df['z1'+entity_list[j]+financing_list[i]] = \
                 ((np.exp(-1*r[i,j]*(df['Y']-1)/(r[i,j]*(df['Y']-1))))*(df['bonus']!=0.))
             df['z'+entity_list[j]+financing_list[i]] = \
-                (((df['bonus']+(1./df['Y']) + ((1-df['bonus']-(1./df['Y']))*
+                (((df['bonus']+((1./df['Y'])*(1-df['bonus'])) + ((1-(df['bonus']+((1./df['Y'])*(1-df['bonus']))))*
                (df['z1'+entity_list[j]+financing_list[i]]/(1+r[i,j]))))*(df['bonus']!=0.))
                 + ((np.exp(-1*r[i,j]*df['Y'])/(r[i,j]*df['Y']))**(1-(df['bonus']!=0.))))
 
@@ -213,7 +213,7 @@ def econ(df, r, financing_list, entity_list):
             # df['z'+entity_list[j]+financing_list[i]] = \
             #     (df['delta']/(df['delta']+r[i,j])).where(df['bonus']==0.)
             df['z'+entity_list[j]+financing_list[i]] = \
-                (((df['bonus']+(df['delta']) + ((1-df['bonus']-df['delta'])*
+                (((df['bonus']+(df['delta']*(1-df['bonus'])) + ((1-(df['bonus']+(df['delta']*(1-df['bonus']))))*
                (df['delta']/((df['delta']+r[i,j])*(1+r[i,j])))))*(df['bonus']!=0.))
                 + ((df['delta']/(df['delta']+r[i,j]))*(1-(df['bonus']==0.))))
 

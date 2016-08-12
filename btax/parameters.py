@@ -167,6 +167,143 @@ def get_params(**user_mods):
     entity_list = ['_c', '_nc']
     z = calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, tax_methods, financing_list, entity_list)
 
+    '''
+    ------------------------------------------
+    Define asset categories
+    ------------------------------------------
+    '''
+
+    asset_categories = {'Computers and Software', 'Office and Residential Equipment',
+        'Instruments and Communications Equipment', 'Transportation Equipment',
+        'Industrial Machinery', 'Other Industrial Equipment', 'Other Equipment',
+        'Residential Buildings', 'Nonresidential Buildings',
+        'Mining and Drilling Structures', 'Other Structures'}
+
+
+    asset_dict = dict.fromkeys(['Mainframes','PCs','DASDs','Printers',
+          'Terminals','Tape drives','Storage devices','System integrators',
+          'Prepackaged software','Custom software','Own account software'],'Computers and Software')
+    asset_dict.update(dict.fromkeys(['Communications','Nonelectro medical instruments',
+          'Electro medical instruments','Nonmedical instruments','Photocopy and related equipment',
+          'Office and accounting equipment'],'Instruments and Communications Equipment'))
+    asset_dict.update(dict.fromkeys(['Household furniture','Other furniture','Household appliances'],
+          'Office and Residential Equipment'))
+    asset_dict.update(dict.fromkeys(['Light trucks (including utility vehicles)',
+          'Other trucks, buses and truck trailers','Autos','Aircraft',
+          'Ships and boats','Railroad equipment','Steam engines','Internal combustion engines'],
+          'Transportation Equipment'))
+    asset_dict.update(dict.fromkeys(['Special industrial machinery','General industrial equipment'],
+          'Industrial Machinery'))
+    asset_dict.update(dict.fromkeys(['Nuclear fuel','Other fabricated metals',
+          'Metalworking machinery','Electric transmission and distribution',
+          'Other agricultural machinery','Farm tractors','Other construction machinery',
+          'Construction tractors','Mining and oilfield machinery'],
+          'Other Industrial Equipment'))
+    asset_dict.update(dict.fromkeys(['Service industry machinery','Other electrical','Other'],
+          'Other Equipment'))
+    # my_dict.update(dict.fromkeys([],
+    #       'Residential Buildings'))
+    asset_dict.update(dict.fromkeys(['Office','Hospitals','Special care','Medical buildings','Multimerchandise shopping',
+          'Food and beverage establishments','Warehouses','Mobile structures','Other commercial',
+          'Religious','Educational and vocational','Lodging'],
+          'Nonresidential Buildings'))
+    asset_dict.update(dict.fromkeys(['Gas','Petroleum pipelines','Communication',
+          'Petroleum and natural gas','Mining'],'Mining and Drilling Structures'))
+    asset_dict.update(dict.fromkeys(['Manufacturing','Electric','Wind and solar',
+          'Amusement and recreation','Air transportation','Other transportation',
+          'Other railroad','Track replacement','Local transit structures',
+          'Other land transportation','Farm','Water supply','Sewage and waste disposal',
+          'Public safety','Highway and conservation and development'],
+          'Other Structures'))
+    asset_dict.update(dict.fromkeys(['Pharmaceutical and medicine manufacturing',
+          'Chemical manufacturing, ex. pharma and med','Semiconductor and other component manufacturing',
+          'Computers and peripheral equipment manufacturing','Communications equipment manufacturing',
+          'Navigational and other instruments manufacturing','Other computer and electronic manufacturing, n.e.c.',
+          'Motor vehicles and parts manufacturing','Aerospace products and parts manufacturing',
+          'Other manufacturing','Scientific research and development services','Software publishers',
+          'Financial and real estate services','Computer systems design and related services','All other nonmanufacturing, n.e.c.',
+          'Private universities and colleges','Other nonprofit institutions','Theatrical movies','Long-lived television programs',
+          'Books','Music'],'Intellectual Property'))
+
+    # define major industry groupings
+    major_industries = {'Agriculture, forestry, fishing, and hunting', 'Mining',
+      'Utilities', 'Construction',
+      'Manufacturing', 'Wholesale trade', 'Retail trade',
+      'Transportation and warehousing', 'Information',
+      'Finance and insurance', 'Real estate and rental and leasing',
+      'Professional, scientific, and technical services',
+      'Management of companies and enterprises', 'Administrative and waste management services',
+      'Educational services', 'Health care and social assistance',
+      'Arts, entertainment, and recreation', 'Accommodation and food services',
+      'Other services, except government'}
+    ind_dict = dict.fromkeys(['Farms','Forestry, fishing, and related activities'],
+                              'Agriculture, forestry, fishing, and hunting')
+    ind_dict.update(dict.fromkeys(['Oil and gas extraction',
+        'Mining, except oil and gas','Support activities for mining'],'Mining'))
+    ind_dict.update(dict.fromkeys(['Utilities'],'Utilities'))
+    ind_dict.update(dict.fromkeys(['Construction'],'Construction'))
+    ind_dict.update(dict.fromkeys(['Wood products', 'Nonmetallic mineral products',
+                                  'Primary metals', 'Fabricated metal products',
+                                  'Machinery','Computer and electronic products',
+                                  'Electrical equipment, appliances, and components',
+                                  'Motor vehicles, bodies and trailers, and parts',
+                                  'Other transportation equipment',
+                                  'Furniture and related products',
+                                  'Miscellaneous manufacturing',
+                                  'Food, beverage, and tobacco products',
+                                  'Textile mills and textile products',
+                                  'Apparel and leather and allied products',
+                                  'Paper products', 'Printing and related support activities',
+                                  'Petroleum and coal products', 'Chemical products',
+                                  'Plastics and rubber products'],'Manufacturing'))
+    ind_dict.update(dict.fromkeys(['Wholesale trade'],'Wholesale trade'))
+    ind_dict.update(dict.fromkeys(['Retail trade'],'Retail trade'))
+    ind_dict.update(dict.fromkeys(['Air transportation', 'Railroad transportation',
+                                  'Water transportation', 'Truck transportation',
+                                  'Transit and ground passenger transportation',
+                                  'Pipeline transportation',
+                                  'Other transportation and support activitis',
+                                  'Warehousing and storage'],'Transportation and warehousing'))
+    ind_dict.update(dict.fromkeys(['Publishing industries (including software)',
+                                  'Motion picture and sound recording industries',
+                                  'Broadcasting and telecommunications',
+                                  'Information and telecommunications'],
+                                  'Information'))
+    ind_dict.update(dict.fromkeys(['Federal Reserve banks',
+                              'Credit intermediation and related activities',
+                              'Securities, commodity contracts, and investments',
+                              'Insurance carriers and related activities',
+                              'Funds, trusts, and other financial vehicles'],
+                          'Finance and insurance'))
+    ind_dict.update(dict.fromkeys(['Real estate',
+                          'Rental and leasing services and lessors of intangible assets'],
+                          'Real estate and rental and leasing'))
+    ind_dict.update(dict.fromkeys(['Legal services',
+                          'Computer systems design and related services',
+                          'Miscellaneous professional, scientific, and technical services'],
+                          'Professional, scientific, and technical services'))
+    ind_dict.update(dict.fromkeys(['Management of companies and enterprises'],
+                          'Management of companies and enterprises'))
+    ind_dict.update(dict.fromkeys(['Administrative and support services',
+                          'Waster management and remediation services'],
+                          'Administrative and waste management services'))
+    ind_dict.update(dict.fromkeys(['Educational services'],
+                          'Educational services'))
+    ind_dict.update(dict.fromkeys(['Ambulatory health care services',
+                          'Hospitals', 'Nursing and residential care facilities',
+                          'Social assistance'],
+                          'Health care and social assistance'))
+    ind_dict.update(dict.fromkeys(['Performing arts, spectator sports, museums, and related activities',
+                          'Amusements, gambling, and recreation industries'],
+                          'Arts, entertainment, and recreation'))
+    ind_dict.update(dict.fromkeys(['Accomodation',
+                          'Food services and drinking places'],
+                          'Accommodation and food services'))
+    ind_dict.update(dict.fromkeys(['Other services, except government'],
+                          'Other services, except government'))
+
+
+
     parameters = {'inflation rate': pi,
         'econ depreciation': delta,
         'depr allow': z,
@@ -180,6 +317,8 @@ def get_params(**user_mods):
         'int_haircut':int_haircut,
         'financing_list':financing_list,
         'entity_list':entity_list,
-        'delta': delta
+        'delta': delta,
+        'asset_dict': asset_dict,
+        'ind_dict': ind_dict
     }
     return parameters
