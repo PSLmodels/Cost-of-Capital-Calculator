@@ -2,7 +2,9 @@
   "NAICS": {
     "col_label": "NAICS Code",
     "name": "NAICS",
-    "tooltip": "North American Industry Classifcation System Code"
+    "tooltip": "North American Industry Classifcation System Code",
+    "divisor": 1,
+    "decimals": 3
   },
   "Industry": {
     "col_label": "Industry",

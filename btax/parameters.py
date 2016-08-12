@@ -44,6 +44,8 @@ def translate_param_names(**user_mods):
 
     user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
     			 for cl in class_list_str}
+    # to zero out bonus - useful for compare to CBO
+    # user_bonus_deprec = {cl: 0.for cl in class_list_str}
 
 
     if user_mods['btax_betr_entity_Switch'] in (True, 'True'):
@@ -223,7 +225,7 @@ def get_params(**user_mods):
           'Other manufacturing','Scientific research and development services','Software publishers',
           'Financial and real estate services','Computer systems design and related services','All other nonmanufacturing, n.e.c.',
           'Private universities and colleges','Other nonprofit institutions','Theatrical movies','Long-lived television programs',
-          'Books','Music'],'Intellectual Property'))
+          'Books','Music','Other entertainment originals'],'Intellectual Property'))
 
     # define major industry groupings
     major_industries = {'Agriculture, forestry, fishing, and hunting', 'Mining',

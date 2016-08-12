@@ -19,11 +19,13 @@ import math
 import pandas as pd
 from bokeh.layouts import row, widgetbox
 from bokeh.models import Select
-from bokeh.palettes import Spectral5
+from bokeh.palettes import Spectral5, Reds9
 from bokeh.plotting import curdoc, figure
 from bokeh.client import push_session
 from bokeh.resources import CDN
 from bokeh.embed import file_html
+from bokeh.models import HoverTool
+from bokeh.models import ColumnDataSource
 
 
 '''
@@ -33,7 +35,7 @@ Plot results
 '''
 
 SIZES = list(range(6, 22, 3))
-COLORS = Spectral5
+COLORS = Reds9
 
 def asset_crossfilter(output_by_assets):
     """Creates a crossfilter bokeh plot of results by asset
@@ -65,7 +67,9 @@ def asset_crossfilter(output_by_assets):
     color.on_change('value', update)
 
     controls = widgetbox([x, y, color, size], width=200)
-    layout = row(controls, create_figure(df,x,y,discrete,quantileable,continuous,size,color,controls))
+    #layout = row(controls, create_figure(df,x,y,discrete,quantileable,continuous,size,color,controls))
+    layout = row(create_figure(df,x,y,discrete,quantileable,continuous,size,color,controls))
+
 
     curdoc().add_root(layout)
     curdoc().title = "Crossfilter"
@@ -88,19 +92,30 @@ def asset_crossfilter(output_by_assets):
 def create_figure(df,x,y,discrete,quantileable,continuous,size,color,controls):
     xs = df[x.value].values
     ys = df[y.value].values
-    x_title = x.value.title()
-    y_title = y.value.title()
+    ass = df['Asset'].values
+
+    # x_title = x.value.title()
+    # y_title = y.value.title()
+    x_title = "Marginal Effective Tax Rate"
+    y_title = "Asset Category"
+
+    source = ColumnDataSource(df)
 
     kw = dict()
     if x.value in discrete:
         kw['x_range'] = sorted(set(xs))
     if y.value in discrete:
         kw['y_range'] = sorted(set(ys))
-    kw['title'] = "%s vs %s" % (x_title, y_title)
+    # kw['title'] = "%s vs %s" % (x_title, y_title)
+    kw['title'] = "Marginal Effective Tax Rates on Typically Financed Corporate Investments, 2016 Law"
 
-    p = figure(plot_height=600, plot_width=800, tools='pan,box_zoom,reset', **kw)
+
+    p = figure(plot_height=600, plot_width=800, tools='pan,box_zoom,reset,hover', **kw)
     p.xaxis.axis_label = x_title
     p.yaxis.axis_label = y_title
+
+    hover = p.select(dict(type=HoverTool))
+    hover.tooltips = [('Asset', '@ass')]
 
     if x.value in discrete:
         p.xaxis.major_label_orientation = pd.np.pi / 4
@@ -110,7 +125,7 @@ def create_figure(df,x,y,discrete,quantileable,continuous,size,color,controls):
         groups = pd.qcut(df[size.value].values, len(SIZES))
         sz = [SIZES[xx] for xx in groups.codes]
 
-    c = "#31AADE"
+    c = "#73000A"
     if color.value != 'None':
         groups = pd.qcut(df[color.value].values, len(COLORS))
         c = [COLORS[xx] for xx in groups.codes]
