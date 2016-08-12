@@ -54,7 +54,7 @@ def run_btax(**user_params):
 
     # create plots
     # by asset
-    # visuals.asset_crossfilter(output_by_asset)
+    visuals.asset_crossfilter(output_by_asset)
 
     # print output_by_industry.head(n=50)
 
