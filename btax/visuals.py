@@ -21,7 +21,6 @@ from bokeh.layouts import row, widgetbox
 from bokeh.models import Select
 from bokeh.palettes import Spectral5
 from bokeh.plotting import curdoc, figure
-from bokeh.sampledata.autompg import autompg
 from bokeh.client import push_session
 
 
@@ -30,6 +29,9 @@ from bokeh.client import push_session
 Plot results
 ------------------------------------------
 '''
+
+SIZES = list(range(6, 22, 3))
+COLORS = Spectral5
 
 def asset_crossfilter(output_by_assets):
     """Creates a crossfilter bokeh plot of results by asset
@@ -41,15 +43,12 @@ def asset_crossfilter(output_by_assets):
     """
     df = output_by_assets.copy()
 
-    SIZES = list(range(6, 22, 3))
-    COLORS = Spectral5
-
     columns = sorted(df.columns)
     discrete = [x for x in columns if df[x].dtype == object]
     continuous = [x for x in columns if x not in discrete]
     quantileable = [x for x in continuous if len(df[x].unique()) > 20]
 
-    x = Select(title='X-Axis', value='METR', options=columns)
+    x = Select(title='X-Axis', value='metr_c', options=columns)
     x.on_change('value', update)
 
     y = Select(title='Y-Axis', value='asset_category', options=columns)
@@ -64,12 +63,19 @@ def asset_crossfilter(output_by_assets):
     color.on_change('value', update)
 
     controls = widgetbox([x, y, color, size], width=200)
-    layout = row(controls, create_figure())
+    layout = row(controls, create_figure(df,x,y,discrete,quantileable,continuous,size,color,controls))
 
     curdoc().add_root(layout)
     curdoc().title = "Crossfilter"
 
-def create_figure():
+    # open a session to keep our local document in sync with server
+    session = push_session(curdoc())
+    session.show() # open the document in a browser
+
+    session.loop_until_closed() # run forever
+
+
+def create_figure(df,x,y,discrete,quantileable,continuous,size,color,controls):
     xs = df[x.value].values
     ys = df[y.value].values
     x_title = x.value.title()

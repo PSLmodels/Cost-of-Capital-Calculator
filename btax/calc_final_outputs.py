@@ -19,7 +19,7 @@ from btax.util import get_paths
 globals().update(get_paths())
 
 
-def asset_calcs(params):
+def asset_calcs(params,fixed_assets):
     """Computes rho, METR, and METTR at the asset level.
 
         :param params: Constants used in the calculation
@@ -66,6 +66,13 @@ def asset_calcs(params):
     output_by_asset['asset_category'] = output_by_asset['Asset Type']
     output_by_asset['asset_category'].replace(asset_dict,inplace=True)
 
+    # merge in dollar value of assets
+    bea = fixed_assets.copy()
+    bea_assets = (pd.DataFrame({'assets' : bea.groupby('bea_asset_code')['assets'].sum()})).reset_index()
+
+    output_by_asset = pd.merge(output_by_asset, bea_assets, how='left', left_on=['bea_asset_code'],
+      right_on=['bea_asset_code'], left_index=False, right_index=False, sort=False,
+      copy=True)
 
     return output_by_asset
 
@@ -114,6 +121,8 @@ def industry_calcs(params, fixed_assets, output_by_asset):
                         'rho_nc_d', 'rho_nc_e']
     for item in col_list:
         by_industry[item] = (pd.DataFrame({item : by_industry_asset.groupby('bea_ind_code').apply(wavg, item, "assets")})).reset_index()[item]
+
+    by_industry['assets'] = (pd.DataFrame({'assets' : by_industry_asset.groupby('bea_ind_code')['assets'].sum()})).reset_index()['assets']
 
     # calculate the cost of capital, metr, mettr
     for i in range(save_rate.shape[0]):

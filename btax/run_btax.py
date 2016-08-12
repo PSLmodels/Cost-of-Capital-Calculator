@@ -44,7 +44,7 @@ def run_btax(**user_params):
     fixed_assets = read_bea.read_bea()
 
     # make calculations by asset and create formated output
-    output_by_asset = calc_final_outputs.asset_calcs(parameters)
+    output_by_asset = calc_final_outputs.asset_calcs(parameters,fixed_assets)
 
     # check against CBO
     format_output.CBO_compare(output_by_asset)
