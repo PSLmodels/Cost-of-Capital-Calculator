@@ -44,6 +44,8 @@ def translate_param_names(**user_mods):
 
     user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
     			 for cl in class_list_str}
+    # to zero out bonus - useful for compare to CBO
+    # user_bonus_deprec = {cl: 0.for cl in class_list_str}
 
 
     if user_mods['btax_betr_entity_Switch'] in (True, 'True'):
@@ -75,9 +77,9 @@ def get_params(**user_mods):
     """
     from btax.calc_z import calc_tax_depr_rates, get_econ_depr
     #macro variables
-    E_c = 0.07
-    f_c = 0.41
-    f_nc = 0.32
+    E_c = 0.058 # CBO (2014) 0.07
+    f_c = 0.32 # CBO (2014)0.41
+    f_nc = 0.29 # CBO (2014) 0.32
     f_array = np.array([[f_c, f_nc], [1, 1], [0,0]])
 
     #calibration variables
@@ -123,13 +125,14 @@ def get_params(**user_mods):
     bonus_deprec['50'] = 0.
     deprec_system['50'] = 'ADS'
 
-    tau_div = 0.121 # tax rate on dividend income
-    tau_int = 0.221 # tax rate on interest income
-    tau_scg = 0.28 # tax rate on short term capital gains
-    tau_lcg = 0.145 # tax rate on long term capital gains
+    tau_nc = 0.331 # tax rate on non-corporate business income
+    tau_div = 0.184 # tax rate on dividend income
+    tau_int = 0.274 # tax rate on interest income
+    tau_scg = 0.323 # tax rate on short term capital gains
+    tau_lcg = 0.212 # tax rate on long term capital gains
     tau_xcg = 0.00 # tax rate on capital gains held to death
-    tau_td = 0.209 # tax rate on return to equity held in tax defferred accounts
-    tau_h = 0.194 # tax rate on non-corporate business income
+    tau_td = 0.215 # tax rate on return to equity held in tax defferred accounts
+    tau_h = 0.181 # tax rate owner occupied housing deductions
     Y_td = 8.
     Y_scg = 4/12.
     Y_lcg = 8.
@@ -223,7 +226,7 @@ def get_params(**user_mods):
           'Other manufacturing','Scientific research and development services','Software publishers',
           'Financial and real estate services','Computer systems design and related services','All other nonmanufacturing, n.e.c.',
           'Private universities and colleges','Other nonprofit institutions','Theatrical movies','Long-lived television programs',
-          'Books','Music'],'Intellectual Property'))
+          'Books','Music','Other entertainment originals'],'Intellectual Property'))
 
     # define major industry groupings
     major_industries = {'Agriculture, forestry, fishing, and hunting', 'Mining',

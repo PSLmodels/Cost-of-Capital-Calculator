@@ -52,6 +52,7 @@ def read_bea():
     bea_asset_names = bea_asset_names[['Asset Codes','NIPA Asset Types']]
     bea_asset_names.dropna(subset = ['Asset Codes'],inplace=True)
     bea_asset_names.rename(columns={"Asset Codes": "bea_asset_code", "NIPA Asset Types": "Asset Type"},inplace=True)
+    bea_asset_names['Asset Type'] = bea_asset_names['Asset Type'].str.strip()
 
     # Merge asset names to asset data
     bea_FA = pd.merge(bea_FA, bea_asset_names, how='inner', on=['bea_asset_code'],
@@ -80,5 +81,6 @@ def read_bea():
     bea_FA = pd.merge(bea_FA, soi_bea_ind_codes, how='left', left_on=['bea_ind_code'],
       right_on=['bea_code'], left_index=False, right_index=False, sort=False,
       copy=True)
+
 
     return bea_FA

@@ -30,6 +30,8 @@ def get_econ_depr():
     econ_deprec_rates = econ_deprec_rates.fillna(0)
     econ_deprec_rates.rename(columns={"Code": "bea_asset_code",
                         "Economic Depreciation Rate": "delta"},inplace=True)
+    econ_deprec_rates['Asset'] = econ_deprec_rates['Asset'].str.strip()
+
     return econ_deprec_rates
 
 def calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, tax_methods, financing_list, entity_list):
@@ -45,6 +47,8 @@ def calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, tax_methods, fina
         :rtype: 96x3x2 array
     """
     tax_deprec_rates = pd.read_csv(_TAX_DEPR)
+    tax_deprec_rates['Asset Type'] = tax_deprec_rates['Asset Type'].str.strip()
+
 
 
     # update tax_deprec_rates based on user defined parameters
