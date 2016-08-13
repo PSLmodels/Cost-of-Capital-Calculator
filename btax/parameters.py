@@ -78,8 +78,8 @@ def get_params(**user_mods):
     from btax.calc_z import calc_tax_depr_rates, get_econ_depr
     #macro variables
     E_c = 0.058 # CBO (2014) 0.07
-    f_c = 0.41
-    f_nc = 0.32
+    f_c = 0.32 # CBO (2014)0.41
+    f_nc = 0.29 # CBO (2014) 0.32
     f_array = np.array([[f_c, f_nc], [1, 1], [0,0]])
 
     #calibration variables
@@ -125,13 +125,14 @@ def get_params(**user_mods):
     bonus_deprec['50'] = 0.
     deprec_system['50'] = 'ADS'
 
-    tau_div = 0.121 # tax rate on dividend income
-    tau_int = 0.221 # tax rate on interest income
-    tau_scg = 0.28 # tax rate on short term capital gains
-    tau_lcg = 0.145 # tax rate on long term capital gains
+    tau_nc = 0.331 # tax rate on non-corporate business income
+    tau_div = 0.184 # tax rate on dividend income
+    tau_int = 0.274 # tax rate on interest income
+    tau_scg = 0.323 # tax rate on short term capital gains
+    tau_lcg = 0.212 # tax rate on long term capital gains
     tau_xcg = 0.00 # tax rate on capital gains held to death
-    tau_td = 0.209 # tax rate on return to equity held in tax defferred accounts
-    tau_h = 0.194 # tax rate on non-corporate business income
+    tau_td = 0.215 # tax rate on return to equity held in tax defferred accounts
+    tau_h = 0.181 # tax rate owner occupied housing deductions
     Y_td = 8.
     Y_scg = 4/12.
     Y_lcg = 8.

@@ -25,6 +25,7 @@ import btax.soi_processing as soi
 import btax.parameters as params
 from btax import format_output
 from btax import visuals
+from btax import visuals_plotly
 
 globals().update(get_paths())
 
@@ -48,6 +49,7 @@ def run_btax(**user_params):
     # make calculations by asset and create formated output
     output_by_asset = calc_final_outputs.asset_calcs(parameters,fixed_assets)
     output_by_asset.to_csv('testDF.csv',encoding='utf-8')
+    pickle.dump( output_by_asset, open( "by_asset.pkl", "wb" ) )
 
     # check against CBO
     format_output.CBO_compare(output_by_asset)
@@ -59,6 +61,7 @@ def run_btax(**user_params):
     # create plots
     # by asset
     visuals.asset_crossfilter(output_by_asset)
+    #visuals_plotly.asset_bubble(output_by_asset)
 
     # print output_by_industry.head(n=50)
 
