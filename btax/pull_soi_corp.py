@@ -30,7 +30,6 @@ _DFLT_S_CORP_COLS_DICT = DFLT_S_CORP_COLS_DICT = dict([
                     ('paid_capital_surplus', 'PD_CAP_SRPLS')
                     ])
 _CORP_FILE_FCTR = 10**3
-
 _NAICS_COL_NM = 'INDY_CD'
 _CODE_RANGE = ['32', '33', '45', '49']
 _PARENTS = {'32':'31','33':'31','45':'44','49':'48'}

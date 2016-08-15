@@ -32,37 +32,82 @@ def load_partner_data(entity_dfs):
         :rtype: dictionary
     """
     import btax.soi_processing as soi
-    # Opening data on depreciable fixed assets, inventories, and land:
-    df = pd.read_csv(_AST_FILE).T
-    # Opening the crosswalk for the asset data
+
+    # Opening data on depreciable fixed assets, inventories, and land for parnterhsips
+    # with net profits:
     ast_cross = pd.read_csv(_AST_IN_CROSS_PATH)
-    # Formatting the dataframe so each row represents an industry and each column an asset value
-    df = soi.format_dataframe(df, ast_cross)
+    #I am cheating here, reading in a created file with only profitable partnerships
+    # data - the format_stuff() losses these when trying to read the raw file
+    df = format_stuff(pd.read_excel(_AST_profit_FILE, skiprows=2, skip_footer=6), ast_cross)
     # Cuts off the repeated columns so only the total data remains
-    df1 = df.T.groupby(sort=False,level=0).first().T
+    df03 = df.T.groupby(sort=False,level=0).first().T
     # Sums together the repeated codes into one industry
-    df1 = df1.groupby('Codes:',sort=False).sum()
+    df03 = df03.groupby('Codes:',sort=False).sum()
     # Fixing the index labels of the new dataframe
-    codes = df1.index.tolist()
-    df1.insert(0,'Codes:', codes)
-    df1.index = np.arange(0,len(df1))
-    # Cuts off the total data so only the partners with net income remain
-    df2 = df.T.groupby(sort=False,level=0).last().T
-    # Sums together the repeated codes once again and fixes the indices
-    df2 = df2.groupby('Codes:',sort=False).sum()
-    codes = df2.index.tolist()
-    df2.insert(0,'Codes:', codes)
-    df2.index = np.arange(0,len(df2))
+    df03.reset_index(inplace=True)
+    # Cuts off the total data so only the totals for partnerships with net income remain
+    # This doesn't seem to do what it intends to do
+    df03_gain = df03.T.groupby(sort=False,level=0).last().T
+    # Keep only variables of interest
+    df03_gain['Fixed Assets'] = (df03_gain['Depreciable assets']-
+                                         df03_gain['Less:  Accumulated depreciation'])
+    df03_gain = df03_gain[['Codes:','Item','Fixed Assets','Inventories','Land']]
+
+
+    # Opening data on depreciable fixed assets, inventories, and land for parnterhsips
+    # with net profits:
+    ast_cross = pd.read_csv(_AST_IN_CROSS_PATH)
+    #I am cheating here, reading in a created file with only profitable partnerships
+    # data - the format_stuff() losses these when trying to read the raw file
+    df = format_stuff(pd.read_excel(_AST_FILE, skiprows=2, skip_footer=6), ast_cross)
+    # Cuts off the repeated columns so only the total data remains
+    df03 = df.T.groupby(sort=False,level=0).first().T
+    # Sums together the repeated codes into one industry
+    df03 = df03.groupby('Codes:',sort=False).sum()
+    # Fixing the index labels of the new dataframe
+    df03.reset_index(inplace=True)
+    # keep only variables of interest
+    df03['Fixed Assets'] = (df03['Depreciable assets']-
+                                         df03['Less:  Accumulated depreciation'])
+    df03 = df03[['Codes:','Item','Fixed Assets','Inventories','Land']]
+
+
+    # merge those with profits with those without
+    df03_loss = pd.merge(df03, df03_gain, how='inner', on=['Codes:'],
+      left_index=False, right_index=False, sort=False, suffixes=('_all','_profit'),
+      copy=True)
+    df03_loss['Fixed Assets'] = df03_loss['Fixed Assets_all'] - df03_loss['Fixed Assets_profit']
+    df03_loss['Inventories'] = df03_loss['Inventories_all'] - df03_loss['Inventories_profit']
+    df03_loss['Land'] = df03_loss['Land_all'] - df03_loss['Land_profit']
+    df03_loss['Item'] = df03_loss['Item_all']
+    df03_loss['gain'] = False
+    df03_loss = df03_loss[['Codes:','Item','Fixed Assets','Inventories','Land','gain']]
+
+    # add gain boolean to dataframe of profitable partnerships
+    df03_gain['gain'] = True
+
+    # append data by loss and gain together
+    df03_all = df03_gain.append(df03_loss,ignore_index=True)
+
+    # Read in data by partner type (gives allocation by partner type)
+    prt_types = pd.read_csv(_TYP_FILE_CSV).T
+    typ_cross = pd.read_csv(_TYP_IN_CROSS_PATH)
+    prt_types = soi.format_dataframe(prt_types, typ_cross)
+    print prt_types.head(n=20)
+    quit()
+
+
+
     codes = pd.read_csv(_SOI_CODES)
     # Transfers the total data to a numpy array
     tot_data = np.array(df1)
     # Reads in the income information (profit/loss) and stores it in a dataframe
-    inc_loss = pd.read_csv(_INC_FILE).T
+    #inc_loss = pd.read_csv(_INC_FILE).T
     # Loads the crosswalk and formats the dataframe
     inc_cross = pd.read_csv(_INC_IN_CROSS_PATH)
-    inc_loss = soi.format_dataframe(inc_loss, inc_cross)
-    p1 = format_stuff(pd.read_excel(_XLS_FILE_1, skiprows=2, skip_footer=5), inc_cross)
-    p2 = format_stuff(pd.read_excel(_XLS_FILE_2, skiprows=2, skip_footer=5), ast_cross)
+    #inc_loss = soi.format_dataframe(inc_loss, inc_cross)
+    inc_loss = format_stuff(pd.read_excel(_INC_FILE, skiprows=2, skip_footer=6), inc_cross)
+    #p2 = format_stuff(pd.read_excel(_AST_FILE, skiprows=2, skip_footer=6), ast_cross)
     # Creates a list of columns that will be used to trim the data
     col_list = ['Item', 'Codes:', 'Net income', 'Loss']
 
@@ -85,6 +130,7 @@ def load_partner_data(entity_dfs):
     loss_inv_data = np.array(df1['Inventories'] - prof_inv_data)
     loss_land_data = np.array(df1['Land'] - prof_land_data)
 
+
     # Creates empty arrays that will be modified in the for loop to initialize the capital stock and ratio of income / capital stock
     prt_cstock = np.zeros(_SHAPE)
     loss_ratios = np.zeros(_SHAPE)
@@ -103,7 +149,7 @@ def load_partner_data(entity_dfs):
                 prof_inv_data[i] / float(inc_loss[i][2]),prof_land_data[i] / float(inc_loss[i][2])])
 
     # Load and format the income data, which is separated by the different partner types
-    prt_types = pd.read_csv(_TYP_FILE).T
+    prt_types = pd.read_csv(_TYP_FILE_CSV).T
     typ_cross = pd.read_csv(_TYP_IN_CROSS_PATH)
     prt_types = soi.format_dataframe(prt_types, typ_cross)
     prt_data = np.array(prt_types)

@@ -15,6 +15,7 @@ import numpy as np
 import pandas as pd
 
 from btax.util import get_paths
+from btax import pull_soi_partner
 globals().update(get_paths())
 
 _DDCT_FILE_FCTR = 10**3
@@ -35,13 +36,15 @@ def load_proprietorship_data(entity_dfs):
     # Opens the nonfarm inventory data
     nonfarm_inv = soi.format_dataframe(pd.read_csv(_NFARM_INV).T,crosswalk)
     # Opens the crosswalk for the partner data
-    prt_crosswalk = pd.read_csv(_PRT_CROSS)
+    # prt_crosswalk = pd.read_csv(_PRT_CROSS)
     # Opens and formats the partner depreciation deduction data
-    prt_deduct = pd.read_csv(_PRT_INC).T
-    prt_deduct = soi.format_dataframe(prt_deduct, prt_crosswalk)
+    inc_cross = pd.read_csv(_INC_IN_CROSS_PATH)
+    prt_deduct = pull_soi_partner.format_stuff(pd.read_excel(_INC_FILE, skiprows=2, skip_footer=6), inc_cross)
     # Opens and formats the partner asset data
-    prt_asst = pd.read_csv(_PRT_ASST).T
-    prt_asst = soi.format_dataframe(prt_asst, prt_crosswalk)
+    ast_cross = pd.read_csv(_AST_IN_CROSS_PATH)
+    prt_asst = pull_soi_partner.format_stuff(pd.read_excel(_AST_FILE, skiprows=2, skip_footer=6), ast_cross)
+    # prt_asst = pd.read_csv(_PRT_ASST).T
+    # prt_asst = soi.format_dataframe(prt_asst, prt_crosswalk)
     # Inserts the codes into the nonfarm dataframe
     nonfarm_df.insert(1, 'Codes:', crosswalk['Codes:'])
     # Formats the column names for the nonfarm dataframe

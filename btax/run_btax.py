@@ -38,7 +38,7 @@ def run_btax(**user_params):
 	:rtype: DataFrame
     """
     # break out the asset data by entity type (c corp, s corp, sole proprietorships, and partners)
-    #entity_dfs = pull_soi_data()
+    entity_dfs = pull_soi_data()
 
     # get parameters
     parameters = params.get_params(**user_params)
