@@ -90,13 +90,122 @@ def load_partner_data(entity_dfs):
     df03_all = df03_gain.append(df03_loss,ignore_index=True)
 
     # Read in data by partner type (gives allocation by partner type)
-    prt_types = pd.read_csv(_TYP_FILE_CSV).T
+    df05 = pd.read_csv(_TYP_FILE_CSV).T
     typ_cross = pd.read_csv(_TYP_IN_CROSS_PATH)
-    prt_types = soi.format_dataframe(prt_types, typ_cross)
-    print prt_types.head(n=20)
+    df05 = soi.format_dataframe(df05, typ_cross)
+    df05 = pd.melt(df05, id_vars=['Item', 'Codes:'], value_vars=['Corporate general partners',
+                'Corporate limited partners','Individual general partners',
+                'Individual limited partners','Partnership general partners',
+                'Partnership limited partners', 'Tax-exempt organization general partners',
+                'Tax-exempt organization limited partners','Nominee and other general partners',
+                'Nominee and other limited partners'],var_name='part_type',value_name='net_inc')
+    # create boolean for net gain or loss to partner type
+    df05['gain'] = df05['net_inc'] > 0
+
+    # update partner type names to something shorter
+    # Not currnetly used except to count number of types
+    part_types = {'Corporate general partners':'corp_gen',
+                 'Corporate limited partners':'corp_lim',
+                 'Individual general partners':'indv_gen',
+                 'Individual limited partners':'indv_lim',
+                 'Partnership general partners':'prt_gen',
+                 'Partnership limited partners':'prt_lim',
+                 'Tax-exempt organization general partners':'tax_gen',
+                 'Tax-exempt organization limited partners':'tax_lim',
+                 'Nominee and other general partners':'nom_gen',
+                 'Nominee and other limited partners':'nom_lim'}
+
+    # create sums by group
+    grouped = pd.DataFrame({'sum' : df05.groupby(['Codes:','gain'])['net_inc'].sum()}).reset_index()
+    # merge grouped data back to original df
+    # One could make this more efficient - one line of code - with appropriate
+    # pandas methods using groupby and apply above
+    df05 = pd.merge(df05, grouped, how='left', left_on=['Codes:', 'gain'],
+      right_on=['Codes:', 'gain'], left_index=False, right_index=False, sort=False,
+      copy=True)
+    df05['inc_ratio'] = (df05['net_inc']/df05['sum'].replace({ 0 : np.nan })).replace({np.nan:0})
+    df05 = df05[['Codes:','part_type','gain','inc_ratio']]
+
+    # add other sector codes for manufacturing
+    manu = df05[df05['Codes:'] == 31]
+    df_manu = (manu.append(manu)).reset_index()
+    df_manu.loc[:len(part_types), 'Codes:'] = 32
+    df_manu.loc[len(part_types):, 'Codes:'] = 33
+    df05 = df05.append(df_manu,ignore_index=True).reset_index().copy()
+
+    # df05_all_ind = df05[len(df05['Codes:']==1)]
+    # df05_sector = df05[len(df05['Codes:']==2)]
+    # df05_major = df05[len(df05['Codes:']==3)]
+    # df05_minor = df05[len(df05['Codes:']==6)] # NEED to go over partnership crosswalks - why some 4 and 5 digit codes????
+    #
+
+    # merge with cross walk for more specific industry categories
+    soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS, dtype={'bea_ind_code':str})
+    soi_bea_ind_codes.drop('notes', axis=1, inplace=True)
+
+    # Merge SOI codes to BEA data
+    df05 = pd.merge(soi_bea_ind_codes, df05, how='outer', left_on=['sector_code'],
+      right_on=['Codes:'], left_index=False, right_index=False, sort=False,
+      copy=True,indicator=True)
+    df05 = df05[df05['_merge']=='both']
+
+    ## Want to do a series of these merges - after match on sector_code, match on major industry
+    # if major industry identified in data, then do for minor_industry - only replacing what
+    # is in dataframe w
+    ## E.g.:
+    # df05_sector = pd.merge(soi_bea_ind_codes, df05_sector, how='outer', left_on=['sector_code'],
+    #   right_on=['Codes:'], left_index=False, right_index=False, sort=False,
+    #   copy=True)
+    # df05_major = pd.merge(soi_bea_ind_codes, df05_major, how='outer', left_on=['major_code'],
+    #   right_on=['Codes:'], left_index=False, right_index=False, sort=False,
+    #   copy=True)
+    # df05_minor = pd.merge(soi_bea_ind_codes, df05_minor, how='outer', left_on=['minor_code'],
+    #   right_on=['Codes:'], left_index=False, right_index=False, sort=False,
+    #   copy=True)
+    # df05_final = (df05_sector.append((df05_major,df05_minor,df_all_ind),ignore_index=True)).copy().reset_index()
+
+    df05.drop(['index','_merge'], axis=1, inplace=True)
+
+
+    # merge partner type ratios with partner asset data by income and loss
+    sector_df = pd.merge(df03_all, df05, how='left', left_on=['Codes:','gain'],
+      right_on=['sector_code','gain'], left_index=False, right_index=False, sort=False,
+      copy=True,indicator=True)
+    major_df = pd.merge(df03_all, df05, how='left', left_on=['Codes:','gain'],
+      right_on=['major_code','gain'], left_index=False, right_index=False, sort=False,
+      copy=True,indicator=True)
+    minor_df = pd.merge(df03_all, df05, how='left', left_on=['Codes:','gain'],
+      right_on=['minor_code','gain'], left_index=False, right_index=False, sort=False,
+      copy=True,indicator=True)
+
+    part_assets = sector_df.append([major_df,minor_df],ignore_index=True).copy().reset_index()
+    part_assets = part_assets[part_assets['_merge']=='both']
+
+    part_assets['Fixed Assets_type'] = part_assets['Fixed Assets']*part_assets['inc_ratio']
+    part_assets['Inventories_type'] = part_assets['Inventories']*part_assets['inc_ratio']
+    part_assets['Land_type'] = part_assets['Land']*part_assets['inc_ratio']
+
+    part_assets.rename(columns={'Codes:_x':'Codes:'},inplace=True)
+    # sum over gain/loss to get at industry-partner type level
+    # part_assets.groupby(['Codes:','part_type'])['Fixed Assets_type','Inventories_type',
+    #                            'Land_type'].sum()
+    part_data = pd.DataFrame({'Fixed Assets' :
+                              part_assets.groupby(['Codes:','part_type'])['Fixed Assets_type'].sum()}).reset_index()
+    part_data['Inventories'] = pd.DataFrame({'Inventories' :
+                              part_assets.groupby(['Codes:','part_type'])['Inventories_type'].sum()}).reset_index()['Inventories']
+    part_data['Land'] = pd.DataFrame({'Land' :
+                              part_assets.groupby(['Codes:','part_type'])['Land_type'].sum()}).reset_index()['Land']
+
+    # part_assets = part_assets[['Codes:','Fixed Assets_type','Inventories_type',
+    #                            'Land_type',]]
+    # part_assets.rename(columns={'Fixed Assets_type':'Fixed Assets',
+    #                             'Inventories_type':'Inventories',
+    #                            'Land_type':'Land'},inplace=True)
+
+    part_data.to_csv('testDF.csv',encoding='utf-8')
     quit()
 
-
+    # want to do some heirarchical merge as above
 
     codes = pd.read_csv(_SOI_CODES)
     # Transfers the total data to a numpy array
