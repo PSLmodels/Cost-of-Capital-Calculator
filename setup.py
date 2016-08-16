@@ -29,7 +29,7 @@ setup(name='btax',
 	  url='https://github.com/open-source-economics/B-Tax',
 	  packages=['btax'],
       package_data={'btax': get_data_files()},
-	  install_requires=['numpy','pandas'],
+	  install_requires=[],
       entry_points={
         'console_scripts': [
             'run-btax = btax.run_btax:main',
