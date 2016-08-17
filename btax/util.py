@@ -1,5 +1,9 @@
+from collections import OrderedDict
+import numbers
 import os
 from pkg_resources import resource_stream, Requirement
+
+import pandas as pd
 
 def read_from_egg(tfile):
     '''Read a relative path, getting the contents
@@ -100,7 +104,6 @@ def str_modified(i):
 
 
 def _dataframe_to_json_table(df, defaults, label, index_col):
-    df.to_pickle('check_df1.pkl')
     groups = [x[1]['table_id'] for x in defaults]
     tables = {}
     for group in set(groups):
@@ -114,18 +117,34 @@ def _dataframe_to_json_table(df, defaults, label, index_col):
         df2.set_index(index_col, inplace=True)
         df2.columns = new_column_names
         header = list(df2.columns)
-        df2.to_pickle('check_df2.pkl')
         rows = [[k,] + list(v) for k, v in df2.T.iteritems()]
         tables['{}_{}'.format(label, group)] = [header] + rows
     return tables
 
-def output_by_asset_to_json_table(df):
+def output_by_asset_to_json_table(df, table_name):
     from btax.parameters import DEFAULT_ASSET_COLS
+    return _dataframe_to_json_table(df, DEFAULT_ASSET_COLS,
+                                    table_name, 'Asset Type')
 
-    return _dataframe_to_json_table(df, DEFAULT_ASSET_COLS, 'asset', 'Asset Type')
 
-
-def output_by_industry_to_json_table(df):
+def output_by_industry_to_json_table(df, table_name):
     from btax.parameters import DEFAULT_INDUSTRY_COLS
-    return _dataframe_to_json_table(df, DEFAULT_INDUSTRY_COLS, 'industry', 'Industry')
+    return _dataframe_to_json_table(df, DEFAULT_INDUSTRY_COLS,
+                                    table_name, 'Industry')
 
+def diff_two_tables(df1, df2):
+    assert tuple(df1.columns) == tuple(df2.columns)
+    diffs = OrderedDict()
+    for c in df1.columns:
+        example = getattr(df1, c).iloc[0]
+        can_diff = isinstance(example, numbers.Number)
+        if can_diff:
+            diffs[c] = getattr(df1, c) - getattr(df2, c)
+        else:
+            diffs[c] = getattr(df1, c)
+    return pd.DataFrame(diffs)
+
+
+def filter_user_params_for_econ(**user_params):
+    return {k: v for k, v in user_params.items()
+            if k.startswith('btax_econ_')}
