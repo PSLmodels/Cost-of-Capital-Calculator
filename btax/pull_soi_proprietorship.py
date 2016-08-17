@@ -112,7 +112,7 @@ def load_proprietorship_data(entity_dfs):
     nfarm_df = baseline_codes.merge(nfarm_df, how = 'inner')
     nfarm_df = soi.interpolate_data(entity_dfs, nfarm_df)
 
-    # Calculates the FA and Land for Farm sole proprietorships. Should be placed in data for industry 11
+    # Calculates the FA and Land for Farm sole proprietorships.
     farm_df = pd.read_csv(_FARM_IN_PATH)
     asst_land = farm_df['R_p'][0] + farm_df['Q_p'][0]
     agr_capital = prt_capital[prt_capital.index == 1]
@@ -123,8 +123,16 @@ def load_proprietorship_data(entity_dfs):
     sp_farm_assts = farm_df['R_sp'][0] + farm_df['Q_sp'][0] - sp_farm_land
     sp_farm_cstock = np.array([sp_farm_assts, 0, sp_farm_land])
 
+    # Adds farm data to industry 11
+    nfarm_df.ix[nfarm_df['Codes:']==1,'FA'] += sp_farm_cstock[0]
+    nfarm_df.ix[nfarm_df['Codes:']==11,'FA'] += sp_farm_cstock[0]
+    nfarm_df.ix[nfarm_df['Codes:']==111,'FA'] += sp_farm_cstock[0]
+    nfarm_df.ix[nfarm_df['Codes:']==1,'Land'] += sp_farm_cstock[2]
+    nfarm_df.ix[nfarm_df['Codes:']==11,'Land'] += sp_farm_cstock[2]
+    nfarm_df.ix[nfarm_df['Codes:']==111,'Land'] += sp_farm_cstock[2]
+
     # Creates the dictionary of sector : dataframe that is returned and used to update entity_dfs
-    sole_prop_cstock = {'sole_prop': nfarm_df}
+    sole_prop_data = nfarm_df
 
     return sole_prop_cstock
 
