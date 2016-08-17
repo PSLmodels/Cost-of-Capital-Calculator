@@ -100,7 +100,6 @@ def str_modified(i):
 
 
 def _dataframe_to_json_table(df, defaults, label, index_col):
-    df.to_pickle('check_df1.pkl')
     groups = [x[1]['table_id'] for x in defaults]
     tables = {}
     for group in set(groups):
@@ -114,18 +113,18 @@ def _dataframe_to_json_table(df, defaults, label, index_col):
         df2.set_index(index_col, inplace=True)
         df2.columns = new_column_names
         header = list(df2.columns)
-        df2.to_pickle('check_df2.pkl')
         rows = [[k,] + list(v) for k, v in df2.T.iteritems()]
         tables['{}_{}'.format(label, group)] = [header] + rows
     return tables
 
-def output_by_asset_to_json_table(df):
+def output_by_asset_to_json_table(df, table_name):
     from btax.parameters import DEFAULT_ASSET_COLS
+    return _dataframe_to_json_table(df, DEFAULT_ASSET_COLS,
+                                    table_name, 'Asset Type')
 
-    return _dataframe_to_json_table(df, DEFAULT_ASSET_COLS, 'asset', 'Asset Type')
 
-
-def output_by_industry_to_json_table(df):
+def output_by_industry_to_json_table(df, table_name):
     from btax.parameters import DEFAULT_INDUSTRY_COLS
-    return _dataframe_to_json_table(df, DEFAULT_INDUSTRY_COLS, 'industry', 'Industry')
+    return _dataframe_to_json_table(df, DEFAULT_INDUSTRY_COLS,
+                                    table_name, 'Industry')
 

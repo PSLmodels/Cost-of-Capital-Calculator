@@ -9,11 +9,14 @@ Last updated: 7/25/2016.
 
 """
 # Import packages
-import os.path
-import sys
-import pandas as pd
-import numpy as np
+from collections import namedtuple, OrderedDict
 import cPickle as pickle
+import numbers
+import numpy as np
+import os.path
+import pandas as pd
+import sys
+
 from btax.soi_processing import pull_soi_data
 from btax import calc_final_outputs
 from btax import check_output
@@ -28,6 +31,13 @@ from btax import visuals
 from btax import visuals_plotly
 
 globals().update(get_paths())
+TABLE_ORDER = ['base_output_by_asset',
+               'reform_output_by_asset',
+               'delta_output_by_asset',
+               'base_output_by_industry',
+               'reform_output_by_industry',
+               'delta_output_by_industry',]
+ModelDiffs = namedtuple('ModelDiffs', TABLE_ORDER)
 
 def run_btax(**user_params):
     """Runner script that kicks off the calculations for B-Tax
@@ -68,10 +78,44 @@ def run_btax(**user_params):
     return output_by_asset, output_by_industry
 
 
+def _diff_two_tables(df1, df2):
+    assert tuple(df1.columns) == tuple(df2.columns)
+    diffs = OrderedDict()
+    for c in df1.columns:
+        example = getattr(df1, c).iloc[0]
+        can_diff = isinstance(example, numbers.Number)
+        if can_diff:
+            diffs[c] = getattr(df1, c) - getattr(df2, c)
+        else:
+            diffs[c] = getattr(df1, c)
+    return pd.DataFrame(diffs)
+
+
+def run_btax_with_baseline_delta(**user_params):
+    base_output_by_asset, base_output_by_industry = run_btax()
+    reform_output_by_asset, reform_output_by_industry = run_btax(**user_params)
+    delta_output_by_asset = _diff_two_tables(reform_output_by_asset,
+                                             base_output_by_asset)
+    delta_output_by_industry = _diff_two_tables(reform_output_by_industry,
+                                                base_output_by_industry)
+    return ModelDiffs(base_output_by_asset,
+                      reform_output_by_asset,
+                      delta_output_by_asset,
+                      base_output_by_industry,
+                      reform_output_by_industry,
+                      delta_output_by_industry)
+
+
 def run_btax_to_json_tables(**user_params):
-    output_by_asset, output_by_industry = run_btax(**user_params)
-    tables = output_by_asset_to_json_table(output_by_asset)
-    tables.update(output_by_industry_to_json_table(output_by_industry))
+    out = run_btax_with_baseline_delta(**user_params)
+    tables = {}
+    for table_name, table in zip(TABLE_ORDER, out):
+        if 'asset' in table_name:
+            tables.update(output_by_asset_to_json_table(table, table_name))
+        elif 'industry' in table_name:
+            tables.update(output_by_industry_to_json_table(table, table_name))
+        else:
+            raise ValueError('Expected an "asset" or "industry" related table')
     return tables
 
 
