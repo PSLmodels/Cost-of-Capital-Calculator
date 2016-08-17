@@ -1,5 +1,9 @@
+from collections import OrderedDict
+import numbers
 import os
 from pkg_resources import resource_stream, Requirement
+
+import pandas as pd
 
 def read_from_egg(tfile):
     '''Read a relative path, getting the contents
@@ -128,3 +132,19 @@ def output_by_industry_to_json_table(df, table_name):
     return _dataframe_to_json_table(df, DEFAULT_INDUSTRY_COLS,
                                     table_name, 'Industry')
 
+def diff_two_tables(df1, df2):
+    assert tuple(df1.columns) == tuple(df2.columns)
+    diffs = OrderedDict()
+    for c in df1.columns:
+        example = getattr(df1, c).iloc[0]
+        can_diff = isinstance(example, numbers.Number)
+        if can_diff:
+            diffs[c] = getattr(df1, c) - getattr(df2, c)
+        else:
+            diffs[c] = getattr(df1, c)
+    return pd.DataFrame(diffs)
+
+
+def filter_user_params_for_econ(**user_params):
+    return {k: v for k, v in user_params.items()
+            if k.startswith('btax_econ_')}
