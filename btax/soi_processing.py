@@ -32,6 +32,13 @@ def pull_soi_data():
 
     entity_dfs.update(prop.load_proprietorship_data(entity_dfs))
 
+    print entity_dfs.keys()
+    quit()
+
+    # make one big data frame - by industry and entity type
+    
+
+
     return entity_dfs
 
 
@@ -108,8 +115,8 @@ def interpolate_data(entity_dfs, df):
             # Mulitplies the partner or prop data for the major data to find minor partner data
             new_data = prt_ind * ratios[1:]
             # Sets new values in the partner or prop dataframe
-            df.set_value(i, 'FA', new_data[0])
-            df.set_value(i, 'Inv', new_data[1])
+            df.set_value(i, 'Fixed Assets', new_data[0])
+            df.set_value(i, 'Inventories', new_data[1])
             df.set_value(i, 'Land', new_data[2])
     # Returns the partner or prop dataframe with all the missing values filled in
     return df

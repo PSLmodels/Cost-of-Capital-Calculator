@@ -137,7 +137,9 @@ def load_partner_data(entity_dfs):
     part_data['inc_ratio'] = pd.DataFrame({'inc_ratio' :
                               part_assets.groupby(['Codes:','part_type'])['inc_ratio'].sum()}).reset_index()['inc_ratio']
 
-    return part_data
+    data = {'part_data':part_data}
+
+    return data
 
 def abs_sum(group, avg_name):
     """

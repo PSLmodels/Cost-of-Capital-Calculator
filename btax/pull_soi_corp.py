@@ -82,15 +82,19 @@ def load_corp_data():
     # Creates a dataframe for the c corp data
     c_corp_data = pd.DataFrame(c_corp, index=np.arange(0,len(c_corp)), columns = columns)
     # Creates a list of the columns we want to keep in the corp dataframes
-    cstock = ['INDY_CD', 'FA', 'INVNTRY', 'LAND']
+    cstock = ['INDY_CD', 'Fixed Assets', 'INVNTRY', 'LAND']
     # Calculates the amount of fixed assets: Depreciables assets - accumulated depreciated
-    tot_corp_data['FA'] = tot_corp_data['DPRCBL_ASSTS'] - tot_corp_data['ACCUM_DPR']
-    s_corp_data['FA'] = s_corp_data['DPRCBL_ASSTS'] - s_corp_data['ACCUM_DPR']
-    c_corp_data['FA'] = c_corp_data['DPRCBL_ASSTS'] - c_corp_data['ACCUM_DPR']
+    tot_corp_data['Fixed Assets'] = tot_corp_data['DPRCBL_ASSTS'] - tot_corp_data['ACCUM_DPR']
+    s_corp_data['Fixed Assets'] = s_corp_data['DPRCBL_ASSTS'] - s_corp_data['ACCUM_DPR']
+    c_corp_data['Fixed Assets'] = c_corp_data['DPRCBL_ASSTS'] - c_corp_data['ACCUM_DPR']
     # Trims off the extra columns in the corporate dataframes
     tot_corp_data = tot_corp_data[cstock]
     s_corp_data = s_corp_data[cstock]
     c_corp_data = c_corp_data[cstock]
+    # Make column names consistent with other dataframes
+    tot_corp_data.rename(columns={"INVNTRY": "Inventories","LAND":"Land"},inplace=True)
+    s_corp_data.rename(columns={"INVNTRY": "Inventories","LAND":"Land"},inplace=True)
+    c_corp_data.rename(columns={"INVNTRY": "Inventories","LAND":"Land"},inplace=True)
     # Changes the column name for the codes of each dataframe
     tot_corp_data.columns.values[0] = 'Codes:'
     s_corp_data.columns.values[0] = 'Codes:'

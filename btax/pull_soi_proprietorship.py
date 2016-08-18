@@ -101,7 +101,7 @@ def load_proprietorship_data(entity_dfs):
         nfarm_cstock = np.array([int(fixed_assets[i][0]), float(fixed_assets[i][1]), float(inv_data[i][1]), float(land_data[i][1])])
         cstock_list.append(nfarm_cstock)
     # Stores the newly created sole proprietorship capital stock data in a dataframe then sums duplicate codes
-    nfarm_df = pd.DataFrame(cstock_list, index=np.arange(0,len(cstock_list)), columns=['Codes:', 'FA', 'Inv', 'Land'])
+    nfarm_df = pd.DataFrame(cstock_list, index=np.arange(0,len(cstock_list)), columns=['Codes:', 'Fixed Assets', 'Inventories', 'Land'])
     nfarm_df = nfarm_df.groupby('Codes:',sort=False).sum()
     codes = nfarm_df.index.tolist()
     nfarm_df.insert(0,'Codes:', codes)
@@ -124,17 +124,17 @@ def load_proprietorship_data(entity_dfs):
     sp_farm_cstock = np.array([sp_farm_assts, 0, sp_farm_land])
 
     # Adds farm data to industry 11
-    nfarm_df.ix[nfarm_df['Codes:']==1,'FA'] += sp_farm_cstock[0]
-    nfarm_df.ix[nfarm_df['Codes:']==11,'FA'] += sp_farm_cstock[0]
-    nfarm_df.ix[nfarm_df['Codes:']==111,'FA'] += sp_farm_cstock[0]
+    nfarm_df.ix[nfarm_df['Codes:']==1,'Fixed Assets'] += sp_farm_cstock[0]
+    nfarm_df.ix[nfarm_df['Codes:']==11,'Fixed Assets'] += sp_farm_cstock[0]
+    nfarm_df.ix[nfarm_df['Codes:']==111,'Fixed Assets'] += sp_farm_cstock[0]
     nfarm_df.ix[nfarm_df['Codes:']==1,'Land'] += sp_farm_cstock[2]
     nfarm_df.ix[nfarm_df['Codes:']==11,'Land'] += sp_farm_cstock[2]
     nfarm_df.ix[nfarm_df['Codes:']==111,'Land'] += sp_farm_cstock[2]
 
     # Creates the dictionary of sector : dataframe that is returned and used to update entity_dfs
-    sole_prop_data = nfarm_df
+    data = {'sole_prop_data':nfarm_df}
 
-    return sole_prop_cstock
+    return data
 
 def format_columns(nonfarm_df):
     """Removes extra characters from the columns of the dataframe
