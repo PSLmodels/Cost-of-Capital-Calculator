@@ -33,10 +33,53 @@ def pull_soi_data():
     entity_dfs.update(prop.load_proprietorship_data(entity_dfs))
 
     print entity_dfs.keys()
+    c_corp_sector = entity_dfs['c_corp'][(entity_dfs['c_corp']['Codes:']>9)
+                                       & (entity_dfs['c_corp']['Codes:']<100)]
+    c_corp_major = entity_dfs['c_corp'][(entity_dfs['c_corp']['Codes:']>99)
+                                       & (entity_dfs['c_corp']['Codes:']<1000)]
+    c_corp_minor = entity_dfs['c_corp'][(entity_dfs['c_corp']['Codes:']>99999)
+                                       & (entity_dfs['c_corp']['Codes:']<1000000)]
+    s_corp_sector = entity_dfs['s_corp'][(entity_dfs['s_corp']['Codes:']>9)
+                                       & (entity_dfs['s_corp']['Codes:']<100)]
+    s_corp_major = entity_dfs['s_corp'][(entity_dfs['s_corp']['Codes:']>99)
+                                       & (entity_dfs['s_corp']['Codes:']<1000)]
+    s_corp_minor = entity_dfs['s_corp'][(entity_dfs['s_corp']['Codes:']>99999)
+                                       & (entity_dfs['s_corp']['Codes:']<1000000)]
+    part_sector = entity_dfs['part_data'][(entity_dfs['part_data']['Codes:']>9)
+                                       & (entity_dfs['part_data']['Codes:']<100)]
+    part_sector.drop_duplicates(subset=['Codes:'],inplace=True)
+    part_major = entity_dfs['part_data'][(entity_dfs['part_data']['Codes:']>99)
+                                       & (entity_dfs['part_data']['Codes:']<1000)]
+    part_major.drop_duplicates(subset=['Codes:'],inplace=True)
+    part_minor = entity_dfs['part_data'][(entity_dfs['part_data']['Codes:']>99999)
+                                       & (entity_dfs['part_data']['Codes:']<1000000)]
+    part_minor.drop_duplicates(subset=['Codes:'],inplace=True)
+    sp_sector = entity_dfs['sole_prop_data'][(entity_dfs['sole_prop_data']['Codes:']>9)
+                                       & (entity_dfs['sole_prop_data']['Codes:']<100)]
+    sp_major = entity_dfs['sole_prop_data'][(entity_dfs['sole_prop_data']['Codes:']>99)
+                                       & (entity_dfs['sole_prop_data']['Codes:']<1000)]
+    sp_minor = entity_dfs['sole_prop_data'][(entity_dfs['sole_prop_data']['Codes:']>99999)
+                                       & (entity_dfs['sole_prop_data']['Codes:']<1000000)]
+    c_corp_sector.to_csv('c_corp_sector.csv',encoding='utf-8')
+    c_corp_major.to_csv('c_corp_major.csv',encoding='utf-8')
+    c_corp_minor.to_csv('c_corp_minor.csv',encoding='utf-8')
+    s_corp_sector.to_csv('s_corp_sector.csv',encoding='utf-8')
+    s_corp_major.to_csv('s_corp_major.csv',encoding='utf-8')
+    s_corp_minor.to_csv('s_corp_minor.csv',encoding='utf-8')
+    part_sector.to_csv('part_sector.csv',encoding='utf-8')
+    part_major.to_csv('part_major.csv',encoding='utf-8')
+    part_minor.to_csv('part_minor.csv',encoding='utf-8')
+    sp_sector.to_csv('sp_sector.csv',encoding='utf-8')
+    sp_major.to_csv('sp_major.csv',encoding='utf-8')
+    sp_minor.to_csv('sp_minor.csv',encoding='utf-8')
     quit()
 
+    df03_sector = df03[(df03['Codes:']>9) & (df03['Codes:']<100)]
+    df03_major = df03[(df03['Codes:']>99) & (df03['Codes:']<1000)]
+    df03_minor = df03[(df03['Codes:']>99999) & (df03['Codes:']<1000000)]
+
     # make one big data frame - by industry and entity type
-    
+
 
 
     return entity_dfs

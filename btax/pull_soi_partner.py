@@ -91,7 +91,7 @@ def load_partner_data(entity_dfs):
     df_manu.loc[len(part_types):, 'Codes:'] = 33
     df05 = df05.append(df_manu,ignore_index=True).reset_index().copy()
 
-    # merge with cross walk for more specific industry categories
+    # load crosswalk for soi and bea industry codes
     soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS, dtype={'bea_ind_code':str})
     soi_bea_ind_codes.drop('notes', axis=1, inplace=True)
 
@@ -127,17 +127,33 @@ def load_partner_data(entity_dfs):
     # drop repeats at level of industry codes- this best partner data can be identified at
     part_assets.drop_duplicates(subset=['Codes:','part_type'],inplace=True)
 
+    part_assets.to_csv('TestDF.csv',encoding='utf-8')
+
+
     # sum at industry-partner type level
     part_data = pd.DataFrame({'Fixed Assets' :
-                              part_assets.groupby(['Codes:','part_type'])['Fixed Assets_type'].sum()}).reset_index()
+                              part_assets.groupby(['Codes:'])['Fixed Assets_type'].sum()}).reset_index()
     part_data['Inventories'] = pd.DataFrame({'Inventories' :
-                              part_assets.groupby(['Codes:','part_type'])['Inventories_type'].sum()}).reset_index()['Inventories']
+                              part_assets.groupby(['Codes:'])['Inventories_type'].sum()}).reset_index()['Inventories']
     part_data['Land'] = pd.DataFrame({'Land' :
-                              part_assets.groupby(['Codes:','part_type'])['Land_type'].sum()}).reset_index()['Land']
+                              part_assets.groupby(['Codes:'])['Land_type'].sum()}).reset_index()['Land']
     part_data['inc_ratio'] = pd.DataFrame({'inc_ratio' :
-                              part_assets.groupby(['Codes:','part_type'])['inc_ratio'].sum()}).reset_index()['inc_ratio']
+                              part_assets.groupby(['Codes:'])['inc_ratio'].sum()}).reset_index()['inc_ratio']
 
     data = {'part_data':part_data}
+
+    part_data.to_csv('TestDF2.csv',encoding='utf-8')
+    quit()
+     # merge codes to corp data
+    all_corp = pd.merge(all_corp, soi_ind_codes, how='inner', left_on=['INDY_CD'], right_on=['minor_code_alt'],
+      left_index=False, right_index=False, sort=False,
+      suffixes=('_x', '_y'), copy=True, indicator=True)
+    # keep only rows that match in both datasets - this should keep only unique soi minor industries
+    all_corp = all_corp.drop(all_corp[all_corp['_merge']!='both' ].index)
+
+    corp_ratios = all_corp[['INDY_CD','minor_code_alt','minor_code','major_code','sector_code']]
+    for var in corp_data_variables_of_interest :
+        corp_ratios[var+'_ratio'] = all_corp.groupby(['sector_code'])[var].apply(lambda x: x/float(x.sum()))
 
     return data
 

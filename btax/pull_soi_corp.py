@@ -16,6 +16,19 @@ import pandas as pd
 from btax.util import get_paths
 globals().update(get_paths())
 
+# _DFLT_S_CORP_COLS_DICT = DFLT_S_CORP_COLS_DICT = dict([
+#                     ('depreciable_assets','DPRCBL_ASSTS'),
+#                     ('accumulated_depreciation', 'ACCUM_DPR'),
+#                     ('land', 'LAND'),
+#                     ('inventories', 'INVNTRY'),
+#                     ('interest_paid', 'INTRST_PD'),
+#                     ('Capital_stock', 'CAP_STCK'),
+#                     ('additional_paid-in_capital', 'PD_CAP_SRPLS'),
+#                     ('earnings_(rtnd_appr.)', ''),
+#                     ('earnings_(rtnd_unappr.)', 'COMP_RTND_ERNGS_UNAPPR'),
+#                     ('cost_of_treasury_stock', 'CST_TRSRY_STCK'),
+#                     ('paid_capital_surplus', 'PD_CAP_SRPLS')
+#                     ])
 _DFLT_S_CORP_COLS_DICT = DFLT_S_CORP_COLS_DICT = dict([
                     ('depreciable_assets','DPRCBL_ASSTS'),
                     ('accumulated_depreciation', 'ACCUM_DPR'),
@@ -26,8 +39,7 @@ _DFLT_S_CORP_COLS_DICT = DFLT_S_CORP_COLS_DICT = dict([
                     ('additional_paid-in_capital', 'PD_CAP_SRPLS'),
                     ('earnings_(rtnd_appr.)', ''),
                     ('earnings_(rtnd_unappr.)', 'COMP_RTND_ERNGS_UNAPPR'),
-                    ('cost_of_treasury_stock', 'CST_TRSRY_STCK'),
-                    ('paid_capital_surplus', 'PD_CAP_SRPLS')
+                    ('cost_of_treasury_stock', 'CST_TRSRY_STCK')
                     ])
 _CORP_FILE_FCTR = 10**3
 _NAICS_COL_NM = 'INDY_CD'
@@ -43,70 +55,73 @@ def load_corp_data():
     cols_dict=_DFLT_S_CORP_COLS_DICT
     # Dataframe column names
     data_cols = cols_dict.keys()
+    columns = cols_dict.values()
+    columns.remove('')
     # Opening the soi S-corporate data file:
     try:
-        s_corp_data = pd.read_csv(_S_CORP_IN_PATH).fillna(0)
+        s_corp = pd.read_csv(_S_CORP_IN_PATH).fillna(0)
+        s_corp = s_corp.drop(s_corp[s_corp['AC']> 1.].index)
+        # drop total across all industries
+        s_corp = s_corp.drop(s_corp[s_corp['INDY_CD']== 1.].index)
     except IOError:
         print "IOError: S-Corp soi data file not found."
         raise
     # Opening the soi Total-corporate data file:
     try:
-        tot_corp_data = pd.read_csv(_TOT_CORP_IN_PATH).fillna(0)
+        tot_corp = pd.read_csv(_TOT_CORP_IN_PATH).fillna(0)
+        tot_corp = tot_corp.drop(tot_corp[tot_corp['AC']> 1.].index)
+        # drop total across all industries
+        tot_corp = tot_corp.drop(tot_corp[tot_corp['INDY_CD']== 1.].index)
+        tot_corp = tot_corp[['INDY_CD']+columns].copy()
     except IOError:
         print "IOError: S-Corp soi data file not found."
         raise
 
-    # Formatting the list of columns that will be used to trim the dataframe for the necessary data
-    columns = cols_dict.values()
-    columns.remove('')
-    columns.insert(0,'INDY_CD')
-    # Selecting out only the total industry values for the s corp data
-    s_corp_data = s_corp_data[(s_corp_data.AC == 1)]
-    s_corp_data = s_corp_data[columns] * _CORP_FILE_FCTR
-    s_corp_data['INDY_CD'] = s_corp_data['INDY_CD'] / _CORP_FILE_FCTR
-    # Repeating the same process of trimming and selecting on the total corp data
-    tot_corp_data = tot_corp_data[(tot_corp_data.AC == 1)]
-    tot_corp_data = tot_corp_data[columns] * _CORP_FILE_FCTR
-    tot_corp_data['INDY_CD'] = tot_corp_data['INDY_CD'] / _CORP_FILE_FCTR
-    # Assigns values to the missing s corp data based on the proportions of the total data
-    s_corp_data = calc_proportions(tot_corp_data, s_corp_data, columns)
-    # Calculates the c corp data by subtracting the s corp data from the total corp data
-    c_corp = np.array(tot_corp_data) - np.array(s_corp_data)
-    # Creates a dataframe and .csv file for all the industries for which we have soi corporate data
-    codes = tot_corp_data['INDY_CD'].tolist()
-    code_csv = pd.DataFrame(codes, index=np.arange(0,len(codes)), columns = ['Codes:'])
-    code_csv.to_csv(os.path.join(_SOI_DIR,'SOI_codes.csv'),index=False)
-    # Adds the missing codes back into the c corp data (lost in the subtraction step)
-    for i in xrange(0,len(codes)):
-        c_corp[i][0] = codes[i]
-    # Creates a dataframe for the c corp data
-    c_corp_data = pd.DataFrame(c_corp, index=np.arange(0,len(c_corp)), columns = columns)
-    # Creates a list of the columns we want to keep in the corp dataframes
-    cstock = ['INDY_CD', 'Fixed Assets', 'INVNTRY', 'LAND']
-    # Calculates the amount of fixed assets: Depreciables assets - accumulated depreciated
-    tot_corp_data['Fixed Assets'] = tot_corp_data['DPRCBL_ASSTS'] - tot_corp_data['ACCUM_DPR']
-    s_corp_data['Fixed Assets'] = s_corp_data['DPRCBL_ASSTS'] - s_corp_data['ACCUM_DPR']
-    c_corp_data['Fixed Assets'] = c_corp_data['DPRCBL_ASSTS'] - c_corp_data['ACCUM_DPR']
-    # Trims off the extra columns in the corporate dataframes
-    tot_corp_data = tot_corp_data[cstock]
-    s_corp_data = s_corp_data[cstock]
-    c_corp_data = c_corp_data[cstock]
-    # Make column names consistent with other dataframes
-    tot_corp_data.rename(columns={"INVNTRY": "Inventories","LAND":"Land"},inplace=True)
-    s_corp_data.rename(columns={"INVNTRY": "Inventories","LAND":"Land"},inplace=True)
-    c_corp_data.rename(columns={"INVNTRY": "Inventories","LAND":"Land"},inplace=True)
-    # Changes the column name for the codes of each dataframe
-    tot_corp_data.columns.values[0] = 'Codes:'
-    s_corp_data.columns.values[0] = 'Codes:'
-    c_corp_data.columns.values[0] = 'Codes:'
-    # Reformats the indices of the total corp data so it can be indexed correctly
-    tot_corp_data.index = np.arange(0,len(tot_corp_data))
+    # read in crosswalk for bea and soi industry codes
+    soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS, dtype={'bea_ind_code':str})
+    soi_bea_ind_codes.drop('notes', axis=1, inplace=True)
+    # drop one repeated minor ind code in crosswalk
+    soi_bea_ind_codes.drop_duplicates(subset=['minor_code_alt'],inplace=True)
+
+
+    # merge codes to total corp data
+    # inner join means that we keep only rows that match in both datasets
+    # this should keep only unique soi minor industries
+    # in total corp data - note that s corp data already unique by sector
+    tot_corp = pd.merge(tot_corp, soi_bea_ind_codes, how='inner', left_on=['INDY_CD'],
+                        right_on=['minor_code_alt'],left_index=False,
+                        right_index=False, sort=False,suffixes=('_x', '_y'),
+                        copy=True, indicator=False)
+
+    # apportion s corp data across industries within sectors so has same level of
+    # industry detail as total corp data
+    s_corp = calc_proportions(tot_corp, s_corp, columns)
+
+    # merge s corp and total corp to find c corp only
+    c_corp = pd.merge(tot_corp, s_corp, how='inner', on=['INDY_CD'],
+                        left_index=False, right_index=False, sort=False,suffixes=('_x', '_y'),
+                        copy=True, indicator=False)
+
+    #calculate s corp values by minor industry using ratios
+    for var in columns:
+        c_corp[var] = c_corp[var+'_x']-c_corp[var+'_y']
+
+    # clean up date by dropping and renaming columns
+    c_corp.drop(map(lambda (x,y): x+y, zip(columns, ['_x']*len(columns))), axis=1, inplace=True)
+    c_corp.drop(map(lambda (x,y): x+y, zip(columns, ['_y']*len(columns))), axis=1, inplace=True)
+
+    # totals in s_corp match totals in SOI data
+    # totals in tot_corp match totals in SOI data if you sum over industries -
+    # but here and in raw SOI, summing over industries does not return value
+    # for "all industries". It's within 1%, but difference can't be accounted for
+    # (sum over industry > totals for all industries)
+
     # Creates a dictionary of a sector : dataframe
-    corp_data = {'tot_corp': tot_corp_data, 'c_corp': c_corp_data, 's_corp': s_corp_data}
+    corp_data = {'tot_corp': tot_corp, 'c_corp': c_corp, 's_corp': s_corp}
 
     return corp_data
 
-def calc_proportions(tot_corp_data, s_corp_data, columns):
+def calc_proportions(tot_corp, s_corp, columns):
     """Uses the ratio of the minor industry to the major industry to fill in missing s corp data.
 
         :param tot_corp_data: capital stock for all the corporations
@@ -118,32 +133,33 @@ def calc_proportions(tot_corp_data, s_corp_data, columns):
         :returns: capital stock for the s corporations with all the industries filled in
         :rtype: DataFrame
     """
-    # Puts the dataframes into numpy arrays for easier data manipulation
-    tot_corp = np.array(tot_corp_data)
-    code = str(int(tot_corp[0][0]))
-    old_array = np.array(s_corp_data[s_corp_data.INDY_CD == float(code[:1])])
-    # Iterates over the arrays in total corp data
-    for array in tot_corp[1:]:
-        code = str(int(array[0]))
-        # Uses the two digit naics codes as the denominator in the ratio calculations
-        if(len(code) == 2):
-            tot_data = array[1:]
-            new_array = np.array(s_corp_data[s_corp_data.INDY_CD == float(code[:2])])
-            old_array = np.concatenate((old_array, new_array))
-        # Takes the finer-detailed data for the numerator of the ratio calculations
-        else:
-            data = array[1:]
-            # Calculates the ratio of finer-detailed to coarser-detailed data
-            ratio = data / tot_data
-            if(code[:2] in _CODE_RANGE):
-                parent_code = _PARENTS[code[:2]]
-            else:
-                parent_code = code[:2]
-            ratio = np.insert(ratio, 0, array[0] / float(parent_code))
-            # Multiplies the ratio by the two digit naics code data and puts it in the finer-detailed industry
-            new_array = np.array(s_corp_data[s_corp_data.INDY_CD == float(parent_code)]) * ratio
-            old_array = np.concatenate((old_array, new_array))
-    # Loads the array back into a dataframe with all the finer-detailed industries filled out
-    s_corp_data = pd.DataFrame(old_array, index=np.arange(0,len(old_array)), columns = columns)
+    # find ratio of variable in minor industry to variable in sector
+    # in total corp data
+    corp_ratios = tot_corp[['INDY_CD', 'sector_code']+columns].copy()
+    for var in columns :
+        corp_ratios[var+'_ratio'] = tot_corp.groupby(['sector_code'])[var].apply(lambda x: x/float(x.sum()))
 
-    return s_corp_data
+    corp_ratios.drop(columns, axis=1, inplace=True)
+    #print corp_ratios['sector_code'][:5], corp_ratios['minor_code_alt'][:5],    corp_ratios['TOT_ASSTS_ratio'][:5]
+
+    # new data w just ratios that will then merge to s corp data by sector code (many to one merge)
+    # first just keep s corp columns want
+    s_corp = s_corp[['INDY_CD']+columns].copy()
+
+
+    # merge ratios to s corp data
+    s_corp = pd.merge(corp_ratios, s_corp, how='inner', left_on=['sector_code'], right_on=['INDY_CD'],
+      left_index=False, right_index=False, sort=False,
+      suffixes=('_x', '_y'), copy=True, indicator=True)
+
+    #calculate s corp values by minor industry using ratios
+    for var in columns:
+        s_corp[var+'_final'] = s_corp[var]*s_corp[var+'_ratio']
+
+    # clean up date by dropping and renaming columns
+    s_corp.drop(['INDY_CD_y','_merge','sector_code']+columns, axis=1, inplace=True)
+    s_corp.drop(map(lambda (x,y): x+y, zip(columns, ['_ratio']*len(columns))), axis=1, inplace=True)
+    s_corp.rename(columns={"INDY_CD_x": "INDY_CD"},inplace=True)
+    s_corp.columns = s_corp.columns.str.replace('_final', '')
+
+    return s_corp
