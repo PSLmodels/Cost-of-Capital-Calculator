@@ -110,11 +110,19 @@ def load_corp_data():
     c_corp.drop(map(lambda (x,y): x+y, zip(columns, ['_x']*len(columns))), axis=1, inplace=True)
     c_corp.drop(map(lambda (x,y): x+y, zip(columns, ['_y']*len(columns))), axis=1, inplace=True)
 
+    ## NOTE:
     # totals in s_corp match totals in SOI data
     # totals in tot_corp match totals in SOI data if you sum over industries -
     # but here and in raw SOI, summing over industries does not return value
     # for "all industries". It's within 1%, but difference can't be accounted for
     # (sum over industry > totals for all industries)
+
+    s_corp.rename(columns={"LAND": "Land", "INVNTRY": "Inventories",
+                           "DPRCBL_ASSTS": "Fixed Assets"},inplace=True)
+    c_corp.rename(columns={"LAND": "Land", "INVNTRY": "Inventories",
+                           "DPRCBL_ASSTS": "Fixed Assets"},inplace=True)
+    tot_corp.rename(columns={"LAND": "Land", "INVNTRY": "Inventories",
+                           "DPRCBL_ASSTS": "Fixed Assets"},inplace=True)
 
     # Creates a dictionary of a sector : dataframe
     corp_data = {'tot_corp': tot_corp, 'c_corp': c_corp, 's_corp': s_corp}
