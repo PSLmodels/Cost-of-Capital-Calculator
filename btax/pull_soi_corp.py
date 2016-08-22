@@ -39,7 +39,8 @@ _DFLT_S_CORP_COLS_DICT = DFLT_S_CORP_COLS_DICT = dict([
                     ('additional_paid-in_capital', 'PD_CAP_SRPLS'),
                     ('earnings_(rtnd_appr.)', ''),
                     ('earnings_(rtnd_unappr.)', 'COMP_RTND_ERNGS_UNAPPR'),
-                    ('cost_of_treasury_stock', 'CST_TRSRY_STCK')
+                    ('cost_of_treasury_stock', 'CST_TRSRY_STCK'),
+                    ('depreciation', 'NET_DPR')
                     ])
 _CORP_FILE_FCTR = 10**3
 _NAICS_COL_NM = 'INDY_CD'
@@ -118,11 +119,14 @@ def load_corp_data():
     # (sum over industry > totals for all industries)
 
     s_corp.rename(columns={"LAND": "Land", "INVNTRY": "Inventories",
-                           "DPRCBL_ASSTS": "Fixed Assets"},inplace=True)
+                           "DPRCBL_ASSTS": "Fixed Assets",
+                           "NET_DPR":"Depreciation"},inplace=True)
     c_corp.rename(columns={"LAND": "Land", "INVNTRY": "Inventories",
-                           "DPRCBL_ASSTS": "Fixed Assets"},inplace=True)
+                           "DPRCBL_ASSTS": "Fixed Assets",
+                           "NET_DPR":"Depreciation"},inplace=True)
     tot_corp.rename(columns={"LAND": "Land", "INVNTRY": "Inventories",
-                           "DPRCBL_ASSTS": "Fixed Assets"},inplace=True)
+                           "DPRCBL_ASSTS": "Fixed Assets",
+                           "NET_DPR":"Depreciation"},inplace=True)
 
     # Creates a dictionary of a sector : dataframe
     corp_data = {'tot_corp': tot_corp, 'c_corp': c_corp, 's_corp': s_corp}
