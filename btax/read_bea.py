@@ -27,7 +27,7 @@ _CORP_PRT = [1,2]
 _NCORP_PRT = [3,4,5,6,7,8,9,10]
 
 
-def read_bea():
+def fixed_assets(soi_data):
     """Opens the BEA workbook and pulls out the asset info
 
         :param entity_dfs: Contains all the soi data by entity type
@@ -82,5 +82,48 @@ def read_bea():
       right_on=['bea_code'], left_index=False, right_index=False, sort=False,
       copy=True)
 
-
     return bea_FA
+
+def inventories(soi_data):
+    """Opens the BEA workbook and pulls out the asset info
+
+        :param entity_dfs: Contains all the soi data by entity type
+        :type entity_dfs: dictionary
+        :returns: Fixed asset data organized by industry, entity, and asset type
+        :rtype: dictionary
+    """
+    # Read in BEA fixed asset table
+    # note I had to edit this by hand becaue of the subindustries under manufacturing
+    # and wholesale trade.  not sure how to read those are unique names otherwise.
+    bea_inventories = pd.read_excel(_BEA_INV, sheetname="Sheet0",skiprows=6, skip_footer=4)
+    bea_inventories.reset_index()
+    bea_inventories = bea_inventories[['Unnamed: 1','IV.1']].copy()
+    bea_inventories.rename(columns={"Unnamed: 1":"bea_inv_name",
+                               "IV.1": "BEA Inventories"},inplace=True)
+    bea_inventories['bea_inv_name'] = bea_inventories['bea_inv_name'].str.strip()
+
+    # Merge inventories data to SOI data
+    bea_inventories = pd.merge(bea_inventories,soi_data,how='right', left_on=['bea_inv_name'],
+      right_on=['bea_inv_name'], left_index=False, right_index=False, sort=False,
+      copy=True,indicator=False)
+
+    # attribute BEA inventories across SOI minor industries
+    bea_inventories['bea_ratio'] = bea_inventories.groupby(['bea_inv_name'])['Inventories'].apply(lambda x: x/float(x.sum()))
+    bea_inventories['BEA Inventories'] = bea_inventories['bea_ratio']*bea_inventories['BEA Inventories']
+    # the above hit the bea control totals
+
+    return bea_inventories
+
+def land(soi_data):
+    """Opens the BEA workbook and pulls out the asset info
+
+        :param entity_dfs: Contains all the soi data by entity type
+        :type entity_dfs: dictionary
+        :returns: Fixed asset data organized by industry, entity, and asset type
+        :rtype: dictionary
+    """
+    bea_inventories = pd.read_excel(_BEA_INV, sheetname="Sheet0",skiprows=6, skip_footer=4)
+    bea_inventories.reset_index()
+    bea_inventories = bea_inventories[['Unnamed: 1','IV.1']].copy()
+
+    return bea_land

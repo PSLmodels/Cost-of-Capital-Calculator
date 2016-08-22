@@ -37,14 +37,21 @@ def run_btax(**user_params):
 	:returns: METR (by industry and asset) and METTR (by asset)
 	:rtype: DataFrame
     """
-    # break out the asset data by entity type (c corp, s corp, sole proprietorships, and partners)
-    entity_dfs = pull_soi_data()
+    # get soi totals for assets
+    soi_data = pull_soi_data()
+
+    # read in BEA data on inventories and separate by corp and non-corp and industry
+    inventories = read_bea.inventories(soi_data)
+
+    # read in BEA data on land and separate by corp and non-corp and industry
+    land = read_bea.land(soi_data)
+
+    # read in the BEA data on fixed assets and separate them by corp and non-corp
+    fixed_assets = read_bea.fixed_assets(soi_data)
 
     # get parameters
     parameters = params.get_params(**user_params)
 
-    # read in the BEA data on fixed assets and separate them by corp and non-corp
-    fixed_assets = read_bea.read_bea()
 
     # make calculations by asset and create formated output
     output_by_asset = calc_final_outputs.asset_calcs(parameters,fixed_assets)

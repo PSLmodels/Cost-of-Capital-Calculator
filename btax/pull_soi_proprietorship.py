@@ -180,6 +180,7 @@ def load_proprietorship_data(entity_dfs):
 
     # Calculates the FA and Land for Farm sole proprietorships.
     # Note: we should update so read in raw Census of Agriculture
+    # What about inventories for farm sole props? Worry about??
     farm_df = pd.read_csv(_FARM_IN_PATH)
     asst_land = farm_df['R_p'][0] + farm_df['Q_p'][0]
     part_data = entity_dfs['part_data'][['minor_code_alt','Fixed Assets','Depreciation','Land']]

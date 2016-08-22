@@ -61,6 +61,7 @@ def get_paths():
     paths['_BEA_CROSS'] = _BEA_CROSS = os.path.join(_BEA_DIR, 'BEA_Crosswalk.csv')
     paths['_SOI_CROSS'] = _SOI_CROSS = os.path.join(_BEA_DIR, 'NAICS_SOI_crosswalk.csv')
     paths['_SOI_BEA_CROSS'] = _SOI_BEA_CROSS = os.path.join(_BEA_DIR, 'soi_bea_industry_codes.csv')
+    paths['_BEA_INV'] = _BEA_INV = os.path.join(_BEA_DIR, 'NIPA_5.8.5B.xls')
     paths['_ECON_DEPR_IN_PATH'] = _ECON_DEPR_IN_PATH = os.path.join(_DEPR_DIR, 'Economic Depreciation Rates.csv')
     paths['_TAX_DEPR'] = _TAX_DEPR = os.path.join(_DEPR_DIR, 'BEA_IRS_Crosswalk.csv')
     paths['_NAICS_CODE_PATH'] = _NAICS_CODE_PATH = os.path.join(_DATA_DIR, 'NAICS_Codes.csv')
