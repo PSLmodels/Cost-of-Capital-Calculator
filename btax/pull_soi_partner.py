@@ -57,7 +57,6 @@ def load_partner_data(entity_dfs):
     - do have 811 at minor industry
     """
     # Opening data on depreciable fixed assets, inventories, and land for parnterhsips
-    # with net profits:
     xwalk = pd.read_csv(_DETAIL_PART_CROSS_PATH)
     # keep only codes that help to identify complete industries
     xwalk = xwalk[xwalk['complete']==1]
@@ -77,7 +76,6 @@ def load_partner_data(entity_dfs):
       right_on=['Industry:'], left_index=False, right_index=False, sort=False,
       copy=True)
     df03.drop(['Item','Industry:','Codes:','Notes:','complete'], axis=1, inplace=True)
-
 
     # Sums together the repeated codes into one industry
     df03 = df03.groupby('INDY_CD',sort=False).sum()
@@ -111,13 +109,11 @@ def load_partner_data(entity_dfs):
     part_data = sector_df.append([major_df,minor_df],ignore_index=True).copy().reset_index()
     part_data.drop(['bea_inv_name','bea_code','_merge'], axis=1, inplace=True)
 
-
     # merge codes to total corp data
     # inner join means that we keep only rows that match in both datasets
     # this should keep only unique soi minor industries
     # in total corp data - note that s corp data already unique by sector
     s_corp = entity_dfs['s_corp'][['INDY_CD','Fixed Assets','Inventories','Land']]
-    print 'scorp shape: ', s_corp.shape
     corp = pd.merge(s_corp, soi_bea_ind_codes, how='inner', left_on=['INDY_CD'],
                         right_on=['minor_code_alt'],left_index=False,
                         right_index=False, sort=False,suffixes=('_x', '_y'),
@@ -136,20 +132,21 @@ def load_partner_data(entity_dfs):
                         copy=True)
 
 
-    part_data.to_csv('testDF2.csv',encoding='utf-8')
+    part_data.ix[part_data['INDY_CD_x']>99999, 'Fixed Assets_ratio'] = 1.
+    part_data.ix[part_data['INDY_CD_x']>99999, 'Inventories_ratio'] = 1.
+    part_data.ix[part_data['INDY_CD_x']>99999, 'Land_ratio'] = 1.
     # allocate capital based on ratios
     for var in columns :
         part_data[var] = part_data[var]*part_data[var+'_ratio']
 
     part_data.drop(map(lambda (x,y): x+y, zip(columns, ['_ratio']*len(columns))), axis=1, inplace=True)
 
-    print part_data.shape
     part_data.to_csv('testDF.csv',encoding='utf-8')
     quit()
     ### !!! Partner data has right industry breakouts, and ratio sum to 1 in ind,
     ## but totals not adding up to SOI controls. Not quite sure why. figure this out,
     # then attribute over partner types
-    # then do same for sole props
+    # then do same for sole props (looks like xwalk very close to detail partnership one - let's hope!)
     # then inventories and land can be split same for all entity types
 
 
@@ -231,9 +228,6 @@ def load_partner_data(entity_dfs):
 
     # drop repeats at level of industry codes- this best partner data can be identified at
     part_assets.drop_duplicates(subset=['Codes:','part_type'],inplace=True)
-
-    part_assets.to_csv('TestDF.csv',encoding='utf-8')
-
 
     # sum at industry-partner type level
     part_data = pd.DataFrame({'Fixed Assets' :

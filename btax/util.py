@@ -90,6 +90,7 @@ def get_paths():
     paths['_NFARM_INV'] = _NFARM_INV = os.path.join(_PROP_DIR, '12sp02is.csv')
     paths['_PRT_CROSS'] = _PRT_CROSS = os.path.join(_PRT_DIR, '12pa01_Crosswalk.csv')
     paths['_DDCT_IN_CROSS_PATH'] = _DDCT_IN_CROSS_PATH = os.path.join(_PROP_DIR, '12sp01br_Crosswalk.csv')
+    paths['_DETAIL_SOLE_PROP_CROSS_PATH'] = _DETAIL_SOLE_PROP_CROSS_PATH = os.path.join(_PROP_DIR, 'detail_sole_prop_crosswalk.csv')
     paths['_SOI_CODES'] = _SOI_CODES = os.path.join(_SOI_DIR, 'SOI_codes.csv')
     return paths
 
