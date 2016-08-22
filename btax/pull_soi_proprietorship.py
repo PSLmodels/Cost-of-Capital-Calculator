@@ -128,7 +128,7 @@ def load_proprietorship_data(entity_dfs):
     # inner join means that we keep only rows that match in both datasets
     # this should keep only unique soi minor industries
     columns = ['Inventories','Depreciation']
-    part_data = entity_dfs['part_data'][['INDY_CD', 'minor_code_alt']+columns]
+    part_data = entity_dfs['part_data'][['minor_code_alt']+columns]
     partner = pd.merge(part_data, soi_bea_ind_codes, how='inner', left_on=['minor_code_alt'],
                         right_on=['minor_code_alt'],left_index=False,
                         right_index=False, sort=False,suffixes=('_x', '_y'),
@@ -152,19 +152,18 @@ def load_proprietorship_data(entity_dfs):
 
     # allocate capital based on ratios
     for var in columns :
-        nonfarm.ix[nonfarm['INDY_CD_x']>99999, var+'_ratio'] = 1.
+        nonfarm.ix[nonfarm['INDY_CD']>99999, var+'_ratio'] = 1.
         nonfarm[var] = nonfarm[var]*nonfarm[var+'_ratio']
 
     nonfarm.drop(map(lambda (x,y): x+y, zip(columns, ['_ratio']*len(columns))), axis=1, inplace=True)
     nonfarm.drop(['index','sector_code','major_code_x','minor_code',
-                    'INDY_CD_y','major_code_y','_merge'],axis=1,inplace=True)
-    nonfarm.rename(columns={"INDY_CD_x": "INDY_CD"},inplace=True)
+                    'major_code_y','_merge'],axis=1,inplace=True)
 
     # data here totals out for allocable industries (so doesn't hit SOI totals
     # for all industries bc some not allocated to an industry)
 
     # merge in partner data to get ratios need to impute FA's and land
-    part_ratios = entity_dfs['part_data'][['INDY_CD', 'minor_code_alt','Fixed Assets','Depreciation','Land']]
+    part_ratios = entity_dfs['part_data'][['minor_code_alt','Fixed Assets','Depreciation','Land']]
     part_ratios['FA_ratio'] = part_ratios['Fixed Assets']/part_ratios['Depreciation']
     part_ratios['Land_ratio'] = part_ratios['Land']/part_ratios['Fixed Assets']
     part_ratios = part_ratios[['minor_code_alt','FA_ratio','Land_ratio']]
@@ -183,10 +182,10 @@ def load_proprietorship_data(entity_dfs):
     # Note: we should update so read in raw Census of Agriculture
     farm_df = pd.read_csv(_FARM_IN_PATH)
     asst_land = farm_df['R_p'][0] + farm_df['Q_p'][0]
-    part_data = entity_dfs['part_data'][['INDY_CD', 'minor_code_alt','Fixed Assets','Depreciation','Land']]
-    land_ratio = np.array((part_data.ix[part_data['INDY_CD']==111, 'Land']/
-                  (part_data.ix[part_data['INDY_CD']==111, 'Fixed Assets']+
-                   part_data.ix[part_data['INDY_CD']==111, 'Land'])))
+    part_data = entity_dfs['part_data'][['minor_code_alt','Fixed Assets','Depreciation','Land']]
+    land_ratio = np.array((part_data.ix[part_data['minor_code_alt']==111, 'Land']/
+                  (part_data.ix[part_data['minor_code_alt']==111, 'Fixed Assets']+
+                   part_data.ix[part_data['minor_code_alt']==111, 'Land'])))
     part_land = land_ratio*asst_land
     sp_farm_land = farm_df['A_sp'][0] * part_land / farm_df['A_p'][0]
     sp_farm_assts = farm_df['R_sp'][0] + farm_df['Q_sp'][0] - sp_farm_land

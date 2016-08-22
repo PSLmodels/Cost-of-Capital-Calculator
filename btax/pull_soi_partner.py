@@ -127,8 +127,8 @@ def load_partner_data(entity_dfs):
     # this should keep only unique soi minor industries
     # in total corp data - note that s corp data already unique by sector
     columns = ['Fixed Assets','Inventories','Land','Depreciation']
-    s_corp = entity_dfs['s_corp'][['INDY_CD']+columns]
-    corp = pd.merge(s_corp, soi_bea_ind_codes, how='inner', left_on=['INDY_CD'],
+    s_corp = entity_dfs['s_corp'][['minor_code_alt']+columns]
+    corp = pd.merge(s_corp, soi_bea_ind_codes, how='inner', left_on=['minor_code_alt'],
                         right_on=['minor_code_alt'],left_index=False,
                         right_index=False, sort=False,suffixes=('_x', '_y'),
                         copy=True)
@@ -146,13 +146,12 @@ def load_partner_data(entity_dfs):
 
     # allocate capital based on ratios
     for var in columns :
-        part_data.ix[part_data['INDY_CD_x']>99999, var+'_ratio'] = 1.
+        part_data.ix[part_data['minor_code_alt']>99999, var+'_ratio'] = 1.
         part_data[var] = part_data[var]*part_data[var+'_ratio']
 
-    part_data.rename(columns={"INDY_CD_x": "INDY_CD"},inplace=True)
     part_data.drop(map(lambda (x,y): x+y, zip(columns, ['_ratio']*len(columns))), axis=1, inplace=True)
     part_data.drop(['index','sector_code','major_code_x','minor_code',
-                    'INDY_CD_y','major_code_y'],axis=1,inplace=True)
+                    'INDY_CD','major_code_y'],axis=1,inplace=True)
 
     ### !!! Partner data has right industry breakouts, and ratio sum to 1 in ind,
     ## but totals not adding up to SOI controls. Not quite sure why. figure this out,

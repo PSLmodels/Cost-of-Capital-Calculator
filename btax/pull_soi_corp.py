@@ -120,13 +120,13 @@ def load_corp_data():
 
     s_corp.rename(columns={"LAND": "Land", "INVNTRY": "Inventories",
                            "DPRCBL_ASSTS": "Fixed Assets",
-                           "NET_DPR":"Depreciation"},inplace=True)
+                           "NET_DPR":"Depreciation","INDY_CD":"minor_code_alt"},inplace=True)
     c_corp.rename(columns={"LAND": "Land", "INVNTRY": "Inventories",
                            "DPRCBL_ASSTS": "Fixed Assets",
                            "NET_DPR":"Depreciation"},inplace=True)
     tot_corp.rename(columns={"LAND": "Land", "INVNTRY": "Inventories",
                            "DPRCBL_ASSTS": "Fixed Assets",
-                           "NET_DPR":"Depreciation"},inplace=True)
+                           "NET_DPR":"Depreciation","INDY_CD":"minor_code_alt"},inplace=True)
 
     # Creates a dictionary of a sector : dataframe
     corp_data = {'tot_corp': tot_corp, 'c_corp': c_corp, 's_corp': s_corp}
@@ -147,7 +147,7 @@ def calc_proportions(tot_corp, s_corp, columns):
     """
     # find ratio of variable in minor industry to variable in sector
     # in total corp data
-    corp_ratios = tot_corp[['INDY_CD', 'sector_code']+columns].copy()
+    corp_ratios = tot_corp[['INDY_CD','sector_code']+columns].copy()
     for var in columns :
         corp_ratios[var+'_ratio'] = tot_corp.groupby(['sector_code'])[var].apply(lambda x: x/float(x.sum()))
 
@@ -168,7 +168,7 @@ def calc_proportions(tot_corp, s_corp, columns):
     for var in columns:
         s_corp[var+'_final'] = s_corp[var]*s_corp[var+'_ratio']
 
-    # clean up date by dropping and renaming columns
+    # clean up data by dropping and renaming columns
     s_corp.drop(['INDY_CD_y','_merge','sector_code']+columns, axis=1, inplace=True)
     s_corp.drop(map(lambda (x,y): x+y, zip(columns, ['_ratio']*len(columns))), axis=1, inplace=True)
     s_corp.rename(columns={"INDY_CD_x": "INDY_CD"},inplace=True)

@@ -35,48 +35,17 @@ def pull_soi_data():
 
 
     # make one big data frame - by industry and entity type
-    
+    c_corp = entity_dfs['c_corp'][['minor_code_alt','Land','Fixed Assets','Inventories']]
+    c_corp['entity_type'] = 'c_corp'
+    s_corp = entity_dfs['s_corp'][['minor_code_alt','Land','Fixed Assets','Inventories']]
+    s_corp['entity_type'] = 's_corp'
+    partner = entity_dfs['part_data'][['minor_code_alt','Land','Fixed Assets','Inventories']]
+    partner['entity_type'] = 'partnership'
+    sole_prop = entity_dfs['sole_prop_data'][['minor_code_alt','Land','Fixed Assets','Inventories']]
+    sole_prop['entity_type'] = 'sole_prop'
+
+    soi_data = c_corp.append([s_corp,partner,sole_prop],ignore_index=True).copy().reset_index()
 
 
-    return entity_dfs
 
-
-
-def interpolate_data(entity_dfs, df):
-    """Fills in the missing values using the proportion of corporate industry values
-
-        :param entity_dfs: Contains all the soi data by entity type
-        :param df: The datframe that will be updated with new values
-        :type entity_dfs: dictionary
-        :type df: DataFrame
-        :returns: The new dataframe with values for all the industries
-        :rtype: DataFrame
-    """
-    # Takes the total corp values as the baseline
-    base_df = entity_dfs['tot_corp']
-    # Stores the dataframe in a numpy array
-    corp_data = np.array(base_df)
-    # Stores the partner or prop data in a numpy array
-    prt_data = np.array(df)
-    # Iterates over each industry in the partner or prop data
-    for i in xrange(0, len(prt_data)):
-        # If it is a two digit code then it will appear in the denominator of the following calcs
-        if(len(str(int(prt_data[i][0]))) == 2):
-            # Grabs the parent data from the corporate array
-            parent_ind = corp_data[i]
-            # Grabs the partner or prop data as well
-            prt_ind = prt_data[i][1:]
-        # If the partner or prop data is missing a value
-        if(prt_data[i][1] == 0):
-            # Grabs the corporate data for the minor industry
-            corp_ind = corp_data[i]
-            # Divides the minor industry corporate data by the major industry data
-            ratios = corp_ind / parent_ind
-            # Mulitplies the partner or prop data for the major data to find minor partner data
-            new_data = prt_ind * ratios[1:]
-            # Sets new values in the partner or prop dataframe
-            df.set_value(i, 'Fixed Assets', new_data[0])
-            df.set_value(i, 'Inventories', new_data[1])
-            df.set_value(i, 'Land', new_data[2])
-    # Returns the partner or prop dataframe with all the missing values filled in
-    return df
+    return soi_data
