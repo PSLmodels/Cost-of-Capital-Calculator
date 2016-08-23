@@ -20,6 +20,7 @@ globals().update(get_paths())
 
 # Constant factors:
 _BEA_IN_FILE_FCTR = 10**6
+_FIN_ACCT_FILE_FCTR = 10**9
 _START_POS = 8
 _SKIP1 = 47
 _SKIP2 = 80
@@ -122,8 +123,76 @@ def land(soi_data):
         :returns: Fixed asset data organized by industry, entity, and asset type
         :rtype: dictionary
     """
-    bea_inventories = pd.read_excel(_BEA_INV, sheetname="Sheet0",skiprows=6, skip_footer=4)
-    bea_inventories.reset_index()
-    bea_inventories = bea_inventories[['Unnamed: 1','IV.1']].copy()
+    # for now, don't read in land data from excel file since too simple, but need to update this
+    # what fin accounts data is this from??
+    corp_land = 2875.0*_FIN_ACCT_FILE_FCTR
+    noncorp_land = 13792.4*_FIN_ACCT_FILE_FCTR
+
+    #read in BEA data on residential fixed assets
+    bea_residential = pd.read_excel(_BEA_RES, sheetname="Sheet0",skiprows=5, skip_footer=2)
+    bea_residential.reset_index()
+    bea_residential = bea_residential[[u'\xa0','2013']].copy()
+    bea_residential.rename(columns={u"\xa0":"entity_type",
+                               "2013": "Fixed Assets"},inplace=True)
+    bea_residential['Fixed Assets'] *= _FIN_ACCT_FILE_FCTR
+    bea_residential['entity_type'] = bea_residential['entity_type'].str.strip()
+    owner_occ_house_FA = np.array(bea_residential.ix[bea_residential['entity_type']=='Households','Fixed Assets'])
+    corp_res_FA = np.array(bea_residential.ix[bea_residential['entity_type']=='Corporate','Fixed Assets'])
+    noncorp_res_FA = np.array(bea_residential.ix[bea_residential['entity_type']=='Sole proprietorships and partnerships','Fixed Assets'])
+
+
+    # read in Financial Accounts data on total value of real estate in
+    # owner occ sector (includes land and structures)
+    b101 = pd.read_csv(_B101_PATH,header=5)
+    b101.reset_index()
+    b101 = b101[['Unnamed: 0','2013']].copy()
+    b101.rename(columns={"Unnamed: 0":"Variable",
+                               "2013": "Value"},inplace=True)
+    b101['Value'] *= _FIN_ACCT_FILE_FCTR
+    b101['Variable'] = b101['Variable'].str.strip()
+    owner_occ_house_RE = np.array(b101.ix[b101['Variable']=='Households; owner-occupied real estate including vacant land and mobile homes at market value','Value'])
+
+    # compute value of land for owner occupied housing sector
+    owner_occ_house_land = owner_occ_house_RE - owner_occ_house_FA
+
+    # create dictionary for owner-occupied housing to be appended to
+    # final dataset with all assets
+    owner_occ_dict = {'minor_code_alt':531115,'entity_type':'owner_occupied_housing',
+                      'tax_treat':'owner_occupied_housing','BEA Inventories':0.,
+                      'BEA Fixed Assets':owner_occ_house_FA,
+                      'BEA Land':owner_occ_house_land}
+
+    # update amout of land for non-corporate sector
+    noncorp_land -= owner_occ_house_land
+
+    # attribute land across tax treatment and industry using SOI data
+    soi_data.loc[:,'BEA Land'] = noncorp_land
+    soi_data.ix[soi_data['entity_type']=='s_corp', 'BEA Land'] = corp_land
+    soi_data.ix[soi_data['entity_type']=='c_corp', 'BEA Land'] = corp_land
+    soi_data['BEA Corp'] = False
+    soi_data.ix[soi_data['entity_type']=='s_corp', 'BEA Corp'] = True
+    soi_data.ix[soi_data['entity_type']=='c_corp', 'BEA Corp'] = True
+
+    soi_data['land_ratio'] = soi_data.groupby(['BEA Corp'])['Land'].apply(lambda x: x/float(x.sum()))
+    soi_data['BEA Land'] = soi_data['land_ratio']*soi_data['BEA Land']
+
+    # total land attributed above matches Fin Accts totals for non-owner occ housing
+
+    # attribute residential fixed assets across tax treatment (they all got to
+    # one specific production sector)
+    soi_data.loc[:,'BEA Fixed Assets'] = 0.
+    soi_data.loc[:,'BEA Res Assets'] = noncorp_res_FA
+    soi_data.ix[soi_data['entity_type']=='s_corp', 'BEA Res Assets'] = corp_res_FA
+    soi_data.ix[soi_data['entity_type']=='c_corp', 'BEA Res Assets'] = corp_res_FA
+    soi_data['res_FA_ratio'] = soi_data.groupby(['BEA Corp','minor_code_alt'])['Land'].apply(lambda x: x/float(x.sum()))
+
+    soi_data['BEA Res Assets'] = soi_data['res_FA_ratio']*soi_data['BEA Res Assets']
+    # add to residential buidling realestate industry fixed assets only
+    soi_data.ix[soi_data['minor_code_alt']==531115, 'BEA Fixed Assets'] += soi_data['BEA Res Assets']
+    soi_data.to_csv('testDF.csv')
+    quit()
+
+
+
 
     return bea_land
