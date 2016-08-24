@@ -53,6 +53,7 @@ def fixed_assets(soi_data):
     bea_asset_names = bea_asset_names[['Asset Codes','NIPA Asset Types']]
     bea_asset_names.dropna(subset = ['Asset Codes'],inplace=True)
     bea_asset_names.rename(columns={"Asset Codes": "bea_asset_code", "NIPA Asset Types": "Asset Type"},inplace=True)
+    bea_asset_names['bea_asset_code'] = bea_asset_names['bea_asset_code'].str.strip()
     bea_asset_names['Asset Type'] = bea_asset_names['Asset Type'].str.strip()
 
     # Merge asset names to asset data
@@ -82,6 +83,19 @@ def fixed_assets(soi_data):
     bea_FA = pd.merge(bea_FA, soi_bea_ind_codes, how='left', left_on=['bea_ind_code'],
       right_on=['bea_code'], left_index=False, right_index=False, sort=False,
       copy=True)
+
+    # Merge SOI data to BEA data
+    bea_FA = bea_FA[['assets','bea_asset_code','bea_ind_code','Asset Type', 'minor_code_alt']].copy()
+    soi_data = soi_data[['minor_code_alt','Fixed Assets','entity_type','tax_treat']].copy()
+    bea_FA= pd.merge(bea_FA, soi_data, how='inner', left_on=['minor_code_alt'],
+      right_on=['minor_code_alt'], left_index=False, right_index=False, sort=False,
+      copy=True,indicator=False)
+
+    bea_FA['FA_ratio'] = bea_FA.groupby(['bea_ind_code','bea_asset_code'])['Fixed Assets'].apply(lambda x: x/float(x.sum()))
+    bea_FA['assets'] = bea_FA['FA_ratio']*bea_FA['assets']
+
+    ## Totals match up w/in rounding error of BEA if exclude Fed banks (who are
+    # not in tax data, so we want to exclude), BEA industry code 5120.
 
     return bea_FA
 
@@ -115,7 +129,7 @@ def inventories(soi_data):
 
     return bea_inventories
 
-def land(soi_data):
+def land(soi_data, bea_FA):
     """Opens the BEA workbook and pulls out the asset info
 
         :param entity_dfs: Contains all the soi data by entity type
@@ -166,33 +180,31 @@ def land(soi_data):
     noncorp_land -= owner_occ_house_land
 
     # attribute land across tax treatment and industry using SOI data
-    soi_data.loc[:,'BEA Land'] = noncorp_land
-    soi_data.ix[soi_data['entity_type']=='s_corp', 'BEA Land'] = corp_land
-    soi_data.ix[soi_data['entity_type']=='c_corp', 'BEA Land'] = corp_land
-    soi_data['BEA Corp'] = False
-    soi_data.ix[soi_data['entity_type']=='s_corp', 'BEA Corp'] = True
-    soi_data.ix[soi_data['entity_type']=='c_corp', 'BEA Corp'] = True
+    bea_land = soi_data.copy()
+    bea_land.loc[:,'BEA Land'] = noncorp_land
+    bea_land.ix[bea_land['entity_type']=='s_corp', 'BEA Land'] = corp_land
+    bea_land.ix[bea_land['entity_type']=='c_corp', 'BEA Land'] = corp_land
+    bea_land['BEA Corp'] = False
+    bea_land.ix[bea_land['entity_type']=='s_corp', 'BEA Corp'] = True
+    bea_land.ix[bea_land['entity_type']=='c_corp', 'BEA Corp'] = True
 
-    soi_data['land_ratio'] = soi_data.groupby(['BEA Corp'])['Land'].apply(lambda x: x/float(x.sum()))
-    soi_data['BEA Land'] = soi_data['land_ratio']*soi_data['BEA Land']
+    bea_land['land_ratio'] = bea_land.groupby(['BEA Corp'])['Land'].apply(lambda x: x/float(x.sum()))
+    bea_land['BEA Land'] = bea_land['land_ratio']*bea_land['BEA Land']
 
     # total land attributed above matches Fin Accts totals for non-owner occ housing
 
     # attribute residential fixed assets across tax treatment (they all got to
     # one specific production sector)
-    soi_data.loc[:,'BEA Fixed Assets'] = 0.
-    soi_data.loc[:,'BEA Res Assets'] = noncorp_res_FA
-    soi_data.ix[soi_data['entity_type']=='s_corp', 'BEA Res Assets'] = corp_res_FA
-    soi_data.ix[soi_data['entity_type']=='c_corp', 'BEA Res Assets'] = corp_res_FA
-    soi_data['res_FA_ratio'] = soi_data.groupby(['BEA Corp','minor_code_alt'])['Land'].apply(lambda x: x/float(x.sum()))
+    bea_FA.loc[:,'BEA Res Assets'] = noncorp_res_FA
+    bea_FA.ix[bea_FA['entity_type']=='s_corp', 'BEA Res Assets'] = corp_res_FA
+    bea_FA.ix[bea_FA['entity_type']=='c_corp', 'BEA Res Assets'] = corp_res_FA
+    bea_FA['res_FA_ratio'] = bea_FA.groupby(['BEA Corp','minor_code_alt'])['Land'].apply(lambda x: x/float(x.sum()))
 
-    soi_data['BEA Res Assets'] = soi_data['res_FA_ratio']*soi_data['BEA Res Assets']
+    bea_FA['BEA Res Assets'] = bea_FA['res_FA_ratio']*bea_FA['BEA Res Assets']
     # add to residential buidling realestate industry fixed assets only
-    soi_data.ix[soi_data['minor_code_alt']==531115, 'BEA Fixed Assets'] += soi_data['BEA Res Assets']
-    soi_data.to_csv('testDF.csv')
-    quit()
+    bea_FA.ix[bea_FA['minor_code_alt']==531115, 'BEA Fixed Assets'] += bea_FA['BEA Res Assets']
 
 
 
 
-    return bea_land
+    return bea_land, bea_FA

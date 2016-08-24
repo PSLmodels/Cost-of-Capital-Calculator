@@ -40,14 +40,15 @@ def run_btax(**user_params):
     # get soi totals for assets
     soi_data = pull_soi_data()
 
+    # read in the BEA data on fixed assets and separate them by corp and non-corp
+    fixed_assets = read_bea.fixed_assets(soi_data)
+
     # read in BEA data on inventories and separate by corp and non-corp and industry
     inventories = read_bea.inventories(soi_data)
 
     # read in BEA data on land and separate by corp and non-corp and industry
-    land = read_bea.land(soi_data)
-
-    # read in the BEA data on fixed assets and separate them by corp and non-corp
-    fixed_assets = read_bea.fixed_assets(soi_data)
+    # this function also takes care of residential fixed assets
+    land, fixed_assets = read_bea.land(soi_data, bea_FA)
 
     # get parameters
     parameters = params.get_params(**user_params)
