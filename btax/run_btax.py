@@ -37,7 +37,7 @@ def run_btax(**user_params):
 	:returns: METR (by industry and asset) and METTR (by asset)
 	:rtype: DataFrame
     """
-    calc_assets = True
+    calc_assets = False
 
     if calc_assets:
         # get soi totals for assets

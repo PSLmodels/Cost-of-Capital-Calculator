@@ -175,7 +175,8 @@ def land(soi_data, bea_FA):
                       'entity_type':['owner_occupied_housing','owner_occupied_housing'],
                       'tax_treat':['owner_occupied_housing','owner_occupied_housing'],
                       'assets':[np.asscalar(owner_occ_house_FA),np.asscalar(owner_occ_house_land)],
-                      'Asset Type':['Residential','Land'],'bea_ind_code':[5310,5310]}
+                      'Asset Type':['Residential','Land'],'bea_ind_code':[5310,5310],
+                      'bea_asset_code':['RES','LAND']}
 
     # update amout of land for non-corporate sector
     noncorp_land -= owner_occ_house_land
@@ -236,10 +237,12 @@ def combine(fixed_assets,inventories,land,res_assets,owner_occ_dict):
     inventories.rename(columns={"BEA Inventories":"assets",
                                 "bea_code":"bea_ind_code"},inplace=True)
     inventories['Asset Type'] = 'Inventories'
+    inventories['bea_asset_code'] = 'INV'
     land = land[['BEA Land', 'entity_type', 'tax_treat', 'bea_code', 'minor_code_alt']].copy()
     land.rename(columns={"BEA Land":"assets",
                          "bea_code":"bea_ind_code"},inplace=True)
     land['Asset Type'] = 'Land'
+    land['bea_asset_code'] = 'LAND'
 
 
 

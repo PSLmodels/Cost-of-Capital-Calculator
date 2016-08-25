@@ -66,11 +66,19 @@ def asset_calcs(params,asset_data):
     output_by_asset['asset_category'] = output_by_asset['Asset Type']
     output_by_asset['asset_category'].replace(asset_dict,inplace=True)
 
-    # merge in dollar value of assets
-    bea = asset_data.copy()
-    bea_assets = (pd.DataFrame({'assets' : bea.groupby('bea_asset_code')['assets'].sum()})).reset_index()
+    # merge in dollar value of assets - sep for corp and non-corp
+    # should be able to do this better with pivot table
+    bea_corp = asset_data[asset_data['tax_treat']=='corporate'].copy()
+    bea_noncorp = asset_data[asset_data['tax_treat']=='non-corporate'].copy()
+    bea_corp_assets = (pd.DataFrame({'assets' : bea_corp.groupby('bea_asset_code')['assets'].sum()})).reset_index()
+    bea_noncorp_assets = (pd.DataFrame({'assets' : bea_noncorp.groupby('bea_asset_code')['assets'].sum()})).reset_index()
+    bea_corp_assets.rename(columns={"assets": "assets_c"},inplace=True)
+    bea_noncorp_assets.rename(columns={"assets": "assets_nc"},inplace=True)
 
-    output_by_asset = pd.merge(output_by_asset, bea_assets, how='left', left_on=['bea_asset_code'],
+    output_by_asset = pd.merge(output_by_asset, bea_corp_assets, how='left', left_on=['bea_asset_code'],
+      right_on=['bea_asset_code'], left_index=False, right_index=False, sort=False,
+      copy=True)
+    output_by_asset = pd.merge(output_by_asset, bea_noncorp_assets, how='left', left_on=['bea_asset_code'],
       right_on=['bea_asset_code'], left_index=False, right_index=False, sort=False,
       copy=True)
 
