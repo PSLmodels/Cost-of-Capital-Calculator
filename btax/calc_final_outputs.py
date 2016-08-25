@@ -19,7 +19,7 @@ from btax.util import get_paths
 globals().update(get_paths())
 
 
-def asset_calcs(params,fixed_assets):
+def asset_calcs(params,asset_data):
     """Computes rho, METR, and METTR at the asset level.
 
         :param params: Constants used in the calculation
@@ -67,7 +67,7 @@ def asset_calcs(params,fixed_assets):
     output_by_asset['asset_category'].replace(asset_dict,inplace=True)
 
     # merge in dollar value of assets
-    bea = fixed_assets.copy()
+    bea = asset_data.copy()
     bea_assets = (pd.DataFrame({'assets' : bea.groupby('bea_asset_code')['assets'].sum()})).reset_index()
 
     output_by_asset = pd.merge(output_by_asset, bea_assets, how='left', left_on=['bea_asset_code'],
@@ -77,7 +77,7 @@ def asset_calcs(params,fixed_assets):
     return output_by_asset
 
 
-def industry_calcs(params, fixed_assets, output_by_asset):
+def industry_calcs(params, asset_data, output_by_asset):
     """Calculates the cost of capital and marginal effective tax rates by industry
 
         :param agg_fa: Fixed assets organized by entity, asset, and industry
@@ -104,7 +104,7 @@ def industry_calcs(params, fixed_assets, output_by_asset):
     ind_dict = params['ind_dict']
 
     # initialize dataframe - start w/ fixed assets by industry and asset type
-    bea = fixed_assets.copy()
+    bea = asset_data.copy()
 
     # merge cost of capital, depreciation rates by asset
     df2 = output_by_asset[['bea_asset_code', 'delta','z_c','z_c_d','z_c_e','z_nc', 'z_nc_d',

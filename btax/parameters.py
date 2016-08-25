@@ -204,8 +204,8 @@ def get_params(**user_mods):
           'Other Industrial Equipment'))
     asset_dict.update(dict.fromkeys(['Service industry machinery','Other electrical','Other'],
           'Other Equipment'))
-    # my_dict.update(dict.fromkeys([],
-    #       'Residential Buildings'))
+    asset_dict.update(dict.fromkeys(['Residential'],
+          'Residential Buildings'))
     asset_dict.update(dict.fromkeys(['Office','Hospitals','Special care','Medical buildings','Multimerchandise shopping',
           'Food and beverage establishments','Warehouses','Mobile structures','Other commercial',
           'Religious','Educational and vocational','Lodging'],
