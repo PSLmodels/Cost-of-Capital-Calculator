@@ -56,6 +56,7 @@ def get_paths():
     paths['_RAW_DIR'] = _RAW_DIR = os.path.join(_DATA_DIR, 'raw_data')
     paths['_DEPR_DIR'] = _DEPR_DIR = os.path.join(_DATA_DIR, 'depreciation_rates')
     paths['_BEA_DIR'] = _BEA_DIR = os.path.join(_RAW_DIR, 'BEA')
+    paths['_FIN_ACCT_DIR'] = _FIN_ACCT_DIR = os.path.join(_RAW_DIR, 'national_accounts')
     paths['_OUT_DIR'] = os.environ.get('BTAX_OUT_DIR', 'btax_output_dir')
     if not os.path.exists(paths['_OUT_DIR']):
         os.mkdir(paths['_OUT_DIR'])
@@ -65,6 +66,10 @@ def get_paths():
     paths['_BEA_CROSS'] = _BEA_CROSS = os.path.join(_BEA_DIR, 'BEA_Crosswalk.csv')
     paths['_SOI_CROSS'] = _SOI_CROSS = os.path.join(_BEA_DIR, 'NAICS_SOI_crosswalk.csv')
     paths['_SOI_BEA_CROSS'] = _SOI_BEA_CROSS = os.path.join(_BEA_DIR, 'soi_bea_industry_codes.csv')
+    paths['_BEA_INV'] = _BEA_INV = os.path.join(_BEA_DIR, 'NIPA_5.8.5B.xls')
+    paths['_BEA_RES'] = _BEA_RES = os.path.join(_BEA_DIR, 'BEA_StdFixedAsset_Table5.1.xls')
+    paths['_LAND_PATH'] = _LAND_PATH = os.path.join(_FIN_ACCT_DIR, '')
+    paths['_B101_PATH'] = _B101_PATH = os.path.join(_FIN_ACCT_DIR, 'b101.csv')
     paths['_ECON_DEPR_IN_PATH'] = _ECON_DEPR_IN_PATH = os.path.join(_DEPR_DIR, 'Economic Depreciation Rates.csv')
     paths['_TAX_DEPR'] = _TAX_DEPR = os.path.join(_DEPR_DIR, 'BEA_IRS_Crosswalk.csv')
     paths['_NAICS_CODE_PATH'] = _NAICS_CODE_PATH = os.path.join(_DATA_DIR, 'NAICS_Codes.csv')
@@ -74,23 +79,27 @@ def get_paths():
     paths['_TOT_CORP_IN_PATH'] = _TOT_CORP_IN_PATH = os.path.join(_CORP_DIR, '2011sb1.csv')
     paths['_S_CORP_IN_PATH'] = _S_CORP_IN_PATH = os.path.join(_CORP_DIR, '2011sb3.csv')
     paths['_PRT_DIR'] = _PRT_DIR = os.path.join(_SOI_DIR, 'soi_partner')
+    paths['_DETAIL_PART_CROSS_PATH'] = _DETAIL_PART_CROSS_PATH = os.path.join(_PRT_DIR, 'partner_crosswalk_detailed_industries.csv')
     paths['_INC_IN_CROSS_PATH'] = _INC_IN_CROSS_PATH = os.path.join(_PRT_DIR, '12pa01_Crosswalk.csv')
     paths['_AST_IN_CROSS_PATH'] = _AST_IN_CROSS_PATH = os.path.join(_PRT_DIR, '12pa03_Crosswalk.csv')
     paths['_TYP_IN_CROSS_PATH'] = _TYP_IN_CROSS_PATH = os.path.join(_PRT_DIR, '12pa05_Crosswalk.csv')
-    paths['_XLS_FILE_1'] = _XLS_FILE_1 = os.path.join(_PRT_DIR, '12pa01.xls')
-    paths['_XLS_FILE_2'] = _XLS_FILE_2 = os.path.join(_PRT_DIR, '12pa03.xlsx')
-    paths['_INC_FILE'] = _INC_FILE = os.path.join(_PRT_DIR, '12pa01.csv')
-    paths['_AST_FILE'] = _AST_FILE = os.path.join(_PRT_DIR, '12pa03.csv')
-    paths['_TYP_FILE'] = _TYP_FILE = os.path.join(_PRT_DIR, '12pa05.csv')
+    paths['_INC_FILE'] = _INC_FILE = os.path.join(_PRT_DIR, '12pa01.xls')
+    paths['_INC_FILE_CSV'] = _INC_FILE_CSV = os.path.join(_PRT_DIR, '12pa01.csv')
+    paths['_AST_FILE'] = _AST_FILE = os.path.join(_PRT_DIR, '12pa03.xlsx')
+    paths['_AST_profit_FILE'] = _AST_profit_FILE = os.path.join(_PRT_DIR, '12pa03_profit.xlsx')
+    paths['_AST_FILE_CSV'] = _AST_FILE_CSV = os.path.join(_PRT_DIR, '12pa03.csv')
+    paths['_TYP_FILE'] = _TYP_FILE = os.path.join(_PRT_DIR, '12pa05.xls')
+    paths['_TYP_FILE_CSV'] = _TYP_FILE_CSV = os.path.join(_PRT_DIR, '12pa05.csv')
     paths['_PROP_DIR'] = _PROP_DIR = os.path.join(_SOI_DIR, 'soi_proprietorship')
     paths['_PRT_DIR'] = _PRT_DIR = os.path.join(_SOI_DIR, 'soi_partner')
     paths['_NFARM_PATH'] = _NFARM_PATH = os.path.join(_PROP_DIR, '12sp01br.csv')
     paths['_FARM_IN_PATH'] = _FARM_IN_PATH = os.path.join(_PROP_DIR, 'farm_data.csv')
-    paths['_PRT_INC'] = _PRT_INC = os.path.join(_PRT_DIR, '12pa01.csv')
-    paths['_PRT_ASST'] = _PRT_ASST = os.path.join(_PRT_DIR, '12pa03.csv')
+    # paths['_PRT_INC'] = _PRT_INC = os.path.join(_PRT_DIR, '12pa01.csv')
+    # paths['_PRT_ASST'] = _PRT_ASST = os.path.join(_PRT_DIR, '12pa03.csv')
     paths['_NFARM_INV'] = _NFARM_INV = os.path.join(_PROP_DIR, '12sp02is.csv')
     paths['_PRT_CROSS'] = _PRT_CROSS = os.path.join(_PRT_DIR, '12pa01_Crosswalk.csv')
     paths['_DDCT_IN_CROSS_PATH'] = _DDCT_IN_CROSS_PATH = os.path.join(_PROP_DIR, '12sp01br_Crosswalk.csv')
+    paths['_DETAIL_SOLE_PROP_CROSS_PATH'] = _DETAIL_SOLE_PROP_CROSS_PATH = os.path.join(_PROP_DIR, 'detail_sole_prop_crosswalk.csv')
     paths['_SOI_CODES'] = _SOI_CODES = os.path.join(_SOI_DIR, 'SOI_codes.csv')
     return paths
 
@@ -99,7 +108,7 @@ def str_modified(i):
     if i == 27.5:
         str_i = '27_5'
     else:
-        str_i = str(i)
+        str_i = str(int(i))
     return str_i
 
 

@@ -49,26 +49,36 @@ def run_btax(**user_params):
 	:returns: METR (by industry and asset) and METTR (by asset)
 	:rtype: DataFrame
     """
-    # break out the asset data by entity type (c corp, s corp, sole proprietorships, and partners)
-    #entity_dfs = pull_soi_data()
+    calc_assets = False
+
+    if calc_assets:
+        # get soi totals for assets
+        soi_data = pull_soi_data()
+        # read in the BEA data on fixed assets and separate them by corp and non-corp
+        fixed_assets = read_bea.fixed_assets(soi_data)
+        # read in BEA data on inventories and separate by corp and non-corp and industry
+        inventories = read_bea.inventories(soi_data)
+        # read in BEA data on land and separate by corp and non-corp and industry
+        # this function also takes care of residential fixed assets
+        # and the owner-occupied housing sector
+        land, res_assets, owner_occ_dict = read_bea.land(soi_data, fixed_assets)
+        # put all asset data together
+        asset_data = read_bea.combine(fixed_assets,inventories,land,res_assets,owner_occ_dict)
+    else:
+        asset_data = pickle.load(open('asset_data.pkl', 'rb'))
 
     # get parameters
     parameters = params.get_params(**user_params)
 
-    # read in the BEA data on fixed assets and separate them by corp and non-corp
-    fixed_assets = read_bea.read_bea()
-
     # make calculations by asset and create formated output
-    output_by_asset = calc_final_outputs.asset_calcs(parameters,fixed_assets)
-    output_by_asset.to_csv('testDF.csv',encoding='utf-8')
+    output_by_asset = calc_final_outputs.asset_calcs(parameters,asset_data)
     pickle.dump( output_by_asset, open( "by_asset.pkl", "wb" ) )
 
     # check against CBO
     format_output.CBO_compare(output_by_asset)
 
     # make calculations by industry and create formated output
-    output_by_industry = calc_final_outputs.industry_calcs(parameters, fixed_assets, output_by_asset)
-
+    output_by_industry = calc_final_outputs.industry_calcs(parameters, asset_data, output_by_asset)
 
     # create plots
     # by asset

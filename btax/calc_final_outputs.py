@@ -19,7 +19,7 @@ from btax.util import get_paths
 globals().update(get_paths())
 
 
-def asset_calcs(params,fixed_assets):
+def asset_calcs(params,asset_data):
     """Computes rho, METR, and METTR at the asset level.
 
         :param params: Constants used in the calculation
@@ -66,18 +66,26 @@ def asset_calcs(params,fixed_assets):
     output_by_asset['asset_category'] = output_by_asset['Asset Type']
     output_by_asset['asset_category'].replace(asset_dict,inplace=True)
 
-    # merge in dollar value of assets
-    bea = fixed_assets.copy()
-    bea_assets = (pd.DataFrame({'assets' : bea.groupby('bea_asset_code')['assets'].sum()})).reset_index()
+    # merge in dollar value of assets - sep for corp and non-corp
+    # should be able to do this better with pivot table
+    bea_corp = asset_data[asset_data['tax_treat']=='corporate'].copy()
+    bea_noncorp = asset_data[asset_data['tax_treat']=='non-corporate'].copy()
+    bea_corp_assets = (pd.DataFrame({'assets' : bea_corp.groupby('bea_asset_code')['assets'].sum()})).reset_index()
+    bea_noncorp_assets = (pd.DataFrame({'assets' : bea_noncorp.groupby('bea_asset_code')['assets'].sum()})).reset_index()
+    bea_corp_assets.rename(columns={"assets": "assets_c"},inplace=True)
+    bea_noncorp_assets.rename(columns={"assets": "assets_nc"},inplace=True)
 
-    output_by_asset = pd.merge(output_by_asset, bea_assets, how='left', left_on=['bea_asset_code'],
+    output_by_asset = pd.merge(output_by_asset, bea_corp_assets, how='left', left_on=['bea_asset_code'],
+      right_on=['bea_asset_code'], left_index=False, right_index=False, sort=False,
+      copy=True)
+    output_by_asset = pd.merge(output_by_asset, bea_noncorp_assets, how='left', left_on=['bea_asset_code'],
       right_on=['bea_asset_code'], left_index=False, right_index=False, sort=False,
       copy=True)
 
     return output_by_asset
 
 
-def industry_calcs(params, fixed_assets, output_by_asset):
+def industry_calcs(params, asset_data, output_by_asset):
     """Calculates the cost of capital and marginal effective tax rates by industry
 
         :param agg_fa: Fixed assets organized by entity, asset, and industry
@@ -104,7 +112,7 @@ def industry_calcs(params, fixed_assets, output_by_asset):
     ind_dict = params['ind_dict']
 
     # initialize dataframe - start w/ fixed assets by industry and asset type
-    bea = fixed_assets.copy()
+    bea = asset_data.copy()
 
     # merge cost of capital, depreciation rates by asset
     df2 = output_by_asset[['bea_asset_code', 'delta','z_c','z_c_d','z_c_e','z_nc', 'z_nc_d',
@@ -115,27 +123,43 @@ def industry_calcs(params, fixed_assets, output_by_asset):
       copy=True)
 
     # create weighted averages by industry/tax treatment
-    by_industry = pd.DataFrame({'delta' : by_industry_asset.groupby( ['bea_ind_code'] ).apply(wavg, "delta", "assets")}).reset_index()
+    by_industry_tax = pd.DataFrame({'delta' : by_industry_asset.groupby(
+        ['bea_ind_code','tax_treat'] ).apply(wavg, "delta", "assets")}).reset_index()
     col_list = ['z_c','z_c_d','z_c_e','z_nc', 'z_nc_d',
                         'z_nc_e', 'rho_c','rho_c_d','rho_c_e','rho_nc',
                         'rho_nc_d', 'rho_nc_e']
     for item in col_list:
-        by_industry[item] = (pd.DataFrame({item : by_industry_asset.groupby('bea_ind_code').apply(wavg, item, "assets")})).reset_index()[item]
+        by_industry_tax[item] = (pd.DataFrame({item : by_industry_asset.groupby(
+            ['bea_ind_code','tax_treat']).apply(wavg, item, "assets")})).reset_index()[item]
 
-    by_industry['assets'] = (pd.DataFrame({'assets' : by_industry_asset.groupby('bea_ind_code')['assets'].sum()})).reset_index()['assets']
+    by_industry_tax['assets'] = (pd.DataFrame({'assets' : by_industry_asset.groupby(
+        ['bea_ind_code','tax_treat'])['assets'].sum()})).reset_index()['assets']
 
     # calculate the cost of capital, metr, mettr
     for i in range(save_rate.shape[0]):
         for j in range(save_rate.shape[1]):
-            by_industry['metr'+entity_list[j]+financing_list[i]] = \
-                ((by_industry['rho'+entity_list[j]+financing_list[i]] -
-                (r_prime[i,j] - inflation_rate))/(by_industry['rho'+entity_list[j]+financing_list[i]]))
-            by_industry['mettr'+entity_list[j]+financing_list[i]] = \
-                ((by_industry['rho'+entity_list[j]+financing_list[i]] -
-                save_rate[i,j])/(by_industry['rho'+entity_list[j]+financing_list[i]]))
+            by_industry_tax['metr'+entity_list[j]+financing_list[i]] = \
+                ((by_industry_tax['rho'+entity_list[j]+financing_list[i]] -
+                (r_prime[i,j] - inflation_rate))/(by_industry_tax['rho'+entity_list[j]+financing_list[i]]))
+            by_industry_tax['mettr'+entity_list[j]+financing_list[i]] = \
+                ((by_industry_tax['rho'+entity_list[j]+financing_list[i]] -
+                save_rate[i,j])/(by_industry_tax['rho'+entity_list[j]+financing_list[i]]))
+
+    # put together in different format (later we should consider changing how
+    # output is handled and do long format)
+    corp = by_industry_tax[by_industry_tax['tax_treat']=='corporate'].copy()
+    non_corp = by_industry_tax[by_industry_tax['tax_treat']=='non-corporate'].copy()
+    corp = corp[['bea_ind_code','delta','z_c','z_c_d','z_c_e','rho_c','rho_c_d','rho_c_e',
+                 'metr_c','metr_c_d','metr_c_e','mettr_c','mettr_c_d','mettr_c_e','assets']].copy()
+    non_corp = non_corp[['bea_ind_code','delta','z_nc','z_nc_d','z_nc_e','rho_nc','rho_nc_d','rho_nc_e',
+                 'metr_nc','metr_nc_d','metr_nc_e','mettr_nc','mettr_nc_d','mettr_nc_e','assets']].copy()
+    corp.rename(columns={"delta": "delta_c","assets": "assets_c"},inplace=True)
+    non_corp.rename(columns={"delta": "delta_nc","assets": "assets_nc"},inplace=True)
+    by_industry = pd.merge(corp, non_corp, how='inner', on=['bea_ind_code'],
+                           left_index=False, right_index=False, sort=False,copy=True)
 
     # merge in industry names
-    df3 = fixed_assets[['Industry','bea_ind_code']]
+    df3 = asset_data[['Industry','bea_ind_code']]
     df3.drop_duplicates(inplace=True)
     by_industry = pd.merge(by_industry, df3, how='left', left_on=['bea_ind_code'],
       right_on=['bea_ind_code'], left_index=False, right_index=False, sort=False,

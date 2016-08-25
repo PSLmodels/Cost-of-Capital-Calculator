@@ -95,3 +95,6 @@ AE20,Long-lived television programs,0.168
 AE30,Books,0.121
 AE40,Music,0.267
 AE50,Other entertainment originals,0.109
+RES,Residential,0.01631376
+LAND,Land,0
+INV,Inventories,0
