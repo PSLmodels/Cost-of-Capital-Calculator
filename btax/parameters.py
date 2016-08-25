@@ -124,6 +124,9 @@ def get_params(**user_mods):
     # we don't have IP class in user params, so put here
     bonus_deprec['50'] = 0.
     deprec_system['50'] = 'ADS'
+    # also for land and inventories which don't have tax deprec
+    bonus_deprec['100'] = 0.
+    deprec_system['100'] = 'ADS'
 
     tau_nc = 0.331 # tax rate on non-corporate business income
     tau_div = 0.184 # tax rate on dividend income

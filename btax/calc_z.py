@@ -51,6 +51,7 @@ def calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, tax_methods, fina
 
     # update tax_deprec_rates based on user defined parameters
     tax_deprec_rates['System'] = tax_deprec_rates['GDS'].apply(str_modified)
+    tax_deprec_rates.to_csv('testDF6.csv',encoding='utf-8')
     tax_deprec_rates['System'].replace(deprec_system,inplace=True)
 
     # add bonus depreciation to tax deprec parameters dataframe
