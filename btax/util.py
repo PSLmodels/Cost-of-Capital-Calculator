@@ -108,7 +108,7 @@ def str_modified(i):
     if i == 27.5:
         str_i = '27_5'
     else:
-        str_i = str(i)
+        str_i = str(int(i))
     return str_i
 
 

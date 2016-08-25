@@ -67,14 +67,11 @@ def run_btax(**user_params):
     else:
         asset_data = pickle.load(open('asset_data.pkl', 'rb'))
 
-    asset_data.to_csv('testDF5.csv',encoding="utf-8")
-
     # get parameters
     parameters = params.get_params(**user_params)
 
     # make calculations by asset and create formated output
     output_by_asset = calc_final_outputs.asset_calcs(parameters,asset_data)
-    output_by_asset.to_csv('testDF2.csv',encoding='utf-8')
     pickle.dump( output_by_asset, open( "by_asset.pkl", "wb" ) )
 
     # check against CBO
@@ -82,7 +79,6 @@ def run_btax(**user_params):
 
     # make calculations by industry and create formated output
     output_by_industry = calc_final_outputs.industry_calcs(parameters, asset_data, output_by_asset)
-    output_by_industry.to_csv('testDF3.csv',encoding='utf-8')
 
     # create plots
     # by asset

@@ -106,7 +106,7 @@ def asset_crossfilter(output_by_assets):
     y = Select(title='Y-Axis', value='asset_category', options=columns)
     y.on_change('value', update)
 
-    size = Select(title='Size', value='assets', options=['None'] + quantileable)
+    size = Select(title='Size', value='assets_c', options=['None'] + quantileable)
     size.on_change('value', update)
 
     # color = Select(title='Color', value='None', options=['None'] + quantileable)

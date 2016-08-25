@@ -57,23 +57,20 @@ def calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, tax_methods, fina
     # add bonus depreciation to tax deprec parameters dataframe
     tax_deprec_rates['bonus'] = tax_deprec_rates['GDS'].apply(str_modified)
     tax_deprec_rates['bonus'].replace(bonus_deprec,inplace=True)
-    print bonus_deprec
-    tax_deprec_rates.to_csv('testDF4.csv',encoding='utf-8')
-    quit()
+
     # merge in econ depreciation rates
     tax_deprec_rates = pd.merge(tax_deprec_rates, delta, how='left', left_on=['Asset Type'],
       right_on=['Asset'], left_index=False, right_index=False, sort=False,
       copy=True)
 
     z = npv_tax_deprec(tax_deprec_rates, r, tax_methods, financing_list, entity_list)
-    z.to_csv('testDF2.csv',encoding='utf-8')
+
     # replace tax depreciation rates on land and inventories w/ zero
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
             z.ix[z['Asset Type']=='Land', 'z'+entity_list[j]+financing_list[i]] = 0
             z.ix[z['Asset Type']=='Inventories', 'z'+entity_list[j]+financing_list[i]] = 0
-    z.to_csv('testDF.csv',encoding='utf-8')
-    quit()
+
     return z
 
 def npv_tax_deprec(df, r, tax_methods, financing_list, entity_list):
