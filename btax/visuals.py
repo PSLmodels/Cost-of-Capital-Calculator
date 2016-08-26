@@ -72,7 +72,7 @@ Plot results
 SIZES = list(range(6, 22, 3))
 COLORS = Reds9
 
-def asset_crossfilter(output_by_assets):
+def asset_crossfilter(output_by_assets,baseline):
     """Creates a crossfilter bokeh plot of results by asset
 
         :output_by_assets: Contains output by asset
@@ -132,7 +132,7 @@ def asset_crossfilter(output_by_assets):
     plot = curdoc()
     #plot.circle([1,2], [3,4])
     html = file_html(plot, CDN, "my plot")
-    file = open("crossfilter_html.html","wb") #open file in binary mode
+    file = open(baseline+"crossfilter_html.html","wb") #open file in binary mode
     file.writelines(html)
     file.close()
 

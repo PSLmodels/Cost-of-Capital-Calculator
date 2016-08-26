@@ -74,18 +74,9 @@ def run_btax(**user_params):
     output_by_asset = calc_final_outputs.asset_calcs(parameters,asset_data)
     pickle.dump( output_by_asset, open( "by_asset.pkl", "wb" ) )
 
-    # check against CBO
-    format_output.CBO_compare(output_by_asset)
-
     # make calculations by industry and create formated output
     output_by_industry = calc_final_outputs.industry_calcs(parameters, asset_data, output_by_asset)
 
-    # create plots
-    # by asset
-    visuals.asset_crossfilter(output_by_asset)
-    #visuals_plotly.asset_bubble(output_by_asset)
-
-    # print output_by_industry.head(n=50)
 
     return output_by_asset, output_by_industry
 
@@ -98,6 +89,21 @@ def run_btax_with_baseline_delta(**user_params):
                                             base_output_by_asset)
     delta_output_by_industry = diff_two_tables(reform_output_by_industry,
                                                base_output_by_industry)
+
+    # create plots
+    # by asset
+    visuals.asset_crossfilter(base_output_by_asset,'baseline')
+    visuals.asset_crossfilter(reform_output_by_asset,'reform')
+    #visuals_plotly.asset_bubble(output_by_asset)
+
+    # save output to csv - useful if run locally
+    base_output_by_industry.to_csv('baseline_byindustry.csv',encoding='utf-8')
+    reform_output_by_industry.to_csv('reform_byindustry.csv',encoding='utf-8')
+    base_output_by_asset.to_csv('base_byasset.csv',encoding='utf-8')
+    reform_output_by_asset.to_csv('reform_byasset.csv',encoding='utf-8')
+
+
+
     return ModelDiffs(base_output_by_asset,
                       reform_output_by_asset,
                       delta_output_by_asset,
