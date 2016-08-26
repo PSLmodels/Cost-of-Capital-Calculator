@@ -42,10 +42,12 @@ def translate_param_names(**user_mods):
         elif 'btax_depr_'+cl+'yr_tax_Switch':
             user_deprec_system[cl] = 'Economic'
 
-    user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
-    			 for cl in class_list_str}
+    # user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
+    # 			 for cl in class_list_str}
     # to zero out bonus - useful for compare to CBO
-    # user_bonus_deprec = {cl: 0.for cl in class_list_str}
+    user_bonus_deprec = {cl: 0.for cl in class_list_str}
+    # for expensing
+    # user_bonus_deprec = {cl: 1.for cl in class_list_str}
 
 
     if user_mods['btax_betr_entity_Switch'] in (True, 'True'):
@@ -110,7 +112,7 @@ def get_params(**user_mods):
     pi = user_params['pi']
     i = user_params['i']
     u_c = user_params['u_c']
-    u_nc = user_params['u_nc']
+    u_nc = 0.33 #0.331 # CBO(2014) user_params['u_nc']
     u_array = np.array([u_c, u_nc])
     w = user_params['w']
     inv_credit = user_params['inv_credit']
@@ -128,11 +130,11 @@ def get_params(**user_mods):
     bonus_deprec['100'] = 0.
     deprec_system['100'] = 'ADS'
 
-    tau_nc = 0.331 # tax rate on non-corporate business income
-    tau_div = 0.184 # tax rate on dividend income
-    tau_int = 0.274 # tax rate on interest income
-    tau_scg = 0.323 # tax rate on short term capital gains
-    tau_lcg = 0.212 # tax rate on long term capital gains
+    tau_nc = 0.33 # 0.331 # tax rate on non-corporate business income
+    tau_div = 0.1757 #0.184 # tax rate on dividend income
+    tau_int = 0.2379 # 0.274 # tax rate on interest income
+    tau_scg = 0.3131 #0.323 # tax rate on short term capital gains
+    tau_lcg = 0.222 #0.212 # tax rate on long term capital gains
     tau_xcg = 0.00 # tax rate on capital gains held to death
     tau_td = 0.215 # tax rate on return to equity held in tax defferred accounts
     tau_h = 0.181 # tax rate owner occupied housing deductions

@@ -117,10 +117,16 @@ def industry_calcs(params, asset_data, output_by_asset):
     # merge cost of capital, depreciation rates by asset
     df2 = output_by_asset[['bea_asset_code', 'delta','z_c','z_c_d','z_c_e','z_nc', 'z_nc_d',
                         'z_nc_e', 'rho_c','rho_c_d','rho_c_e','rho_nc',
-                        'rho_nc_d', 'rho_nc_e']].copy()
+                        'rho_nc_d', 'rho_nc_e','asset_category']].copy()
     by_industry_asset = pd.merge(bea, df2, how='left', left_on=['bea_asset_code'],
       right_on=['bea_asset_code'], left_index=False, right_index=False, sort=False,
       copy=True)
+
+    # drop Intellectual Property - not sure have it straight and CBO not include
+    by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Intellectual Property'].copy()
+    by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Land'].copy()
+    by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Inventories'].copy()
+
 
     # create weighted averages by industry/tax treatment
     by_industry_tax = pd.DataFrame({'delta' : by_industry_asset.groupby(
@@ -157,9 +163,8 @@ def industry_calcs(params, asset_data, output_by_asset):
     non_corp.rename(columns={"delta": "delta_nc","assets": "assets_nc"},inplace=True)
     by_industry = pd.merge(corp, non_corp, how='inner', on=['bea_ind_code'],
                            left_index=False, right_index=False, sort=False,copy=True)
-
     # merge in industry names
-    df3 = asset_data[['Industry','bea_ind_code']]
+    df3 = asset_data[['Industry','bea_ind_code']].copy()
     df3.drop_duplicates(inplace=True)
     by_industry = pd.merge(by_industry, df3, how='left', left_on=['bea_ind_code'],
       right_on=['bea_ind_code'], left_index=False, right_index=False, sort=False,

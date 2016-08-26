@@ -1,15 +1,15 @@
 Code,Asset,Economic Depreciation Rate
-EP1A,Mainframes,0.3
-EP1B,PCs,0.11
-EP1C,DASDs,0.28
-EP1D,Printers,0.35
-EP1E,Terminals,0.27
-EP1F,Tape drives,0.28
-EP1G,Storage devices,0.28
-EP1H,System integrators,0.3
+EP1A,Mainframes,0.4633
+EP1B,PCs,0.4633
+EP1C,DASDs,0.4633
+EP1D,Printers,0.4633
+EP1E,Terminals,0.4633
+EP1F,Tape drives,0.4633
+EP1G,Storage devices,0.4633
+EP1H,System integrators,0.4633
 EP20,Communications,0.1129
 EP34,Nonelectro medical instruments,0.135
-EP35,Electro medical instruments,0.1834
+EP35,Electro medical instruments,0.135
 EP36,Nonmedical instruments,0.135
 EP31,Photocopy and related equipment,0.18
 EP12,Office and accounting equipment,0.3119
@@ -17,11 +17,11 @@ EI11,Nuclear fuel,0.25
 EI12,Other fabricated metals,0.0917
 EI21,Steam engines,0.0516
 EI22,Internal combustion engines,0.2063
-EI30,Metalworking machinery,0.1031
-EI40,Special industrial machinery,0.15
-EI50,General industrial equipment,0.15
+EI30,Metalworking machinery,0.1225
+EI40,Special industrial machinery,0.1031
+EI50,General industrial equipment,0.1072
 EI60,Electric transmission and distribution,0.05
-ET11,Light trucks (including utility vehicles),0.1925
+ET11,Light trucks (including utility vehicles),0.1725
 ET12,"Other trucks, buses and truck trailers",0.1725
 ET20,Autos,0.3333
 ET30,Aircraft,0.0859
@@ -44,13 +44,13 @@ SB32,Special care,0.0188
 SOO2,Medical buildings,0.0247
 SC03,Multimerchandise shopping,0.0262
 SC04,Food and beverage establishments,0.0262
-SC01,Warehouses,0.0222
+SC01,Warehouses,0.0225
 SOMO ,Mobile structures,0.0556
 SC02,Other commercial,0.0262
 SI00,Manufacturing,0.0314
 SU30,Electric,0.0211
 SU60,Wind and solar,0.0303
-SU40,Gas,0.0237
+SU40,Gas,0.0751
 SU50,Petroleum pipelines,0.0237
 SU20,Communication,0.0237
 SM01,Petroleum and natural gas,0.0751

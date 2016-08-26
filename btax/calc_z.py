@@ -51,7 +51,6 @@ def calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, tax_methods, fina
 
     # update tax_deprec_rates based on user defined parameters
     tax_deprec_rates['System'] = tax_deprec_rates['GDS'].apply(str_modified)
-    tax_deprec_rates.to_csv('testDF6.csv',encoding='utf-8')
     tax_deprec_rates['System'].replace(deprec_system,inplace=True)
 
     # add bonus depreciation to tax deprec parameters dataframe
@@ -98,7 +97,6 @@ def npv_tax_deprec(df, r, tax_methods, financing_list, entity_list):
     # append gds and ads results
     df_all = df_gds.append(df_ads.append(df_econ,ignore_index=True), ignore_index=True)
 
-    df_all.to_csv('testDF3.csv',encoding='utf-8')
     return df_all
 
 def dbsl(df, r, financing_list, entity_list):
