@@ -136,7 +136,7 @@ def get_params(**user_mods):
     tau_scg = 0.3131 #0.323 # tax rate on short term capital gains
     tau_lcg = 0.222 #0.212 # tax rate on long term capital gains
     tau_xcg = 0.00 # tax rate on capital gains held to death
-    tau_td = 0.215 # tax rate on return to equity held in tax defferred accounts
+    tau_td = 0.215 # tax rate on return to equity held in tax deferred accounts
     tau_h = 0.181 # tax rate owner occupied housing deductions
     Y_td = 8.
     Y_scg = 4/12.
