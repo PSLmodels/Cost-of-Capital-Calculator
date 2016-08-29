@@ -148,9 +148,9 @@ def get_rates(baseline=False, start_year=2016, reform={}):
     [mtr_fica_schC, mtr_iit_schC, mtr_combined_schC] = calc1.mtr('e00900p')
     # sch e
     [mtr_fica_schE, mtr_iit_schE, mtr_combined_schE] = calc1.mtr('e02000')
-    business_income_mtr = (sum([ abs(getattr(calc1.records, 'e00900')) * mtr_combined_schC
+    business_income_mtr = (sum([ abs(getattr(calc1.records, 'e00900p')) * mtr_combined_schC
                            + abs(getattr(calc1.records, 'e02000')) * mtr_combined_schE])/
-                            (sum(map(abs,getattr(calc1.records, 'e02000'))) +
+                            (sum(map(abs,getattr(calc1.records, 'e00900p'))) +
                             sum(map(abs,getattr(calc1.records, 'e02000')))))
     # dividends
     [mtr_fica_div, mtr_iit_div, mtr_combined_div] = calc1.mtr('e00650')
@@ -167,6 +167,7 @@ def get_rates(baseline=False, start_year=2016, reform={}):
     [mtr_fica_scg, mtr_iit_scg, mtr_combined_scg] = calc1.mtr('p22250')
     # long term capital gains
     [mtr_fica_lcg, mtr_iit_lcg, mtr_combined_lcg] = calc1.mtr('p23250')
+
     # pension distributions
     # does PUF have e01500?  Do we want IRA distributions here?
     # Weird - I see e01500 in PUF, but error when try to call it
@@ -174,36 +175,43 @@ def get_rates(baseline=False, start_year=2016, reform={}):
     # mortgage interest and property tax deductions
     # do we also want mtg ins premiums here?
     # mtg interest
-    [mtr_fica_mtg, mtr_iit_mtg, mtr_combined_mtg] = calc1.mtr('e19200')
-    # prop tax
-    [mtr_fica_prop, mtr_iit_prop, mtr_combined_prop] = calc1.mtr('e18500')
-    house_deduct_mtr = (sum([ abs(getattr(calc1.records, 'e19200')) * mtr_combined_mtg
-                           + abs(getattr(calc1.records, 'e18500')) * mtr_combined_prop])/
-                            (sum(map(abs,getattr(calc1.records, 'e19200'))) +
-                            sum(map(abs,getattr(calc1.records, 'e18500')))))
+    # [mtr_fica_mtg, mtr_iit_mtg, mtr_combined_mtg] = calc1.mtr('e19200')
+    # # prop tax
+    # [mtr_fica_prop, mtr_iit_prop, mtr_combined_prop] = calc1.mtr('e18500')
+    # house_deduct_mtr = (sum([ abs(getattr(calc1.records, 'e19200')) * mtr_combined_mtg
+    #                        + abs(getattr(calc1.records, 'e18500')) * mtr_combined_prop])/
+    #                         (sum(map(abs,getattr(calc1.records, 'e19200'))) +
+    #                         sum(map(abs,getattr(calc1.records, 'e18500')))))
 
 
-    tau_nc = ((business_income_mtr * (calc1.records.e00900+calc1.records.e02000) *
+    # tau_nc = ((business_income_mtr * (np.abs(calc1.records.e00900p)+np.abs(calc1.records.e02000)) *
+    #                        calc1.records.s006).sum() /
+    #                  ((np.abs(calc1.records.e00900p)+np.abs(calc1.records.e02000)) * calc1.records.s006).sum())
+    tau_nc = (((mtr_combined_schC*np.abs(calc1.records.e00900p))+(mtr_combined_schE*np.abs(calc1.records.e02000)) *
                            calc1.records.s006).sum() /
-                     ((calc1.records.e00900+calc1.records.e02000) * calc1.records.s006).sum())
+                     ((np.abs(calc1.records.e00900p)+np.abs(calc1.records.e02000)) * calc1.records.s006).sum())
     tau_div = ((mtr_combined_div * calc1.records.e00650 *
                            calc1.records.s006).sum() /
                      (calc1.records.e00650 * calc1.records.s006).sum())
-    tau_int = ((interest_income_mtr * (calc1.records.e00300+calc1.records.e00400) *
+    # tau_int = ((interest_income_mtr * (calc1.records.e00300+calc1.records.e00400) *
+    #                        calc1.records.s006).sum() /
+    #                  ((calc1.records.e00300+calc1.records.e00400) * calc1.records.s006).sum())
+    tau_int = ((mtr_combined_int * calc1.records.e00300 *
                            calc1.records.s006).sum() /
-                     ((calc1.records.e00300+calc1.records.e00400) * calc1.records.s006).sum())
-    tau_scg = ((mtr_combined_scg * calc1.records.e22250 *
+                     (calc1.records.e00300 * calc1.records.s006).sum())
+    tau_scg = ((mtr_combined_scg * np.abs(calc1.records.p22250) *
                            calc1.records.s006).sum() /
-                     (calc1.records.e22250 * calc1.records.s006).sum())
-    tau_lcg = ((mtr_combined_lcg * calc1.records.e23250 *
+                     (np.abs(calc1.records.p22250) * calc1.records.s006).sum())
+    tau_lcg = ((mtr_combined_lcg * np.abs(calc1.records.p23250) *
                            calc1.records.s006).sum() /
-                     (calc1.records.e23250 * calc1.records.s006).sum())
+                     (np.abs(calc1.records.p23250) * calc1.records.s006).sum())
     tau_td = ((mtr_combined_pension * calc1.records.e01500 *
                            calc1.records.s006).sum() /
                      (calc1.records.e01500 * calc1.records.s006).sum())
-    tau_h = ((house_deduct_mtr * (calc1.records.e19200+calc1.records.e18500) *
-                           calc1.records.s006).sum() /
-                     ((calc1.records.e19200+calc1.records.e18500) * calc1.records.s006).sum())
+    # tau_h = ((house_deduct_mtr * (calc1.records.e19200+calc1.records.e18500) *
+    #                        calc1.records.s006).sum() /
+    #                  ((calc1.records.e19200+calc1.records.e18500) * calc1.records.s006).sum())
+    tau_h = 0.181
 
 
     individual_rates = {'tau_nc':tau_nc,'tau_div':tau_div,'tau_int':tau_int,

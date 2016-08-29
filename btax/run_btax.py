@@ -41,7 +41,7 @@ TABLE_ORDER = ['base_output_by_asset',
                'delta_output_by_industry',]
 ModelDiffs = namedtuple('ModelDiffs', TABLE_ORDER)
 
-def run_btax(**user_params):
+def run_btax(baseline=False,start_year=2016,iit_reform={},**user_params):
     """Runner script that kicks off the calculations for B-Tax
 
 	:param user_params: The user input for implementing reforms
@@ -68,7 +68,7 @@ def run_btax(**user_params):
         asset_data = pickle.load(open('asset_data.pkl', 'rb'))
 
     # get parameters
-    parameters = params.get_params(**user_params)
+    parameters = params.get_params(baseline,start_year,iit_reform,**user_params)
 
     # make calculations by asset and create formated output
     output_by_asset = calc_final_outputs.asset_calcs(parameters,asset_data)
@@ -81,10 +81,10 @@ def run_btax(**user_params):
     return output_by_asset, output_by_industry
 
 
-def run_btax_with_baseline_delta(**user_params):
+def run_btax_with_baseline_delta(start_year,iit_reform,**user_params):
     econ_params = filter_user_params_for_econ(**user_params)
-    base_output_by_asset, base_output_by_industry = run_btax(**econ_params)
-    reform_output_by_asset, reform_output_by_industry = run_btax(**user_params)
+    base_output_by_asset, base_output_by_industry = run_btax(True,start_year,{},**econ_params)
+    reform_output_by_asset, reform_output_by_industry = run_btax(False,start_year,iit_reform,**user_params)
     delta_output_by_asset = diff_two_tables(reform_output_by_asset,
                                             base_output_by_asset)
     delta_output_by_industry = diff_two_tables(reform_output_by_industry,
