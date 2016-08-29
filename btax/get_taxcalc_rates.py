@@ -141,17 +141,10 @@ def get_rates(baseline=False, start_year=2016, reform={}):
     calc1.calc_all()
 
     ##get mtrs
-    # agi
-    #[mtr_fica_agi, mtr_iit_agi, mtr_combined_agi] = calc1.mtr('e00100')
-    # non-corprorate business income
     # sch c
     [mtr_fica_schC, mtr_iit_schC, mtr_combined_schC] = calc1.mtr('e00900p')
     # sch e
     [mtr_fica_schE, mtr_iit_schE, mtr_combined_schE] = calc1.mtr('e02000')
-    business_income_mtr = (sum([ abs(getattr(calc1.records, 'e00900p')) * mtr_combined_schC
-                           + abs(getattr(calc1.records, 'e02000')) * mtr_combined_schE])/
-                            (sum(map(abs,getattr(calc1.records, 'e00900p'))) +
-                            sum(map(abs,getattr(calc1.records, 'e02000')))))
     # dividends
     [mtr_fica_div, mtr_iit_div, mtr_combined_div] = calc1.mtr('e00650')
     # interest income
@@ -159,10 +152,10 @@ def get_rates(baseline=False, start_year=2016, reform={}):
     [mtr_fica_int, mtr_iit_int, mtr_combined_int] = calc1.mtr('e00300')
     # non-taxable
     [mtr_fica_int_te, mtr_iit_int_te, mtr_combined_int_te] = calc1.mtr('e00400')
-    interest_income_mtr = (sum([ abs(getattr(calc1.records, 'e00300')) * mtr_combined_int
-                           + abs(getattr(calc1.records, 'e00400')) * mtr_combined_int_te])/
-                            (sum(map(abs,getattr(calc1.records, 'e00300'))) +
-                            sum(map(abs,getattr(calc1.records, 'e00400')))))
+    # interest_income_mtr = (sum([ abs(getattr(calc1.records, 'e00300')) * mtr_combined_int
+    #                        + abs(getattr(calc1.records, 'e00400')) * mtr_combined_int_te])/
+    #                         (sum(map(abs,getattr(calc1.records, 'e00300'))) +
+    #                         sum(map(abs,getattr(calc1.records, 'e00400')))))
     # short term capital gains
     [mtr_fica_scg, mtr_iit_scg, mtr_combined_scg] = calc1.mtr('p22250')
     # long term capital gains
@@ -183,28 +176,29 @@ def get_rates(baseline=False, start_year=2016, reform={}):
     #                         (sum(map(abs,getattr(calc1.records, 'e19200'))) +
     #                         sum(map(abs,getattr(calc1.records, 'e18500')))))
 
-
-    # tau_nc = ((business_income_mtr * (np.abs(calc1.records.e00900p)+np.abs(calc1.records.e02000)) *
-    #                        calc1.records.s006).sum() /
-    #                  ((np.abs(calc1.records.e00900p)+np.abs(calc1.records.e02000)) * calc1.records.s006).sum())
+    businc = (calc1.records.e00900p+calc1.records.e02000)
+    pos_businc = businc > 0
+    pos_ti = calc1.records.c04800>0
     tau_nc = (((mtr_combined_schC*np.abs(calc1.records.e00900p))+(mtr_combined_schE*np.abs(calc1.records.e02000)) *
-                           calc1.records.s006).sum() /
-                     ((np.abs(calc1.records.e00900p)+np.abs(calc1.records.e02000)) * calc1.records.s006).sum())
+                            pos_businc * pos_ti * calc1.records.s006).sum() /
+                     ((np.abs(calc1.records.e00900p)+np.abs(calc1.records.e02000))
+                      * pos_businc * pos_ti * calc1.records.s006).sum())
     tau_div = ((mtr_combined_div * calc1.records.e00650 *
                            calc1.records.s006).sum() /
                      (calc1.records.e00650 * calc1.records.s006).sum())
-    # tau_int = ((interest_income_mtr * (calc1.records.e00300+calc1.records.e00400) *
-    #                        calc1.records.s006).sum() /
-    #                  ((calc1.records.e00300+calc1.records.e00400) * calc1.records.s006).sum())
     tau_int = ((mtr_combined_int * calc1.records.e00300 *
                            calc1.records.s006).sum() /
                      (calc1.records.e00300 * calc1.records.s006).sum())
     tau_scg = ((mtr_combined_scg * np.abs(calc1.records.p22250) *
-                           calc1.records.s006).sum() /
-                     (np.abs(calc1.records.p22250) * calc1.records.s006).sum())
+                           (calc1.records.p22250>0.) *
+                           pos_ti * calc1.records.s006).sum() /
+                     (np.abs(calc1.records.p22250) * (calc1.records.p22250>0.) *
+                      pos_ti * calc1.records.s006).sum())
     tau_lcg = ((mtr_combined_lcg * np.abs(calc1.records.p23250) *
-                           calc1.records.s006).sum() /
-                     (np.abs(calc1.records.p23250) * calc1.records.s006).sum())
+                          (calc1.records.p23250>0.)*
+                          pos_ti * calc1.records.s006).sum() /
+                     (np.abs(calc1.records.p23250)* (calc1.records.p23250>0.)*
+                      pos_ti * calc1.records.s006).sum())
     tau_td = ((mtr_combined_pension * calc1.records.e01500 *
                            calc1.records.s006).sum() /
                      (calc1.records.e01500 * calc1.records.s006).sum())
