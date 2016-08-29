@@ -64,6 +64,8 @@ def run_btax(**user_params):
         land, res_assets, owner_occ_dict = read_bea.land(soi_data, fixed_assets)
         # put all asset data together
         asset_data = read_bea.combine(fixed_assets,inventories,land,res_assets,owner_occ_dict)
+        # save result to pickle so don't have to do this everytime
+        pickle.dump(asset_data, open( "asset_data.pkl", "wb" ) )
     else:
         asset_data = pickle.load(open('asset_data.pkl', 'rb'))
 

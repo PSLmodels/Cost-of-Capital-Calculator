@@ -124,8 +124,8 @@ def industry_calcs(params, asset_data, output_by_asset):
 
     # drop Intellectual Property - not sure have it straight and CBO not include
     by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Intellectual Property'].copy()
-    by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Land'].copy()
-    by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Inventories'].copy()
+    #by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Land'].copy()
+    #by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Inventories'].copy()
 
 
     # create weighted averages by industry/tax treatment

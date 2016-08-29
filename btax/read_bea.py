@@ -21,6 +21,7 @@ globals().update(get_paths())
 
 # Constant factors:
 _BEA_IN_FILE_FCTR = 10**6
+_BEA_INV_RES_FCTR = 10**9
 _FIN_ACCT_FILE_FCTR = 10**9
 _START_POS = 8
 _SKIP1 = 47
@@ -116,6 +117,7 @@ def inventories(soi_data):
     bea_inventories.rename(columns={"Unnamed: 1":"bea_inv_name",
                                "IV.1": "BEA Inventories"},inplace=True)
     bea_inventories['bea_inv_name'] = bea_inventories['bea_inv_name'].str.strip()
+    bea_inventories['BEA Inventories'] = bea_inventories['BEA Inventories']*_BEA_INV_RES_FCTR
 
     # Merge inventories data to SOI data
     bea_inventories = pd.merge(bea_inventories,soi_data,how='right', left_on=['bea_inv_name'],
@@ -148,7 +150,7 @@ def land(soi_data, bea_FA):
     bea_residential = bea_residential[[u'\xa0','2013']].copy()
     bea_residential.rename(columns={u"\xa0":"entity_type",
                                "2013": "Fixed Assets"},inplace=True)
-    bea_residential['Fixed Assets'] *= _FIN_ACCT_FILE_FCTR
+    bea_residential['Fixed Assets'] *= _BEA_INV_RES_FCTR
     bea_residential['entity_type'] = bea_residential['entity_type'].str.strip()
     owner_occ_house_FA = np.array(bea_residential.ix[bea_residential['entity_type']=='Households','Fixed Assets'])
     corp_res_FA = np.array(bea_residential.ix[bea_residential['entity_type']=='Corporate','Fixed Assets'])
@@ -264,8 +266,5 @@ def combine(fixed_assets,inventories,land,res_assets,owner_occ_dict):
     asset_data = pd.merge(asset_data, bea_ind_names, how='left', on=['bea_ind_code'],
       left_index=False, right_index=False, sort=False,
       copy=True)
-
-    # save result to pickle so don't have to do this everytime
-    pickle.dump(asset_data, open( "asset_data.pkl", "wb" ) )
 
     return asset_data
