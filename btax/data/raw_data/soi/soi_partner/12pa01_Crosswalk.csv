@@ -1,0 +1,136 @@
+Industry:,complete,code2,Codes:,Notes:
+All industries,0,1,1,* complete means most detailed code at which can get complete coverage of industry
+"Agriculture, forestry, fishing, and hunting",0,11,11,
+Crop production,1,111,,need to sum crop and animal to get to ag
+Animal production,1,111,,
+Forestry and logging,1,113,113,
+"Fishing, hunting, and trapping",1,114,,need tp sum this and next category
+Support activities for agriculture and forestry,1,114,,
+Mining,1,21,21,
+Oil and gas extraction,0,,211110,
+Other mining,0,,,several codes: 212110 212200 212315
+Support activities for mining,0,,213110,
+Utilities,1,22,22,
+Construction,0,,23,
+Construction of buildings,1,,236,
+Heavy and civil engineering construction,1,236,237,
+Utility system construction,1,237,,no code for in SOI
+Land subdivision,0,,237210,
+Other heavy and civil engineering construction,0,,,no unique code for in SOI
+Special trade contractors,1,238,238,
+"Foundation, structure, and building exterior contractors",0,,,no unique code for in SOI
+Electrical contractors,0,,238210,
+"Plumbing, heating and air-conditioning contractors",0,,238220,
+Building finishing contractors,0,,,no unique code for in SOI
+Other specialty trade contractors,0,,,no unique code for in SOI
+Manufacturing,0,,31,
+Food manufacturing,1,311,311,
+Beverage and tobacco product manufacturing,1,312,312,
+Textile mills and textile product mills,1,313,313,
+Apparel manufacturing,1,315,315,
+Leather and allied product manufacturing,1,316,316,
+Wood product manufacturing,1,321,321,
+Paper manufacturing,1,322,322,
+Printing and related support activities,1,323,323,
+Petroleum and coal products manufacturing,1,324,324,
+Chemical manufacturing,1,325,325,
+Plastics and rubber products manufacturing,1,326,326,
+Nonmetallic mineral products manufacturing,1,327,327,
+Primary metal manufacturing,1,331,331,
+Fabricated metal products manufacturing,1,332,332,
+Machinery manufacturing,1,333,333,
+Computer and electrical product manufacturing,1,334,334,
+"Electrical equipment, appliance and component manufacturing",1,335,335,
+Transportation equipment manufacturing,1,336,336,
+Furniture and related product manufacturing,1,337,337,
+Miscellaneous manufacturing,1,339,339,
+Wholesale trade,0,,42,
+"Merchant wholesalers, durable goods",1,423,423,
+"Merchant wholesalers, nondurable goods",1,424,424,
+Wholesale electronic markets and agents and brokers,1,425,425,
+Retail trade,0,,44,
+Motor vehicle and parts dealers,1,441,441,
+Furniture and home furnishing stores,1,442,442,
+Electronics and appliance stores,1,443,443,
+Building materials and garden equipment and supplies dealers,1,444,444,
+Food and beverage stores,1,445,445,
+Health and personal care stores,1,446,446,
+Gasoline stations,1,447,447,
+Clothing and clothing accessories stores,1,448,448,
+"Sporting goods, hobby, book, and music stores",1,451,451,
+General merchandise stores,1,452,452,
+Miscellaneous store retailers,1,453,453,
+Nonstore retailers,1,454,454,
+Transportation and warehousing,0,,48,
+Air and rail transportation,1,481,,several codes: 481000 482110
+Water transportation,1,481,483000,
+Truck transportation,1,,484,
+Other transit and ground passenger transportation,1,485,485,
+Pipeline transportation,1,486,486,
+Scenic and sightseeing transportation,1,487,487,
+Support activities for transportation,1,487,487,
+Couriers and messengers,1,487,487,
+Warehousing and storage,1,493,493,
+Information,0,,51,
+Publishing industries (except internet),1,511,511,
+Motion picture and sound recording industries,1,512,512,
+Broadcasting (except internet),1,515,515,
+Tele-communications,1,517,517,
+Data processing services,1,518,518,
+Other information services,1,519,519,
+Finance and insurance,1,52,52,
+Depository credit intermediation,0,,521,"* so close to getting financials at more detail, which would be nice since parnterships and  c corps very different here"
+Nondepository credit intermediation,0,,522,
+Activities related to credit intermediation,0,,522300,
+"Securities, commodity contracts and other financial investments and related activities",0,,523905,
+Securities and commodity contracts and exchanges,0,,,no SOI code w this detail
+Other financial investment activities,0,,525995,
+Insurance carriers and related activities,0,,524,
+"Funds, trusts, and other financial vehicles",0,,525,
+Real estate and rental and leasing,0,,53,
+Real estate,1,531,531,
+Lessors of residential buildings and dwellings and cooperative housing,0,,,no SOI code w this detail
+Lessors of nonresidential buildings (except mini-warehouses),0,,,no SOI code w this detail
+Lessors of miniwarehouses and self-storage units,0,,,no SOI code w this detail
+Lessors of other real estate property,0,,,no SOI code w this detail
+Other real estate activities,0,,531315,
+Rental and leasing services,1,532,532,
+Lessors of nonfinancial intangible assets (except copyrighted works),1,533,533,
+"Professional, scientific, and technical services",1,54,54,
+Legal services,0,,541115,
+"Accounting, tax preparation, bookkeeping and payroll services",0,,541215,* close to getting this sector at minor ind
+"Architectural, engineering and related services",0,,541315,
+Specialized design services,0,,541400,
+Computer systems design and related services,0,,541515,
+"Other professional, scientific, and technical services",0,,541915,
+"Management, scientific, and technical consulting services",0,,541600,
+Advertising and related services,0,,541800,
+"Other miscellaneous professional, scientific, and technical services",0,,541915,
+Management of companies (holding companies),1,55,55,
+Administrative and support and waste management and remediation services,0,,56,
+Administrative and support services,1,561,561,
+Waste management and remediation services,1,562,562,
+Educational services,1,61,61,
+Health care and social assistance,0,,62,
+Offices of physicians and dentists,1,621,,several codes: 621115 621210
+Offices of other health practitioners,1,621,621315,
+Outpatient care centers,1,621,621415,
+Medical and diagnostic laboratories,1,626,,no SOI code w this detail
+Home health care services,1,625,,no SOI code w this detail
+Other ambulatory health care services,1,625,,no SOI code w this detail
+Hospitals,1,626,,no SOI code w this detail
+Nursing and residential care facilities,1,626,,no SOI code w this detail
+Social assistance,1,625,,no code for in SOI
+"Arts, entertainment, and recreation",0,,71,
+"Performing arts, spectator sports and related industries",1,712,,no code for in SOI
+"Museums, historical sites, and similar institutions",1,712,,no code for in SOI
+"Amusement, gambling, and recreation industries",1,713,713105,
+Accommodation and food services,0,72,721115,721
+Accommodation,1,721,722115,722
+Food services and drinking places,1,722,722,
+Other services,0,,81,
+Repair and maintenance,0,,811,
+Automotive repair and maintenance,1,811115,811115,
+Other repair and maintenance,1,811215,811215,
+Personal and laundry services,1,812,812,
+"Religious, grantmaking, civic, professional, and similar organizations",1,813,813,

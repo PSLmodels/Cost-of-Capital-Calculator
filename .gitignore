@@ -1,6 +1,5 @@
 *.pyc
 MANIFEST
-_build/html/*
 btax.egg-info
 build/*
 dist/*

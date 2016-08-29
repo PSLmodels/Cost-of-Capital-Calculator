@@ -13,7 +13,13 @@ install:
   - conda update conda
   - conda create -n test-environment python=$TRAVIS_PYTHON_VERSION pandas numpy
   - source activate test-environment
+  - conda install --file conda-requirements.txt # xlrd, possibly others
+  - pip install -r requirements.txt
+  - export BTAX_OUT_DIR=btax_output_dir # make an output dir
+  - export BTAX_CUR_DIR=btax
+  - mkdir btax_output_dir
   - python setup.py install
-# command to run tests
+
 script:
-  - python Python/btax/check_output.py
+  - run-btax                    # ensure the pickles are updated
+  - python -c "from btax.run_btax import run_btax_to_json_tables;run_btax_to_json_tables(btax_betr_corp=0.2,btax_betr_entity_Switch=True, btax_betr_pass=.3)"

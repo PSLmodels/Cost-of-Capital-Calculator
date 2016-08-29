@@ -1,0 +1,4 @@
+xlrd
+bokeh
+numpy
+pandas>=0.18
