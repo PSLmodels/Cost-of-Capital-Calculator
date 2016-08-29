@@ -17,7 +17,6 @@ This py-file creates the following other file(s):
 ------------------------------------------------------------------------
 '''
 
-import sys
 import taxcalc
 from taxcalc import *
 import pandas as pd
@@ -168,13 +167,9 @@ def get_rates(baseline=False, start_year=2016, reform={}):
     # mortgage interest and property tax deductions
     # do we also want mtg ins premiums here?
     # mtg interest
-    # [mtr_fica_mtg, mtr_iit_mtg, mtr_combined_mtg] = calc1.mtr('e19200')
-    # # prop tax
-    # [mtr_fica_prop, mtr_iit_prop, mtr_combined_prop] = calc1.mtr('e18500')
-    # house_deduct_mtr = (sum([ abs(getattr(calc1.records, 'e19200')) * mtr_combined_mtg
-    #                        + abs(getattr(calc1.records, 'e18500')) * mtr_combined_prop])/
-    #                         (sum(map(abs,getattr(calc1.records, 'e19200'))) +
-    #                         sum(map(abs,getattr(calc1.records, 'e18500')))))
+    [mtr_fica_mtg, mtr_iit_mtg, mtr_combined_mtg] = calc1.mtr('e19200')
+    # prop tax
+    [mtr_fica_prop, mtr_iit_prop, mtr_combined_prop] = calc1.mtr('e18500')
 
     businc = (calc1.records.e00900p+calc1.records.e02000)
     pos_businc = businc > 0
@@ -202,10 +197,10 @@ def get_rates(baseline=False, start_year=2016, reform={}):
     tau_td = ((mtr_combined_pension * calc1.records.e01500 *
                            calc1.records.s006).sum() /
                      (calc1.records.e01500 * calc1.records.s006).sum())
-    # tau_h = ((house_deduct_mtr * (calc1.records.e19200+calc1.records.e18500) *
-    #                        calc1.records.s006).sum() /
-    #                  ((calc1.records.e19200+calc1.records.e18500) * calc1.records.s006).sum())
-    tau_h = 0.181
+    tau_h = -1* (((mtr_combined_mtg*calc1.records.e19200)+(mtr_combined_prop*calc1.records.e18500) *
+                            pos_ti * calc1.records.s006).sum() /
+                     ((calc1.records.e19200)+(calc1.records.e18500)
+                      * pos_ti * calc1.records.s006).sum())
 
 
     individual_rates = {'tau_nc':tau_nc,'tau_div':tau_div,'tau_int':tau_int,
