@@ -1,4 +1,4 @@
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 import numbers
 import os
 from pkg_resources import resource_stream, Requirement
@@ -114,7 +114,7 @@ def str_modified(i):
 
 def _dataframe_to_json_table(df, defaults, label, index_col):
     groups = [x[1]['table_id'] for x in defaults]
-    tables = {}
+    tables = defaultdict(lambda: {})
     for group in set(groups):
         if group == 'all':
             continue
@@ -127,7 +127,14 @@ def _dataframe_to_json_table(df, defaults, label, index_col):
         df2.columns = new_column_names
         header = list(df2.columns)
         rows = [[k,] + list(v) for k, v in df2.T.iteritems()]
-        tables['{}_{}'.format(label, group)] = [header] + rows
+        if 'reform' in label:
+            label2 = 'reform'
+        elif 'changed' in label:
+            label2 = 'changed'
+        elif 'base' in label:
+            label2 = 'baseline'
+        print(label, label2, group)
+        tables[group][label2] = [header] + rows
     return tables
 
 def output_by_asset_to_json_table(df, table_name):
