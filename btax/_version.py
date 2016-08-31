@@ -37,8 +37,8 @@ def get_config():
     cfg.VCS = "git"
     cfg.style = "pep440"
     cfg.tag_prefix = ""
-    cfg.parentdir_prefix = "vst-"
-    cfg.versionfile_source = "vst/_version.py"
+    cfg.parentdir_prefix = "None"
+    cfg.versionfile_source = "btax/_version.py"
     cfg.verbose = False
     return cfg
 
