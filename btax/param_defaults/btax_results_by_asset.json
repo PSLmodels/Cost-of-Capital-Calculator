@@ -13,7 +13,7 @@
       {
         "col_label": "METR, corporate typically financed investment",
         "name": "mettr_c",
-        "table_id": "effective_tax",
+        "table_id": "metr",
         "tooltip": "Marginal effective tax rate on new investments, corporate investment financed by historical mix of debt and equity.",
         "divisor": 1,
         "decimals": 3
@@ -24,7 +24,7 @@
       {
         "col_label": "METR, non-corporate typically financed investment",
         "name": "mettr_c",
-        "table_id": "effective_tax",
+        "table_id": "metr",
         "tooltip": "Marginal effective tax rate on new investments, non-corporate investment financed by historical mix of debt and equity.",
         "divisor": 1,
         "decimals": 3
@@ -35,7 +35,7 @@
       {
         "col_label": "METR, corporate equity financed investment",
         "name": "metr_c_e",
-        "table_id": "effective_tax",
+        "table_id": "metr",
         "tooltip": "Marginal effective tax rate on new investments, corporate equity financed investment.",
         "divisor": 1,
         "decimals": 3
@@ -46,7 +46,7 @@
       {
         "col_label": "METR, non-corporate equity financed investment",
         "name": "metr_nc_e",
-        "table_id": "effective_tax",
+        "table_id": "metr",
         "tooltip": "Marginal effective tax rate on new investments, non-corporate equity financed investment.",
         "divisor": 1,
         "decimals": 3
@@ -57,7 +57,7 @@
       {
         "col_label": "METR, corporate debt financed investment",
         "name": "metr_c_d",
-        "table_id": "effective_tax",
+        "table_id": "metr",
         "tooltip": "Marginal effective tax rate on new investments, corporate debt financed investment.",
         "divisor": 1,
         "decimals": 3
@@ -68,7 +68,7 @@
        {
          "col_label": "METR, non-corporate debt financed investment",
          "name": "metr_nc_d",
-         "table_id": "effective_tax",
+         "table_id": "metr",
          "tooltip": "Marginal effective tax rate on new investments, non-corporate debt financed investment.",
          "divisor": 1,
          "decimals": 3
@@ -79,7 +79,7 @@
        {
          "col_label": "METTR, corporate typically financed investment",
          "name": "mettr_c",
-         "table_id": "total_tax",
+         "table_id": "mettr",
          "tooltip": "Marginal effective total tax rate on new investments, corporate investment financed by historical mix of debt and equity.",
          "divisor": 1,
          "decimals": 3
@@ -90,7 +90,7 @@
       {
         "col_label": "METTR, non-corporate typically financed investment",
         "name": "mettr_nc",
-        "table_id": "total_tax",
+        "table_id": "mettr",
         "tooltip": "Marginal effective total tax rate on new investments, non-corporate investment financed by historical mix of debt and equity.",
         "divisor": 1,
         "decimals": 3
@@ -101,7 +101,7 @@
       {
         "col_label": "METTR, corporate equity financed investment",
         "name": "mettr_c_e",
-        "table_id": "total_tax",
+        "table_id": "mettr",
         "tooltip": "Marginal effective total tax rate on new investments, corporate equity financed investment.",
         "divisor": 1,
         "decimals": 3
@@ -112,7 +112,7 @@
       {
         "col_label": "METTR, non-corporate equity financed investment",
         "name": "mettr_nc_e",
-        "table_id": "total_tax",
+        "table_id": "mettr",
         "tooltip": "Marginal effective total tax rate on new investments, non-corporate equity financed investment.",
         "divisor": 1,
         "decimals": 3
@@ -123,7 +123,7 @@
       {
         "col_label": "METTR, corporate debt financed investment",
         "name": "mettr_c_e",
-        "table_id": "total_tax",
+        "table_id": "mettr",
         "tooltip": "Marginal effective total tax rate on new investments, corporate debt financed investment.",
         "divisor": 1,
         "decimals": 3
@@ -134,7 +134,7 @@
       {
         "col_label": "METTR, non-corporate debt financed investment",
         "name": "mettr_c_e",
-        "table_id": "effective_tax",
+        "table_id": "metr",
         "tooltip": "Marginal effective total tax rate on new investments, non-corporate debt financed investment.",
         "divisor": 1,
         "decimals": 3
@@ -145,7 +145,7 @@
       {
         "col_label": "Cost of capital, typically financed corporate investment",
         "name": "rho_c",
-        "table_id": "cost_of_cap",
+        "table_id": "coc",
         "tooltip": "Cost of capital, corporate investment financed with historical mix of debt and equity.",
         "divisor": 1,
         "decimals": 3
@@ -156,7 +156,7 @@
         {
           "col_label": "Cost of capital, typically financed non-corporate investment",
           "name": "rho_nc",
-          "table_id": "cost_of_cap",
+          "table_id": "coc",
           "tooltip": "Cost of capital, non-corporate investment financed with historical mix of debt and equity.",
           "divisor": 1,
           "decimals": 3
@@ -167,7 +167,7 @@
       {
         "col_label": "Cost of capital, equity financed corporate investment",
         "name": "rho_c_e",
-        "table_id": "cost_of_cap",
+        "table_id": "coc",
         "tooltip": "Cost of capital, investment financed 100% by equity",
         "divisor": 1,
         "decimals": 3
@@ -178,7 +178,7 @@
       {
         "col_label": "Cost of capital, equity financed non-corporate investment",
         "name": "rho_c_e",
-        "table_id": "cost_of_cap",
+        "table_id": "coc",
         "tooltip": "Cost of capital, investment financed 100% by equity",
         "divisor": 1,
         "decimals": 3
@@ -189,7 +189,7 @@
       {
         "col_label": "Cost of capital, debt financed corporate investment",
         "name": "rho_c_d",
-        "table_id": "cost_of_cap",
+        "table_id": "coc",
         "tooltip": "Cost of capital, investment financed 100% by debt",
         "divisor": 1,
         "decimals": 3
@@ -200,7 +200,7 @@
       {
         "col_label": "Cost of capital, debt financed non-corporate investment",
         "name": "rho_nc_d",
-        "table_id": "cost_of_cap",
+        "table_id": "coc",
         "tooltip": "Cost of capital, investment financed 100% by debt",
         "divisor": 1,
         "decimals": 3
@@ -211,7 +211,7 @@
       {
         "col_label": "NPV of depreciation deductions, typically financed corporate investment",
         "name": "z_c",
-        "table_id": "deprec",
+        "table_id": "d",
         "tooltip": "NPV of depreciation deductions, corporate investment financed with historical mix of debt and equity.",
         "divisor": 1,
         "decimals": 3
@@ -222,7 +222,7 @@
         {
           "col_label": "NPV of depreciation deductions, typically financed non-corporate investment",
           "name": "z_nc",
-          "table_id": "deprec",
+          "table_id": "d",
           "tooltip": "NPV of depreciation deductions, non-corporate investment financed with historical mix of debt and equity.",
           "divisor": 1,
           "decimals": 3
@@ -233,7 +233,7 @@
       {
         "col_label": "NPV of depreciation deductions, equity financed corporate investment",
         "name": "rho_c_e",
-        "table_id": "deprec",
+        "table_id": "d",
         "tooltip": "NPV of depreciation deductions, investment financed 100% by equity",
         "divisor": 1,
         "decimals": 3
@@ -244,7 +244,7 @@
       {
         "col_label": "NPV of depreciation deductions, equity financed non-corporate investment",
         "name": "z_c_e",
-        "table_id": "deprec",
+        "table_id": "d",
         "tooltip": "NPV of depreciation deductions, investment financed 100% by equity",
         "divisor": 1,
         "decimals": 3
@@ -255,7 +255,7 @@
       {
         "col_label": "NPV of depreciation deductions, debt financed corporate investment",
         "name": "z_c_d",
-        "table_id": "deprec",
+        "table_id": "d",
         "tooltip": "NPV of depreciation deductions, investment financed 100% by debt",
         "divisor": 1,
         "decimals": 3
@@ -266,7 +266,7 @@
       {
         "col_label": "NPV of depreciation deductions, debt financed non-corporate investment",
         "name": "z_nc_d",
-        "table_id": "deprec",
+        "table_id": "d",
         "tooltip": "NPV of depreciation deductions, investment financed 100% by debt",
         "divisor": 1,
         "decimals": 3
@@ -277,7 +277,7 @@
       {
         "col_label": "Economic depreciation rate",
         "name": "delta",
-        "table_id": "deprec",
+        "table_id": "d",
         "tooltip": "Economic depreciation rate",
         "divisor": 1,
         "decimals": 3
