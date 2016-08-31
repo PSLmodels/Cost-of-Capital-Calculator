@@ -14,7 +14,9 @@ install:
   - conda create -n test-environment python=$TRAVIS_PYTHON_VERSION pandas numpy
   - source activate test-environment
   - conda install --file conda-requirements.txt # xlrd, possibly others
-  - conda install -c ospc taxcalc
+  #- conda install -c ospc taxcalc
+  - http:/github.com/jdebacker/TaxCalc && cd TaxCalc
+  - git fetch --all && git checkout master && python setup.py install
   - pip install -r requirements.txt
   - export BTAX_OUT_DIR=btax_output_dir # make an output dir
   - export BTAX_CUR_DIR=btax
