@@ -15,7 +15,7 @@ install:
   - source activate test-environment
   - conda install --file conda-requirements.txt # xlrd, possibly others
   #- conda install -c ospc taxcalc
-  - git clone https://github.com/jdebacker/Tax-Calculator.git && cd TaxCalc
+  - git clone https://github.com/jdebacker/Tax-Calculator.git && cd taxcalc
   - git fetch --all && git checkout master && python setup.py install
   - pip install -r requirements.txt
   - export BTAX_OUT_DIR=btax_output_dir # make an output dir
