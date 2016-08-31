@@ -19,7 +19,7 @@ install:
   - git clone https://github.com/jdebacker/Tax-Calculator.git && cd Tax-Calculator
   - git fetch --all && git checkout master && python setup.py install
   - cd
-  - cd B-Tax
+  - cd btax
   - export BTAX_OUT_DIR=btax_output_dir # make an output dir
   - export BTAX_CUR_DIR=btax
   - mkdir btax_output_dir
