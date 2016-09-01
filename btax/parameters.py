@@ -10,7 +10,7 @@ from argparse import Namespace
 import copy
 import json
 import os
-
+import pandas as pd
 import numpy as np
 
 from btax.util import read_from_egg
@@ -130,7 +130,7 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     deprec_system['100'] = 'ADS'
 
     # call tax calc to get individual rates
-    if test_run:
+    if test_run==True:
         tau_nc = 0.33 # 0.331 # tax rate on non-corporate business income
         tau_div = 0.1757 #0.184 # tax rate on dividend income
         tau_int = 0.2379 # 0.274 # tax rate on interest income
@@ -146,10 +146,10 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
         WEIGHTS_PATH = os.path.join(CUR_PATH,'test_data', 'puf91weights.csv.gz')
         WEIGHTS = pd.read_csv(WEIGHTS_PATH, compression='gzip')
         from btax.get_taxcalc_rates import get_calculator
-        calc = get_calculator(baseline=False, calculator_start_year=2016,
-                              reform=reform, data=TAXDATA,
+        calc = get_calculator(baseline=False, calculator_start_year=start_year,
+                              reform=iit_reform, data=TAXDATA,
                               weights=WEIGHTS, records_start_year=2009)
-        assert calc.current_year == 2016
+        assert calc.current_year == start_year
     else:
         from btax.get_taxcalc_rates import get_rates
         indiv_rates = get_rates(baseline,start_year,iit_reform)

@@ -197,7 +197,7 @@ def get_rates(baseline=False, start_year=2016, reform={}):
     tau_td = ((mtr_combined_pension * calc1.records.e01500 *
                            calc1.records.s006).sum() /
                      (calc1.records.e01500 * calc1.records.s006).sum())
-    tau_h = -1* (((mtr_combined_mtg*calc1.records.e19200)+(mtr_combined_prop*calc1.records.e18500) *
+    tau_h = -1*(((mtr_combined_mtg*calc1.records.e19200)+(mtr_combined_prop*calc1.records.e18500) *
                             pos_ti * calc1.records.s006).sum() /
                      ((calc1.records.e19200)+(calc1.records.e18500)
                       * pos_ti * calc1.records.s006).sum())
