@@ -115,8 +115,8 @@ def run_btax_with_baseline_delta(start_year,iit_reform,**user_params):
                       changed_output_by_industry)
 
 
-def run_btax_to_json_tables(**user_params):
-    out = run_btax_with_baseline_delta(**user_params)
+def run_btax_to_json_tables(start_year,iit_reform,**user_params):
+    out = run_btax_with_baseline_delta(start_year,iit_reform,**user_params)
     tables = defaultdict(lambda: {})
     for table_name, table in zip(TABLE_ORDER, out):
         if 'asset' in table_name:
