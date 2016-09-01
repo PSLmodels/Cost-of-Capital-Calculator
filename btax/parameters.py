@@ -71,7 +71,7 @@ def translate_param_names(**user_mods):
     return user_params
 
 
-def get_params(baseline,start_year,iit_reform,**user_mods):
+def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
 
     """Contains all the parameters
 
@@ -130,23 +130,36 @@ def get_params(baseline,start_year,iit_reform,**user_mods):
     deprec_system['100'] = 'ADS'
 
     # call tax calc to get individual rates
-    indiv_rates = get_rates(baseline,start_year,iit_reform)
-    # tau_nc = 0.33 # 0.331 # tax rate on non-corporate business income
-    # tau_div = 0.1757 #0.184 # tax rate on dividend income
-    # tau_int = 0.2379 # 0.274 # tax rate on interest income
-    # tau_scg = 0.3131 #0.323 # tax rate on short term capital gains
-    # tau_lcg = 0.222 #0.212 # tax rate on long term capital gains
-    # tau_xcg = 0.00 # tax rate on capital gains held to death
-    # tau_td = 0.215 # tax rate on return to equity held in tax deferred accounts
-    # tau_h = 0.181 # tax rate owner occupied housing deductions
-    tau_nc = indiv_rates['tau_nc']
-    tau_div = indiv_rates['tau_div']
-    tau_int = indiv_rates['tau_int']
-    tau_scg = indiv_rates['tau_scg']
-    tau_lcg = indiv_rates['tau_lcg']
-    tau_xcg = 0.00 # tax rate on capital gains held to death
-    tau_td = indiv_rates['tau_td']
-    tau_h = indiv_rates['tau_h']
+    if test_run:
+        tau_nc = 0.33 # 0.331 # tax rate on non-corporate business income
+        tau_div = 0.1757 #0.184 # tax rate on dividend income
+        tau_int = 0.2379 # 0.274 # tax rate on interest income
+        tau_scg = 0.3131 #0.323 # tax rate on short term capital gains
+        tau_lcg = 0.222 #0.212 # tax rate on long term capital gains
+        tau_xcg = 0.00 # tax rate on capital gains held to death
+        tau_td = 0.215 # tax rate on return to equity held in tax deferred accounts
+        tau_h = 0.181 # tax rate owner occupied housing deductions
+        # test below is that calculator can be created
+        CUR_PATH = os.path.abspath(os.path.dirname(__file__))
+        TAXDATA_PATH = os.path.join(CUR_PATH, '..', '..', 'test_data', 'puf91taxdata.csv.gz')
+        TAXDATA = pd.read_csv(TAXDATA_PATH, compression='gzip')
+        WEIGHTS_PATH = os.path.join(CUR_PATH, '..', '..', 'test_data', 'puf91weights.csv.gz')
+        WEIGHTS = pd.read_csv(WEIGHTS_PATH, compression='gzip')
+        from btax.get_taxcalc_rates import get_calculator
+        calc = get_calculator(baseline=False, calculator_start_year=2016,
+                              reform=reform, data=TAXDATA,
+                              weights=WEIGHTS, records_start_year=2009)
+        assert calc.current_year == 2016
+    else:
+        indiv_rates = get_rates(baseline,start_year,iit_reform)
+        tau_nc = indiv_rates['tau_nc']
+        tau_div = indiv_rates['tau_div']
+        tau_int = indiv_rates['tau_int']
+        tau_scg = indiv_rates['tau_scg']
+        tau_lcg = indiv_rates['tau_lcg']
+        tau_xcg = 0.00 # tax rate on capital gains held to death
+        tau_td = indiv_rates['tau_td']
+        tau_h = indiv_rates['tau_h']
 
     # Parameters for holding periods of assets, etc.
     Y_td = 8.
