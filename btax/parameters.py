@@ -14,7 +14,7 @@ import os
 import numpy as np
 
 from btax.util import read_from_egg
-from btax.get_taxcalc_rates import get_rates
+
 
 DEFAULTS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_defaults.json')))
 DEFAULT_ASSET_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_asset.json')))
@@ -141,9 +141,9 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
         tau_h = 0.181 # tax rate owner occupied housing deductions
         # test below is that calculator can be created
         CUR_PATH = os.path.abspath(os.path.dirname(__file__))
-        TAXDATA_PATH = os.path.join(CUR_PATH, '..', '..', 'test_data', 'puf91taxdata.csv.gz')
+        TAXDATA_PATH = os.path.join(CUR_PATH,'test_data', 'puf91taxdata.csv.gz')
         TAXDATA = pd.read_csv(TAXDATA_PATH, compression='gzip')
-        WEIGHTS_PATH = os.path.join(CUR_PATH, '..', '..', 'test_data', 'puf91weights.csv.gz')
+        WEIGHTS_PATH = os.path.join(CUR_PATH,'test_data', 'puf91weights.csv.gz')
         WEIGHTS = pd.read_csv(WEIGHTS_PATH, compression='gzip')
         from btax.get_taxcalc_rates import get_calculator
         calc = get_calculator(baseline=False, calculator_start_year=2016,
@@ -151,6 +151,7 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
                               weights=WEIGHTS, records_start_year=2009)
         assert calc.current_year == 2016
     else:
+        from btax.get_taxcalc_rates import get_rates
         indiv_rates = get_rates(baseline,start_year,iit_reform)
         tau_nc = indiv_rates['tau_nc']
         tau_div = indiv_rates['tau_div']
