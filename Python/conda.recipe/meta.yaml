@@ -1,0 +1,28 @@
+package:
+  name: btax
+  version: 0.1.1
+
+requirements:
+  build:
+    - setuptools
+    - scipy
+    - matplotlib
+    - numpy
+    - pandas ==0.18.1
+    - python
+    - pytest
+    - xlrd
+
+  run:
+    - setuptools
+    - scipy
+    - taxcalc
+    - matplotlib
+    - numpy
+    - pandas ==0.18.1
+    - python
+    - pytest
+    - xlrd
+
+about:
+  home: https://github.com/open-source-economics/B-Tax/
