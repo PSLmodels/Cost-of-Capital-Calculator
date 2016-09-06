@@ -1,6 +1,6 @@
 package:
   name: btax
-  version: 0.1
+  version: 0.1.1
 
 requirements:
   build:
@@ -9,8 +9,8 @@ requirements:
     - matplotlib
     - numpy
     - pandas ==0.18.1
+    - python
     - pytest
-    - python 2.7
     - xlrd
 
   run:
@@ -20,8 +20,8 @@ requirements:
     - matplotlib
     - numpy
     - pandas ==0.18.1
+    - python
     - pytest
-    - python 2.7
     - xlrd
 
 about:
