@@ -11,6 +11,7 @@ Last updated: 7/25/2016.
 # Import packages
 from collections import namedtuple, defaultdict
 import cPickle as pickle
+from functools import partial
 import numpy as np
 import os.path
 import pandas as pd
@@ -43,7 +44,7 @@ ModelDiffs = namedtuple('ModelDiffs', TABLE_ORDER)
 
 ASSET_PRE_CACHE_FILE = 'asset_data.pkl'
 
-def run_btax(test_run,baseline=False,start_year=2016,iit_reform={},**user_params):
+def run_btax(test_run,baseline=False,start_year=2016,iit_reform=None,**user_params):
     """Runner script that kicks off the calculations for B-Tax
 
 	:param user_params: The user input for implementing reforms
@@ -52,7 +53,7 @@ def run_btax(test_run,baseline=False,start_year=2016,iit_reform={},**user_params
 	:rtype: DataFrame
     """
     calc_assets = False
-
+    iit_reform = iit_reform or {}
     if calc_assets or not os.path.exists(ASSET_PRE_CACHE_FILE):
         # get soi totals for assets
         soi_data = pull_soi_data()
@@ -115,7 +116,7 @@ def run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params):
                       changed_output_by_industry)
 
 
-def run_btax_to_json_tables(test_run,start_year,iit_reform,**user_params):
+def run_btax_to_json_tables(test_run=False,start_year=2016,iit_reform=None, **user_params):
     out = run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params)
     tables = defaultdict(lambda: {})
     for table_name, table in zip(TABLE_ORDER, out):
