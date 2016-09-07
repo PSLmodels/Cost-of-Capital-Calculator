@@ -15,7 +15,7 @@ import numpy as np
 import pandas as pd
 
 from btax.util import get_paths
-from btax import pull_soi_partner
+import btax.pull_soi_partner as prt
 globals().update(get_paths())
 
 _DDCT_FILE_FCTR = 10**3
@@ -29,35 +29,32 @@ def load_proprietorship_data(entity_dfs):
         :rtype: dictionary
     """
     # Opening data on depreciable fixed assets, inventories, and land for non-farm sole props
-    nonfarm_df = pd.read_csv(_NFARM_PATH)
-    # Formats the column names for the nonfarm dataframe
-    nonfarm_df = format_columns(nonfarm_df)
+    nonfarm_df = format_dataframe(pd.read_excel(_NFARM_PATH, skiprows=2, skip_footer=8))
     # Cuts off the repeated columns so only the data for all sole props remains
     nonfarm_df = nonfarm_df.T.groupby(sort=False,level=0).first().T
     # Fixing the index labels of the new dataframe
-    nonfarm_df.reset_index(inplace=True)
+    nonfarm_df.reset_index(inplace=True,drop=True)
     # Keep only variables of interest
-    nonfarm_df = nonfarm_df[['Industrial sector','Depreciation deduction']]
-    nonfarm_df['Industrial sector'] = nonfarm_df['Industrial sector'].str.strip()
-    nonfarm_df.rename(columns={"Industrial sector":"Item",
-                               "Depreciation deduction": "Depreciation"},inplace=True)
+    nonfarm_df = nonfarm_df[['Industry','Depreciation deduction [1,2]']]
+    nonfarm_df['Industry'] = nonfarm_df['Industry'].str.strip()
+    nonfarm_df.rename(columns={"Industry":"Item",
+                               "Depreciation deduction [1,2]": "Depreciation"},inplace=True)
     nonfarm_df['Depreciation'] = nonfarm_df['Depreciation']*_DDCT_FILE_FCTR
     nonfarm_df['Item'] = nonfarm_df['Item'].str.replace(',','')
     nonfarm_df['Item'] = nonfarm_df['Item'].str.replace('\x20\x20','\x20')
 
-
-    # read in nonfarm sole prop inventories data
-    nonfarm_inv = format_dataframe(pd.read_csv(_NFARM_INV).T)
+    # Opens the nonfarm inventory data
+    nonfarm_inv = prt.format_excel(pd.read_excel(_NFARM_INV, skiprows=1, skip_footer=8))
     # Cuts off the repeated columns so only the data for all sole props remains
     nonfarm_inv = nonfarm_inv.T.groupby(sort=False,level=0).first().T
     # Fixing the index labels of the new dataframe
-    nonfarm_inv.reset_index(inplace=True)
+    nonfarm_inv.reset_index(inplace=True,drop=True)
     # Keep only variables of interest
-    nonfarm_inv = nonfarm_inv[['Item','Inventory, end of year']]
-    nonfarm_inv['Item'] = nonfarm_inv['Item'].str.strip()
-    nonfarm_inv.rename(columns={"Item": "Industrial sector",
-                                "Inventory, end of year": "Inventories"},inplace=True)
-    nonfarm_inv['Item'] = nonfarm_inv['Industrial sector'].str.replace(',', '')
+    nonfarm_inv = nonfarm_inv[['Net income status, item','Inventory, end of year']]
+    nonfarm_inv['Net income status, item'] = nonfarm_inv['Net income status, item'].str.strip()
+    nonfarm_inv.rename(columns={"Net income status, item" : "Item",
+        "Inventory, end of year": "Inventories"},inplace=True)
+    nonfarm_inv['Item'] = nonfarm_inv['Item'].str.replace(',', '')
     nonfarm_inv['Item'] = nonfarm_inv['Item'].str.replace('\x20\x20','\x20')
 
     # merge together two sole prop data sources
@@ -78,10 +75,10 @@ def load_proprietorship_data(entity_dfs):
     xwalk['Industry'] = xwalk['Industry'].str.strip()
 
     # merge industry codes to sole prop data
-    nonfarm_df = pd.merge(nonfarm_df, xwalk, how='inner', left_on=['Industrial sector'],
+    nonfarm_df = pd.merge(nonfarm_df, xwalk, how='inner', left_on=['Item'],
       right_on=['Industry'], left_index=False, right_index=False, sort=False,
       copy=True)
-    nonfarm_df.drop(['Item','Industrial sector','Industry'], axis=1, inplace=True)
+    nonfarm_df.drop(['Item','Industry'], axis=1, inplace=True)
 
     # Sums together the repeated codes into one industry
     nonfarm_df = nonfarm_df.groupby('INDY_CD',sort=False).sum()
@@ -221,36 +218,26 @@ def format_columns(nonfarm_df):
     nonfarm_df.columns = columns
     return nonfarm_df
 
-def format_dataframe(df):
-    """Formats the dataframe with industry codes as the rows and asset information as the columns.
-
-        :param df: The dataframe to be formatted
-        :param crosswalk: Maps the SOI codes to their respective industries
-        :type df: DataFrame
+def format_dataframe(nonfarm_df):
+    """Fixes the column headers, drops the unnecessary rows, inserts the SOI codes and multiplies by a factor of a thousand
+        :param nonfarm: The dataframe that will be formatted
+        :param crosswalk: SOI industry names and codes
         :type crosswalk: DataFrame
-        :returns: A clean dataframe with the data easily acessible
+        :type nonfarm: DataFrame
+        :returns: The dataframe in a simple format
         :rtype: DataFrame
     """
-    indices = []
-    # Removes the extra characters from the industry names
-    for string in df.index:
-        indices.append(string.replace('\n',' ').replace('\r',''))
-    # Adds the industry names as the first column in the dataframe
-    df.insert(0,indices[0],indices)
-    # Stores the values of the first row in columns
-    columns = df.iloc[0].tolist()
-    # Drops the first row because it will become the column labels
-    df = df[df.Item != 'Item']
-    # Removes extra characters from the column labels
-    for i in xrange(0,len(columns)):
-        columns[i] = columns[i].strip().replace('\r','')
-    # Sets the new column values
-    df.columns = columns
-    names = df['Item']
-    # Multiplies the entire dataframe by a factor of a thousand
-    df = df * _DDCT_FILE_FCTR
-    # Replaces the industry names and codes to adjust for the multiplication in the previous step
-    df['Item'] = names
-    df.reset_index(inplace=True)
-    # Returns the newly formatted dataframe
-    return df
+    # Creates a list from the first row of the dataframe
+    columns = nonfarm_df.iloc[0].tolist()
+    # Replaces the first item in the list with a new label
+    columns[0] = 'Industry'
+    # Sets the values of the columns on the dataframes
+    nonfarm_df.columns = map(lambda x : x.encode('ascii','ignore').replace('\n', ' '),columns)
+    # Drops the first couple of rows and last row in the dataframe
+    nonfarm_df.dropna(inplace=True)
+    # Multiplies each value in the dataframe by a factor of 1000
+    nonfarm_df.iloc[:,1:] = nonfarm_df.iloc[:,1:] * _DDCT_FILE_FCTR
+    # Resets the index values to a normal range after some have been dropped
+    nonfarm_df.reset_index(inplace=True,drop=True)
+
+    return nonfarm_df

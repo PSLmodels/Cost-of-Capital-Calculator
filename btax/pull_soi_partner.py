@@ -59,11 +59,11 @@ def load_partner_data(entity_dfs):
     # keep only codes that help to identify complete industries
     xwalk = xwalk[xwalk['complete']==1]
     # read in partner data - partner assets
-    df = format_stuff(pd.read_excel(_AST_FILE, skiprows=2, skip_footer=6))
+    df = format_excel(pd.read_excel(_AST_FILE, skiprows=2, skip_footer=6))
     # Cuts off the repeated columns so only the data for all partnerships remains
     df03 = df.T.groupby(sort=False,level=0).first().T
     # Fixing the index labels of the new dataframe
-    df03.reset_index(inplace=True)
+    df03.reset_index(inplace=True,drop=True)
     # Keep only variables of interest
     df03['Fixed Assets'] = (df03['Depreciable assets']-
                                          df03['Less:  Accumulated depreciation'])
@@ -71,11 +71,11 @@ def load_partner_data(entity_dfs):
     df03['Item'] = df03['Item'].str.strip()
 
      # partner data - income
-    df01 = format_stuff(pd.read_excel(_INC_FILE, skiprows=2, skip_footer=6))
+    df01 = format_excel(pd.read_excel(_INC_FILE, skiprows=2, skip_footer=6))
     # Cuts off the repeated columns so only the data for all partnerships remains
     df01 = df01.T.groupby(sort=False,level=0).first().T
     # Fixing the index labels of the new dataframe
-    df01.reset_index(inplace=True)
+    df01.reset_index(inplace=True,drop=True)
     # Keep only variables of interest
     df01 = df01[['Item','Depreciation']]
     df01['Item'] = df01['Item'].str.strip()
@@ -152,6 +152,13 @@ def load_partner_data(entity_dfs):
     part_data.drop(map(lambda (x,y): x+y, zip(columns, ['_ratio']*len(columns))), axis=1, inplace=True)
     part_data.drop(['index','sector_code','major_code_x','minor_code',
                     'INDY_CD','major_code_y'],axis=1,inplace=True)
+
+    df05 = format_excel(pd.read_excel(_TYP_FILE, skiprows=1, skip_footer=5))
+    df05 = df05[['All partners','Corporate general partners','Corporate limited partners',
+    'Individual general partners','Individual limited partners','Partnership general partners', 
+    'Partnership limited partners','Tax-exempt organization general partners', 
+    'Tax-exempt organization limited partners','Nominee and other general partners',
+    'Nominee and other limited partners']]
 
     ### !!! Partner data has right industry breakouts, and ratio sum to 1 in ind,
     ## but totals not adding up to SOI controls. Not quite sure why. figure this out,
@@ -276,27 +283,25 @@ def abs_sum(group, avg_name):
     d = group[avg_name]
     return (np.absolute(d)).sum()
 
-def format_stuff(p1):
-    for i in xrange(0,len(p1.iloc[0,:])):
-        element = p1.iloc[0,:][i]
-        if isinstance(element, float):
-            element = p1.iloc[1,:][i]
-            if(isinstance(element,float)):
-                element = p1.iloc[2,:][i]
-        p1.iloc[0,:][i] = element.replace('\n', ' ').replace('  ', ' ')
-    p1 = p1.drop(p1.index[[1,2,3,4,5,6,7,8,12]])
-    p1 = p1.T
-    column_names = p1.iloc[0,:].tolist()
-    for i in xrange(0,len(column_names)):
-        column_names[i] = column_names[i].encode('ascii','ignore').lstrip().rstrip()
-    p1.columns = column_names
-    p1 = p1.drop(p1.index[[0,136]])
-    p1 = p1.fillna(0)
-    p1 = p1.replace('[2]  ', 0)
-    p1.index = np.arange(0,len(p1))
-    info = p1['Item']
-    p1 = p1 * _AST_FILE_FCTR
-    p1['Item'] = info
-    #p1.insert(1,'Codes:',cross['Codes:'])
+def format_excel(df):
 
-    return p1
+    for i, element in enumerate(df.iloc[0,:]):
+        j=1
+        while isinstance(element, float):
+            element = df.iloc[j,:][i]
+            j+=1
+        df.iloc[0,:][i] = element.replace('\n', ' ').replace('  ', ' ')
+    
+    df.dropna(inplace=True)
+    df = df.T
+    column_names = df.iloc[0,:].tolist()
+    column_names = map(lambda x : x.encode('ascii','ignore').lstrip().rstrip(), column_names)
+    df.columns = column_names
+    df = df.drop(df.index[[0,len(df)-1]])
+    df = df.fillna(0)
+    df = df.replace('[d]', 0)
+    df = df.replace('[2]  ', 0)
+    df.reset_index(inplace=True, drop=True)
+    df.iloc[:,1:] = df.iloc[:,1:] * _AST_FILE_FCTR
+
+    return df

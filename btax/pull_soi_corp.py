@@ -58,7 +58,7 @@ def load_corp_data():
     data_cols = cols_dict.keys()
     columns = cols_dict.values()
     columns.remove('')
-    # Opening the soi S-corporate data file:
+    # Opening the soi S-corporate data file:   
     try:
         s_corp = pd.read_csv(_S_CORP_IN_PATH).fillna(0)
         s_corp = s_corp.drop(s_corp[s_corp['AC']> 1.].index)
@@ -155,10 +155,7 @@ def calc_proportions(tot_corp, s_corp, columns):
     #print corp_ratios['sector_code'][:5], corp_ratios['minor_code_alt'][:5],    corp_ratios['TOT_ASSTS_ratio'][:5]
 
     # new data w just ratios that will then merge to s corp data by sector code (many to one merge)
-    # first just keep s corp columns want
-    s_corp = s_corp[['INDY_CD']+columns].copy()
-
-
+    # first just keep s corp columns want_
     # merge ratios to s corp data
     s_corp = pd.merge(corp_ratios, s_corp, how='inner', left_on=['sector_code'], right_on=['INDY_CD'],
       left_index=False, right_index=False, sort=False,

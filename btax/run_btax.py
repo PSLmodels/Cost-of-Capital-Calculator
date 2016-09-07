@@ -50,7 +50,6 @@ def run_btax(**user_params):
 	:rtype: DataFrame
     """
     calc_assets = False
-
     if calc_assets:
         # get soi totals for assets
         soi_data = pull_soi_data()
