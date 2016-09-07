@@ -9,8 +9,9 @@ Last updated: 7/25/2016.
 
 """
 # Import packages
-from collections import namedtuple
+from collections import namedtuple, defaultdict
 import cPickle as pickle
+from functools import partial
 import numpy as np
 import os.path
 import pandas as pd
@@ -35,13 +36,15 @@ from btax import visuals_plotly
 globals().update(get_paths())
 TABLE_ORDER = ['base_output_by_asset',
                'reform_output_by_asset',
-               'delta_output_by_asset',
+               'changed_output_by_asset',
                'base_output_by_industry',
                'reform_output_by_industry',
-               'delta_output_by_industry',]
+               'changed_output_by_industry',]
 ModelDiffs = namedtuple('ModelDiffs', TABLE_ORDER)
 
-def run_btax(**user_params):
+ASSET_PRE_CACHE_FILE = 'asset_data.pkl'
+
+def run_btax(test_run,baseline=False,start_year=2016,iit_reform=None,**user_params):
     """Runner script that kicks off the calculations for B-Tax
 
 	:param user_params: The user input for implementing reforms
@@ -50,7 +53,9 @@ def run_btax(**user_params):
 	:rtype: DataFrame
     """
     calc_assets = False
-    if calc_assets:
+
+    iit_reform = iit_reform or {}
+    if calc_assets or not os.path.exists(ASSET_PRE_CACHE_FILE):
         # get soi totals for assets
         soi_data = pull_soi_data()
         # read in the BEA data on fixed assets and separate them by corp and non-corp
@@ -63,15 +68,16 @@ def run_btax(**user_params):
         land, res_assets, owner_occ_dict = read_bea.land(soi_data, fixed_assets)
         # put all asset data together
         asset_data = read_bea.combine(fixed_assets,inventories,land,res_assets,owner_occ_dict)
+        # save result to pickle so don't have to do this everytime
+        pickle.dump(asset_data, open(ASSET_PRE_CACHE_FILE, "wb" ) )
     else:
-        asset_data = pickle.load(open('asset_data.pkl', 'rb'))
+        asset_data = pickle.load(open(ASSET_PRE_CACHE_FILE, 'rb'))
 
     # get parameters
-    parameters = params.get_params(**user_params)
+    parameters = params.get_params(test_run,baseline,start_year,iit_reform,**user_params)
 
     # make calculations by asset and create formated output
     output_by_asset = calc_final_outputs.asset_calcs(parameters,asset_data)
-    pickle.dump( output_by_asset, open( "by_asset.pkl", "wb" ) )
 
     # make calculations by industry and create formated output
     output_by_industry = calc_final_outputs.industry_calcs(parameters, asset_data, output_by_asset)
@@ -80,13 +86,13 @@ def run_btax(**user_params):
     return output_by_asset, output_by_industry
 
 
-def run_btax_with_baseline_delta(**user_params):
+def run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params):
     econ_params = filter_user_params_for_econ(**user_params)
-    base_output_by_asset, base_output_by_industry = run_btax(**econ_params)
-    reform_output_by_asset, reform_output_by_industry = run_btax(**user_params)
-    delta_output_by_asset = diff_two_tables(reform_output_by_asset,
+    base_output_by_asset, base_output_by_industry = run_btax(test_run,True,start_year,{},**econ_params)
+    reform_output_by_asset, reform_output_by_industry = run_btax(test_run,False,start_year,iit_reform,**user_params)
+    changed_output_by_asset = diff_two_tables(reform_output_by_asset,
                                             base_output_by_asset)
-    delta_output_by_industry = diff_two_tables(reform_output_by_industry,
+    changed_output_by_industry = diff_two_tables(reform_output_by_industry,
                                                base_output_by_industry)
 
     # create plots
@@ -105,23 +111,29 @@ def run_btax_with_baseline_delta(**user_params):
 
     return ModelDiffs(base_output_by_asset,
                       reform_output_by_asset,
-                      delta_output_by_asset,
+                      changed_output_by_asset,
                       base_output_by_industry,
                       reform_output_by_industry,
-                      delta_output_by_industry)
+                      changed_output_by_industry)
 
 
-def run_btax_to_json_tables(**user_params):
-    out = run_btax_with_baseline_delta(**user_params)
-    tables = {}
+def run_btax_to_json_tables(test_run=False,start_year=2016,iit_reform=None, **user_params):
+    out = run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params)
+    tables = defaultdict(lambda: {})
     for table_name, table in zip(TABLE_ORDER, out):
         if 'asset' in table_name:
-            tables.update(output_by_asset_to_json_table(table, table_name))
+            tab = output_by_asset_to_json_table(table, table_name)
+            for k, v in tab.items():
+                for k2, v2 in v.items():
+                    tables['asset_{}'.format(k)][k2] = v2
         elif 'industry' in table_name:
-            tables.update(output_by_industry_to_json_table(table, table_name))
+            tab = output_by_industry_to_json_table(table, table_name)
+            for k, v in tab.items():
+                for k2, v2 in v.items():
+                    tables['industry_{}'.format(k)][k2] = v2
         else:
             raise ValueError('Expected an "asset" or "industry" related table')
-    return tables
+    return dict(tables)
 
 
 def main():

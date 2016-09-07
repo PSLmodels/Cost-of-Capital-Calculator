@@ -1,4 +1,7 @@
 xlrd
 bokeh
 numpy
+numba
+six
+toolz
 pandas>=0.18

@@ -10,10 +10,11 @@ from argparse import Namespace
 import copy
 import json
 import os
-
+import pandas as pd
 import numpy as np
 
 from btax.util import read_from_egg
+
 
 DEFAULTS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_defaults.json')))
 DEFAULT_ASSET_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_asset.json')))
@@ -70,7 +71,7 @@ def translate_param_names(**user_mods):
     return user_params
 
 
-def get_params(**user_mods):
+def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
 
     """Contains all the parameters
 
@@ -106,8 +107,6 @@ def get_params(**user_mods):
     alpha_h_d_nt = 0.213
 
     #user defined variables
-
-    # those in UI now:
     user_params = translate_param_names(**user_mods)
     pi = user_params['pi']
     i = user_params['i']
@@ -130,14 +129,40 @@ def get_params(**user_mods):
     bonus_deprec['100'] = 0.
     deprec_system['100'] = 'ADS'
 
-    tau_nc = 0.33 # 0.331 # tax rate on non-corporate business income
-    tau_div = 0.1757 #0.184 # tax rate on dividend income
-    tau_int = 0.2379 # 0.274 # tax rate on interest income
-    tau_scg = 0.3131 #0.323 # tax rate on short term capital gains
-    tau_lcg = 0.222 #0.212 # tax rate on long term capital gains
-    tau_xcg = 0.00 # tax rate on capital gains held to death
-    tau_td = 0.215 # tax rate on return to equity held in tax defferred accounts
-    tau_h = 0.181 # tax rate owner occupied housing deductions
+    # call tax calc to get individual rates
+    if test_run==True:
+        tau_nc = 0.33 # 0.331 # tax rate on non-corporate business income
+        tau_div = 0.1757 #0.184 # tax rate on dividend income
+        tau_int = 0.2379 # 0.274 # tax rate on interest income
+        tau_scg = 0.3131 #0.323 # tax rate on short term capital gains
+        tau_lcg = 0.222 #0.212 # tax rate on long term capital gains
+        tau_xcg = 0.00 # tax rate on capital gains held to death
+        tau_td = 0.215 # tax rate on return to equity held in tax deferred accounts
+        tau_h = 0.181 # tax rate owner occupied housing deductions
+        # test below is that calculator can be created
+        CUR_PATH = os.path.abspath(os.path.dirname(__file__))
+        TAXDATA_PATH = os.path.join(CUR_PATH,'test_data', 'puf91taxdata.csv.gz')
+        TAXDATA = pd.read_csv(TAXDATA_PATH, compression='gzip')
+        WEIGHTS_PATH = os.path.join(CUR_PATH,'test_data', 'puf91weights.csv.gz')
+        WEIGHTS = pd.read_csv(WEIGHTS_PATH, compression='gzip')
+        from btax.get_taxcalc_rates import get_calculator
+        calc = get_calculator(baseline=False, calculator_start_year=start_year,
+                              reform=iit_reform, data=TAXDATA,
+                              weights=WEIGHTS, records_start_year=2009)
+        assert calc.current_year == start_year
+    else:
+        from btax.get_taxcalc_rates import get_rates
+        indiv_rates = get_rates(baseline,start_year,iit_reform)
+        tau_nc = indiv_rates['tau_nc']
+        tau_div = indiv_rates['tau_div']
+        tau_int = indiv_rates['tau_int']
+        tau_scg = indiv_rates['tau_scg']
+        tau_lcg = indiv_rates['tau_lcg']
+        tau_xcg = 0.00 # tax rate on capital gains held to death
+        tau_td = indiv_rates['tau_td']
+        tau_h = indiv_rates['tau_h']
+
+    # Parameters for holding periods of assets, etc.
     Y_td = 8.
     Y_scg = 4/12.
     Y_lcg = 8.

@@ -15,11 +15,14 @@ install:
   - source activate test-environment
   - conda install --file conda-requirements.txt # xlrd, possibly others
   - pip install -r requirements.txt
+  #- conda install -c ospc taxcalc
+  - git clone https://github.com/jdebacker/Tax-Calculator.git && cd Tax-Calculator
+  - git fetch --all && git checkout master && python setup.py install && cd ..
   - export BTAX_OUT_DIR=btax_output_dir # make an output dir
   - export BTAX_CUR_DIR=btax
   - mkdir btax_output_dir
   - python setup.py install
 
 script:
-  - run-btax                    # ensure the pickles are updated
-  - python -c "from btax.run_btax import run_btax_to_json_tables;run_btax_to_json_tables(btax_betr_corp=0.2,btax_betr_entity_Switch=True, btax_betr_pass=.3)"
+  #- run-btax                    # ensure the pickles are updated
+  - python -c "from btax.run_btax import run_btax_to_json_tables;run_btax_to_json_tables(test_run=True,start_year=2016,iit_reform={},btax_betr_corp=0.2,btax_betr_entity_Switch=True, btax_betr_pass=.3)"
