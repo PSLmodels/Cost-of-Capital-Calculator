@@ -29,20 +29,21 @@ def translate_param_names(**user_mods):
     # btax_betr_entity_Switch # If this parameter =True, then u_nc default to corp rate
 
     defaults = dict(DEFAULTS)
-    user_mods.update({k: v['value'][0] for k,v in defaults.iteritems()})
     radio_tags = ('gds', 'ads', 'tax',)
     class_list = [3, 5, 7, 10, 15, 20, 25, 27.5, 39]
     class_list_str = [(str(i) if i != 27.5 else '27_5') for i in class_list]
     user_deprec_system = {}
-
     for cl in class_list_str:
-        if 'btax_depr_'+cl+'yr_gds_Switch':
+        if user_mods.get('btax_depr_'+cl+'yr_gds_Switch'):
             user_deprec_system[cl] = 'GDS'
-        elif 'btax_depr_'+cl+'yr_ads_Switch':
+        elif user_mods.get('btax_depr_'+cl+'yr_ads_Switch'):
             user_deprec_system[cl] = 'ADS'
-        elif 'btax_depr_'+cl+'yr_tax_Switch':
+        elif user_mods.get('btax_depr_'+cl+'yr_tax_Switch'):
             user_deprec_system[cl] = 'Economic'
-
+        else:
+            user_deprec_system[cl] = 'GDS'
+    user_mods.update({k: v['value'][0] for k,v in defaults.iteritems()
+                      if k not in user_mods})
     # user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
     # 			 for cl in class_list_str}
     # to zero out bonus - useful for compare to CBO
