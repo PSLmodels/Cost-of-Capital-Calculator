@@ -5,3 +5,4 @@ numba
 six
 toolz
 pandas>=0.18
+pytest

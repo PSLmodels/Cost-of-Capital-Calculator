@@ -540,7 +540,7 @@
     {
       "long_name": "Haircut on interest deductibility",
       "notes": "This parameter gives the fraction of interest payments that are not allowable as deductions against corporate income.",
-      "description": "Haircut on interest deductibility (fractin of interst deductible)",
+      "description": "Haircut on interest deductibility (fraction of interest not deductible)",
       "value": [
           0.0
       ],
