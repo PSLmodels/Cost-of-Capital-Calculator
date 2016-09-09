@@ -3,7 +3,7 @@ Runs a paricular reform against the baseline policy:
 -------------------------------------------------------------------------------
 """
 # Import packages
-from btax.run_btax import run_btax_to_json_tables as run_btax
+from btax.run_btax import run_btax
 
 test_run = False # flag for test run (for Travis CI)
 start_year = 2016
