@@ -22,7 +22,7 @@ def tst_once(**user_params):
 
 
 @pytest.mark.parametrize('k,v', [(k,v) for k,v in DEFAULTS
-                                  if not ('depr' in k and not 'Switch' in k)])
+                                  if not ('depr' in k and 'Switch' in k)])
 @pytest.mark.slow
 def test_each_param_has_effect(k, v):
     '''For each parameter in param_defaults/btax_default.json,

@@ -119,18 +119,24 @@ def run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params):
 
 def run_btax_to_json_tables(test_run=False,start_year=2016,iit_reform=None, **user_params):
     out = run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params)
-    tables = defaultdict(lambda: {})
+    tables = {}
     for table_name, table in zip(TABLE_ORDER, out):
         if 'asset' in table_name:
             tab = output_by_asset_to_json_table(table, table_name)
             for k, v in tab.items():
                 for k2, v2 in v.items():
-                    tables['asset_{}'.format(k)][k2] = v2
+                    k1 = 'asset_{}'.format(k)
+                    if not k1 in tables:
+                        tables[k1] = {}
+                    tables[k1][k2] = v2
         elif 'industry' in table_name:
             tab = output_by_industry_to_json_table(table, table_name)
             for k, v in tab.items():
                 for k2, v2 in v.items():
-                    tables['industry_{}'.format(k)][k2] = v2
+                    k1 = 'industry_{}'.format(k)
+                    if not k1 in tables:
+                        tables[k1] = {}
+                    tables[k1][k2] = v2
         else:
             raise ValueError('Expected an "asset" or "industry" related table')
     return dict(tables)
