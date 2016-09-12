@@ -13,9 +13,9 @@ import sys
 import numpy as np
 import pandas as pd
 # Import custom modules
-import pull_soi_corp as corp
-import pull_soi_partner as prt
-import pull_soi_proprietorship as prop
+import btax.pull_soi_corp as corp
+import btax.pull_soi_partner as prt
+import btax.pull_soi_proprietorship as prop
 from btax.util import get_paths
 globals().update(get_paths())
 

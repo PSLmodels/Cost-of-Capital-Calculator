@@ -52,7 +52,8 @@ def run_btax(test_run,baseline=False,start_year=2016,iit_reform=None,**user_para
 	:returns: METR (by industry and asset) and METTR (by asset)
 	:rtype: DataFrame
     """
-    calc_assets = False
+    calc_assets = True
+
     iit_reform = iit_reform or {}
     if calc_assets or not os.path.exists(ASSET_PRE_CACHE_FILE):
         # get soi totals for assets
