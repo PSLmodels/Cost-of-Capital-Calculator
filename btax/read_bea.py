@@ -62,8 +62,6 @@ def fixed_assets(soi_data):
     bea_FA = pd.merge(bea_FA, bea_asset_names, how='inner', on=['bea_asset_code'],
       left_index=False, right_index=False, sort=False,
       copy=True)
-    # Drop religious buildings
-    bea_FA=bea_FA[bea_FA['Asset Type']=='Religious'].copy()
 
 
     # Read in BEA industry names
