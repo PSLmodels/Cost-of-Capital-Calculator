@@ -238,7 +238,7 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     asset_dict.update(dict.fromkeys(['Residential'],
           'Residential Buildings'))
     asset_dict.update(dict.fromkeys(['Office','Hospitals','Special care','Medical buildings','Multimerchandise shopping',
-          'Food and beverage establishments','Warehouses','Mobile structures','Other commercial',
+          'Food and beverage establishments','Warehouses','Other commercial',
           'Religious','Educational and vocational','Lodging'],
           'Nonresidential Buildings'))
     asset_dict.update(dict.fromkeys(['Gas','Petroleum pipelines','Communication',
@@ -247,7 +247,7 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
           'Amusement and recreation','Air transportation','Other transportation',
           'Other railroad','Track replacement','Local transit structures',
           'Other land transportation','Farm','Water supply','Sewage and waste disposal',
-          'Public safety','Highway and conservation and development'],
+          'Public safety','Highway and conservation and development','Mobile structures'],
           'Other Structures'))
     asset_dict.update(dict.fromkeys(['Pharmaceutical and medicine manufacturing',
           'Chemical manufacturing, ex. pharma and med','Semiconductor and other component manufacturing',
