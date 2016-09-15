@@ -237,14 +237,14 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
           'Other Equipment'))
     asset_dict.update(dict.fromkeys(['Residential'],
           'Residential Buildings'))
-    asset_dict.update(dict.fromkeys(['Office','Hospitals','Special care','Medical buildings','Multimerchandise shopping',
+    asset_dict.update(dict.fromkeys(['Manufacturing','Office','Hospitals','Special care','Medical buildings','Multimerchandise shopping',
           'Food and beverage establishments','Warehouses','Other commercial',
-          'Religious','Educational and vocational','Lodging'],
+          'Air transportation','Other transportation','Religious','Educational and vocational','Lodging'],
           'Nonresidential Buildings'))
     asset_dict.update(dict.fromkeys(['Gas','Petroleum pipelines','Communication',
           'Petroleum and natural gas','Mining'],'Mining and Drilling Structures'))
-    asset_dict.update(dict.fromkeys(['Manufacturing','Electric','Wind and solar',
-          'Amusement and recreation','Air transportation','Other transportation',
+    asset_dict.update(dict.fromkeys(['Electric','Wind and solar',
+          'Amusement and recreation',
           'Other railroad','Track replacement','Local transit structures',
           'Other land transportation','Farm','Water supply','Sewage and waste disposal',
           'Public safety','Highway and conservation and development','Mobile structures'],
