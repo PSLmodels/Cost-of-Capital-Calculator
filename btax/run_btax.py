@@ -117,7 +117,7 @@ def run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params):
                       changed_output_by_industry)
 
 
-def run_btax_to_json_tables(test_run=False,start_year=2016,iit_reform=None, **user_params):
+def run_btax_to_json_tables(test_run=False,start_year=2016,iit_reform=None,**user_params):
     out = run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params)
     tables = {}
     for table_name, table in zip(TABLE_ORDER, out):
