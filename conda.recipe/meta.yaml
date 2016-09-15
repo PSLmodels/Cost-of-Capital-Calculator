@@ -15,7 +15,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/{{ git_org }}/{{ repo_name }}/archive/{{ version }}.tar.gz
+  url: https://github.com/{{ git_org }}/{{ repo_name }}/archive/{{ repo_name }}-{{ version }}.tar.gz
   script: python setup.py install --single-version-externally-managed --record record.txt
 
 build:
