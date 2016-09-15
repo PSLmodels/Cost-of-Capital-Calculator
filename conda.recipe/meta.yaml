@@ -1,8 +1,9 @@
 
 # Jinja variables help maintain the recipe as you'll update the version only here.
 {% set name = "btax" %}
-{% set git_org = "open-source-economics" %}
-{% set version = "0.1.2" %}
+{% set repo_name = "B-Tax" %}
+{% set git_org = "PeterDSteinberg" %}
+{% set version = "0.1.091" %}
 {% set sha256 = "d58439c548433adcda98e695be53e526ba940a4b9c44fb9a05d92cd495cdd47f" %}
 # sha256 is the prefered checksum -- you can get it for a file with:
 #  `openssl sha256 <file name>`.
@@ -14,8 +15,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/{{ git_org }}/{{ name }}/releases/download/{{ version }}/{{ name }}-{{ version }}.tar.gz
-  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://github.com/{{ git_org }}/{{ repo_name }}/archive/{{ version }}.tar.gz
   script: python setup.py install --single-version-externally-managed --record record.txt
 
 build:
