@@ -44,10 +44,10 @@ def translate_param_names(**user_mods):
             user_deprec_system[cl] = 'GDS'
     user_mods.update({k: v['value'][0] for k,v in defaults.iteritems()
                       if k not in user_mods})
-    # user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
-    # 			 for cl in class_list_str}
+    user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
+    			 for cl in class_list_str}
     # to zero out bonus - useful for compare to CBO
-    user_bonus_deprec = {cl: 0.for cl in class_list_str}
+    # user_bonus_deprec = {cl: 0.for cl in class_list_str}
     # for expensing
     # user_bonus_deprec = {cl: 1.for cl in class_list_str}
 
