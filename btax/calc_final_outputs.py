@@ -62,6 +62,9 @@ def asset_calcs(params,asset_data):
                 (output_by_asset['rho'+entity_list[j]+financing_list[i]] -
                 save_rate[i,j])/ output_by_asset['rho'+entity_list[j]+financing_list[i]]
 
+    # Drop religious buildings
+    output_by_asset = output_by_asset[output_by_asset['Asset Type']!='Religious'].copy()
+
     # create asset category variable
     output_by_asset['asset_category'] = output_by_asset['Asset Type']
     output_by_asset['asset_category'].replace(asset_dict,inplace=True)

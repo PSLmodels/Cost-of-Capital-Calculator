@@ -44,10 +44,10 @@ def translate_param_names(**user_mods):
             user_deprec_system[cl] = 'GDS'
     user_mods.update({k: v['value'][0] for k,v in defaults.iteritems()
                       if k not in user_mods})
-    # user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
-    # 			 for cl in class_list_str}
+    user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
+    			 for cl in class_list_str}
     # to zero out bonus - useful for compare to CBO
-    user_bonus_deprec = {cl: 0.for cl in class_list_str}
+    # user_bonus_deprec = {cl: 0.for cl in class_list_str}
     # for expensing
     # user_bonus_deprec = {cl: 1.for cl in class_list_str}
 
@@ -237,17 +237,17 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
           'Other Equipment'))
     asset_dict.update(dict.fromkeys(['Residential'],
           'Residential Buildings'))
-    asset_dict.update(dict.fromkeys(['Office','Hospitals','Special care','Medical buildings','Multimerchandise shopping',
-          'Food and beverage establishments','Warehouses','Mobile structures','Other commercial',
-          'Religious','Educational and vocational','Lodging'],
+    asset_dict.update(dict.fromkeys(['Manufacturing','Office','Hospitals','Special care','Medical buildings','Multimerchandise shopping',
+          'Food and beverage establishments','Warehouses','Other commercial',
+          'Air transportation','Other transportation','Religious','Educational and vocational','Lodging','Public safety'],
           'Nonresidential Buildings'))
     asset_dict.update(dict.fromkeys(['Gas','Petroleum pipelines','Communication',
           'Petroleum and natural gas','Mining'],'Mining and Drilling Structures'))
-    asset_dict.update(dict.fromkeys(['Manufacturing','Electric','Wind and solar',
-          'Amusement and recreation','Air transportation','Other transportation',
+    asset_dict.update(dict.fromkeys(['Electric','Wind and solar',
+          'Amusement and recreation',
           'Other railroad','Track replacement','Local transit structures',
           'Other land transportation','Farm','Water supply','Sewage and waste disposal',
-          'Public safety','Highway and conservation and development'],
+          'Highway and conservation and development','Mobile structures'],
           'Other Structures'))
     asset_dict.update(dict.fromkeys(['Pharmaceutical and medicine manufacturing',
           'Chemical manufacturing, ex. pharma and med','Semiconductor and other component manufacturing',
