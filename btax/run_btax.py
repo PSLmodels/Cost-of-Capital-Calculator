@@ -139,6 +139,8 @@ def run_btax_to_json_tables(test_run=False,start_year=2016,iit_reform=None,**use
                     tables[k1][k2] = v2
         else:
             raise ValueError('Expected an "asset" or "industry" related table')
+    print['base_output_by_asset']
+    quit()
     return dict(tables)
 
 
