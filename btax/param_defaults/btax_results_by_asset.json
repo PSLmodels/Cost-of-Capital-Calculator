@@ -12,7 +12,7 @@
       "metr_c",
       {
         "col_label": "METR, corporate typically financed investment",
-        "name": "mettr_c",
+        "name": "metr_c",
         "table_id": "metr",
         "tooltip": "Marginal effective tax rate on new investments, corporate investment financed by historical mix of debt and equity.",
         "divisor": 1,
