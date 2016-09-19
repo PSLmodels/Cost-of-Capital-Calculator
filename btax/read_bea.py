@@ -214,7 +214,7 @@ def land(soi_data, bea_FA):
     bea_res_assets['assets'] = bea_res_assets['res_FA_ratio']*bea_res_assets['BEA Res Assets']
     # create new asset category for residential structures
     bea_res_assets['Asset Type'] = 'Residential'
-    bea_res_assets['bea_asset_code'] = ''
+    bea_res_assets['bea_asset_code'] = 'RES'
     bea_res_assets = bea_res_assets[['Asset Type','bea_asset_code','bea_ind_code',
                                      'minor_code_alt','entity_type','tax_treat',
                                      'assets']].copy()
