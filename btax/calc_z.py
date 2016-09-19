@@ -31,6 +31,7 @@ def get_econ_depr():
     econ_deprec_rates.rename(columns={"Code": "bea_asset_code",
                         "Economic Depreciation Rate": "delta"},inplace=True)
     econ_deprec_rates['Asset'] = econ_deprec_rates['Asset'].str.strip()
+    econ_deprec_rates['bea_asset_code'] = econ_deprec_rates['bea_asset_code'].str.strip()
 
     return econ_deprec_rates
 
