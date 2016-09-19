@@ -52,7 +52,7 @@ def run_btax(test_run,baseline=False,start_year=2016,iit_reform=None,**user_para
 	:returns: METR (by industry and asset) and METTR (by asset)
 	:rtype: DataFrame
     """
-    calc_assets = True
+    calc_assets = False
 
     iit_reform = iit_reform or {}
     if calc_assets or not os.path.exists(ASSET_PRE_CACHE_FILE):
@@ -81,7 +81,6 @@ def run_btax(test_run,baseline=False,start_year=2016,iit_reform=None,**user_para
 
     # make calculations by industry and create formated output
     output_by_industry = calc_final_outputs.industry_calcs(parameters, asset_data, output_by_asset)
-
 
     return output_by_asset, output_by_industry
 
