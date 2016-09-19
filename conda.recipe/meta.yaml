@@ -24,7 +24,7 @@ requirements:
     - taxcalc
     - matplotlib
     - numpy
-    - pandas >=0.18.0
+    - pandas ==0.18.1
     - python 2.7.10
     - pytest
     - xlrd
