@@ -3,7 +3,7 @@ import pytest
 from btax.run_btax import run_btax_to_json_tables
 
 pytest_args = []
-tables = run_btax_to_json_tables(test_run=False,
+tables = run_btax_to_json_tables(test_run=True,
                                  start_year=2016,
                                  iit_reform={},
                                  btax_betr_corp=0.2,
