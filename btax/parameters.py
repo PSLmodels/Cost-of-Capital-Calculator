@@ -192,7 +192,6 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     s_nc_e = E_nc
     s_nc = f_nc*s_nc_d + (1-f_nc)*s_nc_e
     s_array = np.array([[s_c, s_nc], [s_c_d, s_nc_d], [s_c_e, s_nc_e]])
-
     r = f_array*(i*(1-(1-int_haircut)*u_array))+(1-f_array)*(E_array+pi - E_array*r_ace*ace_array)
     r_prime = f_array*i+(1-f_array)*(E_array+pi)
     delta = get_econ_depr()
