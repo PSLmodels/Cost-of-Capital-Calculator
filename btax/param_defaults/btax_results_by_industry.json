@@ -271,27 +271,5 @@
         "divisor": 1,
         "decimals": 3
       }
-    ],
-    [
-      "delta_c",
-      {
-        "col_label": "Economic depreciation rate, corporate sector",
-        "name": "delta_c",
-        "table_id": "d",
-        "tooltip": "Economic depreciation rate",
-        "divisor": 1,
-        "decimals": 3
-      }
-  ],
-  [
-    "delta_nc",
-    {
-      "col_label": "Economic depreciation rate, non-corporate sector",
-      "name": "delta_nc",
-      "table_id": "d",
-      "tooltip": "Economic depreciation rate",
-      "divisor": 1,
-      "decimals": 3
-    }
   ]
 ]

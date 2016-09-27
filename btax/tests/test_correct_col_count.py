@@ -19,7 +19,7 @@ def test_correct_number_of_cols(industry_or_asset, changed_reform_base, table):
     '''Test that each table row has 7 elements where the first is a string
     and others are floats or ints'''
     if industry_or_asset == 'industry_d':
-        expected_cols = 9
+        expected_cols = 7
     else:
         expected_cols = 7
     lens = set(map(len, table[1:]))

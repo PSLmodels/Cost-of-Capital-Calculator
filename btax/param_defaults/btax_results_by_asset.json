@@ -271,16 +271,5 @@
         "divisor": 1,
         "decimals": 3
       }
-    ],
-    [
-      "delta",
-      {
-        "col_label": "Economic depreciation rate",
-        "name": "delta",
-        "table_id": "d",
-        "tooltip": "Economic depreciation rate",
-        "divisor": 1,
-        "decimals": 3
-      }
     ]
 ]
