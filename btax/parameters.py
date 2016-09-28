@@ -111,9 +111,6 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     user_params = translate_param_names(**user_mods)
     pi = user_params['pi']
     i = user_params['i']
-    u_c = user_params['u_c']
-    u_nc = 0.33 #0.331 # CBO(2014) user_params['u_nc']
-    u_array = np.array([u_c, u_nc])
     w = user_params['w']
     inv_credit = user_params['inv_credit']
     ace_c = user_params['ace_c']
@@ -162,6 +159,21 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
         tau_xcg = 0.00 # tax rate on capital gains held to death
         tau_td = indiv_rates['tau_td']
         tau_h = indiv_rates['tau_h']
+        print 'tau_nc = ', tau_nc
+        print 'tau_div = ', tau_div
+        print 'tau_int = ', tau_int
+        print 'tau_scg = ', tau_scg
+        print 'tau_lcg = ', tau_lcg
+        print 'tau_td = ', tau_td
+        print 'tau_h = ', tau_h
+
+    # entity level tax rates - this changes how used in calculations depending on how applied
+    u_c = user_params['u_c']
+    if user_params['u_nc']==0.0:
+        u_nc = tau_nc
+    else:
+        u_nc = user_params['u_nc']
+    u_array = np.array([u_c, u_nc])
 
     # Parameters for holding periods of assets, etc.
     Y_td = 8.
@@ -194,6 +206,14 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     s_array = np.array([[s_c, s_nc], [s_c_d, s_nc_d], [s_c_e, s_nc_e]])
     r = f_array*(i*(1-(1-int_haircut)*u_array))+(1-f_array)*(E_array+pi - E_array*r_ace*ace_array)
     r_prime = f_array*i+(1-f_array)*(E_array+pi)
+    # if no entity level taxes on pass-throughs, ensure mettr and metr on non-corp entities the same
+    if user_params['u_nc'] == 0.0:
+        r_prime[:,1] = s_array[:,1] + pi
+    # If entity level tax, assume distribute earnings at same rate corps distribute
+    # dividends and these are taxed at dividends tax rate (which seems likely, but
+    # leaves no role for non-corp income rate)
+    else:
+        s_array[:,1] = s_array[:,0]
     delta = get_econ_depr()
     tax_methods = {'GDS 200%': 2.0, 'GDS 150%': 1.5, 'GDS SL': 1.0, 'ADS SL': 1.0}
     financing_list = ['', '_d', '_e']
