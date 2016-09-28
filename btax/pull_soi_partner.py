@@ -121,10 +121,6 @@ def load_partner_data(entity_dfs):
     minor_df = pd.merge(df03_minor, soi_bea_ind_codes, how='inner', left_on=['INDY_CD'],
       right_on=['minor_code'], left_index=False, right_index=False, sort=False,
       copy=True,indicator=True)
-    # df03 = pd.merge(df03, soi_bea_ind_codes, how='inner', left_on=['INDY_CD'],
-    #                     right_on=['major_code'],left_index=False,
-    #                     right_index=False, sort=False,suffixes=('_x', '_y'),
-    #                     copy=True)
     part_data = sector_df.append([major_df,minor_df],ignore_index=True).copy().reset_index()
     part_data.drop(['bea_inv_name','bea_code','_merge'], axis=1, inplace=True)
 
@@ -149,16 +145,12 @@ def load_partner_data(entity_dfs):
                         right_on=['minor_code_alt'],left_index=False,
                         right_index=False, sort=False,suffixes=('_x', '_y'),
                         copy=True)
-    part_data.to_csv('test_part.csv',encoding='utf-8')
-    quit()
 
     # allocate capital based on ratios
     for var in columns :
-        part_data.ix[part_data['minor_code_alt']>99999, var+'_ratio'] = 1.
+        #part_data.ix[part_data['minor_code_alt']>99999, var+'_ratio'] = 1.
         part_data[var] = part_data[var]*part_data[var+'_ratio']
 
-    part_data.to_csv('test_part2.csv',encoding='utf-8')
-    quit()
     part_data.drop(map(lambda (x,y): x+y, zip(columns, ['_ratio']*len(columns))), axis=1, inplace=True)
     part_data.drop(['index','sector_code','major_code_x','minor_code',
                     'INDY_CD','major_code_y'],axis=1,inplace=True)
@@ -171,23 +163,25 @@ def load_partner_data(entity_dfs):
     'Nominee and other limited partners']]
 
     ### !!! Partner data has right industry breakouts, and ratio sum to 1 in ind,
-    ## but totals not adding up to SOI controls. Not quite sure why. figure this out,
-    # then attribute over partner types
-    # then do same for sole props (looks like xwalk very close to detail partnership one - let's hope!)
-    # then inventories and land can be split same for all entity types
+    ## but totals not adding up to SOI controls. Not quite sure why. But within
+    ## one percent of total except for fix assests off by 7%.  Going forward
+    ## with this- it may be that industry splits aren't adding to SOI control total
 
 
+    ''' Attribute by partner type '''
 
-    # # Read in data by partner type (gives allocation by partner type)
+    # Read in data by partner type (gives allocation by partner type)
     # df05 = pd.read_csv(_TYP_FILE_CSV).T
     # typ_cross = pd.read_csv(_TYP_IN_CROSS_PATH)
-    # df05 = soi.format_dataframe(df05, typ_cross)
+    # df05 = format_dataframe(df05, typ_cross)
     # df05 = pd.melt(df05, id_vars=['Item', 'Codes:'], value_vars=['Corporate general partners',
     #             'Corporate limited partners','Individual general partners',
     #             'Individual limited partners','Partnership general partners',
     #             'Partnership limited partners', 'Tax-exempt organization general partners',
     #             'Tax-exempt organization limited partners','Nominee and other general partners',
     #             'Nominee and other limited partners'],var_name='part_type',value_name='net_inc')
+    # print df05.head(n=5)
+    # quit()
     #
     # # update partner type names to something shorter
     # # Not currnetly used except to count number of types

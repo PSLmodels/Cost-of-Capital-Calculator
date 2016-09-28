@@ -99,8 +99,7 @@ def load_corp_data():
     #calculate s corp values by minor industry using ratios
     for var in columns:
         c_corp[var] = c_corp[var+'_x']-c_corp[var+'_y']
-    c_corp.to_csv('corp_ratio_test.csv',encoding='utf-8')
-    quit()
+
     # clean up data by dropping and renaming columns
     c_corp.drop(map(lambda (x,y): x+y, zip(columns, ['_x']*len(columns))), axis=1, inplace=True)
     c_corp.drop(map(lambda (x,y): x+y, zip(columns, ['_y']*len(columns))), axis=1, inplace=True)
