@@ -38,6 +38,8 @@ def tst_each_param_has_effect(fast_or_slow, k, v):
     assert that changing the parameter has at least once
     change in the changes tables relative to baseline.
     (Slower-running test)'''
+    if 'btax_depr_25yr_exp' == k:
+        return # no change expected
     if '_econ_' in k:
         return # this would affect baseline as well as reform
     if k == 'btax_betr_entity_Switch':
@@ -72,6 +74,7 @@ def tst_each_param_has_effect(fast_or_slow, k, v):
 
 @pytest.mark.parametrize('k,v', [(k,v) for k,v in DEFAULTS
                                   if not ('depr' in k and 'Switch' in k)])
+@pytest.mark.needs_puf
 @pytest.mark.slow
 def test_each_param_has_effect_slow(k, v):
     tst_each_param_has_effect('slow', k, v)

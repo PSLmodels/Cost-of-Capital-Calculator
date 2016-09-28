@@ -15,10 +15,10 @@ iit_reform = {}
 #          btax_depr_5yr_exp=40.,btax_depr_7yr_exp=40.,btax_depr_10yr_exp=40.,
 #          btax_depr_15yr_exp=40.,btax_depr_20yr_exp=40.)
 #2019 law
-# run_btax_to_json_tables(test_run,start_year,iit_reform,btax_depr_3yr_exp=30.,
-#          btax_depr_5yr_exp=30.,btax_depr_7yr_exp=30.,btax_depr_10yr_exp=30.,
-#          btax_depr_15yr_exp=30.,btax_depr_20yr_exp=30.)
+run_btax_to_json_tables(test_run,start_year,iit_reform,btax_depr_3yr_exp=30.,
+         btax_depr_5yr_exp=30.,btax_depr_7yr_exp=30.,btax_depr_10yr_exp=30.,
+         btax_depr_15yr_exp=30.,btax_depr_20yr_exp=30.)
 #2020 law
-run_btax_with_baseline_delta(test_run,start_year,iit_reform,btax_depr_3yr_exp=0.,
-         btax_depr_5yr_exp=0.,btax_depr_7yr_exp=0.,btax_depr_10yr_exp=0.,
-         btax_depr_15yr_exp=0.,btax_depr_20yr_exp=0.)
+# run_btax_with_baseline_delta(test_run,start_year,iit_reform,btax_depr_3yr_exp=0.,
+#          btax_depr_5yr_exp=0.,btax_depr_7yr_exp=0.,btax_depr_10yr_exp=0.,
+#          btax_depr_15yr_exp=0.,btax_depr_20yr_exp=0.)

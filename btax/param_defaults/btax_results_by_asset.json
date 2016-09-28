@@ -12,7 +12,7 @@
       "metr_c",
       {
         "col_label": "METR, corporate typically financed investment",
-        "name": "mettr_c",
+        "name": "metr_c",
         "table_id": "metr",
         "tooltip": "Marginal effective tax rate on new investments, corporate investment financed by historical mix of debt and equity.",
         "divisor": 1,
@@ -23,7 +23,7 @@
       "metr_nc",
       {
         "col_label": "METR, non-corporate typically financed investment",
-        "name": "mettr_c",
+        "name": "metr_nc",
         "table_id": "metr",
         "tooltip": "Marginal effective tax rate on new investments, non-corporate investment financed by historical mix of debt and equity.",
         "divisor": 1,
@@ -122,7 +122,7 @@
       "mettr_c_d",
       {
         "col_label": "METTR, corporate debt financed investment",
-        "name": "mettr_c_e",
+        "name": "mettr_c_d",
         "table_id": "mettr",
         "tooltip": "Marginal effective total tax rate on new investments, corporate debt financed investment.",
         "divisor": 1,
@@ -133,8 +133,8 @@
       "mettr_nc_d",
       {
         "col_label": "METTR, non-corporate debt financed investment",
-        "name": "mettr_c_e",
-        "table_id": "metr",
+        "name": "mettr_nc_d",
+        "table_id": "mettr",
         "tooltip": "Marginal effective total tax rate on new investments, non-corporate debt financed investment.",
         "divisor": 1,
         "decimals": 3
@@ -177,7 +177,7 @@
       "rho_nc_e",
       {
         "col_label": "Cost of capital, equity financed non-corporate investment",
-        "name": "rho_c_e",
+        "name": "rho_nc_e",
         "table_id": "coc",
         "tooltip": "Cost of capital, investment financed 100% by equity",
         "divisor": 1,
@@ -232,7 +232,7 @@
       "z_c_e",
       {
         "col_label": "NPV of depreciation deductions, equity financed corporate investment",
-        "name": "rho_c_e",
+        "name": "z_c_e",
         "table_id": "d",
         "tooltip": "NPV of depreciation deductions, investment financed 100% by equity",
         "divisor": 1,
@@ -243,7 +243,7 @@
       "z_nc_e",
       {
         "col_label": "NPV of depreciation deductions, equity financed non-corporate investment",
-        "name": "z_c_e",
+        "name": "z_nc_e",
         "table_id": "d",
         "tooltip": "NPV of depreciation deductions, investment financed 100% by equity",
         "divisor": 1,
@@ -268,17 +268,6 @@
         "name": "z_nc_d",
         "table_id": "d",
         "tooltip": "NPV of depreciation deductions, investment financed 100% by debt",
-        "divisor": 1,
-        "decimals": 3
-      }
-    ],
-    [
-      "delta",
-      {
-        "col_label": "Economic depreciation rate",
-        "name": "delta",
-        "table_id": "d",
-        "tooltip": "Economic depreciation rate",
         "divisor": 1,
         "decimals": 3
       }
