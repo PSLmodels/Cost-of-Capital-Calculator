@@ -12,6 +12,7 @@ import os.path
 import numpy as np
 import pandas as pd
 import xlrd
+import re
 
 
 from btax.util import get_paths
@@ -56,6 +57,7 @@ def load_partner_data(entity_dfs):
     """
     # Opening data on depreciable fixed assets, inventories, and land for parnterhsips
     xwalk = pd.read_csv(_DETAIL_PART_CROSS_PATH)
+    xwalk['Industry:'] = xwalk['Industry:'].apply(lambda x: re.sub('[\s+]', '',x))
     # keep only codes that help to identify complete industries
     xwalk = xwalk[xwalk['complete']==1]
     # read in partner data - partner assets
@@ -68,7 +70,8 @@ def load_partner_data(entity_dfs):
     df03['Fixed Assets'] = (df03['Depreciable assets']-
                                          df03['Less:  Accumulated depreciation'])
     df03 = df03[['Item','Fixed Assets','Inventories','Land']]
-    df03['Item'] = df03['Item'].str.strip()
+    #df03['Item'] = df03['Item'].str.strip()
+    df03['Item'] = df03['Item'].apply(lambda x: re.sub('[\s+]', '',x))
 
      # partner data - income
     df01 = format_excel(pd.read_excel(_INC_FILE, skiprows=2, skip_footer=6))
@@ -78,7 +81,10 @@ def load_partner_data(entity_dfs):
     df01.reset_index(inplace=True,drop=True)
     # Keep only variables of interest
     df01 = df01[['Item','Depreciation']]
-    df01['Item'] = df01['Item'].str.strip()
+    #df01['Item'] = df01['Item'].str.strip()
+    df01['Item old'] = df01['Item'].str.strip()
+    df01['Item'] = df01['Item'].apply(lambda x: re.sub('[\s+]', '',x))
+
     # merge two partner data sources together so that all variables together
     df03 = pd.merge(df03, df01, how='inner', left_on=['Item'],
       right_on=['Item'], left_index=False, right_index=False, sort=False,
@@ -143,20 +149,24 @@ def load_partner_data(entity_dfs):
                         right_on=['minor_code_alt'],left_index=False,
                         right_index=False, sort=False,suffixes=('_x', '_y'),
                         copy=True)
+    part_data.to_csv('test_part.csv',encoding='utf-8')
+    quit()
 
     # allocate capital based on ratios
     for var in columns :
         part_data.ix[part_data['minor_code_alt']>99999, var+'_ratio'] = 1.
         part_data[var] = part_data[var]*part_data[var+'_ratio']
 
+    part_data.to_csv('test_part2.csv',encoding='utf-8')
+    quit()
     part_data.drop(map(lambda (x,y): x+y, zip(columns, ['_ratio']*len(columns))), axis=1, inplace=True)
     part_data.drop(['index','sector_code','major_code_x','minor_code',
                     'INDY_CD','major_code_y'],axis=1,inplace=True)
 
     df05 = format_excel(pd.read_excel(_TYP_FILE, skiprows=1, skip_footer=5))
     df05 = df05[['All partners','Corporate general partners','Corporate limited partners',
-    'Individual general partners','Individual limited partners','Partnership general partners', 
-    'Partnership limited partners','Tax-exempt organization general partners', 
+    'Individual general partners','Individual limited partners','Partnership general partners',
+    'Partnership limited partners','Tax-exempt organization general partners',
     'Tax-exempt organization limited partners','Nominee and other general partners',
     'Nominee and other limited partners']]
 
@@ -291,7 +301,7 @@ def format_excel(df):
             element = df.iloc[j,:][i]
             j+=1
         df.iloc[0,:][i] = element.replace('\n', ' ').replace('  ', ' ')
-    
+
     df.dropna(inplace=True)
     df = df.T
     column_names = df.iloc[0,:].tolist()
