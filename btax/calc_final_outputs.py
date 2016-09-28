@@ -67,7 +67,6 @@ def asset_calcs(params,asset_data):
     # create asset category variable
     output_by_asset['asset_category'] = output_by_asset['Asset Type']
     output_by_asset['asset_category'].replace(asset_dict,inplace=True)
-    output_by_asset.to_csv('out_test.csv',encoding='utf-8')
 
     # merge in dollar value of assets - sep for corp and non-corp
     # should be able to do this better with pivot table
