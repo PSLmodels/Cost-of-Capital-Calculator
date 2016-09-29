@@ -16,19 +16,6 @@ import pandas as pd
 from btax.util import get_paths
 globals().update(get_paths())
 
-# _DFLT_S_CORP_COLS_DICT = DFLT_S_CORP_COLS_DICT = dict([
-#                     ('depreciable_assets','DPRCBL_ASSTS'),
-#                     ('accumulated_depreciation', 'ACCUM_DPR'),
-#                     ('land', 'LAND'),
-#                     ('inventories', 'INVNTRY'),
-#                     ('interest_paid', 'INTRST_PD'),
-#                     ('Capital_stock', 'CAP_STCK'),
-#                     ('additional_paid-in_capital', 'PD_CAP_SRPLS'),
-#                     ('earnings_(rtnd_appr.)', ''),
-#                     ('earnings_(rtnd_unappr.)', 'COMP_RTND_ERNGS_UNAPPR'),
-#                     ('cost_of_treasury_stock', 'CST_TRSRY_STCK'),
-#                     ('paid_capital_surplus', 'PD_CAP_SRPLS')
-#                     ])
 _DFLT_S_CORP_COLS_DICT = DFLT_S_CORP_COLS_DICT = dict([
                     ('depreciable_assets','DPRCBL_ASSTS'),
                     ('accumulated_depreciation', 'ACCUM_DPR'),
@@ -58,12 +45,16 @@ def load_corp_data():
     data_cols = cols_dict.keys()
     columns = cols_dict.values()
     columns.remove('')
-    # Opening the soi S-corporate data file:   
+    # Opening the soi S-corporate data file:
     try:
         s_corp = pd.read_csv(_S_CORP_IN_PATH).fillna(0)
         s_corp = s_corp.drop(s_corp[s_corp['AC']> 1.].index)
         # drop total across all industries
         s_corp = s_corp.drop(s_corp[s_corp['INDY_CD']== 1.].index)
+        # put in dollars (data in 1000s)
+        # for var in columns:
+        #     s_corp[var] = s_corp[var]*_CORP_FILE_FCTR
+        s_corp[columns]=s_corp[columns]*_CORP_FILE_FCTR
     except IOError:
         print "IOError: S-Corp soi data file not found."
         raise
@@ -74,6 +65,8 @@ def load_corp_data():
         # drop total across all industries
         tot_corp = tot_corp.drop(tot_corp[tot_corp['INDY_CD']== 1.].index)
         tot_corp = tot_corp[['INDY_CD']+columns].copy()
+        # put in dollars (data in 1000s)
+        tot_corp[columns]=tot_corp[columns]*_CORP_FILE_FCTR
     except IOError:
         print "IOError: S-Corp soi data file not found."
         raise
@@ -107,7 +100,7 @@ def load_corp_data():
     for var in columns:
         c_corp[var] = c_corp[var+'_x']-c_corp[var+'_y']
 
-    # clean up date by dropping and renaming columns
+    # clean up data by dropping and renaming columns
     c_corp.drop(map(lambda (x,y): x+y, zip(columns, ['_x']*len(columns))), axis=1, inplace=True)
     c_corp.drop(map(lambda (x,y): x+y, zip(columns, ['_y']*len(columns))), axis=1, inplace=True)
 
@@ -152,7 +145,6 @@ def calc_proportions(tot_corp, s_corp, columns):
         corp_ratios[var+'_ratio'] = tot_corp.groupby(['sector_code'])[var].apply(lambda x: x/float(x.sum()))
 
     corp_ratios.drop(columns, axis=1, inplace=True)
-    #print corp_ratios['sector_code'][:5], corp_ratios['minor_code_alt'][:5],    corp_ratios['TOT_ASSTS_ratio'][:5]
 
     # new data w just ratios that will then merge to s corp data by sector code (many to one merge)
     # first just keep s corp columns want_

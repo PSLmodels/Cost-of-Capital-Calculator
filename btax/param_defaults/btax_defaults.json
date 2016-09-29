@@ -30,7 +30,7 @@
       "notes": "This parameter is the statutory income tax rate on non-C corporate entities at the entity-level.",
       "description": "Non-corporate entity-level income tax rate",
       "value": [
-          0.35
+          0.0
         ],
         "min": [5.0],
         "max": [-1.0]
