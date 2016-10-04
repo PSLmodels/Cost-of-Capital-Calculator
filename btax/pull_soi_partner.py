@@ -160,7 +160,6 @@ def load_partner_data(entity_dfs):
     ## one percent of total except for fix assests off by 7%.  Going forward
     ## with this- it may be that industry splits aren't adding to SOI control total
 
-
     ''' Attribute by partner type '''
 
     # Read in data by partner type (gives allocation by partner type)
@@ -219,9 +218,6 @@ def load_partner_data(entity_dfs):
     df_manu.loc[:len(part_types), 'Codes:'] = 32
     df_manu.loc[len(part_types):, 'Codes:'] = 33
     df05 = df05.append(df_manu,ignore_index=True).reset_index(drop=True).copy()
-    # # load crosswalk for soi and bea industry codes
-    # soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS, dtype={'bea_ind_code':str})
-    # soi_bea_ind_codes.drop('notes', axis=1, inplace=True)
     # # Merge SOI codes to BEA data
     df05_sector = df05[(df05['Codes:']>9) & (df05['Codes:']<100)]
     df05_major = df05[(df05['Codes:']>99) & (df05['Codes:']<1000)]
@@ -236,50 +232,22 @@ def load_partner_data(entity_dfs):
       right_on=['minor_code'], left_index=False, right_index=False, sort=False,
       copy=True,indicator=True)
     df05= sector_df.append([major_df,minor_df],ignore_index=True).copy().reset_index()
-    df05.drop(['bea_inv_name','bea_code','_merge','Codes:'], axis=1, inplace=True)
+    df05.drop(['bea_inv_name','bea_code','_merge'], axis=1, inplace=True)
 
     # # merge partner type ratios with partner asset data
-    # # likely better way to do this...
-    df03_sector = df03[(df03['INDY_CD']>9) & (df03['INDY_CD']<100)]
-    df03_major = df03[(df03['INDY_CD']>99) & (df03['INDY_CD']<1000)]
-    df03_minor = df03[(df03['INDY_CD']>99999) & (df03['INDY_CD']<1000000)]
-    sector_df = pd.merge(df03_sector, df05, how='inner', left_on=['INDY_CD'],
-        right_on=['sector_code'], left_index=False, right_index=False, sort=False,
-        copy=True,indicator=True)
-    major_df = pd.merge(df03_major, df05, how='inner', left_on=['INDY_CD'],
-        right_on=['major_code'], left_index=False, right_index=False, sort=False,
-        copy=True,indicator=True)
-    minor_df = pd.merge(df03_minor, df05, how='inner', left_on=['INDY_CD'],
-        right_on=['minor_code'], left_index=False, right_index=False, sort=False,
-        copy=True,indicator=True)
-
-    part_assets = sector_df.append([major_df,minor_df],ignore_index=True).copy().reset_index(drop=True)
-    part_assets.drop(['_merge'], axis=1, inplace=True)
+    part_assets = pd.merge(df05,part_data, how='left',left_on=['minor_code_alt'],
+      right_on=['minor_code_alt'], left_index=False, right_index=False, sort=False,
+      copy=True,indicator=True)
+    part_assets.drop(['Codes:','_merge'], axis=1, inplace=True)
 
     # allocate across partner type
     part_assets['Fixed Assets_type'] = part_assets['Fixed Assets']*part_assets['inc_ratio']
     part_assets['Inventories_type'] = part_assets['Inventories']*part_assets['inc_ratio']
     part_assets['Land_type'] = part_assets['Land']*part_assets['inc_ratio']
+    part_assets['Depreciation_type'] = part_assets['Depreciation']*part_assets['inc_ratio']
 
-    # # drop repeats at level of industry codes- this best partner data can be identified at
-    part_assets.drop_duplicates(subset=['INDY_CD','part_type'],inplace=True)
-    
-    # # sum at industry-partner type level
-    part_data = pd.DataFrame({'Fixed Assets' :
-        part_assets.groupby(['INDY_CD'])['Fixed Assets_type'].sum()}).reset_index()
-    part_data['Inventories'] = pd.DataFrame({'Inventories' :
-        part_assets.groupby(['INDY_CD'])['Inventories_type'].sum()}).reset_index()['Inventories']
-    part_data['Land'] = pd.DataFrame({'Land' :
-        part_assets.groupby(['INDY_CD'])['Land_type'].sum()}).reset_index()['Land']
-    part_data['inc_ratio'] = pd.DataFrame({'inc_ratio' :
-        part_assets.groupby(['INDY_CD'])['inc_ratio'].sum()}).reset_index()['inc_ratio']
 
-    data = {'part_data':part_data}
-    #
-    part_data.to_csv('TestDF2.csv',encoding='utf-8')
-    quit()
-
-    part_data = {'part_data': part_data}
+    part_data = {'part_data': part_assets}
 
 
     return part_data
