@@ -86,26 +86,26 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     f_nc = 0.29 # CBO (2014) 0.32
     f_array = np.array([[f_c, f_nc], [1, 1], [0,0]])
 
-    #calibration variables
-    omega_scg = 0.03627
-    omega_lcg = 0.48187
-    omega_xcg = 0.48187
+    #calibration variables - right now using CBO (2014)
+    omega_scg = 0.034
+    omega_lcg = 0.496
+    omega_xcg = 0.469
 
-    alpha_c_e_ft = 0.584
-    alpha_c_e_td = 0.058
-    alpha_c_e_nt = 0.358
+    alpha_c_e_ft = 0.572
+    alpha_c_e_td = 0.039
+    alpha_c_e_nt = 0.389
 
-    alpha_c_d_ft = 0.460
-    alpha_c_d_td = 0.213
-    alpha_c_d_nt = 0.327
+    alpha_c_d_ft = 0.523
+    alpha_c_d_td = 0.149
+    alpha_c_d_nt = 0.328
 
-    alpha_nc_d_ft = 0.691
-    alpha_nc_d_td = 0.142
-    alpha_nc_d_nt = 0.167
+    alpha_nc_d_ft = 0.763
+    alpha_nc_d_td = 0.101
+    alpha_nc_d_nt = 0.136
 
-    alpha_h_d_ft = 0.716
-    alpha_h_d_td = 0.071
-    alpha_h_d_nt = 0.213
+    alpha_h_d_ft = 0.779
+    alpha_h_d_td = 0.037
+    alpha_h_d_nt = 0.183
 
     #user defined variables
     user_params = translate_param_names(**user_mods)
@@ -159,13 +159,13 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
         tau_xcg = 0.00 # tax rate on capital gains held to death
         tau_td = indiv_rates['tau_td']
         tau_h = indiv_rates['tau_h']
-        print 'tau_nc = ', tau_nc
-        print 'tau_div = ', tau_div
-        print 'tau_int = ', tau_int
-        print 'tau_scg = ', tau_scg
-        print 'tau_lcg = ', tau_lcg
-        print 'tau_td = ', tau_td
-        print 'tau_h = ', tau_h
+        # print 'tau_nc = ', tau_nc
+        # print 'tau_div = ', tau_div
+        # print 'tau_int = ', tau_int
+        # print 'tau_scg = ', tau_scg
+        # print 'tau_lcg = ', tau_lcg
+        # print 'tau_td = ', tau_td
+        # print 'tau_h = ', tau_h
 
     # entity level tax rates - this changes how used in calculations depending on how applied
     u_c = user_params['u_c']
@@ -180,13 +180,12 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     Y_scg = 4/12.
     Y_lcg = 8.
     gamma = 0.3
-    m = 0.4286
+    m = 0.44
 
     #intermediate variables
     sprime_c_td = (1/Y_td)*np.log(((1-tau_td)*np.exp(i*Y_td))+tau_td)-pi
     s_c_d_td = gamma*(i-pi) + (1-gamma)*sprime_c_td
     s_c_d = alpha_c_d_ft*(((1-tau_int)*i)-pi) + alpha_c_d_td*s_c_d_td + alpha_c_d_nt*(i-pi)
-
     s_nc_d_td = s_c_d_td
     s_nc_d = alpha_nc_d_ft*(((1-tau_int)*i)-pi) + alpha_nc_d_td*s_nc_d_td + alpha_nc_d_nt*(i-pi)
 
