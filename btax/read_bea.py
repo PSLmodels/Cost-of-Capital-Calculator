@@ -88,8 +88,8 @@ def fixed_assets(soi_data):
 
     # Merge SOI data to BEA data
     bea_FA = bea_FA[['assets','bea_asset_code','bea_ind_code','Asset Type', 'minor_code_alt']].copy()
-    soi_data = soi_data[['minor_code_alt','Fixed Assets','Land','entity_type','tax_treat']].copy()
-    bea_FA= pd.merge(bea_FA, soi_data, how='inner', left_on=['minor_code_alt'],
+    soi_data = soi_data[['minor_code_alt','Fixed Assets','Land','entity_type','tax_treat','part_type']].copy()
+    bea_FA= pd.merge(bea_FA, soi_data, how='right', left_on=['minor_code_alt'],
       right_on=['minor_code_alt'], left_index=False, right_index=False, sort=False,
       copy=True,indicator=False)
 
@@ -195,7 +195,7 @@ def land(soi_data, bea_FA):
 
     bea_land['land_ratio'] = bea_land.groupby(['BEA Corp'])['Land'].apply(lambda x: x/float(x.sum()))
     bea_land['BEA Land'] = bea_land['land_ratio']*bea_land['BEA Land']
-    bea_land = bea_land[['BEA Land','entity_type','tax_treat','bea_code','minor_code_alt']].copy()
+    bea_land = bea_land[['BEA Land','entity_type','tax_treat','bea_code','minor_code_alt','part_type']].copy()
 
     # total land attributed above matches Fin Accts totals for non-owner occ housing
 
@@ -217,9 +217,9 @@ def land(soi_data, bea_FA):
     bea_res_assets['Asset Type'] = 'Residential'
     bea_res_assets['bea_asset_code'] = 'RES'
     bea_res_assets = bea_res_assets[['Asset Type','bea_asset_code','bea_ind_code',
-                                     'minor_code_alt','entity_type','tax_treat',
+                                     'minor_code_alt','entity_type','tax_treat','part_type',
                                      'assets']].copy()
-    bea_res_assets.drop_duplicates(['assets','entity_type'], keep='last',inplace=True)
+    bea_res_assets.drop_duplicates(['assets','entity_type','part_type'], keep='last',inplace=True)
 
 
     return bea_land, bea_res_assets, owner_occ_dict
@@ -234,14 +234,15 @@ def combine(fixed_assets,inventories,land,res_assets,owner_occ_dict):
         :rtype: dictionary
     """
     fixed_assets = fixed_assets[['assets', 'bea_asset_code', 'bea_ind_code',
-                                 'Asset Type','minor_code_alt','entity_type','tax_treat']].copy()
+                                 'Asset Type','minor_code_alt','entity_type',
+                                 'part_type','tax_treat']].copy()
     inventories = inventories[['BEA Inventories','minor_code_alt','entity_type',
-                               'tax_treat','bea_code']].copy()
+                               'part_type','tax_treat','bea_code']].copy()
     inventories.rename(columns={"BEA Inventories":"assets",
                                 "bea_code":"bea_ind_code"},inplace=True)
     inventories['Asset Type'] = 'Inventories'
     inventories['bea_asset_code'] = 'INV'
-    land = land[['BEA Land', 'entity_type', 'tax_treat', 'bea_code', 'minor_code_alt']].copy()
+    land = land[['BEA Land', 'entity_type', 'part_type','tax_treat', 'bea_code', 'minor_code_alt']].copy()
     land.rename(columns={"BEA Land":"assets",
                          "bea_code":"bea_ind_code"},inplace=True)
     land['Asset Type'] = 'Land'
