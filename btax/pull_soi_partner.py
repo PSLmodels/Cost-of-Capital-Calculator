@@ -208,30 +208,35 @@ def load_partner_data(entity_dfs):
         copy=True)
     df05['inc_ratio'] = (df05['net_inc'].astype(float).abs()/df05['sum'].replace({ 0 : np.nan })).replace({np.nan:0})
     df05 = df05[['Codes:','part_type','net_inc','inc_ratio']]
-    print df05.to_csv('TestDF1.csv',encoding='utf-8')
 
     # manufacturing is missing data for 2013, so use overall partnership splits
-    df05[df05['Codes:'] == 31]['inc_ratio'] = 
+    for key in part_types:
+        df05.loc[(df05['Codes:'] == 31) & (df05['part_type'] == key),'inc_ratio'] = \
+            df05.loc[(df05['Codes:'] == 1) & (df05['part_type'] == key),'inc_ratio'].values
     # # add other sector codes for manufacturing
-
     manu = df05[df05['Codes:'] == 31]
     df_manu = (manu.append(manu)).reset_index(drop=True)
     df_manu.loc[:len(part_types), 'Codes:'] = 32
     df_manu.loc[len(part_types):, 'Codes:'] = 33
     df05 = df05.append(df_manu,ignore_index=True).reset_index(drop=True).copy()
-    print df05.to_csv('TestDF.csv',encoding='utf-8')
-    quit()
-    #
     # # load crosswalk for soi and bea industry codes
-    soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS, dtype={'bea_ind_code':str})
-    soi_bea_ind_codes.drop('notes', axis=1, inplace=True)
-    #
+    # soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS, dtype={'bea_ind_code':str})
+    # soi_bea_ind_codes.drop('notes', axis=1, inplace=True)
     # # Merge SOI codes to BEA data
-    df05 = pd.merge(soi_bea_ind_codes, df05, how='inner', left_on=['sector_code'],
-        right_on=['Codes:'], left_index=False, right_index=False, sort=False,
-        copy=True,indicator=True)
-    df05 = df05[df05['_merge']=='both']
-    df05.drop(['_merge','Codes:'], axis=1, inplace=True)
+    df05_sector = df05[(df05['Codes:']>9) & (df05['Codes:']<100)]
+    df05_major = df05[(df05['Codes:']>99) & (df05['Codes:']<1000)]
+    df05_minor = df05[(df05['Codes:']>99999) & (df05['Codes:']<1000000)]
+    sector_df = pd.merge(df05_sector, soi_bea_ind_codes, how='inner', left_on=['Codes:'],
+      right_on=['sector_code'], left_index=False, right_index=False, sort=False,
+      copy=True,indicator=True)
+    major_df = pd.merge(df05_major, soi_bea_ind_codes, how='inner', left_on=['Codes:'],
+      right_on=['major_code'], left_index=False, right_index=False, sort=False,
+      copy=True,indicator=True)
+    minor_df = pd.merge(df05_minor, soi_bea_ind_codes, how='inner', left_on=['Codes:'],
+      right_on=['minor_code'], left_index=False, right_index=False, sort=False,
+      copy=True,indicator=True)
+    df05= sector_df.append([major_df,minor_df],ignore_index=True).copy().reset_index()
+    df05.drop(['bea_inv_name','bea_code','_merge','Codes:'], axis=1, inplace=True)
 
     # # merge partner type ratios with partner asset data
     # # likely better way to do this...
@@ -250,13 +255,15 @@ def load_partner_data(entity_dfs):
 
     part_assets = sector_df.append([major_df,minor_df],ignore_index=True).copy().reset_index(drop=True)
     part_assets.drop(['_merge'], axis=1, inplace=True)
-    #
+
+    # allocate across partner type
     part_assets['Fixed Assets_type'] = part_assets['Fixed Assets']*part_assets['inc_ratio']
     part_assets['Inventories_type'] = part_assets['Inventories']*part_assets['inc_ratio']
     part_assets['Land_type'] = part_assets['Land']*part_assets['inc_ratio']
+
     # # drop repeats at level of industry codes- this best partner data can be identified at
     part_assets.drop_duplicates(subset=['INDY_CD','part_type'],inplace=True)
-    #
+    
     # # sum at industry-partner type level
     part_data = pd.DataFrame({'Fixed Assets' :
         part_assets.groupby(['INDY_CD'])['Fixed Assets_type'].sum()}).reset_index()
