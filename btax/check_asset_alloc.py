@@ -113,6 +113,8 @@ owner_occ_house_RE = np.array(b101.ix[b101['Variable']==
 
 # compute value of land for owner occupied housing sector
 owner_occ_house_land = owner_occ_house_RE - owner_occ_house_FA
+print 'Owner Occ housing land: ', owner_occ_house_land
+print 'Owner Occ housing FAs: ', owner_occ_house_FA
 # update amout of land for non-corporate sector
 noncorp_land -= owner_occ_house_land
 
