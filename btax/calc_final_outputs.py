@@ -68,6 +68,10 @@ def asset_calcs(params,asset_data):
     output_by_asset['asset_category'] = output_by_asset['Asset Type']
     output_by_asset['asset_category'].replace(asset_dict,inplace=True)
 
+    # Drop IP (for now - need to better figure out how depreciate)
+    output_by_asset = output_by_asset[output_by_asset['asset_category']!='Intellectual Property'].copy()
+
+
     # merge in dollar value of assets - sep for corp and non-corp
     # should be able to do this better with pivot table
     bea_corp = asset_data[asset_data['tax_treat']=='corporate'].copy()
