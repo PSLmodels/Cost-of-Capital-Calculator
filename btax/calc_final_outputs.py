@@ -124,10 +124,12 @@ def industry_calcs(params, asset_data, output_by_asset):
       right_on=['bea_asset_code'], left_index=False, right_index=False, sort=False,
       copy=True)
 
-    # drop Intellectual Property - not sure have it straight and CBO not include
+    # drop certain types of assets and owner occupied housing when making industry calcs
+    # Means industry calculations will only be for equipment and structures
     by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Intellectual Property'].copy()
-    #by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Land'].copy()
-    #by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Inventories'].copy()
+    by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Land'].copy()
+    by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Inventories'].copy()
+    #by_industry_asset = by_industry_asset[by_industry_asset['tax_treat']!='owner_occupied_housing'].copy()
 
 
     # create weighted averages by industry/tax treatment
