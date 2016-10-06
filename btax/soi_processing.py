@@ -46,6 +46,8 @@ def pull_soi_data():
     sole_prop.loc[:,'entity_type'] = 'sole_prop'
 
     soi_data = c_corp.append([s_corp,partner,sole_prop],ignore_index=True).copy().reset_index()
+    # soi_data.loc[soi_data['part_type'] == None, 'part_type'] = 'Not a partnership'
+    soi_data['part_type'] = soi_data['part_type'].fillna('Not a partnership')
 
     # merge to industry codes xwalk, which will be helpful when merging with
     # BEA data
