@@ -180,7 +180,7 @@ def econ(df, r, financing_list, entity_list):
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
             df['z'+entity_list[j]+financing_list[i]] = \
-                df['bonus'] + ((1-df['bonus'])*((df['delta']/(df['delta']+r[i,j]))))
+                df['bonus'] + ((1-df['bonus'])*(((df['delta']*(1++r[i,j]))/(df['delta']+r[i,j]))))
 
             # # don't allow bonus to give NPV > 1
             # df.ix[df['z'+entity_list[j]+financing_list[i]] > 1., 'z'+entity_list[j]+financing_list[i]] = 1.
