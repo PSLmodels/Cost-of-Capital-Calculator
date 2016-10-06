@@ -100,7 +100,7 @@
       "notes": "This parameter gives the rate of bonus depreciation on 15-year class property.  A rate of 100% results in full expensing.",
       "description": "Rate of bonus depreciation on 15-year class property",
       "value": [
-        50
+        50.0
       ],
       "min": [100.0],
       "max": [-100.0]

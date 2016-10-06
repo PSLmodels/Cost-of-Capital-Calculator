@@ -123,8 +123,12 @@ def load_proprietorship_data(entity_dfs):
     # inner join means that we keep only rows that match in both datasets
     # this should keep only unique soi minor industries
     columns = ['Inventories','Depreciation']
-    part_data = entity_dfs['part_data'][['minor_code_alt']+columns]
-    partner = pd.merge(part_data, soi_bea_ind_codes, how='inner', left_on=['minor_code_alt'],
+    part_data = entity_dfs['part_data'][['minor_code_alt','part_type']+columns+['Land','Fixed Assets']].copy()
+
+    # sum at industry-partner type level
+    part_data = part_data.groupby(['minor_code_alt']).sum().reset_index()
+    part2 = part_data[['minor_code_alt']+columns].copy()
+    partner = pd.merge(part2, soi_bea_ind_codes, how='inner', left_on=['minor_code_alt'],
                         right_on=['minor_code_alt'],left_index=False,
                         right_index=False, sort=False,suffixes=('_x', '_y'),
                         copy=True)
@@ -158,7 +162,7 @@ def load_proprietorship_data(entity_dfs):
     # for all industries bc some not allocated to an industry)
 
     # merge in partner data to get ratios need to impute FA's and land
-    part_ratios = entity_dfs['part_data'][['minor_code_alt','Fixed Assets','Depreciation','Land']]
+    part_ratios = part_data[['minor_code_alt','Fixed Assets','Depreciation','Land']].copy()
     part_ratios['FA_ratio'] = part_ratios['Fixed Assets']/part_ratios['Depreciation']
     part_ratios['Land_ratio'] = part_ratios['Land']/part_ratios['Fixed Assets']
     part_ratios = part_ratios[['minor_code_alt','FA_ratio','Land_ratio']]
@@ -178,7 +182,6 @@ def load_proprietorship_data(entity_dfs):
     # What about inventories for farm sole props? Worry about??
     farm_df = pd.read_csv(_FARM_IN_PATH)
     asst_land = farm_df['R_p'][0] + farm_df['Q_p'][0]
-    part_data = entity_dfs['part_data'][['minor_code_alt','Fixed Assets','Depreciation','Land']]
     land_ratio = np.array((part_data.ix[part_data['minor_code_alt']==111, 'Land']/
                   (part_data.ix[part_data['minor_code_alt']==111, 'Fixed Assets']+
                    part_data.ix[part_data['minor_code_alt']==111, 'Land'])))

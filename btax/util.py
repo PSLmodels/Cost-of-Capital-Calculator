@@ -77,6 +77,7 @@ def get_paths():
     paths['_INC_FILE'] = _INC_FILE = os.path.join(_PRT_DIR, '13pa01.xls')
     paths['_AST_FILE'] = _AST_FILE = os.path.join(_PRT_DIR, '13pa03.xls')
     #paths['_AST_profit_FILE'] = _AST_profit_FILE = os.path.join(_PRT_DIR, '12pa03_profit.xlsx')
+    paths['_TYP_IN_CROSS_PATH'] = _TYP_IN_CROSS_PATH = os.path.join(_PRT_DIR, '13pa05_Crosswalk.csv')
     paths['_TYP_FILE'] = _TYP_FILE = os.path.join(_PRT_DIR, '13pa05.xls')
     paths['_PROP_DIR'] = _PROP_DIR = os.path.join(_SOI_DIR, 'soi_proprietorship')
     paths['_PRT_DIR'] = _PRT_DIR = os.path.join(_SOI_DIR, 'soi_partner')
