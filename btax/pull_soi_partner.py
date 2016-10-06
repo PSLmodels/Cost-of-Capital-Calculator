@@ -162,7 +162,7 @@ def load_partner_data(entity_dfs):
 
     ''' Attribute by partner type '''
 
-    # Read in data by partner type (gives allocation by partner type)
+    # Read in data by partner type (gives income allocation by partner type)
     df05 = format_excel(pd.read_excel(_TYP_FILE, skiprows=1, skip_footer=5))
     df05 = df05[['Item','All partners','Corporate general partners','Corporate limited partners',
         'Individual general partners','Individual limited partners','Partnership general partners',
@@ -241,11 +241,10 @@ def load_partner_data(entity_dfs):
     part_assets.drop(['Codes:','_merge'], axis=1, inplace=True)
 
     # allocate across partner type
-    part_assets['Fixed Assets_type'] = part_assets['Fixed Assets']*part_assets['inc_ratio']
-    part_assets['Inventories_type'] = part_assets['Inventories']*part_assets['inc_ratio']
-    part_assets['Land_type'] = part_assets['Land']*part_assets['inc_ratio']
-    part_assets['Depreciation_type'] = part_assets['Depreciation']*part_assets['inc_ratio']
-
+    part_assets['Fixed Assets'] = part_assets['Fixed Assets']*part_assets['inc_ratio']
+    part_assets['Inventories'] = part_assets['Inventories']*part_assets['inc_ratio']
+    part_assets['Land'] = part_assets['Land']*part_assets['inc_ratio']
+    part_assets['Depreciation'] = part_assets['Depreciation']*part_assets['inc_ratio']
 
     part_data = {'part_data': part_assets}
 

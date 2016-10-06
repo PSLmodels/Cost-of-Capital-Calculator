@@ -199,7 +199,7 @@ def land(soi_data, bea_FA):
 
     # total land attributed above matches Fin Accts totals for non-owner occ housing
 
-    # attribute residential fixed assets across tax treatment (they all got to
+    # attribute residential fixed assets across tax treatment (they all go to
     # one specific production sector)
     # attribute residential structures across entity types in proportion to land
     bea_res_assets = bea_FA[bea_FA['minor_code_alt']==531115].copy()
