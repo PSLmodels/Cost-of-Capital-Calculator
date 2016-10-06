@@ -40,7 +40,7 @@ def pull_soi_data():
     c_corp.loc[:,'entity_type'] = 'c_corp'
     s_corp = entity_dfs['s_corp'][['minor_code_alt','Land','Fixed Assets','Inventories']].copy()
     s_corp.loc[:,'entity_type'] = 's_corp'
-    partner = entity_dfs['part_data'][['minor_code_alt','Land','Fixed Assets','Inventories']].copy()
+    partner = entity_dfs['part_data'][['minor_code_alt','Land','Fixed Assets','Inventories','part_type']].copy()
     partner.loc[:,'entity_type'] = 'partnership'
     sole_prop = entity_dfs['sole_prop_data'][['minor_code_alt','Land','Fixed Assets','Inventories']].copy()
     sole_prop.loc[:,'entity_type'] = 'sole_prop'
@@ -58,7 +58,9 @@ def pull_soi_data():
 
     soi_data['tax_treat'] = 'non-corporate'
     soi_data.ix[soi_data['entity_type']=='c_corp', 'tax_treat'] = 'corporate'
-    soi_data = pd.merge(soi_data, soi_bea_ind_codes, how='inner', left_on=['minor_code_alt'],
+    soi_data.ix[(soi_data['entity_type']=='partnership') & (soi_data['part_type']=='Corporate general partners'), 'tax_treat'] = 'corporate'
+    soi_data.ix[(soi_data['entity_type']=='partnership') & (soi_data['part_type']=='Corporate limited partners'), 'tax_treat'] = 'corporate'
+    soi_data = pd.merge(soi_data, soi_bea_ind_codes, how='left', left_on=['minor_code_alt'],
       right_on=['minor_code_alt'], left_index=False, right_index=False, sort=False,
       copy=True)
 

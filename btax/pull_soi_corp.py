@@ -52,8 +52,6 @@ def load_corp_data():
         # drop total across all industries
         s_corp = s_corp.drop(s_corp[s_corp['INDY_CD']== 1.].index)
         # put in dollars (data in 1000s)
-        # for var in columns:
-        #     s_corp[var] = s_corp[var]*_CORP_FILE_FCTR
         s_corp[columns]=s_corp[columns]*_CORP_FILE_FCTR
     except IOError:
         print "IOError: S-Corp soi data file not found."
@@ -68,7 +66,7 @@ def load_corp_data():
         # put in dollars (data in 1000s)
         tot_corp[columns]=tot_corp[columns]*_CORP_FILE_FCTR
     except IOError:
-        print "IOError: S-Corp soi data file not found."
+        print "IOError: total corp soi data file not found."
         raise
 
     # read in crosswalk for bea and soi industry codes

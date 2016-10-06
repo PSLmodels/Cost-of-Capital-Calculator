@@ -53,7 +53,8 @@ def translate_param_names(**user_mods):
 
 
     if user_mods['btax_betr_entity_Switch'] in (True, 'True'):
-        u_nc = user_mods['btax_betr_corp']
+        #u_nc = user_mods['btax_betr_corp']
+        u_nc = user_mods['btax_betr_pass']
     else:
         u_nc = user_mods['btax_betr_pass']
     user_params = {
