@@ -203,12 +203,14 @@ def land(soi_data, bea_FA):
     # one specific production sector)
     # attribute residential structures across entity types in proportion to land
     bea_res_assets = bea_FA[bea_FA['minor_code_alt']==531115].copy()
+    bea_res_assets.drop_duplicates(subset=['minor_code_alt','entity_type','part_type','tax_treat','bea_ind_code'],inplace=True)
+    bea_res_assets = pd.DataFrame(bea_res_assets.groupby(['minor_code_alt','entity_type','part_type','tax_treat','bea_ind_code'])['Land'].sum()).reset_index()
     bea_res_assets.loc[:,'BEA Res Assets'] = noncorp_res_FA
     bea_res_assets.ix[bea_res_assets['entity_type']=='s_corp', 'BEA Res Assets'] = corp_res_FA
     bea_res_assets.ix[bea_res_assets['entity_type']=='c_corp', 'BEA Res Assets'] = corp_res_FA
     bea_res_assets['BEA Corp'] = False
-    bea_res_assets.ix[bea_FA['entity_type']=='s_corp', 'BEA Corp'] = True
-    bea_res_assets.ix[bea_FA['entity_type']=='c_corp', 'BEA Corp'] = True
+    bea_res_assets.ix[bea_res_assets['entity_type']=='s_corp', 'BEA Corp'] = True
+    bea_res_assets.ix[bea_res_assets['entity_type']=='c_corp', 'BEA Corp'] = True
     bea_res_assets['res_FA_ratio'] = bea_res_assets.groupby(['BEA Corp',
                                 'minor_code_alt'])['Land'].apply(lambda x: x/float(x.sum()))
 
@@ -219,8 +221,6 @@ def land(soi_data, bea_FA):
     bea_res_assets = bea_res_assets[['Asset Type','bea_asset_code','bea_ind_code',
                                      'minor_code_alt','entity_type','tax_treat','part_type',
                                      'assets']].copy()
-    bea_res_assets.drop_duplicates(['assets','entity_type','part_type'], keep='last',inplace=True)
-
 
     return bea_land, bea_res_assets, owner_occ_dict
 
@@ -247,8 +247,6 @@ def combine(fixed_assets,inventories,land,res_assets,owner_occ_dict):
                          "bea_code":"bea_ind_code"},inplace=True)
     land['Asset Type'] = 'Land'
     land['bea_asset_code'] = 'LAND'
-
-
 
     # append dataframes to each other
     asset_data = fixed_assets.append([inventories,land,res_assets],

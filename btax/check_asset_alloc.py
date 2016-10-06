@@ -113,6 +113,8 @@ owner_occ_house_RE = np.array(b101.ix[b101['Variable']==
 
 # compute value of land for owner occupied housing sector
 owner_occ_house_land = owner_occ_house_RE - owner_occ_house_FA
+print 'Owner Occ housing land: ', owner_occ_house_land
+print 'Owner Occ housing FAs: ', owner_occ_house_FA
 # update amout of land for non-corporate sector
 noncorp_land -= owner_occ_house_land
 
@@ -165,8 +167,6 @@ btax_FA['assets_nc'] = 0
 btax_FA['assets_c'] = 0
 btax_FA.loc[btax_FA['tax_treat']=='non-corporate','assets_nc']= btax_FA.loc[btax_FA['tax_treat']=='non-corporate','assets']
 btax_FA.loc[btax_FA['tax_treat']=='corporate','assets_c']= btax_FA.loc[btax_FA['tax_treat']=='corporate','assets']
-# shares_corp_non = pd.DataFrame({btax_FA.groupby(
-#     ['bea_ind_code'])['assets_c','assets_nc','assets'].sum()}).reset_index()
 shares_corp_non = pd.DataFrame(btax_FA.groupby(['bea_ind_code'])['assets_c','assets_nc','assets'].sum()).reset_index()
 shares_corp_non['Corp Share'] = shares_corp_non['assets_c']/(shares_corp_non['assets_c']+shares_corp_non['assets_nc'])
 shares_corp_non['Non-corp Share'] = shares_corp_non['assets_nc']/(shares_corp_non['assets_c']+shares_corp_non['assets_nc'])
