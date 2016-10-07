@@ -124,7 +124,7 @@ def industry_calcs(params, asset_data, output_by_asset):
     df2 = output_by_asset[['bea_asset_code', 'delta','z_c','z_c_d','z_c_e','z_nc', 'z_nc_d',
                         'z_nc_e', 'rho_c','rho_c_d','rho_c_e','rho_nc',
                         'rho_nc_d', 'rho_nc_e','asset_category']].copy()
-    by_industry_asset = pd.merge(bea, df2, how='left', left_on=['bea_asset_code'],
+    by_industry_asset = pd.merge(bea, df2, how='right', left_on=['bea_asset_code'],
       right_on=['bea_asset_code'], left_index=False, right_index=False, sort=False,
       copy=True)
 
@@ -134,7 +134,6 @@ def industry_calcs(params, asset_data, output_by_asset):
     by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Land'].copy()
     by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Inventories'].copy()
     #by_industry_asset = by_industry_asset[by_industry_asset['tax_treat']!='owner_occupied_housing'].copy()
-
 
     # create weighted averages by industry/tax treatment
     by_industry_tax = pd.DataFrame({'delta' : by_industry_asset.groupby(
@@ -148,6 +147,7 @@ def industry_calcs(params, asset_data, output_by_asset):
 
     by_industry_tax['assets'] = (pd.DataFrame({'assets' : by_industry_asset.groupby(
         ['bea_ind_code','tax_treat'])['assets'].sum()})).reset_index()['assets']
+
 
     # calculate the cost of capital, metr, mettr
     for i in range(save_rate.shape[0]):
