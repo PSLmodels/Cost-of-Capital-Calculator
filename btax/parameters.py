@@ -117,6 +117,7 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     int_haircut = user_params['int_haircut']
     bonus_deprec = user_params['bonus_deprec']
     deprec_system = user_params['deprec_system']
+    phi = 0.5 # fraction of inventories using LIFO accounting
     # we don't have IP class in user params, so put here
     bonus_deprec['50'] = 0.
     deprec_system['50'] = 'ADS'
@@ -172,12 +173,15 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
         u_nc = user_params['u_nc']
     u_array = np.array([u_c, u_nc])
 
-    # Parameters for holding periods of assets, etc.
+    # Parameters for holding periods of assets
     Y_td = 8.
     Y_scg = 4/12.
     Y_lcg = 8.
+    Y_v = 4/12. # holding period for inventories
     gamma = 0.3
-    m = 0.44
+
+    # Miscellaneous parameters
+    m = 0.44 # Divident payout rate
 
     #intermediate variables
     sprime_c_td = (1/Y_td)*np.log(((1-tau_td)*np.exp(i*Y_td))+tau_td)-pi
@@ -369,6 +373,8 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
         'financing_list':financing_list,
         'entity_list':entity_list,
         'delta': delta,
+        'Y_v':Y_v,
+        'phi':phi,
         'asset_dict': asset_dict,
         'ind_dict': ind_dict
     }
