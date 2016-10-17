@@ -53,9 +53,20 @@
       "long_name": "Rate of bonus depreciation on 10-year property",
       "notes": "This parameter gives the rate of bonus depreciation on 10-year class property.  A rate of 100% results in full expensing.",
       "description": "Rate of bonus depreciation on 10-year class property",
+      "start_year": 2015,
+      "row_label": ["2015",
+                    "2016",
+                    "2017",
+                    "2018",
+                    "2019",
+                    "2020"],
       "value": [
-        50.0
-      ],
+        50.0,
+        50.0,
+        50.0,
+        40.0,
+        30.0,
+        0.0],
       "min": [100.0],
       "max": [-100.0]
     }
@@ -99,9 +110,20 @@
       "long_name": "Rate of bonus depreciation on 10-year property",
       "notes": "This parameter gives the rate of bonus depreciation on 15-year class property.  A rate of 100% results in full expensing.",
       "description": "Rate of bonus depreciation on 15-year class property",
+      "start_year": 2015,
+      "row_label": ["2015",
+                    "2016",
+                    "2017",
+                    "2018",
+                    "2019",
+                    "2020"],
       "value": [
-        50.0
-      ],
+        50.0,
+        50.0,
+        50.0,
+        40.0,
+        30.0,
+        0.0],
       "min": [100.0],
       "max": [-100.0]
     }
@@ -145,9 +167,20 @@
       "long_name": "Rate of bonus depreciation on 20-year property",
       "notes": "This parameter gives the rate of bonus depreciation on 20-year class property.  A rate of 100% results in full expensing.",
       "description": "Rate of bonus depreciation on 20-year class property",
+      "start_year": 2015,
+      "row_label": ["2015",
+                    "2016",
+                    "2017",
+                    "2018",
+                    "2019",
+                    "2020"],
       "value": [
-        50.0
-      ],
+        50.0,
+        50.0,
+        50.0,
+        40.0,
+        30.0,
+        0.0],
       "min": [100.0],
       "max": [-100.0]
     }
@@ -191,9 +224,20 @@
       "long_name": "Rate of bonus depreciation on 25-year property",
       "notes": "This parameter gives the rate of bonus depreciation on 25-year class property.  A rate of 100% results in full expensing.",
       "description": "Rate of bonus depreciation on 25-year class property",
+      "start_year": 2015,
+      "row_label": ["2015",
+                    "2016",
+                    "2017",
+                    "2018",
+                    "2019",
+                    "2020"],
       "value": [
-        0.0
-      ],
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0],
       "min": [100.0],
       "max": [-100.0]
     }
@@ -237,9 +281,20 @@
       "long_name": "Rate of bonus depreciation on 27.5-year property",
       "notes": "This parameter gives the rate of bonus depreciation on 27.5-year class property.  A rate of 100% results in full expensing.",
       "description": "Rate of bonus depreciation on 27.5-year class property",
+      "start_year": 2015,
+      "row_label": ["2015",
+                    "2016",
+                    "2017",
+                    "2018",
+                    "2019",
+                    "2020"],
       "value": [
-        0.0
-      ],
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0],
       "min": [100.0],
       "max": [-100.0]
     }
@@ -283,9 +338,20 @@
       "long_name": "Rate of bonus depreciation on 39-year property",
       "notes": "This parameter gives the rate of bonus depreciation on 39-year class property.  A rate of 100% results in full expensing.",
       "description": "Rate of bonus depreciation on 39-year class property",
+      "start_year": 2015,
+      "row_label": ["2015",
+                    "2016",
+                    "2017",
+                    "2018",
+                    "2019",
+                    "2020"],
       "value": [
-        0.0
-      ],
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0],
       "min": [100.0],
       "max": [-100.0]
     }
@@ -329,9 +395,20 @@
       "long_name": "Rate of bonus depreciation on 3-year property",
       "notes": "This parameter gives the rate of bonus depreciation on 3-year class property.  A rate of 100% results in full expensing.",
       "description": "Rate of bonus depreciation on 3-year class property",
+      "start_year": 2015,
+      "row_label": ["2015",
+                    "2016",
+                    "2017",
+                    "2018",
+                    "2019",
+                    "2020"],
       "value": [
-        50.0
-      ],
+        50.0,
+        50.0,
+        50.0,
+        40.0,
+        30.0,
+        0.0],
       "min": [100.0],
       "max": [-100.0]
     }
@@ -375,9 +452,20 @@
       "long_name": "Rate of bonus depreciation on 5-year property",
       "notes": "This parameter gives the rate of bonus depreciation on 5-year class property.  A rate of 100% results in full expensing.",
       "description": "Rate of bonus depreciation on 5-year class property",
+      "start_year": 2015,
+      "row_label": ["2015",
+                    "2016",
+                    "2017",
+                    "2018",
+                    "2019",
+                    "2020"],
       "value": [
-        50.0
-      ],
+        50.0,
+        50.0,
+        50.0,
+        40.0,
+        30.0,
+        0.0],
       "min": [100.0],
       "max": [-100.0]
     }
@@ -421,9 +509,20 @@
       "long_name": "Rate of bonus depreciation on 7-year property",
       "notes": "This parameter gives the rate of bonus depreciation on 7-year class property.  A rate of 100% results in full expensing.",
       "description": "Rate of bonus depreciation on 7-year class property",
+      "start_year": 2015,
+      "row_label": ["2015",
+                    "2016",
+                    "2017",
+                    "2018",
+                    "2019",
+                    "2020"],
       "value": [
-        50.0
-      ],
+        50.0,
+        50.0,
+        50.0,
+        40.0,
+        30.0,
+        0.0],
       "min": [100.0],
       "max": [-100.0]
     }
