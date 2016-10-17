@@ -21,7 +21,7 @@ DEFAULT_ASSET_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'bt
 DEFAULT_INDUSTRY_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_industry.json')))
 
 
-def translate_param_names(**user_mods):
+def translate_param_names(start_year,**user_mods):
     """Takes parameters names from UI and turns them into names used in btax
 
     """
@@ -29,6 +29,8 @@ def translate_param_names(**user_mods):
     # btax_betr_entity_Switch # If this parameter =True, then u_nc default to corp rate
 
     defaults = dict(DEFAULTS)
+    year = start_year-2015
+
     radio_tags = ('gds', 'ads', 'tax',)
     class_list = [3, 5, 7, 10, 15, 20, 25, 27.5, 39]
     class_list_str = [(str(i) if i != 27.5 else '27_5') for i in class_list]
@@ -44,9 +46,8 @@ def translate_param_names(**user_mods):
             user_deprec_system[cl] = 'GDS'
     user_mods.update({k: v['value'][0] for k,v in defaults.iteritems()
                       if k not in user_mods})
-    user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
+    user_bonus_deprec = {cl: defaults['btax_depr_{}yr_exp'.format(cl)]['value'][year]/100.
     			 for cl in class_list_str}
-
 
     if user_mods['btax_betr_entity_Switch'] in (True, 'True'):
         #u_nc = user_mods['btax_betr_corp']
@@ -105,7 +106,7 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     alpha_h_d_nt = 0.183
 
     #user defined variables
-    user_params = translate_param_names(**user_mods)
+    user_params = translate_param_names(start_year,**user_mods)
     pi = user_params['pi']
     i = user_params['i']
     w = user_params['w']
