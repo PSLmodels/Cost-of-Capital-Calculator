@@ -73,7 +73,7 @@ def tst_each_param_has_effect(fast_or_slow, k, v):
 
 
 @pytest.mark.parametrize('k,v', [(k,v) for k,v in DEFAULTS
-                                  if not ('depr' in k and 'Switch' in k)])
+                                  if not (('depr' in k and 'Switch' in k) or 'hover' in k)])
 @pytest.mark.needs_puf
 @pytest.mark.slow
 def test_each_param_has_effect_slow(k, v):
@@ -81,7 +81,7 @@ def test_each_param_has_effect_slow(k, v):
 
 
 @pytest.mark.parametrize('k,v', [(k,v) for k,v in DEFAULTS
-                                  if not ('depr' in k and 'Switch' in k)])
+                                  if not (('depr' in k and 'Switch' in k) or 'hover' in k)])
 def test_each_param_has_effect_fast(k, v):
     tst_each_param_has_effect('fast', k, v)
 

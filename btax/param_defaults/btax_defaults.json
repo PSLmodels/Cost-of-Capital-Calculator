@@ -573,5 +573,51 @@
         "min": [5.0],
         "max": [-1.0]
     }
+  ],
+  [
+    "btax_depr_hover_ads_Switch",
+    {
+      "long_name": "ADS indicator",
+      "notes": "This parameter is an indicator for the use of the Alternative depreciation System (ADS).",
+      "description": "Indicator for Alternative Depreciation System",
+      "value": [
+        false
+      ]
+    }
+  ],
+  [
+    "btax_depr_hover_exp",
+    {
+      "long_name": "Rate of bonus depreciation",
+      "notes": "This parameter gives the rate of bonus depreciation.  A rate of 100% results in full expensing.",
+      "description": "Rate of bonus depreciation",
+      "value": [
+        0.0
+      ],
+      "min": [100.0],
+      "max": [-100.0]
+    }
+  ],
+  [
+    "btax_depr_hover_gds_Switch",
+    {
+      "long_name": "GDS indicator",
+      "notes": "This parameter is an indicator for the use of the General Depreciation System (GDS).",
+      "description": "Indicator for General Depreciation System",
+      "value": [
+        true
+      ]
+    }
+  ],
+  [
+    "btax_depr_hover_tax_Switch",
+    {
+      "long_name": "Economic depreciation indicator",
+      "notes": "This parameter is an indicator for the use of the economic depreciation.  This means that the tax depreciation schedule for each asset is set equal to the BEA's estimated rate of economic depreciation.",
+      "description": "Indicator for economic depreciation",
+      "value": [
+        false
+      ]
+    }
   ]
 ]
