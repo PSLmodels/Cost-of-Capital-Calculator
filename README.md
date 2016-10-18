@@ -22,6 +22,3 @@ The model is currently under development. Users should be forewarned that the mo
 
 ## Citing the B-Tax Model
  DeBacker, Jason, and Ben Gardner (2016), B-Tax (Version 0.1)[Source code], https://github.com/open-source-economics/B-Tax
-
-## About OSPC
- The Open-Source Policy Center (OSPC) seeks to make policy analysis more transparent, trustworthy, and collaborative by harnessing open-source methods to build cutting-edge economic models.
