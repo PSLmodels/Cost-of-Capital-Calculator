@@ -258,9 +258,11 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
           'Other Equipment'))
     asset_dict.update(dict.fromkeys(['Residential'],
           'Residential Buildings'))
-    asset_dict.update(dict.fromkeys(['Manufacturing','Office','Hospitals','Special care','Medical buildings','Multimerchandise shopping',
+    asset_dict.update(dict.fromkeys(['Manufacturing','Office','Hospitals',
+          'Special care','Medical buildings','Multimerchandise shopping',
           'Food and beverage establishments','Warehouses','Other commercial',
-          'Air transportation','Other transportation','Religious','Educational and vocational','Lodging','Public safety'],
+          'Air transportation','Other transportation','Religious',
+          'Educational and vocational','Lodging','Public safety'],
           'Nonresidential Buildings'))
     asset_dict.update(dict.fromkeys(['Gas','Petroleum pipelines','Communication',
           'Petroleum and natural gas','Mining'],'Mining and Drilling Structures'))
@@ -280,6 +282,45 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
           'Private universities and colleges','Other nonprofit institutions','Theatrical movies','Long-lived television programs',
           'Books','Music','Other entertainment originals'],'Intellectual Property'))
 
+    # major asset groups
+    #major_asset_groups = {'Equipment','Structures','Intellectual Property','Inventories','Land'}
+    major_asset_groups = dict.fromkeys(['Mainframes','PCs','DASDs','Printers',
+          'Terminals','Tape drives','Storage devices','System integrators',
+          'Prepackaged software','Custom software','Own account software',
+          'Communications','Nonelectro medical instruments',
+          'Electro medical instruments','Nonmedical instruments','Photocopy and related equipment',
+          'Office and accounting equipment','Household furniture','Other furniture',
+          'Household appliances','Light trucks (including utility vehicles)',
+          'Other trucks, buses and truck trailers','Autos','Aircraft',
+          'Ships and boats','Railroad equipment','Steam engines',
+          'Internal combustion engines','Special industrial machinery',
+          'General industrial equipment','Nuclear fuel','Other fabricated metals',
+          'Metalworking machinery','Electric transmission and distribution',
+          'Other agricultural machinery','Farm tractors','Other construction machinery',
+          'Construction tractors','Mining and oilfield machinery',
+          'Service industry machinery','Other electrical','Other'],'Equipment')
+    major_asset_groups.update(dict.fromkeys(['Residential','Manufacturing',
+          'Office','Hospitals','Special care','Medical buildings','Multimerchandise shopping',
+          'Food and beverage establishments','Warehouses','Other commercial',
+          'Air transportation','Other transportation','Religious',
+          'Educational and vocational','Lodging','Public safety','Gas',
+          'Petroleum pipelines','Communication',
+          'Petroleum and natural gas','Mining','Electric','Wind and solar',
+          'Amusement and recreation',
+          'Other railroad','Track replacement','Local transit structures',
+          'Other land transportation','Farm','Water supply','Sewage and waste disposal',
+          'Highway and conservation and development','Mobile structures'],'Structures'))
+    major_asset_groups.update(dict.fromkeys(['Pharmaceutical and medicine manufacturing',
+          'Chemical manufacturing, ex. pharma and med','Semiconductor and other component manufacturing',
+          'Computers and peripheral equipment manufacturing','Communications equipment manufacturing',
+          'Navigational and other instruments manufacturing','Other computer and electronic manufacturing, n.e.c.',
+          'Motor vehicles and parts manufacturing','Aerospace products and parts manufacturing',
+          'Other manufacturing','Scientific research and development services','Software publishers',
+          'Financial and real estate services','Computer systems design and related services','All other nonmanufacturing, n.e.c.',
+          'Private universities and colleges','Other nonprofit institutions','Theatrical movies','Long-lived television programs',
+          'Books','Music','Other entertainment originals'],'Intellectual Property'))
+    major_asset_groups.update(dict.fromkeys(['Inventories'],'Inventories'))
+    major_asset_groups.update(dict.fromkeys(['Land'],'Land'))
     # define major industry groupings
     major_industries = {'Agriculture, forestry, fishing, and hunting', 'Mining',
       'Utilities', 'Construction',
@@ -376,6 +417,7 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
         'Y_v':Y_v,
         'phi':phi,
         'asset_dict': asset_dict,
-        'ind_dict': ind_dict
+        'ind_dict': ind_dict,
+        'major_asset_groups': major_asset_groups
     }
     return parameters
