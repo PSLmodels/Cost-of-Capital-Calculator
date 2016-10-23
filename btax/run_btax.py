@@ -101,8 +101,8 @@ def run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params):
 
     # create plots
     # by asset
-    visuals.asset_crossfilter(base_output_by_asset,'baseline')
-    visuals.asset_crossfilter(reform_output_by_asset,'reform')
+    #visuals.asset_crossfilter(base_output_by_asset,'baseline')
+    #visuals.asset_crossfilter(reform_output_by_asset,'reform')
     #visuals_plotly.asset_bubble(output_by_asset)
 
     # save output to csv - useful if run locally

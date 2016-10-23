@@ -78,7 +78,7 @@ def fixed_assets(soi_data):
       copy=True)
 
     # Read in cross-walk between IRS and BEA Industries
-    soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS, dtype={'bea_ind_code':str})
+    soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS, dtype={'bea_ind_code':str},encoding='utf-8')
     soi_bea_ind_codes.drop('notes', axis=1, inplace=True)
 
     # Merge SOI codes to BEA data
@@ -160,7 +160,7 @@ def land(soi_data, bea_FA):
 
     # read in Financial Accounts data on total value of real estate in
     # owner occ sector (includes land and structures)
-    b101 = pd.read_csv(_B101_PATH,header=5)
+    b101 = pd.read_csv(_B101_PATH,header=5,encoding='utf-8')
     b101.reset_index()
     b101 = b101[['Unnamed: 0','2013']].copy()
     b101.rename(columns={"Unnamed: 0":"Variable",
