@@ -398,7 +398,40 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     ind_dict.update(dict.fromkeys(['Other services, except government'],
                           'Other services, except government'))
 
-
+    bea_code_dict = dict.fromkeys(['110C','113F'],
+                              'Agriculture, forestry, fishing, and hunting')
+    bea_code_dict.update(dict.fromkeys(['2110','2120','2130'],'Mining'))
+    bea_code_dict.update(dict.fromkeys(['2200'],'Utilities'))
+    bea_code_dict.update(dict.fromkeys(['2300'],'Construction'))
+    bea_code_dict.update(dict.fromkeys(['3210','3270','3310','3320','3330','3340',
+                        '3350','336M','336O','3370','338A','311A','313T','315A',
+                        '3220','3230','3240','3250','3260'],'Manufacturing'))
+    bea_code_dict.update(dict.fromkeys(['4200'],'Wholesale trade'))
+    bea_code_dict.update(dict.fromkeys(['44RT'],'Retail trade'))
+    bea_code_dict.update(dict.fromkeys(['4810','4820','4830','4840','4850','4860',
+                        '487S','4930'],'Transportation and warehousing'))
+    bea_code_dict.update(dict.fromkeys(['5110','5120','5130','5140'],
+                                  'Information'))
+    bea_code_dict.update(dict.fromkeys(['5210','5220','5230','5240','5250'],
+                          'Finance and insurance'))
+    bea_code_dict.update(dict.fromkeys(['5310','5320'],
+                          'Real estate and rental and leasing'))
+    bea_code_dict.update(dict.fromkeys(['5411','5415','5412'],
+                          'Professional, scientific, and technical services'))
+    bea_code_dict.update(dict.fromkeys(['5500'],
+                          'Management of companies and enterprises'))
+    bea_code_dict.update(dict.fromkeys(['5610','5620'],
+                          'Administrative and waste management services'))
+    bea_code_dict.update(dict.fromkeys(['6100'],
+                          'Educational services'))
+    bea_code_dict.update(dict.fromkeys(['6210','622H','6230','6240'],
+                          'Health care and social assistance'))
+    bea_code_dict.update(dict.fromkeys(['711A','7130'],
+                          'Arts, entertainment, and recreation'))
+    bea_code_dict.update(dict.fromkeys(['7210','7220'],
+                          'Accommodation and food services'))
+    bea_code_dict.update(dict.fromkeys(['8100'],
+                          'Other services, except government'))
 
     parameters = {'inflation rate': pi,
         'econ depreciation': delta,
@@ -418,6 +451,7 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
         'phi':phi,
         'asset_dict': asset_dict,
         'ind_dict': ind_dict,
-        'major_asset_groups': major_asset_groups
+        'major_asset_groups': major_asset_groups,
+        'bea_code_dict': bea_code_dict
     }
     return parameters
