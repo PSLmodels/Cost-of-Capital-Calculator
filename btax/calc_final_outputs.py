@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """
 Calculate Rho, METR, & METTR (calc_final_output.py):
 -------------------------------------------------------------------------------
@@ -165,8 +162,9 @@ def asset_calcs(params,asset_data):
     # drop asset types that are only one in major group
     by_major_asset = by_major_asset[by_major_asset['major_asset_group']!='Inventories'].copy()
     by_major_asset = by_major_asset[by_major_asset['major_asset_group']!='Land'].copy()
-    output_by_asset = (output_by_asset.append([by_major_asset,overall])).copy().reset_index()
-    output_by_asset.to_csv('output_by_asset.csv',encoding='utf-8')
+    output_by_asset = (output_by_asset.append([by_major_asset,overall],ignore_index=True)).copy().reset_index()
+    output_by_asset.drop('index', axis=1,inplace=True)
+
     return output_by_asset
 
 
@@ -195,6 +193,7 @@ def industry_calcs(params, asset_data, output_by_asset):
     financing_list = params['financing_list']
     entity_list = params['entity_list']
     ind_dict = params['ind_dict']
+    bea_code_dict = params['bea_code_dict']
 
     # initialize dataframe - start w/ fixed assets by industry and asset type
     bea = asset_data.copy()
@@ -256,18 +255,16 @@ def industry_calcs(params, asset_data, output_by_asset):
       right_on=['bea_ind_code'], left_index=False, right_index=False, sort=False,
       copy=True)
     by_industry['Industry'] = by_industry['Industry'].str.strip()
-    by_industry['Industry'] = by_industry['Industry'].str.replace(u"Â ", u"")
-    by_industry['major_industry'] = by_industry['Industry']
-    by_industry['major_industry'].replace(ind_dict,inplace=True)
+    by_industry['major_industry'] = by_industry['bea_ind_code']
+    by_industry['major_industry'].replace(bea_code_dict,inplace=True)
 
     '''
     ### Do above for major industry groups
     '''
     # create major industry variable
     by_industry_asset['Industry'] = by_industry_asset['Industry'].str.strip()
-    by_industry_asset['Industry'] = by_industry_asset['Industry'].str.replace('Â ', '')
-    by_industry_asset['major_industry'] = by_industry_asset['Industry']
-    by_industry_asset['major_industry'].replace(ind_dict,inplace=True)
+    by_industry_asset['major_industry'] = by_industry_asset['bea_ind_code']
+    by_industry_asset['major_industry'].replace(bea_code_dict,inplace=True)
 
     # create weighted averages by industry/tax treatment
     by_major_ind_tax = pd.DataFrame({'delta' : by_industry_asset.groupby(
@@ -347,9 +344,9 @@ def industry_calcs(params, asset_data, output_by_asset):
     by_major_ind = by_major_ind[by_major_ind['major_industry']!='Management of companies and enterprises'].copy()
     by_major_ind = by_major_ind[by_major_ind['major_industry']!='Educational services'].copy()
     by_major_ind = by_major_ind[by_major_ind['major_industry']!='Other services, except government'].copy()
-    by_industry = (by_industry.append([by_major_ind,overall])).copy().reset_index()
+    by_industry = (by_industry.append([by_major_ind,overall],ignore_index=True)).copy().reset_index()
+    by_industry.drop('index', axis=1,inplace=True)
 
-    by_industry.to_csv('by_ind_test.csv',encoding='utf-8')
     return by_industry
 
 def wavg(group, avg_name, weight_name):
