@@ -19,7 +19,7 @@ from btax.util import read_from_egg
 DEFAULTS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_defaults.json')))
 DEFAULT_ASSET_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_asset.json')))
 DEFAULT_INDUSTRY_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_industry.json')))
-
+DEFAULT_ROW_GROUPINGS = json.loads(read_from_egg(os.path.join('param_defaults', 'row_groupings.json')))
 
 def translate_param_names(**user_mods):
     """Takes parameters names from UI and turns them into names used in btax
