@@ -173,11 +173,11 @@ def get_rates(baseline=False, start_year=2016, reform={}):
     pos_businc = businc > 0
     pos_ti = calc1.records.c04800>0
     tau_nc = ((((mtr_iit_schC*np.abs(calc1.records.e00900p))+
-                (mtr_iit_schE*np.abs(calc1.records.e02000-np.maximum(0,calc1.records.e26270)))
+                (mtr_iit_schE*np.abs(calc1.records.e02000-calc1.records.e26270))
                + (mtr_iit_PT*np.abs(calc1.records.e26270))) *
                              pos_ti * calc1.records.s006).sum() /
                      ((np.abs(calc1.records.e00900p)+
-                       np.abs(calc1.records.e02000-np.maximum(0,calc1.records.e26270))+
+                       np.abs(calc1.records.e02000-calc1.records.e26270)+
                        np.abs(calc1.records.e26270))
                       *  pos_ti * calc1.records.s006).sum())
     tau_div = ((mtr_iit_div * calc1.records.e00650 * pos_ti *
@@ -209,5 +209,5 @@ def get_rates(baseline=False, start_year=2016, reform={}):
     individual_rates = {'tau_nc':tau_nc,'tau_div':tau_div,'tau_int':tau_int,
                         'tau_scg':tau_scg,'tau_lcg':tau_lcg,'tau_td':tau_td,
                         'tau_h':tau_h}
-    
+
     return individual_rates
