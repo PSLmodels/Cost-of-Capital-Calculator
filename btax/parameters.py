@@ -20,7 +20,6 @@ DEFAULTS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_default
 DEFAULT_ASSET_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_asset.json')))
 DEFAULT_INDUSTRY_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_industry.json')))
 
-
 def translate_param_names(**user_mods):
     """Takes parameters names from UI and turns them into names used in btax
 

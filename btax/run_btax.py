@@ -40,7 +40,7 @@ TABLE_ORDER = ['base_output_by_asset',
                'base_output_by_industry',
                'reform_output_by_industry',
                'changed_output_by_industry',]
-ModelDiffs = namedtuple('ModelDiffs', TABLE_ORDER)
+ModelDiffs = namedtuple('ModelDiffs', TABLE_ORDER + ['row_grouping'])
 
 ASSET_PRE_CACHE_FILE = 'asset_data.pkl'
 
@@ -93,6 +93,22 @@ def run_btax(test_run,baseline=False,start_year=2016,iit_reform=None,**user_para
 def run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params):
     econ_params = filter_user_params_for_econ(**user_params)
     base_output_by_asset, base_output_by_industry = run_btax(test_run,True,start_year,{},**econ_params)
+    asset_row_grouping = {}
+    subset = zip(*(getattr(base_output_by_asset, at) for at in ('Asset', 'asset_category', 'mettr_c', 'mettr_nc')))
+    for asset, cat, mettr_c, mettr_nc in subset:
+        if cat != cat:  # A string column that may have NaN, so can't do isnan()
+            cat = asset # These are some summary rows that don't have all info
+        asset_row_grouping[asset] = {'major_grouping': cat,
+                                     'summary_c': mettr_c,
+                                     'summary_nc': mettr_nc,}
+    industry_row_grouping = {}
+    subset = zip(*(getattr(base_output_by_industry, at) for at in ('Industry', 'major_industry', 'mettr_c', 'mettr_nc')))
+    for industry, cat, mettr_c, mettr_nc in subset:
+        industry_row_grouping[industry] = {'major_grouping': cat,
+                                           'summary_c': mettr_c,
+                                           'summary_nc': mettr_nc,}
+    row_grouping = {'asset': asset_row_grouping,
+                    'industry': industry_row_grouping}
     reform_output_by_asset, reform_output_by_industry = run_btax(test_run,False,start_year,iit_reform,**user_params)
     changed_output_by_asset = diff_two_tables(reform_output_by_asset,
                                             base_output_by_asset)
@@ -118,13 +134,15 @@ def run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params):
                       changed_output_by_asset,
                       base_output_by_industry,
                       reform_output_by_industry,
-                      changed_output_by_industry)
+                      changed_output_by_industry,
+                      row_grouping)
 
 
 def run_btax_to_json_tables(test_run=False,start_year=2016,iit_reform=None,**user_params):
     out = run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params)
-    tables = {}
-    for table_name, table in zip(TABLE_ORDER, out):
+    tables = {'row_grouping': out.row_grouping}
+
+    for table_name, table in zip(TABLE_ORDER, out[:-1]):
         if 'asset' in table_name:
             tab = output_by_asset_to_json_table(table, table_name)
             for k, v in tab.items():
@@ -143,7 +161,6 @@ def run_btax_to_json_tables(test_run=False,start_year=2016,iit_reform=None,**use
                     tables[k1][k2] = v2
         else:
             raise ValueError('Expected an "asset" or "industry" related table')
-    print['base_output_by_asset']
     return dict(tables)
 
 
