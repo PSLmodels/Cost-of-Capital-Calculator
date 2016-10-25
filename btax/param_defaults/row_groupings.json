@@ -1,160 +1,1238 @@
 {
-  "industry": {
-    "Information": "grouping_number_4", 
-    "Publishing\u00a0industries\u00a0(including\u00a0software)": "grouping_number_3", 
-    "Food\u00a0services\u00a0and\u00a0drinking\u00a0places": "grouping_number_3", 
-    "Truck\u00a0transportation": "grouping_number_5", 
-    "Administrative and waste management services": "grouping_number_4", 
-    "Computer\u00a0and\u00a0electronic\u00a0products": "grouping_number_1", 
-    "Real\u00a0estate": "grouping_number_2", 
-    "Water\u00a0transportation": "grouping_number_4", 
-    "Other\u00a0services,\u00a0except\u00a0government": "grouping_number_6", 
-    "Transportation and warehousing": "grouping_number_5", 
-    "Air\u00a0transportation": "grouping_number_2", 
-    "Nursing\u00a0and\u00a0residential\u00a0care\u00a0facilities": "grouping_number_6", 
-    "Performing\u00a0arts,\u00a0spectator\u00a0sports,\u00a0museums,\u00a0and\u00a0related activities": "grouping_number_1", 
-    "Mining,\u00a0except\u00a0oil\u00a0and\u00a0gas": "grouping_number_6", 
-    "Credit\u00a0intermediation\u00a0and\u00a0related\u00a0activities": "grouping_number_6", 
-    "Securities,\u00a0commodity\u00a0contracts,\u00a0and\u00a0investments": "grouping_number_3", 
-    "Social assistance": "grouping_number_6", 
-    "Paper\u00a0products": "grouping_number_2", 
-    "Nonmetallic\u00a0mineral\u00a0products": "grouping_number_6", 
-    "Motion\u00a0picture\u00a0and\u00a0sound\u00a0recording\u00a0industries": "grouping_number_6", 
-    "Warehousing\u00a0and\u00a0storage": "grouping_number_3", 
-    "Chemical\u00a0products": "grouping_number_4", 
-    "Support\u00a0activities\u00a0for\u00a0mining": "grouping_number_4", 
-    "Educational services": "grouping_number_6", 
-    "Professional, scientific, and technical services": "grouping_number_1", 
-    "Computer\u00a0systems\u00a0design\u00a0and\u00a0related\u00a0services": "grouping_number_4", 
-    "Administrative\u00a0and\u00a0support\u00a0services": "grouping_number_6", 
-    "Health care and social assistance": "grouping_number_6", 
-    "Utilities": "grouping_number_1", 
-    "Other\u00a0transportation\u00a0equipment": "grouping_number_6", 
-    "Retail trade": "grouping_number_2", 
-    "Wood\u00a0products": "grouping_number_3", 
-    "Petroleum\u00a0and\u00a0coal\u00a0products": "grouping_number_5", 
-    "Construction": "grouping_number_3", 
-    "Ambulatory\u00a0health\u00a0care\u00a0services": "grouping_number_3", 
-    "Other\u00a0transportation\u00a0and\u00a0support\u00a0activities": "grouping_number_4", 
-    "Information\u00a0and\u00a0data\u00a0processing\u00a0services": "grouping_number_1", 
-    "Textile\u00a0mills\u00a0and\u00a0textile\u00a0product\u00a0mills": "grouping_number_5", 
-    "Legal\u00a0services": "grouping_number_2", 
-    "Accommodation": "grouping_number_4", 
-    "Arts, entertainment, and recreation": "grouping_number_2", 
-    "Amusements,\u00a0gambling,\u00a0and\u00a0recreation\u00a0industries": "grouping_number_2", 
-    "Transit\u00a0and\u00a0ground\u00a0passenger\u00a0transportation": "grouping_number_1", 
-    "Motor\u00a0vehicles,\u00a0bodies\u00a0and\u00a0trailers,\u00a0and\u00a0parts": "grouping_number_3", 
-    "Miscellaneous\u00a0professional,\u00a0scientific,\u00a0and\u00a0technical services": "grouping_number_4", 
-    "Food,\u00a0beverage,\u00a0and\u00a0tobacco\u00a0products": "grouping_number_6", 
-    "Forestry,\u00a0fishing,\u00a0and\u00a0related\u00a0activities": "grouping_number_6", 
-    "All Investments": "grouping_number_4", 
-    "Mining": "grouping_number_2", 
-    "Miscellaneous\u00a0manufacturing": "grouping_number_4", 
-    "Agriculture, forestry, fishing, and hunting": "grouping_number_5", 
-    "Insurance\u00a0carriers\u00a0and\u00a0related\u00a0activities": "grouping_number_1", 
-    "Finance and insurance": "grouping_number_3", 
-    "Machinery": "grouping_number_3", 
-    "Funds,\u00a0trusts,\u00a0and\u00a0other\u00a0financial\u00a0vehicles": "grouping_number_5", 
-    "Fabricated\u00a0metal\u00a0products": "grouping_number_4", 
-    "Waste\u00a0management\u00a0and\u00a0remediation\u00a0services": "grouping_number_5", 
-    "Rental\u00a0and\u00a0leasing\u00a0services\u00a0and\u00a0lessors\u00a0of\u00a0intangible assets": "grouping_number_5", 
-    "Furniture\u00a0and\u00a0related\u00a0products": "grouping_number_4", 
-    "Manufacturing": "grouping_number_5", 
-    "Printing\u00a0and\u00a0related\u00a0support\u00a0activities": "grouping_number_5", 
-    "Wholesale trade": "grouping_number_1", 
-    "Management\u00a0of\u00a0companies\u00a0and\u00a0enterprises": "grouping_number_5", 
-    "Pipeline\u00a0transportation": "grouping_number_6", 
-    "Broadcasting\u00a0and\u00a0telecommunications": "grouping_number_4", 
-    "Primary\u00a0metals": "grouping_number_5", 
-    "Plastics\u00a0and\u00a0rubber\u00a0products": "grouping_number_6", 
-    "Oil\u00a0and\u00a0gas\u00a0extraction": "grouping_number_4", 
-    "Farms": "grouping_number_2", 
-    "Railroad\u00a0transportation": "grouping_number_4", 
-    "Electrical\u00a0equipment,\u00a0appliances,\u00a0and\u00a0components": "grouping_number_4", 
-    "Accommodation and food services": "grouping_number_5", 
-    "Hospitals": "grouping_number_2", 
-    "Real estate and rental and leasing": "grouping_number_3", 
-    "Apparel\u00a0and\u00a0leather\u00a0and\u00a0allied\u00a0products": "grouping_number_1"
-  }, 
-  "asset": {
-    "Ships and boats": "grouping_number_4", 
-    "Other furniture": "grouping_number_4", 
-    "Prepackaged software": "grouping_number_5", 
-    "Nonelectro medical instruments": "grouping_number_3", 
-    "Residential": "grouping_number_3", 
-    "Warehouses": "grouping_number_1", 
-    "General industrial equipment": "grouping_number_3", 
-    "Farm": "grouping_number_5", 
-    "Light trucks (including utility vehicles)": "grouping_number_1", 
-    "Equipment": "grouping_number_3", 
-    "Other": "grouping_number_6", 
-    "Air transportation": "grouping_number_6", 
-    "Gas": "grouping_number_1", 
-    "Mobile structures": "grouping_number_1", 
-    "Printers": "grouping_number_4", 
-    "Electric transmission and distribution": "grouping_number_4", 
-    "Structures": "grouping_number_5", 
-    "Household furniture": "grouping_number_1", 
-    "Other agricultural machinery": "grouping_number_5", 
-    "Mining and oilfield machinery": "grouping_number_5", 
-    "Hospitals": "grouping_number_4", 
-    "Food and beverage establishments": "grouping_number_5", 
-    "Service industry machinery": "grouping_number_3", 
-    "Railroad equipment": "grouping_number_5", 
-    "Electric": "grouping_number_6", 
-    "Amusement and recreation": "grouping_number_6", 
-    "PCs": "grouping_number_3", 
-    "Other trucks, buses and truck trailers": "grouping_number_6", 
-    "Aircraft": "grouping_number_6", 
-    "Local transit structures": "grouping_number_6", 
-    "Autos": "grouping_number_2", 
-    "Nonmedical instruments": "grouping_number_3", 
-    "Multimerchandise shopping": "grouping_number_3", 
-    "Nuclear fuel": "grouping_number_5", 
-    "Petroleum and natural gas": "grouping_number_3", 
-    "Construction tractors": "grouping_number_2", 
-    "Farm tractors": "grouping_number_2", 
-    "Internal combustion engines": "grouping_number_5", 
-    "Manufacturing": "grouping_number_5", 
-    "Special care": "grouping_number_6", 
-    "Public safety": "grouping_number_6", 
-    "Special industrial machinery": "grouping_number_6", 
-    "Metalworking machinery": "grouping_number_2", 
-    "Household appliances": "grouping_number_4", 
-    "Land": "grouping_number_5", 
-    "Steam engines": "grouping_number_5", 
-    "Storage devices": "grouping_number_6", 
-    "Terminals": "grouping_number_4", 
-    "Petroleum pipelines": "grouping_number_6", 
-    "All Investments": "grouping_number_4", 
-    "Other construction machinery": "grouping_number_4", 
-    "Other commercial": "grouping_number_2", 
-    "Communications": "grouping_number_1", 
-    "Other fabricated metals": "grouping_number_1", 
-    "Other electrical": "grouping_number_2", 
-    "Photocopy and related equipment": "grouping_number_6", 
-    "System integrators": "grouping_number_1", 
-    "Educational and vocational": "grouping_number_4", 
-    "Office and accounting equipment": "grouping_number_3", 
-    "Custom software": "grouping_number_2", 
-    "Office": "grouping_number_6", 
-    "Medical buildings": "grouping_number_3", 
-    "Communication": "grouping_number_6", 
-    "Mining": "grouping_number_1", 
-    "Track replacement": "grouping_number_5", 
-    "Wind and solar": "grouping_number_1", 
-    "Water supply": "grouping_number_4", 
-    "Other land transportation": "grouping_number_6", 
-    "Tape drives": "grouping_number_4", 
-    "Electro medical instruments": "grouping_number_6", 
-    "Other transportation": "grouping_number_4", 
-    "Other railroad": "grouping_number_1", 
-    "Lodging": "grouping_number_6", 
-    "Sewage and waste disposal": "grouping_number_3", 
-    "Inventories": "grouping_number_4", 
-    "Own account software": "grouping_number_6", 
-    "Highway and conservation and development": "grouping_number_3", 
-    "DASDs": "grouping_number_1", 
-    "Mainframes": "grouping_number_6"
-  }
+  "industry": [
+    [
+      "Information", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Publishing\u00a0industries\u00a0(including\u00a0software)", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Food\u00a0services\u00a0and\u00a0drinking\u00a0places", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Truck\u00a0transportation", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Broadcasting\u00a0and\u00a0telecommunications", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Computer\u00a0and\u00a0electronic\u00a0products", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Water\u00a0transportation", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Other\u00a0services,\u00a0except\u00a0government", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Accommodation and food services", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Air\u00a0transportation", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_2", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Other\u00a0transportation\u00a0equipment", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Performing\u00a0arts,\u00a0spectator\u00a0sports,\u00a0museums,\u00a0and\u00a0related activities", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Mining,\u00a0except\u00a0oil\u00a0and\u00a0gas", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Credit\u00a0intermediation\u00a0and\u00a0related\u00a0activities", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Securities,\u00a0commodity\u00a0contracts,\u00a0and\u00a0investments", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Social assistance", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Paper\u00a0products", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_2", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Food,\u00a0beverage,\u00a0and\u00a0tobacco\u00a0products", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Motion\u00a0picture\u00a0and\u00a0sound\u00a0recording\u00a0industries", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Warehousing\u00a0and\u00a0storage", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Chemical\u00a0products", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Support\u00a0activities\u00a0for\u00a0mining", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Transportation and warehousing", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Professional, scientific, and technical services", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Computer\u00a0systems\u00a0design\u00a0and\u00a0related\u00a0services", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Administrative\u00a0and\u00a0support\u00a0services", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Health care and social assistance", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Utilities", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Nursing\u00a0and\u00a0residential\u00a0care\u00a0facilities", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Retail trade", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_2", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Wood\u00a0products", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Petroleum\u00a0and\u00a0coal\u00a0products", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Construction", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Ambulatory\u00a0health\u00a0care\u00a0services", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Other\u00a0transportation\u00a0and\u00a0support\u00a0activities", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Primary\u00a0metals", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Information\u00a0and\u00a0data\u00a0processing\u00a0services", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Funds,\u00a0trusts,\u00a0and\u00a0other\u00a0financial\u00a0vehicles", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Legal\u00a0services", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_2", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Accommodation", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Arts, entertainment, and recreation", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_2", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Amusements,\u00a0gambling,\u00a0and\u00a0recreation\u00a0industries", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_2", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Transit\u00a0and\u00a0ground\u00a0passenger\u00a0transportation", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Motor\u00a0vehicles,\u00a0bodies\u00a0and\u00a0trailers,\u00a0and\u00a0parts", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Plastics\u00a0and\u00a0rubber\u00a0products", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Forestry,\u00a0fishing,\u00a0and\u00a0related\u00a0activities", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "All Investments", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Mining", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_2", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Miscellaneous\u00a0manufacturing", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Agriculture, forestry, fishing, and hunting", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Insurance\u00a0carriers\u00a0and\u00a0related\u00a0activities", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Finance and insurance", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Machinery", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Real\u00a0estate", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_2", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Fabricated\u00a0metal\u00a0products", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Waste\u00a0management\u00a0and\u00a0remediation\u00a0services", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Wholesale trade", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Miscellaneous\u00a0professional,\u00a0scientific,\u00a0and\u00a0technical services", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Textile\u00a0mills\u00a0and\u00a0textile\u00a0product\u00a0mills", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Manufacturing", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Printing\u00a0and\u00a0related\u00a0support\u00a0activities", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Rental\u00a0and\u00a0leasing\u00a0services\u00a0and\u00a0lessors\u00a0of\u00a0intangible assets", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Management\u00a0of\u00a0companies\u00a0and\u00a0enterprises", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Pipeline\u00a0transportation", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Administrative and waste management services", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Educational services", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Nonmetallic\u00a0mineral\u00a0products", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Oil\u00a0and\u00a0gas\u00a0extraction", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Farms", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_2", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Railroad\u00a0transportation", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Electrical\u00a0equipment,\u00a0appliances,\u00a0and\u00a0components", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Furniture\u00a0and\u00a0related\u00a0products", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Hospitals", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_2", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Real estate and rental and leasing", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Apparel\u00a0and\u00a0leather\u00a0and\u00a0allied\u00a0products", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ]
+  ], 
+  "asset": [
+    [
+      "Ships and boats", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Mainframes", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Nonelectro medical instruments", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Own account software", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Residential", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Warehouses", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "General industrial equipment", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Light trucks (including utility vehicles)", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Equipment", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Other", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Air transportation", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Printers", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Electric transmission and distribution", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Structures", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Household furniture", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Other agricultural machinery", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Mining and oilfield machinery", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Tape drives", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Mining", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Service industry machinery", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Railroad equipment", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Electric", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Farm", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "PCs", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Gas", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Nonmedical instruments", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Local transit structures", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Autos", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_2", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Aircraft", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Other trucks, buses and truck trailers", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Multimerchandise shopping", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Nuclear fuel", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Petroleum and natural gas", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Construction tractors", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_2", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Farm tractors", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_2", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Internal combustion engines", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Manufacturing", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Special care", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Public safety", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Special industrial machinery", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Metalworking machinery", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_2", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Household appliances", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Land", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Steam engines", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Mobile structures", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Terminals", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Petroleum pipelines", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "All Investments", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Prepackaged software", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Other construction machinery", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Other commercial", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_2", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Communications", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Storage devices", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Other fabricated metals", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Other electrical", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_2", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Photocopy and related equipment", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "System integrators", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Educational and vocational", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Office and accounting equipment", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Custom software", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_2", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Amusement and recreation", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Office", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Medical buildings", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Communication", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Other furniture", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Track replacement", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Water supply", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Other land transportation", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Wind and solar", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Electro medical instruments", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Other transportation", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "DASDs", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Lodging", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_6", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Sewage and waste disposal", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Inventories", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Hospitals", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_4", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Highway and conservation and development", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_3", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Other railroad", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_1", 
+        "summary_c": -999
+      }
+    ], 
+    [
+      "Food and beverage establishments", 
+      {
+        "summary_nc": -999, 
+        "group": "grouping_number_5", 
+        "summary_c": -999
+      }
+    ]
+  ]
 }
