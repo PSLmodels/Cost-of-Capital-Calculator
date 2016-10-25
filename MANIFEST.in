@@ -17,5 +17,6 @@ include btax/data/raw_data/soi/soi_corporate/*.csv
 include btax/data/raw_data/soi/soi_partner/*.csv
 include btax/data/raw_data/soi/soi_proprietorship/*.csv
 include btax/data/raw_data/*.csv
-include btax/param_defaults/*.jsoninclude versioneer.py
+include btax/param_defaults/*.json
+include versioneer.py
 include btax/_version.py
