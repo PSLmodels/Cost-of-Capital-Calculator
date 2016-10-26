@@ -209,8 +209,9 @@ def industry_calcs(params, asset_data, output_by_asset):
     # drop certain types of assets and owner occupied housing when making industry calcs
     # Means industry calculations will only be for equipment and structures
     by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Intellectual Property'].copy()
-    by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Land'].copy()
-    by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Inventories'].copy()
+    by_industry_asset = by_industry_asset[by_industry_asset['Asset Type']!='Equipment'].copy()
+    by_industry_asset = by_industry_asset[by_industry_asset['Asset Type']!='Structures'].copy()
+    by_industry_asset = by_industry_asset[by_industry_asset['Asset Type']!='All Investments'].copy()
     #by_industry_asset = by_industry_asset[by_industry_asset['tax_treat']!='owner_occupied_housing'].copy()
 
     # create weighted averages by industry/tax treatment
@@ -304,10 +305,7 @@ def industry_calcs(params, asset_data, output_by_asset):
     by_major_ind['Industry'] = by_major_ind['major_industry']
 
     # make calculation for overall rates
-    # keep only equip and structures when doing ind calculations
-    output_by_asset = output_by_asset[output_by_asset['asset_category']!='Intellectual Property'].copy()
-    output_by_asset = output_by_asset[output_by_asset['asset_category']!='Land'].copy()
-    output_by_asset = output_by_asset[output_by_asset['asset_category']!='Inventories'].copy()
+    output_by_asset = output_by_asset[output_by_asset['Asset Type']!='All Investments'].copy()
     corp_list = ['z_c','z_c_d','z_c_e','rho_c','rho_c_d','rho_c_e']
     noncorp_list = ['z_nc','z_nc_d','z_nc_e','rho_nc','rho_nc_d','rho_nc_e']
     overall = pd.DataFrame({'delta_c' : ((output_by_asset['delta']*

@@ -142,8 +142,10 @@ def get_rates(baseline=False, start_year=2016, reform={}):
     ##get mtrs
     # sch c
     [mtr_fica_schC, mtr_iit_schC, mtr_combined_schC] = calc1.mtr('e00900p')
-    # sch e
+    # sch e (not s corp or partnership)
     [mtr_fica_schE, mtr_iit_schE, mtr_combined_schE] = calc1.mtr('e02000')
+    # Partnership and s corp income
+    [mtr_fica_PT, mtr_iit_PT, mtr_combined_PT] = calc1.mtr('e26270')
     # dividends
     [mtr_fica_div, mtr_iit_div, mtr_combined_div] = calc1.mtr('e00650')
     # interest income
@@ -151,10 +153,6 @@ def get_rates(baseline=False, start_year=2016, reform={}):
     [mtr_fica_int, mtr_iit_int, mtr_combined_int] = calc1.mtr('e00300')
     # non-taxable
     [mtr_fica_int_te, mtr_iit_int_te, mtr_combined_int_te] = calc1.mtr('e00400')
-    # interest_income_mtr = (sum([ abs(getattr(calc1.records, 'e00300')) * mtr_combined_int
-    #                        + abs(getattr(calc1.records, 'e00400')) * mtr_combined_int_te])/
-    #                         (sum(map(abs,getattr(calc1.records, 'e00300'))) +
-    #                         sum(map(abs,getattr(calc1.records, 'e00400')))))
     # short term capital gains
     [mtr_fica_scg, mtr_iit_scg, mtr_combined_scg] = calc1.mtr('p22250')
     # long term capital gains
@@ -174,30 +172,35 @@ def get_rates(baseline=False, start_year=2016, reform={}):
     businc = (calc1.records.e00900p+calc1.records.e02000)
     pos_businc = businc > 0
     pos_ti = calc1.records.c04800>0
-    tau_nc = (((mtr_combined_schC*np.abs(calc1.records.e00900p))+(mtr_combined_schE*np.abs(calc1.records.e02000)) *
-                            pos_businc * pos_ti * calc1.records.s006).sum() /
-                     ((np.abs(calc1.records.e00900p)+np.abs(calc1.records.e02000))
-                      * pos_businc * pos_ti * calc1.records.s006).sum())
-    tau_div = ((mtr_combined_div * calc1.records.e00650 *
+    tau_nc = ((((mtr_iit_schC*np.abs(calc1.records.e00900p))+
+                (mtr_iit_schE*np.abs(calc1.records.e02000-calc1.records.e26270))
+               + (mtr_iit_PT*np.abs(calc1.records.e26270))) *
+                             pos_ti * calc1.records.s006).sum() /
+                     ((np.abs(calc1.records.e00900p)+
+                       np.abs(calc1.records.e02000-calc1.records.e26270)+
+                       np.abs(calc1.records.e26270))
+                      *  pos_ti * calc1.records.s006).sum())
+    tau_div = ((mtr_iit_div * calc1.records.e00650 * pos_ti *
                            calc1.records.s006).sum() /
-                     (calc1.records.e00650 * calc1.records.s006).sum())
-    tau_int = ((mtr_combined_int * calc1.records.e00300 *
+                     (calc1.records.e00650 * pos_ti * calc1.records.s006).sum())
+    tau_int = ((mtr_iit_int * calc1.records.e00300 * pos_ti *
                            calc1.records.s006).sum() /
-                     (calc1.records.e00300 * calc1.records.s006).sum())
-    tau_scg = ((mtr_combined_scg * np.abs(calc1.records.p22250) *
+                     (calc1.records.e00300 * pos_ti * calc1.records.s006).sum())
+
+    tau_scg = ((mtr_iit_scg * np.abs(calc1.records.p22250) *
                            (calc1.records.p22250>0.) *
                            pos_ti * calc1.records.s006).sum() /
                      (np.abs(calc1.records.p22250) * (calc1.records.p22250>0.) *
                       pos_ti * calc1.records.s006).sum())
-    tau_lcg = ((mtr_combined_lcg * np.abs(calc1.records.p23250) *
+    tau_lcg = ((mtr_iit_lcg * np.abs(calc1.records.p23250) *
                           (calc1.records.p23250>0.)*
                           pos_ti * calc1.records.s006).sum() /
                      (np.abs(calc1.records.p23250)* (calc1.records.p23250>0.)*
                       pos_ti * calc1.records.s006).sum())
-    tau_td = ((mtr_combined_pension * calc1.records.e01500 *
+    tau_td = ((mtr_iit_pension * calc1.records.e01500 * pos_ti *
                            calc1.records.s006).sum() /
-                     (calc1.records.e01500 * calc1.records.s006).sum())
-    tau_h = -1*(((mtr_combined_mtg*calc1.records.e19200)+(mtr_combined_prop*calc1.records.e18500) *
+                     (calc1.records.e01500 * pos_ti * calc1.records.s006).sum())
+    tau_h = -1*(((mtr_iit_mtg*calc1.records.e19200)+(mtr_iit_prop*calc1.records.e18500) *
                             pos_ti * calc1.records.s006).sum() /
                      ((calc1.records.e19200)+(calc1.records.e18500)
                       * pos_ti * calc1.records.s006).sum())
