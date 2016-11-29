@@ -83,18 +83,18 @@ Navigational and other instruments manufacturing,5,5,6,GDS,Expensing
 Motor vehicles and parts manufacturing ,7,7,12,GDS,Expensing
 Aerospace products and parts manufacturing,7,7,10,GDS,Expensing
 Other manufacturing,7,7,12,GDS,Expensing
-Scientific research and development services,50,5,6,GDS,Expensing
-Software publishers,50,3,3,GDS,SL
-Financial and real estate services,50,5,6,GDS,Expensing
-Computer systems design and related services,50,3,3,GDS,SL
-"All other nonmanufacturing, n.e.c.",50,5,6,GDS,Expensing
-Private universities and colleges,50,3,3,GDS,SL
-Other nonprofit institutions,50,3,3,GDS,SL
-Theatrical movies,50,15,15,GDS,Economic
-Long-lived television programs,50,15,15,GDS,Economic
-Books,50,15,15,GDS,Economic
-Music,50,15,15,GDS,Economic
-Other entertainment originals,50,15,15,GDS,Economic
+Scientific research and development services,5,5,6,GDS,Expensing
+Software publishers,3,3,3,GDS,SL
+Financial and real estate services,5,5,6,GDS,Expensing
+Computer systems design and related services,3,3,3,GDS,SL
+"All other nonmanufacturing, n.e.c.",5,5,6,GDS,Expensing
+Private universities and colleges,3,3,3,GDS,SL
+Other nonprofit institutions,3,3,3,GDS,SL
+Theatrical movies,15,15,15,GDS,Economic
+Long-lived television programs,15,15,15,GDS,Economic
+Books,15,15,15,GDS,Economic
+Music,15,15,15,GDS,Economic
+Other entertainment originals,15,15,15,GDS,Economic
 Residential,27.5,27.5,40,GDS,SL
 Land,100,100,100,GDS,SL
 Inventories,100,100,100,GDS,SL

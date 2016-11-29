@@ -117,12 +117,9 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     bonus_deprec = user_params['bonus_deprec']
     deprec_system = user_params['deprec_system']
     phi = 0.5 # fraction of inventories using LIFO accounting
-    # we don't have IP class in user params, so put here
-    bonus_deprec['50'] = 0.
-    deprec_system['50'] = 'ADS'
-    # also for land and inventories which don't have tax deprec
-    bonus_deprec['100'] = 0.
-    deprec_system['100'] = 'ADS'
+    #for land and inventories which don't have tax deprec
+    bonus_deprec['100'] = 0.0
+    deprec_system['100'] = 'GDS'
 
     # call tax calc to get individual rates
     if test_run==True:
@@ -216,7 +213,8 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     else:
         s_array[:,1] = s_array[:,0]
     delta = get_econ_depr()
-    tax_methods = {'GDS 200%': 2.0, 'GDS 150%': 1.5, 'GDS SL': 1.0, 'ADS SL': 1.0}
+    tax_methods = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0, 'Economic': 1.0,
+                   'Expensing': 1.0}
     financing_list = ['', '_d', '_e']
     entity_list = ['_c', '_nc']
     z = calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, tax_methods, financing_list, entity_list)

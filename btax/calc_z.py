@@ -51,11 +51,13 @@ def calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, tax_methods, fina
     tax_deprec_rates['Asset Type'] = tax_deprec_rates['Asset Type'].str.strip()
 
     # update tax_deprec_rates based on user defined parameters
-    tax_deprec_rates['System'] = tax_deprec_rates['GDS'].apply(str_modified)
+    tax_deprec_rates['System'] = tax_deprec_rates['GDS Life'].apply(str_modified)
     tax_deprec_rates['System'].replace(deprec_system,inplace=True)
+    tax_deprec_rates.loc[tax_deprec_rates['System']=='ADS','Method'] = 'SL'
+    tax_deprec_rates.loc[tax_deprec_rates['System']=='Economic','Method'] = 'Economic'
 
     # add bonus depreciation to tax deprec parameters dataframe
-    tax_deprec_rates['bonus'] = tax_deprec_rates['GDS'].apply(str_modified)
+    tax_deprec_rates['bonus'] = tax_deprec_rates['GDS Class Life'].apply(str_modified)
     tax_deprec_rates['bonus'].replace(bonus_deprec,inplace=True)
 
     # merge in econ depreciation rates
@@ -91,12 +93,13 @@ def npv_tax_deprec(df, r, tax_methods, financing_list, entity_list):
     df['b'].replace(tax_methods,inplace=True)
 
 
-    df_gds = dbsl(df.loc[df['System']=='GDS'].copy(), r, financing_list, entity_list)
-    df_ads = sl(df.loc[df['System']=='ADS'].copy(), r, financing_list, entity_list)
-    df_econ = econ(df.loc[df['System']=='Economic'].copy(), r, financing_list, entity_list)
+    df_dbsl = dbsl(df.loc[(df['Method']=='DB 200%') | (df['Method']=='DB 150%')].copy(), r, financing_list, entity_list)
+    df_sl = sl(df.loc[df['Method']=='SL'].copy(), r, financing_list, entity_list)
+    df_econ = econ(df.loc[df['Method']=='Economic'].copy(), r, financing_list, entity_list)
+    df_expense = expensing(df.loc[df['Method']=='Expensing'].copy(), r, financing_list, entity_list)
 
     # append gds and ads results
-    df_all = df_gds.append(df_ads.append(df_econ,ignore_index=True), ignore_index=True)
+    df_all = df_dbsl.append(df_sl.append(df_econ.append(df_expense,ignore_index=True),ignore_index=True), ignore_index=True)
 
     return df_all
 
@@ -112,13 +115,10 @@ def dbsl(df, r, financing_list, entity_list):
         :type r: 3x2 array
         :type bonus_deprec: int, float
         :returns: The net present value of declining balance depreciation allowances
-        :rtype: 96x3x2 array
 
     """
-    df['Y'] = df['GDS']
+    df['Y'] = df['GDS Life']
     df['beta'] = df['b']/df['Y']
-    # df['Y_star'] = ((df['Y']-1)*(1-(1/df['b']))).where(df['bonus']!=0., inplace=True)
-    # df['Y_star'] = (df['Y']*(1-(1/df['b']))).where(df['bonus']==0., inplace=True)
     df['Y_star'] = ((((df['Y']-1)*(1-(1/df['b'])))*(df['bonus']!=0.)) +
                     ((1-(df['bonus']!=0.))*(df['Y']*(1-(1/df['b'])))))
 
@@ -129,9 +129,6 @@ def dbsl(df, r, financing_list, entity_list):
                                df['Y_star']))) +
                            ((np.exp(-1*df['beta']*df['Y_star'])/((df['Y']-df['Y_star'])
                                *r[i,j]))*(np.exp(-1*r[i,j]*df['Y_star'])-np.exp(-1*r[i,j]*df['Y'])))))
-
-            # # don't allow bonus to give NPV > 1
-            # df.ix[df['z'+entity_list[j]+financing_list[i]] > 1., 'z'+entity_list[j]+financing_list[i]] = 1.
 
     df.drop(['beta', 'Y', 'Y_star'], axis=1, inplace=True)
 
@@ -150,19 +147,28 @@ def sl(df, r, financing_list, entity_list):
         :rtype: 96x3x2 array
 
     """
-    df['Y'] = df['ADS']
+    df['Y'] = df['ADS Life'][df['System']=='ADS']
+    df['Y'] = df['GDS Life'][df['System']=='GDS']
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
             df['z'+entity_list[j]+financing_list[i]] = \
                 df['bonus'] + ((1-df['bonus'])*((1-(np.exp(-1*r[i,j]*df['Y']))/(r[i,j]*df['Y']))))
 
-            # # don't allow bonus to give NPV > 1
-            # df.ix[df['z'+entity_list[j]+financing_list[i]] > 1., 'z'+entity_list[j]+financing_list[i]] = 1.
-
     df.drop(['Y'], axis=1, inplace=True)
 
     return df
 
+def expensing(df, r, financing_list, entity_list):
+    """Makes the calculation for expensing.
+        :param bonus_deprec: Reform for bonus depreciation
+        :returns: The net present value of expensed investments
+        :rtype: 96x3x2 array
+    """
+    for i in range(r.shape[0]):
+        for j in range(r.shape[1]):
+            df['z'+entity_list[j]+financing_list[i]] = 1.
+
+    return df
 
 def econ(df, r, financing_list, entity_list):
     """Makes the calculation for economic depreciation.
@@ -181,8 +187,5 @@ def econ(df, r, financing_list, entity_list):
         for j in range(r.shape[1]):
             df['z'+entity_list[j]+financing_list[i]] = \
                 df['bonus'] + ((1-df['bonus'])*(((df['delta']*(1+r[i,j]))/(df['delta']+r[i,j]))))
-
-            # # don't allow bonus to give NPV > 1
-            # df.ix[df['z'+entity_list[j]+financing_list[i]] > 1., 'z'+entity_list[j]+financing_list[i]] = 1.
 
     return df
