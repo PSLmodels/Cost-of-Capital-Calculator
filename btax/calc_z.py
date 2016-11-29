@@ -92,7 +92,6 @@ def npv_tax_deprec(df, r, tax_methods, financing_list, entity_list):
     df['b'] = df['Method']
     df['b'].replace(tax_methods,inplace=True)
 
-
     df_dbsl = dbsl(df.loc[(df['Method']=='DB 200%') | (df['Method']=='DB 150%')].copy(), r, financing_list, entity_list)
     df_sl = sl(df.loc[df['Method']=='SL'].copy(), r, financing_list, entity_list)
     df_econ = econ(df.loc[df['Method']=='Economic'].copy(), r, financing_list, entity_list)
@@ -147,8 +146,8 @@ def sl(df, r, financing_list, entity_list):
         :rtype: 96x3x2 array
 
     """
-    df['Y'] = df['ADS Life'][df['System']=='ADS']
-    df['Y'] = df['GDS Life'][df['System']=='GDS']
+    df['Y'] = df.loc[df['System']=='ADS','ADS Life']
+    df['Y'] = df.loc[df['System']=='GDS','GDS Life']
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
             df['z'+entity_list[j]+financing_list[i]] = \

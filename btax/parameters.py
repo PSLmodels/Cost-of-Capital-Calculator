@@ -46,7 +46,6 @@ def translate_param_names(**user_mods):
     user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
     			 for cl in class_list_str}
 
-
     if user_mods['btax_betr_entity_Switch'] in (True, 'True'):
         #u_nc = user_mods['btax_betr_corp']
         u_nc = user_mods['btax_betr_pass']
