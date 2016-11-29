@@ -233,7 +233,7 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
 
     asset_dict = dict.fromkeys(['Mainframes','PCs','DASDs','Printers',
           'Terminals','Tape drives','Storage devices','System integrators',
-          'Prepackaged software','Custom software','Own account software'],'Computers and Software')
+          'Prepackaged software','Custom software'],'Computers and Software')
     asset_dict.update(dict.fromkeys(['Communications','Nonelectro medical instruments',
           'Electro medical instruments','Nonmedical instruments','Photocopy and related equipment',
           'Office and accounting equipment'],'Instruments and Communications Equipment'))
@@ -276,13 +276,13 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
           'Other manufacturing','Scientific research and development services','Software publishers',
           'Financial and real estate services','Computer systems design and related services','All other nonmanufacturing, n.e.c.',
           'Private universities and colleges','Other nonprofit institutions','Theatrical movies','Long-lived television programs',
-          'Books','Music','Other entertainment originals'],'Intellectual Property'))
+          'Books','Music','Other entertainment originals','Own account software'],'Intellectual Property'))
 
     # major asset groups
     #major_asset_groups = {'Equipment','Structures','Intellectual Property','Inventories','Land'}
     major_asset_groups = dict.fromkeys(['Mainframes','PCs','DASDs','Printers',
           'Terminals','Tape drives','Storage devices','System integrators',
-          'Prepackaged software','Custom software','Own account software',
+          'Prepackaged software','Custom software',
           'Communications','Nonelectro medical instruments',
           'Electro medical instruments','Nonmedical instruments','Photocopy and related equipment',
           'Office and accounting equipment','Household furniture','Other furniture',
@@ -314,7 +314,7 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
           'Other manufacturing','Scientific research and development services','Software publishers',
           'Financial and real estate services','Computer systems design and related services','All other nonmanufacturing, n.e.c.',
           'Private universities and colleges','Other nonprofit institutions','Theatrical movies','Long-lived television programs',
-          'Books','Music','Other entertainment originals'],'Intellectual Property'))
+          'Books','Music','Other entertainment originals','Own account software'],'Intellectual Property'))
     major_asset_groups.update(dict.fromkeys(['Inventories'],'Inventories'))
     major_asset_groups.update(dict.fromkeys(['Land'],'Land'))
     # define major industry groupings
