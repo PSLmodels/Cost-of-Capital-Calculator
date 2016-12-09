@@ -83,28 +83,14 @@ def tst_once(fast_or_slow, **user_params):
                 for row in rows:
                     assert 'cells' in row and isinstance(row['cells'], list)
                     cells = row['cells']
-                    assert len(cells) == 6
-                    for cell in cells:
-                        assert 'value' in cell
-                        assert 'format' in cell and isinstance(cell['format'], dict)
+                    if row.get('summary_c') != 'breakline':
+                        assert len(cells) == 6
+                        for cell in cells:
+                            assert 'value' in cell
+                            assert 'format' in cell and isinstance(cell['format'], dict)
                 col_labels = table['col_labels']
                 assert isinstance(col_labels, list) and len(col_labels) == 6
-                assert all('cost of capital' in c.lower() for c in col_labels)
                 assert isinstance(table['label'], unicode) and table['label']
-        has_changed = False
-        for k in tables:
-            changed = tables[k]['changed']
-
-            for row in changed:
-                for item in row:
-                    if isinstance(item, (float, int)) and item:
-                        has_changed = True
-                        break
-                if has_changed:
-                    break
-            if has_changed:
-                break
-        assert has_changed
     else:
         # just check that when parameter
         # names are standardized a difference
