@@ -225,9 +225,9 @@ def assertions_on_stats(stats):
 
     Parameters:
         stats: dict of dict of dict
-            First key: True or False - is a summary row
-            Second key: Major grouping
-            Third key: Column idx
+            First key: True or False - is a summary row or not
+            Second key: Major grouping, such as Manufacturing
+            Third key: Column idx, 0 through 6
 
     Returns: None or raises AssertionError
 
@@ -237,14 +237,19 @@ def assertions_on_stats(stats):
             #Ensure we always have min and max
             assert len(compare) == 2
             # If it is a summary row, assert max
-            # of rows is equal to min of rows (zero variance)
+            # of rows is equal to min of rows (zero variance
+            # because it is only one row)
             assert compare[0] - compare[1] < 1e-7
             # Find the corresponding non-summary rows
-            vals = v[False][group][col_idx]
-            # Assert the summary weighted means are within
-            # the min/ max of the rows being summarized
-            assert vals[0] <= compare[0] and vals[1] >= compare[0] or vals[0] == vals[1], repr((group, vals, compare))
-
+            if False in v:
+                vals = v[False][group][col_idx]
+                # Assert the summary weighted means are within
+                # the min/ max of the rows being summarized
+                assert vals[0] <= compare[0] and vals[1] >= compare[0] or vals[0] == vals[1], repr((group, vals, compare))
+            else:
+                # the summary row is the only one in the group
+                # E.g. Construction
+                pass
 
 def replace_unicode_spaces(s):
     for space in SPACES:
