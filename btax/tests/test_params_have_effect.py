@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import re
 
 import pytest
@@ -9,11 +10,87 @@ import btax.front_end_util as front_end
 front_end.DO_ASSERTIONS = True # Override env var
                                # Always assert table format okay
 
+'''
+In [5]: out.keys()
+Out[5]:
+[u'result_years',
+ u'asset_coc',
+ u'row_grouping',
+ u'asset_metr',
+ u'industry_coc',
+ u'industry_metr',
+ u'asset_d',
+ u'asset_mettr',
+ u'industry_mettr',
+ u'industry_d']
+
+In [6]: out['asset_coc'].keys()
+Out[6]: [u'changed', u'baseline', u'reform']
+
+In [7]: out['asset_coc']['reform'].keys()
+Out[7]: [u'rows', u'cols', u'col_labels', u'label']
+
+In [8]: out['asset_coc']['reform']['rows'][0]
+Out[8]:
+{u'cells': [{u'format': {u'decimals': 3, u'divisor': 1},
+   u'value': 0.054075875868831835},
+  {u'format': {u'decimals': 3, u'divisor': 1}, u'value': 0.049378622614844193},
+  {u'format': {u'decimals': 3, u'divisor': 1}, u'value': 0.068006044700832463},
+  {u'format': {u'decimals': 3, u'divisor': 1}, u'value': 0.058667865312829387},
+  {u'format': {u'decimals': 3, u'divisor': 1}, u'value': 0.024835825969646917},
+  {u'format': {u'decimals': 3, u'divisor': 1},
+   u'value': 0.026810612762980194}],
+ u'label': u'Equipment',
+ u'major_grouping': u'Equipment',
+ u'summary_c': u'0.167',
+ u'summary_nc': u'0.101'}
+
+In [9]: out['asset_coc']['reform']['cols'][0]
+Out[9]:
+{u'decimals': 3,
+ u'divisor': 1,
+ u'label': u'Cost of capital, typically-financed corporate investment',
+ u'units': u''}
+
+In [10]: out['asset_coc']['reform']['col_labels']
+Out[10]:
+[u'Cost of capital, typically-financed corporate investment',
+ u'Cost of capital, typically-financed non-corporate investment',
+ u'Cost of capital, equity-financed corporate investment',
+ u'Cost of capital, equity-financed non-corporate investment',
+ u'Cost of capital, debt-financed corporate investment',
+ u'Cost of capital, debt-financed non-corporate investment']
+
+In [11]: out['asset_coc']['reform']['label']
+Out[11]: u'reform'
+'''
 def tst_once(fast_or_slow, **user_params):
     if fast_or_slow == 'slow':
         # actually run the model
         # and look at the "changed" tables
         tables = run_btax_to_json_tables(**user_params)
+        assert isinstance(tables, dict)
+        for k, v in tables.items():
+            if k in ('row_grouping', 'result_years',):
+                continue
+            assert 'industry' in k or 'asset' in k
+            assert sorted(v) == ['baseline', 'changed', 'reform']
+            for base_change_reform, table in v.items():
+                expected = set(('rows', 'cols', 'col_labels', 'label'))
+                assert expected == set(table)
+                rows = table['rows']
+                assert rows and isinstance(rows, list)
+                for row in rows:
+                    assert 'cells' in row and isinstance(row['cells'], list)
+                    cells = row['cells']
+                    assert len(cells) == 6
+                    for cell in cells:
+                        assert 'value' in cell
+                        assert 'format' in cell and isinstance(cell['format'], dict)
+                col_labels = table['col_labels']
+                assert isinstance(col_labels, list) and len(col_labels) == 6
+                assert all('cost of capital' in c.lower() for c in col_labels)
+                assert isinstance(table['label'], unicode) and table['label']
         has_changed = False
         for k in tables:
             changed = tables[k]['changed']
