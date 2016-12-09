@@ -22,8 +22,6 @@ from btax import calc_final_outputs
 from btax import check_output
 from btax.util import (get_paths,
                        read_from_egg,
-                       output_by_asset_to_json_table,
-                       output_by_industry_to_json_table,
                        diff_two_tables,
                        filter_user_params_for_econ)
 from btax import read_bea
@@ -32,7 +30,7 @@ import btax.parameters as params
 from btax import format_output
 from btax import visuals
 from btax import visuals_plotly
-
+from btax.front_end_util import run_btax_to_json_tables
 globals().update(get_paths())
 TABLE_ORDER = ['base_output_by_asset',
                'reform_output_by_asset',
@@ -40,9 +38,11 @@ TABLE_ORDER = ['base_output_by_asset',
                'base_output_by_industry',
                'reform_output_by_industry',
                'changed_output_by_industry',]
+
 ModelDiffs = namedtuple('ModelDiffs', TABLE_ORDER + ['row_grouping'])
 
 ASSET_PRE_CACHE_FILE = 'asset_data.pkl'
+
 
 def run_btax(test_run,baseline=False,start_year=2016,iit_reform=None,**user_params):
     """Runner script that kicks off the calculations for B-Tax
@@ -138,30 +138,6 @@ def run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params):
                       row_grouping)
 
 
-def run_btax_to_json_tables(test_run=False,start_year=2016,iit_reform=None,**user_params):
-    out = run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params)
-    tables = {'row_grouping': out.row_grouping}
-
-    for table_name, table in zip(TABLE_ORDER, out[:-1]):
-        if 'asset' in table_name:
-            tab = output_by_asset_to_json_table(table, table_name)
-            for k, v in tab.items():
-                for k2, v2 in v.items():
-                    k1 = 'asset_{}'.format(k)
-                    if not k1 in tables:
-                        tables[k1] = {}
-                    tables[k1][k2] = v2
-        elif 'industry' in table_name:
-            tab = output_by_industry_to_json_table(table, table_name)
-            for k, v in tab.items():
-                for k2, v2 in v.items():
-                    k1 = 'industry_{}'.format(k)
-                    if not k1 in tables:
-                        tables[k1] = {}
-                    tables[k1][k2] = v2
-        else:
-            raise ValueError('Expected an "asset" or "industry" related table')
-    return dict(tables)
 
 
 def main():
