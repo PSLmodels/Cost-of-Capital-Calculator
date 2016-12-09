@@ -9,6 +9,7 @@ Last updated: 7/25/2016.
 
 """
 # Import packages
+from __future__ import unicode_literals
 from collections import namedtuple, defaultdict
 import cPickle as pickle
 from functools import partial
@@ -30,7 +31,8 @@ import btax.parameters as params
 from btax import format_output
 from btax import visuals
 from btax import visuals_plotly
-from btax.front_end_util import run_btax_to_json_tables
+from btax.front_end_util import (run_btax_to_json_tables,
+                                 replace_unicode_spaces)
 globals().update(get_paths())
 TABLE_ORDER = ['base_output_by_asset',
                'reform_output_by_asset',
@@ -98,15 +100,17 @@ def run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params):
     for asset, cat, mettr_c, mettr_nc in subset:
         if cat != cat:  # A string column that may have NaN, so can't do isnan()
             cat = asset # These are some summary rows that don't have all info
-        asset_row_grouping[asset] = {'major_grouping': cat,
-                                     'summary_c': mettr_c,
-                                     'summary_nc': mettr_nc,}
+        asset, cat = map(replace_unicode_spaces, (asset, cat))
+        asset_row_grouping[cat] = asset_row_grouping[asset] = {'major_grouping': cat,
+                                                               'summary_c': mettr_c,
+                                                               'summary_nc': mettr_nc,}
     industry_row_grouping = {}
     subset = zip(*(getattr(base_output_by_industry, at) for at in ('Industry', 'major_industry', 'mettr_c', 'mettr_nc')))
     for industry, cat, mettr_c, mettr_nc in subset:
-        industry_row_grouping[industry] = {'major_grouping': cat,
-                                           'summary_c': mettr_c,
-                                           'summary_nc': mettr_nc,}
+        industry, cat = map(replace_unicode_spaces, (industry, cat))
+        industry_row_grouping[cat] = industry_row_grouping[industry] = {'major_grouping': cat,
+                                                                        'summary_c': mettr_c,
+                                                                        'summary_nc': mettr_nc,}
     row_grouping = {'asset': asset_row_grouping,
                     'industry': industry_row_grouping}
     reform_output_by_asset, reform_output_by_industry = run_btax(test_run,False,start_year,iit_reform,**user_params)

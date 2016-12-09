@@ -4,6 +4,10 @@ import pytest
 
 from btax.parameters import DEFAULTS, get_params, translate_param_names
 from btax.run_btax import run_btax_to_json_tables
+import btax.front_end_util as front_end
+
+front_end.DO_ASSERTIONS = True # Override env var
+                               # Always assert table format okay
 
 def tst_once(fast_or_slow, **user_params):
     if fast_or_slow == 'slow':

@@ -1,8 +1,7 @@
+from __future__ import unicode_literals
 from collections import defaultdict
 import os
 from btax.parameters import DEFAULT_ASSET_COLS, DEFAULT_INDUSTRY_COLS
-from btax.util import (output_by_asset_to_json_table,
-                       output_by_industry_to_json_table)
 
 # Row labels, in order, including minor headings like "Durable goods"
 BTAX_TABLE_ASSET_ORDER = ("Equipment", "Mainframes", "PCs", "DASDs", "Printers", "Terminals", "Tape drives", "Storage devices", "System integrators", "Communications", "Nonelectro medical instruments", "Electro medical instruments", "Nonmedical instruments", "Photocopy and related equipment", "Office and accounting equipment", "Nuclear fuel", "Other fabricated metals", "Steam engines", "Internal combustion engines", "Metalworking machinery", "Special industrial machinery", "General industrial equipment", "Electric transmission and distribution", "Light trucks (including utility vehicles)", "Other trucks, buses and truck trailers", "Autos", "Aircraft", "Ships and boats", "Railroad equipment", "Household furniture", "Other furniture", "Other agricultural machinery", "Farm tractors", "Other construction machinery", "Construction tractors", "Mining and oilfield machinery", "Service industry machinery", "Household appliances", "Other electrical", "Other", "Structures", "Office", "Hospitals", "Special care", "Medical buildings", "Multimerchandise shopping", "Food and beverage establishments", "Warehouses", "Mobile structures", "Other commercial", "Manufacturing", "Electric", "Wind and solar", "Gas", "Petroleum pipelines", "Communication", "Petroleum and natural gas", "Mining", "Educational and vocational", "Lodging", "Amusement and recreation", "Air transportation", "Other transportation", "Other railroad", "Track replacement", "Local transit structures", "Other land transportation", "Farm", "Water supply", "Sewage and waste disposal", "Public safety", "Highway and conservation and development", "Inventories", "Land")
@@ -46,16 +45,6 @@ def run_btax_to_json_tables(test_run=False,start_year=2016,iit_reform=None,**use
     return add_summary_rows_and_breaklines(dict(tables), start_year, do_assertions=test_run)
 
 
-def no_spaces_str_equals(keys, lookup_val):
-    '''Ignore spaces, including unicode-encoded spaces
-       for comparison, allowing string or unicode comparisons'''
-
-    return [key for idx, key in enumerate(keys)
-            if [k for k in key
-                if k not in SPACES] == [ai for ai in lookup_val
-                                        if ai not in SPACES]][0]
-
-
 def add_summary_rows_and_breaklines(results, first_budget_year, do_assertions=False):
     """
     Take various results from i.e. mY_dec, mX_bin, df_dec, etc
@@ -71,11 +60,11 @@ def add_summary_rows_and_breaklines(results, first_budget_year, do_assertions=Fa
         if not upper_key in tables:
             tables[upper_key] = {}
         for table_id, table_data in table_data0.items():
-            col_labels = table_data[0]
+            col_labels = list(table_data.columns)
             # Note the logic in this functions addresses
             # the fact that row_labels is not the final
             # order of table
-            row_labels = [_[0] for _ in table_data[1:]]
+            row_labels = table_data.index
             table = {
                 'col_labels': col_labels,
                 'cols': [],
@@ -133,15 +122,16 @@ def add_summary_rows_and_breaklines(results, first_budget_year, do_assertions=Fa
                                  'cells': []}
                 else:
                     extra_row = None
-                row_key = no_spaces_str_equals(keys, row_label)
-                assert row_key == row_label, repr((row_key, row_label))
                 # Logic to find the group that a row
                 # falls into and display the weighted
                 # mean of that row as a bold row summary.
                 # If row['label'] == row['major_grouping'],
                 # then it is a summary row, otherwise
                 # the label differs from the grouping.
-                group = group_data[row_key]
+                try:
+                    group = group_data[row_label]
+                except KeyError:
+                    raise KeyError('Failed on key lookup {} in {}'.format(group_data, row_label))
                 row = {
                     'label': row_label,
                     'cells': [],
@@ -151,12 +141,11 @@ def add_summary_rows_and_breaklines(results, first_budget_year, do_assertions=Fa
                 }
 
                 for col_key in range(0, col_count):
-                    this_row = [r for r in table_data
-                                if row_key == r[0]]
-                    if len(this_row) != 1:
-                        raise ValueError('Failed to find {} ({})'.format(row_key, this_row))
-                    this_row = this_row[0]
-                    value = this_row[col_key + 1]
+                    try:
+                        this_row = table_data.loc[row_label].values
+                    except:
+                        raise KeyError('Failed on lookup of {} in {}'.format(row_label, table_data.index))
+                    value = this_row[col_key]
                     if do_assertions:
                         # Do assertions to make sure
                         # the weighted mean rows, after
@@ -164,14 +153,13 @@ def add_summary_rows_and_breaklines(results, first_budget_year, do_assertions=Fa
                         # being in the right range
                         key1 = row['major_grouping']
                         key2 = row['major_grouping'] == row['label']
-                        key3 = col_key + 1
-                        if key3 not in stats[key1][key2]:
-                            minn, maxx = stats[key1][key2][key3] = [None, None]
+                        if col_key not in stats[key1][key2]:
+                            minn, maxx = stats[key1][key2][col_key] = [None, None]
                         if minn is None or minn > value:
                             minn = value
                         if maxx is None or maxx < value:
                             maxx = value
-                        stats[key1][key2][key3] = [minn, maxx]
+                        stats[key1][key2][col_key] = [minn, maxx]
                     cell = {
                         'format': {
                             'divisor': table['cols'][col_key]['divisor'],
@@ -195,6 +183,42 @@ def add_summary_rows_and_breaklines(results, first_budget_year, do_assertions=Fa
     tables['result_years'] = [2015]
     return tables
 
+def _dataframe_to_json_table(df, defaults, label, index_col):
+    groups = [x[1]['table_id'] for x in defaults]
+    tables = defaultdict(lambda: {})
+    for group in set(groups):
+        if group == 'all':
+            continue
+        new_column_names = [x[1]['col_label'] for x in defaults
+                            if x[1]['table_id'] == group]
+        keep_columns = [x[0] for x in defaults
+                        if x[1]['table_id'] in (group, 'all')]
+        df2 = df[keep_columns]
+        df2[index_col] = [replace_unicode_spaces(s) for s in df2[index_col]]
+        df2.set_index(index_col, inplace=True)
+        df2.columns = new_column_names
+        if 'reform' in label:
+            label2 = 'reform'
+        elif 'changed' in label:
+            label2 = 'changed'
+        elif 'base' in label:
+            label2 = 'baseline'
+        print(label, label2, group)
+        tables[group][label2] = df2
+    return tables
+
+def output_by_asset_to_json_table(df, table_name):
+    from btax.parameters import DEFAULT_ASSET_COLS
+    return _dataframe_to_json_table(df, DEFAULT_ASSET_COLS,
+                                    table_name, 'Asset Type')
+
+
+def output_by_industry_to_json_table(df, table_name):
+    from btax.parameters import DEFAULT_INDUSTRY_COLS
+    return _dataframe_to_json_table(df, DEFAULT_INDUSTRY_COLS,
+                                    table_name, 'Industry')
+
+
 
 def assertions_on_stats(stats):
     """run assertions on stats accumulated while making tables
@@ -214,10 +238,16 @@ def assertions_on_stats(stats):
             assert len(compare) == 2
             # If it is a summary row, assert max
             # of rows is equal to min of rows (zero variance)
-            assert compare[0] == compare[1]
+            assert compare[0] - compare[1] < 1e-7
             # Find the corresponding non-summary rows
-            vals = v[False][col_idx]
+            vals = v[False][group][col_idx]
             # Assert the summary weighted means are within
             # the min/ max of the rows being summarized
-            assert vals[0] < compare[0] and vals[1] > compare[0] or vals[0] == vals[1], repr((group, vals, compare))
+            assert vals[0] <= compare[0] and vals[1] >= compare[0] or vals[0] == vals[1], repr((group, vals, compare))
+
+
+def replace_unicode_spaces(s):
+    for space in SPACES:
+        s = s.replace(space, u' ')
+    return s
 
