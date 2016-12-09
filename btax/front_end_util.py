@@ -233,6 +233,8 @@ def assertions_on_stats(stats):
 
     """
     for group, v in stats.items():
+        # For each summary row
+        # (v[True] means summaries, v[False] means data rows)
         for col_idx, compare in v[True].items():
             #Ensure we always have min and max
             assert len(compare) == 2
@@ -241,7 +243,7 @@ def assertions_on_stats(stats):
             # because it is only one row)
             assert compare[0] - compare[1] < 1e-7
             # Find the corresponding non-summary rows
-            if False in v:
+            if group in v[False]:
                 vals = v[False][group][col_idx]
                 # Assert the summary weighted means are within
                 # the min/ max of the rows being summarized
