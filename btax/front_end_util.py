@@ -180,7 +180,7 @@ def add_summary_rows_and_breaklines(results, first_budget_year, do_assertions=Fa
             tables[upper_key][table_id] = table
     if do_assertions:
         assertions_on_stats(stats)
-    tables['result_years'] = [2015]
+    tables['result_years'] = [first_budget_year]
     return tables
 
 def _dataframe_to_json_table(df, defaults, label, index_col):
