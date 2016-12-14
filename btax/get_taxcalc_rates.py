@@ -209,5 +209,5 @@ def get_rates(baseline=False, start_year=2016, reform={}):
     individual_rates = {'tau_nc':tau_nc,'tau_div':tau_div,'tau_int':tau_int,
                         'tau_scg':tau_scg,'tau_lcg':tau_lcg,'tau_td':tau_td,
                         'tau_h':tau_h}
-
+    print individual_rates
     return individual_rates

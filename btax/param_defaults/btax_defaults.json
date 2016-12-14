@@ -273,7 +273,7 @@
       "notes": "This parameter is an indicator for the use of the Alternative depreciation System (ADS) on 39-year class property.",
       "description": "Indicator for Alternative Depreciation System on 39-year class property",
       "value": [
-        true
+        false
       ]
     }
   ],
@@ -297,7 +297,7 @@
       "notes": "This parameter is an indicator for the use of the General Depreciation System (GDS) on 39-year class property.",
       "description": "Indicator for General Depreciation System on 39-year class property",
       "value": [
-        false
+        true
       ]
     }
   ],

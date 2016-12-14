@@ -46,7 +46,6 @@ def translate_param_names(**user_mods):
     user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
     			 for cl in class_list_str}
 
-
     if user_mods['btax_betr_entity_Switch'] in (True, 'True'):
         #u_nc = user_mods['btax_betr_corp']
         u_nc = user_mods['btax_betr_pass']
@@ -117,12 +116,9 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     bonus_deprec = user_params['bonus_deprec']
     deprec_system = user_params['deprec_system']
     phi = 0.5 # fraction of inventories using LIFO accounting
-    # we don't have IP class in user params, so put here
-    bonus_deprec['50'] = 0.
-    deprec_system['50'] = 'ADS'
-    # also for land and inventories which don't have tax deprec
-    bonus_deprec['100'] = 0.
-    deprec_system['100'] = 'ADS'
+    #for land and inventories which don't have tax deprec
+    bonus_deprec['100'] = 0.0
+    deprec_system['100'] = 'GDS'
 
     # call tax calc to get individual rates
     if test_run==True:
@@ -216,7 +212,8 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     else:
         s_array[:,1] = s_array[:,0]
     delta = get_econ_depr()
-    tax_methods = {'GDS 200%': 2.0, 'GDS 150%': 1.5, 'GDS SL': 1.0, 'ADS SL': 1.0}
+    tax_methods = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0, 'Economic': 1.0,
+                   'Expensing': 1.0}
     financing_list = ['', '_d', '_e']
     entity_list = ['_c', '_nc']
     z = calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, tax_methods, financing_list, entity_list)
@@ -236,7 +233,7 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
 
     asset_dict = dict.fromkeys(['Mainframes','PCs','DASDs','Printers',
           'Terminals','Tape drives','Storage devices','System integrators',
-          'Prepackaged software','Custom software','Own account software'],'Computers and Software')
+          'Prepackaged software','Custom software'],'Computers and Software')
     asset_dict.update(dict.fromkeys(['Communications','Nonelectro medical instruments',
           'Electro medical instruments','Nonmedical instruments','Photocopy and related equipment',
           'Office and accounting equipment'],'Instruments and Communications Equipment'))
@@ -279,13 +276,13 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
           'Other manufacturing','Scientific research and development services','Software publishers',
           'Financial and real estate services','Computer systems design and related services','All other nonmanufacturing, n.e.c.',
           'Private universities and colleges','Other nonprofit institutions','Theatrical movies','Long-lived television programs',
-          'Books','Music','Other entertainment originals'],'Intellectual Property'))
+          'Books','Music','Other entertainment originals','Own account software'],'Intellectual Property'))
 
     # major asset groups
     #major_asset_groups = {'Equipment','Structures','Intellectual Property','Inventories','Land'}
     major_asset_groups = dict.fromkeys(['Mainframes','PCs','DASDs','Printers',
           'Terminals','Tape drives','Storage devices','System integrators',
-          'Prepackaged software','Custom software','Own account software',
+          'Prepackaged software','Custom software',
           'Communications','Nonelectro medical instruments',
           'Electro medical instruments','Nonmedical instruments','Photocopy and related equipment',
           'Office and accounting equipment','Household furniture','Other furniture',
@@ -317,7 +314,7 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
           'Other manufacturing','Scientific research and development services','Software publishers',
           'Financial and real estate services','Computer systems design and related services','All other nonmanufacturing, n.e.c.',
           'Private universities and colleges','Other nonprofit institutions','Theatrical movies','Long-lived television programs',
-          'Books','Music','Other entertainment originals'],'Intellectual Property'))
+          'Books','Music','Other entertainment originals','Own account software'],'Intellectual Property'))
     major_asset_groups.update(dict.fromkeys(['Inventories'],'Inventories'))
     major_asset_groups.update(dict.fromkeys(['Land'],'Land'))
     # define major industry groupings

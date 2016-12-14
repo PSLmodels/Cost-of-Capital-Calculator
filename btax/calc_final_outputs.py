@@ -49,8 +49,10 @@ def asset_calcs(params,asset_data):
     # initialize dataframe - start w/ z output
     output_by_asset = z.copy()
 
-    # Drop religious buildings
+    # Drop religious buildings and IP of nonprofits
     output_by_asset = output_by_asset[output_by_asset['Asset Type']!='Religious'].copy()
+    output_by_asset = output_by_asset[output_by_asset['Asset Type']!='Private universities and colleges'].copy()
+    output_by_asset = output_by_asset[output_by_asset['Asset Type']!='Other nonprofit institutions'].copy()
 
     # calculate the cost of capital, metr, mettr
     for i in range(save_rate.shape[0]):
@@ -75,7 +77,8 @@ def asset_calcs(params,asset_data):
     output_by_asset['asset_category'].replace(asset_dict,inplace=True)
 
     # Drop IP (for now - need to better figure out how depreciate)
-    output_by_asset = output_by_asset[output_by_asset['asset_category']!='Intellectual Property'].copy()
+    #output_by_asset = output_by_asset[output_by_asset['asset_category']!='Intellectual Property'].copy()
+    #output_by_asset = output_by_asset[output_by_asset['Asset Type']!='Land'].copy()
 
     # merge in dollar value of assets - sep for corp and non-corp
     # should be able to do this better with pivot table
@@ -206,8 +209,7 @@ def industry_calcs(params, asset_data, output_by_asset):
       right_on=['bea_asset_code'], left_index=False, right_index=False, sort=False,
       copy=True)
 
-    # drop certain types of assets and owner occupied housing when making industry calcs
-    # Means industry calculations will only be for equipment and structures
+    # drop major groups - want to build up from individual assets
     by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Intellectual Property'].copy()
     by_industry_asset = by_industry_asset[by_industry_asset['Asset Type']!='Equipment'].copy()
     by_industry_asset = by_industry_asset[by_industry_asset['Asset Type']!='Structures'].copy()

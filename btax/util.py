@@ -68,7 +68,7 @@ def get_paths():
     paths['_LAND_PATH'] = _LAND_PATH = os.path.join(_FIN_ACCT_DIR, '')
     paths['_B101_PATH'] = _B101_PATH = os.path.join(_FIN_ACCT_DIR, 'b101.csv')
     paths['_ECON_DEPR_IN_PATH'] = _ECON_DEPR_IN_PATH = os.path.join(_DEPR_DIR, 'Economic Depreciation Rates.csv')
-    paths['_TAX_DEPR'] = _TAX_DEPR = os.path.join(_DEPR_DIR, 'BEA_IRS_Crosswalk.csv')
+    paths['_TAX_DEPR'] = _TAX_DEPR = os.path.join(_DEPR_DIR, 'tax_depreciation_rates.csv')
     paths['_SOI_DIR'] = _SOI_DIR = os.path.join(_RAW_DIR, 'soi')
     paths['_CORP_DIR'] = _CORP_DIR = os.path.join(_SOI_DIR, 'soi_corporate')
     paths['_TOT_CORP_IN_PATH'] = F_TOT_CORP_IN_PATH = os.path.join(_CORP_DIR, '2013sb1.csv')
