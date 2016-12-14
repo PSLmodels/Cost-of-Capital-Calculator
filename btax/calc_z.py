@@ -70,8 +70,8 @@ def calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, tax_methods, fina
     # replace tax depreciation rates on land and inventories w/ zero
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
-            z.ix[z['Asset Type']=='Land', 'z'+entity_list[j]+financing_list[i]] = 0
-            z.ix[z['Asset Type']=='Inventories', 'z'+entity_list[j]+financing_list[i]] = 0
+            z.ix[z['Asset Type']=='Land', 'z'+entity_list[j]+financing_list[i]] = 0.
+            z.ix[z['Asset Type']=='Inventories', 'z'+entity_list[j]+financing_list[i]] = 0.
 
     return z
 
