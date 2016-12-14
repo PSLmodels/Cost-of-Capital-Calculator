@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from collections import OrderedDict, defaultdict
 import numbers
 import os
@@ -96,42 +97,6 @@ def str_modified(i):
         str_i = str(int(i))
     return str_i
 
-
-def _dataframe_to_json_table(df, defaults, label, index_col):
-    groups = [x[1]['table_id'] for x in defaults]
-    tables = defaultdict(lambda: {})
-    for group in set(groups):
-        if group == 'all':
-            continue
-        new_column_names = [x[1]['col_label'] for x in defaults
-                            if x[1]['table_id'] == group]
-        keep_columns = [x[0] for x in defaults
-                        if x[1]['table_id'] in (group, 'all')]
-        df2 = df[keep_columns]
-        df2.set_index(index_col, inplace=True)
-        df2.columns = new_column_names
-        header = list(df2.columns)
-        rows = [[k,] + list(v) for k, v in df2.T.iteritems()]
-        if 'reform' in label:
-            label2 = 'reform'
-        elif 'changed' in label:
-            label2 = 'changed'
-        elif 'base' in label:
-            label2 = 'baseline'
-        print(label, label2, group)
-        tables[group][label2] = [header] + rows
-    return tables
-
-def output_by_asset_to_json_table(df, table_name):
-    from btax.parameters import DEFAULT_ASSET_COLS
-    return _dataframe_to_json_table(df, DEFAULT_ASSET_COLS,
-                                    table_name, 'Asset Type')
-
-
-def output_by_industry_to_json_table(df, table_name):
-    from btax.parameters import DEFAULT_INDUSTRY_COLS
-    return _dataframe_to_json_table(df, DEFAULT_INDUSTRY_COLS,
-                                    table_name, 'Industry')
 
 def diff_two_tables(df1, df2):
     assert tuple(df1.columns) == tuple(df2.columns)

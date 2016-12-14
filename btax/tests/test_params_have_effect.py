@@ -1,29 +1,43 @@
+from __future__ import unicode_literals
 import re
 
 import pytest
 
 from btax.parameters import DEFAULTS, get_params, translate_param_names
 from btax.run_btax import run_btax_to_json_tables
+import btax.front_end_util as front_end
+
+front_end.DO_ASSERTIONS = True # Override env var
+                               # Always assert table format okay
 
 def tst_once(fast_or_slow, **user_params):
     if fast_or_slow == 'slow':
         # actually run the model
         # and look at the "changed" tables
         tables = run_btax_to_json_tables(**user_params)
-        has_changed = False
-        for k in tables:
-            changed = tables[k]['changed']
-
-            for row in changed:
-                for item in row:
-                    if isinstance(item, (float, int)) and item:
-                        has_changed = True
-                        break
-                if has_changed:
-                    break
-            if has_changed:
-                break
-        assert has_changed
+        assert isinstance(tables, dict)
+        for k, v in tables.items():
+            if k in ('row_grouping', 'result_years',):
+                continue
+            assert 'industry' in k or 'asset' in k
+            assert sorted(v) == ['baseline', 'changed', 'reform']
+            for base_change_reform, table in v.items():
+                expected = set(('rows', 'cols', 'col_labels', 'label'))
+                assert expected == set(table)
+                rows = table['rows']
+                assert rows and isinstance(rows, list)
+                for row in rows:
+                    assert 'cells' in row and isinstance(row['cells'], list)
+                    cells = row['cells']
+                    if row.get('summary_c') != 'breakline':
+                        assert len(cells) == 6
+                        for cell in cells:
+                            assert 'value' in cell
+                            assert 'format' in cell and isinstance(cell['format'], dict)
+                col_labels = table['col_labels']
+                assert isinstance(col_labels, list) and len(col_labels) == 6
+                assert isinstance(table['label'], unicode) and table['label']
+                assert rows[-1]['label'] == rows[-1]['major_grouping'] == 'All Investments'
     else:
         # just check that when parameter
         # names are standardized a difference
