@@ -37,6 +37,7 @@ def tst_once(fast_or_slow, **user_params):
                 col_labels = table['col_labels']
                 assert isinstance(col_labels, list) and len(col_labels) == 6
                 assert isinstance(table['label'], unicode) and table['label']
+                assert rows[-1]['label'] == rows[-1]['major_grouping'] == 'All Investments'
     else:
         # just check that when parameter
         # names are standardized a difference
