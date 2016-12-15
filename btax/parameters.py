@@ -204,8 +204,6 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     # if no entity level taxes on pass-throughs, ensure mettr and metr on non-corp entities the same
     if user_params['u_nc'] == 0.0:
         r_prime[:,1] = s_array[:,1] + pi
-        if int_haircut != 0:
-            r[:,1] = (f_array*(i*(1-u_array))+(1-f_array)*(E_array+pi - E_array*r_ace*ace_array))[:,1]
     # If entity level tax, assume distribute earnings at same rate corps distribute
     # dividends and these are taxed at dividends tax rate (which seems likely, but
     # leaves no role for non-corp income rate)
