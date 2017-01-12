@@ -16,9 +16,7 @@ install:
   - conda install --file conda-requirements.txt # xlrd, possibly others
   - export BUILD_DIR=`pwd`
   - pip install -r requirements.txt
-  #- conda install -c ospc taxcalc
-  - git clone https://github.com/jdebacker/Tax-Calculator.git && cd Tax-Calculator
-  - git fetch --all && git checkout master && python setup.py install && cd $BUILD_DIR
+  - conda install -c ospc taxcalc=0.7.1
   - export BTAX_OUT_DIR=btax_output_dir # make an output dir
   - export BTAX_CUR_DIR=${BUILD_DIR}/btax
   - mkdir btax_output_dir
