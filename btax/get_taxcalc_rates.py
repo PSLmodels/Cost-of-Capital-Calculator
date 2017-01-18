@@ -98,7 +98,7 @@ weights=None, records_start_year=None):
     calc1 = Calculator(records=records1, policy=policy1)
 
     if growth_assumptions:
-        calc1.growth.update_economic_growth(growth_assumptions)
+        calc1.growth.update_growth(growth_assumptions)
 
     # this increment_year function extrapolates all PUF variables to the next year
     # so this step takes the calculator to the start_year
@@ -108,7 +108,7 @@ weights=None, records_start_year=None):
     return calc1
 
 
-def get_rates(baseline=False, start_year=2016, reform={}):
+def get_rates(baseline=False, start_year=2017, reform={}):
     '''
     --------------------------------------------------------------------
     This function computes weighted average marginal tax rates using
