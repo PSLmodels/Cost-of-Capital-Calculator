@@ -1202,5 +1202,49 @@
         false,
         false]
     }
+  ],
+  [
+    "btax_depr_expense_inventory",
+    {
+      "long_name": "Indicator for use of expensing for inventories",
+      "notes": "This parameter is an indicator for the use of expensing for inventories.",
+      "description": "Indicator for expensing of inventories",
+      "start_year": 2017,
+      "row_label": ["2015",
+                    "2016",
+                    "2017",
+                    "2018",
+                    "2019",
+                    "2020"],
+      "value": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false]
+    }
+  ],
+  [
+    "btax_depr_expense_land",
+    {
+      "long_name": "Indicator for use of expensing for land",
+      "notes": "This parameter is an indicator for the use of expensing for land.",
+      "description": "Indicator for expensing of land",
+      "start_year": 2017,
+      "row_label": ["2015",
+                    "2016",
+                    "2017",
+                    "2018",
+                    "2019",
+                    "2020"],
+      "value": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false]
+    }
   ]
 ]
