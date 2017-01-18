@@ -54,12 +54,12 @@ def translate_param_names(start_year=2017,**user_mods):
 
 
     # Flag for expensing of inventories
-    expense_inventory = True
+    expense_inventory = False
     # Fraction of inventories using LIFO
     phi = 0.5
 
     # Flag for expensing of land
-    expense_land = True
+    expense_land = False
 
 
     if user_mods['btax_betr_entity_Switch'] in (True, 'True'):
