@@ -46,7 +46,7 @@ ModelDiffs = namedtuple('ModelDiffs', TABLE_ORDER + ['row_grouping'])
 ASSET_PRE_CACHE_FILE = 'asset_data.pkl'
 
 
-def run_btax(test_run,baseline=False,start_year=2016,iit_reform=None,**user_params):
+def run_btax(test_run,baseline=False,start_year=2017,iit_reform=None,**user_params):
     """Runner script that kicks off the calculations for B-Tax
 
 	:param user_params: The user input for implementing reforms
