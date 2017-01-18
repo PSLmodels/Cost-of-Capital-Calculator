@@ -55,9 +55,11 @@ def translate_param_names(start_year=2017,**user_mods):
 
     # Flag for expensing of inventories
     expense_inventory = True
-
     # Fraction of inventories using LIFO
     phi = 0.5
+
+    # Flag for expensing of land
+    expense_land = True
 
 
     if user_mods['btax_betr_entity_Switch'] in (True, 'True'):
@@ -80,7 +82,8 @@ def translate_param_names(start_year=2017,**user_mods):
         'bonus_deprec': user_bonus_deprec,
         'deprec_system': user_deprec_system,
         'phi': phi,
-        'expense_inventory': expense_inventory
+        'expense_inventory': expense_inventory,
+        'expense_land': expense_land
     }
 
     return user_params
@@ -136,6 +139,8 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     deprec_system = user_params['deprec_system']
     phi = user_params['phi']# fraction of inventories using LIFO accounting
     expense_inventory = user_params['expense_inventory'] # flag for expense inventories
+    expense_land = user_params['expense_land'] # flag for expense inventories
+
     #for land and inventories which don't have tax deprec
     bonus_deprec['100'] = 0.0
     deprec_system['100'] = 'GDS'
@@ -234,7 +239,9 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
                    'Expensing': 1.0}
     financing_list = ['', '_d', '_e']
     entity_list = ['_c', '_nc']
-    z = calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, expense_inventory, tax_methods, financing_list, entity_list)
+    z = calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system,
+                            expense_inventory, expense_land, tax_methods,
+                            financing_list, entity_list)
 
     '''
     ------------------------------------------
