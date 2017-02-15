@@ -13,7 +13,7 @@ import os
 import pandas as pd
 import numpy as np
 
-from btax.util import read_from_egg
+from btax.util import read_from_egg, DEFAULT_START_YEAR
 
 
 DEFAULTS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_defaults.json')))
@@ -28,7 +28,7 @@ def translate_param_names(start_year=2017,**user_mods):
 
     # btax_betr_entity_Switch # If this parameter =True, then u_nc default to corp rate
 
-    year = start_year-2015
+    year = start_year - DEFAULT_START_YEAR
     defaults = dict(DEFAULTS)
     user_mods.update({k: v['value'][year] for k,v in defaults.iteritems()
                       if k not in user_mods})
@@ -38,11 +38,11 @@ def translate_param_names(start_year=2017,**user_mods):
     class_list_str = [(str(i) if i != 27.5 else '27_5') for i in class_list]
     user_deprec_system = {}
     for cl in class_list_str:
-        if user_mods.get('btax_depr_'+cl+'yr_gds_Switch'):
+        if user_mods.get('btax_depr_{}yr_gds_Switch'.format(cl)):
             user_deprec_system[cl] = 'GDS'
-        elif user_mods.get('btax_depr_'+cl+'yr_ads_Switch'):
+        elif user_mods.get('btax_depr_{}yr_ads_Switch'.format(cl)):
             user_deprec_system[cl] = 'ADS'
-        elif user_mods.get('btax_depr_'+cl+'yr_tax_Switch'):
+        elif user_mods.get('btax_depr_{}yr_tax_Switch'.format(cl)):
             user_deprec_system[cl] = 'Economic'
         else:
             user_deprec_system[cl] = 'GDS'
