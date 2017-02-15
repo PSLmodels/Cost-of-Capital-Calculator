@@ -38,15 +38,16 @@ def translate_param_names(start_year=DEFAULT_START_YEAR,**user_mods):
     class_list = [3, 5, 7, 10, 15, 20, 25, 27.5, 39]
     class_list_str = [(str(i) if i != 27.5 else '27_5') for i in class_list]
     user_deprec_system = {}
+    print('btax user_mods', user_mods)
     for cl in class_list_str:
+        state = 'GDS'
         if user_mods.get('btax_depr_{}yr_gds_Switch'.format(cl)):
-            user_deprec_system[cl] = 'GDS'
-        elif user_mods.get('btax_depr_{}yr_ads_Switch'.format(cl)):
-            user_deprec_system[cl] = 'ADS'
-        elif user_mods.get('btax_depr_{}yr_tax_Switch'.format(cl)):
-            user_deprec_system[cl] = 'Economic'
-        else:
-            user_deprec_system[cl] = 'GDS'
+            state = 'GDS'
+        if user_mods.get('btax_depr_{}yr_ads_Switch'.format(cl)):
+            state = 'ADS'
+        if user_mods.get('btax_depr_{}yr_tax_Switch'.format(cl)):
+            state = 'Economic'
+        user_deprec_system[cl] = state
 
     user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
             for cl in class_list_str}
