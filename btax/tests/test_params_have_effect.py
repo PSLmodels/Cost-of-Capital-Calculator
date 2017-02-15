@@ -108,6 +108,7 @@ def test_each_param_has_effect_fast(k, v):
 
 def test_gds_ads_econ_switch():
     params = translate_param_names(btax_depr_10yr_ads_Switch=True)
+    print params['deprec_system']['10']
     assert params['deprec_system']['10'] == 'ADS'
     params = translate_param_names()
     assert params['deprec_system']['10'] == 'GDS'
