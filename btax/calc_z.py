@@ -71,19 +71,19 @@ def calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, expense_inventory
     if expense_inventory:
         for i in range(r.shape[0]):
             for j in range(r.shape[1]):
-                z.ix[z['Asset Type']=='Inventories', 'z'+entity_list[j]+financing_list[i]] = 1.
+                z.loc[z['Asset Type']=='Inventories', 'z'+entity_list[j]+financing_list[i]] = 1.
     else:
         for i in range(r.shape[0]):
             for j in range(r.shape[1]):
-                z.ix[z['Asset Type']=='Inventories', 'z'+entity_list[j]+financing_list[i]] = 0.
+                z.loc[z['Asset Type']=='Inventories', 'z'+entity_list[j]+financing_list[i]] = 0.
     if expense_land:
         for i in range(r.shape[0]):
             for j in range(r.shape[1]):
-                z.ix[z['Asset Type']=='Land', 'z'+entity_list[j]+financing_list[i]] = 1.
+                z.loc[z['Asset Type']=='Land', 'z'+entity_list[j]+financing_list[i]] = 1.
     else:
         for i in range(r.shape[0]):
             for j in range(r.shape[1]):
-                z.ix[z['Asset Type']=='Land', 'z'+entity_list[j]+financing_list[i]] = 0.
+                z.loc[z['Asset Type']=='Land', 'z'+entity_list[j]+financing_list[i]] = 0.
 
     return z
 
