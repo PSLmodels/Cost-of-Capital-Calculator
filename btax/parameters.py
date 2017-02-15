@@ -15,20 +15,20 @@ import numpy as np
 
 from btax.util import read_from_egg
 
-
+PARAMETER_START_YEAR = 2015 # first year for with tax parameters identified in btax_defaults.json
 DEFAULTS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_defaults.json')))
 DEFAULT_ASSET_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_asset.json')))
 DEFAULT_INDUSTRY_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_industry.json')))
 
 
-def translate_param_names(start_year=2017,**user_mods):
+def translate_param_names(start_year,**user_mods):
     """Takes parameters names from UI and turns them into names used in btax
 
     """
 
     # btax_betr_entity_Switch # If this parameter =True, then u_nc default to corp rate
 
-    year = start_year-2015
+    year = start_year-PARAMETER_START_YEAR
     defaults = dict(DEFAULTS)
     user_mods.update({k: v['value'][year] for k,v in defaults.iteritems()
                       if k not in user_mods})
