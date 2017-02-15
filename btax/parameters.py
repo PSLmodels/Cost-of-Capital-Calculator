@@ -15,6 +15,7 @@ import numpy as np
 
 from btax.util import read_from_egg
 
+DEFAULT_START_YEAR = 2017
 PARAMETER_START_YEAR = 2015 # first year for with tax parameters identified in btax_defaults.json
 DEFAULTS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_defaults.json')))
 DEFAULT_ASSET_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_asset.json')))
