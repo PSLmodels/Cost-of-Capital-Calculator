@@ -13,7 +13,7 @@ import os
 import pandas as pd
 import numpy as np
 
-from btax.util import read_from_egg
+from btax.util import read_from_egg, DEFAULT_START_YEAR
 
 DEFAULT_START_YEAR = 2017
 PARAMETER_START_YEAR = 2015 # first year for with tax parameters identified in btax_defaults.json
@@ -39,11 +39,11 @@ def translate_param_names(start_year,**user_mods):
     class_list_str = [(str(i) if i != 27.5 else '27_5') for i in class_list]
     user_deprec_system = {}
     for cl in class_list_str:
-        if user_mods.get('btax_depr_'+cl+'yr_gds_Switch'):
+        if user_mods.get('btax_depr_{}yr_gds_Switch'.format(cl)):
             user_deprec_system[cl] = 'GDS'
-        elif user_mods.get('btax_depr_'+cl+'yr_ads_Switch'):
+        elif user_mods.get('btax_depr_{}yr_ads_Switch'.format(cl)):
             user_deprec_system[cl] = 'ADS'
-        elif user_mods.get('btax_depr_'+cl+'yr_tax_Switch'):
+        elif user_mods.get('btax_depr_{}yr_tax_Switch'.format(cl)):
             user_deprec_system[cl] = 'Economic'
         else:
             user_deprec_system[cl] = 'GDS'
