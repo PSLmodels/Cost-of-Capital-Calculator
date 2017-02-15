@@ -6,6 +6,8 @@ from pkg_resources import resource_stream, Requirement
 
 import pandas as pd
 
+DEFAULT_START_YEAR = 2015
+
 def read_from_egg(tfile):
     '''Read a relative path, getting the contents
     locally or from the installed egg, parsing the contents
