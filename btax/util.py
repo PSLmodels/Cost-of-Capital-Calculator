@@ -6,7 +6,8 @@ from pkg_resources import resource_stream, Requirement
 
 import pandas as pd
 
-DEFAULT_START_YEAR = 2015
+# Default year for model runs
+DEFAULT_START_YEAR = 2017
 
 def read_from_egg(tfile):
     '''Read a relative path, getting the contents

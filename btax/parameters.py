@@ -13,9 +13,9 @@ import os
 import pandas as pd
 import numpy as np
 
-from btax.util import read_from_egg, DEFAULT_START_YEAR
+# from btax.util import read_from_egg, DEFAULT_START_YEAR
+from util import read_from_egg, DEFAULT_START_YEAR
 
-DEFAULT_START_YEAR = 2017
 PARAMETER_START_YEAR = 2015 # first year for with tax parameters identified in btax_defaults.json
 DEFAULTS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_defaults.json')))
 DEFAULT_ASSET_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_asset.json')))
@@ -31,10 +31,10 @@ def translate_param_names(start_year=DEFAULT_START_YEAR,**user_mods):
 
     year = start_year-PARAMETER_START_YEAR
     defaults = dict(DEFAULTS)
-    user_mods.update({k: v['value'][year] for k,v in defaults.iteritems()
-                      if k not in user_mods})
-
-    radio_tags = ('gds', 'ads', 'tax',)
+    
+    # Handle depreciation system first since can only have one True for each
+    # asset class, so don't want to have this after the replace missing
+    # user defined params with defauls that is next.
     class_list = [3, 5, 7, 10, 15, 20, 25, 27.5, 39]
     class_list_str = [(str(i) if i != 27.5 else '27_5') for i in class_list]
     user_deprec_system = {}
@@ -47,6 +47,9 @@ def translate_param_names(start_year=DEFAULT_START_YEAR,**user_mods):
             user_deprec_system[cl] = 'Economic'
         else:
             user_deprec_system[cl] = 'GDS'
+
+    user_mods.update({k: v['value'][year] for k,v in defaults.iteritems()
+                      if k not in user_mods})
 
     user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
             for cl in class_list_str}

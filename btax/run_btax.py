@@ -33,6 +33,8 @@ from btax import visuals
 from btax import visuals_plotly
 from btax.front_end_util import (run_btax_to_json_tables,
                                  replace_unicode_spaces)
+from btax.util import DEFAULT_START_YEAR
+
 globals().update(get_paths())
 TABLE_ORDER = ['base_output_by_asset',
                'reform_output_by_asset',
@@ -44,7 +46,7 @@ TABLE_ORDER = ['base_output_by_asset',
 ModelDiffs = namedtuple('ModelDiffs', TABLE_ORDER + ['row_grouping'])
 
 ASSET_PRE_CACHE_FILE = 'asset_data.pkl'
-DEFAULT_START_YEAR = 2017
+
 
 
 def run_btax(test_run,baseline=False,start_year=DEFAULT_START_YEAR,iit_reform=None,**user_params):
