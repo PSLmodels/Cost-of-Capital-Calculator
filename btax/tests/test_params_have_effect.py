@@ -37,14 +37,15 @@ def tst_once(fast_or_slow, **user_params):
                 col_labels = table['col_labels']
                 assert isinstance(col_labels, list) and len(col_labels) == 6
                 assert isinstance(table['label'], unicode) and table['label']
-                assert rows[-1]['label'] == rows[-1]['major_grouping'] == 'All Investments'
+                assert rows[0]['label'] == rows[0]['major_grouping'] == 'All Investments'
+
     else:
         # just check that when parameter
         # names are standardized a difference
         # is seen from defaults
         user_params = translate_param_names(**user_params)
         default_params = translate_param_names()
-        assert user_params != default_params
+        assert user_params != default_params, repr((user_params, default_params))
 
 
 def tst_each_param_has_effect(fast_or_slow, k, v):
@@ -81,9 +82,15 @@ def tst_each_param_has_effect(fast_or_slow, k, v):
         val = default + 1
     else:
         val = default + 0.05
+    if isinstance(val, float) and val == 0.:
+        val = 0.01
     # Run it with one parameter in non-default mode
     user_mods[k] = val
-    tst_once(fast_or_slow, **user_mods)
+    try:
+        tst_once(fast_or_slow, **user_mods)
+    except:
+        print(user_mods, val)
+        raise
 
 
 @pytest.mark.parametrize('k,v', [(k,v) for k,v in DEFAULTS

@@ -35,7 +35,7 @@ def get_econ_depr():
 
     return econ_deprec_rates
 
-def calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, tax_methods, financing_list, entity_list):
+def calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, expense_inventory, expense_land, tax_methods, financing_list, entity_list):
     """Loads in the data for depreciation schedules and depreciation method. Calls the calculation function.
 
         :param r: Discount rate
@@ -67,11 +67,23 @@ def calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, tax_methods, fina
 
     z = npv_tax_deprec(tax_deprec_rates, r, tax_methods, financing_list, entity_list)
 
-    # replace tax depreciation rates on land and inventories w/ zero
-    for i in range(r.shape[0]):
-        for j in range(r.shape[1]):
-            z.ix[z['Asset Type']=='Land', 'z'+entity_list[j]+financing_list[i]] = 0.
-            z.ix[z['Asset Type']=='Inventories', 'z'+entity_list[j]+financing_list[i]] = 0.
+    # replace tax depreciation rates on land and inventories w/ zero - unless expense
+    if expense_inventory:
+        for i in range(r.shape[0]):
+            for j in range(r.shape[1]):
+                z.loc[z['Asset Type']=='Inventories', 'z'+entity_list[j]+financing_list[i]] = 1.
+    else:
+        for i in range(r.shape[0]):
+            for j in range(r.shape[1]):
+                z.loc[z['Asset Type']=='Inventories', 'z'+entity_list[j]+financing_list[i]] = 0.
+    if expense_land:
+        for i in range(r.shape[0]):
+            for j in range(r.shape[1]):
+                z.loc[z['Asset Type']=='Land', 'z'+entity_list[j]+financing_list[i]] = 1.
+    else:
+        for i in range(r.shape[0]):
+            for j in range(r.shape[1]):
+                z.loc[z['Asset Type']=='Land', 'z'+entity_list[j]+financing_list[i]] = 0.
 
     return z
 

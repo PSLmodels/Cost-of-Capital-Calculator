@@ -41,6 +41,7 @@ def asset_calcs(params,asset_data):
     z = params['depr allow']
     Y_v = params['Y_v']
     phi = params['phi']
+    expense_inventory = params['expense_inventory']
     financing_list = params['financing_list']
     entity_list = params['entity_list']
     asset_dict = params['asset_dict']
@@ -62,9 +63,10 @@ def asset_calcs(params,asset_data):
                 output_by_asset['delta']) * (1- inv_credit- (stat_tax[j] *
                 output_by_asset['z'+entity_list[j]+financing_list[i]])) /
                 (1-stat_tax[j])) + w - output_by_asset['delta'])
-            output_by_asset.loc[output_by_asset['Asset Type']=="Inventories",'rho'+entity_list[j]+financing_list[i]] = \
-                    ((phi*(((1/Y_v)*np.log((np.exp(discount_rate[i,j]*Y_v)-stat_tax[j])/(1-stat_tax[j])))-inflation_rate))
-                    + ((1-phi)*(((1/Y_v)*np.log((np.exp((discount_rate[i,j]-inflation_rate)*Y_v)-stat_tax[j])/(1-stat_tax[j]))))))
+            if not expense_inventory:
+                output_by_asset.loc[output_by_asset['Asset Type']=="Inventories",'rho'+entity_list[j]+financing_list[i]] = \
+                        ((phi*(((1/Y_v)*np.log((np.exp(discount_rate[i,j]*Y_v)-stat_tax[j])/(1-stat_tax[j])))-inflation_rate))
+                        + ((1-phi)*(((1/Y_v)*np.log((np.exp((discount_rate[i,j]-inflation_rate)*Y_v)-stat_tax[j])/(1-stat_tax[j]))))))
             output_by_asset['metr'+entity_list[j]+financing_list[i]] = \
                 (output_by_asset['rho'+entity_list[j]+financing_list[i]] -
                 (r_prime[i,j] - inflation_rate))/ output_by_asset['rho'+entity_list[j]+financing_list[i]]
