@@ -13,47 +13,65 @@ import os
 import pandas as pd
 import numpy as np
 
-from btax.util import read_from_egg
+from btax.util import read_from_egg, DEFAULT_START_YEAR
 
-
+DEFAULT_START_YEAR = 2017
+PARAMETER_START_YEAR = 2015 # first year for with tax parameters identified in btax_defaults.json
 DEFAULTS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_defaults.json')))
 DEFAULT_ASSET_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_asset.json')))
 DEFAULT_INDUSTRY_COLS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_results_by_industry.json')))
 
 
-def translate_param_names(start_year=2016,**user_mods):
+def translate_param_names(start_year=DEFAULT_START_YEAR,**user_mods):
     """Takes parameters names from UI and turns them into names used in btax
 
     """
 
     # btax_betr_entity_Switch # If this parameter =True, then u_nc default to corp rate
 
+    year = start_year-PARAMETER_START_YEAR
     defaults = dict(DEFAULTS)
-    year = start_year-2015
+    user_mods.update({k: v['value'][year] for k,v in defaults.iteritems()
+                      if k not in user_mods})
 
     radio_tags = ('gds', 'ads', 'tax',)
     class_list = [3, 5, 7, 10, 15, 20, 25, 27.5, 39]
     class_list_str = [(str(i) if i != 27.5 else '27_5') for i in class_list]
     user_deprec_system = {}
+    print('btax user_mods', user_mods)
     for cl in class_list_str:
-        if user_mods.get('btax_depr_'+cl+'yr_gds_Switch'):
-            user_deprec_system[cl] = 'GDS'
-        elif user_mods.get('btax_depr_'+cl+'yr_ads_Switch'):
-            user_deprec_system[cl] = 'ADS'
-        elif user_mods.get('btax_depr_'+cl+'yr_tax_Switch'):
-            user_deprec_system[cl] = 'Economic'
-        else:
-            user_deprec_system[cl] = 'GDS'
-    user_mods.update({k: v['value'][0] for k,v in defaults.iteritems()
-                      if k not in user_mods})
-    user_bonus_deprec = {cl: defaults['btax_depr_{}yr_exp'.format(cl)]['value'][year]/100.
-    			 for cl in class_list_str}
+        state = 'GDS'
+        if user_mods.get('btax_depr_{}yr_gds_Switch'.format(cl)):
+            state = 'GDS'
+        if user_mods.get('btax_depr_{}yr_ads_Switch'.format(cl)):
+            state = 'ADS'
+        if user_mods.get('btax_depr_{}yr_tax_Switch'.format(cl)):
+            state = 'Economic'
+        user_deprec_system[cl] = state
+
+    user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
+            for cl in class_list_str}
+    # user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
+    #         for cl in class_list_str}
+
+
+    # Flag for expensing of inventories
+    expense_inventory = user_mods['btax_depr_expense_inventory']
+    # Fraction of inventories using LIFO
+    phi = 0.5
+
+    # Flag for expensing of land
+    expense_land = user_mods['btax_depr_expense_land']
+
 
     if user_mods['btax_betr_entity_Switch'] in (True, 'True'):
         #u_nc = user_mods['btax_betr_corp']
         u_nc = user_mods['btax_betr_pass']
     else:
         u_nc = user_mods['btax_betr_pass']
+
+
+
     user_params = {
         'u_c': user_mods['btax_betr_corp'],
         'u_nc': u_nc,
@@ -65,6 +83,9 @@ def translate_param_names(start_year=2016,**user_mods):
         'w': user_mods['btax_other_proptx'],
         'bonus_deprec': user_bonus_deprec,
         'deprec_system': user_deprec_system,
+        'phi': phi,
+        'expense_inventory': expense_inventory,
+        'expense_land': expense_land
     }
 
     return user_params
@@ -118,7 +139,10 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     int_haircut = user_params['int_haircut']
     bonus_deprec = user_params['bonus_deprec']
     deprec_system = user_params['deprec_system']
-    phi = 0.5 # fraction of inventories using LIFO accounting
+    phi = user_params['phi']# fraction of inventories using LIFO accounting
+    expense_inventory = user_params['expense_inventory'] # flag for expense inventories
+    expense_land = user_params['expense_land'] # flag for expense inventories
+
     #for land and inventories which don't have tax deprec
     bonus_deprec['100'] = 0.0
     deprec_system['100'] = 'GDS'
@@ -217,7 +241,9 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
                    'Expensing': 1.0}
     financing_list = ['', '_d', '_e']
     entity_list = ['_c', '_nc']
-    z = calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, tax_methods, financing_list, entity_list)
+    z = calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system,
+                            expense_inventory, expense_land, tax_methods,
+                            financing_list, entity_list)
 
     '''
     ------------------------------------------
@@ -446,6 +472,7 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
         'delta': delta,
         'Y_v':Y_v,
         'phi':phi,
+        'expense_inventory':expense_inventory,
         'asset_dict': asset_dict,
         'ind_dict': ind_dict,
         'major_asset_groups': major_asset_groups,
