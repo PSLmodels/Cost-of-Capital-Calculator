@@ -16,9 +16,9 @@ INDUSTRY_COL_META = dict(DEFAULT_INDUSTRY_COLS)
 
 DO_ASSERTIONS = int(os.environ.get('BTAX_TABLE_ASSERTIONS', False))
 
-def run_btax_to_json_tables(test_run=False,start_year=2016,iit_reform=None,**user_params):
-    from btax.run_btax import run_btax_with_baseline_delta, TABLE_ORDER
-    out = run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params)
+def runner_json_tables(test_run=False,start_year=2016,iit_reform=None,**user_params):
+    from btax.execute import runner, TABLE_ORDER
+    out = runner(test_run,start_year,iit_reform,**user_params)
 
     tables = {'row_grouping': out.row_grouping}
     for label, table in zip(TABLE_ORDER, out[:-1]):

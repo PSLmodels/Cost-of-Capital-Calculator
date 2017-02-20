@@ -31,7 +31,7 @@ import btax.parameters as params
 from btax import format_output
 from btax import visuals
 from btax import visuals_plotly
-from btax.front_end_util import (run_btax_to_json_tables,
+from btax.front_end_util import (runner_json_tables,
                                  replace_unicode_spaces)
 from btax.util import DEFAULT_START_YEAR
 
