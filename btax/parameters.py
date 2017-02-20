@@ -26,19 +26,15 @@ def translate_param_names(start_year=DEFAULT_START_YEAR,**user_mods):
     """Takes parameters names from UI and turns them into names used in btax
 
     """
-
-    # btax_betr_entity_Switch # If this parameter =True, then u_nc default to corp rate
-
     year = start_year-PARAMETER_START_YEAR
     defaults = dict(DEFAULTS)
-    
+
     # Handle depreciation system first since can only have one True for each
     # asset class, so don't want to have this after the replace missing
     # user defined params with defauls that is next.
     class_list = [3, 5, 7, 10, 15, 20, 25, 27.5, 39]
     class_list_str = [(str(i) if i != 27.5 else '27_5') for i in class_list]
     user_deprec_system = {}
-    print('btax user_mods', user_mods)
     for cl in class_list_str:
         state = 'GDS'
         if user_mods.get('btax_depr_{}yr_gds_Switch'.format(cl)):
@@ -54,9 +50,6 @@ def translate_param_names(start_year=DEFAULT_START_YEAR,**user_mods):
 
     user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
             for cl in class_list_str}
-    # user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
-    #         for cl in class_list_str}
-
 
     # Flag for expensing of inventories
     expense_inventory = user_mods['btax_depr_expense_inventory']

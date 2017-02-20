@@ -4,8 +4,9 @@ import re
 import pytest
 
 from btax.parameters import DEFAULTS, get_params, translate_param_names
-from btax.run_btax import run_btax_to_json_tables
+from btax.execute import runner
 import btax.front_end_util as front_end
+from btax.front_end_util import runner_json_tables
 
 front_end.DO_ASSERTIONS = True # Override env var
                                # Always assert table format okay
@@ -14,7 +15,7 @@ def tst_once(fast_or_slow, **user_params):
     if fast_or_slow == 'slow':
         # actually run the model
         # and look at the "changed" tables
-        tables = run_btax_to_json_tables(**user_params)
+        tables = runner_json_tables(**user_params)
         assert isinstance(tables, dict)
         for k, v in tables.items():
             if k in ('row_grouping', 'result_years',):

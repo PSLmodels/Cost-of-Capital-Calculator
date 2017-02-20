@@ -31,7 +31,7 @@ import btax.parameters as params
 from btax import format_output
 from btax import visuals
 from btax import visuals_plotly
-from btax.front_end_util import (run_btax_to_json_tables,
+from btax.front_end_util import (runner_json_tables,
                                  replace_unicode_spaces)
 from btax.util import DEFAULT_START_YEAR
 
@@ -95,7 +95,7 @@ def run_btax(test_run,baseline=False,start_year=DEFAULT_START_YEAR,iit_reform=No
     return output_by_asset, output_by_industry
 
 
-def run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params):
+def runner(test_run,start_year,iit_reform,**user_params):
     econ_params = filter_user_params_for_econ(**user_params)
     base_output_by_asset, base_output_by_industry = run_btax(test_run,True,start_year,{},**econ_params)
     asset_row_grouping = {}
