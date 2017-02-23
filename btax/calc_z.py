@@ -52,12 +52,7 @@ def calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, expense_inventory
 
     # update tax_deprec_rates based on user defined parameters
     tax_deprec_rates['System'] = tax_deprec_rates['GDS Life'].apply(str_modified)
-    #tax_deprec_rates['System'] = tax_deprec_rates['System']
-    # print 'TAX 1:'
-    # print tax_deprec_rates.head(n=50)
     tax_deprec_rates['System'].replace(deprec_system,inplace=True)
-    # print 'TAX 2:'
-    # print tax_deprec_rates.head(n=50)
     tax_deprec_rates.loc[tax_deprec_rates['System']=='ADS','Method'] = 'SL'
     tax_deprec_rates.loc[tax_deprec_rates['System']=='Economic','Method'] = 'Economic'
 
@@ -108,9 +103,6 @@ def npv_tax_deprec(df, r, tax_methods, financing_list, entity_list):
     """
     df['b'] = df['Method']
     df['b'].replace(tax_methods,inplace=True)
-    # print 'Tax Deprec:'
-    # print df.head(n=50)
-
 
     df_dbsl = dbsl(df.loc[(df['Method']=='DB 200%') | (df['Method']=='DB 150%')].copy(), r, financing_list, entity_list)
     df_sl = sl(df.loc[df['Method']=='SL'].copy(), r, financing_list, entity_list)
@@ -119,8 +111,6 @@ def npv_tax_deprec(df, r, tax_methods, financing_list, entity_list):
 
     # append gds and ads results
     df_all = df_dbsl.append(df_sl.append(df_econ.append(df_expense,ignore_index=True),ignore_index=True), ignore_index=True)
-    print 'Tax Deprec:'
-    print df_all.head(n=50)
 
     return df_all
 
