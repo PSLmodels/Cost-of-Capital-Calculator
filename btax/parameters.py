@@ -44,6 +44,7 @@ def translate_param_names(start_year=DEFAULT_START_YEAR,**user_mods):
         if user_mods.get('btax_depr_{}yr_tax_Switch'.format(cl)):
             state = 'Economic'
         user_deprec_system[cl] = state
+    print user_deprec_system
 
     user_mods.update({k: v['value'][year] for k,v in defaults.iteritems()
                       if k not in user_mods})
