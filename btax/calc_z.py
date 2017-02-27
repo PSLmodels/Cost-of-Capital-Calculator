@@ -159,12 +159,10 @@ def sl(df, r, financing_list, entity_list):
 
     """
     df['Y'] = df['ADS Life']
-    df['Y'] = df.loc[df['System']=='ADS','ADS Life']
-    df['Y'] = df.loc[df['System']=='GDS','GDS Life']
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
             df['z'+entity_list[j]+financing_list[i]] = \
-                df['bonus'] + ((1-df['bonus'])*((1-(np.exp(-1*r[i,j]*df['Y'])))/(r[i,j]*df['Y'])))
+                df['bonus'] + ((1-df['bonus'])*((1-np.exp(-1*r[i,j]*df['Y']))/(r[i,j]*df['Y'])))
 
     df.drop(['Y'], axis=1, inplace=True)
 
