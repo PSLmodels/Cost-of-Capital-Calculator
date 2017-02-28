@@ -237,7 +237,7 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
                    'Expensing': 1.0}
     financing_list = ['', '_d', '_e']
     entity_list = ['_c', '_nc']
-    z = calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system,
+    z = calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system,
                             expense_inventory, expense_land, tax_methods,
                             financing_list, entity_list)
 

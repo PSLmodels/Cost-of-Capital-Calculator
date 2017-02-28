@@ -35,7 +35,7 @@ def get_econ_depr():
 
     return econ_deprec_rates
 
-def calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, expense_inventory, expense_land, tax_methods, financing_list, entity_list):
+def calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system, expense_inventory, expense_land, tax_methods, financing_list, entity_list):
     """Loads in the data for depreciation schedules and depreciation method. Calls the calculation function.
 
         :param r: Discount rate
@@ -65,7 +65,7 @@ def calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, expense_inventory
       right_on=['Asset'], left_index=False, right_index=False, sort=False,
       copy=True)
 
-    z = npv_tax_deprec(tax_deprec_rates, r, tax_methods, financing_list, entity_list)
+    z = npv_tax_deprec(tax_deprec_rates, r, pi, tax_methods, financing_list, entity_list)
 
     # replace tax depreciation rates on land and inventories w/ zero - unless expense
     if expense_inventory:
@@ -87,7 +87,7 @@ def calc_tax_depr_rates(r, delta, bonus_deprec, deprec_system, expense_inventory
 
     return z
 
-def npv_tax_deprec(df, r, tax_methods, financing_list, entity_list):
+def npv_tax_deprec(df, r, pi, tax_methods, financing_list, entity_list):
     """Depending on the method of depreciation, makes calls to either the straight line or declining balance calcs
 
         :param tax_deprec: Contains the service lives and method of depreciation.
@@ -106,7 +106,7 @@ def npv_tax_deprec(df, r, tax_methods, financing_list, entity_list):
 
     df_dbsl = dbsl(df.loc[(df['Method']=='DB 200%') | (df['Method']=='DB 150%')].copy(), r, financing_list, entity_list)
     df_sl = sl(df.loc[df['Method']=='SL'].copy(), r, financing_list, entity_list)
-    df_econ = econ(df.loc[df['Method']=='Economic'].copy(), r, financing_list, entity_list)
+    df_econ = econ(df.loc[df['Method']=='Economic'].copy(), r, pi, financing_list, entity_list)
     df_expense = expensing(df.loc[df['Method']=='Expensing'].copy(), r, financing_list, entity_list)
 
     # append gds and ads results
@@ -180,7 +180,7 @@ def expensing(df, r, financing_list, entity_list):
 
     return df
 
-def econ(df, r, financing_list, entity_list):
+def econ(df, r, pi, financing_list, entity_list):
     """Makes the calculation for economic depreciation.
 
         :param Y: Service life
@@ -196,6 +196,6 @@ def econ(df, r, financing_list, entity_list):
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
             df['z'+entity_list[j]+financing_list[i]] = \
-                df['bonus'] + ((1-df['bonus'])*(((df['delta']*(1+r[i,j]))/(df['delta']+r[i,j]))))
+                df['bonus'] + ((1-df['bonus'])*(((df['delta'])/(df['delta']+r[i,j])-pi)))
 
     return df
