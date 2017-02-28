@@ -170,6 +170,9 @@ def asset_calcs(params,asset_data):
     output_by_asset = (output_by_asset.append([by_major_asset,overall],ignore_index=True)).copy().reset_index()
     output_by_asset.drop('index', axis=1,inplace=True)
 
+    # sort output_by_asset dataframe
+    output_by_asset.sort_values('Asset', inplace=True)
+
     return output_by_asset
 
 
@@ -348,6 +351,9 @@ def industry_calcs(params, asset_data, output_by_asset):
     by_major_ind = by_major_ind[by_major_ind['major_industry']!='Other services, except government'].copy()
     by_industry = (by_industry.append([by_major_ind,overall],ignore_index=True)).copy().reset_index()
     by_industry.drop('index', axis=1,inplace=True)
+
+    # sort output_by_asset dataframe
+    by_industry.sort_values('Industry', inplace=True)
 
     return by_industry
 
