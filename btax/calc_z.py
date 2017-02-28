@@ -198,4 +198,5 @@ def econ(df, r, pi, financing_list, entity_list):
             df['z'+entity_list[j]+financing_list[i]] = \
                 df['bonus'] + ((1-df['bonus'])*(((df['delta'])/(df['delta']+r[i,j])-pi)))
 
+    print "used econ depr"
     return df
