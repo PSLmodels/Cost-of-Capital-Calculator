@@ -196,7 +196,6 @@ def econ(df, r, pi, financing_list, entity_list):
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
             df['z'+entity_list[j]+financing_list[i]] = \
-                df['bonus'] + ((1-df['bonus'])*(((df['delta'])/(df['delta']+r[i,j])-pi)))
+                df['bonus'] + ((1-df['bonus'])*(((df['delta'])/(df['delta']+r[i,j]-pi))))
 
-    print "used econ depr"
     return df
