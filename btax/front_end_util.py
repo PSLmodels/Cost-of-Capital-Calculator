@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from collections import defaultdict
 import os
+
 from btax.parameters import DEFAULT_ASSET_COLS, DEFAULT_INDUSTRY_COLS
 
 # Row labels, in order, including minor headings like "Durable goods"

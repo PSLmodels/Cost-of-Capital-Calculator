@@ -13,7 +13,7 @@ import os.path
 import sys
 import pandas as pd
 import numpy as np
-import parameters as param
+import btax.parameters as param
 from btax.util import get_paths
 
 globals().update(get_paths())

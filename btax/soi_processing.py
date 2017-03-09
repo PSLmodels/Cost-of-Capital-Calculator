@@ -10,6 +10,7 @@ Last updated: 7/26/2016.
 # Import packages
 import os.path
 import sys
+
 import numpy as np
 import pandas as pd
 # Import custom modules

@@ -10,10 +10,12 @@ and creates dictionaries to map the codes. Last updated 7/27/2016
 """
 # Packages:
 import os.path
+import pickle
+
 import numpy as np
 import pandas as pd
 import xlrd
-import pickle
+
 from btax.util import get_paths
 
 # Directories:

@@ -5,13 +5,22 @@ package:
 source:
   path: ..
 
+build:
+  script_env:
+    - BTAX_CUR_DIR={{ environ["RECIPE_DIR"] }}/../btax
+
 requirements:
   build:
     - setuptools
+    - scipy
+    - taxcalc
+    - matplotlib
+    - numpy
+    - pandas <=0.18.0
     - python
-
-  script_env:
-    - BTAX_CUR_DIR={{ environ["RECIPE_DIR"] }}/btax
+    - pytest
+    - xlrd
+    - bokeh
 
   run:
     - setuptools
@@ -19,12 +28,11 @@ requirements:
     - taxcalc
     - matplotlib
     - numpy
-    - pandas ==0.18.1
+    - pandas <=0.18.0
     - python
     - pytest
     - xlrd
     - bokeh
-    - plotly
 
 about:
   home: https://github.com/open-source-economics/B-Tax/

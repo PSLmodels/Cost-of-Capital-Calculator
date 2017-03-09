@@ -10,10 +10,11 @@ Last updated: 7/26/2016.
 """
 
 import os.path
+import re
 import sys
+
 import numpy as np
 import pandas as pd
-import re
 
 from btax.util import get_paths
 import btax.pull_soi_partner as prt
@@ -154,7 +155,7 @@ def load_proprietorship_data(entity_dfs):
         nonfarm.ix[nonfarm['INDY_CD']>99999, var+'_ratio'] = 1.
         nonfarm[var] = nonfarm[var]*nonfarm[var+'_ratio']
 
-    nonfarm.drop(map(lambda (x,y): x+y, zip(columns, ['_ratio']*len(columns))), axis=1, inplace=True)
+    nonfarm.drop(map(lambda x,y: x+y, zip(columns, ['_ratio']*len(columns))), axis=1, inplace=True)
     nonfarm.drop(['index','sector_code','major_code_x','minor_code',
                     'major_code_y','_merge'],axis=1,inplace=True)
 

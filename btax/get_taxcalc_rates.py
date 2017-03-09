@@ -17,18 +17,19 @@ This py-file creates the following other file(s):
 ------------------------------------------------------------------------
 '''
 from __future__ import print_function
-import taxcalc
-from taxcalc import *
-import pandas as pd
-from pandas import DataFrame
-import numpy as np
 import copy
-import numba
-import pickle
 
+from pandas import DataFrame
+import numba
+import numpy as np
+import pandas as pd
+import pickle
+import taxcalc
+
+from taxcalc import *
 
 def get_calculator(baseline, calculator_start_year, reform=None, data=None,
-weights=None, records_start_year=None):
+                   weights=None, records_start_year=None):
     '''
     --------------------------------------------------------------------
     This function creates the tax calculator object for the microsim
