@@ -171,7 +171,9 @@ def asset_calcs(params,asset_data):
     output_by_asset.drop('index', axis=1,inplace=True)
 
     # sort output_by_asset dataframe
-    output_by_asset.sort_values('Asset', inplace=True)
+    # output_by_asset = (output_by_asset.sort_values(['Asset'], inplace=True)).copy().reset_index()
+    output_by_asset.sort_values(['Asset'], inplace=True)
+    output_by_asset.reset_index(drop=True, inplace=True)
 
     return output_by_asset
 
@@ -353,7 +355,9 @@ def industry_calcs(params, asset_data, output_by_asset):
     by_industry.drop('index', axis=1,inplace=True)
 
     # sort output_by_asset dataframe
-    by_industry.sort_values('Industry', inplace=True)
+    # by_industry = (by_industry.sort_values(['Industry'], inplace=True)).copy().reset_index()
+    by_industry.sort_values(['Industry'], inplace=True)
+    by_industry.reset_index(drop=True, inplace=True)
 
     return by_industry
 
