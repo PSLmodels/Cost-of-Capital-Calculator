@@ -13,8 +13,7 @@ import os
 import pandas as pd
 import numpy as np
 
-# from btax.util import read_from_egg, DEFAULT_START_YEAR
-from util import read_from_egg, DEFAULT_START_YEAR
+from btax.util import read_from_egg, DEFAULT_START_YEAR
 
 PARAMETER_START_YEAR = 2015 # first year for with tax parameters identified in btax_defaults.json
 DEFAULTS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_defaults.json')))
