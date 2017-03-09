@@ -10,6 +10,9 @@ requirements:
     - setuptools
     - python
 
+  script_env:
+    - BTAX_CUR_DIR={{ environ["RECIPE_DIR"] }}/btax
+
   run:
     - setuptools
     - scipy
@@ -20,6 +23,8 @@ requirements:
     - python
     - pytest
     - xlrd
+    - bokeh
+    - plotly
 
 about:
   home: https://github.com/open-source-economics/B-Tax/
@@ -30,15 +35,13 @@ test:
     - btax
     - btax.parameters
     - btax.run_btax
-    - btax_run_reform
     - btax.calc_z
     - btax.calibrate_financing
-    - btax.check_asset_alloc
     - btax.check_output
     - btax.execute
     - btax.format_output
     - btax.pull_soi_corp
     - btax.front_end_util
     - btax.get_taxcalc_rates
-    - btax.pull_soi_propietorship
+    - btax.pull_soi_proprietorship
     - btax.read_bea
