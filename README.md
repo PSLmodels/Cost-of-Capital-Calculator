@@ -22,3 +22,10 @@ The model is currently under development. Users should be forewarned that the mo
 
 ## Citing the B-Tax Model
  DeBacker, Jason, and Ben Gardner (2016), B-Tax (Version 0.1)[Source code], https://github.com/open-source-economics/B-Tax
+
+
+1) clone repo
+2) navigate to cloned repo directory
+3) activate webapp (WHY??)
+4) setup.py
+5) run-btax giving error - seems like need to pass argument...
