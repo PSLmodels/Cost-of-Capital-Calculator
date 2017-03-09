@@ -1,0 +1,41 @@
+# Note jinja template variables added by staged-recipes
+# Do not commit statements like: {% set name="some_name" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: {{ source_url }}
+  sha256: {{ sha256 }}
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record record.txt
+
+requirements:
+  build:
+    - setuptools
+    - python 2.7*
+
+  run:
+    - setuptools
+    - scipy
+    - taxcalc
+    - matplotlib
+    - numpy
+    - pandas ==0.18.1
+    - python 2.7*
+    - pytest
+    - xlrd
+
+about:
+  home: https://github.com/open-source-economics/B-Tax/
+  summary: B-Tax is a model used to evaluate the effect of taxation on investment incentives.
+
+extra:
+  recipe-maintainers:
+   - Jason Debacker
+   - Peter Steinberg
+   - TJ Alumbaugh
+
