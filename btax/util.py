@@ -33,11 +33,11 @@ def read_from_egg(tfile):
 
 def get_paths():
     paths = {}
-    _CUR_DIR = os.environ.get('BTAX_CUR_DIR', '.')
+    _CUR_DIR = os.environ.get('BTAX_CUR_DIR', 'not-exist')
     if _CUR_DIR:
          _CUR_DIR = os.path.expanduser(_CUR_DIR)
     if not _CUR_DIR or not os.path.exists(_CUR_DIR):
-         paths['_CUR_DIR'] = _CUR_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+         paths['_CUR_DIR'] = _CUR_DIR = os.path.dirname(os.path.abspath(__file__))
     else:
          paths['_CUR_DIR'] = _CUR_DIR
     data_dir_guesses = (os.path.join(_CUR_DIR, 'data'),

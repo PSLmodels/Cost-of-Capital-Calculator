@@ -9,6 +9,7 @@ Last updated: 7/26/2016.
 
 """
 # Packages:
+from __future__ import print_function
 import os.path
 import numpy as np
 import pandas as pd
@@ -54,7 +55,7 @@ def load_corp_data():
         # put in dollars (data in 1000s)
         s_corp[columns]=s_corp[columns]*_CORP_FILE_FCTR
     except IOError:
-        print "IOError: S-Corp soi data file not found."
+        print("IOError: S-Corp soi data file not found.")
         raise
     # Opening the soi Total-corporate data file:
     try:
@@ -66,7 +67,7 @@ def load_corp_data():
         # put in dollars (data in 1000s)
         tot_corp[columns]=tot_corp[columns]*_CORP_FILE_FCTR
     except IOError:
-        print "IOError: total corp soi data file not found."
+        print("IOError: total corp soi data file not found.")
         raise
 
     # read in crosswalk for bea and soi industry codes

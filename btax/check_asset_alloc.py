@@ -12,6 +12,7 @@ similar tables from the CBO.
 Last updated 10/05/2016
 """
 # Packages:
+from __future__ import print_function
 import os.path
 import numpy as np
 import pandas as pd
@@ -113,8 +114,8 @@ owner_occ_house_RE = np.array(b101.ix[b101['Variable']==
 
 # compute value of land for owner occupied housing sector
 owner_occ_house_land = owner_occ_house_RE - owner_occ_house_FA
-print 'Owner Occ housing land: ', owner_occ_house_land
-print 'Owner Occ housing FAs: ', owner_occ_house_FA
+print('Owner Occ housing land: ', owner_occ_house_land)
+print('Owner Occ housing FAs: ', owner_occ_house_FA)
 # update amout of land for non-corporate sector
 noncorp_land -= owner_occ_house_land
 
@@ -128,22 +129,22 @@ total_btax_LAND = asset_data.loc[asset_data['Asset Type']=='Land','assets'].sum(
 total_btax_INV = asset_data.loc[asset_data['Asset Type']=='Inventories','assets'].sum()
 total_btax_RES_FA = asset_data.loc[asset_data['Asset Type']=='Residential','assets'].sum()
 total_btax_FA = total_btax_assets - total_btax_LAND - total_btax_INV - total_btax_RES_FA
-print 'diff in FA: ', total_btax_RES_FA-total_bea_RES_FA
+print('diff in FA: ', total_btax_RES_FA-total_bea_RES_FA)
 
 
 '''
 Print percentage differences between control totals and BTax data
 '''
-print 'Diff in Non-residential Fixed Assets: ', (total_btax_FA-total_bea_FA)/total_bea_FA
-print 'Diff in Land: ', (total_btax_LAND-total_finacct_LAND)/total_finacct_LAND
-print 'Diff in Inventories: ', (total_btax_INV-total_bea_INV)/total_bea_INV
-print 'Diff in Residential Fixed Assets: ', (total_btax_RES_FA-total_bea_RES_FA)/total_bea_RES_FA
+print('Diff in Non-residential Fixed Assets: ', (total_btax_FA-total_bea_FA)/total_bea_FA)
+print('Diff in Land: ', (total_btax_LAND-total_finacct_LAND)/total_finacct_LAND)
+print('Diff in Inventories: ', (total_btax_INV-total_bea_INV)/total_bea_INV)
+print('Diff in Residential Fixed Assets: ', (total_btax_RES_FA-total_bea_RES_FA)/total_bea_RES_FA)
 
-print "amount non-res fixed assets: ", total_btax_FA
-print "amount of land: ", total_btax_LAND
-print "amount of inventories: ", total_btax_INV
-print "amount of res fixed assets: ", total_btax_RES_FA
-print "diff in res fixed assets: ", total_btax_RES_FA-total_bea_RES_FA
+print("amount non-res fixed assets: ", total_btax_FA)
+print("amount of land: ", total_btax_LAND)
+print("amount of inventories: ", total_btax_INV)
+print("amount of res fixed assets: ", total_btax_RES_FA)
+print("diff in res fixed assets: ", total_btax_RES_FA-total_bea_RES_FA)
 '''
 Do differences in fixed assets by industry (the place where BEA data has detail)
 '''
