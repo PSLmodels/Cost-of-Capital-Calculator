@@ -133,6 +133,8 @@ def run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params):
     reform_output_by_industry.to_csv('reform_byindustry.csv',encoding='utf-8')
     base_output_by_asset.to_csv('base_byasset.csv',encoding='utf-8')
     reform_output_by_asset.to_csv('reform_byasset.csv',encoding='utf-8')
+    changed_output_by_industry.to_csv('changed_byindustry.csv',encoding='utf-8')
+    changed_output_by_asset.to_csv('changed_byasset.csv',encoding='utf-8')
 
 
 
