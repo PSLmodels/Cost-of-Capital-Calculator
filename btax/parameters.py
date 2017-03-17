@@ -10,11 +10,11 @@ from argparse import Namespace
 import copy
 import json
 import os
-import pandas as pd
-import numpy as np
 
-# from btax.util import read_from_egg, DEFAULT_START_YEAR
-from util import read_from_egg, DEFAULT_START_YEAR
+import numpy as np
+import pandas as pd
+
+from btax.util import read_from_egg, DEFAULT_START_YEAR
 
 PARAMETER_START_YEAR = 2015 # first year for with tax parameters identified in btax_defaults.json
 DEFAULTS = json.loads(read_from_egg(os.path.join('param_defaults', 'btax_defaults.json')))
@@ -45,7 +45,7 @@ def translate_param_names(start_year=DEFAULT_START_YEAR,**user_mods):
             state = 'Economic'
         user_deprec_system[cl] = state
 
-    user_mods.update({k: v['value'][year] for k,v in defaults.iteritems()
+    user_mods.update({k: v['value'][year] for k,v in defaults.items()
                       if k not in user_mods})
 
     user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.

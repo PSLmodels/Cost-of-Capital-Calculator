@@ -9,7 +9,9 @@ Last updated: 7/26/2016.
 
 """
 # Packages:
+from __future__ import print_function
 import os.path
+
 import numpy as np
 import pandas as pd
 # Directory names:
@@ -54,7 +56,7 @@ def load_corp_data():
         # put in dollars (data in 1000s)
         s_corp[columns]=s_corp[columns]*_CORP_FILE_FCTR
     except IOError:
-        print "IOError: S-Corp soi data file not found."
+        print("IOError: S-Corp soi data file not found.")
         raise
     # Opening the soi Total-corporate data file:
     try:
@@ -66,7 +68,7 @@ def load_corp_data():
         # put in dollars (data in 1000s)
         tot_corp[columns]=tot_corp[columns]*_CORP_FILE_FCTR
     except IOError:
-        print "IOError: total corp soi data file not found."
+        print("IOError: total corp soi data file not found.")
         raise
 
     # read in crosswalk for bea and soi industry codes
@@ -99,8 +101,8 @@ def load_corp_data():
         c_corp[var] = c_corp[var+'_x']-c_corp[var+'_y']
 
     # clean up data by dropping and renaming columns
-    c_corp.drop(map(lambda (x,y): x+y, zip(columns, ['_x']*len(columns))), axis=1, inplace=True)
-    c_corp.drop(map(lambda (x,y): x+y, zip(columns, ['_y']*len(columns))), axis=1, inplace=True)
+    c_corp.drop(map(lambda x,y: x+y, zip(columns, ['_x']*len(columns))), axis=1, inplace=True)
+    c_corp.drop(map(lambda x,y: x+y, zip(columns, ['_y']*len(columns))), axis=1, inplace=True)
 
     ## NOTE:
     # totals in s_corp match totals in SOI data
@@ -157,7 +159,7 @@ def calc_proportions(tot_corp, s_corp, columns):
 
     # clean up data by dropping and renaming columns
     s_corp.drop(['INDY_CD_y','_merge','sector_code']+columns, axis=1, inplace=True)
-    s_corp.drop(map(lambda (x,y): x+y, zip(columns, ['_ratio']*len(columns))), axis=1, inplace=True)
+    s_corp.drop(map(lambda x,y: x+y, zip(columns, ['_ratio']*len(columns))), axis=1, inplace=True)
     s_corp.rename(columns={"INDY_CD_x": "INDY_CD"},inplace=True)
     s_corp.columns = s_corp.columns.str.replace('_final', '')
 

@@ -9,11 +9,11 @@ Last updated: 7/26/2016.
 """
 # Packages:
 import os.path
+import re
+
 import numpy as np
 import pandas as pd
 import xlrd
-import re
-
 
 from btax.util import get_paths
 globals().update(get_paths())
@@ -151,7 +151,7 @@ def load_partner_data(entity_dfs):
         #part_data.ix[part_data['minor_code_alt']>99999, var+'_ratio'] = 1.
         part_data[var] = part_data[var]*part_data[var+'_ratio']
 
-    part_data.drop(map(lambda (x,y): x+y, zip(columns, ['_ratio']*len(columns))), axis=1, inplace=True)
+    part_data.drop(map(lambda x,y: x+y, zip(columns, ['_ratio']*len(columns))), axis=1, inplace=True)
     part_data.drop(['index','sector_code','major_code_x','minor_code',
                     'INDY_CD','major_code_y'],axis=1,inplace=True)
 

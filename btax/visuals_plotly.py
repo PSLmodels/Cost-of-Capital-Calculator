@@ -12,14 +12,9 @@ This py-file creates the following other file(s):
 '''
 
 # Packages
-import numpy as np
 import datetime
 import re
 import math
-import pandas as pd
-
-import plotly.plotly as py
-import plotly.graph_objs as go
 
 
 asset_categories_for_print = {'Computers and Software':'Computers and'+'\n'+'Software',
@@ -73,6 +68,11 @@ def asset_bubble(output_by_assets):
         :returns:
         :rtype:
     """
+    import numpy as np
+    import pandas as pd
+    import plotly.plotly as py
+    import plotly.graph_objs as go
+
     df_all = output_by_assets.copy()
 
     df = df_all[df_all['asset_category']!='Intellectual Property'].copy()

@@ -9,9 +9,14 @@ check. Last Updated 7/27/2016
 """
 
 import os.path
-import cPickle as pickle
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
+
 import pandas as pd
-from util import get_paths
+
+from btax.util import get_paths
 
 globals().update(get_paths())
 

@@ -11,12 +11,16 @@ Last updated: 7/25/2016.
 # Import packages
 from __future__ import unicode_literals
 from collections import namedtuple, defaultdict
-import cPickle as pickle
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
 from functools import partial
-import numpy as np
 import os.path
-import pandas as pd
 import sys
+
+import numpy as np
+import pandas as pd
 
 from btax.soi_processing import pull_soi_data
 from btax import calc_final_outputs

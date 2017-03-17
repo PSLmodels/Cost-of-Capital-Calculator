@@ -16,19 +16,20 @@ This py-file creates the following other file(s):
 
 ------------------------------------------------------------------------
 '''
-
-import taxcalc
-from taxcalc import *
-import pandas as pd
-from pandas import DataFrame
-import numpy as np
+from __future__ import print_function
 import copy
-import numba
-import pickle
 
+from pandas import DataFrame
+import numba
+import numpy as np
+import pandas as pd
+import pickle
+import taxcalc
+
+from taxcalc import *
 
 def get_calculator(baseline, calculator_start_year, reform=None, data=None,
-weights=None, records_start_year=None):
+                   weights=None, records_start_year=None):
     '''
     --------------------------------------------------------------------
     This function creates the tax calculator object for the microsim
@@ -172,5 +173,5 @@ def get_rates(baseline=False, start_year=2017, reform={}):
     individual_rates = {'tau_nc':tau_nc,'tau_div':tau_div,'tau_int':tau_int,
                         'tau_scg':tau_scg,'tau_lcg':tau_lcg,'tau_td':tau_td,
                         'tau_h':tau_h}
-    print individual_rates
+    print(individual_rates)
     return individual_rates
