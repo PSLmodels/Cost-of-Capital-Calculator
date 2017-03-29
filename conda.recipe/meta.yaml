@@ -56,5 +56,5 @@ test:
     - btax.read_bea
     - btax.util
     - btax.visuals
-    - btax.plotly
+    - btax.visuals_plotly
 
