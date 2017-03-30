@@ -16,7 +16,7 @@ import sys
 import numpy as np
 import pandas as pd
 
-from btax.util import get_paths
+from btax.util import get_paths, to_str
 import btax.pull_soi_partner as prt
 globals().update(get_paths())
 
@@ -46,6 +46,7 @@ def load_proprietorship_data(entity_dfs):
     nonfarm_inv = prt.format_excel(pd.read_excel(_NFARM_INV, skiprows=1, skip_footer=8))
     # Cuts off the repeated columns so only the data for all sole props remains
     nonfarm_inv = nonfarm_inv.T.groupby(sort=False,level=0).first().T
+    nonfarm_inv.columns = [to_str(c) for c in nonfarm_inv.columns]
     # Fixing the index labels of the new dataframe
     nonfarm_inv.reset_index(inplace=True,drop=True)
     # Keep only variables of interest
@@ -155,7 +156,7 @@ def load_proprietorship_data(entity_dfs):
         nonfarm.ix[nonfarm['INDY_CD']>99999, var+'_ratio'] = 1.
         nonfarm[var] = nonfarm[var]*nonfarm[var+'_ratio']
 
-    nonfarm.drop(map(lambda x,y: x+y, zip(columns, ['_ratio']*len(columns))), axis=1, inplace=True)
+    nonfarm.drop(list(x + '_ratio' for x in columns), axis=1, inplace=True)
     nonfarm.drop(['index','sector_code','major_code_x','minor_code',
                     'major_code_y','_merge'],axis=1,inplace=True)
 
@@ -234,7 +235,7 @@ def format_dataframe(nonfarm_df):
     # Replaces the first item in the list with a new label
     columns[0] = 'Industry'
     # Sets the values of the columns on the dataframes
-    nonfarm_df.columns = map(lambda x : x.encode('ascii','ignore').replace('\n', ' '),columns)
+    nonfarm_df.columns = list(to_str(x).replace('\n', ' ') for x in columns)
     # Drops the first couple of rows and last row in the dataframe
     nonfarm_df.dropna(inplace=True)
     # Multiplies each value in the dataframe by a factor of 1000

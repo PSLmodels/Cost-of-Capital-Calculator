@@ -82,9 +82,9 @@ def add_summary_rows_and_breaklines(results, first_budget_year, do_assertions=Fa
                             if v['col_label'] == label][0]
                 table['cols'].append({
                     'label': label,
-                    'divisor': v.get('divisor', 1),
+                    'divisor': col_dict.get('divisor', 1),
                     'units': '',
-                    'decimals': v.get('decimals', 0),
+                    'decimals': col_dict.get('decimals', 0),
                 })
 
             col_count = len(col_labels)
