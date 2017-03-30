@@ -8,6 +8,7 @@ Last updated: 7/26/2016.
 
 """
 # Packages:
+from __future__ import unicode_literals
 import os.path
 import re
 
@@ -57,6 +58,7 @@ def load_partner_data(entity_dfs):
     """
     # Opening data on depreciable fixed assets, inventories, and land for parnterhsips
     xwalk = pd.read_csv(_DETAIL_PART_CROSS_PATH)
+    xwalk.rename({k: str(k) for k in xwalk.columns}, inplace=True)
     xwalk['Industry:'] = xwalk['Industry:'].apply(lambda x: re.sub('[\s+]', '',x))
     # keep only codes that help to identify complete industries
     xwalk = xwalk[xwalk['complete']==1]
@@ -67,8 +69,12 @@ def load_partner_data(entity_dfs):
     # Fixing the index labels of the new dataframe
     df03.reset_index(inplace=True,drop=True)
     # Keep only variables of interest
-    df03['Fixed Assets'] = (df03['Depreciable assets']-
-                                         df03['Less:  Accumulated depreciation'])
+    try:
+        df03['Fixed Assets'] = (df03['Depreciable assets']-
+                                             df03['Less:  Accumulated depreciation'])
+    except:
+        print(df03.columns)
+        raise
     df03 = df03[['Item','Fixed Assets','Inventories','Land']]
     #df03['Item'] = df03['Item'].str.strip()
     df03['Item'] = df03['Item'].apply(lambda x: re.sub('[\s+]', '',x))

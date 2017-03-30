@@ -9,7 +9,7 @@ Last updated: 7/26/2016.
 
 """
 # Packages:
-from __future__ import print_function
+from __future__ import print_function, unicode_literals
 import os.path
 
 import numpy as np
@@ -45,7 +45,7 @@ def load_corp_data():
     cols_dict=_DFLT_S_CORP_COLS_DICT
     # Dataframe column names
     data_cols = cols_dict.keys()
-    columns = list(cols_dict.values())
+    columns = list(str(x) for x in cols_dict.values())
     columns.remove('')
     # Opening the soi S-corporate data file:
     try:
@@ -123,7 +123,8 @@ def load_corp_data():
 
     # Creates a dictionary of a sector : dataframe
     corp_data = {'tot_corp': tot_corp, 'c_corp': c_corp, 's_corp': s_corp}
-
+    for k,v in corp_data.items():
+        v.rename({c: str(c) for c in v.columns})
     return corp_data
 
 def calc_proportions(tot_corp, s_corp, columns):
