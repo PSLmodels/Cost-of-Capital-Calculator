@@ -37,6 +37,7 @@ from btax import visuals_plotly
 from btax.front_end_util import (runner_json_tables,
                                  replace_unicode_spaces)
 from btax.util import DEFAULT_START_YEAR
+from btax.run_btax import run_btax
 
 globals().update(get_paths())
 TABLE_ORDER = ['base_output_by_asset',
@@ -50,52 +51,6 @@ ModelDiffs = namedtuple('ModelDiffs', TABLE_ORDER + ['row_grouping'])
 
 ASSET_PRE_CACHE_FILE = 'asset_data.pkl'
 
-
-
-def run_btax(test_run,baseline=False,start_year=DEFAULT_START_YEAR,iit_reform=None,**user_params):
-    """Runner script that kicks off the calculations for B-Tax
-
-	:param user_params: The user input for implementing reforms
-	:type user_params: dictionary
-	:returns: METR (by industry and asset) and METTR (by asset)
-	:rtype: DataFrame
-    """
-    calc_assets = False
-
-    iit_reform = iit_reform or {}
-    if calc_assets or not os.path.exists(ASSET_PRE_CACHE_FILE):
-        # get soi totals for assets
-        soi_data = pull_soi_data()
-        # read in the BEA data on fixed assets and separate them by corp and non-corp
-        fixed_assets = read_bea.fixed_assets(soi_data)
-        # read in BEA data on inventories and separate by corp and non-corp and industry
-        inventories = read_bea.inventories(soi_data)
-        # read in BEA data on land and separate by corp and non-corp and industry
-        # this function also takes care of residential fixed assets
-        # and the owner-occupied housing sector
-        land, res_assets, owner_occ_dict = read_bea.land(soi_data, fixed_assets)
-        # put all asset data together
-        asset_data = read_bea.combine(fixed_assets,inventories,land,res_assets,owner_occ_dict)
-        # save result to pickle so don't have to do this everytime
-        pickle.dump(asset_data, open(ASSET_PRE_CACHE_FILE, "wb" ) )
-    else:
-        asset_data = pickle.load(open(ASSET_PRE_CACHE_FILE, 'rb'))
-
-    # get parameters
-    parameters = params.get_params(test_run,baseline,start_year,iit_reform,**user_params)
-
-    # make calculations by asset and create formated output
-    output_by_asset = calc_final_outputs.asset_calcs(parameters,asset_data)
-
-    # make calculations by industry and create formated output
-    output_by_industry = calc_final_outputs.industry_calcs(parameters, asset_data, output_by_asset)
-
-    # drop delta variables - UI can't acccept them
-    output_by_asset = output_by_asset.drop('delta', 1)
-    # drop delta variables - UI can't acccept them
-    output_by_industry = output_by_industry.drop(['delta_c','delta_nc'], 1)
-
-    return output_by_asset, output_by_industry
 
 
 def runner(test_run,start_year,iit_reform,**user_params):
