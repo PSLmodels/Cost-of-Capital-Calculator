@@ -64,24 +64,31 @@ def run_btax(test_run,baseline=False,start_year=DEFAULT_START_YEAR,iit_reform=No
     calc_assets = False
 
     iit_reform = iit_reform or {}
-    if calc_assets or not os.path.exists(ASSET_PRE_CACHE_FILE):
-        # get soi totals for assets
-        soi_data = pull_soi_data()
-        # read in the BEA data on fixed assets and separate them by corp and non-corp
-        fixed_assets = read_bea.fixed_assets(soi_data)
-        # read in BEA data on inventories and separate by corp and non-corp and industry
-        inventories = read_bea.inventories(soi_data)
-        # read in BEA data on land and separate by corp and non-corp and industry
-        # this function also takes care of residential fixed assets
-        # and the owner-occupied housing sector
-        land, res_assets, owner_occ_dict = read_bea.land(soi_data, fixed_assets)
-        # put all asset data together
-        asset_data = read_bea.combine(fixed_assets,inventories,land,res_assets,owner_occ_dict)
-        # save result to pickle so don't have to do this everytime
-        pickle.dump(asset_data, open(ASSET_PRE_CACHE_FILE, "wb" ) )
-    else:
-        asset_data = pickle.load(open(ASSET_PRE_CACHE_FILE, 'rb'))
-
+    asset_data = None
+    for repeat in range(2):
+        if calc_assets or not os.path.exists(ASSET_PRE_CACHE_FILE):
+            # get soi totals for assets
+            soi_data = pull_soi_data()
+            # read in the BEA data on fixed assets and separate them by corp and non-corp
+            fixed_assets = read_bea.fixed_assets(soi_data)
+            # read in BEA data on inventories and separate by corp and non-corp and industry
+            inventories = read_bea.inventories(soi_data)
+            # read in BEA data on land and separate by corp and non-corp and industry
+            # this function also takes care of residential fixed assets
+            # and the owner-occupied housing sector
+            land, res_assets, owner_occ_dict = read_bea.land(soi_data, fixed_assets)
+            # put all asset data together
+            asset_data = read_bea.combine(fixed_assets,inventories,land,res_assets,owner_occ_dict)
+            # save result to pickle so don't have to do this everytime
+            pickle.dump(asset_data, open(ASSET_PRE_CACHE_FILE, "wb" ) )
+        else:
+            try:
+                asset_data = pickle.load(open(ASSET_PRE_CACHE_FILE, 'rb'))
+            except Exception as e:
+                if os.path.exists(ASSET_PRE_CACHE_FILE):
+                    os.remove(ASSET_PRE_CACHE_FILE)
+    if calc_assets and asset_data is None:
+        raise
     # get parameters
     parameters = params.get_params(test_run,baseline,start_year,iit_reform,**user_params)
 

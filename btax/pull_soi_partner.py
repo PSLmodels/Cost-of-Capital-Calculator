@@ -8,6 +8,7 @@ Last updated: 7/26/2016.
 
 """
 # Packages:
+from __future__ import unicode_literals
 import os.path
 import re
 
@@ -15,7 +16,7 @@ import numpy as np
 import pandas as pd
 import xlrd
 
-from btax.util import get_paths
+from btax.util import get_paths, to_str
 globals().update(get_paths())
 
 # Constants
@@ -23,6 +24,7 @@ _AST_FILE_FCTR = 10**3
 _SHAPE = (131,4)
 _CODE_RANGE = ['32', '33', '45', '49']
 _PARENTS = {'32':'31','33':'31','45':'44','49':'48'}
+
 
 def load_partner_data(entity_dfs):
     """Reads in the partner data and creates new dataframes for each partner type and stores them in the soi dictionary
@@ -57,18 +59,26 @@ def load_partner_data(entity_dfs):
     """
     # Opening data on depreciable fixed assets, inventories, and land for parnterhsips
     xwalk = pd.read_csv(_DETAIL_PART_CROSS_PATH)
+    xwalk.rename({k: str(k) for k in xwalk.columns}, inplace=True)
     xwalk['Industry:'] = xwalk['Industry:'].apply(lambda x: re.sub('[\s+]', '',x))
     # keep only codes that help to identify complete industries
     xwalk = xwalk[xwalk['complete']==1]
     # read in partner data - partner assets
     df = format_excel(pd.read_excel(_AST_FILE, skiprows=2, skip_footer=6))
     # Cuts off the repeated columns so only the data for all partnerships remains
+    df.index = [to_str(x) for x in df.index]
+    xwalk.index = [to_str(x) for x in xwalk.index]
     df03 = df.T.groupby(sort=False,level=0).first().T
     # Fixing the index labels of the new dataframe
     df03.reset_index(inplace=True,drop=True)
     # Keep only variables of interest
-    df03['Fixed Assets'] = (df03['Depreciable assets']-
-                                         df03['Less:  Accumulated depreciation'])
+    df03.columns = [to_str(c) for c in df03.columns]
+    try:
+        df03['Fixed Assets'] = (df03['Depreciable assets']-
+                                             df03['Less:  Accumulated depreciation'])
+    except:
+        print(df03.columns)
+        raise
     df03 = df03[['Item','Fixed Assets','Inventories','Land']]
     #df03['Item'] = df03['Item'].str.strip()
     df03['Item'] = df03['Item'].apply(lambda x: re.sub('[\s+]', '',x))
@@ -77,6 +87,7 @@ def load_partner_data(entity_dfs):
     df01 = format_excel(pd.read_excel(_INC_FILE, skiprows=2, skip_footer=6))
     # Cuts off the repeated columns so only the data for all partnerships remains
     df01 = df01.T.groupby(sort=False,level=0).first().T
+    df01.columns = [to_str(c) for c in df01.columns]
     # Fixing the index labels of the new dataframe
     df01.reset_index(inplace=True,drop=True)
     # Keep only variables of interest
@@ -103,6 +114,7 @@ def load_partner_data(entity_dfs):
     ## create ratios for minor industry assets using corporate data
     # read in crosswalk for bea and soi industry codes
     soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS, dtype={'bea_ind_code':str})
+    soi_bea_ind_codes.columns = [to_str(c) for c in soi_bea_ind_codes.columns]
     soi_bea_ind_codes.drop('notes', axis=1, inplace=True)
     # drop one repeated minor ind code in crosswalk
     soi_bea_ind_codes.drop_duplicates(subset=['minor_code_alt'],inplace=True)
@@ -151,7 +163,7 @@ def load_partner_data(entity_dfs):
         #part_data.ix[part_data['minor_code_alt']>99999, var+'_ratio'] = 1.
         part_data[var] = part_data[var]*part_data[var+'_ratio']
 
-    part_data.drop(map(lambda x,y: x+y, zip(columns, ['_ratio']*len(columns))), axis=1, inplace=True)
+    part_data.drop(list(x + '_ratio' for x in columns), axis=1, inplace=True)
     part_data.drop(['index','sector_code','major_code_x','minor_code',
                     'INDY_CD','major_code_y'],axis=1,inplace=True)
 
@@ -164,6 +176,7 @@ def load_partner_data(entity_dfs):
 
     # Read in data by partner type (gives income allocation by partner type)
     df05 = format_excel(pd.read_excel(_TYP_FILE, skiprows=1, skip_footer=5))
+    df05.columns = [to_str(c) for c in df05.columns]
     df05 = df05[['Item','All partners','Corporate general partners','Corporate limited partners',
         'Individual general partners','Individual limited partners','Partnership general partners',
         'Partnership limited partners','Tax-exempt organization general partners',
@@ -191,6 +204,7 @@ def load_partner_data(entity_dfs):
 
     # merge in codes
     typ_cross = pd.read_csv(_TYP_IN_CROSS_PATH)
+    typ_cross.columns = [to_str(c) for c in typ_cross.columns]
     typ_cross['Industry:'] = typ_cross['Industry:'].str.strip()
     df05['Item'] = df05['Item'].str.strip()
     df05 = pd.merge(df05, typ_cross, how='inner', left_on=['Item'],
@@ -270,7 +284,7 @@ def format_excel(df):
     df.dropna(inplace=True)
     df = df.T
     column_names = df.iloc[0,:].tolist()
-    column_names = map(lambda x : x.encode('ascii','ignore').lstrip().rstrip(), column_names)
+    column_names = [x.encode('ascii','ignore').lstrip().rstrip() for x in column_names]
     df.columns = column_names
     df = df.drop(df.index[[0,len(df)-1]])
     df = df.fillna(0)

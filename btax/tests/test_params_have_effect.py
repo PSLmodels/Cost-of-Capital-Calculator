@@ -10,6 +10,10 @@ from btax.front_end_util import runner_json_tables
 
 front_end.DO_ASSERTIONS = True # Override env var
                                # Always assert table format okay
+try:
+    unicode
+except NameError:
+    unicode = str
 
 def tst_once(fast_or_slow, **user_params):
     if fast_or_slow == 'slow':

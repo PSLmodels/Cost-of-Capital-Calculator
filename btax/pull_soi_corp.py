@@ -9,7 +9,7 @@ Last updated: 7/26/2016.
 
 """
 # Packages:
-from __future__ import print_function
+from __future__ import print_function, unicode_literals
 import os.path
 
 import numpy as np
@@ -45,7 +45,7 @@ def load_corp_data():
     cols_dict=_DFLT_S_CORP_COLS_DICT
     # Dataframe column names
     data_cols = cols_dict.keys()
-    columns = cols_dict.values()
+    columns = list(str(x) for x in cols_dict.values())
     columns.remove('')
     # Opening the soi S-corporate data file:
     try:
@@ -101,8 +101,8 @@ def load_corp_data():
         c_corp[var] = c_corp[var+'_x']-c_corp[var+'_y']
 
     # clean up data by dropping and renaming columns
-    c_corp.drop(map(lambda x,y: x+y, zip(columns, ['_x']*len(columns))), axis=1, inplace=True)
-    c_corp.drop(map(lambda x,y: x+y, zip(columns, ['_y']*len(columns))), axis=1, inplace=True)
+    c_corp.drop(list(x + '_x' for x in columns), axis=1, inplace=True)
+    c_corp.drop(list(x + '_y' for x in columns), axis=1, inplace=True)
 
     ## NOTE:
     # totals in s_corp match totals in SOI data
@@ -123,7 +123,8 @@ def load_corp_data():
 
     # Creates a dictionary of a sector : dataframe
     corp_data = {'tot_corp': tot_corp, 'c_corp': c_corp, 's_corp': s_corp}
-
+    for k,v in corp_data.items():
+        v.rename({c: str(c) for c in v.columns})
     return corp_data
 
 def calc_proportions(tot_corp, s_corp, columns):
@@ -159,7 +160,7 @@ def calc_proportions(tot_corp, s_corp, columns):
 
     # clean up data by dropping and renaming columns
     s_corp.drop(['INDY_CD_y','_merge','sector_code']+columns, axis=1, inplace=True)
-    s_corp.drop(map(lambda x,y: x+y, zip(columns, ['_ratio']*len(columns))), axis=1, inplace=True)
+    s_corp.drop(list(x+ '_ratio' for x in columns), axis=1, inplace=True)
     s_corp.rename(columns={"INDY_CD_x": "INDY_CD"},inplace=True)
     s_corp.columns = s_corp.columns.str.replace('_final', '')
 

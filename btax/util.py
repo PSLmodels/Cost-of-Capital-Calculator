@@ -9,6 +9,11 @@ import pandas as pd
 # Default year for model runs
 DEFAULT_START_YEAR = 2017
 
+def to_str(x):
+    if hasattr(x, 'decode'):
+        return x.decode()
+    return x
+
 def read_from_egg(tfile):
     '''Read a relative path, getting the contents
     locally or from the installed egg, parsing the contents
@@ -47,7 +52,8 @@ def get_paths():
     _MAIN_DIR = None
     for d in data_dir_guesses:
         if os.path.exists(d):
-            _MAIN_DIR = _DATA_DIR = os.path.dirname(d)
+            _MAIN_DIR = os.path.dirname(d)
+            _DATA_DIR = os.path.join(_MAIN_DIR, 'btax', 'data')
             break
 
     if _MAIN_DIR is None:

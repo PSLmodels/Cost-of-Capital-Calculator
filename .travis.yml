@@ -3,6 +3,8 @@ sudo: false
 language: Python
 python:
   - "2.7"
+  - "3.4"
+  - "3.5"
 
 install:
   # Install conda
@@ -16,12 +18,13 @@ install:
   - conda install --file conda-requirements.txt # xlrd, possibly others
   - export BUILD_DIR=`pwd`
   - pip install -r requirements.txt
-  - conda install -c ospc taxcalc=0.7.1
+  - conda install -c ospc taxcalc
   - export BTAX_OUT_DIR=btax_output_dir # make an output dir
   - export BTAX_CUR_DIR=${BUILD_DIR}/btax
   - mkdir btax_output_dir
   - python setup.py develop
 
 script:
+  - python -c "from btax import *" && echo B-Tax can be imported
   - py.test -m "not slow and not needs_puf" ${BTAX_CUR_DIR}/tests
 
