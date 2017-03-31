@@ -8,12 +8,14 @@ from btax.execute import runner
 import btax.front_end_util as front_end
 from btax.front_end_util import runner_json_tables
 
-front_end.DO_ASSERTIONS = True # Override env var
-                               # Always assert table format okay
+# Always assert table format okay
+front_end.DO_ASSERTIONS = True  # Override env var
+
 try:
     unicode
 except NameError:
     unicode = str
+
 
 def tst_once(fast_or_slow, **user_params):
     if fast_or_slow == 'slow':
@@ -38,11 +40,13 @@ def tst_once(fast_or_slow, **user_params):
                         assert len(cells) == 6
                         for cell in cells:
                             assert 'value' in cell
-                            assert 'format' in cell and isinstance(cell['format'], dict)
+                            fmt = cell.get('format', None)
+                            assert fmt and isinstance(fmt, dict)
                 col_labels = table['col_labels']
                 assert isinstance(col_labels, list) and len(col_labels) == 6
                 assert isinstance(table['label'], unicode) and table['label']
-                assert rows[0]['label'] == rows[0]['major_grouping'] == 'All Investments'
+                inv = 'All Investments'
+                assert rows[0]['label'] == rows[0]['major_grouping'] == inv
 
     else:
         # just check that when parameter
@@ -50,7 +54,8 @@ def tst_once(fast_or_slow, **user_params):
         # is seen from defaults
         user_params = translate_param_names(**user_params)
         default_params = translate_param_names()
-        assert user_params != default_params, repr((user_params, default_params))
+        info = repr((user_params, default_params))
+        assert user_params != default_params, info
 
 
 def tst_each_param_has_effect(fast_or_slow, k, v):
@@ -59,9 +64,9 @@ def tst_each_param_has_effect(fast_or_slow, k, v):
     change in the changes tables relative to baseline.
     (Slower-running test)'''
     if 'btax_depr_25yr_exp' == k:
-        return # no change expected
+        return              # no change expected
     if '_econ_' in k:
-        return # this would affect baseline as well as reform
+        return              # this would affect baseline as well as reform
     if k == 'btax_betr_entity_Switch':
         # one may not see a change with this
         # switch unless one of these other params is changed
@@ -69,13 +74,15 @@ def tst_each_param_has_effect(fast_or_slow, k, v):
     else:
         user_mods = {}
     if k in ('btax_betr_corp', 'btax_betr_pass'):
-        return # these are tested by btax_betr_entity_Switch test
+        # these are tested by btax_betr_entity_Switch test
+        return
     pat = 'btax_depr_([\d\w_]+)yr_exp'
     match = re.search(pat, k)
     if match:
         yr = match.groups()[0]
         if yr == 'all':
-            return # check all boxes handled by front end
+            # check all boxes handled by front end
+            return
         user_mods['btax_depr_{}yr_tax_Switch'.format(yr)] = True
     default = v['value'][0]
     # come up with a reasonable non-default value to put in
@@ -98,16 +105,18 @@ def tst_each_param_has_effect(fast_or_slow, k, v):
         raise
 
 
-@pytest.mark.parametrize('k,v', [(k,v) for k,v in DEFAULTS
-                                  if not (('depr' in k and 'Switch' in k) or 'hover' in k)])
+@pytest.mark.parametrize('k,v', [(k, v) for k, v in DEFAULTS
+                                 if not (('depr' in k and 'Switch' in k) or
+                                 'hover' in k)])
 @pytest.mark.needs_puf
 @pytest.mark.slow
 def test_each_param_has_effect_slow(k, v):
     tst_each_param_has_effect('slow', k, v)
 
 
-@pytest.mark.parametrize('k,v', [(k,v) for k,v in DEFAULTS
-                                  if not (('depr' in k and 'Switch' in k) or 'hover' in k)])
+@pytest.mark.parametrize('k,v', [(k, v) for k, v in DEFAULTS
+                                 if not (('depr' in k and 'Switch' in k) or
+                                 'hover' in k)])
 def test_each_param_has_effect_fast(k, v):
     tst_each_param_has_effect('fast', k, v)
 
