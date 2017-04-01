@@ -61,14 +61,14 @@ def calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system,
     gds = tax_deprec_rates['GDS Life']
     tax_deprec_rates['System'] = gds.apply(str_modified)
     tax_deprec_rates['System'].replace(deprec_system, inplace=True)
-    tax_deprec_rates.loc[tax_deprec_rates['System']=='ADS','Method'] = 'SL'
+    tax_deprec_rates.loc[tax_deprec_rates['System']=='ADS', 'Method'] = 'SL'
     econ = tax_deprec_rates['System']=='Economic'
     tax_deprec_rates.loc[econ, 'Method'] = 'Economic'
 
     # add bonus depreciation to tax deprec parameters dataframe
     gds = tax_deprec_rates['GDS Class Life']
     tax_deprec_rates['bonus'] = gds.apply(str_modified)
-    tax_deprec_rates['bonus'].replace(bonus_deprec,inplace=True)
+    tax_deprec_rates['bonus'].replace(bonus_deprec, inplace=True)
 
     # merge in econ depreciation rates
     tax_deprec_rates = pd.merge(tax_deprec_rates, delta,
@@ -120,7 +120,7 @@ def npv_tax_deprec(df, r, pi, tax_methods, financing_list, entity_list):
         :rtype: 96x3x2 array
     """
     df['b'] = df['Method']
-    df['b'].replace(tax_methods,inplace=True)
+    df['b'].replace(tax_methods, inplace=True)
     db200 = df['Method'] == 'DB 200%'
     db150 = df['Method'] == 'DB 150%'
     df_dbsl = dbsl(df.loc[db200 | db150].copy(),
@@ -164,13 +164,13 @@ def dbsl(df, r, financing_list, entity_list):
         for j in range(r.shape[1]):
             df['z'+entity_list[j]+financing_list[i]] = \
                             df['bonus'] + ((1-df['bonus'])*(((df['beta']/\
-                                (df['beta']+r[i,j]))*(1-np.exp(-1*\
-                                    (df['beta']+r[i,j])*
+                                (df['beta']+r[i, j]))*(1-np.exp(-1*\
+                                    (df['beta']+r[i, j])*
                                df['Y_star']))) +
                            ((np.exp(-1*df['beta']*df['Y_star'])/\
                             ((df['Y']-df['Y_star'])
-                               *r[i,j]))*(np.exp(-1*r[i,j]*df['Y_star'])-\
-                           np.exp(-1*r[i,j]*df['Y'])))))
+                               *r[i, j]))*(np.exp(-1*r[i, j]*df['Y_star'])-\
+                           np.exp(-1*r[i, j]*df['Y'])))))
 
     df.drop(['beta', 'Y', 'Y_star'], axis=1, inplace=True)
 
@@ -193,9 +193,9 @@ def sl(df, r, financing_list, entity_list):
     df['Y'] = df['ADS Life']
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
-            df['z'+entity_list[j]+financing_list[i]] = \
-                df['bonus'] + ((1-df['bonus'])*((1-np.exp(-1*r[i,j]*df['Y']))/\
-                            (r[i,j]*df['Y'])))
+            zi = 'z' + entity_list[j] + financing_list[i]
+            df[zi] = df['bonus'] + ((1 - df['bonus']) * \
+                     ((1-np.exp(-1*r[i, j]*df['Y']))/(r[i, j]*df['Y'])))
 
     df.drop(['Y'], axis=1, inplace=True)
 
@@ -230,6 +230,6 @@ def econ(df, r, pi, financing_list, entity_list):
         for j in range(r.shape[1]):
             df['z'+entity_list[j]+financing_list[i]] = \
                 df['bonus'] + ((1-df['bonus'])*(((df['delta'])/\
-                               (df['delta']+r[i,j]-pi))))
+                               (df['delta']+r[i, j]-pi))))
 
     return df

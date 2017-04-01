@@ -85,7 +85,7 @@ Plot results
 SIZES = list(range(6, 22, 3))
 COLORS = Reds9
 
-def asset_crossfilter(output_by_assets,baseline):
+def asset_crossfilter(output_by_assets, baseline):
     """Creates a crossfilter bokeh plot of results by asset
 
         :output_by_assets: Contains output by asset
@@ -131,8 +131,8 @@ def asset_crossfilter(output_by_assets,baseline):
     color.on_change('value', update)
 
     controls = widgetbox([x, y, color, size], width=200)
-    # layout = row(controls, create_figure(df,x,y,discrete,
-    #             quantileable,continuous,size,color,controls))
+    # layout = row(controls, create_figure(df, x, y, discrete,
+    #             quantileable, continuous, size, color, controls))
     layout = row(create_figure(df, x, y,
                                discrete, quantileable, continuous,
                                size, color, controls))
@@ -149,10 +149,10 @@ def asset_crossfilter(output_by_assets,baseline):
 
     # save plot to html
     plot = curdoc()
-    #plot.circle([1,2], [3,4])
+    #plot.circle([1, 2], [3, 4])
     html = file_html(plot, CDN, "my plot")
     # open file in binary mode
-    file = open(baseline+"crossfilter_html.html","wb")
+    file = open(baseline+"crossfilter_html.html", "wb")
     file.writelines(html)
     file.close()
 

@@ -58,7 +58,8 @@ RESULTS_TO_CSV = bool(int(os.environ.get('BTAX_TABLES_TO_CSV', 0)))
 
 def run_btax(test_run, baseline=False,
              start_year=DEFAULT_START_YEAR,
-             iit_reform=None, **user_params):
+             iit_reform=None,
+             **user_params):
     """Runner script that kicks off the calculations for B-Tax
 
 	:param user_params: The user input for implementing reforms
@@ -136,8 +137,10 @@ def run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params):
     cols = ('Asset', 'asset_category', 'mettr_c', 'mettr_nc')
     subset = zip(*(getattr(base_output_by_asset, at) for at in cols))
     for asset, cat, mettr_c, mettr_nc in subset:
-        if cat != cat:  # A string column that may have NaN, so can't do isnan()
-            cat = asset # These are some summary rows that don't have all info
+        if cat != cat:
+            # A string column that may have NaN, so can't do isnan()
+            # These are some summary rows that don't have all info
+            cat = asset
         asset, cat = map(replace_unicode_spaces, (asset, cat))
         item = {'major_grouping': cat,
                 'summary_c': mettr_c,
@@ -196,8 +199,6 @@ def run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params):
                       reform_output_by_industry,
                       changed_output_by_industry,
                       row_grouping)
-
-
 
 
 def main():

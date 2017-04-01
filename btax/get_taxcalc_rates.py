@@ -177,8 +177,8 @@ def get_rates(baseline=False, start_year=2017, reform={}):
                       * pos_ti * calc1.records.s006).sum())
 
 
-    individual_rates = {'tau_nc': tau_nc,'tau_div': tau_div,'tau_int': tau_int,
-                        'tau_scg': tau_scg,'tau_lcg': tau_lcg,'tau_td': tau_td,
+    individual_rates = {'tau_nc': tau_nc, 'tau_div': tau_div, 'tau_int': tau_int,
+                        'tau_scg': tau_scg, 'tau_lcg': tau_lcg, 'tau_td': tau_td,
                         'tau_h': tau_h}
     print(individual_rates)
     return individual_rates

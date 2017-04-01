@@ -135,7 +135,7 @@ def runner_json_tables(test_run=False,
                        iit_reform=None,
                        **user_params):
     from btax.execute import runner, TABLE_ORDER
-    out = runner(test_run,start_year,iit_reform,**user_params)
+    out = runner(test_run, start_year, iit_reform, **user_params)
 
     tables = {'row_grouping': out.row_grouping}
     for label, table in zip(TABLE_ORDER, out[:-1]):

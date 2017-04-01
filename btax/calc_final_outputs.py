@@ -64,27 +64,30 @@ def asset_calcs(params, asset_data):
     for i in range(save_rate.shape[0]):
         for j in range(save_rate.shape[1]):
             key1 = 'rho' + entity_list[j] + financing_list[i]
-            output_by_asset[key1] = \
-                ((((discount_rate[i, j] - inflation_rate) +
-                output_by_asset['delta']) * (1- inv_credit- (stat_tax[j] *
-                output_by_asset['z'+entity_list[j]+financing_list[i]])) /
-                (1-stat_tax[j])) + w - output_by_asset['delta'])
+            key2 = 'metr' + entity_list[j] + financing_list[i]
+            key3 = 'mettr' + entity_list[j] + financing_list[i]
+            zi = 'z' + entity_list[j] + financing_list[i]
+            disc = discount_rate[i, j]
+            delta = output_by_asset['delta']
+            left_side = ((disc - inflation_rate) + delta)
+            output_by_asset[key1] = ((left_side * (1 - inv_credit -
+                                     (stat_tax[j] *
+                                      output_by_asset[zi])) /
+                                     (1 - stat_tax[j])) + w - delta)
             if not expense_inventory:
                 inventory = output_by_asset['Asset Type'] == "Inventories"
-                key1 = 'rho'+entity_list[j]+financing_list[i]
-                output_by_asset.loc[inventory, key1] = \
-                        ((phi*(((1/Y_v)*np.log((np.exp(discount_rate[i, j]*Y_v)-\
-                            stat_tax[j])/(1-stat_tax[j])))-inflation_rate))
-                        + ((1-phi)*(((1/Y_v)*\
-                            np.log((np.exp((discount_rate[i, j] - \
-                                 inflation_rate)*Y_v)-stat_tax[j])/\
-                            (1-stat_tax[j]))))))
-            output_by_asset['metr'+entity_list[j]+financing_list[i]] = \
-                (output_by_asset[key1] -
-                (r_prime[i, j] - inflation_rate))/ output_by_asset[key1]
-            output_by_asset['mettr'+entity_list[j]+financing_list[i]] = \
-                (output_by_asset[key1] -
-                save_rate[i, j])/ output_by_asset[key1]
+                numerator = np.exp((disc - inflation_rate) * Y_v) - stat_tax[j]
+                log_term = np.log(numerator / (1 - stat_tax[j]))
+                val = ((phi * (((1 / Y_v) * np.log(np.exp((disc * Y_v) -
+                       stat_tax[j]) / (1 - stat_tax[j]))) - inflation_rate)) +
+                       ((1 - phi) *
+                       (((1 / Y_v) * log_term))))
+                output_by_asset.loc[inventory, key1] = val
+            output_by_asset[key2] = ((output_by_asset[key1] -
+                                     (r_prime[i, j] - inflation_rate)) /
+                                     output_by_asset[key1])
+            output_by_asset[key3] = (output_by_asset[key1] -
+                                     save_rate[i, j]) / output_by_asset[key1]
 
     # create asset category variable
     output_by_asset['asset_category'] = output_by_asset['Asset Type']
@@ -101,9 +104,9 @@ def asset_calcs(params, asset_data):
     bea_corp = asset_data[asset_data['tax_treat'] == 'corporate'].copy()
     bea_noncorp = asset_data[asset_data['tax_treat'] == 'non-corporate'].copy()
     summ = bea_corp.groupby('bea_asset_code')['assets'].sum()
-    bea_corp_assets = (pd.DataFrame({'assets' : summ})).reset_index()
+    bea_corp_assets = (pd.DataFrame({'assets': summ})).reset_index()
     summ = bea_noncorp.groupby('bea_asset_code')['assets'].sum()
-    bea_noncorp_assets = (pd.DataFrame({'assets' : summ})).reset_index()
+    bea_noncorp_assets = (pd.DataFrame({'assets': summ})).reset_index()
     bea_corp_assets.rename(columns={"assets": "assets_c"}, inplace=True)
     bea_noncorp_assets.rename(columns={"assets": "assets_nc"}, inplace=True)
 
@@ -123,31 +126,31 @@ def asset_calcs(params, asset_data):
                                copy=True)
 
     # Add major asset groups
-    output_by_asset['major_asset_group'] = output_by_asset['Asset Type']
-    output_by_asset['major_asset_group'].replace(major_asset_groups,
-                                                 inplace=True)
+    asset_type = output_by_asset['Asset Type'].replace(major_asset_groups)
+    output_by_asset['major_asset_group'] = asset_type
 
     # Now compute METR and other output by major asset group
     # create weighted averages by major asset group/tax treatment
-    by_major_asset = pd.DataFrame({'delta' : output_by_asset.groupby(
-        ['major_asset_group'] ).apply(wavg, "delta", "assets_c")}).reset_index()
+    grouping = output_by_asset.groupby(['major_asset_group'])
+    grouping = grouping.apply(wavg, "delta", "assets_c")
+    by_major_asset = pd.DataFrame({'delta': grouping}).reset_index()
     corp_list = ['z_c', 'z_c_d', 'z_c_e', 'rho_c', 'rho_c_d', 'rho_c_e']
     noncorp_list = ['z_nc', 'z_nc_d', 'z_nc_e',
                     'rho_nc', 'rho_nc_d', 'rho_nc_e']
     for item in corp_list:
         gr = output_by_asset.groupby(['major_asset_group']
                                      ).apply(wavg, item, "assets_c")
-        by_major_asset[item] = pd.DataFrame({item : gr}).reset_index()[item]
+        by_major_asset[item] = pd.DataFrame({item: gr}).reset_index()[item]
     for item in noncorp_list:
         gr = output_by_asset.groupby(['major_asset_group']
                                      ).apply(wavg, item, "assets_nc")
-        by_major_asset[item] = pd.DataFrame({item : gr}).reset_index()[item]
+        by_major_asset[item] = pd.DataFrame({item: gr}).reset_index()[item]
     summ = output_by_asset.groupby(['major_asset_group'])['assets_c'].sum()
-    summ = pd.DataFrame({'assets_c' : summ}).reset_index()
+    summ = pd.DataFrame({'assets_c': summ}).reset_index()
     by_major_asset['assets_c'] = summ['assets_c']
     summ = output_by_asset.groupby(['major_asset_group']
                                    )['assets_nc'].sum()
-    summ = pd.DataFrame({'assets_nc' : summ}).reset_index()
+    summ = pd.DataFrame({'assets_nc': summ}).reset_index()
     by_major_asset['assets_nc'] = summ['assets_nc']
 
     # Calculate the cost of capital, metr, mettr
@@ -156,14 +159,11 @@ def asset_calcs(params, asset_data):
             key1 = 'rho' + entity_list[j] + financing_list[i]
             key2 = 'metr' + entity_list[j] + financing_list[i]
             key3 = 'mettr' + entity_list[j] + financing_list[i]
-            by_major_asset[key2] = \
-                ((by_major_asset[key1] -
-                (r_prime[i, j] - inflation_rate)) / (by_major_asset[key1]))
-            by_major_asset[key3] = \
-                ((by_major_asset[key1] -
-                save_rate[i, j]) / (by_major_asset[key1]))
-
-
+            by_major_asset[key2] = ((by_major_asset[key1] -
+                                    (r_prime[i, j] - inflation_rate)) /
+                                    by_major_asset[key1])
+            by_major_asset[key3] = ((by_major_asset[key1] -
+                                    save_rate[i, j]) / (by_major_asset[key1]))
 
     # Make asset type = major asset group in by_major_asset
     by_major_asset['Asset'] = by_major_asset['major_asset_group']
@@ -171,10 +171,11 @@ def asset_calcs(params, asset_data):
 
     # Make calculation for overall rates
     corp_list = ['z_c', 'z_c_d', 'z_c_e', 'rho_c', 'rho_c_d', 'rho_c_e']
-    noncorp_list = ['z_nc', 'z_nc_d', 'z_nc_e', 'rho_nc', 'rho_nc_d', 'rho_nc_e']
+    noncorp_list = ['z_nc', 'z_nc_d', 'z_nc_e',
+                    'rho_nc', 'rho_nc_d', 'rho_nc_e']
     numerator = (output_by_asset['delta'] * output_by_asset['assets_c']).sum()
     divisor = output_by_asset['assets_c'].sum()
-    overall = pd.DataFrame({'delta' : numerator / divisor}, index=[0])
+    overall = pd.DataFrame({'delta': numerator / divisor}, index=[0])
     overall['assets_c'] = output_by_asset['assets_c'].sum()
     overall['assets_nc'] = output_by_asset['assets_nc'].sum()
     # overall = pd.DataFrame({'delta_nc' : ((output_by_asset['delta']*
@@ -183,12 +184,14 @@ def asset_calcs(params, asset_data):
     overall['Asset Type'] = 'All Investments'
     overall['major_asset_group'] = 'All Investments'
     for item in corp_list:
-        numerator = (output_by_asset[item] * output_by_asset['assets_c']).sum()
-        divisor = output_by_asset['assets_c'].sum()
+        assets_c = output_by_asset['assets_c']
+        numerator = (output_by_asset[item] * assets_c).sum()
+        divisor = assets_c.sum()
         overall[item] = numerator / divisor
     for item in noncorp_list:
-        numerator = (output_by_asset[item] * output_by_asset['assets_nc']).sum()
-        divisor = output_by_asset['assets_nc'].sum()
+        assets_nc = output_by_asset['assets_nc']
+        numerator = (output_by_asset[item] * assets_nc).sum()
+        divisor = assets_nc.sum()
         overall[item] = numerator / divisor
 
     for i in range(save_rate.shape[0]):
@@ -197,22 +200,21 @@ def asset_calcs(params, asset_data):
             key2 = 'metr' + entity_list[j] + financing_list[i]
             key3 = 'mettr' + entity_list[j] + financing_list[i]
 
-            overall[key2] = \
-                ((overall[key1] -
-                (r_prime[i, j] - inflation_rate))/(overall[key1]))
-            overall[key3] = \
-                ((overall[key1] -
-                save_rate[i, j])/(overall[key1]))
+            overall[key2] = ((overall[key1] -
+                             (r_prime[i, j] - inflation_rate)) /
+                             overall[key1])
+            overall[key3] = ((overall[key1] -
+                             save_rate[i, j]) / overall[key1])
 
     # Append by_major_asset to output_by_asset
     # Drop asset types that are only one in major group
-    inventory = by_major_asset['major_asset_group']!='Inventories'
+    inventory = by_major_asset['major_asset_group'] != 'Inventories'
     by_major_asset = by_major_asset[inventory].copy()
-    land = by_major_asset['major_asset_group']!='Land'
+    land = by_major_asset['major_asset_group'] != 'Land'
     by_major_asset = by_major_asset[land].copy()
     extra = [by_major_asset, overall]
-    output_by_asset = (output_by_asset.append(extra, ignore_index=True)
-                       ).copy().reset_index()
+    output_by_asset = output_by_asset.append(extra, ignore_index=True)
+    output_by_asset = output_by_asset.copy().reset_index()
     output_by_asset.drop('index', axis=1, inplace=True)
 
     # Sort output_by_asset dataframe
@@ -258,9 +260,9 @@ def industry_calcs(params, asset_data, output_by_asset):
 
     # merge cost of capital, depreciation rates by asset
     df2 = output_by_asset[['bea_asset_code', 'delta', 'z_c', 'z_c_d',
-                           'z_c_e','z_nc', 'z_nc_d',
-                           'z_nc_e', 'rho_c','rho_c_d','rho_c_e','rho_nc',
-                           'rho_nc_d', 'rho_nc_e','asset_category']].copy()
+                           'z_c_e', 'z_nc', 'z_nc_d',
+                           'z_nc_e', 'rho_c', 'rho_c_d', 'rho_c_e', 'rho_nc',
+                           'rho_nc_d', 'rho_nc_e', 'asset_category']].copy()
     by_industry_asset = pd.merge(bea, df2, how='right',
                                  left_on=['bea_asset_code'],
                                  right_on=['bea_asset_code'],
@@ -270,33 +272,33 @@ def industry_calcs(params, asset_data, output_by_asset):
                                  copy=True)
 
     # drop major groups - want to build up from individual assets
-    intel = by_industry_asset['asset_category']!='Intellectual Property'
+    intel = by_industry_asset['asset_category'] != 'Intellectual Property'
     by_industry_asset = by_industry_asset[intel].copy()
-    equip = by_industry_asset['Asset Type']!='Equipment'
+    equip = by_industry_asset['Asset Type'] != 'Equipment'
     by_industry_asset = by_industry_asset[equip].copy()
-    struct = by_industry_asset['Asset Type']!='Structures'
+    struct = by_industry_asset['Asset Type'] != 'Structures'
     by_industry_asset = by_industry_asset[struct].copy()
-    inv = by_industry_asset['Asset Type']!='All Investments'
+    inv = by_industry_asset['Asset Type'] != 'All Investments'
     by_industry_asset = by_industry_asset[inv].copy()
     # housing = by_industry_asset['tax_treat']!='owner_occupied_housing'
     # by_industry_asset = by_industry_asset[housing].copy()
 
     # create weighted averages by industry/tax treatment
-    ind = by_industry_asset.groupby(['bea_ind_code', 'tax_treat']
-                                   ).apply(wavg, "delta", "assets")
-    by_industry_tax = pd.DataFrame({'delta' : ind}).reset_index()
+    grouping = by_industry_asset.groupby(['bea_ind_code', 'tax_treat'])
+    ind = grouping.apply(wavg, "delta", "assets")
+    by_industry_tax = pd.DataFrame({'delta': ind}).reset_index()
     col_list = ['z_c', 'z_c_d', 'z_c_e', 'z_nc', 'z_nc_d',
                 'z_nc_e', 'rho_c', 'rho_c_d', 'rho_c_e', 'rho_nc',
-                'rho_nc_d', 'rho_nc_e',]
+                'rho_nc_d', 'rho_nc_e']
     for item in col_list:
-        ind_asset = by_industry_asset.groupby(['bea_ind_code', 'tax_treat']
-                                             ).apply(wavg, item, "assets")
-        by_industry_tax[item] = pd.DataFrame({item : ind_asset}
-                                            ).reset_index()[item]
+        grouping = by_industry_asset.groupby(['bea_ind_code', 'tax_treat'])
+        ind_asset = grouping.apply(wavg, item, "assets")
+        df_data = {item: ind_asset}
+        by_industry_tax[item] = pd.DataFrame(df_data).reset_index()[item]
     summ = by_industry_asset.groupby(['bea_ind_code',
                                       'tax_treat'])['assets'].sum()
-    by_industry_tax['assets'] = pd.DataFrame({'assets' : summ}
-                                            ).reset_index()['assets']
+    summ = pd.DataFrame({'assets': summ})
+    by_industry_tax['assets'] = summ.reset_index()['assets']
 
     # calculate the cost of capital, metr, mettr
     for i in range(save_rate.shape[0]):
@@ -304,12 +306,11 @@ def industry_calcs(params, asset_data, output_by_asset):
             key1 = 'rho' + entity_list[j] + financing_list[i]
             key2 = 'metr' + entity_list[j] + financing_list[i]
             key3 = 'mettr' + entity_list[j] + financing_list[i]
-            by_industry_tax[key2] = \
-                (by_industry_tax[key1] - \
-                (r_prime[i, j] - inflation_rate)) /  by_industry_tax[key1]
-            by_industry_tax[key3] = \
-                ((by_industry_tax[key1] - \
-                save_rate[i, j])/(by_industry_tax[key1]))
+            by_industry_tax[key2] = ((by_industry_tax[key1] -
+                                     (r_prime[i, j] - inflation_rate)) /
+                                     by_industry_tax[key1])
+            by_industry_tax[key3] = ((by_industry_tax[key1] -
+                                      save_rate[i, j]) / by_industry_tax[key1])
 
     # put together in different format (later we should consider changing how
     # output is handled and do long format)
@@ -359,39 +360,43 @@ def industry_calcs(params, asset_data, output_by_asset):
     by_industry_asset['major_industry'].replace(bea_code_dict, inplace=True)
 
     # create weighted averages by industry/tax treatment
-    major_ind = by_industry_asset.groupby(['major_industry','tax_treat']
+    major_ind = by_industry_asset.groupby(['major_industry', 'tax_treat']
                                           ).apply(wavg, "delta", "assets")
-    by_major_ind_tax = pd.DataFrame({'delta' : major_ind}).reset_index()
+    by_major_ind_tax = pd.DataFrame({'delta': major_ind}).reset_index()
     col_list = ['z_c', 'z_c_d', 'z_c_e', 'z_nc', 'z_nc_d',
                 'z_nc_e', 'rho_c', 'rho_c_d', 'rho_c_e', 'rho_nc',
                 'rho_nc_d', 'rho_nc_e']
     for item in col_list:
         major_ind_tax = by_industry_asset.groupby(
             ['major_industry', 'tax_treat']).apply(wavg, item, "assets")
-        major_ind_tax = {item : major_ind_tax}
-        by_major_ind_tax[item] = pd.DataFrame(major_ind_tax).reset_index()[item]
-    major_ind_tax = by_industry_asset.groupby(['major_industry', 'tax_treat']
-                                             )['assets'].sum()
-    major_ind_tax = pd.DataFrame({'assets' : major_ind_tax})
+        major_ind_tax = {item: major_ind_tax}
+        df_part = pd.DataFrame(major_ind_tax).reset_index()[item]
+        by_major_ind_tax[item] = df_part
+    grouping = by_industry_asset.groupby(['major_industry', 'tax_treat'])
+    major_ind_tax = grouping['assets'].sum()
+    major_ind_tax = pd.DataFrame({'assets': major_ind_tax})
     by_major_ind_tax['assets'] = major_ind_tax.reset_index()['assets']
 
-    # calculate the cost of capital, metr, mettr
+    # Calculate the cost of capital, metr, mettr
     for i in range(save_rate.shape[0]):
         for j in range(save_rate.shape[1]):
             key1 = 'rho' + entity_list[j] + financing_list[i]
             key2 = 'metr' + entity_list[j] + financing_list[i]
             key3 = 'mettr' + entity_list[j] + financing_list[i]
-            by_major_ind_tax[key2] = \
-                ((by_major_ind_tax[key1] -
-                (r_prime[i, j] - inflation_rate))/(by_major_ind_tax[key1]))
-            by_major_ind_tax[key3] = \
-                ((by_major_ind_tax[key1] -
-                save_rate[i, j])/(by_major_ind_tax[key1]))
+            by_major_ind_tax[key2] = ((by_major_ind_tax[key1] -
+                                      (r_prime[i, j] -
+                                      inflation_rate)) /
+                                      by_major_ind_tax[key1])
+            by_major_ind_tax[key3] = ((by_major_ind_tax[key1] -
+                                      save_rate[i, j]) /
+                                      by_major_ind_tax[key1])
 
-    # put together in different format (later we should consider changing how
+    # Put together in different format (later we should consider changing how
     # output is handled and do long format)
-    corp = by_major_ind_tax[by_major_ind_tax['tax_treat']=='corporate'].copy()
-    non_corp = by_major_ind_tax[by_major_ind_tax['tax_treat']=='non-corporate'].copy()
+    corp_tax = by_major_ind_tax['tax_treat'] == 'corporate'
+    corp = by_major_ind_tax[corp_tax].copy()
+    non_corp_tax = by_major_ind_tax['tax_treat'] == 'non-corporate'
+    non_corp = by_major_ind_tax[non_corp_tax].copy()
     corp = corp[['major_industry', 'delta', 'z_c', 'z_c_d', 'z_c_e', 'rho_c',
                  'rho_c_d', 'rho_c_e', 'metr_c', 'metr_c_d', 'metr_c_e',
                  'mettr_c', 'mettr_c_d', 'mettr_c_e', 'assets']].copy()
@@ -418,7 +423,7 @@ def industry_calcs(params, asset_data, output_by_asset):
                     'rho_nc', 'rho_nc_d', 'rho_nc_e']
     wt_summ = (output_by_asset['delta'] * output_by_asset['assets_c']).sum()
     summ = output_by_asset['assets_c'].sum()
-    overall = pd.DataFrame({'delta_c' : (wt_summ /summ)}, index=[0])
+    overall = pd.DataFrame({'delta_c': (wt_summ / summ)}, index=[0])
     wt_summ = (output_by_asset['delta'] * output_by_asset['assets_nc']).sum()
     summ = output_by_asset['assets_nc'].sum()
     overall['delta_nc'] = wt_summ / summ
@@ -427,22 +432,22 @@ def industry_calcs(params, asset_data, output_by_asset):
     overall['Industry'] = 'All Investments'
     overall['major_industry'] = 'All Investments'
     for item in corp_list:
-        overall[item] = ((output_by_asset[item]*output_by_asset['assets_c']).sum()/
-                         output_by_asset['assets_c'].sum())
+        assets_c = output_by_asset['assets_c']
+        obj = output_by_asset[item]
+        overall[item] = ((obj * assets_c).sum() / assets_c.sum())
     for item in noncorp_list:
-        overall[item] = ((output_by_asset[item]*output_by_asset['assets_nc']).sum()/
-                         output_by_asset['assets_nc'].sum())
+        assets_nc = output_by_asset['assets_nc']
+        obj = output_by_asset[item]
+        overall[item] = ((obj * assets_nc).sum() / assets_nc.sum())
     for i in range(save_rate.shape[0]):
         for j in range(save_rate.shape[1]):
             key1 = 'rho' + entity_list[j] + financing_list[i]
             key2 = 'metr' + entity_list[j] + financing_list[i]
             key3 = 'mettr' + entity_list[j] + financing_list[i]
 
-            overall[key2] = \
-                ((overall[key1] - (r_prime[i, j] - \
-                  inflation_rate)) / overall[key1])
-            overall[key3] = \
-                ((overall[key1] - save_rate[i, j]) / overall[key1])
+            overall[key2] = ((overall[key1] - (r_prime[i, j] -
+                              inflation_rate)) / overall[key1])
+            overall[key3] = ((overall[key1] - save_rate[i, j]) / overall[key1])
 
     # append by_major_asset to output_by_asset
     # drop major inds when only one in major group
@@ -454,14 +459,16 @@ def industry_calcs(params, asset_data, output_by_asset):
     by_major_ind = by_major_ind[whole].copy()
     retail = by_major_ind['major_industry'] != 'Retail trade'
     by_major_ind = by_major_ind[retail].copy()
-    mgt = by_major_ind['major_industry'] != 'Management of companies and enterprises'
+    mgt_str = 'Management of companies and enterprises'
+    mgt = by_major_ind['major_industry'] != mgt_str
     by_major_ind = by_major_ind[mgt].copy()
     edu = by_major_ind['major_industry'] != 'Educational services'
     by_major_ind = by_major_ind[edu].copy()
-    other =by_major_ind['major_industry'] != 'Other services, except government'
+    other_str = 'Other services, except government'
+    other = by_major_ind['major_industry'] != other_str
     by_major_ind = by_major_ind[other].copy()
-    by_industry =  by_industry.append([by_major_ind, overall],
-                                      ignore_index=True).copy().reset_index()
+    by_industry = by_industry.append([by_major_ind, overall],
+                                     ignore_index=True).copy().reset_index()
     by_industry.drop('index', axis=1, inplace=True)
 
     # sort output_by_asset dataframe
@@ -471,6 +478,7 @@ def industry_calcs(params, asset_data, output_by_asset):
     by_industry.reset_index(drop=True, inplace=True)
 
     return by_industry
+
 
 def wavg(group, avg_name, weight_name):
     """

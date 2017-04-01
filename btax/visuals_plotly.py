@@ -46,13 +46,13 @@ def asset_bubble(output_by_assets):
 
     # sort categories
     df['sort_order'] = df['asset_category']
-    df['sort_order'].replace(asset_category_order,inplace=True)
-    df.sort_values(by="sort_order",axis=0,ascending=True,inplace=True)
+    df['sort_order'].replace(asset_category_order, inplace=True)
+    df.sort_values(by="sort_order", axis=0, ascending=True, inplace=True)
     df.reset_index(inplace=True)
 
 
     # update asset_category names for better printing
-    df['asset_category'].replace(asset_categories_for_print,inplace=True)
+    df['asset_category'].replace(asset_categories_for_print, inplace=True)
 
     df.iplot(kind='bubble', x='metr_c', y='asset_category',
              size='assets', text='Asset',

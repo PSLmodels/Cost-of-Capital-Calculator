@@ -56,7 +56,7 @@ ASSET_PRE_CACHE_FILE = 'asset_data.pkl'
 
 
 
-def runner(test_run,start_year,iit_reform,**user_params):
+def runner(test_run, start_year, iit_reform, **user_params):
     econ_params = filter_user_params_for_econ(**user_params)
     base_output_by_asset, base_output_by_industry = run_btax(test_run,
                                                              True,
@@ -99,18 +99,22 @@ def runner(test_run,start_year,iit_reform,**user_params):
 
     # create plots
     # by asset
-    #visuals.asset_crossfilter(base_output_by_asset,'baseline')
-    #visuals.asset_crossfilter(reform_output_by_asset,'reform')
-    #visuals_plotly.asset_bubble(output_by_asset)
+    # visuals.asset_crossfilter(base_output_by_asset, 'baseline')
+    # visuals.asset_crossfilter(reform_output_by_asset, 'reform')
+    # visuals_plotly.asset_bubble(output_by_asset)
 
     # save output to csv - useful if run locally
     if RESULTS_TO_CSV:
         # set BTAX_TABLES_TO_CSV=1 to get these CSV files
         # (to set RESULTS_TO_CSV to True)
-        base_output_by_industry.to_csv('baseline_byindustry.csv',encoding='utf-8')
-        reform_output_by_industry.to_csv('reform_byindustry.csv',encoding='utf-8')
-        base_output_by_asset.to_csv('base_byasset.csv',encoding='utf-8')
-        reform_output_by_asset.to_csv('reform_byasset.csv',encoding='utf-8')
+        base_output_by_industry.to_csv('baseline_byindustry.csv',
+                                       encoding='utf-8')
+        reform_output_by_industry.to_csv('reform_byindustry.csv',
+                                         encoding='utf-8')
+        base_output_by_asset.to_csv('base_byasset.csv',
+                                    encoding='utf-8')
+        reform_output_by_asset.to_csv('reform_byasset.csv',
+                                      encoding='utf-8')
 
 
 

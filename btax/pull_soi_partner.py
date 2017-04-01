@@ -25,7 +25,7 @@ globals().update(get_paths())
 _AST_FILE_FCTR = 10 ** 3
 _SHAPE = (131, 4)
 _CODE_RANGE = ['32', '33', '45', '49']
-_PARENTS = {'32': '31', '33': '31','45': '44', '49': '48'}
+_PARENTS = {'32': '31', '33': '31', '45': '44', '49': '48'}
 
 
 def load_partner_data(entity_dfs):
@@ -68,7 +68,7 @@ def load_partner_data(entity_dfs):
     # and land for parnterhsips
     xwalk = pd.read_csv(_DETAIL_PART_CROSS_PATH)
     xwalk.rename({k: str(k) for k in xwalk.columns}, inplace=True)
-    re_replace = lambda x: re.sub('[\s+]', '',x)
+    re_replace = lambda x: re.sub('[\s+]', '', x)
     xwalk['Industry:'] = xwalk['Industry:'].apply(re_replace)
     # keep only codes that help to identify complete industries
     xwalk = xwalk[xwalk['complete'] ==1 ]
@@ -78,9 +78,9 @@ def load_partner_data(entity_dfs):
     # all partnerships remains
     df.index = [to_str(x) for x in df.index]
     xwalk.index = [to_str(x) for x in xwalk.index]
-    df03 = df.T.groupby(sort=False,level=0).first().T
+    df03 = df.T.groupby(sort=False, level=0).first().T
     # Fixing the index labels of the new dataframe
-    df03.reset_index(inplace=True,drop=True)
+    df03.reset_index(inplace=True, drop=True)
     # Keep only variables of interest
     df03.columns = [to_str(c) for c in df03.columns]
     deprec_assets = df03['Depreciable assets']
@@ -117,12 +117,12 @@ def load_partner_data(entity_dfs):
                     how='inner', left_on=['Item'],
                     right_on=['Industry:'], left_index=False,
                     right_index=False, sort=False, copy=True)
-    df03.drop(['Item','Industry:',
-               'Codes:','Notes:',
+    df03.drop(['Item', 'Industry:',
+               'Codes:', 'Notes:',
                'complete'], axis=1, inplace=True)
 
     # Sums together the repeated codes into one industry
-    df03 = df03.groupby('INDY_CD',sort=False).sum()
+    df03 = df03.groupby('INDY_CD', sort=False).sum()
     df03.reset_index(level=0, inplace=True)
 
     ## create ratios for minor industry assets using corporate data
@@ -152,16 +152,16 @@ def load_partner_data(entity_dfs):
                         how='inner', left_on=['INDY_CD'],
                         right_on=['minor_code'], left_index=False,
                         right_index=False, sort=False,
-                        copy=True,indicator=True)
-    part_data = sector_df.append([major_df,minor_df],
+                        copy=True, indicator=True)
+    part_data = sector_df.append([major_df, minor_df],
                                  ignore_index=True).copy().reset_index()
-    part_data.drop(['bea_inv_name','bea_code','_merge'], axis=1, inplace=True)
+    part_data.drop(['bea_inv_name', 'bea_code', '_merge'], axis=1, inplace=True)
 
     # merge codes to total corp data
     # inner join means that we keep only rows that match in both datasets
     # this should keep only unique soi minor industries
     # in total corp data - note that s corp data already unique by sector
-    columns = ['Fixed Assets','Inventories','Land','Depreciation']
+    columns = ['Fixed Assets', 'Inventories', 'Land', 'Depreciation']
     s_corp = entity_dfs['s_corp'][['minor_code_alt'] + columns]
     corp = pd.merge(s_corp, soi_bea_ind_codes,
                     how='inner', left_on=['minor_code_alt'],
@@ -172,13 +172,13 @@ def load_partner_data(entity_dfs):
         v = corp.groupby(['major_code'])[var]
         corp[var+'_ratio'] = v.apply(lambda x: x / float(x.sum()))
 
-    corp.drop(['bea_inv_name','bea_code','sector_code',
+    corp.drop(['bea_inv_name', 'bea_code', 'sector_code',
                'minor_code'] + columns, axis=1, inplace=True)
 
     # merge these ratios to the partner data
     part_data = pd.merge(part_data, corp, how='right',
                          left_on=['minor_code_alt'],
-                         right_on=['minor_code_alt'],left_index=False,
+                         right_on=['minor_code_alt'], left_index=False,
                          right_index=False, sort=False, suffixes=('_x', '_y'),
                          copy=True)
 
@@ -187,8 +187,8 @@ def load_partner_data(entity_dfs):
         part_data[var] = part_data[var] * part_data[var + '_ratio']
 
     part_data.drop(list(x + '_ratio' for x in columns), axis=1, inplace=True)
-    part_data.drop(['index','sector_code','major_code_x','minor_code',
-                    'INDY_CD','major_code_y'],axis=1,inplace=True)
+    part_data.drop(['index', 'sector_code', 'major_code_x', 'minor_code',
+                    'INDY_CD', 'major_code_y'], axis=1, inplace=True)
 
     ### !!! Partner data has right industry breakouts, and
     # ratio sum to 1 in ind, but totals not adding up to SOI controls.
@@ -267,12 +267,12 @@ def load_partner_data(entity_dfs):
     net_inc_abs = df05['net_inc'].astype(float).abs()
     divisor = df05['sum'].replace({ 0 : np.nan })
     df05['inc_ratio'] = (net_inc_abs / divisor).replace({np.nan:0})
-    df05 = df05[['Codes:','part_type','net_inc','inc_ratio']]
+    df05 = df05[['Codes:', 'part_type', 'net_inc', 'inc_ratio']]
 
     # Manufacturing is missing data for 2013, so use overall partnership splits
     for key in part_types:
         df05.loc[(df05['Codes:'] == 31) &
-                 (df05['part_type'] == key),'inc_ratio'] = \
+                 (df05['part_type'] == key), 'inc_ratio'] = \
             df05.loc[(df05['Codes:'] == 1) &
                      (df05['part_type'] == key), 'inc_ratio'].values
     # Add other sector codes for manufacturing
@@ -301,17 +301,17 @@ def load_partner_data(entity_dfs):
                         right_on=['minor_code'], left_index=False,
                         right_index=False, sort=False,
                         copy=True, indicator=True)
-    df05= sector_df.append([major_df,minor_df],
+    df05= sector_df.append([major_df, minor_df],
                            ignore_index=True).copy().reset_index()
-    df05.drop(['bea_inv_name','bea_code','_merge'], axis=1, inplace=True)
+    df05.drop(['bea_inv_name', 'bea_code', '_merge'], axis=1, inplace=True)
 
     # # merge partner type ratios with partner asset data
     part_assets = pd.merge(df05, part_data,
-                           how='left',left_on=['minor_code_alt'],
+                           how='left', left_on=['minor_code_alt'],
                            right_on=['minor_code_alt'], left_index=False,
                            right_index=False, sort=False,
                            copy=True, indicator=True)
-    part_assets.drop(['Codes:','_merge'], axis=1, inplace=True)
+    part_assets.drop(['Codes:', '_merge'], axis=1, inplace=True)
 
     # allocate across partner type
     inc_ratio = part_assets['inc_ratio']
@@ -348,13 +348,13 @@ def format_excel(df):
     df.dropna(inplace=True)
     df = df.T
     column_names = df.iloc[0,:].tolist()
-    column_names = [x.encode('ascii','ignore').lstrip().rstrip() for x in column_names]
+    column_names = [x.encode('ascii', 'ignore').lstrip().rstrip() for x in column_names]
     df.columns = column_names
-    df = df.drop(df.index[[0,len(df)-1]])
+    df = df.drop(df.index[[0, len(df)-1]])
     df = df.fillna(0)
     df = df.replace('[d]', 0)
     df = df.replace('[2]  ', 0)
     df.reset_index(inplace=True, drop=True)
-    df.iloc[:,1:] = df.iloc[:,1:] * _AST_FILE_FCTR
+    df.iloc[:, 1:] = df.iloc[:, 1:] * _AST_FILE_FCTR
 
     return df

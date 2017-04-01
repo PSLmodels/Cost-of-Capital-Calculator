@@ -43,14 +43,14 @@ def pull_soi_data():
     # make one big data frame - by industry and entity type
     cols = ['minor_code_alt', 'Land', 'Fixed Assets', 'Inventories']
     c_corp = entity_dfs['c_corp'][cols].copy()
-    c_corp.loc[:,'entity_type'] = 'c_corp'
+    c_corp.loc[:, 'entity_type'] = 'c_corp'
     s_corp = entity_dfs['s_corp'][cols].copy()
-    s_corp.loc[:,'entity_type'] = 's_corp'
+    s_corp.loc[:, 'entity_type'] = 's_corp'
     partner = entity_dfs['part_data'][cols + ['part_type']].copy()
-    partner.loc[:,'entity_type'] = 'partnership'
+    partner.loc[:, 'entity_type'] = 'partnership'
     sole_prop = entity_dfs['sole_prop_data'][cols].copy()
-    sole_prop.loc[:,'entity_type'] = 'sole_prop'
-    extras = [s_corp,partner,sole_prop]
+    sole_prop.loc[:, 'entity_type'] = 'sole_prop'
+    extras = [s_corp, partner, sole_prop]
     soi_data = c_corp.append(extras, ignore_index=True).copy().reset_index()
     # soi_data.loc[soi_data['part_type'] == None, 'part_type'] = \
     #     'Not a partnership'

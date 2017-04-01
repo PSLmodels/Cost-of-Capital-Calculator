@@ -16,10 +16,10 @@ _NAICS_CODES = os.path.join(_DATA_DIR, 'NAICS_Codes.csv')
 _CST_FACTOR = 10**6
 
 def calibrate_financing():
-	skipped = [29,22,14,8,7,9,10]
-	columns = [0,11]
+	skipped = [29, 22, 14, 8, 7, 9, 10]
+	columns = [0, 11]
 	column_name = ['Type', 'Amount']
-	num_rows = [1,4]
+	num_rows = [1, 4]
 	#reads the equity data from the .csv file. Specifies which columns and rows to read in the file
 	corp_equity_df = pd.read_csv(_EQUITY_CORP,
                                  skiprows=skipped[5],
@@ -99,7 +99,7 @@ def apportion_equity(total_equity):
 		types = ['c_corp', 's_corp']
 		equity = {'c_corp':equity_x_1, 's_corp':equity_x_2}
 
-		equity_df = pd.DataFrame(index=np.arange(0,len(equity_x_1)),
+		equity_df = pd.DataFrame(index=np.arange(0, len(equity_x_1)),
                                  columns=['c_corp', 's_corp'])
 		for i in types:
             st_1 = equity[i]['cost_of_treasury_stock'] * -1
@@ -115,7 +115,7 @@ def apportion_equity(total_equity):
 	else:
 		columns = [7]
 		equity_pca = pd.read_csv(_SOI_AS_VALUES, usecols=columns)
-		equity_df = pd.DataFrame(index=np.arange(0,len(equity_pca)),
+		equity_df = pd.DataFrame(index=np.arange(0, len(equity_pca)),
                                  columns=['non_corp'])
 		sum_equity = equity_pca.sum(axis=0)['capital_accounts_net']
 		ratio = total_equity[keyword] / sum_equity
@@ -139,7 +139,7 @@ def calc_debt(total_equity, total_liab):
 	debt_f_non_corp = (non_corp_debt) / (non_corp_equity + non_corp_debt)
 
 	#prints out the debt ratios as an intermediate step
-	total_debt_f = pd.concat([pd.read_csv(_NAICS_CODES),debt_f_corp,
+	total_debt_f = pd.concat([pd.read_csv(_NAICS_CODES), debt_f_corp,
                                           debt_f_non_corp], axis=1)
 	total_debt_f.columns = ['NAICS', 'corp', 'non_corp']
 	save_ratios(total_debt_f)
@@ -187,4 +187,4 @@ def save_ratios(debt_ratios):
                               (debt_ratios.NAICS=='72')|
                               (debt_ratios.NAICS=='81')|
                               (debt_ratios.NAICS=='92')]
-	debt_ratios.to_csv(os.path.join(_OUT_DIR,'debt.csv'), index = False)
+	debt_ratios.to_csv(os.path.join(_OUT_DIR, 'debt.csv'), index = False)

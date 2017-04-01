@@ -29,7 +29,7 @@ DEFAULT_ASSET_COLS = json.loads(read_from_egg(DEFAULT_ASSET_FILE_NAME))
 DEFAULT_INDUSTRY_COLS = json.loads(read_from_egg(DEFAULT_INDUSTRY_FILE_NAME))
 
 
-def translate_param_names(start_year=DEFAULT_START_YEAR,**user_mods):
+def translate_param_names(start_year=DEFAULT_START_YEAR, **user_mods):
     """
     Takes parameters names from UI and turns them into names used in btax
 
@@ -95,7 +95,7 @@ def translate_param_names(start_year=DEFAULT_START_YEAR,**user_mods):
     return user_params
 
 
-def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
+def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
 
     """Contains all the parameters
 
@@ -290,52 +290,53 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     }
 
 
-    asset_dict = dict.fromkeys(['Mainframes','PCs','DASDs','Printers',
-          'Terminals','Tape drives','Storage devices','System integrators',
-          'Prepackaged software','Custom software'],'Computers and Software')
+    asset_dict = dict.fromkeys(['Mainframes', 'PCs', 'DASDs', 'Printers',
+          'Terminals', 'Tape drives', 'Storage devices', 'System integrators',
+          'Prepackaged software', 'Custom software'], 'Computers and Software')
     asset_dict.update(dict.fromkeys(['Communications',
           'Nonelectro medical instruments',
-          'Electro medical instruments','Nonmedical instruments',
+          'Electro medical instruments', 'Nonmedical instruments',
           'Photocopy and related equipment',
           'Office and accounting equipment'],
           'Instruments and Communications Equipment'))
     asset_dict.update(dict.fromkeys(['Household furniture',
-                                    'Other furniture','Household appliances'],
+                                    'Other furniture', 'Household appliances'],
                                     'Office and Residential Equipment'))
     asset_dict.update(dict.fromkeys(
           ['Light trucks (including utility vehicles)',
-           'Other trucks, buses and truck trailers','Autos','Aircraft',
-           'Ships and boats','Railroad equipment','Steam engines',
+           'Other trucks, buses and truck trailers', 'Autos', 'Aircraft',
+           'Ships and boats', 'Railroad equipment', 'Steam engines',
            'Internal combustion engines'],
            'Transportation Equipment'))
     asset_dict.update(dict.fromkeys(['Special industrial machinery',
           'General industrial equipment'],
           'Industrial Machinery'))
-    asset_dict.update(dict.fromkeys(['Nuclear fuel','Other fabricated metals',
-          'Metalworking machinery','Electric transmission and distribution',
-          'Other agricultural machinery','Farm tractors',
+    asset_dict.update(dict.fromkeys(['Nuclear fuel', 'Other fabricated metals',
+          'Metalworking machinery', 'Electric transmission and distribution',
+          'Other agricultural machinery', 'Farm tractors',
           'Other construction machinery',
-          'Construction tractors','Mining and oilfield machinery'],
+          'Construction tractors', 'Mining and oilfield machinery'],
           'Other Industrial Equipment'))
     asset_dict.update(dict.fromkeys(['Service industry machinery',
-          'Other electrical','Other'],
+          'Other electrical', 'Other'],
           'Other Equipment'))
     asset_dict.update(dict.fromkeys(['Residential'],
           'Residential Buildings'))
-    asset_dict.update(dict.fromkeys(['Manufacturing','Office','Hospitals',
-          'Special care','Medical buildings','Multimerchandise shopping',
-          'Food and beverage establishments','Warehouses','Other commercial',
-          'Air transportation','Other transportation','Religious',
-          'Educational and vocational','Lodging','Public safety'],
+    asset_dict.update(dict.fromkeys(['Manufacturing', 'Office', 'Hospitals',
+          'Special care', 'Medical buildings', 'Multimerchandise shopping',
+          'Food and beverage establishments', 'Warehouses', 'Other commercial',
+          'Air transportation', 'Other transportation', 'Religious',
+          'Educational and vocational', 'Lodging', 'Public safety'],
           'Nonresidential Buildings'))
-    asset_dict.update(dict.fromkeys(['Gas','Petroleum pipelines','Communication',
-          'Petroleum and natural gas','Mining'],
+    asset_dict.update(dict.fromkeys([
+          'Gas', 'Petroleum pipelines', 'Communication',
+          'Petroleum and natural gas', 'Mining'],
           'Mining and Drilling Structures'))
-    asset_dict.update(dict.fromkeys(['Electric','Wind and solar',
+    asset_dict.update(dict.fromkeys(['Electric', 'Wind and solar',
           'Amusement and recreation',
-          'Other railroad','Track replacement','Local transit structures',
-          'Other land transportation','Farm',
-          'Water supply','Sewage and waste disposal',
+          'Other railroad', 'Track replacement', 'Local transit structures',
+          'Other land transportation', 'Farm',
+          'Water supply', 'Sewage and waste disposal',
           'Highway and conservation and development',
           'Mobile structures'],
           'Other Structures'))
@@ -348,52 +349,53 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
           'Other computer and electronic manufacturing, n.e.c.',
           'Motor vehicles and parts manufacturing',
           'Aerospace products and parts manufacturing',
-          'Other manufacturing','Scientific research and development services',
+          'Other manufacturing', 'Scientific research and development services',
           'Software publishers',
           'Financial and real estate services',
           'Computer systems design and related services',
           'All other nonmanufacturing, n.e.c.',
-          'Private universities and colleges','Other nonprofit institutions',
-          'Theatrical movies','Long-lived television programs',
-          'Books','Music','Other entertainment originals',
-          'Own account software'],'Intellectual Property'))
+          'Private universities and colleges', 'Other nonprofit institutions',
+          'Theatrical movies', 'Long-lived television programs',
+          'Books', 'Music', 'Other entertainment originals',
+          'Own account software'], 'Intellectual Property'))
 
     # major asset groups
     # major_asset_groups = {'Equipment','Structures',
     # 'Intellectual Property','Inventories','Land'}
-    major_asset_groups = dict.fromkeys(['Mainframes','PCs','DASDs','Printers',
-          'Terminals','Tape drives','Storage devices','System integrators',
-          'Prepackaged software','Custom software',
-          'Communications','Nonelectro medical instruments',
-          'Electro medical instruments','Nonmedical instruments',
+    major_asset_groups = dict.fromkeys(['Mainframes', 'PCs', 'DASDs', 'Printers',
+          'Terminals', 'Tape drives', 'Storage devices', 'System integrators',
+          'Prepackaged software', 'Custom software',
+          'Communications', 'Nonelectro medical instruments',
+          'Electro medical instruments', 'Nonmedical instruments',
           'Photocopy and related equipment',
-          'Office and accounting equipment','Household furniture',
+          'Office and accounting equipment', 'Household furniture',
           'Other furniture',
-          'Household appliances','Light trucks (including utility vehicles)',
-          'Other trucks, buses and truck trailers','Autos','Aircraft',
-          'Ships and boats','Railroad equipment','Steam engines',
-          'Internal combustion engines','Special industrial machinery',
-          'General industrial equipment','Nuclear fuel',
+          'Household appliances', 'Light trucks (including utility vehicles)',
+          'Other trucks, buses and truck trailers', 'Autos', 'Aircraft',
+          'Ships and boats', 'Railroad equipment', 'Steam engines',
+          'Internal combustion engines', 'Special industrial machinery',
+          'General industrial equipment', 'Nuclear fuel',
           'Other fabricated metals',
-          'Metalworking machinery','Electric transmission and distribution',
-          'Other agricultural machinery','Farm tractors',
+          'Metalworking machinery', 'Electric transmission and distribution',
+          'Other agricultural machinery', 'Farm tractors',
           'Other construction machinery',
-          'Construction tractors','Mining and oilfield machinery',
-          'Service industry machinery','Other electrical','Other'],'Equipment')
+          'Construction tractors', 'Mining and oilfield machinery',
+          'Service industry machinery', 'Other electrical',
+          'Other'], 'Equipment')
     major_asset_groups.update(dict.fromkeys(['Residential','Manufacturing',
-          'Office','Hospitals','Special care','Medical buildings',
+          'Office', 'Hospitals', 'Special care', 'Medical buildings',
           'Multimerchandise shopping',
-          'Food and beverage establishments','Warehouses','Other commercial',
-          'Air transportation','Other transportation','Religious',
-          'Educational and vocational','Lodging','Public safety','Gas',
-          'Petroleum pipelines','Communication',
-          'Petroleum and natural gas','Mining','Electric','Wind and solar',
+          'Food and beverage establishments', 'Warehouses', 'Other commercial',
+          'Air transportation', 'Other transportation', 'Religious',
+          'Educational and vocational', 'Lodging', 'Public safety', 'Gas',
+          'Petroleum pipelines', 'Communication',
+          'Petroleum and natural gas', 'Mining', 'Electric', 'Wind and solar',
           'Amusement and recreation',
-          'Other railroad','Track replacement','Local transit structures',
-          'Other land transportation','Farm','Water supply',
+          'Other railroad', 'Track replacement', 'Local transit structures',
+          'Other land transportation', 'Farm', 'Water supply',
           'Sewage and waste disposal',
           'Highway and conservation and development',
-          'Mobile structures'],'Structures'))
+          'Mobile structures'], 'Structures'))
     major_asset_groups.update(dict.fromkeys([
           'Pharmaceutical and medicine manufacturing',
           'Chemical manufacturing, ex. pharma and med',
@@ -411,12 +413,12 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
           'Computer systems design and related services',
           'All other nonmanufacturing, n.e.c.',
           'Private universities and colleges',
-          'Other nonprofit institutions','Theatrical movies',
+          'Other nonprofit institutions', 'Theatrical movies',
           'Long-lived television programs',
-          'Books','Music','Other entertainment originals',
-          'Own account software'],'Intellectual Property'))
-    major_asset_groups.update(dict.fromkeys(['Inventories'],'Inventories'))
-    major_asset_groups.update(dict.fromkeys(['Land'],'Land'))
+          'Books', 'Music', 'Other entertainment originals',
+          'Own account software'], 'Intellectual Property'))
+    major_asset_groups.update(dict.fromkeys(['Inventories'], 'Inventories'))
+    major_asset_groups.update(dict.fromkeys(['Land'], 'Land'))
     # define major industry groupings
     major_industries = {
       'Agriculture, forestry, fishing, and hunting', 'Mining',
@@ -437,13 +439,13 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     ind_dict.update(dict.fromkeys(['Oil and gas extraction',
         'Mining, except oil and gas',
         'Support activities for mining'], 'Mining'))
-    ind_dict.update(dict.fromkeys(['Utilities'],'Utilities'))
-    ind_dict.update(dict.fromkeys(['Construction'],'Construction'))
+    ind_dict.update(dict.fromkeys(['Utilities'], 'Utilities'))
+    ind_dict.update(dict.fromkeys(['Construction'], 'Construction'))
     ind_dict.update(dict.fromkeys([
         'Wood products',
         'Nonmetallic mineral products',
         'Primary metals', 'Fabricated metal products',
-        'Machinery','Computer and electronic products',
+        'Machinery', 'Computer and electronic products',
         'Electrical equipment, appliances, and components',
         'Motor vehicles, bodies and trailers, and parts',
         'Other transportation equipment',
@@ -454,16 +456,16 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
         'Apparel and leather and allied products',
         'Paper products', 'Printing and related support activities',
         'Petroleum and coal products', 'Chemical products',
-        'Plastics and rubber products'],'Manufacturing'))
-    ind_dict.update(dict.fromkeys(['Wholesale trade'],'Wholesale trade'))
-    ind_dict.update(dict.fromkeys(['Retail trade'],'Retail trade'))
+        'Plastics and rubber products'], 'Manufacturing'))
+    ind_dict.update(dict.fromkeys(['Wholesale trade'], 'Wholesale trade'))
+    ind_dict.update(dict.fromkeys(['Retail trade'], 'Retail trade'))
     ind_dict.update(dict.fromkeys([
         'Air transportation', 'Railroad transportation',
         'Water transportation', 'Truck transportation',
         'Transit and ground passenger transportation',
         'Pipeline transportation',
         'Other transportation and support activitis',
-        'Warehousing and storage'],'Transportation and warehousing'))
+        'Warehousing and storage'], 'Transportation and warehousing'))
     ind_dict.update(dict.fromkeys([
         'Publishing industries (including software)',
         'Motion picture and sound recording industries',
@@ -514,40 +516,40 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
         'Other services, except government'))
 
     bea_code_dict = dict.fromkeys(
-        ['110C','113F'],
+        ['110C', '113F'],
         'Agriculture, forestry, fishing, and hunting')
-    bea_code_dict.update(dict.fromkeys(['2110','2120','2130'],'Mining'))
-    bea_code_dict.update(dict.fromkeys(['2200'],'Utilities'))
-    bea_code_dict.update(dict.fromkeys(['2300'],'Construction'))
+    bea_code_dict.update(dict.fromkeys(['2110', '2120', '2130'], 'Mining'))
+    bea_code_dict.update(dict.fromkeys(['2200'], 'Utilities'))
+    bea_code_dict.update(dict.fromkeys(['2300'], 'Construction'))
     bea_code_dict.update(dict.fromkeys([
-        '3210','3270','3310','3320','3330','3340',
-        '3350','336M','336O','3370','338A','311A','313T','315A',
-        '3220','3230','3240','3250','3260'],'Manufacturing'))
-    bea_code_dict.update(dict.fromkeys(['4200'],'Wholesale trade'))
-    bea_code_dict.update(dict.fromkeys(['44RT'],'Retail trade'))
+        '3210', '3270', '3310', '3320', '3330', '3340',
+        '3350', '336M', '336O', '3370', '338A', '311A', '313T', '315A',
+        '3220', '3230', '3240', '3250', '3260'], 'Manufacturing'))
+    bea_code_dict.update(dict.fromkeys(['4200'], 'Wholesale trade'))
+    bea_code_dict.update(dict.fromkeys(['44RT'], 'Retail trade'))
     bea_code_dict.update(dict.fromkeys(
-        ['4810','4820','4830','4840','4850','4860',
-        '487S','4930'],'Transportation and warehousing'))
+        ['4810', '4820', '4830', '4840', '4850', '4860',
+        '487S', '4930'], 'Transportation and warehousing'))
     bea_code_dict.update(dict.fromkeys(
-        ['5110','5120','5130','5140'],
+        ['5110', '5120', '5130', '5140'],
         'Information'))
-    bea_code_dict.update(dict.fromkeys(['5210','5220','5230','5240','5250'],
+    bea_code_dict.update(dict.fromkeys(['5210', '5220', '5230', '5240', '5250'],
                           'Finance and insurance'))
-    bea_code_dict.update(dict.fromkeys(['5310','5320'],
+    bea_code_dict.update(dict.fromkeys(['5310', '5320'],
                           'Real estate and rental and leasing'))
-    bea_code_dict.update(dict.fromkeys(['5411','5415','5412'],
+    bea_code_dict.update(dict.fromkeys(['5411', '5415', '5412'],
                           'Professional, scientific, and technical services'))
     bea_code_dict.update(dict.fromkeys(['5500'],
                           'Management of companies and enterprises'))
-    bea_code_dict.update(dict.fromkeys(['5610','5620'],
+    bea_code_dict.update(dict.fromkeys(['5610', '5620'],
                           'Administrative and waste management services'))
     bea_code_dict.update(dict.fromkeys(['6100'],
                           'Educational services'))
-    bea_code_dict.update(dict.fromkeys(['6210','622H','6230','6240'],
+    bea_code_dict.update(dict.fromkeys(['6210', '622H', '6230', '6240'],
                           'Health care and social assistance'))
-    bea_code_dict.update(dict.fromkeys(['711A','7130'],
+    bea_code_dict.update(dict.fromkeys(['711A', '7130'],
                           'Arts, entertainment, and recreation'))
-    bea_code_dict.update(dict.fromkeys(['7210','7220'],
+    bea_code_dict.update(dict.fromkeys(['7210', '7220'],
                           'Accommodation and food services'))
     bea_code_dict.update(dict.fromkeys(['8100'],
                           'Other services, except government'))

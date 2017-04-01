@@ -22,7 +22,7 @@ from btax.util import get_paths
 globals().update(get_paths())
 
 _DFLT_S_CORP_COLS_DICT = DFLT_S_CORP_COLS_DICT = dict([
-    ('depreciable_assets','DPRCBL_ASSTS'),
+    ('depreciable_assets', 'DPRCBL_ASSTS'),
     ('accumulated_depreciation', 'ACCUM_DPR'),
     ('land', 'LAND'),
     ('inventories', 'INVNTRY'),
@@ -99,7 +99,7 @@ def load_corp_data():
     # merge s corp and total corp to find c corp only
     c_corp = pd.merge(tot_corp, s_corp, how='inner', on=['INDY_CD'],
                       left_index=False, right_index=False,
-                      sort=False,suffixes=('_x', '_y'),
+                      sort=False, suffixes=('_x', '_y'),
                       copy=True, indicator=False)
 
     #calculate s corp values by minor industry using ratios
@@ -137,7 +137,7 @@ def load_corp_data():
 
     # Creates a dictionary of a sector : dataframe
     corp_data = {'tot_corp': tot_corp, 'c_corp': c_corp, 's_corp': s_corp}
-    for k,v in corp_data.items():
+    for k, v in corp_data.items():
         v.rename({c: str(c) for c in v.columns})
     return corp_data
 
@@ -158,7 +158,7 @@ def calc_proportions(tot_corp, s_corp, columns):
     """
     # Find ratio of variable in minor industry to variable in sector
     # in total corp data
-    corp_ratios = tot_corp[['INDY_CD','sector_code'] + columns].copy()
+    corp_ratios = tot_corp[['INDY_CD', 'sector_code'] + columns].copy()
     for var in columns:
         v = tot_corp.groupby(['sector_code'])[var]
         corp_ratios[var + '_ratio'] = v.apply(lambda x: x / float(x.sum()))
@@ -179,7 +179,7 @@ def calc_proportions(tot_corp, s_corp, columns):
         s_corp[var + '_final'] = s_corp[var] * s_corp[var + '_ratio']
 
     # clean up data by dropping and renaming columns
-    s_corp.drop(['INDY_CD_y','_merge','sector_code'] + columns,
+    s_corp.drop(['INDY_CD_y', '_merge', 'sector_code'] + columns,
                 axis=1, inplace=True)
     s_corp.drop(list(x+ '_ratio' for x in columns),
                 axis=1, inplace=True)

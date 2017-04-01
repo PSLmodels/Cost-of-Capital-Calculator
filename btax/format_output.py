@@ -44,12 +44,12 @@ def CBO_compare(vars_by_asset):
     CBO_data['Asset Type'] = CBO_data['Asset Type'].str.strip()
 
     # creates a DataFrame for the intersection of the CBO and our calculations (joined on the asset name)
-    CBO_v_OSPC = vars_by_asset.merge(CBO_data,how='inner',on='Asset Type',
+    CBO_v_OSPC = vars_by_asset.merge(CBO_data, how='inner', on='Asset Type',
                                      left_index=False, right_index=False,
                                      sort=False, copy=True)
 
-    OSPC_list = ['delta','z_c','z_c_d','z_c_e','z_nc','rho_c',
-                 'rho_c_d','rho_c_e','rho_nc', 'metr_c', 'metr_c_d',
+    OSPC_list = ['delta', 'z_c', 'z_c_d', 'z_c_e', 'z_nc', 'rho_c',
+                 'rho_c_d', 'rho_c_e', 'rho_nc', 'metr_c', 'metr_c_d',
                  'metr_c_e', 'mettr_c', 'mettr_c_d', 'mettr_c_e', 'mettr_nc']
     CBO_list = [
         'Economic deprecia- tion rate []','Corporate: total [z(c)]',
@@ -72,7 +72,7 @@ def CBO_compare(vars_by_asset):
 
     # compares the CBO's calculations with our calculations and calculates the difference
     diff_list = [None] * len(OSPC_list)
-    for i in xrange(0,len(OSPC_list)):
+    for i in xrange(0, len(OSPC_list)):
         CBO_v_OSPC[OSPC_list[i]+'_diff'] = CBO_v_OSPC[OSPC_list[i]] - CBO_v_OSPC[CBO_list[i]]
         diff_list[i] = OSPC_list[i]+'_diff'
 

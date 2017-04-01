@@ -42,9 +42,9 @@ Find totals to compare to
 bea_FA = pd.read_excel(_BEA_ASSET_PATH, sheetname="Datasets")
 bea_FA = bea_FA[['2013']]
 bea_FA['long_code'] = bea_FA.index
-bea_FA.dropna(subset = ['long_code'],inplace=True)
-bea_FA.reset_index(drop=True,inplace=True)
-bea_FA.rename(columns={"2013": "assets"},inplace=True)
+bea_FA.dropna(subset = ['long_code'], inplace=True)
+bea_FA.reset_index(drop=True, inplace=True)
+bea_FA.rename(columns={"2013": "assets"}, inplace=True)
 bea_FA['assets'] = bea_FA['assets']*_BEA_IN_FILE_FCTR
 bea_FA['bea_asset_code'] = bea_FA.long_code.str[-6:-2]
 bea_FA['bea_ind_code'] = bea_FA.long_code.str[3:7]
@@ -52,8 +52,8 @@ bea_FA['bea_asset_code'] = bea_FA['bea_asset_code'].str.strip()
 # Read in BEA asset names
 bea_asset_names = pd.read_excel(_BEA_ASSET_PATH, sheetname="110C",
             header=5, converters={'Asset Codes': str})
-bea_asset_names = bea_asset_names[['Asset Codes','NIPA Asset Types']]
-bea_asset_names.dropna(subset = ['Asset Codes'],inplace=True)
+bea_asset_names = bea_asset_names[['Asset Codes', 'NIPA Asset Types']]
+bea_asset_names.dropna(subset = ['Asset Codes'], inplace=True)
 bea_asset_names.rename(columns={"Asset Codes": "bea_asset_code",
                                 "NIPA Asset Types": "Asset Type"},
                        inplace=True)
@@ -102,32 +102,32 @@ total_finacct_LAND = corp_land + noncorp_land
 bea_residential = pd.read_excel(_BEA_RES, sheetname="Sheet0",
                                 skiprows=5, skip_footer=2)
 bea_residential.reset_index()
-bea_residential = bea_residential[[u'\xa0','2013']].copy()
+bea_residential = bea_residential[[u'\xa0', '2013']].copy()
 bea_residential.rename(columns={u"\xa0":"entity_type",
                                 "2013": "Fixed Assets"},
                        inplace=True)
 bea_residential['Fixed Assets'] *= _BEA_INV_RES_FCTR
 bea_residential['entity_type'] = bea_residential['entity_type'].str.strip()
 house = bea_residential['entity_type'] == 'Households'
-owner_occ_house_FA = np.array(bea_residential.ix[house,'Fixed Assets'])
+owner_occ_house_FA = np.array(bea_residential.ix[house, 'Fixed Assets'])
 corp = bea_residential['entity_type']=='Corporate'
-corp_res_FA = np.array(bea_residential.ix[corp,'Fixed Assets'])
+corp_res_FA = np.array(bea_residential.ix[corp, 'Fixed Assets'])
 sole = bea_residential['entity_type']=='Sole proprietorships and partnerships'
-noncorp_res_FA = np.array(bea_residential.ix[sole,'Fixed Assets'])
+noncorp_res_FA = np.array(bea_residential.ix[sole, 'Fixed Assets'])
 total_bea_RES_FA = owner_occ_house_FA + corp_res_FA + noncorp_res_FA
 
 # read in Financial Accounts data on total value of real estate in
 # owner occ sector (includes land and structures)
-b101 = pd.read_csv(_B101_PATH,header=5)
+b101 = pd.read_csv(_B101_PATH, header=5)
 b101.reset_index()
-b101 = b101[['Unnamed: 0','2013']].copy()
+b101 = b101[['Unnamed: 0', '2013']].copy()
 b101.rename(columns={"Unnamed: 0":"Variable",
-                           "2013": "Value"},inplace=True)
+                           "2013": "Value"}, inplace=True)
 b101['Value'] *= _FIN_ACCT_FILE_FCTR
 b101['Variable'] = b101['Variable'].str.strip()
 owner_occ_house_RE = np.array(b101.ix[b101['Variable']==
     'Households; owner-occupied real estate '
-    'including vacant land and mobile homes at market value','Value'])
+    'including vacant land and mobile homes at market value', 'Value'])
 
 # compute value of land for owner occupied housing sector
 owner_occ_house_land = owner_occ_house_RE - owner_occ_house_FA
@@ -143,9 +143,9 @@ Read in asset pickle ued by B-Tax and compare totals
 asset_data = pickle.load(open('asset_data.pkl', 'rb'))
 total_btax_assets = asset_data['assets'].sum()
 land = asset_data['Asset Type'] == 'Land'
-total_btax_LAND = asset_data.loc[land,'assets'].sum()
+total_btax_LAND = asset_data.loc[land, 'assets'].sum()
 inv = asset_data['Asset Type']=='Inventories'
-total_btax_INV = asset_data.loc[inv,'assets'].sum()
+total_btax_INV = asset_data.loc[inv, 'assets'].sum()
 res = asset_data['Asset Type']=='Residential'
 total_btax_RES_FA = asset_data.loc[res, 'assets'].sum()
 total_btax_FA = total_btax_assets - total_btax_LAND - \
@@ -193,10 +193,10 @@ Find shares of assets attributed to corp/non-corp by industry
 btax_FA['assets_nc'] = 0
 btax_FA['assets_c'] = 0
 non_corp = btax_FA['tax_treat']=='non-corporate'
-btax_FA.loc[non_corp,'assets_nc']= btax_FA.loc[non_corp,'assets']
+btax_FA.loc[non_corp, 'assets_nc']= btax_FA.loc[non_corp, 'assets']
 treat = btax_FA['tax_treat']=='corporate'
-btax_FA.loc[treat,'assets_c']= btax_FA.loc[treat,'assets']
-summ = btax_FA.groupby(['bea_ind_code'])['assets_c','assets_nc','assets'].sum()
+btax_FA.loc[treat, 'assets_c']= btax_FA.loc[treat, 'assets']
+summ = btax_FA.groupby(['bea_ind_code'])['assets_c', 'assets_nc', 'assets'].sum()
 shares_corp_non = pd.DataFrame(summ).reset_index()
 shares_corp_non['Corp Share'] = shares_corp_non['assets_c']/\
                                 (shares_corp_non['assets_c'] + \
@@ -208,7 +208,7 @@ shares_corp_non['check'] = (shares_corp_non['assets_c'] + \
                             shares_corp_non['assets_nc']) - \
                             shares_corp_non['assets']
 # merge in industry names
-df3 = asset_data[['Industry','bea_ind_code']].copy()
+df3 = asset_data[['Industry', 'bea_ind_code']].copy()
 df3.drop_duplicates(inplace=True)
 shares_corp_non = pd.merge(shares_corp_non, df3,
                            how='left', left_on=['bea_ind_code'],
@@ -216,7 +216,7 @@ shares_corp_non = pd.merge(shares_corp_non, df3,
                            right_index=False, sort=False, copy=True)
 shares_corp_non['Industry'] = shares_corp_non['Industry'].str.strip()
 # save to csv to look over/compare with CBO
-shares_corp_non.to_csv('shares_corp_non.csv',encoding='utf-8')
+shares_corp_non.to_csv('shares_corp_non.csv', encoding='utf-8')
 
 '''
 Find shares of assets attributed to corp/non-corp partnerships by industry
@@ -236,9 +236,9 @@ btax_part_FA.loc[non_corp,'assets_nc']= btax_part_FA.loc[non_corp,'assets']
 corp = btax_part_FA['tax_treat'] == 'corporate'
 btax_part_FA.loc[corp, 'assets_c'] = btax_part_FA.loc[corp, 'assets']
 # shares_corp_non = pd.DataFrame({btax_FA.groupby(
-#     ['bea_ind_code'])['assets_c','assets_nc','assets'].sum()}).reset_index()
+#     ['bea_ind_code'])['assets_c', 'assets_nc', 'assets'].sum()}).reset_index()
 gr = btax_part_FA.groupby(['bea_ind_code']
-                          )['assets_c','assets_nc','assets'].sum()
+                          )['assets_c', 'assets_nc', 'assets'].sum()
 part_corp_non = pd.DataFrame(gr).reset_index()
 part_corp_non['Corp Share'] = part_corp_non['assets_c'] / \
                               (part_corp_non['assets_c'] + \
@@ -249,7 +249,7 @@ part_corp_non['Non-corp Share'] = part_corp_non['assets_nc'] / \
 part_corp_non['check'] = (part_corp_non['assets_c'] + \
                           part_corp_non['assets_nc']) - part_corp_non['assets']
 # merge in industry names
-df3 = asset_data[['Industry','bea_ind_code']].copy()
+df3 = asset_data[['Industry', 'bea_ind_code']].copy()
 df3.drop_duplicates(inplace=True)
 part_corp_non = pd.merge(part_corp_non, df3,
                          how='left', left_on=['bea_ind_code'],
