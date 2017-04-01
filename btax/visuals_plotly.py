@@ -16,41 +16,9 @@ import datetime
 import re
 import math
 
-
-asset_categories_for_print = {'Computers and Software':'Computers and'+'\n'+'Software',
-                              'Office and Residential Equipment':'Office and Residential'+'\n'+'Equipment',
-    'Instruments and Communications Equipment':'Instruments and'+'\n'+'Communications'+'\n'+'Equipment',
-    'Transportation Equipment':'Transportation Equipment',
-    'Industrial Machinery':'Industrial Machinery',
-    'Other Industrial Equipment':'Other Industrial'+'\n'+'Equipment',
-    'Other Equipment':'Other Equipment',
-    'Residential Buildings':'Residential Buildings',
-    'Nonresidential Buildings':'Nonresidential Buildings',
-    'Mining and Drilling Structures':'Mining and Drilling'+'\n'+'Structures',
-    'Other Structures':'Other Structures',
-    'Intellectual Property':'Intellectual Property'}
-
-
-asset_category_order = {'Computers and Software':1,
-    'Instruments and Communications Equipment':2,
-    'Office and Residential Equipment':3,
-    'Transportation Equipment':4,
-    'Industrial Machinery':5,
-    'Other Industrial Equipment':6,
-    'Other Equipment':7,
-    'Residential Buildings':8,
-    'Nonresidential Buildings':9,
-    'Mining and Drilling Structures':10,
-    'Other Structures':11,
-    'Intellectual Property':12}
-
-# Drop cetain  IP assets until we get tax deprec better specified
-IP_list = ['Scientific research and development services','Software publishers',
-           'Financial and real estate services','Computer systems design and related services',
-           'All other nonmanufacturing, n.e.c.','Private universities and colleges',
-           'Other nonprofit institutions','Theatrical movies','Long-lived television programs',
-           'Books','Music','Other entertainment originals']
-
+from btax.visuals import (asset_categories_for_print,
+                          asset_category_order,
+                          IP_list)
 '''
 ------------------------------------------
 Plot results
@@ -58,7 +26,6 @@ Plot results
 '''
 
 SIZES = list(range(6, 22, 3))
-#COLORS = Reds9
 
 def asset_bubble(output_by_assets):
     """Creates a crossfilter bokeh plot of results by asset
@@ -87,6 +54,8 @@ def asset_bubble(output_by_assets):
     # update asset_category names for better printing
     df['asset_category'].replace(asset_categories_for_print,inplace=True)
 
-    df.iplot(kind='bubble', x='metr_c', y='asset_category', size='assets', text='Asset',
-             xTitle='Marginal Effective Tax Rate', yTitle='Asset Category',
+    df.iplot(kind='bubble', x='metr_c', y='asset_category',
+             size='assets', text='Asset',
+             xTitle='Marginal Effective Tax Rate',
+             yTitle='Asset Category',
              filename='BubbleChart.png')

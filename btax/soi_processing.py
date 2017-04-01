@@ -66,11 +66,15 @@ def pull_soi_data():
     soi_bea_ind_codes.drop_duplicates(subset=['minor_code_alt'], inplace=True)
 
     soi_data['tax_treat'] = 'non-corporate'
-    soi_data.ix[soi_data['entity_type']=='c_corp', 'tax_treat'] = 'corporate'
-    soi_data.ix[(soi_data['entity_type']=='partnership') & (soi_data['part_type']=='Corporate general partners'), 'tax_treat'] = 'corporate'
-    soi_data.ix[(soi_data['entity_type']=='partnership') & (soi_data['part_type']=='Corporate limited partners'), 'tax_treat'] = 'corporate'
-    soi_data = pd.merge(soi_data, soi_bea_ind_codes, how='left', left_on=['minor_code_alt'],
-      right_on=['minor_code_alt'], left_index=False, right_index=False, sort=False,
-      copy=True)
+    c_corp = soi_data['entity_type'] == 'c_corp'
+    soi_data.ix[c_corp, 'tax_treat'] = 'corporate'
+    soi_data.ix[(soi_data['entity_type'] == 'partnership') &
+                (soi_data['part_type'] == 'Corporate general partners'), 'tax_treat'] = 'corporate'
+    soi_data.ix[(soi_data['entity_type'] == 'partnership') &
+                (soi_data['part_type'] == 'Corporate limited partners'), 'tax_treat'] = 'corporate'
+    soi_data = pd.merge(soi_data, soi_bea_ind_codes,
+                        how='left', left_on=['minor_code_alt'],
+                        right_on=['minor_code_alt'], left_index=False,
+                        right_index=False, sort=False, copy=True)
 
     return soi_data

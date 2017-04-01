@@ -30,39 +30,51 @@ from bokeh.models import ColumnDataSource
 from bokeh.charts.attributes import ColorAttr, CatAttr
 
 
-asset_categories_for_print = {'Computers and Software':'Computers and'+'\n'+'Software',
-                              'Office and Residential Equipment':'Office and Residential'+'\n'+'Equipment',
-    'Instruments and Communications Equipment':'Instruments and'+'\n'+'Communications'+'\n'+'Equipment',
-    'Transportation Equipment':'Transportation Equipment',
-    'Industrial Machinery':'Industrial Machinery',
-    'Other Industrial Equipment':'Other Industrial'+'\n'+'Equipment',
-    'Other Equipment':'Other Equipment',
-    'Residential Buildings':'Residential Buildings',
-    'Nonresidential Buildings':'Nonresidential Buildings',
-    'Mining and Drilling Structures':'Mining and Drilling'+'\n'+'Structures',
-    'Other Structures':'Other Structures',
-    'Intellectual Property':'Intellectual Property'}
+asset_categories_for_print = {
+    'Computers and Software': 'Computers and\nSoftware',
+    'Office and Residential Equipment': 'Office and Residential\nEquipment',
+    'Instruments and Communications Equipment': 'Instruments and\n'
+                                                'Communications\nEquipment',
+    'Transportation Equipment': 'Transportation Equipment',
+    'Industrial Machinery': 'Industrial Machinery',
+    'Other Industrial Equipment':'Other Industrial\nEquipment',
+    'Other Equipment': 'Other Equipment ',
+    'Residential Buildings': 'Residential Buildings',
+    'Nonresidential Buildings': 'Nonresidential Buildings',
+    'Mining and Drilling Structures': 'Mining and Drilling\nStructures',
+    'Other Structures': 'Other Structures',
+    'Intellectual Property': 'Intellectual Property',
+}
 
 
-asset_category_order = {'Computers and Software':1,
-    'Instruments and Communications Equipment':2,
-    'Office and Residential Equipment':3,
-    'Transportation Equipment':4,
-    'Industrial Machinery':5,
-    'Other Industrial Equipment':6,
-    'Other Equipment':7,
-    'Residential Buildings':8,
-    'Nonresidential Buildings':9,
-    'Mining and Drilling Structures':10,
-    'Other Structures':11,
-    'Intellectual Property':12}
+asset_category_order = {
+    'Computers and Software': 1,
+    'Instruments and Communications Equipment': 2,
+    'Office and Residential Equipment': 3,
+    'Transportation Equipment': 4,
+    'Industrial Machinery': 5,
+    'Other Industrial Equipment': 6,
+    'Other Equipment': 7,
+    'Residential Buildings': 8,
+    'Nonresidential Buildings': 9,
+    'Mining and Drilling Structures': 10,
+    'Other Structures': 11,
+    'Intellectual Property': 12,
+}
 
 # Drop cetain  IP assets until we get tax deprec better specified
-IP_list = ['Scientific research and development services','Software publishers',
-           'Financial and real estate services','Computer systems design and related services',
-           'All other nonmanufacturing, n.e.c.','Private universities and colleges',
-           'Other nonprofit institutions','Theatrical movies','Long-lived television programs',
-           'Books','Music','Other entertainment originals']
+IP_list = ['Scientific research and development services',
+           'Software publishers',
+           'Financial and real estate services',
+           'Computer systems design and related services',
+           'All other nonmanufacturing, n.e.c.',
+           'Private universities and colleges',
+           'Other nonprofit institutions',
+           'Theatrical movies',
+           'Long-lived television programs',
+           'Books',
+           'Music',
+           'Other entertainment originals',]
 
 '''
 ------------------------------------------
@@ -83,17 +95,18 @@ def asset_crossfilter(output_by_assets,baseline):
     """
     df_all = output_by_assets.copy()
 
-    df = df_all[df_all['asset_category']!='Intellectual Property'].copy()
+    intel = df_all['asset_category'] != 'Intellectual Property'
+    df = df_all[intel].copy()
 
     # sort categories
     df['sort_order'] = df['asset_category']
-    df['sort_order'].replace(asset_category_order,inplace=True)
-    df.sort_values(by="sort_order",axis=0,ascending=True,inplace=True)
+    df['sort_order'].replace(asset_category_order, inplace=True)
+    df.sort_values(by="sort_order", axis=0, ascending=True, inplace=True)
     df.reset_index(inplace=True)
 
 
     # update asset_category names for better printing
-    df['asset_category'].replace(asset_categories_for_print,inplace=True)
+    df['asset_category'].replace(asset_categories_for_print, inplace=True)
 
 
     columns = sorted(df.columns)
@@ -107,17 +120,22 @@ def asset_crossfilter(output_by_assets,baseline):
     y = Select(title='Y-Axis', value='asset_category', options=columns)
     y.on_change('value', update)
 
-    size = Select(title='Size', value='assets_c', options=['None'] + quantileable)
+    size = Select(title='Size', value='assets_c',
+                  options=['None'] + quantileable)
     size.on_change('value', update)
 
-    # color = Select(title='Color', value='None', options=['None'] + quantileable)
+    # color = Select(title='Color', value='None',
+    #    options=['None'] + quantileable)
     # color.on_change('value', update)
     color = Select(title='Color', value='None', options=['None'] + discrete)
     color.on_change('value', update)
 
     controls = widgetbox([x, y, color, size], width=200)
-    #layout = row(controls, create_figure(df,x,y,discrete,quantileable,continuous,size,color,controls))
-    layout = row(create_figure(df,x,y,discrete,quantileable,continuous,size,color,controls))
+    # layout = row(controls, create_figure(df,x,y,discrete,
+    #             quantileable,continuous,size,color,controls))
+    layout = row(create_figure(df, x, y,
+                               discrete, quantileable, continuous,
+                               size, color, controls))
 
 
     curdoc().add_root(layout)
@@ -133,12 +151,14 @@ def asset_crossfilter(output_by_assets,baseline):
     plot = curdoc()
     #plot.circle([1,2], [3,4])
     html = file_html(plot, CDN, "my plot")
-    file = open(baseline+"crossfilter_html.html","wb") #open file in binary mode
+    # open file in binary mode
+    file = open(baseline+"crossfilter_html.html","wb")
     file.writelines(html)
     file.close()
 
 
-def create_figure(df,x,y,discrete,quantileable,continuous,size,color,controls):
+def create_figure(df, x, y, discrete, quantileable,
+                  continuous, size, color, controls):
     xs = df[x.value].values
     ys = df[y.value].values
 
@@ -159,7 +179,8 @@ def create_figure(df,x,y,discrete,quantileable,continuous,size,color,controls):
     # kw['title'] = "Marginal Effective Tax Rates on Corporate Investments, 2016 Law"
     kw['title'] = "METRs on Corporate Investments, 2016 Law"
 
-    p = figure(plot_height=400, plot_width=600, tools='pan,box_zoom,reset,hover', **kw)
+    p = figure(plot_height=400, plot_width=600,
+               tools='pan,box_zoom,reset,hover', **kw)
     p.xaxis.axis_label = x_title
     p.yaxis.axis_label = y_title
 
@@ -178,7 +199,9 @@ def create_figure(df,x,y,discrete,quantileable,continuous,size,color,controls):
     if color.value != 'None':
         groups = pd.qcut(df[color.value].values, len(COLORS))
         c = [COLORS[xx] for xx in groups.codes]
-    p.circle(x=xs, y=ys, source=source, color=c, size=sz, line_color="white", alpha=0.6, hover_color='white', hover_alpha=0.5)
+    p.circle(x=xs, y=ys, source=source, color=c, size=sz,
+             line_color="white", alpha=0.6,
+             hover_color='white', hover_alpha=0.5)
 
     # p.title.text_color = "black"
     # p.title.text_font = "Georgia"
