@@ -39,6 +39,7 @@ def get_econ_depr():
 
     return econ_deprec_rates
 
+
 def calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system,
                         expense_inventory, expense_land, tax_methods,
                         financing_list, entity_list):
@@ -61,8 +62,9 @@ def calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system,
     gds = tax_deprec_rates['GDS Life']
     tax_deprec_rates['System'] = gds.apply(str_modified)
     tax_deprec_rates['System'].replace(deprec_system, inplace=True)
-    tax_deprec_rates.loc[tax_deprec_rates['System']=='ADS', 'Method'] = 'SL'
-    econ = tax_deprec_rates['System']=='Economic'
+    ads = tax_deprec_rates['System'] == 'ADS'
+    tax_deprec_rates.loc[ads, 'Method'] = 'SL'
+    econ = tax_deprec_rates['System'] == 'Economic'
     tax_deprec_rates.loc[econ, 'Method'] = 'Economic'
 
     # add bonus depreciation to tax deprec parameters dataframe
@@ -104,11 +106,13 @@ def calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system,
 
     return z
 
+
 def npv_tax_deprec(df, r, pi, tax_methods, financing_list, entity_list):
     """Depending on the method of depreciation, makes calls to either the
        straight line or declining balance calcs
 
-        :param tax_deprec: Contains the service lives and method of depreciation.
+        :param tax_deprec: Contains the service lives
+                           and method of depreciation.
         :param r: Discount rate
         :param bonus_deprec: Reform for bonus depreciation
         :param tax_methods: Rates of depreciation
@@ -125,20 +129,21 @@ def npv_tax_deprec(df, r, pi, tax_methods, financing_list, entity_list):
     db150 = df['Method'] == 'DB 150%'
     df_dbsl = dbsl(df.loc[db200 | db150].copy(),
                    r, financing_list, entity_list)
-    df_sl = sl(df.loc[df['Method']=='SL'].copy(),
+    sl = df['Method'] == 'SL'
+    df_sl = sl(df.loc[sl].copy(),
                r, financing_list, entity_list)
-    econ_col = df.loc[df['Method'] == 'Economic'].copy()
+    econ_col = df['Method'] == 'Economic'
+    econ_col = df.loc[econ_col].copy()
     df_econ = econ(econ_col, r, pi, financing_list, entity_list)
     exp = df.loc[df['Method'] == 'Expensing'].copy()
     df_expense = expensing(exp, r, financing_list, entity_list)
 
     # append gds and ads results
-    df_all = df_dbsl.append(df_sl.append(df_econ.append(df_expense,
-                                                        ignore_index=True),
-                                                        ignore_index=True),
-                                                        ignore_index=True)
+    df_all = pd.concat([df_dbsl, df_sl, df_econ, df_expense],
+                       ignore_index=True)
 
     return df_all
+
 
 def dbsl(df, r, financing_list, entity_list):
     """Makes the calculation for the declining balance method of depreciation.
@@ -156,25 +161,35 @@ def dbsl(df, r, financing_list, entity_list):
 
     """
     df['Y'] = df['GDS Life']
-    df['beta'] = df['b']/df['Y']
-    df['Y_star'] = ((((df['Y']-1)*(1-(1/df['b'])))*(df['bonus']!=0.)) +
-                    ((1-(df['bonus']!=0.))*(df['Y']*(1-(1/df['b'])))))
+    df['beta'] = df['b'] / df['Y']
+    df['Y_star'] = ((((df['Y'] - 1) * (1 - (1 / df['b']))) *
+                    (df['bonus'] != 0.)) +
+                    ((1 - (df['bonus'] != 0.)) * (df['Y'] *
+                     (1 - (1 / df['b'])))))
 
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
-            df['z'+entity_list[j]+financing_list[i]] = \
-                            df['bonus'] + ((1-df['bonus'])*(((df['beta']/\
-                                (df['beta']+r[i, j]))*(1-np.exp(-1*\
-                                    (df['beta']+r[i, j])*
-                               df['Y_star']))) +
-                           ((np.exp(-1*df['beta']*df['Y_star'])/\
-                            ((df['Y']-df['Y_star'])
-                               *r[i, j]))*(np.exp(-1*r[i, j]*df['Y_star'])-\
-                           np.exp(-1*r[i, j]*df['Y'])))))
+            zi = 'z' + entity_list[j] + financing_list[i]
+            bonus = df['bonus']
+            beta = df['beta']
+            Y_star = df['Y_star']
+            exp_y_star = np.exp(-1 * r[i, j] * Y_star)
+            exp_y = np.exp(-1 * r[i, j] * df['Y'])
+            beta_r = beta + r[i, j]
+            ratio = (beta / beta_r)
+            exp_minus_r = np.exp(-1 * beta_r * Y_star)
+            exp_minus = np.exp(-1 * beta * Y_star)
+            y_diff = df['Y'] - Y_star
+            divisor = (y_diff * r[i, j])
+            ratio_exp = ratio * (1 - exp_minus_r)
+            left = bonus + (1 - bonus) * ratio_exp
+            right = ((exp_minus / divisor) * (exp_y_star - exp_y))
+            df[zi] = left + right
 
     df.drop(['beta', 'Y', 'Y_star'], axis=1, inplace=True)
 
     return df
+
 
 def sl(df, r, financing_list, entity_list):
     """Makes the calculation for the straight line method of depreciation.
@@ -194,12 +209,14 @@ def sl(df, r, financing_list, entity_list):
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
             zi = 'z' + entity_list[j] + financing_list[i]
-            df[zi] = df['bonus'] + ((1 - df['bonus']) * \
-                     ((1-np.exp(-1*r[i, j]*df['Y']))/(r[i, j]*df['Y'])))
+            bonus = df['bonus']
+            df[zi] = bonus + ((1 - bonus) * ((1 - np.exp(-1 * r[i, j] *
+                              df['Y'])) / (r[i, j] * df['Y'])))
 
     df.drop(['Y'], axis=1, inplace=True)
 
     return df
+
 
 def expensing(df, r, financing_list, entity_list):
     """Makes the calculation for expensing.
@@ -209,9 +226,10 @@ def expensing(df, r, financing_list, entity_list):
     """
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
-            df['z'+entity_list[j]+financing_list[i]] = 1.
-
+            zi = 'z' + entity_list[j] + financing_list[i]
+            df[zi] = 1.
     return df
+
 
 def econ(df, r, pi, financing_list, entity_list):
     """Makes the calculation for economic depreciation.
@@ -222,14 +240,15 @@ def econ(df, r, pi, financing_list, entity_list):
         :type Y: int, float
         :type r: 3x2 array
         :type bonus_deprec: int, float
-        :returns: The net present value of straight line depreciation allowances
+        :returns: The net present value of straight line
+                  depreciation allowances
         :rtype: 96x3x2 array
 
     """
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
-            df['z'+entity_list[j]+financing_list[i]] = \
-                df['bonus'] + ((1-df['bonus'])*(((df['delta'])/\
-                               (df['delta']+r[i, j]-pi))))
-
+            zi = 'z' + entity_list[j] + financing_list[i]
+            bonus = df['bonus']
+            delta = df['delta']
+            df[zi] = bonus + ((1 - bonus) * ((delta / (delta + r[i, j] - pi))))
     return df
