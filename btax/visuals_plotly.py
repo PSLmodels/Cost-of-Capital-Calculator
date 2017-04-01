@@ -42,7 +42,7 @@ def asset_bubble(output_by_assets):
 
     df_all = output_by_assets.copy()
 
-    df = df_all[df_all['asset_category']!='Intellectual Property'].copy()
+    df = df_all[df_all['asset_category'] != 'Intellectual Property'].copy()
 
     # sort categories
     df['sort_order'] = df['asset_category']

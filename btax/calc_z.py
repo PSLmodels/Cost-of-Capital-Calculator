@@ -127,8 +127,8 @@ def npv_tax_deprec(df, r, pi, tax_methods, financing_list, entity_list):
                    r, financing_list, entity_list)
     df_sl = sl(df.loc[df['Method']=='SL'].copy(),
                r, financing_list, entity_list)
-    econ = df.loc[df['Method'] == 'Economic'].copy()
-    df_econ = econ(econ, r, pi, financing_list, entity_list)
+    econ_col = df.loc[df['Method'] == 'Economic'].copy()
+    df_econ = econ(econ_col, r, pi, financing_list, entity_list)
     exp = df.loc[df['Method'] == 'Expensing'].copy()
     df_expense = expensing(exp, r, financing_list, entity_list)
 
