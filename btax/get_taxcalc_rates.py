@@ -28,7 +28,8 @@ import taxcalc
 
 from taxcalc import *
 
-def get_calculator(baseline, calculator_start_year, reform=None, data=None,
+def get_calculator(baseline, calculator_start_year,
+                   reform=None, data=None,
                    weights=None, records_start_year=None):
     '''
     --------------------------------------------------------------------
@@ -50,12 +51,13 @@ def get_calculator(baseline, calculator_start_year, reform=None, data=None,
     # create a calculator
     policy1 = Policy()
     if data is not None:
-        records1 = Records(data=data, weights=weights, start_year=records_start_year)
+        records1 = Records(data=data, weights=weights,
+                           start_year=records_start_year)
     else:
         records1 = Records()
 
     if baseline:
-        #Should not be a reform if baseline is True
+        # Should not be a reform if baseline is True
         assert not reform
 
     if not baseline:
@@ -64,7 +66,8 @@ def get_calculator(baseline, calculator_start_year, reform=None, data=None,
     # the default set up increments year to 2013
     calc1 = Calculator(records=records1, policy=policy1)
 
-    # this increment_year function extrapolates all PUF variables to the next year
+    # This increment_year function extrapolates
+    # all PUF variables to the next year
     # so this step takes the calculator to the start_year
     for i in range(calculator_start_year-2013):
         calc1.increment_year()
@@ -87,17 +90,20 @@ def get_rates(baseline=False, start_year=2017, reform={}):
 
     OBJECTS CREATED WITHIN FUNCTION:
     micro_data_dict = dictionary, contains pandas dataframe for each year
-                      of budget window.  Dataframe contain mtrs, etrs, income variables, age
-                      from tax-calculator and PUF-CPS match
+                      of budget window.  Dataframe contain mtrs, etrs,
+                      income variables, age from tax-calculator and
+                      PUF-CPS match
 
     OUTPUT:
-        individual_rates: a dictionary of individual (IIT+payroll) marginal tax rates
+        individual_rates: a dictionary of individual (IIT+payroll)
+                          marginal tax rates
 
     RETURNS: individual_rates
     --------------------------------------------------------------------
     '''
 
-    calc1 = get_calculator(baseline=baseline, calculator_start_year=start_year,
+    calc1 = get_calculator(baseline=baseline,
+                           calculator_start_year=start_year,
                            reform=reform)
 
     # running all the functions and calculates taxes
@@ -125,7 +131,8 @@ def get_rates(baseline=False, start_year=2017, reform={}):
     # pension distributions
     # does PUF have e01500?  Do we want IRA distributions here?
     # Weird - I see e01500 in PUF, but error when try to call it
-    [mtr_fica_pension, mtr_iit_pension, mtr_combined_pension] = calc1.mtr('e01700')
+    e01700 = calc1.mtr('e01700')
+    [mtr_fica_pension, mtr_iit_pension, mtr_combined_pension] = e01700
     # mortgage interest and property tax deductions
     # do we also want mtg ins premiums here?
     # mtg interest
@@ -170,8 +177,8 @@ def get_rates(baseline=False, start_year=2017, reform={}):
                       * pos_ti * calc1.records.s006).sum())
 
 
-    individual_rates = {'tau_nc':tau_nc,'tau_div':tau_div,'tau_int':tau_int,
-                        'tau_scg':tau_scg,'tau_lcg':tau_lcg,'tau_td':tau_td,
-                        'tau_h':tau_h}
+    individual_rates = {'tau_nc': tau_nc,'tau_div': tau_div,'tau_int': tau_int,
+                        'tau_scg': tau_scg,'tau_lcg': tau_lcg,'tau_td': tau_td,
+                        'tau_h': tau_h}
     print(individual_rates)
     return individual_rates

@@ -34,7 +34,8 @@ def get_econ_depr():
                                       "Economic Depreciation Rate": "delta"},
                              inplace=True)
     econ_deprec_rates['Asset'] = econ_deprec_rates['Asset'].str.strip()
-    econ_deprec_rates['bea_asset_code'] = econ_deprec_rates['bea_asset_code'].str.strip()
+    bea = econ_deprec_rates['bea_asset_code']
+    econ_deprec_rates['bea_asset_code'] = bea.str.strip()
 
     return econ_deprec_rates
 
@@ -57,7 +58,8 @@ def calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system,
     tax_deprec_rates['Asset Type'] = tax_deprec_rates['Asset Type'].str.strip()
 
     # update tax_deprec_rates based on user defined parameters
-    tax_deprec_rates['System'] = tax_deprec_rates['GDS Life'].apply(str_modified)
+    gds = tax_deprec_rates['GDS Life']
+    tax_deprec_rates['System'] = gds.apply(str_modified)
     tax_deprec_rates['System'].replace(deprec_system, inplace=True)
     tax_deprec_rates.loc[tax_deprec_rates['System']=='ADS','Method'] = 'SL'
     econ = tax_deprec_rates['System']=='Economic'
@@ -77,7 +79,8 @@ def calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system,
     z = npv_tax_deprec(tax_deprec_rates, r, pi, tax_methods,
                        financing_list, entity_list)
 
-    # replace tax depreciation rates on land and inventories w/ zero - unless expense
+    # replace tax depreciation rates on land and
+    # inventories w/ zero - unless expense
     if expense_inventory:
         for i in range(r.shape[0]):
             for j in range(r.shape[1]):
@@ -182,7 +185,8 @@ def sl(df, r, financing_list, entity_list):
         :type Y: int, float
         :type r: 3x2 array
         :type bonus_deprec: int, float
-        :returns: The net present value of straight line depreciation allowances
+        :returns: The net present value of straight line
+                  depreciation allowances
         :rtype: 96x3x2 array
 
     """
@@ -225,6 +229,7 @@ def econ(df, r, pi, financing_list, entity_list):
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
             df['z'+entity_list[j]+financing_list[i]] = \
-                df['bonus'] + ((1-df['bonus'])*(((df['delta'])/(df['delta']+r[i,j]-pi))))
+                df['bonus'] + ((1-df['bonus'])*(((df['delta'])/\
+                               (df['delta']+r[i,j]-pi))))
 
     return df

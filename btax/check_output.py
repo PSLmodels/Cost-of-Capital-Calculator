@@ -2,10 +2,10 @@
 Check Final Outputs (check_output.py):
 -------------------------------------------------------------------------------
 
-This module loads in the baseline dataframe from a .pkl file and compares it to the
-newly created dataframe (also loaded from a .pkl file) to confirm that none of the final
-calculations have changed. The pandas method assert_frame_equal is used to perform the
-check. Last Updated 7/27/2016
+This module loads in the baseline dataframe from a .pkl file and compares it
+to the newly created dataframe (also loaded from a .pkl file) to confirm
+that none of the final calculations have changed. The pandas method
+assert_frame_equal is used to perform the check. Last Updated 7/27/2016
 """
 
 import os.path
