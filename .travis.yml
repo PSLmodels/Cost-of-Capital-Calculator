@@ -7,7 +7,7 @@ python:
   - "3.5"
 
 install:
-  - bash .travis_env_setup.sh
+  - source .travis_env_setup.sh
 
 script:
   - python -c "from btax import *" && echo B-Tax can be imported
