@@ -40,10 +40,11 @@ def CBO_compare(vars_by_asset):
     CBO_data.columns = [col.encode('ascii', 'ignore') for col in CBO_data]
     asset = ('Top page (Rows 3-35): Equipment        '
              'Bottom page (Rows 36-62): All Other ')
-    CBO_data.rename(columns={asset: 'Asset Type'}, inplace = True)
+    CBO_data.rename(columns={asset: 'Asset Type'}, inplace=True)
     CBO_data['Asset Type'] = CBO_data['Asset Type'].str.strip()
 
-    # creates a DataFrame for the intersection of the CBO and our calculations (joined on the asset name)
+    # creates a DataFrame for the intersection of the CBO and
+    # our calculations (joined on the asset name)
     CBO_v_OSPC = vars_by_asset.merge(CBO_data, how='inner', on='Asset Type',
                                      left_index=False, right_index=False,
                                      sort=False, copy=True)
@@ -52,7 +53,8 @@ def CBO_compare(vars_by_asset):
                  'rho_c_d', 'rho_c_e', 'rho_nc', 'metr_c', 'metr_c_d',
                  'metr_c_e', 'mettr_c', 'mettr_c_d', 'mettr_c_e', 'mettr_nc']
     CBO_list = [
-        'Economic deprecia- tion rate []','Corporate: total [z(c)]',
+        'Economic deprecia- tion rate []',
+        'Corporate: total [z(c)]',
         'Corporate: debt-financed [z(c,d)]',
         'Corporate: equity-financed [z(c,e)]',
         'Non-corporate [z(n)]',
@@ -70,15 +72,17 @@ def CBO_compare(vars_by_asset):
     ]
     CBO_v_OSPC = CBO_v_OSPC.T.drop_duplicates().T
 
-    # compares the CBO's calculations with our calculations and calculates the difference
+    # compares the CBO's calculations with our calculations
+    # and calculates the difference
     diff_list = [None] * len(OSPC_list)
     for i in xrange(0, len(OSPC_list)):
-        CBO_v_OSPC[OSPC_list[i]+'_diff'] = CBO_v_OSPC[OSPC_list[i]] - CBO_v_OSPC[CBO_list[i]]
-        diff_list[i] = OSPC_list[i]+'_diff'
+        diff = CBO_v_OSPC[OSPC_list[i]] - CBO_v_OSPC[CBO_list[i]]
+        CBO_v_OSPC[OSPC_list[i] + '_diff'] = diff
+        diff_list[i] = OSPC_list[i] + '_diff'
 
     # prints the comparison data
-    cols_to_print = ['Asset Type']+OSPC_list + CBO_list + diff_list
+    cols_to_print = ['Asset Type'] + OSPC_list + CBO_list + diff_list
 
-    CBO_v_OSPC.to_csv(_OUT_DIR+'/CBO_v_OSPC.csv',
+    CBO_v_OSPC.to_csv(os.path.join(_OUT_DIR, 'CBO_v_OSPC.csv'),
                       columns=cols_to_print,
                       encoding='utf-8')

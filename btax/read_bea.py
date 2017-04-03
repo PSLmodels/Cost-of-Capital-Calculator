@@ -10,7 +10,7 @@ several different crosswalks are used to match the data. The majority
 of the script takes these crosswalks and creates dictionaries to map the
 codes. Last updated 7/27/2016
 """
-# Packages:
+
 import os.path
 import pickle
 
@@ -39,7 +39,8 @@ def fixed_assets(soi_data):
 
         :param entity_dfs: Contains all the soi data by entity type
         :type entity_dfs: dictionary
-        :returns: Fixed asset data organized by industry, entity, and asset type
+        :returns: Fixed asset data organized by
+                  industry, entity, and asset type
         :rtype: dictionary
     """
     # Read in BEA fixed asset table
@@ -50,17 +51,17 @@ def fixed_assets(soi_data):
     bea_FA.reset_index(drop=True, inplace=True)
     bea_FA.rename(columns={"2013": "assets"}, inplace=True)
     bea_FA['assets'] = bea_FA['assets'] * _BEA_IN_FILE_FCTR
-    bea_FA['bea_asset_code'] = bea_FA.long_code.str[-6:-2]
-    bea_FA['bea_ind_code'] = bea_FA.long_code.str[3:7]
+    bea_FA['bea_asset_code'] = bea_FA.long_code.str[-6: -2]
+    bea_FA['bea_ind_code'] = bea_FA.long_code.str[3: 7]
     bea_FA['bea_asset_code'] = bea_FA['bea_asset_code'].str.strip()
 
     # Read in BEA asset names
     bea_asset_names = pd.read_excel(_BEA_ASSET_PATH,
-        sheetname="110C",
-        header=5,
-        converters={'Asset Codes': str})
+                                    sheetname="110C",
+                                    header=5,
+                                    converters={'Asset Codes': str})
     bea_asset_names = bea_asset_names[['Asset Codes', 'NIPA Asset Types']]
-    bea_asset_names.dropna(subset = ['Asset Codes'], inplace=True)
+    bea_asset_names.dropna(subset=['Asset Codes'], inplace=True)
     bea_asset_names.rename(columns={"Asset Codes": "bea_asset_code",
                                     "NIPA Asset Types": "Asset Type"},
                            inplace=True)
@@ -71,16 +72,14 @@ def fixed_assets(soi_data):
 
     # Merge asset names to asset data
     bea_FA = pd.merge(bea_FA, bea_asset_names,
-        how='inner', on=['bea_asset_code'],
-        left_index=False, right_index=False, sort=False,
-        copy=True)
-
-
+                      how='inner', on=['bea_asset_code'],
+                      left_index=False, right_index=False, sort=False,
+                      copy=True)
     # Read in BEA industry names
     bea_ind_names = pd.read_excel(_BEA_ASSET_PATH, sheetname="readme",
                                   converters={'BEA CODE': str}, header=14)
     bea_ind_names = bea_ind_names[['INDUSTRY TITLE ', 'BEA CODE']]
-    bea_ind_names.dropna(subset = ['BEA CODE'], inplace=True)
+    bea_ind_names.dropna(subset=['BEA CODE'], inplace=True)
     bea_ind_names.rename(columns={"INDUSTRY TITLE ": "Industry",
                                   "BEA CODE": "bea_ind_code"}, inplace=True)
 
@@ -92,7 +91,7 @@ def fixed_assets(soi_data):
 
     # Read in cross-walk between IRS and BEA Industries
     soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS,
-                                    dtype={'bea_ind_code':str},
+                                    dtype={'bea_ind_code': str},
                                     encoding='utf-8')
     soi_bea_ind_codes.drop('notes', axis=1, inplace=True)
 
@@ -110,27 +109,29 @@ def fixed_assets(soi_data):
     keep2 = ['minor_code_alt', 'Fixed Assets', 'Land',
              'entity_type', 'tax_treat', 'part_type']
     soi_data = soi_data[keep2].copy()
-    bea_FA= pd.merge(bea_FA, soi_data,
-        how='right', left_on=['minor_code_alt'],
-        right_on=['minor_code_alt'], left_index=False,
-        right_index=False, sort=False,
-        copy=True, indicator=False)
+    bea_FA = pd.merge(bea_FA, soi_data,
+                      how='right', left_on=['minor_code_alt'],
+                      right_on=['minor_code_alt'], left_index=False,
+                      right_index=False, sort=False,
+                      copy=True, indicator=False)
 
     assets = bea_FA.groupby(['bea_ind_code', 'bea_asset_code'])['Fixed Assets']
-    bea_FA['FA_ratio'] = assets.apply(lambda x: x/float(x.sum()))
-    bea_FA['assets'] = bea_FA['FA_ratio']*bea_FA['assets']
+    bea_FA['FA_ratio'] = assets.apply(lambda x: x / float(x.sum()))
+    bea_FA['assets'] = bea_FA['FA_ratio'] * bea_FA['assets']
 
-    ## Totals match up w/in rounding error of BEA if exclude Fed banks (who are
+    # Totals match up w/in rounding error of BEA if exclude Fed banks (who are
     # not in tax data, so we want to exclude), BEA industry code 5120.
 
     return bea_FA
+
 
 def inventories(soi_data):
     """Opens the BEA workbook and pulls out the asset info
 
         :param entity_dfs: Contains all the soi data by entity type
         :type entity_dfs: dictionary
-        :returns: Fixed asset data organized by industry, entity, and asset type
+        :returns: Fixed asset data organized by industry,
+                  entity, and asset type
         :rtype: dictionary
     """
     # Read in BEA fixed asset table
@@ -144,8 +145,8 @@ def inventories(soi_data):
                                     skip_footer=4)
     bea_inventories.reset_index()
     bea_inventories = bea_inventories[['Unnamed: 1', 'IV.1']].copy()
-    bea_inventories.rename(columns={"Unnamed: 1":"bea_inv_name",
-                               "IV.1": "BEA Inventories"}, inplace=True)
+    bea_inventories.rename(columns={"Unnamed: 1": "bea_inv_name",
+                                    "IV.1": "BEA Inventories"}, inplace=True)
     bea = bea_inventories['bea_inv_name']
     bea_inventories['bea_inv_name'] = bea.str.strip()
     inv = bea_inventories['BEA Inventories']
@@ -153,21 +154,21 @@ def inventories(soi_data):
 
     # Merge inventories data to SOI data
     bea_inventories = pd.merge(bea_inventories, soi_data,
-        how='right', left_on=['bea_inv_name'],
-        right_on=['bea_inv_name'], left_index=False,
-        right_index=False, sort=False,
-        copy=True, indicator=False)
+                               how='right', left_on=['bea_inv_name'],
+                               right_on=['bea_inv_name'], left_index=False,
+                               right_index=False, sort=False,
+                               copy=True, indicator=False)
 
     # attribute BEA inventories across SOI minor industries
     bea = bea_inventories.groupby(['bea_inv_name'])
-    norm = lambda x: x / float(x.sum())
-    bea_inventories['bea_ratio'] = bea['Inventories'].apply(norm)
+    bea_inventories['bea_ratio'] = bea['Inventories'].apply(x / float(x.sum()))
     bea = bea_inventories['bea_ratio']
     inv = bea_inventories['BEA Inventories']
     bea_inventories['BEA Inventories'] = bea * inv
     # the above hit the bea control totals
 
     return bea_inventories
+
 
 def land(soi_data, bea_FA):
     """Opens the BEA workbook and pulls out the asset info
@@ -181,28 +182,27 @@ def land(soi_data, bea_FA):
     # for now, don't read in land data from excel file since too simple,
     # but need to update this
     # what fin accounts data is this from??
-    corp_land = 2875.0*_FIN_ACCT_FILE_FCTR
-    noncorp_land = 13792.4*_FIN_ACCT_FILE_FCTR
+    corp_land = 2875.0 * _FIN_ACCT_FILE_FCTR
+    noncorp_land = 13792.4 * _FIN_ACCT_FILE_FCTR
 
-    #read in BEA data on residential fixed assets
+    # read in BEA data on residential fixed assets
     bea_residential = pd.read_excel(_BEA_RES,
                                     sheetname="Sheet0",
                                     skiprows=5,
                                     skip_footer=2)
     bea_residential.reset_index()
     bea_residential = bea_residential[[u'\xa0', '2013']].copy()
-    bea_residential.rename(columns={u"\xa0":"entity_type",
-                               "2013": "Fixed Assets"}, inplace=True)
+    bea_residential.rename(columns={u"\xa0": "entity_type",
+                                    "2013": "Fixed Assets"}, inplace=True)
     bea_residential['Fixed Assets'] *= _BEA_INV_RES_FCTR
     bea_residential['entity_type'] = bea_residential['entity_type'].str.strip()
-    house = bea_residential['entity_type']=='Households'
+    house = bea_residential['entity_type'] == 'Households'
     owner_occ_house_FA = np.array(bea_residential.ix[house, 'Fixed Assets'])
-    corp = bea_residential['entity_type']=='Corporate'
+    corp = bea_residential['entity_type'] == 'Corporate'
     corp_res_FA = np.array(bea_residential.ix[corp, 'Fixed Assets'])
     ent = bea_residential['entity_type']
     sole = ent == 'Sole proprietorships and partnerships'
     noncorp_res_FA = np.array(bea_residential.ix[sole, 'Fixed Assets'])
-
 
     # read in Financial Accounts data on total value of real estate in
     # owner occ sector (includes land and structures)
@@ -211,8 +211,8 @@ def land(soi_data, bea_FA):
                        encoding='utf-8')
     b101.reset_index()
     b101 = b101[['Unnamed: 0', '2013']].copy()
-    b101.rename(columns={"Unnamed: 0":"Variable",
-                               "2013": "Value"}, inplace=True)
+    b101.rename(columns={"Unnamed: 0": "Variable",
+                         "2013": "Value"}, inplace=True)
     b101['Value'] *= _FIN_ACCT_FILE_FCTR
     b101['Variable'] = b101['Variable'].str.strip()
     household = ('Households; owner-occupied real estate including vacant '
@@ -225,17 +225,17 @@ def land(soi_data, bea_FA):
 
     # create dictionary for owner-occupied housing to be appended to
     # final dataset with all assets
-    owner_occ_dict = {'minor_code_alt':[531115, 531115],
-                      'entity_type':['owner_occupied_housing',
-                                     'owner_occupied_housing'],
-                      'tax_treat':['owner_occupied_housing',
-                                   'owner_occupied_housing'],
-                      'assets':[np.asscalar(owner_occ_house_FA),
-                                np.asscalar(owner_occ_house_land)],
-                      'Asset Type':['Residential',
-                                    'Land'],
-                                    'bea_ind_code': [5310, 5310],
-                      'bea_asset_code':['RES', 'LAND']}
+    owner_occ_dict = {'minor_code_alt': [531115, 531115],
+                      'entity_type': ['owner_occupied_housing',
+                                      'owner_occupied_housing'],
+                      'tax_treat': ['owner_occupied_housing',
+                                    'owner_occupied_housing'],
+                      'assets': [np.asscalar(owner_occ_house_FA),
+                                 np.asscalar(owner_occ_house_land)],
+                      'Asset Type': ['Residential',
+                                     'Land'],
+                      'bea_ind_code': [5310, 5310],
+                      'bea_asset_code': ['RES', 'LAND']}
 
     # Update amout of land for non-corporate sector
     noncorp_land -= owner_occ_house_land
@@ -243,24 +243,26 @@ def land(soi_data, bea_FA):
     # Attribute land across tax treatment and industry using SOI data
     bea_land = soi_data.copy()
     bea_land.loc[:, 'BEA Land'] = noncorp_land
-    s_corp = bea_land['entity_type']=='s_corp'
+    s_corp = bea_land['entity_type'] == 's_corp'
     bea_land.ix[s_corp, 'BEA Land'] = corp_land
-    c_corp = bea_land['entity_type']=='c_corp'
+    c_corp = bea_land['entity_type'] == 'c_corp'
     bea_land.ix[c_corp, 'BEA Land'] = corp_land
     bea_land['BEA Corp'] = False
     bea_land.ix[s_corp, 'BEA Corp'] = True
     bea_land.ix[c_corp, 'BEA Corp'] = True
-    norm = lambda x: x / float(x.sum())
-    bea_land['land_ratio'] = bea_land.groupby(['BEA Corp'])['Land'].apply(norm)
+    land_group = bea_land.groupby(['BEA Corp'])['Land']
+    bea_land['land_ratio'] = land_group.apply(x / float(x.sum()))
     bea_land['BEA Land'] = bea_land['land_ratio'] * bea_land['BEA Land']
     bea_land = bea_land[['BEA Land', 'entity_type', 'tax_treat', 'bea_code',
                          'minor_code_alt', 'part_type']].copy()
 
-    # total land attributed above matches Fin Accts totals for non-owner occ housing
+    # total land attributed above matches Fin Accts totals
+    # for non-owner occ housing
 
     # attribute residential fixed assets across tax treatment (they all go to
     # one specific production sector)
-    # attribute residential structures across entity types in proportion to land
+    # attribute residential structures across entity types
+    # in proportion to land
     bea_res_assets = bea_FA[bea_FA['minor_code_alt'] == 531115].copy()
     bea_res_assets.drop_duplicates(subset=['minor_code_alt', 'entity_type',
                                            'part_type', 'tax_treat',
@@ -269,10 +271,10 @@ def land(soi_data, bea_FA):
             'tax_treat', 'bea_ind_code']
     bea_res = bea_res_assets.groupby(cols)['Land'].sum()
     bea_res_assets = pd.DataFrame(bea_res).reset_index()
-    bea_res_assets.loc[:,'BEA Res Assets'] = noncorp_res_FA
-    s_corp = bea_res_assets['entity_type']=='s_corp'
+    bea_res_assets.loc[:, 'BEA Res Assets'] = noncorp_res_FA
+    s_corp = bea_res_assets['entity_type'] == 's_corp'
     bea_res_assets.ix[s_corp, 'BEA Res Assets'] = corp_res_FA
-    c_corp = bea_res_assets['entity_type']=='c_corp'
+    c_corp = bea_res_assets['entity_type'] == 'c_corp'
     bea_res_assets.ix[c_corp, 'BEA Res Assets'] = corp_res_FA
     bea_res_assets['BEA Corp'] = False
     bea_res_assets.ix[s_corp, 'BEA Corp'] = True
@@ -288,7 +290,7 @@ def land(soi_data, bea_FA):
     bea_res_assets['bea_asset_code'] = 'RES'
     assets = ['Asset Type', 'bea_asset_code',
               'bea_ind_code', 'minor_code_alt',
-              'entity_type', 'tax_treat', 'part_type', 'assets',]
+              'entity_type', 'tax_treat', 'part_type', 'assets', ]
     bea_res_assets = bea_res_assets[assets].copy()
 
     return bea_land, bea_res_assets, owner_occ_dict
@@ -299,18 +301,19 @@ def combine(fixed_assets, inventories, land, res_assets, owner_occ_dict):
 
         :param entity_dfs: Contains all the soi data by entity type
         :type entity_dfs: dictionary
-        :returns: Fixed asset data organized by industry, entity, and asset type
+        :returns: Fixed asset data organized by industry,
+                  entity, and asset type
         :rtype: dictionary
     """
     cols = ['assets', 'bea_asset_code', 'bea_ind_code',
             'Asset Type', 'minor_code_alt', 'entity_type',
-            'part_type', 'tax_treat',]
+            'part_type', 'tax_treat', ]
     fixed_assets = fixed_assets[cols].copy()
     cols = ['BEA Inventories', 'minor_code_alt', 'entity_type',
             'part_type', 'tax_treat', 'bea_code']
     inventories = inventories[cols].copy()
     columns = {"BEA Inventories": "assets",
-               "bea_code": "bea_ind_code",}
+               "bea_code": "bea_ind_code", }
     inventories.rename(columns=columns, inplace=True)
     inventories['Asset Type'] = 'Inventories'
     inventories['bea_asset_code'] = 'INV'
@@ -340,9 +343,9 @@ def combine(fixed_assets, inventories, land, res_assets, owner_occ_dict):
                                   header=14)
     cols = ['INDUSTRY TITLE ', 'BEA CODE']
     bea_ind_names = bea_ind_names[cols]
-    bea_ind_names.dropna(subset = ['BEA CODE'], inplace=True)
+    bea_ind_names.dropna(subset=['BEA CODE'], inplace=True)
     columns = {"INDUSTRY TITLE ": "Industry",
-               "BEA CODE": "bea_ind_code",}
+               "BEA CODE": "bea_ind_code", }
     bea_ind_names.rename(columns=columns, inplace=True)
     asset_data = pd.merge(asset_data, bea_ind_names,
                           how='left', on=['bea_ind_code'],

@@ -46,7 +46,6 @@ asset_categories_for_print = {
     'Intellectual Property': 'Intellectual Property',
 }
 
-
 asset_category_order = {
     'Computers and Software': 1,
     'Instruments and Communications Equipment': 2,
@@ -61,7 +60,6 @@ asset_category_order = {
     'Other Structures': 11,
     'Intellectual Property': 12,
 }
-
 # Drop cetain  IP assets until we get tax deprec better specified
 IP_list = ['Scientific research and development services',
            'Software publishers',
@@ -74,8 +72,7 @@ IP_list = ['Scientific research and development services',
            'Long-lived television programs',
            'Books',
            'Music',
-           'Other entertainment originals',]
-
+           'Other entertainment originals', ]
 '''
 ------------------------------------------
 Plot results
@@ -174,9 +171,6 @@ def create_figure(df, x, y, discrete, quantileable,
         kw['x_range'] = sorted(set(xs))
     if y.value in discrete:
         kw['y_range'] = sorted(set(ys))
-    # kw['title'] = "%s vs %s" % (x_title, y_title)
-    #kw['title'] = "Marginal Effective Tax Rates on Typically Financed Corporate Investments, 2016 Law"
-    # kw['title'] = "Marginal Effective Tax Rates on Corporate Investments, 2016 Law"
     kw['title'] = "METRs on Corporate Investments, 2016 Law"
 
     p = figure(plot_height=400, plot_width=600,

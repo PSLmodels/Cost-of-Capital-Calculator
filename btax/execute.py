@@ -48,12 +48,12 @@ TABLE_ORDER = ['base_output_by_asset',
                'changed_output_by_asset',
                'base_output_by_industry',
                'reform_output_by_industry',
-               'changed_output_by_industry',]
+               'changed_output_by_industry',
+               ]
 
 ModelDiffs = namedtuple('ModelDiffs', TABLE_ORDER + ['row_grouping'])
 
 ASSET_PRE_CACHE_FILE = 'asset_data.pkl'
-
 
 
 def runner(test_run, start_year, iit_reform, **user_params):
@@ -74,7 +74,7 @@ def runner(test_run, start_year, iit_reform, **user_params):
         asset, cat = map(replace_unicode_spaces, (asset, cat))
         item = {'major_grouping': cat,
                 'summary_c': mettr_c,
-                'summary_nc': mettr_nc,}
+                'summary_nc': mettr_nc}
         asset_row_grouping[cat] = asset_row_grouping[asset] = item
     industry_row_grouping = {}
     inds = ('Industry', 'major_industry', 'mettr_c', 'mettr_nc')
@@ -83,7 +83,7 @@ def runner(test_run, start_year, iit_reform, **user_params):
         industry, cat = map(replace_unicode_spaces, (industry, cat))
         item = {'major_grouping': cat,
                 'summary_c': mettr_c,
-                'summary_nc': mettr_nc,}
+                'summary_nc': mettr_nc}
         industry_row_grouping[cat] = industry_row_grouping[industry] = item
     row_grouping = {'asset': asset_row_grouping,
                     'industry': industry_row_grouping}
@@ -93,9 +93,9 @@ def runner(test_run, start_year, iit_reform, **user_params):
                                                                  iit_reform,
                                                                  **user_params)
     changed_output_by_asset = diff_two_tables(reform_output_by_asset,
-                                            base_output_by_asset)
+                                              base_output_by_asset)
     changed_output_by_industry = diff_two_tables(reform_output_by_industry,
-                                               base_output_by_industry)
+                                                 base_output_by_industry)
 
     # create plots
     # by asset
@@ -116,8 +116,6 @@ def runner(test_run, start_year, iit_reform, **user_params):
         reform_output_by_asset.to_csv('reform_byasset.csv',
                                       encoding='utf-8')
 
-
-
     return ModelDiffs(base_output_by_asset,
                       reform_output_by_asset,
                       changed_output_by_asset,
@@ -125,8 +123,6 @@ def runner(test_run, start_year, iit_reform, **user_params):
                       reform_output_by_industry,
                       changed_output_by_industry,
                       row_grouping)
-
-
 
 
 def main():

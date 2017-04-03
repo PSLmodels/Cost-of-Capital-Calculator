@@ -48,7 +48,7 @@ TABLE_ORDER = ['base_output_by_asset',
                'changed_output_by_asset',
                'base_output_by_industry',
                'reform_output_by_industry',
-               'changed_output_by_industry',]
+               'changed_output_by_industry', ]
 
 ModelDiffs = namedtuple('ModelDiffs', TABLE_ORDER + ['row_grouping'])
 
@@ -56,16 +56,17 @@ ASSET_PRE_CACHE_FILE = 'asset_data.pkl'
 
 RESULTS_TO_CSV = bool(int(os.environ.get('BTAX_TABLES_TO_CSV', 0)))
 
+
 def run_btax(test_run, baseline=False,
              start_year=DEFAULT_START_YEAR,
              iit_reform=None,
              **user_params):
     """Runner script that kicks off the calculations for B-Tax
 
-	:param user_params: The user input for implementing reforms
-	:type user_params: dictionary
-	:returns: METR (by industry and asset) and METTR (by asset)
-	:rtype: DataFrame
+    :param user_params: The user input for implementing reforms
+    :type user_params: dictionary
+    :returns: METR (by industry and asset) and METTR (by asset)
+    :rtype: DataFrame
     """
     calc_assets = False
 
@@ -95,7 +96,7 @@ def run_btax(test_run, baseline=False,
                                           owner_occ_dict)
             # save result to pickle so don't have to do this everytime
             print('Dump', ASSET_PRE_CACHE_FILE)
-            pickle.dump(asset_data, open(ASSET_PRE_CACHE_FILE, "wb" ) )
+            pickle.dump(asset_data, open(ASSET_PRE_CACHE_FILE, "wb"))
             break
         else:
             try:
@@ -110,10 +111,10 @@ def run_btax(test_run, baseline=False,
         raise
     # get parameters
     parameters = params.get_params(test_run, baseline, start_year,
-                                  iit_reform, **user_params)
+                                   iit_reform, **user_params)
 
     # make calculations by asset and create formated output
-    output_by_asset = calc_final_outputs.asset_calcs(parameters,asset_data)
+    output_by_asset = calc_final_outputs.asset_calcs(parameters, asset_data)
 
     # make calculations by industry and create formated output
     output_by_industry = calc_final_outputs.industry_calcs(parameters,
@@ -123,12 +124,13 @@ def run_btax(test_run, baseline=False,
     # drop delta variables - UI can't acccept them
     output_by_asset = output_by_asset.drop('delta', 1)
     # drop delta variables - UI can't acccept them
-    output_by_industry = output_by_industry.drop(['delta_c','delta_nc'], 1)
+    output_by_industry = output_by_industry.drop(['delta_c', 'delta_nc'], 1)
 
     return output_by_asset, output_by_industry
 
 
-def run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params):
+def run_btax_with_baseline_delta(test_run, start_year,
+                                 iit_reform, **user_params):
     econ_params = filter_user_params_for_econ(**user_params)
     base_output_by_asset, base_output_by_industry = run_btax(test_run, True,
                                                              start_year, {},
@@ -144,7 +146,7 @@ def run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params):
         asset, cat = map(replace_unicode_spaces, (asset, cat))
         item = {'major_grouping': cat,
                 'summary_c': mettr_c,
-                'summary_nc': mettr_nc,}
+                'summary_nc': mettr_nc, }
         asset_row_grouping[cat] = asset_row_grouping[asset] = item
     industry_row_grouping = {}
     cols = ('Industry', 'major_industry', 'mettr_c', 'mettr_nc')
@@ -153,7 +155,7 @@ def run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params):
         industry, cat = map(replace_unicode_spaces, (industry, cat))
         item = {'major_grouping': cat,
                 'summary_c': mettr_c,
-                'summary_nc': mettr_nc,}
+                'summary_nc': mettr_nc, }
         industry_row_grouping[cat] = industry_row_grouping[industry] = item
     row_grouping = {'asset': asset_row_grouping,
                     'industry': industry_row_grouping}
@@ -163,15 +165,15 @@ def run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params):
                                                                  iit_reform,
                                                                  **user_params)
     changed_output_by_asset = diff_two_tables(reform_output_by_asset,
-                                            base_output_by_asset)
+                                              base_output_by_asset)
     changed_output_by_industry = diff_two_tables(reform_output_by_industry,
-                                               base_output_by_industry)
+                                                 base_output_by_industry)
 
     # create plots
     # by asset
-    #visuals.asset_crossfilter(base_output_by_asset,'baseline')
-    #visuals.asset_crossfilter(reform_output_by_asset,'reform')
-    #visuals_plotly.asset_bubble(output_by_asset)
+    # visuals.asset_crossfilter(base_output_by_asset,'baseline')
+    # visuals.asset_crossfilter(reform_output_by_asset,'reform')
+    # visuals_plotly.asset_bubble(output_by_asset)
 
     # save output to csv - useful if run locally
     if RESULTS_TO_CSV:
@@ -189,8 +191,6 @@ def run_btax_with_baseline_delta(test_run,start_year,iit_reform,**user_params):
                                           encoding='utf-8')
         changed_output_by_asset.to_csv('changed_byasset.csv',
                                        encoding='utf-8')
-
-
 
     return ModelDiffs(base_output_by_asset,
                       reform_output_by_asset,

@@ -38,8 +38,6 @@ def pull_soi_data():
 
     entity_dfs.update(prop.load_proprietorship_data(entity_dfs))
 
-
-
     # make one big data frame - by industry and entity type
     cols = ['minor_code_alt', 'Land', 'Fixed Assets', 'Inventories']
     c_corp = entity_dfs['c_corp'][cols].copy()
@@ -58,9 +56,10 @@ def pull_soi_data():
 
     # Merge to industry codes xwalk, which will be helpful when merging with
     # BEA data
-    ## create ratios for minor industry assets using corporate data
+    # create ratios for minor industry assets using corporate data
     # read in crosswalk for bea and soi industry codes
-    soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS, dtype={'bea_ind_code':str})
+    soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS,
+                                    dtype={'bea_ind_code': str})
     soi_bea_ind_codes.drop('notes', axis=1, inplace=True)
     # drop one repeated minor ind code in crosswalk
     soi_bea_ind_codes.drop_duplicates(subset=['minor_code_alt'], inplace=True)
@@ -68,13 +67,19 @@ def pull_soi_data():
     soi_data['tax_treat'] = 'non-corporate'
     c_corp = soi_data['entity_type'] == 'c_corp'
     soi_data.ix[c_corp, 'tax_treat'] = 'corporate'
-    soi_data.ix[(soi_data['entity_type'] == 'partnership') &
-                (soi_data['part_type'] == 'Corporate general partners'), 'tax_treat'] = 'corporate'
-    soi_data.ix[(soi_data['entity_type'] == 'partnership') &
-                (soi_data['part_type'] == 'Corporate limited partners'), 'tax_treat'] = 'corporate'
+    eq_gen_part = soi_data['part_type'] == 'Corporate general partners'
+
+    soi_data['tax_treat'] = 'non-corporate'
+    partnership = soi_data['entity_type'] == 'partnership'
+    gen_partners = soi_data['part_type'] == 'Corporate general partners'
+    limited = soi_data['part_type'] == 'Corporate limited partners'
+    c_corp = soi_data['entity_type'] == 'c_corp'
+    soi_data.ix[c_corp, 'tax_treat'] = 'corporate'
+    soi_data.ix[partnership & gen_partners, 'tax_treat'] = 'corporate'
+    soi_data.ix[partnership & limited, 'tax_treat'] = 'corporate'
     soi_data = pd.merge(soi_data, soi_bea_ind_codes,
                         how='left', left_on=['minor_code_alt'],
                         right_on=['minor_code_alt'], left_index=False,
-                        right_index=False, sort=False, copy=True)
-
+                        right_index=False, sort=False,
+                        copy=True)
     return soi_data

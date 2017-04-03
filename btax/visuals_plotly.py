@@ -27,6 +27,7 @@ Plot results
 
 SIZES = list(range(6, 22, 3))
 
+
 def asset_bubble(output_by_assets):
     """Creates a crossfilter bokeh plot of results by asset
 
@@ -49,7 +50,6 @@ def asset_bubble(output_by_assets):
     df['sort_order'].replace(asset_category_order, inplace=True)
     df.sort_values(by="sort_order", axis=0, ascending=True, inplace=True)
     df.reset_index(inplace=True)
-
 
     # update asset_category names for better printing
     df['asset_category'].replace(asset_categories_for_print, inplace=True)

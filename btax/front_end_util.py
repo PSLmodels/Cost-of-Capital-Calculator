@@ -121,7 +121,7 @@ BTAX_TABLE_INDUSTRY_ORDER = (
 # If any minor headings are needed, such as "Durable goods",
 # put them in "breaks" below
 BTAX_TABLE_BREAKS = {'industry': ['Durable goods', 'Nondurable goods'],
-                     'asset': [],}
+                     'asset': []}
 SPACES = (u'\xa0', u'\u00a0', u' ')
 
 
@@ -129,6 +129,7 @@ ASSET_COL_META = dict(DEFAULT_ASSET_COLS)
 INDUSTRY_COL_META = dict(DEFAULT_INDUSTRY_COLS)
 
 DO_ASSERTIONS = int(os.environ.get('BTAX_TABLE_ASSERTIONS', False))
+
 
 def runner_json_tables(test_run=False,
                        start_year=2016,
@@ -147,7 +148,7 @@ def runner_json_tables(test_run=False,
             for k, v in tab.items():
                 for k2, v2 in v.items():
                     k1 = 'asset_{}'.format(k)
-                    if not k1 in tables:
+                    if k1 not in tables:
                         tables[k1] = {}
                     tables[k1][k2] = v2
         elif 'industry' in table_name:
@@ -155,7 +156,7 @@ def runner_json_tables(test_run=False,
             for k, v in tab.items():
                 for k2, v2 in v.items():
                     k1 = 'industry_{}'.format(k)
-                    if not k1 in tables:
+                    if k1 not in tables:
                         tables[k1] = {}
                     tables[k1][k2] = v2
         else:
@@ -176,9 +177,9 @@ def add_summary_rows_and_breaklines(results, first_budget_year,
                          if k.startswith(('asset_', 'industry_'))}
     row_grouping = results.get('row_grouping', {})
     tables = {k: results[k] for k in (set(results) - set(tables_to_process))}
-    stats = defaultdict(lambda:defaultdict(lambda:{}))
+    stats = defaultdict(lambda: defaultdict(lambda: {}))
     for upper_key, table_data0 in tables_to_process.items():
-        if not upper_key in tables:
+        if upper_key not in tables:
             tables[upper_key] = {}
         for table_id, table_data in table_data0.items():
             col_labels = list(table_data.columns)
@@ -347,7 +348,6 @@ def output_by_industry_to_json_table(df, table_name):
                                     table_name, 'Industry')
 
 
-
 def assertions_on_stats(stats):
     """run assertions on stats accumulated while making tables
 
@@ -364,7 +364,7 @@ def assertions_on_stats(stats):
         # For each summary row
         # (v[True] means summaries, v[False] means data rows)
         for col_idx, compare in v[True].items():
-            #Ensure we always have min and max
+            # Ensure we always have min and max
             assert len(compare) == 2
             # If it is a summary row, assert max
             # of rows is equal to min of rows (zero variance
@@ -378,11 +378,13 @@ def assertions_on_stats(stats):
                 check1 = vals[0] <= compare[0]
                 check2 = vals[1] >= compare[0]
                 check3 = vals[0] == vals[1]
-                assert check1 and check2 or check3, repr((group, vals, compare))
+                info = repr((group, vals, compare))
+                assert check1 and check2 or check3, info
             else:
                 # the summary row is the only one in the group
                 # E.g. Construction
                 pass
+
 
 def replace_unicode_spaces(s):
     for space in SPACES:

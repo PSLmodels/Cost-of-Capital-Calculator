@@ -68,10 +68,10 @@ def load_partner_data(entity_dfs):
     # and land for parnterhsips
     xwalk = pd.read_csv(_DETAIL_PART_CROSS_PATH)
     xwalk.rename({k: str(k) for k in xwalk.columns}, inplace=True)
-    re_replace = lambda x: re.sub('[\s+]', '', x)
-    xwalk['Industry:'] = xwalk['Industry:'].apply(re_replace)
+    ind = xwalk['Industry:']
+    xwalk['Industry:'] = ind.apply(lambda x: re.sub('[\s+]', '', x))
     # keep only codes that help to identify complete industries
-    xwalk = xwalk[xwalk['complete'] ==1 ]
+    xwalk = xwalk[xwalk['complete'] == 1]
     # read in partner data - partner assets
     df = format_excel(pd.read_excel(_AST_FILE, skiprows=2, skip_footer=6))
     # Cuts off the repeated columns so only the data for
@@ -89,8 +89,7 @@ def load_partner_data(entity_dfs):
     df03 = df03[['Item', 'Fixed Assets', 'Inventories', 'Land']]
 
     df03['Item'] = df03['Item'].apply(re_replace)
-
-     # partner data - income
+    # partner data - income
     df01 = format_excel(pd.read_excel(_INC_FILE, skiprows=2, skip_footer=6))
     # Cuts off the repeated columns so only the data
     # for all partnerships remains
@@ -100,19 +99,19 @@ def load_partner_data(entity_dfs):
     df01.reset_index(inplace=True, drop=True)
     # Keep only variables of interest
     df01 = df01[['Item', 'Depreciation']]
-    #df01['Item'] = df01['Item'].str.strip()
+    # df01['Item'] = df01['Item'].str.strip()
     df01['Item old'] = df01['Item'].str.strip()
     df01['Item'] = df01['Item'].apply(re_replace)
 
-    # merge two partner data sources together so that all variables together
+    # Merge two partner data sources together so that all variables together
     df03 = pd.merge(df03, df01,
-        how='inner',
-        left_on=['Item'],
-        right_on=['Item'], left_index=False,
-        right_index=False, sort=False,
-        copy=True)
+                    how='inner',
+                    left_on=['Item'],
+                    right_on=['Item'], left_index=False,
+                    right_index=False, sort=False,
+                    copy=True)
 
-    # merge industry codes to partner data
+    # Merge industry codes to partner data
     df03 = pd.merge(df03, xwalk,
                     how='inner', left_on=['Item'],
                     right_on=['Industry:'], left_index=False,
@@ -125,9 +124,10 @@ def load_partner_data(entity_dfs):
     df03 = df03.groupby('INDY_CD', sort=False).sum()
     df03.reset_index(level=0, inplace=True)
 
-    ## create ratios for minor industry assets using corporate data
+    # Create ratios for minor industry assets using corporate data
     # read in crosswalk for bea and soi industry codes
-    soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS, dtype={'bea_ind_code': str})
+    soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS,
+                                    dtype={'bea_ind_code': str})
     soi_bea_ind_codes.columns = [to_str(c) for c in soi_bea_ind_codes.columns]
     soi_bea_ind_codes.drop('notes', axis=1, inplace=True)
     # drop one repeated minor ind code in crosswalk
@@ -155,7 +155,8 @@ def load_partner_data(entity_dfs):
                         copy=True, indicator=True)
     part_data = sector_df.append([major_df, minor_df],
                                  ignore_index=True).copy().reset_index()
-    part_data.drop(['bea_inv_name', 'bea_code', '_merge'], axis=1, inplace=True)
+    part_data.drop(['bea_inv_name', 'bea_code', '_merge'],
+                   axis=1, inplace=True)
 
     # merge codes to total corp data
     # inner join means that we keep only rows that match in both datasets
@@ -170,7 +171,7 @@ def load_partner_data(entity_dfs):
                     copy=True)
     for var in columns:
         v = corp.groupby(['major_code'])[var]
-        corp[var+'_ratio'] = v.apply(lambda x: x / float(x.sum()))
+        corp[var + '_ratio'] = v.apply(lambda x: x / float(x.sum()))
 
     corp.drop(['bea_inv_name', 'bea_code', 'sector_code',
                'minor_code'] + columns, axis=1, inplace=True)
@@ -184,13 +185,13 @@ def load_partner_data(entity_dfs):
 
     # Allocate capital based on ratios
     for var in columns:
-        part_data[var] = part_data[var] * part_data[var + '_ratio']
+        part_data[var] *= part_data[var + '_ratio']
 
     part_data.drop(list(x + '_ratio' for x in columns), axis=1, inplace=True)
     part_data.drop(['index', 'sector_code', 'major_code_x', 'minor_code',
                     'INDY_CD', 'major_code_y'], axis=1, inplace=True)
 
-    ### !!! Partner data has right industry breakouts, and
+    # !!! Partner data has right industry breakouts, and
     # ratio sum to 1 in ind, but totals not adding up to SOI controls.
     # Not quite sure why. But within one percent of total except for
     # fix assests off by 7%.  Going forward with this- it may be that
@@ -255,7 +256,7 @@ def load_partner_data(entity_dfs):
 
     # # create sums by group
     codes_net_inc = df05.groupby(['Codes:']).apply(abs_sum, 'net_inc')
-    grouped = pd.DataFrame({'sum' : codes_net_inc.reset_index()})
+    grouped = pd.DataFrame({'sum': codes_net_inc.reset_index()})
     # merge grouped data back to original df
     # One could make this more efficient -
     # one line of code - with appropriate
@@ -265,8 +266,8 @@ def load_partner_data(entity_dfs):
                     right_on=['Codes:'], left_index=False,
                     right_index=False, sort=False, copy=True)
     net_inc_abs = df05['net_inc'].astype(float).abs()
-    divisor = df05['sum'].replace({ 0 : np.nan })
-    df05['inc_ratio'] = (net_inc_abs / divisor).replace({np.nan:0})
+    divisor = df05['sum'].replace({0: np.nan})
+    df05['inc_ratio'] = (net_inc_abs / divisor).replace({np.nan: 0})
     df05 = df05[['Codes:', 'part_type', 'net_inc', 'inc_ratio']]
 
     # Manufacturing is missing data for 2013, so use overall partnership splits
@@ -281,7 +282,8 @@ def load_partner_data(entity_dfs):
     df_manu = (manu.append(manu)).reset_index(drop=True)
     df_manu.loc[:len(part_types), 'Codes:'] = 32
     df_manu.loc[len(part_types):, 'Codes:'] = 33
-    df05 = df05.append(df_manu, ignore_index=True).reset_index(drop=True).copy()
+    df05 = df05.append(df_manu,
+                       ignore_index=True).reset_index(drop=True).copy()
     # # Merge SOI codes to BEA data
     df05_sector = df05[(df05['Codes:'] > 9) & (df05['Codes:'] < 100)]
     df05_major = df05[(df05['Codes:'] > 99) & (df05['Codes:'] < 1000)]
@@ -301,8 +303,8 @@ def load_partner_data(entity_dfs):
                         right_on=['minor_code'], left_index=False,
                         right_index=False, sort=False,
                         copy=True, indicator=True)
-    df05= sector_df.append([major_df, minor_df],
-                           ignore_index=True).copy().reset_index()
+    df05 = sector_df.append([major_df, minor_df],
+                            ignore_index=True).copy().reset_index()
     df05.drop(['bea_inv_name', 'bea_code', '_merge'], axis=1, inplace=True)
 
     # # merge partner type ratios with partner asset data
@@ -325,9 +327,8 @@ def load_partner_data(entity_dfs):
     part_assets['Depreciation'] = depr * inc_ratio
 
     part_data = {'part_data': part_assets}
-
-
     return part_data
+
 
 def abs_sum(group, avg_name):
     """
@@ -336,25 +337,27 @@ def abs_sum(group, avg_name):
     d = group[avg_name]
     return (np.absolute(d)).sum()
 
+
 def format_excel(df):
 
-    for i, element in enumerate(df.iloc[0,:]):
-        j=1
+    for i, element in enumerate(df.iloc[0, :]):
+        j = 1
         while isinstance(element, float):
-            element = df.iloc[j,:][i]
-            j+=1
-        df.iloc[0,:][i] = element.replace('\n', ' ').replace('  ', ' ')
+            element = df.iloc[j, :][i]
+            j += 1
+        df.iloc[0, :][i] = element.replace('\n', ' ').replace('  ', ' ')
 
     df.dropna(inplace=True)
     df = df.T
-    column_names = df.iloc[0,:].tolist()
-    column_names = [x.encode('ascii', 'ignore').lstrip().rstrip() for x in column_names]
+    column_names = df.iloc[0, :].tolist()
+    column_names = [x.encode('ascii', 'ignore').lstrip().rstrip()
+                    for x in column_names]
     df.columns = column_names
-    df = df.drop(df.index[[0, len(df)-1]])
+    df = df.drop(df.index[[0, len(df) - 1]])
     df = df.fillna(0)
     df = df.replace('[d]', 0)
     df = df.replace('[2]  ', 0)
     df.reset_index(inplace=True, drop=True)
-    df.iloc[:, 1:] = df.iloc[:, 1:] * _AST_FILE_FCTR
+    df.iloc[:, 1:] *= _AST_FILE_FCTR
 
     return df

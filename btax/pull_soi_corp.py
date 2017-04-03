@@ -39,6 +39,7 @@ _NAICS_COL_NM = 'INDY_CD'
 _CODE_RANGE = ['32', '33', '45', '49']
 _PARENTS = {'32': '31', '33': '31', '45': '44', '49': '48'}
 
+
 def load_corp_data():
     """Reads in the total corp and s corp data and calculates the c corp data.
 
@@ -75,11 +76,11 @@ def load_corp_data():
         raise
 
     # read in crosswalk for bea and soi industry codes
-    soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS, dtype={'bea_ind_code': str})
+    soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS,
+                                    dtype={'bea_ind_code': str})
     soi_bea_ind_codes.drop('notes', axis=1, inplace=True)
     # drop one repeated minor ind code in crosswalk
     soi_bea_ind_codes.drop_duplicates(subset=['minor_code_alt'], inplace=True)
-
 
     # merge codes to total corp data
     # inner join means that we keep only rows that match in both datasets
@@ -92,7 +93,8 @@ def load_corp_data():
                         suffixes=('_x', '_y'),
                         copy=True, indicator=False)
 
-    # apportion s corp data across industries within sectors so has same level of
+    # apportion s corp data across industries within
+    # sectors so has same level of
     # industry detail as total corp data
     s_corp = calc_proportions(tot_corp, s_corp, columns)
 
@@ -102,7 +104,7 @@ def load_corp_data():
                       sort=False, suffixes=('_x', '_y'),
                       copy=True, indicator=False)
 
-    #calculate s corp values by minor industry using ratios
+    # calculate s corp values by minor industry using ratios
     for var in columns:
         c_corp[var] = c_corp[var + '_x'] - c_corp[var + '_y']
 
@@ -110,7 +112,7 @@ def load_corp_data():
     c_corp.drop(list(x + '_x' for x in columns), axis=1, inplace=True)
     c_corp.drop(list(x + '_y' for x in columns), axis=1, inplace=True)
 
-    ## NOTE:
+    # NOTE:
     # totals in s_corp match totals in SOI data
     # totals in tot_corp match totals in SOI data if you sum over industries -
     # but here and in raw SOI, summing over industries does not return value
@@ -125,7 +127,7 @@ def load_corp_data():
                   inplace=True)
     c_corp.rename(columns={"LAND": "Land", "INVNTRY": "Inventories",
                            "DPRCBL_ASSTS": "Fixed Assets",
-                           "NET_DPR":"Depreciation"},
+                           "NET_DPR": "Depreciation"},
                   inplace=True)
     tot_corp.rename(columns={
         "LAND": "Land",
@@ -174,14 +176,14 @@ def calc_proportions(tot_corp, s_corp, columns):
                       left_index=False, right_index=False, sort=False,
                       suffixes=('_x', '_y'), copy=True, indicator=True)
 
-    #calculate s corp values by minor industry using ratios
+    # calculate s corp values by minor industry using ratios
     for var in columns:
         s_corp[var + '_final'] = s_corp[var] * s_corp[var + '_ratio']
 
     # clean up data by dropping and renaming columns
     s_corp.drop(['INDY_CD_y', '_merge', 'sector_code'] + columns,
                 axis=1, inplace=True)
-    s_corp.drop(list(x+ '_ratio' for x in columns),
+    s_corp.drop(list(x + '_ratio' for x in columns),
                 axis=1, inplace=True)
     s_corp.rename(columns={"INDY_CD_x": "INDY_CD"},
                   inplace=True)

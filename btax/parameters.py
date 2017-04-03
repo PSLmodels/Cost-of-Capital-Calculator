@@ -34,7 +34,7 @@ def translate_param_names(start_year=DEFAULT_START_YEAR, **user_mods):
     Takes parameters names from UI and turns them into names used in btax
 
     """
-    year = start_year-PARAMETER_START_YEAR
+    year = start_year - PARAMETER_START_YEAR
     defaults = dict(DEFAULTS)
 
     # Handle depreciation system first since can only have one True for each
@@ -53,11 +53,11 @@ def translate_param_names(start_year=DEFAULT_START_YEAR, **user_mods):
             state = 'Economic'
         user_deprec_system[cl] = state
 
-    user_mods.update({k: v['value'][year] for k,v in defaults.items()
+    user_mods.update({k: v['value'][year] for k, v in defaults.items()
                       if k not in user_mods})
 
-    user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]/100.
-            for cl in class_list_str}
+    user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)] / 100.
+                         for cl in class_list_str}
 
     # Flag for expensing of inventories
     expense_inventory = user_mods['btax_depr_expense_inventory']
@@ -67,15 +67,11 @@ def translate_param_names(start_year=DEFAULT_START_YEAR, **user_mods):
     # Flag for expensing of land
     expense_land = user_mods['btax_depr_expense_land']
 
-
     if user_mods['btax_betr_entity_Switch'] in (True, 'True'):
-        #u_nc = user_mods['btax_betr_corp']
+        # u_nc = user_mods['btax_betr_corp']
         u_nc = user_mods['btax_betr_pass']
     else:
         u_nc = user_mods['btax_betr_pass']
-
-
-
     user_params = {
         'u_c': user_mods['btax_betr_corp'],
         'u_nc': u_nc,
@@ -99,11 +95,12 @@ def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
 
     """Contains all the parameters
 
-    	:returns: Inflation rate, depreciation, tax rate, discount rate,
+        :returns: Inflation rate, depreciation, tax rate, discount rate,
                   return to savers, property tax
-    	:rtype: dictionary
+        :rtype: dictionary
     """
     from btax.calc_z import calc_tax_depr_rates, get_econ_depr
+    from btax.get_taxcalc_rates import get_calculator
     # macro variables
     # CBO (2014) 0.07
     E_c = 0.058
@@ -111,7 +108,7 @@ def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
     f_c = 0.32
     # CBO (2014) 0.32
     f_nc = 0.29
-    f_array = np.array([[f_c, f_nc], [1, 1], [0,0]])
+    f_array = np.array([[f_c, f_nc], [1, 1], [0, 0]])
 
     # calibration variables - right now using CBO (2014)
     omega_scg = 0.034
@@ -134,8 +131,8 @@ def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
     alpha_h_d_td = 0.037
     alpha_h_d_nt = 0.183
 
-    #user defined variables
-    user_params = translate_param_names(start_year,**user_mods)
+    # user defined variables
+    user_params = translate_param_names(start_year, **user_mods)
     pi = user_params['pi']
     i = user_params['i']
     w = user_params['w']
@@ -154,7 +151,7 @@ def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
     # flag for expense inventories
     expense_land = user_params['expense_land']
 
-    #for land and inventories which don't have tax deprec
+    # for land and inventories which don't have tax deprec
     bonus_deprec['100'] = 0.0
     deprec_system['100'] = 'GDS'
 
@@ -166,9 +163,9 @@ def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
         tau_div = 0.1757
         # 0.274 # tax rate on interest income
         tau_int = 0.2379
-        #0.323 # tax rate on short term capital gains
+        # 0.323 # tax rate on short term capital gains
         tau_scg = 0.3131
-        #0.212 # tax rate on long term capital gains
+        # 0.212 # tax rate on long term capital gains
         tau_lcg = 0.222
         # tax rate on capital gains held to death
         tau_xcg = 0.00
@@ -178,18 +175,20 @@ def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
         tau_h = 0.181
         # test below is that calculator can be created
         CUR_PATH = os.path.abspath(os.path.dirname(__file__))
-        TAXDATA_PATH = os.path.join(CUR_PATH,'test_data', 'puf91taxdata.csv.gz')
+        TAXDATA_PATH = os.path.join(CUR_PATH,
+                                    'test_data', 'puf91taxdata.csv.gz')
         TAXDATA = pd.read_csv(TAXDATA_PATH, compression='gzip')
-        WEIGHTS_PATH = os.path.join(CUR_PATH,'test_data', 'puf91weights.csv.gz')
+        WEIGHTS_PATH = os.path.join(CUR_PATH,
+                                    'test_data', 'puf91weights.csv.gz')
         WEIGHTS = pd.read_csv(WEIGHTS_PATH, compression='gzip')
-        from btax.get_taxcalc_rates import get_calculator
+
         calc = get_calculator(baseline=False, calculator_start_year=start_year,
                               reform=iit_reform, data=TAXDATA,
                               weights=WEIGHTS, records_start_year=2009)
         assert calc.current_year == start_year
     else:
         from btax.get_taxcalc_rates import get_rates
-        indiv_rates = get_rates(baseline,start_year,iit_reform)
+        indiv_rates = get_rates(baseline, start_year, iit_reform)
         tau_nc = indiv_rates['tau_nc']
         tau_div = indiv_rates['tau_div']
         tau_int = indiv_rates['tau_int']
@@ -228,55 +227,65 @@ def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
     # Divident payout rate
     m = 0.44
 
-    #intermediate variables
-    sprime_c_td = (1/Y_td)*np.log(((1-tau_td)*np.exp(i*Y_td))+tau_td)-pi
-    s_c_d_td = gamma*(i-pi) + (1-gamma)*sprime_c_td
-    s_c_d = alpha_c_d_ft*(((1-tau_int)*i)-pi) + alpha_c_d_td*s_c_d_td + \
-                            alpha_c_d_nt*(i-pi)
+    # Intermediate variables
+    log_tau = np.log(((1 - tau_td) * np.exp(i * Y_td)) + tau_td)
+    sprime_c_td = (1 / Y_td) * log_tau - pi
+    s_c_d_td = gamma * (i - pi) + (1 - gamma) * sprime_c_td
+    term1 = alpha_c_d_ft * (((1 - tau_int) * i) - pi)
+    s_c_d = term1 + alpha_c_d_td * s_c_d_td + alpha_c_d_nt * (i - pi)
     s_nc_d_td = s_c_d_td
-    s_nc_d = alpha_nc_d_ft*(((1-tau_int)*i)-pi) + alpha_nc_d_td*s_nc_d_td + \
-                              alpha_nc_d_nt*(i-pi)
+    term1 = alpha_nc_d_ft * (((1 - tau_int) * i) - pi)
+    term2 = alpha_nc_d_td * s_nc_d_td
+    s_nc_d = term1 + term2 + alpha_nc_d_nt * (i - pi)
+    glog = np.log(((1 - tau_scg) * np.exp((pi + m * E_c) * Y_scg)) + tau_scg)
+    g_scg = (1 / Y_scg) * glog - pi
+    glog_tau = np.log(((1 - tau_lcg) *
+                      np.exp((pi + m * E_c) * Y_lcg)) + tau_lcg)
+    g_lcg = (1 / Y_lcg) * glog_tau - pi
+    g = omega_scg * g_scg + omega_lcg * g_lcg + omega_xcg * m * E_c
+    s_c_e_ft = (1 - m) * E_c * (1 - tau_div) + g
+    glog_tau = np.log(((1 - tau_td) * np.exp((pi + E_c) * Y_td)) + tau_td)
+    s_c_e_td = (1 / Y_td) * glog_tau - pi
+    s_c_e = alpha_c_e_ft * s_c_e_ft
+    s_c_e += alpha_c_e_td * s_c_e_td + alpha_c_e_nt * E_c
 
-    g_scg = (1/Y_scg)*np.log(((1-tau_scg)*np.exp((pi+m*E_c)*Y_scg))+tau_scg)-pi
-    g_lcg = (1/Y_lcg)*np.log(((1-tau_lcg)*np.exp((pi+m*E_c)*Y_lcg))+tau_lcg)-pi
-    g = omega_scg*g_scg + omega_lcg*g_lcg + omega_xcg*m*E_c
-    s_c_e_ft = (1-m)*E_c*(1-tau_div)+g
-    s_c_e_td = (1/Y_td)*np.log(((1-tau_td)*np.exp((pi+E_c)*Y_td))+tau_td)-pi
-    s_c_e = alpha_c_e_ft*s_c_e_ft + alpha_c_e_td*s_c_e_td + alpha_c_e_nt*E_c
-
-    s_c = f_c*s_c_d + (1-f_c)*s_c_e
+    s_c = f_c * s_c_d + (1 - f_c) * s_c_e
 
     E_nc = s_c_e
     E_array = np.array([E_c, E_nc])
     s_nc_e = E_nc
-    s_nc = f_nc*s_nc_d + (1-f_nc)*s_nc_e
+    s_nc = f_nc * s_nc_d + (1 - f_nc) * s_nc_e
     s_array = np.array([[s_c, s_nc], [s_c_d, s_nc_d], [s_c_e, s_nc_e]])
-    r = f_array*(i*(1-(1-int_haircut)*u_array))+(1-f_array)*(E_array+pi - \
-        E_array*r_ace*ace_array)
-    r_prime = f_array*i+(1-f_array)*(E_array+pi)
-    # if no entity level taxes on pass-throughs, ensure mettr and metr on non-corp entities the same
+    r1 = f_array * (i * (1 - (1 - int_haircut) * u_array))
+    e_arr_ace = E_array * r_ace * ace_array
+    r = r1 + (1 - f_array) * (E_array + pi - e_arr_ace)
+    r_prime = f_array * i + (1 - f_array) * (E_array + pi)
+    # if no entity level taxes on pass-throughs, ensure mettr and
+    # metr on non-corp entities the same
     if user_params['u_nc'] == 0.0:
-        r_prime[:,1] = s_array[:,1] + pi
+        r_prime[:, 1] = s_array[:, 1] + pi
         # If entity level tax, assume distribute earnings at
         # same rate corps distribute dividends and these are taxed at dividends
-        # tax rate (which seems likely, but leaves no role for non-corp income rate)
+        # tax rate (which seems likely, but leaves no
+        # role for non-corp income rate)
     else:
-        s_array[:,1] = s_array[:,0]
+        s_array[:, 1] = s_array[:, 0]
     delta = get_econ_depr()
-    tax_methods = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0, 'Economic': 1.0,
+    tax_methods = {'DB 200%': 2.0,
+                   'DB 150%': 1.5,
+                   'SL': 1.0,
+                   'Economic': 1.0,
                    'Expensing': 1.0}
     financing_list = ['', '_d', '_e']
     entity_list = ['_c', '_nc']
     z = calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system,
                             expense_inventory, expense_land, tax_methods,
                             financing_list, entity_list)
-
     '''
     ------------------------------------------
     Define asset categories
     ------------------------------------------
     '''
-
     asset_categories = {
         'Computers and Software',
         'Office and Residential Equipment',
@@ -288,155 +297,165 @@ def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
         'Residential Buildings', 'Nonresidential Buildings',
         'Mining and Drilling Structures', 'Other Structures'
     }
-
-
-    asset_dict = dict.fromkeys(['Mainframes', 'PCs', 'DASDs', 'Printers',
-          'Terminals', 'Tape drives', 'Storage devices', 'System integrators',
-          'Prepackaged software', 'Custom software'], 'Computers and Software')
-    asset_dict.update(dict.fromkeys(['Communications',
-          'Nonelectro medical instruments',
-          'Electro medical instruments', 'Nonmedical instruments',
-          'Photocopy and related equipment',
-          'Office and accounting equipment'],
-          'Instruments and Communications Equipment'))
-    asset_dict.update(dict.fromkeys(['Household furniture',
-                                    'Other furniture', 'Household appliances'],
-                                    'Office and Residential Equipment'))
-    asset_dict.update(dict.fromkeys(
-          ['Light trucks (including utility vehicles)',
-           'Other trucks, buses and truck trailers', 'Autos', 'Aircraft',
-           'Ships and boats', 'Railroad equipment', 'Steam engines',
-           'Internal combustion engines'],
-           'Transportation Equipment'))
-    asset_dict.update(dict.fromkeys(['Special industrial machinery',
-          'General industrial equipment'],
-          'Industrial Machinery'))
-    asset_dict.update(dict.fromkeys(['Nuclear fuel', 'Other fabricated metals',
-          'Metalworking machinery', 'Electric transmission and distribution',
-          'Other agricultural machinery', 'Farm tractors',
-          'Other construction machinery',
-          'Construction tractors', 'Mining and oilfield machinery'],
-          'Other Industrial Equipment'))
-    asset_dict.update(dict.fromkeys(['Service industry machinery',
-          'Other electrical', 'Other'],
-          'Other Equipment'))
-    asset_dict.update(dict.fromkeys(['Residential'],
-          'Residential Buildings'))
-    asset_dict.update(dict.fromkeys(['Manufacturing', 'Office', 'Hospitals',
-          'Special care', 'Medical buildings', 'Multimerchandise shopping',
-          'Food and beverage establishments', 'Warehouses', 'Other commercial',
-          'Air transportation', 'Other transportation', 'Religious',
-          'Educational and vocational', 'Lodging', 'Public safety'],
-          'Nonresidential Buildings'))
+    asset_dict = dict.fromkeys([
+        'Mainframes', 'PCs', 'DASDs', 'Printers',
+        'Terminals', 'Tape drives', 'Storage devices', 'System integrators',
+        'Prepackaged software', 'Custom software'], 'Computers and Software')
     asset_dict.update(dict.fromkeys([
-          'Gas', 'Petroleum pipelines', 'Communication',
-          'Petroleum and natural gas', 'Mining'],
-          'Mining and Drilling Structures'))
-    asset_dict.update(dict.fromkeys(['Electric', 'Wind and solar',
-          'Amusement and recreation',
-          'Other railroad', 'Track replacement', 'Local transit structures',
-          'Other land transportation', 'Farm',
-          'Water supply', 'Sewage and waste disposal',
-          'Highway and conservation and development',
-          'Mobile structures'],
-          'Other Structures'))
-    asset_dict.update(dict.fromkeys(['Pharmaceutical and medicine manufacturing',
-          'Chemical manufacturing, ex. pharma and med',
-          'Semiconductor and other component manufacturing',
-          'Computers and peripheral equipment manufacturing',
-          'Communications equipment manufacturing',
-          'Navigational and other instruments manufacturing',
-          'Other computer and electronic manufacturing, n.e.c.',
-          'Motor vehicles and parts manufacturing',
-          'Aerospace products and parts manufacturing',
-          'Other manufacturing', 'Scientific research and development services',
-          'Software publishers',
-          'Financial and real estate services',
-          'Computer systems design and related services',
-          'All other nonmanufacturing, n.e.c.',
-          'Private universities and colleges', 'Other nonprofit institutions',
-          'Theatrical movies', 'Long-lived television programs',
-          'Books', 'Music', 'Other entertainment originals',
-          'Own account software'], 'Intellectual Property'))
-
+        'Communications',
+        'Nonelectro medical instruments',
+        'Electro medical instruments',
+        'Nonmedical instruments',
+        'Photocopy and related equipment',
+        'Office and accounting equipment'],
+        'Instruments and Communications Equipment'))
+    asset_dict.update(dict.fromkeys(
+        ['Household furniture',
+         'Other furniture',
+         'Household appliances'], 'Office and Residential Equipment'))
+    asset_dict.update(dict.fromkeys(
+        ['Light trucks (including utility vehicles)',
+         'Other trucks, buses and truck trailers', 'Autos', 'Aircraft',
+         'Ships and boats', 'Railroad equipment', 'Steam engines',
+         'Internal combustion engines'], 'Transportation Equipment'))
+    asset_dict.update(dict.fromkeys([
+        'Special industrial machinery',
+        'General industrial equipment'],
+        'Industrial Machinery'))
+    asset_dict.update(dict.fromkeys([
+        'Nuclear fuel', 'Other fabricated metals',
+        'Metalworking machinery', 'Electric transmission and distribution',
+        'Other agricultural machinery', 'Farm tractors',
+        'Other construction machinery',
+        'Construction tractors', 'Mining and oilfield machinery'],
+        'Other Industrial Equipment'))
+    asset_dict.update(dict.fromkeys([
+        'Service industry machinery',
+        'Other electrical', 'Other'],
+        'Other Equipment'))
+    asset_dict.update(dict.fromkeys(
+        ['Residential'],
+        'Residential Buildings'))
+    asset_dict.update(dict.fromkeys([
+        'Manufacturing', 'Office', 'Hospitals',
+        'Special care', 'Medical buildings', 'Multimerchandise shopping',
+        'Food and beverage establishments', 'Warehouses', 'Other commercial',
+        'Air transportation', 'Other transportation', 'Religious',
+        'Educational and vocational', 'Lodging', 'Public safety'],
+        'Nonresidential Buildings'))
+    asset_dict.update(dict.fromkeys([
+        'Gas', 'Petroleum pipelines', 'Communication',
+        'Petroleum and natural gas', 'Mining'],
+        'Mining and Drilling Structures'))
+    asset_dict.update(dict.fromkeys([
+        'Electric', 'Wind and solar',
+        'Amusement and recreation',
+        'Other railroad', 'Track replacement', 'Local transit structures',
+        'Other land transportation', 'Farm',
+        'Water supply', 'Sewage and waste disposal',
+        'Highway and conservation and development',
+        'Mobile structures'],
+        'Other Structures'))
+    asset_dict.update(dict.fromkeys([
+        'Pharmaceutical and medicine manufacturing',
+        'Chemical manufacturing, ex. pharma and med',
+        'Semiconductor and other component manufacturing',
+        'Computers and peripheral equipment manufacturing',
+        'Communications equipment manufacturing',
+        'Navigational and other instruments manufacturing',
+        'Other computer and electronic manufacturing, n.e.c.',
+        'Motor vehicles and parts manufacturing',
+        'Aerospace products and parts manufacturing',
+        'Other manufacturing', 'Scientific research and development services',
+        'Software publishers',
+        'Financial and real estate services',
+        'Computer systems design and related services',
+        'All other nonmanufacturing, n.e.c.',
+        'Private universities and colleges', 'Other nonprofit institutions',
+        'Theatrical movies', 'Long-lived television programs',
+        'Books', 'Music', 'Other entertainment originals',
+        'Own account software'], 'Intellectual Property'))
     # major asset groups
-    # major_asset_groups = {'Equipment','Structures',
-    # 'Intellectual Property','Inventories','Land'}
-    major_asset_groups = dict.fromkeys(['Mainframes', 'PCs', 'DASDs', 'Printers',
-          'Terminals', 'Tape drives', 'Storage devices', 'System integrators',
-          'Prepackaged software', 'Custom software',
-          'Communications', 'Nonelectro medical instruments',
-          'Electro medical instruments', 'Nonmedical instruments',
-          'Photocopy and related equipment',
-          'Office and accounting equipment', 'Household furniture',
-          'Other furniture',
-          'Household appliances', 'Light trucks (including utility vehicles)',
-          'Other trucks, buses and truck trailers', 'Autos', 'Aircraft',
-          'Ships and boats', 'Railroad equipment', 'Steam engines',
-          'Internal combustion engines', 'Special industrial machinery',
-          'General industrial equipment', 'Nuclear fuel',
-          'Other fabricated metals',
-          'Metalworking machinery', 'Electric transmission and distribution',
-          'Other agricultural machinery', 'Farm tractors',
-          'Other construction machinery',
-          'Construction tractors', 'Mining and oilfield machinery',
-          'Service industry machinery', 'Other electrical',
-          'Other'], 'Equipment')
-    major_asset_groups.update(dict.fromkeys(['Residential','Manufacturing',
-          'Office', 'Hospitals', 'Special care', 'Medical buildings',
-          'Multimerchandise shopping',
-          'Food and beverage establishments', 'Warehouses', 'Other commercial',
-          'Air transportation', 'Other transportation', 'Religious',
-          'Educational and vocational', 'Lodging', 'Public safety', 'Gas',
-          'Petroleum pipelines', 'Communication',
-          'Petroleum and natural gas', 'Mining', 'Electric', 'Wind and solar',
-          'Amusement and recreation',
-          'Other railroad', 'Track replacement', 'Local transit structures',
-          'Other land transportation', 'Farm', 'Water supply',
-          'Sewage and waste disposal',
-          'Highway and conservation and development',
-          'Mobile structures'], 'Structures'))
+    # major_asset_groups = {'Equipment', 'Structures',
+    # 'Intellectual Property', 'Inventories', 'Land'}
+    major_asset_groups = dict.fromkeys([
+        'Mainframes', 'PCs', 'DASDs', 'Printers',
+        'Terminals', 'Tape drives', 'Storage devices', 'System integrators',
+        'Prepackaged software', 'Custom software',
+        'Communications', 'Nonelectro medical instruments',
+        'Electro medical instruments', 'Nonmedical instruments',
+        'Photocopy and related equipment',
+        'Office and accounting equipment', 'Household furniture',
+        'Other furniture',
+        'Household appliances', 'Light trucks (including utility vehicles)',
+        'Other trucks, buses and truck trailers', 'Autos', 'Aircraft',
+        'Ships and boats', 'Railroad equipment', 'Steam engines',
+        'Internal combustion engines', 'Special industrial machinery',
+        'General industrial equipment', 'Nuclear fuel',
+        'Other fabricated metals',
+        'Metalworking machinery', 'Electric transmission and distribution',
+        'Other agricultural machinery', 'Farm tractors',
+        'Other construction machinery',
+        'Construction tractors', 'Mining and oilfield machinery',
+        'Service industry machinery', 'Other electrical',
+        'Other'], 'Equipment')
     major_asset_groups.update(dict.fromkeys([
-          'Pharmaceutical and medicine manufacturing',
-          'Chemical manufacturing, ex. pharma and med',
-          'Semiconductor and other component manufacturing',
-          'Computers and peripheral equipment manufacturing',
-          'Communications equipment manufacturing',
-          'Navigational and other instruments manufacturing',
-          'Other computer and electronic manufacturing, n.e.c.',
-          'Motor vehicles and parts manufacturing',
-          'Aerospace products and parts manufacturing',
-          'Other manufacturing',
-          'Scientific research and development services',
-          'Software publishers',
-          'Financial and real estate services',
-          'Computer systems design and related services',
-          'All other nonmanufacturing, n.e.c.',
-          'Private universities and colleges',
-          'Other nonprofit institutions', 'Theatrical movies',
-          'Long-lived television programs',
-          'Books', 'Music', 'Other entertainment originals',
-          'Own account software'], 'Intellectual Property'))
+        'Residential', 'Manufacturing',
+        'Office', 'Hospitals', 'Special care', 'Medical buildings',
+        'Multimerchandise shopping',
+        'Food and beverage establishments', 'Warehouses', 'Other commercial',
+        'Air transportation', 'Other transportation', 'Religious',
+        'Educational and vocational', 'Lodging', 'Public safety', 'Gas',
+        'Petroleum pipelines', 'Communication',
+        'Petroleum and natural gas', 'Mining', 'Electric', 'Wind and solar',
+        'Amusement and recreation',
+        'Other railroad', 'Track replacement', 'Local transit structures',
+        'Other land transportation', 'Farm', 'Water supply',
+        'Sewage and waste disposal',
+        'Highway and conservation and development',
+        'Mobile structures'], 'Structures'))
+    major_asset_groups.update(dict.fromkeys([
+        'Pharmaceutical and medicine manufacturing',
+        'Chemical manufacturing, ex. pharma and med',
+        'Semiconductor and other component manufacturing',
+        'Computers and peripheral equipment manufacturing',
+        'Communications equipment manufacturing',
+        'Navigational and other instruments manufacturing',
+        'Other computer and electronic manufacturing, n.e.c.',
+        'Motor vehicles and parts manufacturing',
+        'Aerospace products and parts manufacturing',
+        'Other manufacturing',
+        'Scientific research and development services',
+        'Software publishers',
+        'Financial and real estate services',
+        'Computer systems design and related services',
+        'All other nonmanufacturing, n.e.c.',
+        'Private universities and colleges',
+        'Other nonprofit institutions', 'Theatrical movies',
+        'Long-lived television programs',
+        'Books', 'Music', 'Other entertainment originals',
+        'Own account software'], 'Intellectual Property'))
     major_asset_groups.update(dict.fromkeys(['Inventories'], 'Inventories'))
     major_asset_groups.update(dict.fromkeys(['Land'], 'Land'))
     # define major industry groupings
     major_industries = {
-      'Agriculture, forestry, fishing, and hunting', 'Mining',
-      'Utilities', 'Construction',
-      'Manufacturing', 'Wholesale trade', 'Retail trade',
-      'Transportation and warehousing', 'Information',
-      'Finance and insurance', 'Real estate and rental and leasing',
-      'Professional, scientific, and technical services',
-      'Management of companies and enterprises',
-      'Administrative and waste management services',
-      'Educational services', 'Health care and social assistance',
-      'Arts, entertainment, and recreation',
-      'Accommodation and food services',
-      'Other services, except government'}
+        'Agriculture, forestry, fishing, and hunting', 'Mining',
+        'Utilities', 'Construction',
+        'Manufacturing', 'Wholesale trade', 'Retail trade',
+        'Transportation and warehousing', 'Information',
+        'Finance and insurance', 'Real estate and rental and leasing',
+        'Professional, scientific, and technical services',
+        'Management of companies and enterprises',
+        'Administrative and waste management services',
+        'Educational services', 'Health care and social assistance',
+        'Arts, entertainment, and recreation',
+        'Accommodation and food services',
+        'Other services, except government'}
     ind_dict = dict.fromkeys([
-        'Farms','Forestry, fishing, and related activities'],
+        'Farms', 'Forestry, fishing, and related activities'],
         'Agriculture, forestry, fishing, and hunting')
-    ind_dict.update(dict.fromkeys(['Oil and gas extraction',
+    ind_dict.update(dict.fromkeys([
+        'Oil and gas extraction',
         'Mining, except oil and gas',
         'Support activities for mining'], 'Mining'))
     ind_dict.update(dict.fromkeys(['Utilities'], 'Utilities'))
@@ -529,32 +548,38 @@ def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
     bea_code_dict.update(dict.fromkeys(['44RT'], 'Retail trade'))
     bea_code_dict.update(dict.fromkeys(
         ['4810', '4820', '4830', '4840', '4850', '4860',
-        '487S', '4930'], 'Transportation and warehousing'))
+         '487S', '4930'], 'Transportation and warehousing'))
     bea_code_dict.update(dict.fromkeys(
         ['5110', '5120', '5130', '5140'],
         'Information'))
-    bea_code_dict.update(dict.fromkeys(['5210', '5220', '5230', '5240', '5250'],
-                          'Finance and insurance'))
+    bea_code_dict.update(dict.fromkeys(['5210', '5220', '5230',
+                                        '5240', '5250'],
+                                       'Finance and insurance'))
     bea_code_dict.update(dict.fromkeys(['5310', '5320'],
-                          'Real estate and rental and leasing'))
+                                       'Real estate and rental '
+                                       'and leasing'))
     bea_code_dict.update(dict.fromkeys(['5411', '5415', '5412'],
-                          'Professional, scientific, and technical services'))
+                                       'Professional, scientific, and '
+                                       'technical services'))
     bea_code_dict.update(dict.fromkeys(['5500'],
-                          'Management of companies and enterprises'))
+                                       'Management of companies '
+                                       'and enterprises'))
     bea_code_dict.update(dict.fromkeys(['5610', '5620'],
-                          'Administrative and waste management services'))
+                                       'Administrative and waste '
+                                       'management services'))
     bea_code_dict.update(dict.fromkeys(['6100'],
-                          'Educational services'))
+                                       'Educational services'))
     bea_code_dict.update(dict.fromkeys(['6210', '622H', '6230', '6240'],
-                          'Health care and social assistance'))
+                                       'Health care and social assistance'))
     bea_code_dict.update(dict.fromkeys(['711A', '7130'],
-                          'Arts, entertainment, and recreation'))
+                                       'Arts, entertainment, and recreation'))
     bea_code_dict.update(dict.fromkeys(['7210', '7220'],
-                          'Accommodation and food services'))
+                                       'Accommodation and food services'))
     bea_code_dict.update(dict.fromkeys(['8100'],
-                          'Other services, except government'))
+                                       'Other services, except government'))
 
-    parameters = {'inflation rate': pi,
+    parameters = {
+        'inflation rate': pi,
         'econ depreciation': delta,
         'depr allow': z,
         'tax rate': u_array,
@@ -563,14 +588,14 @@ def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
         'return to savers': s_array,
         'prop tax': w,
         'inv_credit': inv_credit,
-        'ace':ace_array,
-        'int_haircut':int_haircut,
-        'financing_list':financing_list,
-        'entity_list':entity_list,
+        'ace': ace_array,
+        'int_haircut': int_haircut,
+        'financing_list': financing_list,
+        'entity_list': entity_list,
         'delta': delta,
-        'Y_v':Y_v,
-        'phi':phi,
-        'expense_inventory':expense_inventory,
+        'Y_v': Y_v,
+        'phi': phi,
+        'expense_inventory': expense_inventory,
         'asset_dict': asset_dict,
         'ind_dict': ind_dict,
         'major_asset_groups': major_asset_groups,
