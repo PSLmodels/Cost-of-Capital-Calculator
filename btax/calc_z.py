@@ -103,7 +103,6 @@ def calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system,
             for j in range(r.shape[1]):
                 zi = 'z' + entity_list[j] + financing_list[i]
                 z.loc[z['Asset Type'] == 'Land', zi] = 0.
-
     return z
 
 
