@@ -16,6 +16,9 @@ import datetime
 import re
 import math
 
+import numpy as np
+import pandas as pd
+
 from btax.visuals import (asset_categories_for_print,
                           asset_category_order,
                           IP_list)
@@ -36,8 +39,6 @@ def asset_bubble(output_by_assets):
         :returns:
         :rtype:
     """
-    import numpy as np
-    import pandas as pd
     import plotly.plotly as py
     import plotly.graph_objs as go
 

@@ -37,7 +37,7 @@ asset_categories_for_print = {
                                                 'Communications\nEquipment',
     'Transportation Equipment': 'Transportation Equipment',
     'Industrial Machinery': 'Industrial Machinery',
-    'Other Industrial Equipment':'Other Industrial\nEquipment',
+    'Other Industrial Equipment': 'Other Industrial\nEquipment',
     'Other Equipment': 'Other Equipment ',
     'Residential Buildings': 'Residential Buildings',
     'Nonresidential Buildings': 'Nonresidential Buildings',
@@ -82,6 +82,7 @@ Plot results
 SIZES = list(range(6, 22, 3))
 COLORS = Reds9
 
+
 def asset_crossfilter(output_by_assets, baseline):
     """Creates a crossfilter bokeh plot of results by asset
 
@@ -100,12 +101,8 @@ def asset_crossfilter(output_by_assets, baseline):
     df['sort_order'].replace(asset_category_order, inplace=True)
     df.sort_values(by="sort_order", axis=0, ascending=True, inplace=True)
     df.reset_index(inplace=True)
-
-
     # update asset_category names for better printing
     df['asset_category'].replace(asset_categories_for_print, inplace=True)
-
-
     columns = sorted(df.columns)
     discrete = [x for x in columns if df[x].dtype == object]
     continuous = [x for x in columns if x not in discrete]
@@ -122,7 +119,7 @@ def asset_crossfilter(output_by_assets, baseline):
     size.on_change('value', update)
 
     # color = Select(title='Color', value='None',
-    #    options=['None'] + quantileable)
+    # options=['None'] + quantileable)
     # color.on_change('value', update)
     color = Select(title='Color', value='None', options=['None'] + discrete)
     color.on_change('value', update)
@@ -133,12 +130,10 @@ def asset_crossfilter(output_by_assets, baseline):
     layout = row(create_figure(df, x, y,
                                discrete, quantileable, continuous,
                                size, color, controls))
-
-
     curdoc().add_root(layout)
     curdoc().title = "Crossfilter"
 
-    # # open a session to keep our local document in sync with server
+    # open a session to keep our local document in sync with server
     # session = push_session(curdoc())
     # session.show() # open the document in a browser
     #
@@ -146,10 +141,10 @@ def asset_crossfilter(output_by_assets, baseline):
 
     # save plot to html
     plot = curdoc()
-    #plot.circle([1, 2], [3, 4])
+    # plot.circle([1, 2], [3, 4])
     html = file_html(plot, CDN, "my plot")
     # open file in binary mode
-    file = open(baseline+"crossfilter_html.html", "wb")
+    file = open(baseline + "crossfilter_html.html", "wb")
     file.writelines(html)
     file.close()
 

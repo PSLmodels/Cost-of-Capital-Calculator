@@ -27,5 +27,5 @@ install:
 
 script:
   - python -c "from btax import *" && echo B-Tax can be imported
-  - coverage run -m py.test -v -m "not slow and not needs_puf"  $BTAX_CUR_DIR/tests --pep8
+  - coverage run -m py.test -v -m "not slow and not needs_puf" $BTAX_CUR_DIR/tests --pep8
 
