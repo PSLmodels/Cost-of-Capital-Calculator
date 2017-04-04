@@ -45,7 +45,7 @@ def load_proprietorship_data(entity_dfs):
     cols = ['Industry', 'Depreciation deduction [1,2]']
     nonfarm_df = nonfarm_df[cols]
     industry = nonfarm_df['Industry']
-    nonfarm_df['Industry'] = industry.apply(re.sub('[\s+]', '', x))
+    nonfarm_df['Industry'] = industry.apply(lambda x: re.sub('[\s+]', '', x))
     col_map = {"Industry": "Item",
                "Depreciation deduction [1,2]": "Depreciation"}
     nonfarm_df.rename(columns=col_map, inplace=True)
@@ -69,7 +69,8 @@ def load_proprietorship_data(entity_dfs):
         "Inventory, end of year": "Inventories",
     }
     nonfarm_inv.rename(columns=col_map, inplace=True)
-    nonfarm_inv['Item'] = nonfarm_inv['Item'].apply(re_replace)
+    it = nonfarm_inv['Item']
+    nonfarm_inv['Item'] = it.apply(lambda x: re.sub('[\s+]', '', x))
     # merge together two sole prop data sources
     # have to manually fix a couple names to be compatible
     other_amb = ("Otherambulatoryhealthcareservices"
@@ -95,7 +96,7 @@ def load_proprietorship_data(entity_dfs):
     xwalk = xwalk[xwalk['complete'] == 1]
     xwalk = xwalk[['Industry', 'INDY_CD']]
     ind = xwalk['Industry']
-    xwalk['Industry'] = ind.apply(re.sub('[\s+]', '', x))
+    xwalk['Industry'] = ind.apply(lambda x: re.sub('[\s+]', '', x))
 
     # merge industry codes to sole prop data
     nonfarm_df = pd.merge(nonfarm_df, xwalk,

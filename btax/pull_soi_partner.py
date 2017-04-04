@@ -88,7 +88,7 @@ def load_partner_data(entity_dfs):
     df03['Fixed Assets'] = deprec_assets - less_accum
     df03 = df03[['Item', 'Fixed Assets', 'Inventories', 'Land']]
 
-    df03['Item'] = df03['Item'].apply(re_replace)
+    df03['Item'] = df03['Item'].apply(lambda x: re.sub('[\s+]', '', x))
     # partner data - income
     df01 = format_excel(pd.read_excel(_INC_FILE, skiprows=2, skip_footer=6))
     # Cuts off the repeated columns so only the data
@@ -101,7 +101,7 @@ def load_partner_data(entity_dfs):
     df01 = df01[['Item', 'Depreciation']]
     # df01['Item'] = df01['Item'].str.strip()
     df01['Item old'] = df01['Item'].str.strip()
-    df01['Item'] = df01['Item'].apply(re_replace)
+    df01['Item'] = df01['Item'].apply(lambda x: re.sub('[\s+]', '', x))
 
     # Merge two partner data sources together so that all variables together
     df03 = pd.merge(df03, df01,
@@ -256,7 +256,7 @@ def load_partner_data(entity_dfs):
 
     # # create sums by group
     codes_net_inc = df05.groupby(['Codes:']).apply(abs_sum, 'net_inc')
-    grouped = pd.DataFrame({'sum': codes_net_inc.reset_index()})
+    grouped = pd.DataFrame({'sum': codes_net_inc}).reset_index()
     # merge grouped data back to original df
     # One could make this more efficient -
     # one line of code - with appropriate
