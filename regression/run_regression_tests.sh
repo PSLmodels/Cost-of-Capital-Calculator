@@ -11,5 +11,7 @@ fi
 
 rm -f asset_data.pkl
 
-
-python run_regression_tests.py $BTAX_REFORMS_FILE
+export dt_str=$(echo $(date) | tr ":" "_" | tr " " "_")
+export output_file="regression_test_out_${dt_str}"
+# Echo the output and write it to file
+python run_regression_tests.py $BTAX_REFORMS_FILE | tee $output_file

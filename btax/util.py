@@ -13,7 +13,7 @@ DEFAULT_START_YEAR = 2017
 
 def to_str(x):
     if hasattr(x, 'decode'):
-        return x.decode()
+        return x.decode('utf-8', 'ignore')
     return x
 
 
