@@ -161,7 +161,8 @@ def inventories(soi_data):
 
     # attribute BEA inventories across SOI minor industries
     bea = bea_inventories.groupby(['bea_inv_name'])
-    bea_inventories['bea_ratio'] = bea['Inventories'].apply(x / float(x.sum()))
+    inv = bea['Inventories']
+    bea_inventories['bea_ratio'] = inv.apply(lambda x: x / float(x.sum()))
     bea = bea_inventories['bea_ratio']
     inv = bea_inventories['BEA Inventories']
     bea_inventories['BEA Inventories'] = bea * inv
@@ -217,7 +218,7 @@ def land(soi_data, bea_FA):
     b101['Variable'] = b101['Variable'].str.strip()
     household = ('Households; owner-occupied real estate including vacant '
                  'land and mobile homes at market value')
-    rows = b101['Variable'] == house
+    rows = b101['Variable'] == household
     owner_occ_house_RE = np.array(b101.ix[rows, 'Value'])
 
     # compute value of land for owner occupied housing sector
@@ -251,7 +252,7 @@ def land(soi_data, bea_FA):
     bea_land.ix[s_corp, 'BEA Corp'] = True
     bea_land.ix[c_corp, 'BEA Corp'] = True
     land_group = bea_land.groupby(['BEA Corp'])['Land']
-    bea_land['land_ratio'] = land_group.apply(x / float(x.sum()))
+    bea_land['land_ratio'] = land_group.apply(lambda x: x / float(x.sum()))
     bea_land['BEA Land'] = bea_land['land_ratio'] * bea_land['BEA Land']
     bea_land = bea_land[['BEA Land', 'entity_type', 'tax_treat', 'bea_code',
                          'minor_code_alt', 'part_type']].copy()
