@@ -7,7 +7,7 @@ source:
 
 build:
   script_env:
-    - BTAX_CUR_DIR={{ environ["RECIPE_DIR"] }}/../btax
+    - BTAX_CUR_DIR={{ environ["RECIPE_DIR"] }}/../
 
 requirements:
   build:
