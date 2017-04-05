@@ -1,3 +1,4 @@
+
 wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
 bash miniconda.sh -b -p $HOME/miniconda
 export PATH="$HOME/miniconda/bin:$PATH"
@@ -14,3 +15,4 @@ export BTAX_OUT_DIR=btax_output_dir
 export BTAX_CUR_DIR=${BUILD_DIR}
 mkdir btax_output_dir
 python setup.py develop
+
