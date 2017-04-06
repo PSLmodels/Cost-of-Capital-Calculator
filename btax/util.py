@@ -38,28 +38,8 @@ def read_from_egg(tfile):
 
 def get_paths():
     paths = {}
-    _CUR_DIR = os.environ.get('BTAX_CUR_DIR', 'not-exist')
-    if _CUR_DIR:
-        _CUR_DIR = os.path.expanduser(_CUR_DIR)
-    if not _CUR_DIR or not os.path.exists(_CUR_DIR):
-        paths['_CUR_DIR'] = _CUR_DIR = os.path.dirname(os.path.abspath(__file__))
-    else:
-        paths['_CUR_DIR'] = _CUR_DIR
-    data_dir_guesses = (os.path.join(_CUR_DIR),
-                        os.path.join(_CUR_DIR, 'btax'),
-                        os.path.join(os.path.abspath(os.curdir), 'btax'),
-                        os.path.abspath(os.curdir))
-    _MAIN_DIR = None
-    for d in data_dir_guesses:
-        if os.path.exists(d):
-            _MAIN_DIR = os.path.dirname(d)
-            _DATA_DIR = os.path.join(_MAIN_DIR, 'btax', 'data')
-            break
-
-    if _MAIN_DIR is None:
-        raise IOError('Expected one of {} to exist.  Change '
-                      'working directory or define '
-                      'BTAX_CUR_DIR env var'.format(data_dir_guesses))
+    _CUR_DIR = _MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
+    _DATA_DIR = os.path.join(_MAIN_DIR, 'data')
     paths['_MAIN_DIR'] = paths['_DATA_DIR'] = _MAIN_DIR
     paths['_RATE_DIR'] = _RATE_DIR = os.path.join(_DATA_DIR, 'depreciation_rates')
     paths['_REF_DIR'] = os.path.join(_DATA_DIR, 'reference_data')
