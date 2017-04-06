@@ -87,10 +87,6 @@ def runner(test_run,start_year,iit_reform,**user_params):
     #visuals_plotly.asset_bubble(output_by_asset)
 
     # save output to csv - useful if run locally
-    base_output_by_industry.to_csv('baseline_byindustry.csv',encoding='utf-8')
-    reform_output_by_industry.to_csv('reform_byindustry.csv',encoding='utf-8')
-    base_output_by_asset.to_csv('base_byasset.csv',encoding='utf-8')
-    reform_output_by_asset.to_csv('reform_byasset.csv',encoding='utf-8')
 
 
 
