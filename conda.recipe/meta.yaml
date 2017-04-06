@@ -5,16 +5,11 @@ package:
 source:
   path: ..
 
-build:
-  script_env:
-    - BTAX_CUR_DIR={{ environ["RECIPE_DIR"] }}/../
-
 requirements:
   build:
     - setuptools
     - scipy
     - taxcalc
-    - matplotlib
     - numpy
     - pandas <=0.18.0
     - python
@@ -26,7 +21,6 @@ requirements:
     - setuptools
     - scipy
     - taxcalc
-    - matplotlib
     - numpy
     - pandas <=0.18.0
     - python
