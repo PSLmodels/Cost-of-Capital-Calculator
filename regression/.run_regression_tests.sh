@@ -3,7 +3,7 @@ if [ "$BTAX_VERSIONS" = "" ];then
 fi
 
 for BTAX_VERSION in "$BTAX_VERSIONS";do
-    if [ "$BTAX_VERSION" = "none"]; then
+    if [ "$BTAX_VERSION" = "none" ]; then
         echo No install
     else
         . ../.travis_env_setup.sh
