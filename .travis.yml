@@ -7,24 +7,9 @@ python:
   - "3.5"
 
 install:
-  # Install conda
-  - wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
-  - bash miniconda.sh -b -p $HOME/miniconda
-  - export PATH="$HOME/miniconda/bin:$PATH"
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update conda
-  - conda create -n test-environment python=$TRAVIS_PYTHON_VERSION pandas numpy
-  - source activate test-environment
-  - conda install --file conda-requirements.txt # xlrd, possibly others
-  - export BUILD_DIR=`pwd`
-  - pip install -r requirements.txt
-  - conda install -c ospc taxcalc
-  - export BTAX_OUT_DIR=btax_output_dir # make an output dir
-  - export BTAX_CUR_DIR=${BUILD_DIR}/btax
-  - mkdir btax_output_dir
-  - python setup.py develop
+  - source .travis_env_setup.sh
 
 script:
   - python -c "from btax import *" && echo B-Tax can be imported
-  - py.test -m "not slow and not needs_puf" ${BTAX_CUR_DIR}/tests
+  - coverage run -m py.test -v -m "not slow and not needs_puf" btax --pep8
 

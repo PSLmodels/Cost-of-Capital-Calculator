@@ -5,10 +5,123 @@ import os
 from btax.parameters import DEFAULT_ASSET_COLS, DEFAULT_INDUSTRY_COLS
 
 # Row labels, in order, including minor headings like "Durable goods"
-BTAX_TABLE_ASSET_ORDER = ("All Investments", "Equipment", "Mainframes", "PCs", "DASDs", "Printers", "Terminals", "Tape drives", "Storage devices", "System integrators", "Communications", "Nonelectro medical instruments", "Electro medical instruments", "Nonmedical instruments", "Photocopy and related equipment", "Office and accounting equipment", "Nuclear fuel", "Other fabricated metals", "Steam engines", "Internal combustion engines", "Metalworking machinery", "Special industrial machinery", "General industrial equipment", "Electric transmission and distribution", "Light trucks (including utility vehicles)", "Other trucks, buses and truck trailers", "Autos", "Aircraft", "Ships and boats", "Railroad equipment", "Household furniture", "Other furniture", "Other agricultural machinery", "Farm tractors", "Other construction machinery", "Construction tractors", "Mining and oilfield machinery", "Service industry machinery", "Household appliances", "Other electrical", "Other", "Structures", "Office", "Hospitals", "Special care", "Medical buildings", "Multimerchandise shopping", "Food and beverage establishments", "Warehouses", "Mobile structures", "Other commercial", "Manufacturing", "Electric", "Wind and solar", "Gas", "Petroleum pipelines", "Communication", "Petroleum and natural gas", "Mining", "Educational and vocational", "Lodging", "Amusement and recreation", "Air transportation", "Other transportation", "Other railroad", "Track replacement", "Local transit structures", "Other land transportation", "Farm", "Water supply", "Sewage and waste disposal", "Public safety", "Highway and conservation and development", "Intellectual Property", "Own account software", "Software publishers", "Computer systems design and related services", "Theatrical movies", "Long-lived television programs", "Books", "Music", "Other entertainment originals", "Pharmaceutical and medicine manufacturing", "Chemical manufacturing, ex. pharma and med", "Semiconductor and other component manufacturing", "Computers and peripheral equipment manufacturing", "Communications equipment manufacturing", "Navigational and other instruments manufacturing", "Other computer and electronic manufacturing, n.e.c.", "Motor vehicles and parts manufacturing", "Aerospace products and parts manufacturing", "Other manufacturing", "Scientific research and development services", "Financial and real estate services", "All other nonmanufacturing, n.e.c.", "Inventories", "Land")
-BTAX_TABLE_INDUSTRY_ORDER = ("All Investments", "Agriculture, forestry, fishing, and hunting", "Farms", "Forestry, fishing, and related activities", "Mining", "Oil and gas extraction", "Mining, except oil and gas", "Support activities for mining", "Utilities", "Construction", "Manufacturing", "Durable goods", "Wood products", "Nonmetallic mineral products", "Primary metals", "Fabricated metal products", "Machinery", "Computer and electronic products", "Electrical equipment, appliances, and components", "Motor vehicles, bodies and trailers, and parts", "Other transportation equipment", "Furniture and related products", "Miscellaneous manufacturing", "Nondurable goods", "Food, beverage, and tobacco products", "Textile mills and textile product mills", "Apparel and leather and allied products", "Paper products", "Printing and related support activities", "Petroleum and coal products", "Chemical products", "Plastics and rubber products", "Wholesale trade", "Retail trade", "Transportation and warehousing", "Air transportation", "Railroad transportation", "Water transportation", "Truck transportation", "Transit and ground passenger transportation", "Pipeline transportation", "Other transportation and support activities", "Warehousing and storage", "Information", "Publishing industries (including software)", "Motion picture and sound recording industries", "Broadcasting and telecommunications", "Information and data processing services", "Finance and insurance", "Credit intermediation and related activities", "Securities, commodity contracts, and investments", "Insurance carriers and related activities", "Funds, trusts, and other financial vehicles", "Real estate and rental and leasing", "Real estate", "Rental and leasing services and lessors of intangible assets", "Professional, scientific, and technical services", "Legal services", "Computer systems design and related services", "Miscellaneous professional, scientific, and technical services", "Management of companies and enterprises", "Administrative and waste management services", "Administrative and support services", "Waste management and remediation services", "Educational services", "Health care and social assistance", "Ambulatory health care services", "Hospitals", "Nursing and residential care facilities", "Social assistance", "Arts, entertainment, and recreation", "Performing arts, spectator sports, museums, and related activities", "Amusements, gambling, and recreation industries", "Accommodation and food services", "Accommodation", "Food services and drinking places", "Other services, except government")
-# If any minor headings are needed, such as "Durable goods", put them in "breaks" below
-BTAX_TABLE_BREAKS = {'industry': ['Durable goods', 'Nondurable goods'], 'asset': []}
+BTAX_TABLE_ASSET_ORDER = (
+    "All Investments", "Equipment",
+    "Mainframes", "PCs", "DASDs", "Printers",
+    "Terminals", "Tape drives", "Storage devices",
+    "System integrators", "Communications",
+    "Nonelectro medical instruments",
+    "Electro medical instruments",
+    "Nonmedical instruments",
+    "Photocopy and related equipment",
+    "Office and accounting equipment",
+    "Nuclear fuel", "Other fabricated metals",
+    "Steam engines", "Internal combustion engines",
+    "Metalworking machinery",
+    "Special industrial machinery",
+    "General industrial equipment",
+    "Electric transmission and distribution",
+    "Light trucks (including utility vehicles)",
+    "Other trucks, buses and truck trailers",
+    "Autos", "Aircraft", "Ships and boats",
+    "Railroad equipment", "Household furniture",
+    "Other furniture", "Other agricultural machinery",
+    "Farm tractors", "Other construction machinery",
+    "Construction tractors",
+    "Mining and oilfield machinery",
+    "Service industry machinery",
+    "Household appliances", "Other electrical",
+    "Other", "Structures", "Office", "Hospitals",
+    "Special care", "Medical buildings",
+    "Multimerchandise shopping",
+    "Food and beverage establishments",
+    "Warehouses", "Mobile structures",
+    "Other commercial", "Manufacturing", "Electric",
+    "Wind and solar", "Gas", "Petroleum pipelines",
+    "Communication", "Petroleum and natural gas",
+    "Mining", "Educational and vocational", "Lodging",
+    "Amusement and recreation", "Air transportation",
+    "Other transportation", "Other railroad",
+    "Track replacement", "Local transit structures",
+    "Other land transportation", "Farm", "Water supply",
+    "Sewage and waste disposal", "Public safety",
+    "Highway and conservation and development",
+    "Intellectual Property", "Own account software",
+    "Software publishers",
+    "Computer systems design and related services",
+    "Theatrical movies", "Long-lived television programs",
+    "Books", "Music", "Other entertainment originals",
+    "Pharmaceutical and medicine manufacturing",
+    "Chemical manufacturing, ex. pharma and med",
+    "Semiconductor and other component manufacturing",
+    "Computers and peripheral equipment manufacturing",
+    "Communications equipment manufacturing",
+    "Navigational and other instruments manufacturing",
+    "Other computer and electronic manufacturing, n.e.c.",
+    "Motor vehicles and parts manufacturing",
+    "Aerospace products and parts manufacturing",
+    "Other manufacturing",
+    "Scientific research and development services",
+    "Financial and real estate services",
+    "All other nonmanufacturing, n.e.c.",
+    "Inventories",
+    "Land",)
+
+BTAX_TABLE_INDUSTRY_ORDER = (
+    "All Investments", "Agriculture, forestry, fishing, and hunting",
+    "Farms", "Forestry, fishing, and related activities", "Mining",
+    "Oil and gas extraction", "Mining, except oil and gas",
+    "Support activities for mining", "Utilities", "Construction",
+    "Manufacturing", "Durable goods", "Wood products",
+    "Nonmetallic mineral products", "Primary metals",
+    "Fabricated metal products", "Machinery",
+    "Computer and electronic products",
+    "Electrical equipment, appliances, and components",
+    "Motor vehicles, bodies and trailers, and parts",
+    "Other transportation equipment", "Furniture and related products",
+    "Miscellaneous manufacturing", "Nondurable goods",
+    "Food, beverage, and tobacco products",
+    "Textile mills and textile product mills",
+    "Apparel and leather and allied products",
+    "Paper products", "Printing and related support activities",
+    "Petroleum and coal products", "Chemical products",
+    "Plastics and rubber products", "Wholesale trade",
+    "Retail trade", "Transportation and warehousing",
+    "Air transportation", "Railroad transportation",
+    "Water transportation", "Truck transportation",
+    "Transit and ground passenger transportation",
+    "Pipeline transportation", "Other transportation and support activities",
+    "Warehousing and storage", "Information",
+    "Publishing industries (including software)",
+    "Motion picture and sound recording industries",
+    "Broadcasting and telecommunications",
+    "Information and data processing services", "Finance and insurance",
+    "Credit intermediation and related activities",
+    "Securities, commodity contracts, and investments",
+    "Insurance carriers and related activities",
+    "Funds, trusts, and other financial vehicles",
+    "Real estate and rental and leasing", "Real estate",
+    "Rental and leasing services and lessors of intangible assets",
+    "Professional, scientific, and technical services", "Legal services",
+    "Computer systems design and related services",
+    "Miscellaneous professional, scientific, and technical services",
+    "Management of companies and enterprises",
+    "Administrative and waste management services",
+    "Administrative and support services",
+    "Waste management and remediation services",
+    "Educational services", "Health care and social assistance",
+    "Ambulatory health care services", "Hospitals",
+    "Nursing and residential care facilities", "Social assistance",
+    "Arts, entertainment, and recreation",
+    "Performing arts, spectator sports, museums, and related activities",
+    "Amusements, gambling, and recreation industries",
+    "Accommodation and food services", "Accommodation",
+    "Food services and drinking places",
+    "Other services, except government")
+# If any minor headings are needed, such as "Durable goods",
+# put them in "breaks" below
+BTAX_TABLE_BREAKS = {'industry': ['Durable goods', 'Nondurable goods'],
+                     'asset': []}
 SPACES = (u'\xa0', u'\u00a0', u' ')
 
 
@@ -17,9 +130,13 @@ INDUSTRY_COL_META = dict(DEFAULT_INDUSTRY_COLS)
 
 DO_ASSERTIONS = int(os.environ.get('BTAX_TABLE_ASSERTIONS', False))
 
-def runner_json_tables(test_run=False,start_year=2016,iit_reform=None,**user_params):
+
+def runner_json_tables(test_run=False,
+                       start_year=2016,
+                       iit_reform=None,
+                       **user_params):
     from btax.execute import runner, TABLE_ORDER
-    out = runner(test_run,start_year,iit_reform,**user_params)
+    out = runner(test_run, start_year, iit_reform, **user_params)
 
     tables = {'row_grouping': out.row_grouping}
     for label, table in zip(TABLE_ORDER, out[:-1]):
@@ -31,7 +148,7 @@ def runner_json_tables(test_run=False,start_year=2016,iit_reform=None,**user_par
             for k, v in tab.items():
                 for k2, v2 in v.items():
                     k1 = 'asset_{}'.format(k)
-                    if not k1 in tables:
+                    if k1 not in tables:
                         tables[k1] = {}
                     tables[k1][k2] = v2
         elif 'industry' in table_name:
@@ -39,15 +156,18 @@ def runner_json_tables(test_run=False,start_year=2016,iit_reform=None,**user_par
             for k, v in tab.items():
                 for k2, v2 in v.items():
                     k1 = 'industry_{}'.format(k)
-                    if not k1 in tables:
+                    if k1 not in tables:
                         tables[k1] = {}
                     tables[k1][k2] = v2
         else:
             raise ValueError('Expected an "asset" or "industry" related table')
-    return add_summary_rows_and_breaklines(dict(tables), start_year, do_assertions=test_run)
+    return add_summary_rows_and_breaklines(dict(tables),
+                                           start_year,
+                                           do_assertions=test_run)
 
 
-def add_summary_rows_and_breaklines(results, first_budget_year, do_assertions=False):
+def add_summary_rows_and_breaklines(results, first_budget_year,
+                                    do_assertions=False):
     """
     Take various results from i.e. mY_dec, mX_bin, df_dec, etc
     Return organized and labeled table results for display
@@ -57,9 +177,9 @@ def add_summary_rows_and_breaklines(results, first_budget_year, do_assertions=Fa
                          if k.startswith(('asset_', 'industry_'))}
     row_grouping = results.get('row_grouping', {})
     tables = {k: results[k] for k in (set(results) - set(tables_to_process))}
-    stats = defaultdict(lambda:defaultdict(lambda:{}))
+    stats = defaultdict(lambda: defaultdict(lambda: {}))
     for upper_key, table_data0 in tables_to_process.items():
-        if not upper_key in tables:
+        if upper_key not in tables:
             tables[upper_key] = {}
         for table_id, table_data in table_data0.items():
             col_labels = list(table_data.columns)
@@ -106,7 +226,8 @@ def add_summary_rows_and_breaklines(results, first_budget_year, do_assertions=Fa
                 befores.append(before)
 
             if not is_asset and do_assertions:
-                assert len(befores) == 2 # Nondurable Goods, Durable Goods
+                # Nondurable Goods, Durable Goods
+                assert len(befores) == 2
                 assert "Manufacturing" in befores, (repr(befores))
             row_order = [r for r in row_order if r not in breaks]
             for idx, row_label in enumerate(row_order):
@@ -133,7 +254,8 @@ def add_summary_rows_and_breaklines(results, first_budget_year, do_assertions=Fa
                 try:
                     group = group_data[row_label]
                 except KeyError:
-                    raise KeyError('Failed on key lookup {} in {}'.format(group_data, row_label))
+                    raise KeyError('Failed on key lookup '
+                                   '{} in {}'.format(group_data, row_label))
                 row = {
                     'label': row_label,
                     'cells': [],
@@ -146,7 +268,9 @@ def add_summary_rows_and_breaklines(results, first_budget_year, do_assertions=Fa
                     try:
                         this_row = table_data.loc[row_label].values
                     except:
-                        raise KeyError('Failed on lookup of {} in {}'.format(row_label, table_data.index))
+                        raise KeyError('Failed on lookup of '
+                                       '{} in {}'.format(row_label,
+                                                         table_data.index))
                     value = this_row[col_key]
                     if do_assertions:
                         # Do assertions to make sure
@@ -156,7 +280,8 @@ def add_summary_rows_and_breaklines(results, first_budget_year, do_assertions=Fa
                         key1 = row['major_grouping']
                         key2 = row['major_grouping'] == row['label']
                         if col_key not in stats[key1][key2]:
-                            minn, maxx = stats[key1][key2][col_key] = [None, None]
+                            empty = [None, None]
+                            minn, maxx = stats[key1][key2][col_key] = empty
                         if minn is None or minn > value:
                             minn = value
                         if maxx is None or maxx < value:
@@ -185,6 +310,7 @@ def add_summary_rows_and_breaklines(results, first_budget_year, do_assertions=Fa
     tables['result_years'] = [first_budget_year]
     return tables
 
+
 def _dataframe_to_json_table(df, defaults, label, index_col):
     groups = [x[1]['table_id'] for x in defaults]
     tables = defaultdict(lambda: {})
@@ -209,6 +335,7 @@ def _dataframe_to_json_table(df, defaults, label, index_col):
         tables[group][label2] = df2
     return tables
 
+
 def output_by_asset_to_json_table(df, table_name):
     from btax.parameters import DEFAULT_ASSET_COLS
     return _dataframe_to_json_table(df, DEFAULT_ASSET_COLS,
@@ -219,7 +346,6 @@ def output_by_industry_to_json_table(df, table_name):
     from btax.parameters import DEFAULT_INDUSTRY_COLS
     return _dataframe_to_json_table(df, DEFAULT_INDUSTRY_COLS,
                                     table_name, 'Industry')
-
 
 
 def assertions_on_stats(stats):
@@ -238,7 +364,7 @@ def assertions_on_stats(stats):
         # For each summary row
         # (v[True] means summaries, v[False] means data rows)
         for col_idx, compare in v[True].items():
-            #Ensure we always have min and max
+            # Ensure we always have min and max
             assert len(compare) == 2
             # If it is a summary row, assert max
             # of rows is equal to min of rows (zero variance
@@ -249,11 +375,16 @@ def assertions_on_stats(stats):
                 vals = v[False][group][col_idx]
                 # Assert the summary weighted means are within
                 # the min/ max of the rows being summarized
-                assert vals[0] <= compare[0] and vals[1] >= compare[0] or vals[0] == vals[1], repr((group, vals, compare))
+                check1 = vals[0] <= compare[0]
+                check2 = vals[1] >= compare[0]
+                check3 = vals[0] == vals[1]
+                info = repr((group, vals, compare))
+                assert check1 and check2 or check3, info
             else:
                 # the summary row is the only one in the group
                 # E.g. Construction
                 pass
+
 
 def replace_unicode_spaces(s):
     for space in SPACES:
