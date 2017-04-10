@@ -15,9 +15,11 @@ fi
 if [ "$TAXCALC_VERSION" = "" ];then
     echo Will conda install latest taxcalc
 else
+    conda remove taxcalc;pip uninstall -y taxcalc;
     git clone http://github.com/open-source-economics/Tax-Calculator;
     if [ "$TAXCALC_INSTALL_METHOD" = "git" ];then
-        cd Tax-Calculator && git fetch --all && git checkout $TAXCALC_VERSION && python setup.py install;
+        cd Tax-Calculator && git fetch --all && git checkout $TAXCALC_VERSION
+        conda build conda.recipe --python $TRAVIS_PYTHON_VERSION && conda install --use-local taxcalc
     elif [ "$TAXCALC_VERSION" = "" ];then
         conda install -c ospc taxcalc;
     else
