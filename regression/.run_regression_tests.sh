@@ -21,6 +21,7 @@ for BTAX_VERSION in "$BTAX_VERSIONS";do
     export dt_str=$(echo $(date) | tr ":" "_" | tr " " "_")
     export output_file="regression_test_out_${dt_str}"
     # Echo the output and write it to file
+    cd $REGRESSION_DIR;
     python run_regression_tests.py $BTAX_REFORMS_FILE | tee $output_file
 done
 
