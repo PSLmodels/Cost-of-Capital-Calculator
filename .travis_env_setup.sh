@@ -21,7 +21,7 @@ fi
 if [ "$TAXCALC_VERSION" = "" ];then
     echo Will conda install latest taxcalc
 else
-    conda remove taxcalc;pip uninstall -y taxcalc;
+    rm -rf Tax-Calculator;
     git clone http://github.com/open-source-economics/Tax-Calculator;
     if [ "$TAXCALC_INSTALL_METHOD" = "git" ];then
         cd Tax-Calculator && git fetch --all && git checkout $TAXCALC_VERSION
@@ -33,7 +33,6 @@ else
     fi
 fi
 cd $REGRESSION_DIR && conda install --file ../conda-requirements.txt
-export BUILD_DIR=`pwd`
 pip install -r requirements.txt
 conda install -c ospc taxcalc
 pip install coverage codecov pytest-pep8
