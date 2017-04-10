@@ -104,6 +104,7 @@ def runner(test_run, start_year, iit_reform, **user_params):
     # visuals_plotly.asset_bubble(output_by_asset)
 
     # save output to csv - useful if run locally
+
     if RESULTS_TO_CSV:
         # set BTAX_TABLES_TO_CSV=1 to get these CSV files
         # (to set RESULTS_TO_CSV to True)
@@ -127,6 +128,7 @@ def runner(test_run, start_year, iit_reform, **user_params):
 
 def main():
     run_btax()
+
 
 if __name__ == '__main__':
     main()
