@@ -32,7 +32,7 @@ else
         conda install -c ospc taxcalc=$TAXCALC_VERSION;
     fi
 fi
-conda install --file conda-requirements.txt
+cd $REGRESSION_DIR && conda install --file ../conda-requirements.txt
 export BUILD_DIR=`pwd`
 pip install -r requirements.txt
 conda install -c ospc taxcalc
