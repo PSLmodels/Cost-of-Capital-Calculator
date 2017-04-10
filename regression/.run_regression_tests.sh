@@ -5,8 +5,9 @@ fi
 for BTAX_VERSION in "$BTAX_VERSIONS";do
     if [ "$BTAX_VERSION" = "none"]; then
         echo No install
-    elif
+    else
         . ../.travis_env_setup.sh
+    fi
     if [ "$OSPC_ANACONDA_TOKEN" = "" ];then
         export BTAX_TEST_RUN=1;
     else
