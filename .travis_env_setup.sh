@@ -7,6 +7,12 @@ if [ "$MAKE_MINICONDA" = "1" ];then
     bash miniconda.sh -b -p $mini;
     export PATH="${mini}/bin:$PATH";
 fi
+conda config --set always_yes yes --set changeps1 no
+conda update conda
+conda remove --force --name test-environment
+conda create -n test-environment python=$TRAVIS_PYTHON_VERSION pandas numpy
+source activate test-environment
+
 if [ "$BTAX_VERSION" = "" ];then
     echo No checkout
 else
@@ -26,11 +32,6 @@ else
         conda install -c ospc taxcalc=$TAXCALC_VERSION;
     fi
 fi
-conda config --set always_yes yes --set changeps1 no
-conda update conda
-conda remove --force --name test-environment
-conda create -n test-environment python=$TRAVIS_PYTHON_VERSION pandas numpy
-source activate test-environment
 conda install --file conda-requirements.txt
 export BUILD_DIR=`pwd`
 pip install -r requirements.txt
