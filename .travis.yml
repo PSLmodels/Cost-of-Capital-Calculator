@@ -7,9 +7,8 @@ python:
   - "3.5"
 
 install:
-  - MAKE_MINICONDA=1 source .travis_env_setup.sh
+  - REGRESSION_DIR=`pwd`/regression MAKE_MINICONDA=1 . .travis_env_setup.sh
 
 script:
-  - python -c "from btax import *" && echo B-Tax can be imported
-  - coverage run -m py.test -v -m "not slow and not needs_puf" btax --pep8
+  - python -c "from btax import *" && echo B-Tax can be imported && coverage run -m py.test -v -m "not slow and not needs_puf" btax --pep8 && echo Coverage ran no errors - OK
 

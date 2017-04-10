@@ -9,7 +9,7 @@ if [ "$MAKE_MINICONDA" = "1" ];then
 fi
 conda config --set always_yes yes --set changeps1 no
 conda update conda
-conda remove --force --name test-environment
+conda env remove --force --name test-environment
 conda create -n test-environment python=$TRAVIS_PYTHON_VERSION pandas numpy
 source activate test-environment
 
