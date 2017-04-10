@@ -36,10 +36,11 @@ conda install --file conda-requirements.txt
 export BUILD_DIR=`pwd`
 pip install -r requirements.txt
 conda install -c ospc taxcalc
-pip install coverage codecov pytest-pep8
+pip install -y coverage codecov pytest-pep8
 export BTAX_OUT_DIR=btax_output_dir
 export BTAX_CUR_DIR=${BUILD_DIR}
-mkdir btax_output_dir
+
+rm -rf btax_output_dir;mkdir -p btax_output_dir
 if [ "$BTAX_INSTALL_METHOD" = "" ];then
     python setup.py develop
 else
