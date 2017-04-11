@@ -19,14 +19,17 @@ if [ "$BTAX_VERSION" = "" ];then
 else
     git checkout $BTAX_VERSION
 fi
+export tc_channel="ospc"
 if [ "$TAXCALC_VERSION" = "" ];then
     echo Will conda install latest taxcalc
+    conda install -c ospc taxcalc=$TAXCALC_VERSION;
 else
     rm -rf Tax-Calculator;
     git clone http://github.com/open-source-economics/Tax-Calculator;
     if [ "$TAXCALC_INSTALL_METHOD" = "git" ];then
         cd Tax-Calculator && git fetch --all && git fetch origin --tags && git checkout $TAXCALC_VERSION
         conda build conda.recipe --python $TRAVIS_PYTHON_VERSION && conda install --use-local taxcalc
+        export tc_channel="file://$(conda build conda.recipe --python $TRAVIS_PYTHON_VERSION --output)"
     elif [ "$TAXCALC_VERSION" = "" ];then
         conda install -c ospc taxcalc;
     else
@@ -43,6 +46,8 @@ rm -rf btax_output_dir;mkdir -p btax_output_dir
 if [ "$BTAX_INSTALL_METHOD" = "" ];then
     python setup.py develop
 else
-    conda build ${REGRESSION_DIR}/../conda.recipe --python $TRAVIS_PYTHON_VERSION && conda install --use-local btax
+    export ch="--channel $tc_channel"
+    export recipe="${REGRESSION_DIR}/../conda.recipe"
+    conda build $recipe $ch --python $TRAVIS_PYTHON_VERSION && conda install --use-local btax
 fi
 
