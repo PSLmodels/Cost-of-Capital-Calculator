@@ -25,7 +25,7 @@ else
     rm -rf Tax-Calculator;
     git clone http://github.com/open-source-economics/Tax-Calculator;
     if [ "$TAXCALC_INSTALL_METHOD" = "git" ];then
-        cd Tax-Calculator && git fetch --all && git checkout $TAXCALC_VERSION
+        cd Tax-Calculator && git fetch --all && git fetch origin --tags && git checkout $TAXCALC_VERSION
         conda build conda.recipe --python $TRAVIS_PYTHON_VERSION && conda install --use-local taxcalc
     elif [ "$TAXCALC_VERSION" = "" ];then
         conda install -c ospc taxcalc;
@@ -35,7 +35,6 @@ else
 fi
 cd $REGRESSION_DIR && conda install --file ../conda-requirements.txt
 pip install -r ../requirements.txt
-conda install -c ospc taxcalc
 pip install coverage codecov pytest-pep8
 export BTAX_OUT_DIR=btax_output_dir
 export BTAX_CUR_DIR=$REGRESSION_DIR/..
