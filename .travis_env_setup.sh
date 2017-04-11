@@ -37,12 +37,12 @@ pip install -r requirements.txt
 conda install -c ospc taxcalc
 pip install coverage codecov pytest-pep8
 export BTAX_OUT_DIR=btax_output_dir
-export BTAX_CUR_DIR=${BUILD_DIR}
+export BTAX_CUR_DIR=$REGRESSION_DIR/..
 
 rm -rf btax_output_dir;mkdir -p btax_output_dir
 if [ "$BTAX_INSTALL_METHOD" = "" ];then
     python setup.py develop
 else
-    conda build conda.recipe --python $TRAVIS_PYTHON_VERSION && conda install --use-local btax
+    conda build ${REGRESSION_DIR}/../conda.recipe --python $TRAVIS_PYTHON_VERSION && conda install --use-local btax
 fi
 
