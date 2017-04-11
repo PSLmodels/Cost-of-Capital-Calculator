@@ -9,6 +9,7 @@ if [ "$MAKE_MINICONDA" = "1" ];then
 fi
 conda config --set always_yes yes --set changeps1 no
 conda update conda
+conda install conda-build
 conda env remove --name test-environment
 conda create -n test-environment python=$TRAVIS_PYTHON_VERSION pandas numpy
 source activate test-environment
@@ -33,7 +34,7 @@ else
     fi
 fi
 cd $REGRESSION_DIR && conda install --file ../conda-requirements.txt
-pip install -r requirements.txt
+pip install -r ../requirements.txt
 conda install -c ospc taxcalc
 pip install coverage codecov pytest-pep8
 export BTAX_OUT_DIR=btax_output_dir
