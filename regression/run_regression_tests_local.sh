@@ -1,3 +1,4 @@
+set -x
 export MAKE_MINICONDA=
 export REGRESSION_DIR=`pwd`
 if [ "$TRAVIS_PYTHON_VERSION" = "" ];then

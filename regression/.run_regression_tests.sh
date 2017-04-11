@@ -1,3 +1,4 @@
+
 if [ "$BTAX_VERSIONS" = "" ];then
     export BTAX_VERSIONS="none";
 fi
@@ -8,6 +9,7 @@ for BTAX_VERSION in "$BTAX_VERSIONS";do
     else
         . ../.travis_env_setup.sh
     fi
+    set +x
     if [ "$OSPC_ANACONDA_TOKEN" = "" ];then
         export BTAX_TEST_RUN=1;
     else
@@ -21,6 +23,7 @@ for BTAX_VERSION in "$BTAX_VERSIONS";do
     export dt_str=$(echo $(date) | tr ":" "_" | tr " " "_")
     export output_file="regression_test_out_${dt_str}"
     # Echo the output and write it to file
+    conda clean -pt
     echo Run regression tests on $(date) in PWD:
     echo `pwd`
     echo With files: `ls -l`
