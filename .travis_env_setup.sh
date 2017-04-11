@@ -29,7 +29,8 @@ else
     if [ "$TAXCALC_INSTALL_METHOD" = "git" ];then
         cd Tax-Calculator && git fetch --all && git fetch origin --tags && git checkout $TAXCALC_VERSION
         conda build conda.recipe --python $TRAVIS_PYTHON_VERSION && conda install --use-local taxcalc
-        export tc_channel="file://$(conda build conda.recipe --python $TRAVIS_PYTHON_VERSION --output)"
+        export output_file="$(conda build conda.recipe --python $TRAVIS_PYTHON_VERSION --output)"
+        export tc_channel="file://$(dirname $output_file)"
     elif [ "$TAXCALC_VERSION" = "" ];then
         conda install -c ospc taxcalc;
     else
@@ -48,6 +49,7 @@ if [ "$BTAX_INSTALL_METHOD" = "" ];then
 else
     export ch="--channel $tc_channel"
     export recipe="${REGRESSION_DIR}/../conda.recipe"
-    conda build $recipe $ch --python $TRAVIS_PYTHON_VERSION && conda install --use-local btax
+    export pyy="--python $TRAVIS_PYTHON_VERSION"
+    conda build $recipe $ch $pyy && conda install --use-local btax
 fi
 
