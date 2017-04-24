@@ -228,10 +228,13 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     if user_params['u_nc'] == 0.0:
         r_prime[:,1] = s_array[:,1] + pi
     # If entity level tax, assume distribute earnings at same rate corps distribute
-    # dividends and these are taxed at dividends tax rate (which seems likely, but
-    # leaves no role for non-corp income rate)
+    # dividends and these are taxed at dividends tax rate (which seems likely)
+    # Also implicitly assumed that if entity level tax, then only additional taxes on pass-through income are
+    # capital gains and dividend taxes
     else:
-        s_array[:,1] = s_array[:,0]
+        # s_array[:,1] = s_array[:,0]
+        s_array[0,1] = f_nc*s_nc_d + (1-f_nc)*s_c_e #keep debt and equity financing ratio the same even though now entity level tax that might now favor debt
+        s_array[2,1] = s_c_e
     delta = get_econ_depr()
     tax_methods = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0, 'Economic': 1.0,
                    'Expensing': 1.0}
