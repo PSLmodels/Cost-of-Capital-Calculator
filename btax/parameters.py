@@ -224,6 +224,10 @@ def get_params(test_run,baseline,start_year,iit_reform,**user_mods):
     s_array = np.array([[s_c, s_nc], [s_c_d, s_nc_d], [s_c_e, s_nc_e]])
     r = f_array*(i*(1-(1-int_haircut)*u_array))+(1-f_array)*(E_array+pi - E_array*r_ace*ace_array)
     r_prime = f_array*i+(1-f_array)*(E_array+pi)
+    print 'r: ', r
+    print 'interest haircut: ', int_haircut
+    quit()
+
     # if no entity level taxes on pass-throughs, ensure mettr and metr on non-corp entities the same
     if user_params['u_nc'] == 0.0:
         r_prime[:,1] = s_array[:,1] + pi
