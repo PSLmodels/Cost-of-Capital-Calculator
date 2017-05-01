@@ -1,4 +1,4 @@
-
+set -x
 if [ "$BTAX_VERSIONS" = "" ];then
     export BTAX_VERSIONS="none";
 fi
@@ -9,7 +9,7 @@ for BTAX_VERSION in "${@}";do
     else
         . ../.travis_env_setup.sh;
     fi
-    set +x
+    #set +x
     if [ "$OSPC_ANACONDA_TOKEN" = "" ];then
         export BTAX_TEST_RUN=1;
     else
