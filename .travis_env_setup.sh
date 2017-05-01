@@ -13,11 +13,18 @@ conda install conda-build
 conda env remove --name test-environment
 conda create -n test-environment python=$TRAVIS_PYTHON_VERSION pandas numpy
 source activate test-environment
-
+if [ "$WORKSPACE" = "" ];then
+    export WORKSPACE=$TRAVIS_BUILD_DIR;
+fi
 if [ "$BTAX_VERSION" = "" ];then
     echo No checkout
 else
+    cd ${TRAVIS_BUILD_DIR}/B-Tax
+    git fetch --all
+    git remote -v | grep psteinberg || git remote add psteinberg http://github.com/PeterDSteinberg/B-Tax
+    git fetch --all
     git checkout $BTAX_VERSION
+    cd $OLDPWD
 fi
 export tc_channel="ospc"
 if [ "$TAXCALC_VERSION" = "" ];then
