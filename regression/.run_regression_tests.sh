@@ -3,11 +3,11 @@ if [ "$BTAX_VERSIONS" = "" ];then
     export BTAX_VERSIONS="none";
 fi
 
-for BTAX_VERSION in "$BTAX_VERSIONS";do
+for BTAX_VERSION in "${@}";do
     if [ "$BTAX_VERSION" = "none" ]; then
         echo No install
     else
-        . ../.travis_env_setup.sh
+        . ../.travis_env_setup.sh;
     fi
     set +x
     if [ "$OSPC_ANACONDA_TOKEN" = "" ];then
