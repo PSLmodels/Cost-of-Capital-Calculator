@@ -39,10 +39,5 @@ that is not part of the B-Tax or Tax-Calculator repositories.
 
 Of course, you can get started with B-Tax both ways.
 
-
-## B-Tax Model Contributors
- * Jason DeBacker
- * Ben Gardner
-
 ## Citing the B-Tax Model
 B-Tax (Version 0.1.5)[Source code], https://github.com/open-source-economics/B-Tax
