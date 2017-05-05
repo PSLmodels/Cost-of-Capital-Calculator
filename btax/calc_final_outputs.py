@@ -79,7 +79,7 @@ def asset_calcs(params,asset_data):
     output_by_asset['asset_category'].replace(asset_dict,inplace=True)
 
     # Drop IP (for now - need to better figure out how depreciate)
-    #output_by_asset = output_by_asset[output_by_asset['asset_category']!='Intellectual Property'].copy()
+    # output_by_asset = output_by_asset[output_by_asset['asset_category']!='Intellectual Property'].copy()
     #output_by_asset = output_by_asset[output_by_asset['Asset Type']!='Land'].copy()
 
     # merge in dollar value of assets - sep for corp and non-corp
@@ -217,7 +217,8 @@ def industry_calcs(params, asset_data, output_by_asset):
       copy=True)
 
     # drop major groups - want to build up from individual assets
-    by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Intellectual Property'].copy()
+    # by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Intellectual Property'].copy()
+    by_industry_asset = by_industry_asset[by_industry_asset['Asset Type']!='Intellectual Property'].copy()
     by_industry_asset = by_industry_asset[by_industry_asset['Asset Type']!='Equipment'].copy()
     by_industry_asset = by_industry_asset[by_industry_asset['Asset Type']!='Structures'].copy()
     by_industry_asset = by_industry_asset[by_industry_asset['Asset Type']!='All Investments'].copy()
@@ -315,6 +316,9 @@ def industry_calcs(params, asset_data, output_by_asset):
 
     # make calculation for overall rates
     output_by_asset = output_by_asset[output_by_asset['Asset Type']!='All Investments'].copy()
+    output_by_asset = output_by_asset[output_by_asset['Asset Type']!='Equipment'].copy()
+    output_by_asset = output_by_asset[output_by_asset['Asset Type']!='Structures'].copy()
+    output_by_asset = output_by_asset[output_by_asset['Asset Type']!='Intellectual Property'].copy()
     corp_list = ['z_c','z_c_d','z_c_e','rho_c','rho_c_d','rho_c_e']
     noncorp_list = ['z_nc','z_nc_d','z_nc_e','rho_nc','rho_nc_d','rho_nc_e']
     overall = pd.DataFrame({'delta_c' : ((output_by_asset['delta']*
