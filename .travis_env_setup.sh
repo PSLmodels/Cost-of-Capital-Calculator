@@ -15,8 +15,11 @@ conda create -n test-environment python=$TRAVIS_PYTHON_VERSION pandas numpy
 source activate test-environment
 if [ "$WORKSPACE" = "" ];then
     export WORKSPACE=$TRAVIS_BUILD_DIR;
+    export IS_TRAVIS=1;
+else
+    export IS_TRAVIS=0;
 fi
-if [ "$BTAX_VERSION" = "" ];then
+if [ "$BTAX_VERSION" = "" ] || [ "$IS_TRAVIS" = "1" ];then
     echo No checkout
 else
     cd ${WORKSPACE}/B-Tax
@@ -27,7 +30,7 @@ else
     cd $OLDPWD
 fi
 export tc_channel="ospc"
-if [ "$TAXCALC_VERSION" = "" ];then
+if [ "$TAXCALC_VERSION" = "" ] || [ "$IS_TRAVIS" = "1" ];then
     echo Will conda install latest taxcalc
     conda install -c ospc taxcalc=$TAXCALC_VERSION;
 else
