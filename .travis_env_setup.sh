@@ -8,8 +8,8 @@ if [ "$MAKE_MINICONDA" = "1" ];then
     export PATH="${mini}/bin:$PATH";
 fi
 conda config --set always_yes yes --set changeps1 no
-conda update conda
-conda install conda-build
+conda update -n root conda
+conda install -n root conda-build
 conda env remove --name test-environment
 conda create -n test-environment python=$TRAVIS_PYTHON_VERSION pandas numpy
 source activate test-environment
