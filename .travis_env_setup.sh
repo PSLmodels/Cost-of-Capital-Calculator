@@ -19,7 +19,7 @@ fi
 if [ "$BTAX_VERSION" = "" ];then
     echo No checkout
 else
-    cd ${TRAVIS_BUILD_DIR}/B-Tax
+    cd ${WORKSPACE}/B-Tax
     git fetch --all
     git remote -v | grep psteinberg || git remote add psteinberg http://github.com/PeterDSteinberg/B-Tax
     git fetch --all
