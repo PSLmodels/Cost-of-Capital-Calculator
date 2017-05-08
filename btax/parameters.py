@@ -256,20 +256,21 @@ def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
     s_nc_e = E_nc
     s_nc = f_nc * s_nc_d + (1 - f_nc) * s_nc_e
     s_array = np.array([[s_c, s_nc], [s_c_d, s_nc_d], [s_c_e, s_nc_e]])
-    r1 = f_array * (i * (1 - (1 - int_haircut) * u_array))
-    e_arr_ace = E_array * r_ace * ace_array
-    r = r1 + (1 - f_array) * (E_array + pi - e_arr_ace)
-    r_prime = f_array * i + (1 - f_array) * (E_array + pi)
-    # if no entity level taxes on pass-throughs, ensure mettr and
-    # metr on non-corp entities the same
+
+    r = f_array*(i*(1-(1-int_haircut)*u_array))+(1-f_array)*(E_array+pi - E_array*r_ace*ace_array)
+    r_prime = f_array*i+(1-f_array)*(E_array+pi)
+
+    # if no entity level taxes on pass-throughs, ensure mettr and metr on non-corp entities the same
     if user_params['u_nc'] == 0.0:
-        r_prime[:, 1] = s_array[:, 1] + pi
-        # If entity level tax, assume distribute earnings at
-        # same rate corps distribute dividends and these are taxed at dividends
-        # tax rate (which seems likely, but leaves no
-        # role for non-corp income rate)
+        r_prime[:,1] = s_array[:,1] + pi
+    # If entity level tax, assume distribute earnings at same rate corps distribute
+    # dividends and these are taxed at dividends tax rate (which seems likely)
+    # Also implicitly assumed that if entity level tax, then only additional taxes on pass-through income are
+    # capital gains and dividend taxes
     else:
-        s_array[:, 1] = s_array[:, 0]
+        # s_array[:,1] = s_array[:,0]
+        s_array[0,1] = f_nc*s_nc_d + (1-f_nc)*s_c_e #keep debt and equity financing ratio the same even though now entity level tax that might now favor debt
+        s_array[2,1] = s_c_e
     delta = get_econ_depr()
     tax_methods = {'DB 200%': 2.0,
                    'DB 150%': 1.5,

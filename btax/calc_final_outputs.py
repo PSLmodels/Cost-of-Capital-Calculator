@@ -94,10 +94,9 @@ def asset_calcs(params, asset_data):
     output_by_asset['asset_category'].replace(asset_dict, inplace=True)
 
     # Drop IP (for now - need to better figure out how depreciate)
-    # prop = output_by_asset['asset_category']!='Intellectual Property'
-    # output_by_asset = output_by_asset[prop].copy()
-    # land = output_by_asset['Asset Type']!='Land'
-    # output_by_asset = output_by_asset[land].copy()
+
+    # output_by_asset = output_by_asset[output_by_asset['asset_category']!='Intellectual Property'].copy()
+    #output_by_asset = output_by_asset[output_by_asset['Asset Type']!='Land'].copy()
 
     # merge in dollar value of assets - sep for corp and non-corp
     # should be able to do this better with pivot table
@@ -272,16 +271,13 @@ def industry_calcs(params, asset_data, output_by_asset):
                                  copy=True)
 
     # drop major groups - want to build up from individual assets
-    intel = by_industry_asset['asset_category'] != 'Intellectual Property'
-    by_industry_asset = by_industry_asset[intel].copy()
-    equip = by_industry_asset['Asset Type'] != 'Equipment'
-    by_industry_asset = by_industry_asset[equip].copy()
-    struct = by_industry_asset['Asset Type'] != 'Structures'
-    by_industry_asset = by_industry_asset[struct].copy()
-    inv = by_industry_asset['Asset Type'] != 'All Investments'
-    by_industry_asset = by_industry_asset[inv].copy()
-    # housing = by_industry_asset['tax_treat']!='owner_occupied_housing'
-    # by_industry_asset = by_industry_asset[housing].copy()
+
+    # by_industry_asset = by_industry_asset[by_industry_asset['asset_category']!='Intellectual Property'].copy()
+    by_industry_asset = by_industry_asset[by_industry_asset['Asset Type']!='Intellectual Property'].copy()
+    by_industry_asset = by_industry_asset[by_industry_asset['Asset Type']!='Equipment'].copy()
+    by_industry_asset = by_industry_asset[by_industry_asset['Asset Type']!='Structures'].copy()
+    by_industry_asset = by_industry_asset[by_industry_asset['Asset Type']!='All Investments'].copy()
+    #by_industry_asset = by_industry_asset[by_industry_asset['tax_treat']!='owner_occupied_housing'].copy()
 
     # create weighted averages by industry/tax treatment
     grouping = by_industry_asset.groupby(['bea_ind_code', 'tax_treat'])
@@ -415,18 +411,18 @@ def industry_calcs(params, asset_data, output_by_asset):
     by_major_ind['Industry'] = by_major_ind['major_industry']
 
     # make calculation for overall rates
-    inv = output_by_asset['Asset Type'] != 'All Investments'
-    output_by_asset = output_by_asset[inv].copy()
-    corp_list = ['z_c', 'z_c_d', 'z_c_e',
-                 'rho_c', 'rho_c_d', 'rho_c_e']
-    noncorp_list = ['z_nc', 'z_nc_d', 'z_nc_e',
-                    'rho_nc', 'rho_nc_d', 'rho_nc_e']
-    wt_summ = (output_by_asset['delta'] * output_by_asset['assets_c']).sum()
-    summ = output_by_asset['assets_c'].sum()
-    overall = pd.DataFrame({'delta_c': (wt_summ / summ)}, index=[0])
-    wt_summ = (output_by_asset['delta'] * output_by_asset['assets_nc']).sum()
-    summ = output_by_asset['assets_nc'].sum()
-    overall['delta_nc'] = wt_summ / summ
+
+    output_by_asset = output_by_asset[output_by_asset['Asset Type']!='All Investments'].copy()
+    output_by_asset = output_by_asset[output_by_asset['Asset Type']!='Equipment'].copy()
+    output_by_asset = output_by_asset[output_by_asset['Asset Type']!='Structures'].copy()
+    output_by_asset = output_by_asset[output_by_asset['Asset Type']!='Intellectual Property'].copy()
+    corp_list = ['z_c','z_c_d','z_c_e','rho_c','rho_c_d','rho_c_e']
+    noncorp_list = ['z_nc','z_nc_d','z_nc_e','rho_nc','rho_nc_d','rho_nc_e']
+    overall = pd.DataFrame({'delta_c' : ((output_by_asset['delta']*
+              output_by_asset['assets_c']).sum()/output_by_asset['assets_c'].sum())},index=[0])
+    overall['delta_nc'] = ((output_by_asset['delta']*
+              output_by_asset['assets_nc']).sum()/output_by_asset['assets_nc'].sum())
+
     overall['assets_c'] = output_by_asset['assets_c'].sum()
     overall['assets_nc'] = output_by_asset['assets_nc'].sum()
     overall['Industry'] = 'All Investments'
