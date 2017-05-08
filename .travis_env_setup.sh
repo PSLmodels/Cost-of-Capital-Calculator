@@ -48,7 +48,7 @@ cd $REGRESSION_DIR && conda install --file ../conda-requirements.txt
 pip install -r ../requirements.txt
 pip install coverage codecov pytest-pep8
 export BTAX_OUT_DIR=btax_output_dir
-export BTAX_CUR_DIR=$REGRESSION_DIR/..
+export BTAX_CUR_DIR=$REGRESSION_DIR/../btax
 
 rm -rf btax_output_dir;mkdir -p btax_output_dir
 if [ "$BTAX_INSTALL_METHOD" = "" ];then
