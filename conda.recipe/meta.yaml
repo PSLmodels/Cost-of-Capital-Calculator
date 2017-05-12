@@ -10,8 +10,8 @@ requirements:
     - setuptools
     - scipy
     - taxcalc
-    - numpy
-    - pandas <=0.18.0
+    - numpy >=1.12.1
+    - pandas >=0.20.1
     - python
     - pytest
     - xlrd
@@ -21,8 +21,8 @@ requirements:
     - setuptools
     - scipy
     - taxcalc
-    - numpy
-    - pandas <=0.18.0
+    - numpy >=1.12.1
+    - pandas >=0.20.1
     - python
     - pytest
     - xlrd
