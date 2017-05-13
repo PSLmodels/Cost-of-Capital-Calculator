@@ -1,0 +1,41 @@
+{
+  "reform0": {
+    "start_year": 2013,
+    "btax_params": {
+      "u_nc": 0.0,
+      "w": 0.0,
+      "phi": 0.5,
+      "u_c": 0.35,
+      "i": 0.068,
+      "ace_c": 0.0,
+      "bonus_deprec": {
+        "10": 0.5,
+        "25": 0.0,
+        "3": 0.5,
+        "39": 0.0,
+        "27_5": 0.0,
+        "7": 0.5,
+        "15": 0.5,
+        "5": 0.5,
+        "20": 0.5
+      },
+      "expense_land": false,
+      "deprec_system": {
+        "10": "ADS",
+        "25": "GDS",
+        "3": "GDS",
+        "39": "GDS",
+        "27_5": "GDS",
+        "7": "GDS",
+        "15": "GDS",
+        "5": "GDS",
+        "20": "GDS"
+      },
+      "inv_credit": 0.0,
+      "pi": 0.024,
+      "int_haircut": 0.0,
+      "expense_inventory": false
+    },
+    "iit_reform": {}
+  }
+}
