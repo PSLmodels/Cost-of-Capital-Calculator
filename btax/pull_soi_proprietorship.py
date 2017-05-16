@@ -82,7 +82,7 @@ def load_proprietorship_data(entity_dfs):
 
     # Sums together the repeated codes into one industry
     nonfarm_df = nonfarm_df.groupby('INDY_CD',sort=False).sum()
-    nonfarm_df.reset_index(level=0, inplace=True)
+    nonfarm_df.reset_index(inplace=True)
 
     # add some rows for industry codes not in the sole prop data because they are zero
     df = pd.DataFrame(columns=('INDY_CD','Depreciation','Inventories'))

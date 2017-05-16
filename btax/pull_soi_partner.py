@@ -109,7 +109,7 @@ def load_partner_data(entity_dfs):
 
     # Sums together the repeated codes into one industry
     df03 = df03.groupby('INDY_CD',sort=False).sum()
-    df03.reset_index(level=0, inplace=True)
+    df03.reset_index(inplace=True)
 
     ## create ratios for minor industry assets using corporate data
     # read in crosswalk for bea and soi industry codes
