@@ -49,6 +49,4 @@ test:
     - btax.pull_soi_proprietorship
     - btax.read_bea
     - btax.util
-    - btax.visuals
-    - btax.visuals_plotly
 
