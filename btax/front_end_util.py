@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from collections import defaultdict
 import os
+import json
 
 from btax.parameters import DEFAULT_ASSET_COLS, DEFAULT_INDUSTRY_COLS
 
@@ -20,6 +21,15 @@ DO_ASSERTIONS = int(os.environ.get('BTAX_TABLE_ASSERTIONS', False))
 def runner_json_tables(test_run=False,start_year=2016,iit_reform=None,**user_params):
     from btax.execute import runner, TABLE_ORDER
     out = runner(test_run,start_year,iit_reform,**user_params)
+
+    all_dataframes = {'base_output_by_asset': out[0].to_json(),
+                      'reform_output_by_asset': out[1].to_json(),
+                      'changed_output_by_asset': out[2].to_json(),
+                      'base_output_by_industry': out[3].to_json(),
+                      'reform_output_by_industry': out[4].to_json(),
+                      'changed_output_by_industry': out[5].to_json()}
+    serialized_dataframes = json.dumps(all_dataframes)
+
 
     tables = {'row_grouping': out.row_grouping}
     for label, table in zip(TABLE_ORDER, out[:-1]):
@@ -44,7 +54,10 @@ def runner_json_tables(test_run=False,start_year=2016,iit_reform=None,**user_par
                     tables[k1][k2] = v2
         else:
             raise ValueError('Expected an "asset" or "industry" related table')
-    return add_summary_rows_and_breaklines(dict(tables), start_year, do_assertions=test_run)
+    return json.dumps({
+        'json_table': add_summary_rows_and_breaklines(dict(tables), start_year, do_assertions=test_run),
+        'dataframes': serialized_dataframes,
+        })
 
 
 def add_summary_rows_and_breaklines(results, first_budget_year, do_assertions=False):
