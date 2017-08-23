@@ -54,11 +54,10 @@ def runner_json_tables(test_run=False,start_year=2016,iit_reform=None,**user_par
                     tables[k1][k2] = v2
         else:
             raise ValueError('Expected an "asset" or "industry" related table')
-    return json.dumps({
-        'json_table': add_summary_rows_and_breaklines(dict(tables), start_year, do_assertions=test_run),
-        'dataframes': serialized_dataframes,
-        })
-
+    return {
+            'json_table': add_summary_rows_and_breaklines(dict(tables), start_year, do_assertions=test_run),
+            'dataframes': serialized_dataframes,
+            }
 
 def add_summary_rows_and_breaklines(results, first_budget_year, do_assertions=False):
     """
