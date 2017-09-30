@@ -264,3 +264,31 @@ def econ(df, r, pi, financing_list, entity_list):
                                                      (df['delta'] +
                                                       r[i, j] - pi))))
     return df
+
+
+def expensing(df, r, financing_list, entity_list):
+    """
+    Makes the calculation for expensing.
+
+    Args:
+        df: dataframe, contains economic depreciation and tax
+            depreciation schedules for all assets where full expensing
+            will be applied.
+        r: scalar, nominal interest rate
+        financing_list: list, list of strings defining financing options
+                        (e.g., typically financed, debt financed,
+                        equity financed)
+        entity_list = list, list of strings of different entity types
+
+        Returns:
+            df: dataframe, NPV of depreciation deductions for
+                    all asset using full expensing, all
+                    financing types, and all tax treatment types
+
+    """
+
+    for i in range(r.shape[0]):
+        for j in range(r.shape[1]):
+            df['z' + entity_list[j] + financing_list[i]] = 1.
+
+    return df
