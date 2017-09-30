@@ -60,7 +60,7 @@ def calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system,
         expense_inventory: boolean, True if immediately expense
                            inventories
         expense_land: scalar, rate of expending on land
-        tax_methods:
+        tax_methods: dictionary, maps tax methods from data into model
         financing_list: list, list of strings defining financing options
                         (e.g., typically financed, debt financed,
                         equity financed)
@@ -106,8 +106,10 @@ def calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system,
                       'z'+entity_list[j] + financing_list[i]] = 0.
 
     # apply rate of expensing to land
-    z.loc[z['Asset Type'] == 'Land', 'z' + entity_list[j] +
-          financing_list[i]] = 1 - expense_land
+    for i in range(r.shape[0]):
+        for j in range(r.shape[1]):
+            z.loc[z['Asset Type'] == 'Land', 'z' + entity_list[j] +
+                  financing_list[i]] = expense_land
 
     return z
 
@@ -121,7 +123,7 @@ def npv_tax_deprec(df, r, pi, tax_methods, financing_list, entity_list):
         r: numpy array, nominal discount rate for each tax treatment
            and type of financing
         pi: scalar, inflation rate
-        tax_methods:
+        tax_methods: dictionary, maps tax methods from data into model
         financing_list: list, list of strings defining financing options
                         (e.g., typically financed, debt financed,
                         equity financed)
