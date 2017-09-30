@@ -73,10 +73,10 @@ def translate_param_names(start_year=DEFAULT_START_YEAR, **user_mods):
         phi = 0.5  # Fraction of inventories using LIFO
         expense_inventory = False  # Flag for expensing of inventories
     elif user_mods['inventory_method'] == 1:
-        phi = 1.0
+        phi = 1.0  # Use only LIFO
         expense_inventory = False
     elif user_mods['inventory_method'] == 2:
-        phi = 0.0
+        phi = 0.0  # Use only FIFO
         expense_inventory = False
     elif user_mods['inventory_method'] == 3:
         phi = 0.5
