@@ -17,7 +17,7 @@ import pandas as pd
 
 from btax.util import read_from_egg, DEFAULT_START_YEAR
 
- # first year of tax parameters in btax_defaults.json
+# first year of tax parameters in btax_defaults.json
 PARAMETER_START_YEAR = 2015
 DEFAULTS = json.loads(read_from_egg(os.path.join('param_defaults',
                                                  'btax_defaults.json')))
@@ -68,13 +68,22 @@ def translate_param_names(start_year=DEFAULT_START_YEAR, **user_mods):
     user_bonus_deprec = {cl: user_mods['btax_depr_{}yr_exp'.format(cl)]
                          / 100. for cl in class_list_str}
 
-    # Flag for expensing of inventories
-    expense_inventory = user_mods['btax_depr_expense_inventory']
-    # Fraction of inventories using LIFO
-    phi = 0.5
+    # Determine method for accounting for inventories
+    if user_mods['inventory_method'] == 0:
+        phi = 0.5  # Fraction of inventories using LIFO
+        expense_inventory = False  # Flag for expensing of inventories
+    elif user_mods['inventory_method'] == 1:
+        phi = 1.0
+        expense_inventory = False
+    elif user_mods['inventory_method'] == 2:
+        phi = 0.0
+        expense_inventory = False
+    elif user_mods['inventory_method'] == 3:
+        phi = 0.5
+        expense_inventory = True
 
-    # Flag for expensing of land
-    expense_land = user_mods['btax_depr_expense_land']
+    # Rate of expensing for land
+    expense_land = user_mods['btax_depr_land_exp'] / 100.
 
     u_nc = user_mods['btax_betr_pass']
 
@@ -472,21 +481,6 @@ def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
     major_asset_groups.update(dict.fromkeys(['Land'], 'Land'))
 
     # define major industry groupings
-    major_industries = {'Agriculture, forestry, fishing, and hunting',
-                        'Mining', 'Utilities', 'Construction',
-                        'Manufacturing', 'Wholesale trade',
-                        'Retail trade',
-                        'Transportation and warehousing', 'Information',
-                        'Finance and insurance',
-                        'Real estate and rental and leasing',
-                        'Professional, scientific, and technical services',
-                        'Management of companies and enterprises',
-                        'Administrative and waste management services',
-                        'Educational services',
-                        'Health care and social assistance',
-                        'Arts, entertainment, and recreation',
-                        'Accommodation and food services',
-                        'Other services, except government'}
     ind_dict = dict.fromkeys(['Farms',
                               'Forestry, fishing, and related activities'],
                              'Agriculture, forestry, fishing, and hunting')
