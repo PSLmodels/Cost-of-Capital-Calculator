@@ -100,6 +100,7 @@ def run_btax(test_run,baseline=False,start_year=DEFAULT_START_YEAR,iit_reform=No
 
     # drop delta variables - UI can't acccept them
     output_by_asset = output_by_asset.drop('delta', 1)
+
     # drop delta variables - UI can't acccept them
     output_by_industry = output_by_industry.drop(['delta_c','delta_nc'], 1)
 
