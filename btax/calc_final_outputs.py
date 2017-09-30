@@ -104,8 +104,8 @@ def asset_calcs(params,asset_data):
 
     # Now compute METR and other output by major asset group
     # create weighted averages by major asset group/tax treatment
-`    by_major_asset = pd.DataFrame({'delta' : output_by_asset.groupby(
-        ['major_asset_group'] ).apply(wavg, "delta", "assets_c")}).reset_index()`
+    by_major_asset = pd.DataFrame({'delta' : output_by_asset.groupby(
+        ['major_asset_group'] ).apply(wavg, "delta", "assets_c")}).reset_index()
     corp_list = ['z_c','z_c_d','z_c_e','rho_c','rho_c_d','rho_c_e']
     noncorp_list = ['z_nc','z_nc_d','z_nc_e','rho_nc','rho_nc_d','rho_nc_e']
     for item in corp_list:
