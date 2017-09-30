@@ -51,7 +51,8 @@ def calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system,
     Calls functions defined below to compute NPV of tax depreciation.
 
     Args:
-        r: scalar, nominal interest rate
+        r: numpy array, nominal discount rate for each tax treatment
+           and type of financing
         pi: scalar, inflation rate
         delta: economic depreciation rate
         bonus_deprec: rate of bonus depreciation
@@ -65,9 +66,9 @@ def calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system,
                         equity financed)
         entity_list = list, list of strings of different entity types
 
-        Returns:
-            z: dataframe, NPV of depreciation deductions for all asset
-               types, all financing types, and all tax treatment types
+    Returns:
+        z: dataframe, NPV of depreciation deductions for all asset
+            types, all financing types, and all tax treatment types
 
     """
     tax_deprec_rates = pd.read_csv(_TAX_DEPR)
@@ -117,7 +118,8 @@ def npv_tax_deprec(df, r, pi, tax_methods, financing_list, entity_list):
     the straight line or declining balance calculations.
 
     Args:
-        r: scalar, nominal interest rate
+        r: numpy array, nominal discount rate for each tax treatment
+           and type of financing
         pi: scalar, inflation rate
         tax_methods:
         financing_list: list, list of strings defining financing options
@@ -125,10 +127,9 @@ def npv_tax_deprec(df, r, pi, tax_methods, financing_list, entity_list):
                         equity financed)
         entity_list = list, list of strings of different entity types
 
-        Returns:
-            df_all: dataframe, NPV of depreciation deductions for
-                    all asset types, all financing types, and all
-                    tax treatment types
+    Returns:
+        df_all: dataframe, NPV of depreciation deductions for all asset
+                types, all financing types, and all tax treatment types
 
     """
 
@@ -163,16 +164,17 @@ def dbsl(df, r, financing_list, entity_list):
         df: dataframe, contains economic depreciation and tax
             depreciation schedules for all assets where DBSL depreciation
             will be applied.
-        r: scalar, nominal interest rate
+        r: numpy array, nominal discount rate for each tax treatment
+           and type of financing
         financing_list: list, list of strings defining financing options
                         (e.g., typically financed, debt financed,
                         equity financed)
         entity_list = list, list of strings of different entity types
 
-        Returns:
-            df: dataframe, NPV of depreciation deductions for
-                    all asset using DBSL depreciation, all financing types,
-                    and all tax treatment types
+    Returns:
+        df: dataframe, NPV of depreciation deductions for all asset
+            using DBSL depreciation, all financing types, and all tax
+            treatment types
 
     """
 
@@ -209,16 +211,17 @@ def sl(df, r, financing_list, entity_list):
         df: dataframe, contains economic depreciation and tax
             depreciation schedules for all assets where DBSL depreciation
             will be applied.
-        r: scalar, nominal interest rate
+        r: numpy array, nominal discount rate for each tax treatment
+           and type of financing
         financing_list: list, list of strings defining financing options
                         (e.g., typically financed, debt financed,
                         equity financed)
         entity_list = list, list of strings of different entity types
 
-        Returns:
-            df: dataframe, NPV of depreciation deductions for
-                    all asset using SL depreciation, all financing types,
-                    and all tax treatment types
+    Returns:
+        df: dataframe, NPV of depreciation deductions for all asset
+            using SL depreciation, all financing types, and all tax
+            treatment types
 
     """
     df['Y'] = df['ADS Life']
@@ -243,17 +246,18 @@ def econ(df, r, pi, financing_list, entity_list):
         df: dataframe, contains economic depreciation and tax
             depreciation schedules for all assets where DBSL depreciation
             will be applied.
-        r: scalar, nominal interest rate
+        r: numpy array, nominal discount rate for each tax treatment
+           and type of financing
         pi: scalar, inflatino rate
         financing_list: list, list of strings defining financing options
                         (e.g., typically financed, debt financed,
                         equity financed)
         entity_list = list, list of strings of different entity types
 
-        Returns:
-            df: dataframe, NPV of depreciation deductions for
-                    all asset using economics depreciation, all
-                    financing types, and all tax treatment types
+    Returns:
+        df: dataframe, NPV of depreciation deductions for all asset
+            using economics depreciation, all financing types, and all
+            tax treatment types
 
     """
 
@@ -274,16 +278,17 @@ def expensing(df, r, financing_list, entity_list):
         df: dataframe, contains economic depreciation and tax
             depreciation schedules for all assets where full expensing
             will be applied.
-        r: scalar, nominal interest rate
+        r: numpy array, nominal discount rate for each tax treatment
+           and type of financing
         financing_list: list, list of strings defining financing options
                         (e.g., typically financed, debt financed,
                         equity financed)
         entity_list = list, list of strings of different entity types
 
-        Returns:
-            df: dataframe, NPV of depreciation deductions for
-                    all asset using full expensing, all
-                    financing types, and all tax treatment types
+    Returns:
+        df: dataframe, NPV of depreciation deductions for all asset
+            using full expensing, all financing types, and all tax
+            treatment types
 
     """
 
