@@ -8,6 +8,7 @@ depreciation rate (no calculation needed). The net present value of tax
 depreciation allowances are calculated for both the declining balance
 and straight line methods of depreciation.
 '''
+
 # Packages:
 import numpy as np
 import pandas as pd
@@ -91,23 +92,21 @@ def calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system,
     z = npv_tax_deprec(tax_deprec_rates, r, pi, tax_methods,
                        financing_list, entity_list)
 
-    # replace tax depreciation rates on land and inventories w/ zero - unless expense
+    # replace tax depreciation rates on inventories w/ zero - unless expense
     if expense_inventory:
         for i in range(r.shape[0]):
             for j in range(r.shape[1]):
-                z.loc[z['Asset Type'] == 'Inventories', 'z' + entity_list[j] + financing_list[i]] = 1.
+                z.loc[z['Asset Type'] == 'Inventories', 'z' +
+                      entity_list[j] + financing_list[i]] = 1.
     else:
         for i in range(r.shape[0]):
             for j in range(r.shape[1]):
-                z.loc[z['Asset Type'] == 'Inventories', 'z'+entity_list[j] + financing_list[i]] = 0.
-    if expense_land:
-        for i in range(r.shape[0]):
-            for j in range(r.shape[1]):
-                z.loc[z['Asset Type'] == 'Land', 'z' + entity_list[j] + financing_list[i]] = 1.
-    else:
-        for i in range(r.shape[0]):
-            for j in range(r.shape[1]):
-                z.loc[z['Asset Type'] == 'Land', 'z' + entity_list[j] + financing_list[i]] = 0.
+                z.loc[z['Asset Type'] == 'Inventories',
+                      'z'+entity_list[j] + financing_list[i]] = 0.
+
+    # apply rate of expensing to land
+    z.loc[z['Asset Type'] == 'Land', 'z' + entity_list[j] +
+          financing_list[i]] = 1 - expense_land
 
     return z
 
