@@ -94,18 +94,20 @@ def calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system,
                        financing_list, entity_list)
 
     # replace tax depreciation rates on inventories w/ zero - unless expense
+    for i in range(r.shape[0]):
+        for j in range(r.shape[1]):
+            z_columns.append('z' + entity_list[j] + financing_list[i])
+
     if expense_inventory:
-        for i in range(r.shape[0]):
-            for j in range(r.shape[1]):
-                z.loc[z['Asset Type'] == 'Inventories', 'z' +
-                      entity_list[j] + financing_list[i]] = 1.
+        z.loc[z['Asset Type'] == 'Inventories', z_columns] = 1.0
     else:
-        for i in range(r.shape[0]):
-            for j in range(r.shape[1]):
-                z.loc[z['Asset Type'] == 'Inventories',
-                      'z'+entity_list[j] + financing_list[i]] = 0.
+        z.loc[z['Asset Type'] == 'Inventories', z_columns] = 0.0
 
     # apply rate of expensing to land
+    z.loc[z['Asset Type'] == 'Land', z_columns] = expense_land
+
+
+
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
             z.loc[z['Asset Type'] == 'Land', 'z' + entity_list[j] +
