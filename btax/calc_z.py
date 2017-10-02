@@ -94,6 +94,7 @@ def calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system,
                        financing_list, entity_list)
 
     # replace tax depreciation rates on inventories w/ zero - unless expense
+    z_columns = []
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
             z_columns.append('z' + entity_list[j] + financing_list[i])
