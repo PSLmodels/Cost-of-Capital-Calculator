@@ -1204,11 +1204,11 @@
     }
   ],
   [
-    "btax_depr_expense_inventory",
+    "inventory_method",
     {
-      "long_name": "Indicator for use of expensing for inventories",
-      "notes": "This parameter is an indicator for the use of expensing for inventories.",
-      "description": "Indicator for expensing of inventories",
+      "long_name": "Accounting method used for inventories.",
+      "notes": "This parameter is an categorical variable for the accounting method used for inventories. =0 if use historic average of LIFO/FIFO, =1 if only LIFO, =2 if only FIFO, =3 if immediately expense.",
+      "description": "Categorical variable for the accouting method used for inventories.",
       "start_year": 2017,
       "row_label": ["2015",
                     "2016",
@@ -1217,20 +1217,20 @@
                     "2019",
                     "2020"],
       "value": [
-        false,
-        false,
-        false,
-        false,
-        false,
-        false]
+        0,
+        0,
+        0,
+        0,
+        0,
+        0]
     }
   ],
   [
-    "btax_depr_expense_land",
+    "btax_depr_land_exp",
     {
-      "long_name": "Indicator for use of expensing for land",
-      "notes": "This parameter is an indicator for the use of expensing for land.",
-      "description": "Indicator for expensing of land",
+      "long_name": "Rate of expensing for land",
+      "notes": "This parameter determines the rate of expensing used for land.",
+      "description": "Rate for expensing of land",
       "start_year": 2017,
       "row_label": ["2015",
                     "2016",
@@ -1239,12 +1239,12 @@
                     "2019",
                     "2020"],
       "value": [
-        false,
-        false,
-        false,
-        false,
-        false,
-        false]
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0]
     }
   ]
 ]
