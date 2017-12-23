@@ -59,7 +59,7 @@ def run_btax(test_run,baseline=False, start_year=DEFAULT_START_YEAR,
     Args:
         test_run: boolean, True if test run (doesn't use puf.csv)
         baseline: boolean, True if run with current law parameters
-        start_year: interger, tax year METRs computed for
+        start_year: integer, tax year METRs computed for
         iit_reform: dictionary, reform to pass to Tax-Calculator
         user_params: dictionary, user defined parametesr for B-Tax
 
