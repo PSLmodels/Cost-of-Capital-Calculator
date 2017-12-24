@@ -72,13 +72,13 @@ def load_proprietorship_data(entity_dfs):
         nonfarm_inv['Item'].apply(lambda x: re.sub('[\s+]', '', x))
     # merge together two sole prop data sources
     # have to manually fix a couple names to be compatible
-    nonfarm_df.iloc[nonfarm_df['Item'] ==
+    nonfarm_df.loc[nonfarm_df['Item'] ==
                    "Otherambulatoryhealthcareservices(includingambulanceservices,bloodandorganbanks)",
                    'Item'] = 'Otherambulatoryhealthcareservices(includingambulanceservices,blood,organbanks)'
-    nonfarm_df.iloc[nonfarm_df['Item'] ==
+    nonfarm_df.loc[nonfarm_df['Item'] ==
                    "Officesofrealestateagents,brokers,propertymanagers,andappraisers",
                    'Item'] = 'Officesofrealestateagents,brokers,propertymanagersandappraisers'
-    nonfarm_df.iloc[nonfarm_df['Item'] ==
+    nonfarm_df.loc[nonfarm_df['Item'] ==
                    "OOtherautorepairandmaintenance(includingoilchange,lubrication,andcarwashes)",
                    'Item'] = 'Otherautorepairandmaintenance(includingoilchange,lube,andcarwashes)'
     nonfarm_df = pd.merge(nonfarm_df, nonfarm_inv, how='inner',
@@ -110,22 +110,22 @@ def load_proprietorship_data(entity_dfs):
     missing_code_list = [312, 517, 519, 524140, 524142, 524143, 524156,
                          524159, 55, 521, 525, 531115]
     for i in range(len(missing_code_list)):
-        df.iloc[i] = [int(missing_code_list[i]), 0., 0.]
+        df.loc[i] = [int(missing_code_list[i]), 0., 0.]
     nonfarm_df = nonfarm_df.append(df, ignore_index=True).copy().reset_index()
 
     # attribute over a minor industry only idenfified in w/ other minor
     # ind in SOI
     nonfarm_df.ix[nonfarm_df['INDY_CD'] == 531115, 'Depreciation'] =\
-        (nonfarm_df.iloc[nonfarm_df['INDY_CD'] == 531135,
+        (nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531135,
                          'Depreciation'].values * 0.5)
     nonfarm_df.ix[nonfarm_df['INDY_CD'] == 531115, 'Inventories'] =\
-        (nonfarm_df.iloc[nonfarm_df['INDY_CD'] == 531135,
+        (nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531135,
                          'Inventories'].values * 0.5)
     nonfarm_df.ix[nonfarm_df['INDY_CD'] == 531135, 'Depreciation'] =\
-        (nonfarm_df.iloc[nonfarm_df['INDY_CD'] == 531135,
+        (nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531135,
                          'Depreciation'].values * 0.5)
     nonfarm_df.ix[nonfarm_df['INDY_CD'] == 531135, 'Inventories'] =\
-        (nonfarm_df.iloc[nonfarm_df['INDY_CD'] == 531135,
+        (nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531135,
                          'Inventories'].values * 0.5)
 
     # create ratios for minor industry assets using corporate data
@@ -233,11 +233,11 @@ def load_proprietorship_data(entity_dfs):
     farm_df = pd.read_csv(_FARM_IN_PATH)
     asst_land = farm_df['R_p'][0] + farm_df['Q_p'][0]
     land_ratio =\
-        np.array((part_data.iloc[part_data['minor_code_alt'] == 111,
+        np.array((part_data.loc[part_data['minor_code_alt'] == 111,
                                  'Land'] /
-                  (part_data.iloc[part_data['minor_code_alt'] == 111,
+                  (part_data.loc[part_data['minor_code_alt'] == 111,
                                   'Fixed Assets'] +
-                   part_data.iloc[part_data['minor_code_alt'] == 111,
+                   part_data.loc[part_data['minor_code_alt'] == 111,
                                   'Land'])))
     part_land = land_ratio * asst_land
     sp_farm_land = farm_df['A_sp'][0] * part_land / farm_df['A_p'][0]
