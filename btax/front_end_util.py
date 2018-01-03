@@ -3,7 +3,7 @@ from collections import defaultdict
 import os
 import json
 from btax.parameters import DEFAULT_ASSET_COLS, DEFAULT_INDUSTRY_COLS
-from btax.utils import DEFAULT_START_YEAR
+from btax.util import DEFAULT_START_YEAR
 
 # Row labels, in order, including minor headings like "Durable goods"
 BTAX_TABLE_ASSET_ORDER = ("All Investments", "Equipment", "Mainframes",
