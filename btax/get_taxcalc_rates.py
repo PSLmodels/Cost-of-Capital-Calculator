@@ -15,6 +15,7 @@ This py-file creates the following other file(s):
 from __future__ import print_function
 import numpy as np
 from taxcalc import *
+from btax.utils import DEFAULT_START_YEAR
 
 def get_calculator(baseline, calculator_start_year, reform=None, data=None,
                    weights=None, records_start_year=None):
@@ -61,7 +62,7 @@ def get_calculator(baseline, calculator_start_year, reform=None, data=None,
     return calc1
 
 
-def get_rates(baseline=False, start_year=2017, reform={}):
+def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={}):
     '''
     --------------------------------------------------------------------
     This function computes weighted average marginal tax rates using

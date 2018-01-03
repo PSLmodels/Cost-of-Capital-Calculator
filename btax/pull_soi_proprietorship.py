@@ -7,7 +7,6 @@ deduction is used along with the partner data. The ratio of land and
 fixed assets to the depreciation deduction for partners is used to
 impute the data for sole props. The sole prop inventory and farm data
 is also loaded in.
-Last updated: 7/26/2016.
 """
 
 import os.path

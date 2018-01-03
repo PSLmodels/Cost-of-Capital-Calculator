@@ -2,8 +2,8 @@ from __future__ import unicode_literals
 from collections import defaultdict
 import os
 import json
-
 from btax.parameters import DEFAULT_ASSET_COLS, DEFAULT_INDUSTRY_COLS
+from btax.utils import DEFAULT_START_YEAR
 
 # Row labels, in order, including minor headings like "Durable goods"
 BTAX_TABLE_ASSET_ORDER = ("All Investments", "Equipment", "Mainframes",
@@ -154,8 +154,8 @@ INDUSTRY_COL_META = dict(DEFAULT_INDUSTRY_COLS)
 DO_ASSERTIONS = int(os.environ.get('BTAX_TABLE_ASSERTIONS', False))
 
 
-def runner_json_tables(test_run=False, start_year=2016, iit_reform=None,
-                       **user_params):
+def runner_json_tables(test_run=False, start_year=DEFAULT_START_YEAR,
+                       iit_reform=None, **user_params):
     """
     Run B-Tax nad create JSON files for PolicyBrain tables.
 
