@@ -1,48 +1,36 @@
 '''
 ------------------------------------------------------------------------
-Late updated 8/26/2016
-
 This program extracts weighted average marginal tax rates from the
 microsimulation model (tax-calculator).
 
 This module defines the following functions:
     get_data()
 
-
 This Python script calls the following functions:
     taxcalc
 
 This py-file creates the following other file(s):
-
 ------------------------------------------------------------------------
 '''
 from __future__ import print_function
-import copy
-
-from pandas import DataFrame
-import numba
 import numpy as np
-import pandas as pd
-import pickle
-import taxcalc
-
 from taxcalc import *
 
 def get_calculator(baseline, calculator_start_year, reform=None, data=None,
                    weights=None, records_start_year=None):
     '''
-    --------------------------------------------------------------------
     This function creates the tax calculator object for the microsim
-    --------------------------------------------------------------------
-    INPUTS:
-    baseline                 = boolean, True if baseline tax policy
-    calculator_start_year    = integer, first year of budget window
-    reform                   = dictionary, reform parameters
-    data                     = DataFrame for Records object (opt.)
-    weights                  = weights DataFrame for Records object (opt.)
-    records_start_year       = the start year for the data and weights dfs
 
-    RETURNS: Calculator object with a current_year equal to
+    Args:
+        baseline: boolean, True if baseline tax policy
+        calculator_start_year: integer, first year of budget window
+        reform: dictionary, reform parameters
+        data: DataFrame, DataFrame for Records object (opt.)
+        weights: DataFrame, weights DataFrame for Records object (opt.)
+        records_start_year: integer, the start year for the data and
+                            weights dfs
+
+    Returns: Calculator object with a current_year equal to
              calculator_start_year
     --------------------------------------------------------------------
 
@@ -50,7 +38,8 @@ def get_calculator(baseline, calculator_start_year, reform=None, data=None,
     # create a calculator
     policy1 = Policy()
     if data is not None:
-        records1 = Records(data=data, weights=weights, start_year=records_start_year)
+        records1 = Records(data=data, weights=weights,
+                           start_year=records_start_year)
     else:
         records1 = Records()
 
@@ -64,8 +53,8 @@ def get_calculator(baseline, calculator_start_year, reform=None, data=None,
     # the default set up increments year to 2013
     calc1 = Calculator(records=records1, policy=policy1)
 
-    # this increment_year function extrapolates all PUF variables to the next year
-    # so this step takes the calculator to the start_year
+    # this increment_year function extrapolates all PUF variables to the
+    # next year so this step takes the calculator to the start_year
     for i in range(calculator_start_year-2013):
         calc1.increment_year()
 
@@ -78,22 +67,14 @@ def get_rates(baseline=False, start_year=2017, reform={}):
     This function computes weighted average marginal tax rates using
     micro data from the tax calculator
     --------------------------------------------------------------------
-    INPUTS:
-    baseline        = boolean, =True if baseline tax policy, =False if reform
-    start_year      = integer, first year of budget window
-    reform          = dictionary, reform parameters
+    Args:
+        baseline: boolean, =True if baseline tax policy, =False if reform
+        start_year: integer, first year of budget window
+        reform: dictionary, reform parameters
 
-    OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION: None
-
-    OBJECTS CREATED WITHIN FUNCTION:
-    micro_data_dict = dictionary, contains pandas dataframe for each year
-                      of budget window.  Dataframe contain mtrs, etrs, income variables, age
-                      from tax-calculator and PUF-CPS match
-
-    OUTPUT:
-        individual_rates: a dictionary of individual (IIT+payroll) marginal tax rates
-
-    RETURNS: individual_rates
+    Returns:
+        individual_rates: dictionary, individual income (IIT+payroll)
+                          marginal tax rates
     --------------------------------------------------------------------
     '''
 
@@ -103,7 +84,7 @@ def get_rates(baseline=False, start_year=2017, reform={}):
     # running all the functions and calculates taxes
     calc1.calc_all()
 
-    ##get mtrs
+    # get mtrs
     # sch c
     [mtr_fica_schC, mtr_iit_schC, mtr_combined_schC] = calc1.mtr('e00900p')
     # sch e (not s corp or partnership)
@@ -116,7 +97,8 @@ def get_rates(baseline=False, start_year=2017, reform={}):
     # taxable
     [mtr_fica_int, mtr_iit_int, mtr_combined_int] = calc1.mtr('e00300')
     # non-taxable
-    [mtr_fica_int_te, mtr_iit_int_te, mtr_combined_int_te] = calc1.mtr('e00400')
+    [mtr_fica_int_te, mtr_iit_int_te, mtr_combined_int_te] =\
+        calc1.mtr('e00400')
     # short term capital gains
     [mtr_fica_scg, mtr_iit_scg, mtr_combined_scg] = calc1.mtr('p22250')
     # long term capital gains
@@ -133,45 +115,50 @@ def get_rates(baseline=False, start_year=2017, reform={}):
     # prop tax
     [mtr_fica_prop, mtr_iit_prop, mtr_combined_prop] = calc1.mtr('e18500')
 
-    businc = (calc1.records.e00900p+calc1.records.e02000)
+    businc = (calc1.records.e00900p + calc1.records.e02000)
     pos_businc = businc > 0
-    pos_ti = calc1.records.c04800>0
-    tau_nc = ((((mtr_iit_schC*np.abs(calc1.records.e00900p))+
-                (mtr_iit_schE*np.abs(calc1.records.e02000-calc1.records.e26270))
-               + (mtr_iit_PT*np.abs(calc1.records.e26270))) *
-                             pos_ti * calc1.records.s006).sum() /
-                     ((np.abs(calc1.records.e00900p)+
-                       np.abs(calc1.records.e02000-calc1.records.e26270)+
-                       np.abs(calc1.records.e26270))
-                      *  pos_ti * calc1.records.s006).sum())
+    pos_ti = calc1.records.c04800 > 0
+    tau_nc = ((((mtr_iit_schC * np.abs(calc1.records.e00900p)) +
+                (mtr_iit_schE * np.abs(calc1.records.e02000 -
+                                       calc1.records.e26270))
+                + (mtr_iit_PT * np.abs(calc1.records.e26270))) *
+               pos_ti * calc1.records.s006).sum() /
+               ((np.abs(calc1.records.e00900p) +
+                 np.abs(calc1.records.e02000 - calc1.records.e26270) +
+                 np.abs(calc1.records.e26270)) *
+                pos_ti * calc1.records.s006).sum())
     tau_div = ((mtr_iit_div * calc1.records.e00650 * pos_ti *
-                           calc1.records.s006).sum() /
-                     (calc1.records.e00650 * pos_ti * calc1.records.s006).sum())
+                calc1.records.s006).sum() /
+                (calc1.records.e00650 * pos_ti * calc1.records.s006).sum())
     tau_int = ((mtr_iit_int * calc1.records.e00300 * pos_ti *
-                           calc1.records.s006).sum() /
-                     (calc1.records.e00300 * pos_ti * calc1.records.s006).sum())
+                calc1.records.s006).sum() /
+                (calc1.records.e00300 * pos_ti * calc1.records.s006).sum())
 
     tau_scg = ((mtr_iit_scg * np.abs(calc1.records.p22250) *
-                           (calc1.records.p22250>0.) *
-                           pos_ti * calc1.records.s006).sum() /
-                     (np.abs(calc1.records.p22250) * (calc1.records.p22250>0.) *
-                      pos_ti * calc1.records.s006).sum())
+                (calc1.records.p22250>0.) * pos_ti *
+                calc1.records.s006).sum() /
+                (np.abs(calc1.records.p22250) * (calc1.records.p22250 > 0.) *
+                 pos_ti * calc1.records.s006).sum())
     tau_lcg = ((mtr_iit_lcg * np.abs(calc1.records.p23250) *
-                          (calc1.records.p23250>0.)*
-                          pos_ti * calc1.records.s006).sum() /
-                     (np.abs(calc1.records.p23250)* (calc1.records.p23250>0.)*
-                      pos_ti * calc1.records.s006).sum())
+                (calc1.records.p23250>0.) * pos_ti *
+                calc1.records.s006).sum() /
+                (np.abs(calc1.records.p23250) *
+                 (calc1.records.p23250 > 0.) *
+                 pos_ti * calc1.records.s006).sum())
     tau_td = ((mtr_iit_pension * calc1.records.e01500 * pos_ti *
-                           calc1.records.s006).sum() /
-                     (calc1.records.e01500 * pos_ti * calc1.records.s006).sum())
-    tau_h = -1*(((mtr_iit_mtg*calc1.records.e19200)+(mtr_iit_prop*calc1.records.e18500) *
-                            pos_ti * calc1.records.s006).sum() /
-                     ((calc1.records.e19200)+(calc1.records.e18500)
-                      * pos_ti * calc1.records.s006).sum())
+               calc1.records.s006).sum() / (calc1.records.e01500 *
+                                            pos_ti *
+                                            calc1.records.s006).sum())
+    tau_h = -1 * (((mtr_iit_mtg * calc1.records.e19200) +
+                   (mtr_iit_prop * calc1.records.e18500) * pos_ti *
+                   calc1.records.s006).sum() / ((calc1.records.e19200) +
+                                                (calc1.records.e18500) *
+                                                pos_ti *
+                                                calc1.records.s006).sum())
 
-
-    individual_rates = {'tau_nc':tau_nc,'tau_div':tau_div,'tau_int':tau_int,
-                        'tau_scg':tau_scg,'tau_lcg':tau_lcg,'tau_td':tau_td,
-                        'tau_h':tau_h}
+    individual_rates = {'tau_nc': tau_nc, 'tau_div': tau_div,
+                        'tau_int': tau_int, 'tau_scg': tau_scg,
+                        'tau_lcg': tau_lcg, 'tau_td': tau_td,
+                        'tau_h': tau_h}
     print(individual_rates)
     return individual_rates
