@@ -73,7 +73,7 @@ def asset_calcs(params, asset_data):
                   (1 - stat_tax[j])) + w - output_by_asset['delta'])
             if not expense_inventory:
                 output_by_asset.loc[output_by_asset['Asset Type'] ==
-                                    "Inventories",'rho' +
+                                    "Inventories", 'rho' +
                                     entity_list[j] +
                                     financing_list[i]] = \
                     ((phi * (((1 / Y_v) *
@@ -86,13 +86,13 @@ def asset_calcs(params, asset_data):
                                             stat_tax[j]) /
                                            (1 - stat_tax[j]))))))
             output_by_asset['metr' + entity_list[j] + financing_list[i]] = \
-                (output_by_asset['rho' + entity_list[j] + financing_list[i]] -
-                 (r_prime[i, j] - inflation_rate)) /
-                output_by_asset['rho' + entity_list[j] + financing_list[i]]
+                ((output_by_asset['rho' + entity_list[j] + financing_list[i]] -
+                  (r_prime[i, j] - inflation_rate)) /
+                 output_by_asset['rho' + entity_list[j] + financing_list[i]])
             output_by_asset['mettr' + entity_list[j] + financing_list[i]] = \
-                (output_by_asset['rho' + entity_list[j] + financing_list[i]] -
-                save_rate[i, j]) /
-                output_by_asset['rho' + entity_list[j] + financing_list[i]]
+                ((output_by_asset['rho' + entity_list[j] + financing_list[i]] -
+                  save_rate[i, j]) /
+                 output_by_asset['rho' + entity_list[j] + financing_list[i]])
 
     # create asset category variable
     output_by_asset['asset_category'] = output_by_asset['Asset Type']
