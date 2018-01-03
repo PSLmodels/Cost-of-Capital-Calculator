@@ -176,3 +176,23 @@ def filter_user_params_for_econ(**user_params):
                    k.startswith('btax_econ_')}
 
     return econ_params
+
+
+def wavg(group, avg_name, weight_name):
+    """
+    Computes a weighted average.
+
+    Args:
+        group: grouby object, groups of variable
+        avg_name: string, name of variable to compute wgt avg with
+        weight_name: string, name of weighting variables
+
+    Returns:
+        d: groupby object, weighted avg by group
+    """
+    d = group[avg_name]
+    w = group[weight_name]
+    try:
+        return (d * w).sum() / w.sum()
+    except ZeroDivisionError:
+        return d.mean()

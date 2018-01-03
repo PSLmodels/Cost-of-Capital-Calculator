@@ -15,7 +15,7 @@ import sys
 import pandas as pd
 import numpy as np
 import btax.parameters as param
-from btax.util import get_paths
+from btax.util import get_paths, wavg
 
 globals().update(get_paths())
 
@@ -490,23 +490,3 @@ def industry_calcs(params, asset_data, output_by_asset):
     by_industry.reset_index(drop=True, inplace=True)
 
     return by_industry
-
-
-def wavg(group, avg_name, weight_name):
-    """
-    Computes a weighted average.
-
-    Args:
-        group: grouby object, groups of variable
-        avg_name: string, name of variable to compute wgt avg with
-        weight_name: string, name of weighting variables
-
-    Returns:
-        d: groupby object, weighted avg by group
-    """
-    d = group[avg_name]
-    w = group[weight_name]
-    try:
-        return (d * w).sum() / w.sum()
-    except ZeroDivisionError:
-        return d.mean()
