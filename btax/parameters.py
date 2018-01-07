@@ -7,8 +7,8 @@ that produce more relevant parameters. The parameters are placed in a
 dictionary.
 """
 
-from argparse import Namespace
-import copy
+# from argparse import Namespace
+# import copy
 import json
 import os
 
@@ -314,8 +314,10 @@ def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
                                      'Household appliances'],
                                     'Office and Residential Equipment'))
     asset_dict.update(dict.fromkeys(['Light trucks (including utility vehicles)',
-                                     'Other trucks, buses and truck trailers','Autos','Aircraft',
-                                     'Ships and boats','Railroad equipment','Steam engines','Internal combustion engines'],
+                                     'Other trucks, buses and truck trailers',
+                                     'Autos', 'Aircraft','Ships and boats',
+                                     'Railroad equipment','Steam engines',
+                                     'Internal combustion engines'],
                                     'Transportation Equipment'))
     asset_dict.update(dict.fromkeys(['Special industrial machinery',
                                      'General industrial equipment'],
