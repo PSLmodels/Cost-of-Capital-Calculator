@@ -93,14 +93,18 @@ def run_btax(test_run, baseline=False, start_year=DEFAULT_START_YEAR,
                                           land, res_assets,
                                           owner_occ_dict)
             # save result to pickle so don't have to do this everytime
+            print('Dump', ASSET_PRE_CACHE_FILE)
             pickle.dump(asset_data, open(ASSET_PRE_CACHE_FILE, "wb"))
         else:
             try:
                 asset_data = pickle.load(open(ASSET_PRE_CACHE_FILE, 'rb'))
+                print('Loaded', ASSET_PRE_CACHE_FILE)
+                break
             except Exception as e:
                 if os.path.exists(ASSET_PRE_CACHE_FILE):
+                    print('Remove', ASSET_PRE_CACHE_FILE)
                     os.remove(ASSET_PRE_CACHE_FILE)
-    if calc_assets and asset_data is None:
+    if asset_data is None:
         raise
     # get parameters
     parameters = params.get_params(test_run, baseline, start_year,
