@@ -27,7 +27,32 @@ def test_dbsl():
 
 def test_sl():
     # Test straight line deprecition
-    assert
+    df = pd.DataFrame({'Asset': ['Land', 'Inventories', 'IP', 'Structures',
+                                 'Equipment'],
+                       'Amount': [1000, 500, 100, 200, 200],
+                       'bonus': [0.0, 0.0, 0.4, 1.0, 1.2],
+                       'ADS Life': [40, 1, 10, 20, 8]})
+    r = np.array([[0.05, 0.06], [0.04, .03], [0.11, 0.12]])
+    financing_list = ['', '_d', '_e']
+    entity_list = ['_c', '_nc']
+
+    test_exp_df = calc_z.sl(df, r, financing_list, entity_list)
+
+    results_df = pd.DataFrame({'Asset': ['Land', 'Inventories', 'IP', 'Structures',
+                                         'Equipment'],
+                               'Amount': [1000, 500, 100, 200, 200],
+                               'bonus': [0.0, 0.0, 0.4, 1.0, 1.2],
+                               'ADS Life': [40, 1, 10, 20, 8],
+                               'z_c': [0.432332358, 0.97541151, 0.872163208, 1.0, 1.035160023],
+                               'z_c_d': [0.498814676, 0.980264021, 0.894519931, 1.0, 1.028843148],
+                               'z_c_e': [0.224482423, 0.946962406, 0.7638885, 1.0, 1.066996116],
+                               'z_nc': [0.378867519, 0.970591107, 0.851188364, 1.0, 1.041159747],
+                               'z_nc_d': [0.582338157, 0.985148882, 0.918363559, 1.0, 1.022189884],
+                               'z_nc_e': [0.206618803, 0.942329694, 0.749402894, 1.0, 1.071436018]})
+    results_df = results_df[['ADS Life', 'Amount', 'Asset', 'bonus', 'z_c', 'z_nc', 'z_c_d',
+                             'z_nc_d', 'z_c_e', 'z_nc_e']]
+
+    assert_frame_equal(test_exp_df, results_df, check_dtype=False)
 
 
 def test_econ():
