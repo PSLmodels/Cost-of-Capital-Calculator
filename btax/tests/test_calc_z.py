@@ -42,11 +42,13 @@ def test_expensing():
     financing_list = ['', '_d', '_e']
     entity_list = ['_c', '_nc']
 
-    test_exp_df = cal_z.expensing(df, r, financing_list, entity_list)
+    test_exp_df = calc_z.expensing(df, r, financing_list, entity_list)
 
-    results_df = pd.DataFrame({'Asset': ['Land'], 'Amount': [1000]})
-    for i in range(r.shape[0]):
-        for j in range(r.shape[1]):
-            results_df['z' + entity_list[j] + financing_list[i]] = 1.0
+    results_df = pd.DataFrame({'Asset': ['Land'], 'Amount': [1000],
+                               'z_c': [1.0], 'z_c_d': [1.0],
+                               'z_c_e': [1.0], 'z_nc': [1.0],
+                               'z_nc_d': [1.0], 'z_nc_e': [1.0]})
+    results_df = results_df[['Amount', 'Asset', 'z_c', 'z_nc', 'z_c_d',
+                             'z_nc_d', 'z_c_e', 'z_nc_e']]
 
     assert_frame_equal(test_exp_df, results_df, check_dtype=False)
