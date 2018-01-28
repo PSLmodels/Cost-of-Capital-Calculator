@@ -22,7 +22,34 @@ def test_npv_tax_deprec():
 
 def test_dbsl():
     # Test computing declining balance with switch to straight line
-    assert
+    df = pd.DataFrame({'Asset': ['Land', 'Inventories', 'IP', 'Structures',
+                                 'Equipment'],
+                       'Amount': [1000, 500, 100, 200, 200],
+                       'bonus': [0.0, 0.0, 0.4, 1.0, 1.2],
+                       'GDS Life': [40, 1, 10, 20, 8],
+                       'b': [1.2, 1.0, 1.5, 2.0, 1.8]})
+    r = np.array([[0.05, 0.06], [0.04, .03], [0.11, 0.12]])
+    financing_list = ['', '_d', '_e']
+    entity_list = ['_c', '_nc']
+
+    test_exp_df = calc_z.dbsl(df, r, financing_list, entity_list)
+
+    results_df = pd.DataFrame({'Asset': ['Land', 'Inventories', 'IP', 'Structures',
+                                         'Equipment'],
+                               'Amount': [1000, 500, 100, 200, 200],
+                               'bonus': [0.0, 0.0, 0.4, 1.0, 1.2],
+                               'GDS Life': [40, 1, 10, 20, 8],
+                               'b': [1.2, 1.0, 1.5, 2.0, 1.8],
+                               'z_c': [0.43621045, 0.97541151, 0.79612213, 0.683889644, 0.84203802],
+                               'z_c_d': [0.502013906, 0.980264021, 0.831695818, 0.73227193, 0.870375661],
+                               'z_c_e': [0.231191478, 0.946962406, 0.624324299, 0.484465165, 0.699343501],
+                               'z_nc': [0.38336285, 0.970591107, 0.762779237, 0.640903155, 0.815135469],
+                               'z_nc_d': [0.584799673, 0.985148882, 0.869674072, 0.786930434, 0.900239682],
+                               'z_nc_e': [0.213619506, 0.942329694, 0.601396457, 0.461617822, 0.67943704]})
+    results_df = results_df[['Amount', 'Asset', 'GDS Life', 'b', 'bonus', 'z_c', 'z_nc', 'z_c_d',
+                             'z_nc_d', 'z_c_e', 'z_nc_e']]
+
+    assert_frame_equal(test_exp_df, results_df, check_dtype=False)
 
 
 def test_sl():
