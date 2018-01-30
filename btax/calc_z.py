@@ -185,10 +185,7 @@ def dbsl(df, r, financing_list, entity_list):
 
     df['Y'] = df['GDS Life']
     df['beta'] = df['b']/df['Y']
-    df['Y_star'] = ((((df['Y'] - 1) * (1 - (1 / df['b']))) *
-                     (df['bonus'] != 0.)) + ((1 - (df['bonus'] != 0.)) *
-                                             (df['Y'] * (1 - (1 /
-                                                              df['b'])))))
+    df['Y_star'] = df['Y'] * (1 - (1 / df['b']))
 
     for i in range(r.shape[0]):
         for j in range(r.shape[1]):
