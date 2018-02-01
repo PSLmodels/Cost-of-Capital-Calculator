@@ -11,11 +11,121 @@ def test_get_econ_depr():
 
 
 def test_calc_tax_depr_rates():
+    # Test creation of df with tax depreciation rates
+    delta = pd.DataFrame({'Asset': ['Land', 'Inventories',
+                                    'Scientific research and development services',
+                                    'Hospitals', 'Autos'],
+                       'Amount': [1000, 500, 100, 200, 200],
+                       'bea_asset_code': ['LAND', 'INV', 'RD70', 'SB31',
+                                          'ET20'],
+                       'delta': [0.01, 0.1, 0.1, 0.02, 0.1]})
+    r = np.array([[0.05, 0.06], [0.04, .03], [0.11, 0.12]])
+    pi = 0.03
+    tax_methods = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0,
+                   'Economic': 1.0, 'Expensing': 1.0}
+    financing_list = ['', '_d', '_e']
+    entity_list = ['_c', '_nc']
+    bonus_deprec = {'10': 0.0, '15': 0.0, '20': 0.0, '25': 0.0, '27_5': 0.0,
+                    '3': 0.0, '39': 0.2, '5': 0.5, '7': 0.0, '100': 0.0}
+    deprec_system = {'10': 'GDS', '15': 'GDS', '20': 'GDS', '25': 'GDS',
+                     '27_5': 'GDS', '3': 'GDS', '39': 'GDS', '5': 'GDS',
+                     '7': 'GDS', '100': 'GDS'}
+    expense_inventory = False
+    expense_land = 0.0
+    test_exp_df = calc_z.calc_tax_depr_rates(r, pi, delta, bonus_deprec,
+                                             deprec_system,
+                                             expense_inventory,
+                                             expense_land, tax_methods,
+                                             financing_list, entity_list)
+    # Keep just assets put in dummy data above
+    asset_list = ['Land', 'Inventories',
+                  'Scientific research and development services',
+                  'Hospitals', 'Autos']
+    test_exp_df = test_exp_df[test_exp_df['Asset'].isin(asset_list)]
+    test_exp_df.reset_index(drop=True, inplace=True)
 
-    assert
+    # Dataframe of what results should be
+    results_df = pd.DataFrame({'Asset': ['Autos', 'Hospitals', 'Land',
+                                         'Inventories',
+                   'Scientific research and development services'],
+                              'Asset Type': ['Autos', 'Hospitals', 'Land',
+                                                                   'Inventories',
+                                             'Scientific research and development services'],
+                       'Amount': [200, 200, 1000, 500, 100],
+                       'bonus': [0.5, 0.2, 0.0, 0.0, 0.5],
+                       'delta': [0.1, 0.02, 0.01, 0.1, 0.1],
+                       'ADS Life': [5, 40, 100, 100, 6],
+                       'GDS Life': [5, 39, 100, 100, 5],
+                       'GDS Class Life': [5, 39, 100, 100, 5],
+                       'System': ['GDS', 'GDS', 'GDS', 'GDS', 'GDS'],
+                       'bea_asset_code': ['ET20', 'SB31', 'LAND', 'INV', 'RD70'],
+                       'Method': ['DB 200%', 'SL', 'SL',
+                                  'SL', 'Expensing'],
+                       'b': [2.0, 1.0, 1.0, 1.0, 1.0],
+                       'z_c': [0.952745, 0.545866, 0.000000, 0.000000, 1.000000],
+                       'z_c_d': [0.961625, 0.599052, 0.0, 0.0, 1.0],
+                       'z_c_e': [0.904727, 0.379586, 0.0, 0.0, 1.0],
+                       'z_nc': [0.944131, 0.503094, 0.0, 0.0, 1.0],
+                       'z_nc_d': [0.970780, 0.665871, 0.0, 0.0, 1.0],
+                       'z_nc_e': [0.897521, 0.365295, 0.0, 0.0, 1.0]})
+    results_df = results_df[['Asset Type', 'GDS Class Life', 'GDS Life',
+                             'ADS Life', 'System', 'Method', 'bonus',
+                             'Amount', 'Asset', 'bea_asset_code', 'delta', 'b',
+                             'z_c', 'z_nc', 'z_c_d', 'z_nc_d', 'z_c_e',
+                             'z_nc_e']]
+
+    assert_frame_equal(test_exp_df, results_df, check_dtype=False)
+
+    # Test with expensing of land and inventories
+    expense_inventory = True
+    expense_land = 1.0
+    test_exp_df = calc_z.calc_tax_depr_rates(r, pi, delta, bonus_deprec,
+                                             deprec_system,
+                                             expense_inventory,
+                                             expense_land, tax_methods,
+                                             financing_list, entity_list)
+    # Keep just assets put in dummy data above
+    asset_list = ['Land', 'Inventories',
+                  'Scientific research and development services',
+                  'Hospitals', 'Autos']
+    test_exp_df = test_exp_df[test_exp_df['Asset'].isin(asset_list)]
+    test_exp_df.reset_index(drop=True, inplace=True)
+
+    # Dataframe of what results should be
+    results_df = pd.DataFrame({'Asset': ['Autos', 'Hospitals', 'Land',
+                                         'Inventories',
+                   'Scientific research and development services'],
+                              'Asset Type': ['Autos', 'Hospitals', 'Land',
+                                                                   'Inventories',
+                                             'Scientific research and development services'],
+                       'Amount': [200, 200, 1000, 500, 100],
+                       'bonus': [0.5, 0.2, 0.0, 0.0, 0.5],
+                       'delta': [0.1, 0.02, 0.01, 0.1, 0.1],
+                       'ADS Life': [5, 40, 100, 100, 6],
+                       'GDS Life': [5, 39, 100, 100, 5],
+                       'GDS Class Life': [5, 39, 100, 100, 5],
+                       'System': ['GDS', 'GDS', 'GDS', 'GDS', 'GDS'],
+                       'bea_asset_code': ['ET20', 'SB31', 'LAND', 'INV', 'RD70'],
+                       'Method': ['DB 200%', 'SL', 'SL',
+                                  'SL', 'Expensing'],
+                       'b': [2.0, 1.0, 1.0, 1.0, 1.0],
+                       'z_c': [0.952745, 0.545866, 1.0, 1.0, 1.000000],
+                       'z_c_d': [0.961625, 0.599052, 1.0, 1.0, 1.0],
+                       'z_c_e': [0.904727, 0.379586, 1.0, 1.0, 1.0],
+                       'z_nc': [0.944131, 0.503094, 1.0, 1.0, 1.0],
+                       'z_nc_d': [0.970780, 0.665871, 1.0, 1.0, 1.0],
+                       'z_nc_e': [0.897521, 0.365295, 1.0, 1.0, 1.0]})
+    results_df = results_df[['Asset Type', 'GDS Class Life', 'GDS Life',
+                             'ADS Life', 'System', 'Method', 'bonus',
+                             'Amount', 'Asset', 'bea_asset_code', 'delta', 'b',
+                             'z_c', 'z_nc', 'z_c_d', 'z_nc_d', 'z_c_e',
+                             'z_nc_e']]
+
+    assert_frame_equal(test_exp_df, results_df, check_dtype=False)
 
 
 def test_npv_tax_deprec():
+    # Test created of df with NPV of tax depreciation
     df = pd.DataFrame({'Asset': ['Land', 'Inventories', 'IP', 'Structures',
                                  'Equipment'],
                        'Amount': [1000, 500, 100, 200, 200],
