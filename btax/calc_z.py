@@ -54,9 +54,11 @@ def calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system,
         r: numpy array, nominal discount rate for each tax treatment
            and type of financing
         pi: scalar, inflation rate
-        delta: economic depreciation rate
-        bonus_deprec: rate of bonus depreciation
-        deprec_system: depreciation system used (e.g. ADS/GDS)
+        delta: dataframe, economic depreciation rates for
+                           all asset types
+        bonus_deprec: dictionary, rate of bonus depreciation on each asset type
+        deprec_system: dictionary, depreciation system used (e.g. ADS/GDS) fo
+                                    each asset type
         expense_inventory: boolean, True if immediately expense
                            inventories
         expense_land: scalar, rate of expending on land
