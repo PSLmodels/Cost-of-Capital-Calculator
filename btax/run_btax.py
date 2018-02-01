@@ -68,7 +68,7 @@ def run_btax(test_run, baseline=False, start_year=DEFAULT_START_YEAR,
         output_by_industry: dataframe, output variables for all industries
 
     """
-    calc_assets = True
+    calc_assets = False
 
     iit_reform = iit_reform or {}
     asset_data = None
