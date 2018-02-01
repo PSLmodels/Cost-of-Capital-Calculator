@@ -7,7 +7,22 @@ from btax import calc_z
 
 def test_get_econ_depr():
     # Test retreiving econ depreciation from file
-    assert
+    test_exp_df = calc_z.get_econ_depr()
+    # Keep a few assets only
+    asset_list = ['Land', 'Inventories',
+                  'Scientific research and development services',
+                  'Hospitals', 'Autos']
+    test_exp_df = test_exp_df[test_exp_df['Asset'].isin(asset_list)]
+    test_exp_df.reset_index(drop=True, inplace=True)
+
+    results_df = pd.DataFrame({'Asset': ['Autos', 'Hospitals',
+                   'Scientific research and development services', 'Land',
+                                                        'Inventories'],
+                       'delta': [0.3333, 0.0188, 0.16, 0.0, 0.0],
+                       'bea_asset_code': ['ET20', 'SB31', 'RD70', 'LAND', 'INV']})
+    results_df = results_df[['bea_asset_code', 'Asset', 'delta']]
+
+    assert_frame_equal(test_exp_df, results_df, check_dtype=False)
 
 
 def test_calc_tax_depr_rates():
