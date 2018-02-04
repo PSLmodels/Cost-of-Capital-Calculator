@@ -20,6 +20,68 @@ from btax.util import get_paths, wavg
 globals().update(get_paths())
 
 
+def cost_of_capital(df, w, expense_inventory, stat_tax, inv_credit, phi,
+                    Y_v, inflation_rate, discount_rate, save_rate,
+                    entity_list, financing_list):
+        """
+        Compute the cost of capital and the user cost of capital
+
+        Args:
+
+
+        Results:
+
+        """
+    # calculate the cost of capital, metr, mettr
+    for i in range(save_rate.shape[0]):
+        for j in range(save_rate.shape[1]):
+            df['rho' + entity_list[j] + financing_list[i]] = \
+                ((((discount_rate[i, j] - inflation_rate) + df['delta'])
+                  * (1 - inv_credit - (stat_tax[j] * df['z' +
+                                                        entity_list[j] +
+                                                        financing_list[i]])) /
+                  (1 - stat_tax[j])) + w - df['delta'])
+            if not expense_inventory:
+                df.loc[df['Asset Type'] == "Inventories", 'rho' + entity_list[j] + financing_list[i]] = \
+                    ((phi * (((1 / Y_v) *
+                              np.log((np.exp(discount_rate[i, j] * Y_v)
+                                      - stat_tax[j]) /
+                                     (1 - stat_tax[j]))) -
+                             inflation_rate)) + ((1 - phi) *
+                                                 (((1 / Y_v) *
+                                                   np.log((np.exp((discount_rate[i, j] -
+                                                                   inflation_rate) * Y_v) -
+                                                           stat_tax[j]) / (1 - stat_tax[j]))))))
+            df['ucc' + entity_list[j] + financing_list[i]] = df['rho' + entity_list[j] + financing_list[i]] + df['delta']
+
+            return df
+
+
+def metr(df, r_prime, inflation_rate, save_rate, entity_list,
+         financing_list):
+    """
+    Compute the METR and METTR
+
+    Args:
+
+
+    Results:
+
+    """
+    for i in range(save_rate.shape[0]):
+        for j in range(save_rate.shape[1]):
+            df['metr' + entity_list[j] + financing_list[i]] = \
+                ((df['rho' + entity_list[j] + financing_list[i]] -
+                  (r_prime[i, j] - inflation_rate)) /
+                 df['rho' + entity_list[j] + financing_list[i]])
+            df['mettr' + entity_list[j] + financing_list[i]] = \
+                ((df['rho' + entity_list[j] + financing_list[i]] -
+                  save_rate[i, j]) /
+                 df['rho' + entity_list[j] + financing_list[i]])
+
+    return df
+
+
 def asset_calcs(params, asset_data):
     """
     Computes rho, METR, and METTR by asset type.
@@ -61,38 +123,14 @@ def asset_calcs(params, asset_data):
                                       'Other nonprofit institutions'].copy()
 
     # calculate the cost of capital, metr, mettr
-    for i in range(save_rate.shape[0]):
-        for j in range(save_rate.shape[1]):
-            output_by_asset['rho' + entity_list[j] + financing_list[i]] = \
-                ((((discount_rate[i, j] - inflation_rate) +
-                   output_by_asset['delta']) *
-                  (1 - inv_credit - (stat_tax[j] *
-                                     output_by_asset['z' +
-                                                     entity_list[j] +
-                                                     financing_list[i]])) /
-                  (1 - stat_tax[j])) + w - output_by_asset['delta'])
-            if not expense_inventory:
-                output_by_asset.loc[output_by_asset['Asset Type'] ==
-                                    "Inventories", 'rho' +
-                                    entity_list[j] +
-                                    financing_list[i]] = \
-                    ((phi * (((1 / Y_v) *
-                              np.log((np.exp(discount_rate[i, j] * Y_v) -
-                                      stat_tax[j]) / (1 - stat_tax[j]))) -
-                             inflation_rate)) +
-                     ((1 - phi) * (((1 / Y_v) *
-                                    np.log((np.exp((discount_rate[i, j] -
-                                                    inflation_rate) * Y_v) -
-                                            stat_tax[j]) /
-                                           (1 - stat_tax[j]))))))
-            output_by_asset['metr' + entity_list[j] + financing_list[i]] = \
-                ((output_by_asset['rho' + entity_list[j] + financing_list[i]] -
-                  (r_prime[i, j] - inflation_rate)) /
-                 output_by_asset['rho' + entity_list[j] + financing_list[i]])
-            output_by_asset['mettr' + entity_list[j] + financing_list[i]] = \
-                ((output_by_asset['rho' + entity_list[j] + financing_list[i]] -
-                  save_rate[i, j]) /
-                 output_by_asset['rho' + entity_list[j] + financing_list[i]])
+    output_by_asset = cost_of_capital(output_by_asset, w,
+                                      expense_inventory, stat_tax,
+                                      inv_credit, phi, Y_v,
+                                      inflation_rate, discount_rate,
+                                      save_rate, entity_list,
+                                      financing_list)
+    output_by_asset = metr(df, r_prime, inflation_rate, save_rate,
+                           entity_list, financing_list)
 
     # create asset category variable
     output_by_asset['asset_category'] = output_by_asset['Asset Type']
@@ -163,18 +201,8 @@ def asset_calcs(params, asset_data):
                        sum()})).reset_index()['assets_nc']
 
     # calculate the cost of capital, metr, mettr
-    for i in range(save_rate.shape[0]):
-        for j in range(save_rate.shape[1]):
-            by_major_asset['metr' + entity_list[j] + financing_list[i]] = \
-                ((by_major_asset['rho' + entity_list[j] + financing_list[i]] -
-                  (r_prime[i, j] - inflation_rate)) /
-                 (by_major_asset['rho' + entity_list[j] + financing_list[i]]))
-            by_major_asset['mettr' + entity_list[j] + financing_list[i]] = \
-                ((by_major_asset['rho' + entity_list[j] + financing_list[i]] -
-                  save_rate[i, j]) /
-                 (by_major_asset['rho' + entity_list[j] + financing_list[i]]))
-
-
+    by_major_asset = metr(by_major_asset, r_prime, inflation_rate, save_rate,
+                           entity_list, financing_list)
 
     # make asset type = major asset group in by_major_asset
     by_major_asset['Asset'] = by_major_asset['major_asset_group']
@@ -308,17 +336,9 @@ def industry_calcs(params, asset_data, output_by_asset):
                        groupby(['bea_ind_code', 'tax_treat'])['assets'].
                        sum()})).reset_index()['assets']
 
-    # calculate the cost of capital, metr, mettr
-    for i in range(save_rate.shape[0]):
-        for j in range(save_rate.shape[1]):
-            by_industry_tax['metr' + entity_list[j] + financing_list[i]] = \
-                ((by_industry_tax['rho' + entity_list[j] + financing_list[i]] -
-                  (r_prime[i, j] - inflation_rate)) /
-                 (by_industry_tax['rho' + entity_list[j] + financing_list[i]]))
-            by_industry_tax['mettr' + entity_list[j] + financing_list[i]] = \
-                ((by_industry_tax['rho' + entity_list[j] + financing_list[i]] -
-                  save_rate[i, j]) /
-                 (by_industry_tax['rho' + entity_list[j] + financing_list[i]]))
+    # calculate metr and mettr
+    by_industry_tax = metr(by_industry_tax, r_prime, inflation_rate,
+                           save_rate, entity_list, financing_list)
 
     # put together in different format (later we should consider changing how
     # output is handled and do long format)
@@ -379,21 +399,9 @@ def industry_calcs(params, asset_data, output_by_asset):
                        groupby(['major_industry', 'tax_treat'])['assets'].
                        sum()})).reset_index()['assets']
 
-    # calculate the cost of capital, metr, mettr
-    for i in range(save_rate.shape[0]):
-        for j in range(save_rate.shape[1]):
-            by_major_ind_tax['metr' + entity_list[j] + financing_list[i]] = \
-                ((by_major_ind_tax['rho' + entity_list[j] +
-                                   financing_list[i]] -
-                  (r_prime[i, j] - inflation_rate)) /
-                 (by_major_ind_tax['rho' + entity_list[j] +
-                                   financing_list[i]]))
-            by_major_ind_tax['mettr' + entity_list[j] + financing_list[i]] = \
-                ((by_major_ind_tax['rho' + entity_list[j] +
-                                   financing_list[i]] -
-                  save_rate[i, j]) /
-                 (by_major_ind_tax['rho' + entity_list[j] +
-                                   financing_list[i]]))
+    # calculate metr and mettr
+    by_major_ind_tax = metr(by_major_ind_tax, r_prime, inflation_rate,
+                            save_rate, entity_list, financing_list)
 
     # put together in different format (later we should consider changing how
     # output is handled and do long format)
@@ -452,16 +460,9 @@ def industry_calcs(params, asset_data, output_by_asset):
         overall[item] = ((output_by_asset[item] *
                           output_by_asset['assets_nc']).sum() /
                           output_by_asset['assets_nc'].sum())
-    for i in range(save_rate.shape[0]):
-        for j in range(save_rate.shape[1]):
-            overall['metr' + entity_list[j] + financing_list[i]] = \
-                ((overall['rho' + entity_list[j] + financing_list[i]] -
-                  (r_prime[i, j] - inflation_rate)) /
-                 (overall['rho' + entity_list[j] + financing_list[i]]))
-            overall['mettr' + entity_list[j] + financing_list[i]] = \
-                ((overall['rho' + entity_list[j] + financing_list[i]] -
-                  save_rate[i, j]) /
-                 (overall['rho' + entity_list[j] + financing_list[i]]))
+    # calculate metr and mettr
+    overall = metr(overall, r_prime, inflation_rate, save_rate,
+                   entity_list, financing_list)
 
     # append by_major_asset to output_by_asset
     # drop major inds when only one in major group
