@@ -23,15 +23,15 @@ globals().update(get_paths())
 def cost_of_capital(df, w, expense_inventory, stat_tax, inv_credit, phi,
                     Y_v, inflation_rate, discount_rate, save_rate,
                     entity_list, financing_list):
-        """
-        Compute the cost of capital and the user cost of capital
+    """
+    Compute the cost of capital and the user cost of capital
 
-        Args:
+    Args:
 
 
-        Results:
+    Results:
 
-        """
+    """
     # calculate the cost of capital, metr, mettr
     for i in range(save_rate.shape[0]):
         for j in range(save_rate.shape[1]):
@@ -54,7 +54,7 @@ def cost_of_capital(df, w, expense_inventory, stat_tax, inv_credit, phi,
                                                            stat_tax[j]) / (1 - stat_tax[j]))))))
             df['ucc' + entity_list[j] + financing_list[i]] = df['rho' + entity_list[j] + financing_list[i]] + df['delta']
 
-            return df
+    return df
 
 
 def metr(df, r_prime, inflation_rate, save_rate, entity_list,
@@ -129,7 +129,7 @@ def asset_calcs(params, asset_data):
                                       inflation_rate, discount_rate,
                                       save_rate, entity_list,
                                       financing_list)
-    output_by_asset = metr(df, r_prime, inflation_rate, save_rate,
+    output_by_asset = metr(output_by_asset, r_prime, inflation_rate, save_rate,
                            entity_list, financing_list)
 
     # create asset category variable
@@ -234,14 +234,9 @@ def asset_calcs(params, asset_data):
         overall[item] = ((output_by_asset[item] *
                           output_by_asset['assets_nc']).sum() /
                           output_by_asset['assets_nc'].sum())
-    for i in range(save_rate.shape[0]):
-        for j in range(save_rate.shape[1]):
-            overall['metr' + entity_list[j] + financing_list[i]] = \
-                ((overall['rho' + entity_list[j] + financing_list[i]] -
-                (r_prime[i, j] - inflation_rate)) / (overall['rho' + entity_list[j] + financing_list[i]]))
-            overall['mettr' + entity_list[j] + financing_list[i]] = \
-                ((overall['rho' + entity_list[j] + financing_list[i]] -
-                save_rate[i, j]) / (overall['rho' + entity_list[j] + financing_list[i]]))
+    # calculate the cost of capital, metr, mettr
+    overall = metr(overall, r_prime, inflation_rate, save_rate,
+                   entity_list, financing_list)
 
     # append by_major_asset to output_by_asset
     # drop asset types that are only one in major group
