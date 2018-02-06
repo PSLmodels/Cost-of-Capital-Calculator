@@ -21,7 +21,7 @@ globals().update(get_paths())
 
 
 def cost_of_capital(df, w, expense_inventory, stat_tax, inv_credit, phi,
-                    Y_v, inflation_rate, discount_rate, save_rate,
+                    Y_v, inflation_rate, discount_rate,
                     entity_list, financing_list):
     """
     Compute the cost of capital and the user cost of capital
@@ -33,8 +33,8 @@ def cost_of_capital(df, w, expense_inventory, stat_tax, inv_credit, phi,
 
     """
     # calculate the cost of capital, metr, mettr
-    for i in range(save_rate.shape[0]):
-        for j in range(save_rate.shape[1]):
+    for i in range(discount_rate.shape[0]):
+        for j in range(discount_rate.shape[1]):
             df['rho' + entity_list[j] + financing_list[i]] = \
                 ((((discount_rate[i, j] - inflation_rate) + df['delta'])
                   * (1 - inv_credit - (stat_tax[j] * df['z' +
@@ -127,8 +127,7 @@ def asset_calcs(params, asset_data):
                                       expense_inventory, stat_tax,
                                       inv_credit, phi, Y_v,
                                       inflation_rate, discount_rate,
-                                      save_rate, entity_list,
-                                      financing_list)
+                                      entity_list, financing_list)
     output_by_asset = metr(output_by_asset, r_prime, inflation_rate, save_rate,
                            entity_list, financing_list)
 
