@@ -110,11 +110,79 @@ def test_cost_of_capital(changing_params, expected):
                        check_less_precise=True)
 
 
-# def test_metr():
-#
-#     assert_frame_equal(test_df, correct_df, check_dtype=False)
-#
-#
+correct_df0 = pd.DataFrame(
+    {'Asset Type': ['Inventories', 'Autos'],
+     'delta': [0.0, 0.1],
+     'rho_c': [0.042780, 0.075286],
+     'rho_c_d': [0.029723, 0.042000],
+     'rho_c_e': [0.115883, 0.114476],
+     'rho_nc': [0.0400, 0.0388],
+     'rho_nc_d': [0.0100, 0.0112],
+     'rho_nc_e': [0.100, 0.094],
+     'metr_c': [0.298738, 0.601520],
+     'metr_c_d': [0.32712, 0.52381],
+     'metr_c_e': [0.223355, 0.213809],
+     'metr_nc': [0, -0.03092784],
+     'metr_nc_d': [0, 0.1071429],
+     'metr_nc_e': [0.0, -0.06382979],
+     'mettr_c': [0.228612, 0.561671],
+     'mettr_c_d': [0.32712, 0.52381],
+     'mettr_c_e': [-0.121821, -0.135609],
+     'mettr_nc': [0.0, -0.030928],
+     'mettr_nc_d': [-24.000000, -21.321429],
+     'mettr_nc_e': [0.88000, 0.87234]})
+correct_df1 = pd.DataFrame(
+    {'Asset Type': ['Inventories', 'Autos'],
+     'delta': [0.0, 0.1],
+     'rho_c': [0.042780, 0.075286],
+     'rho_c_d': [0.029723, 0.042000],
+     'rho_c_e': [0.115883, 0.114476],
+     'rho_nc': [0.0400, 0.0388],
+     'rho_nc_d': [0.0100, 0.0112],
+     'rho_nc_e': [0.100, 0.094],
+     'metr_c': [1.0, 1.0],
+     'metr_c_d': [1.336440, 1.238095],
+     'metr_c_e': [0.482236, 0.475873],
+     'metr_nc': [0.750000, 0.742268],
+     'metr_nc_d': [3.000000, 2.785714],
+     'metr_nc_e': [0.300000, 0.255319],
+     'mettr_c': [0.228612, 0.561671],
+     'mettr_c_d': [0.32712, 0.52381],
+     'mettr_c_e': [-0.121821, -0.135609],
+     'mettr_nc': [0.0, -0.030928],
+     'mettr_nc_d': [-24.000000, -21.321429],
+     'mettr_nc_e': [0.88000, 0.87234]})
+test_data = [(0.02, correct_df0), (0.05, correct_df1)]
+@pytest.mark.parametrize('inflation_rate,expected', test_data,
+                         ids=['pi=0.02', 'pi=0.05'])
+def test_metr(inflation_rate, expected):
+    # Test METR and METTR calculations
+    df = pd.DataFrame(
+        {'Asset Type': ['Inventories', 'Autos'],
+         'delta': [0.0, 0.1],
+         'rho_c': [0.042780, 0.075286],
+         'rho_c_d': [0.029723, 0.042000],
+         'rho_c_e': [0.115883, 0.114476],
+         'rho_nc': [0.0400, 0.0388],
+         'rho_nc_d': [0.0100, 0.0112],
+         'rho_nc_e': [0.100, 0.094]})
+    r_prime = np.array([[0.05, 0.06], [0.04, .03], [0.11, 0.12]])
+    save_rate = np.array([[0.033, 0.04], [0.02, .25], [0.13, 0.012]])
+    financing_list = ['', '_d', '_e']
+    entity_list = ['_c', '_nc']
+    test_df = calc_final_outputs.metr(df, r_prime, inflation_rate,
+                                      save_rate, entity_list,
+                                      financing_list)
+    expected = expected[['Asset Type', 'delta', 'rho_c', 'rho_c_d',
+                             'rho_c_e', 'rho_nc', 'rho_nc_d',
+                             'rho_nc_e', 'metr_c', 'mettr_c', 'metr_nc',
+                             'mettr_nc', 'metr_c_d', 'mettr_c_d',
+                             'metr_nc_d', 'mettr_nc_d', 'metr_c_e',
+                             'mettr_c_e', 'metr_nc_e', 'mettr_nc_e']]
+    assert_frame_equal(test_df, expected, check_dtype=False,
+                       check_less_precise=True)
+
+
 # def test_asset_calcs():
 #
 #     assert_frame_equal(test_df, correct_df, check_dtype=False)
