@@ -70,6 +70,8 @@ correct_df2 = pd.DataFrame(
 test_data = [((True, 0.03, 0.0, 0.0, 0.5, 5), correct_df0),
              ((False, 0.03, 0.0, 0.0, 0.5, 5), correct_df1),
              ((False, 0.02, 0.08, 0.01, 0.33, 8), correct_df2)]
+
+
 @pytest.mark.parametrize('changing_params,expected', test_data,
                          ids=['Test 0', 'Test 1', 'Test 2'])
 def test_cost_of_capital(changing_params, expected):
@@ -153,6 +155,8 @@ correct_df1 = pd.DataFrame(
      'mettr_nc_d': [-24.000000, -21.321429],
      'mettr_nc_e': [0.88000, 0.87234]})
 test_data = [(0.02, correct_df0), (0.05, correct_df1)]
+
+
 @pytest.mark.parametrize('inflation_rate,expected', test_data,
                          ids=['pi=0.02', 'pi=0.05'])
 def test_metr(inflation_rate, expected):
@@ -174,11 +178,12 @@ def test_metr(inflation_rate, expected):
                                       save_rate, entity_list,
                                       financing_list)
     expected = expected[['Asset Type', 'delta', 'rho_c', 'rho_c_d',
-                             'rho_c_e', 'rho_nc', 'rho_nc_d',
-                             'rho_nc_e', 'metr_c', 'mettr_c', 'metr_nc',
-                             'mettr_nc', 'metr_c_d', 'mettr_c_d',
-                             'metr_nc_d', 'mettr_nc_d', 'metr_c_e',
-                             'mettr_c_e', 'metr_nc_e', 'mettr_nc_e']]
+                         'rho_c_e', 'rho_nc', 'rho_nc_d', 'rho_nc_e',
+                         'metr_c', 'mettr_c', 'metr_nc', 'mettr_nc',
+                         'metr_c_d', 'mettr_c_d', 'metr_nc_d',
+                         'mettr_nc_d', 'metr_c_e', 'mettr_c_e',
+                         'metr_nc_e', 'mettr_nc_e']]
+
     assert_frame_equal(test_df, expected, check_dtype=False,
                        check_less_precise=True)
 

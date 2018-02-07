@@ -37,16 +37,25 @@ def cost_of_capital(df, w, expense_inventory, stat_tax, inv_credit, phi,
         for j in range(discount_rate.shape[1]):
             df['rho' + entity_list[j] + financing_list[i]] = \
                 ((((discount_rate[i, j] - inflation_rate) + df['delta'])
-                  * (1 - inv_credit - (stat_tax[j] * df['z' +
-                                                        entity_list[j] +
-                                                        financing_list[i]])) /
+                  * (1 - inv_credit - (stat_tax[j] *
+                                       df['z' + entity_list[j] +
+                                          financing_list[i]])) /
                   (1 - stat_tax[j])) + w - df['delta'])
             if not expense_inventory:
-                rho_FIFO = (((1 / Y_v) * np.log((np.exp(discount_rate[i, j] * Y_v) - stat_tax[j]) / (1 - stat_tax[j]))) - inflation_rate)
-                rho_LIFO = (1 / Y_v) * np.log((np.exp((discount_rate[i, j] - inflation_rate) * Y_v) - stat_tax[j]) / (1 - stat_tax[j]))
-                df.loc[df['Asset Type'] == "Inventories", 'rho' + entity_list[j] + financing_list[i]] = \
-                    phi * rho_FIFO + (1 - phi) * rho_LIFO
-            df['ucc' + entity_list[j] + financing_list[i]] = df['rho' + entity_list[j] + financing_list[i]] + df['delta']
+                rho_FIFO = (((1 / Y_v) *
+                             np.log((np.exp(discount_rate[i, j] * Y_v)
+                                     - stat_tax[j]) /
+                                    (1 - stat_tax[j]))) -
+                            inflation_rate)
+                rho_LIFO = ((1 / Y_v) *
+                            np.log((np.exp((discount_rate[i, j] -
+                                            inflation_rate) * Y_v) -
+                                    stat_tax[j]) / (1 - stat_tax[j])))
+                df.loc[df['Asset Type'] == "Inventories", 'rho' +
+                       entity_list[j] + financing_list[i]] = \
+                        phi * rho_FIFO + (1 - phi) * rho_LIFO
+            df['ucc' + entity_list[j] + financing_list[i]] =\
+                df['rho' + entity_list[j] + financing_list[i]] + df['delta']
     return df
 
 
