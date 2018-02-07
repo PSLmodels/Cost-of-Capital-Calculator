@@ -53,7 +53,6 @@ def cost_of_capital(df, w, expense_inventory, stat_tax, inv_credit, phi,
                                                                    inflation_rate) * Y_v) -
                                                            stat_tax[j]) / (1 - stat_tax[j]))))))
             df['ucc' + entity_list[j] + financing_list[i]] = df['rho' + entity_list[j] + financing_list[i]] + df['delta']
-
     return df
 
 
