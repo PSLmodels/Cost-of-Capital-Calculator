@@ -41,7 +41,7 @@ def cost_of_capital(df, w, expense_inventory, stat_tax, inv_credit, phi,
                                        df['z' + entity_list[j] +
                                           financing_list[i]])) /
                   (1 - stat_tax[j])) + w - df['delta'])
-            if expense_inventory == False:
+            if not expense_inventory:
                 rho_FIFO = (((1 / Y_v) *
                              np.log((np.exp(discount_rate[i, j] * Y_v)
                                      - stat_tax[j]) /

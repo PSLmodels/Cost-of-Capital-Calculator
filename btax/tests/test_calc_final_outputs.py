@@ -68,10 +68,10 @@ correct_df2 = pd.DataFrame(
      'ucc_nc_d': [0.0100, 0.1112],
      'ucc_nc_e': [0.100, 0.194]})
 # tuple of params in order: expense_inventory, inflation_rate,
-# inv_credit, w, phi, Y_v 
-test_data = [((True, 0.03, 0.0, 0.0, 0.5, 5), correct_df0),
-             ((False, 0.03, 0.0, 0.0, 0.5, 5), correct_df1),
-             ((False, 0.02, 0.08, 0.01, 0.33, 8), correct_df2)]
+# inv_credit, w, phi, Y_v
+test_data = [((True, 0.03, 0.0, 0.0, 0.5, 5.), correct_df0),
+             ((False, 0.03, 0.0, 0.0, 0.5, 5.), correct_df1),
+             ((False, 0.02, 0.08, 0.01, 0.33, 8.), correct_df2)]
 
 
 @pytest.mark.parametrize('changing_params,expected', test_data,
