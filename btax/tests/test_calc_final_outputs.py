@@ -67,6 +67,8 @@ correct_df2 = pd.DataFrame(
      'ucc_nc': [0.0400, 0.1388],
      'ucc_nc_d': [0.0100, 0.1112],
      'ucc_nc_e': [0.100, 0.194]})
+# tuple of params in order: expense_inventory, inflation_rate,
+# inv_credit, w, phi, Y_v 
 test_data = [((True, 0.03, 0.0, 0.0, 0.5, 5), correct_df0),
              ((False, 0.03, 0.0, 0.0, 0.5, 5), correct_df1),
              ((False, 0.02, 0.08, 0.01, 0.33, 8), correct_df2)]
@@ -90,12 +92,6 @@ def test_cost_of_capital(changing_params, expected):
     financing_list = ['', '_d', '_e']
     entity_list = ['_c', '_nc']
     stat_tax = np.array([0.3, 0.0])
-    # expense_inventory = False
-    # inflation_rate = 0.02
-    # inv_credit = 0.08
-    # w = 0.01
-    # phi = 0.33
-    # Y_v = 8
     test_df = calc_final_outputs.cost_of_capital(
         df, w, expense_inventory, stat_tax, inv_credit, phi, Y_v,
         inflation_rate, discount_rate, entity_list,
