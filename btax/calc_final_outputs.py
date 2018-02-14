@@ -286,7 +286,8 @@ def industry_calcs(params, asset_data, output_by_asset):
     df2 = output_by_asset[['bea_asset_code', 'delta', 'z_c', 'z_c_d',
                            'z_c_e', 'z_nc', 'z_nc_d', 'z_nc_e', 'rho_c',
                            'rho_c_d', 'rho_c_e', 'rho_nc', 'rho_nc_d',
-                           'rho_nc_e', 'asset_category']].copy()
+                           'rho_nc_e', 'ucc_c', 'ucc_c_d', 'ucc_c_e', 'ucc_nc',
+                           'ucc_nc_d', 'ucc_nc_e', 'asset_category']].copy()
     by_industry_asset = pd.merge(bea, df2, how='right',
                                  left_on=['bea_asset_code'],
                                  right_on=['bea_asset_code'],
@@ -320,7 +321,8 @@ def industry_calcs(params, asset_data, output_by_asset):
                       apply(wavg, "delta", "assets")}).reset_index()
     col_list = ['z_c', 'z_c_d', 'z_c_e', 'z_nc', 'z_nc_d', 'z_nc_e',
                 'rho_c', 'rho_c_d', 'rho_c_e', 'rho_nc', 'rho_nc_d',
-                'rho_nc_e']
+                'rho_nc_e', 'ucc_c', 'ucc_c_d', 'ucc_c_e', 'ucc_nc',
+                'ucc_nc_d', 'ucc_nc_e']
     for item in col_list:
         by_industry_tax[item] =\
             (pd.DataFrame({item: by_industry_asset.groupby(['bea_ind_code',
@@ -343,11 +345,13 @@ def industry_calcs(params, asset_data, output_by_asset):
     non_corp = by_industry_tax[by_industry_tax['tax_treat'] ==
                                'non-corporate'].copy()
     corp = corp[['bea_ind_code', 'delta', 'z_c', 'z_c_d', 'z_c_e',
-                 'rho_c', 'rho_c_d', 'rho_c_e', 'metr_c', 'metr_c_d',
+                 'rho_c', 'rho_c_d', 'rho_c_e', 'ucc_c', 'ucc_c_d',
+                 'ucc_c_e', 'metr_c', 'metr_c_d',
                  'metr_c_e', 'mettr_c', 'mettr_c_d', 'mettr_c_e',
                  'assets']].copy()
     non_corp = non_corp[['bea_ind_code', 'delta', 'z_nc', 'z_nc_d',
                          'z_nc_e', 'rho_nc', 'rho_nc_d', 'rho_nc_e',
+                         'ucc_nc', 'ucc_nc_d', 'ucc_nc_e',
                          'metr_nc', 'metr_nc_d', 'metr_nc_e', 'mettr_nc',
                          'mettr_nc_d', 'mettr_nc_e', 'assets']].copy()
     corp.rename(columns={"delta": "delta_c", "assets": "assets_c"},
@@ -383,7 +387,8 @@ def industry_calcs(params, asset_data, output_by_asset):
                       apply(wavg, "delta", "assets")}).reset_index()
     col_list = ['z_c', 'z_c_d', 'z_c_e', 'z_nc', 'z_nc_d', 'z_nc_e',
                 'rho_c', 'rho_c_d', 'rho_c_e', 'rho_nc', 'rho_nc_d',
-                'rho_nc_e']
+                'rho_nc_e', 'ucc_c', 'ucc_c_d', 'ucc_c_e', 'ucc_nc',
+                'ucc_nc_d', 'ucc_nc_e']
     for item in col_list:
         by_major_ind_tax[item] =\
             (pd.DataFrame({item: by_industry_asset.
@@ -399,18 +404,20 @@ def industry_calcs(params, asset_data, output_by_asset):
     by_major_ind_tax = metr(by_major_ind_tax, r_prime, inflation_rate,
                             save_rate, entity_list, financing_list)
 
-    # put together in different format (later we should consider changing how
-    # output is handled and do long format)
+    # put together in different format (later we should consider
+    # changing how output is handled and do long format)
     corp = by_major_ind_tax[by_major_ind_tax['tax_treat'] ==
                             'corporate'].copy()
     non_corp = by_major_ind_tax[by_major_ind_tax['tax_treat'] ==
                                 'non-corporate'].copy()
     corp = corp[['major_industry', 'delta', 'z_c', 'z_c_d', 'z_c_e',
-                 'rho_c', 'rho_c_d', 'rho_c_e', 'metr_c', 'metr_c_d',
+                 'rho_c', 'rho_c_d', 'rho_c_e', 'ucc_c', 'ucc_c_d',
+                 'ucc_c_e', 'metr_c', 'metr_c_d',
                  'metr_c_e', 'mettr_c', 'mettr_c_d', 'mettr_c_e',
                  'assets']].copy()
     non_corp = non_corp[['major_industry', 'delta', 'z_nc', 'z_nc_d',
                          'z_nc_e', 'rho_nc', 'rho_nc_d', 'rho_nc_e',
+                         'ucc_nc', 'ucc_nc_d', 'ucc_nc_e',
                          'metr_nc', 'metr_nc_d', 'metr_nc_e', 'mettr_nc',
                          'mettr_nc_d', 'mettr_nc_e', 'assets']].copy()
     corp.rename(columns={"delta": "delta_c", "assets": "assets_c"},
@@ -431,9 +438,10 @@ def industry_calcs(params, asset_data, output_by_asset):
                                       'Structures'].copy()
     output_by_asset = output_by_asset[output_by_asset['Asset Type'] !=
                                       'Intellectual Property'].copy()
-    corp_list = ['z_c', 'z_c_d', 'z_c_e', 'rho_c', 'rho_c_d', 'rho_c_e']
+    corp_list = ['z_c', 'z_c_d', 'z_c_e', 'rho_c', 'rho_c_d', 'rho_c_e',
+                 'ucc_c', 'ucc_c_d', 'ucc_c_e']
     noncorp_list = ['z_nc', 'z_nc_d', 'z_nc_e', 'rho_nc', 'rho_nc_d',
-                    'rho_nc_e']
+                    'rho_nc_e', 'ucc_nc', 'ucc_nc_d', 'ucc_nc_e']
     overall = pd.DataFrame({'delta_c': ((output_by_asset['delta'] *
                                          output_by_asset['assets_c']).
                                         sum() / output_by_asset['assets_c'].
