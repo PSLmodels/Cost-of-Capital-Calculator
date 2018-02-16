@@ -69,7 +69,6 @@ def run_btax(test_run, baseline=False, start_year=DEFAULT_START_YEAR,
 
     """
     calc_assets = False
-
     iit_reform = iit_reform or {}
     asset_data = None
     for repeat in range(2):
@@ -118,11 +117,6 @@ def run_btax(test_run, baseline=False, start_year=DEFAULT_START_YEAR,
     output_by_industry = calc_final_outputs.industry_calcs(parameters,
                                                            asset_data,
                                                            output_by_asset)
-
-    # drop delta variables - CCC output tables can't acccept them
-    output_by_asset = output_by_asset.drop('delta', 1)
-    # drop delta variables - CCC output tables can't acccept them
-    output_by_industry = output_by_industry.drop(['delta_c', 'delta_nc'], 1)
 
     return output_by_asset, output_by_industry
 
