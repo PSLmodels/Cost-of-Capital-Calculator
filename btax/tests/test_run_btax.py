@@ -6,12 +6,12 @@ from btax import run_btax
 
 
 # Load input values
-input_tuple = pickle.load(open('run_btax_baseline_inputs.pkl', 'rb'),
+input_tuple = pickle.load(open('./tests/run_btax_baseline_inputs.pkl', 'rb'),
                           encoding='Latin')
 test_run, baseline, start_year, iit_reform, user_params = input_tuple
 # Load pickle with results to check against
 (result_by_asset, result_by_industry) =\
-    pickle.load(open('run_btax_baseline_outputs.pkl', 'rb'),
+    pickle.load(open('./tests/run_btax_baseline_outputs.pkl', 'rb'),
                 encoding='Latin')
 # Run B-Tax with these inputs
 test_by_asset, test_by_industry = run_btax.run_btax(
