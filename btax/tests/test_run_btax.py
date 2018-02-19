@@ -1,7 +1,7 @@
 import pytest
 import os
-import pickle
 import pandas as pd
+import json
 from pandas.testing import assert_frame_equal
 from btax import run_btax
 os.path.abspath(os.path.dirname(__file__))
@@ -9,15 +9,14 @@ os.path.abspath(os.path.dirname(__file__))
 CUR_PATH = os.path.abspath(os.path.dirname(__file__))
 
 # Load input values
-input_tuple = pickle.load(open(
-    os.path.join(CUR_PATH, 'run_btax_baseline_inputs.pkl'),
-    'rb'))
+input_tuple = tuple(json.load(open(os.path.join(CUR_PATH,
+                                            'run_btax_inputs.json'))))
 test_run, baseline, start_year, iit_reform, user_params = input_tuple
-# Load pickle with results to check against
-(result_by_asset, result_by_industry) =\
-    pickle.load(open(
-        os.path.join(CUR_PATH, 'run_btax_baseline_outputs.pkl'),
-        'rb'))
+# Load JSON with results to check against
+result_by_asset = pd.read_json(json.load(open(
+    os.path.join(CUR_PATH, 'run_btax_outputs.json')))[0])
+result_by_industry = pd.read_json(json.load(open(
+    os.path.join(CUR_PATH, 'run_btax_outputs.json')))[1])
 # Run B-Tax with these inputs
 test_by_asset, test_by_industry = run_btax.run_btax(
     test_run, baseline, start_year, iit_reform, **user_params)
