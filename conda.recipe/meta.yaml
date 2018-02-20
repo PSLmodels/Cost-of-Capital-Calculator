@@ -9,7 +9,7 @@ requirements:
   build:
     - setuptools
     - scipy
-    - taxcalc
+    - taxcalc==0.15.1
     - numpy >=1.12.1
     - pandas >=0.20.1
     - python
@@ -20,7 +20,7 @@ requirements:
   run:
     - setuptools
     - scipy
-    - taxcalc
+    - taxcalc==0.15.1
     - numpy >=1.12.1
     - pandas >=0.20.1
     - python
