@@ -15,3 +15,4 @@ dependencies:
 - coverage
 - pytest-pep8
 - pytest-xdist
+- xlrd
