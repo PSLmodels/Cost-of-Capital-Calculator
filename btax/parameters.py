@@ -15,7 +15,7 @@ import os
 import numpy as np
 import pandas as pd
 
-from btax.util import read_from_egg, DEFAULT_START_YEAR
+from btax.util import read_from_egg, DEFAULT_START_YEAR, RECORDS_START_YEAR
 
 # first year of tax parameters in btax_defaults.json
 PARAMETER_START_YEAR = 2015
@@ -199,7 +199,8 @@ def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
         calc = get_calculator(baseline=False,
                               calculator_start_year=start_year,
                               reform=iit_reform, data=TAXDATA,
-                              weights=WEIGHTS, records_start_year=2009)
+                              weights=WEIGHTS,
+                              records_start_year=RECORDS_START_YEAR)
         assert calc.current_year == start_year
     else:
         from btax.get_taxcalc_rates import get_rates
