@@ -184,9 +184,10 @@ def asset_calcs(params, asset_data):
                                       inv_credit, phi, Y_v,
                                       inflation_rate, discount_rate,
                                       entity_list, financing_list)
-    output_by_asset = metr(output_by_asset, r_prime, inflation_rate, save_rate,
-                           entity_list, financing_list)
-    output_by_asset = eatr(output_by_asset, p)
+    output_by_asset = metr(output_by_asset, r_prime, inflation_rate,
+                           save_rate, entity_list, financing_list)
+    output_by_asset = eatr(output_by_asset, p, stat_tax, entity_list,
+                           financing_list)
 
     # create asset category variable
     output_by_asset['asset_category'] = output_by_asset['Asset Type']
@@ -337,6 +338,7 @@ def industry_calcs(params, asset_data, output_by_asset):
     financing_list = params['financing_list']
     entity_list = params['entity_list']
     p = params['p']
+    stat_tax = params['tax rate']
     bea_code_dict = params['bea_code_dict']
 
     # initialize dataframe - start w/ fixed assets by industry and asset type
