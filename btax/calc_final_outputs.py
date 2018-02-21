@@ -139,7 +139,7 @@ def eatr(df, p, stat_tax, entity_list, financing_list):
 
 def asset_calcs(params, asset_data):
     """
-    Computes rho, METR, and METTR by asset type.
+    Computes rho, ucc, METR, METTR, tax wedge, EATR by asset type.
 
     Args:
         params: dictionary, Constants used in the calculation
