@@ -126,9 +126,15 @@ correct_df0 = pd.DataFrame(
      'mettr_c': [0.228612, 0.561671],
      'mettr_c_d': [0.32712, 0.52381],
      'mettr_c_e': [-0.121821, -0.135609],
-     'mettr_nc': [0.0, -0.030928],
+     'mettr_nc': [0.0, -0.030927835],
      'mettr_nc_d': [-24.000000, -21.321429],
-     'mettr_nc_e': [0.88000, 0.87234]})
+     'mettr_nc_e': [0.88000, 0.87234],
+     'tax_wedge_c': [0.009779968, 0.042285714],
+     'tax_wedge_c_d': [0.009723255, 0.022],
+     'tax_wedge_c_e': [-0.014117454, -0.015524171],
+     'tax_wedge_nc': [0.0, -0.0012],
+     'tax_wedge_nc_d': [-0.24, -0.2388],
+     'tax_wedge_nc_e': [0.088, 0.082]})
 correct_df1 = pd.DataFrame(
     {'Asset Type': ['Inventories', 'Autos'],
      'delta': [0.0, 0.1],
@@ -149,7 +155,13 @@ correct_df1 = pd.DataFrame(
      'mettr_c_e': [-0.121821, -0.135609],
      'mettr_nc': [0.0, -0.030928],
      'mettr_nc_d': [-24.000000, -21.321429],
-     'mettr_nc_e': [0.88000, 0.87234]})
+     'mettr_nc_e': [0.88000, 0.87234],
+     'tax_wedge_c': [0.009779968, 0.042285714],
+     'tax_wedge_c_d': [0.009723255, 0.022],
+     'tax_wedge_c_e': [-0.014117454, -0.015524171],
+     'tax_wedge_nc': [0.0, -0.0012],
+     'tax_wedge_nc_d': [-0.24, -0.2388],
+     'tax_wedge_nc_e': [0.088, 0.082]})
 test_data = [(0.02, correct_df0), (0.05, correct_df1)]
 
 
@@ -175,10 +187,12 @@ def test_metr(inflation_rate, expected):
                                       financing_list)
     expected = expected[['Asset Type', 'delta', 'rho_c', 'rho_c_d',
                          'rho_c_e', 'rho_nc', 'rho_nc_d', 'rho_nc_e',
-                         'metr_c', 'mettr_c', 'metr_nc', 'mettr_nc',
-                         'metr_c_d', 'mettr_c_d', 'metr_nc_d',
-                         'mettr_nc_d', 'metr_c_e', 'mettr_c_e',
-                         'metr_nc_e', 'mettr_nc_e']]
+                         'metr_c', 'mettr_c', 'tax_wedge_c', 'metr_nc',
+                         'mettr_nc', 'tax_wedge_nc', 'metr_c_d',
+                         'mettr_c_d', 'tax_wedge_c_d', 'metr_nc_d',
+                         'mettr_nc_d', 'tax_wedge_nc_d', 'metr_c_e',
+                         'mettr_c_e', 'tax_wedge_c_e', 'metr_nc_e',
+                         'mettr_nc_e', 'tax_wedge_nc_e']]
 
     assert_frame_equal(test_df, expected, check_dtype=False,
                        check_less_precise=True)
