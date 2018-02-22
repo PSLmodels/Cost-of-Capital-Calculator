@@ -126,9 +126,15 @@ correct_df0 = pd.DataFrame(
      'mettr_c': [0.228612, 0.561671],
      'mettr_c_d': [0.32712, 0.52381],
      'mettr_c_e': [-0.121821, -0.135609],
-     'mettr_nc': [0.0, -0.030928],
+     'mettr_nc': [0.0, -0.030927835],
      'mettr_nc_d': [-24.000000, -21.321429],
-     'mettr_nc_e': [0.88000, 0.87234]})
+     'mettr_nc_e': [0.88000, 0.87234],
+     'tax_wedge_c': [0.009779968, 0.042285714],
+     'tax_wedge_c_d': [0.009723255, 0.022],
+     'tax_wedge_c_e': [-0.014117454, -0.015524171],
+     'tax_wedge_nc': [0.0, -0.0012],
+     'tax_wedge_nc_d': [-0.24, -0.2388],
+     'tax_wedge_nc_e': [0.088, 0.082]})
 correct_df1 = pd.DataFrame(
     {'Asset Type': ['Inventories', 'Autos'],
      'delta': [0.0, 0.1],
@@ -149,7 +155,13 @@ correct_df1 = pd.DataFrame(
      'mettr_c_e': [-0.121821, -0.135609],
      'mettr_nc': [0.0, -0.030928],
      'mettr_nc_d': [-24.000000, -21.321429],
-     'mettr_nc_e': [0.88000, 0.87234]})
+     'mettr_nc_e': [0.88000, 0.87234],
+     'tax_wedge_c': [0.009779968, 0.042285714],
+     'tax_wedge_c_d': [0.009723255, 0.022],
+     'tax_wedge_c_e': [-0.014117454, -0.015524171],
+     'tax_wedge_nc': [0.0, -0.0012],
+     'tax_wedge_nc_d': [-0.24, -0.2388],
+     'tax_wedge_nc_e': [0.088, 0.082]})
 test_data = [(0.02, correct_df0), (0.05, correct_df1)]
 
 
@@ -175,10 +187,98 @@ def test_metr(inflation_rate, expected):
                                       financing_list)
     expected = expected[['Asset Type', 'delta', 'rho_c', 'rho_c_d',
                          'rho_c_e', 'rho_nc', 'rho_nc_d', 'rho_nc_e',
-                         'metr_c', 'mettr_c', 'metr_nc', 'mettr_nc',
-                         'metr_c_d', 'mettr_c_d', 'metr_nc_d',
-                         'mettr_nc_d', 'metr_c_e', 'mettr_c_e',
-                         'metr_nc_e', 'mettr_nc_e']]
+                         'metr_c', 'mettr_c', 'tax_wedge_c', 'metr_nc',
+                         'mettr_nc', 'tax_wedge_nc', 'metr_c_d',
+                         'mettr_c_d', 'tax_wedge_c_d', 'metr_nc_d',
+                         'mettr_nc_d', 'tax_wedge_nc_d', 'metr_c_e',
+                         'mettr_c_e', 'tax_wedge_c_e', 'metr_nc_e',
+                         'mettr_nc_e', 'tax_wedge_nc_e']]
+
+    assert_frame_equal(test_df, expected, check_dtype=False,
+                       check_less_precise=True)
+
+
+correct_df0 = pd.DataFrame(
+    {'Asset Type': ['Inventories', 'Autos'],
+     'delta': [0.0, 0.1],
+     'rho_c': [0.042780, 0.075286],
+     'rho_c_d': [0.029723, 0.042000],
+     'rho_c_e': [0.115883, 0.114476],
+     'rho_nc': [0.0400, 0.0388],
+     'rho_nc_d': [0.0100, 0.0112],
+     'rho_nc_e': [0.100, 0.094],
+     'metr_c': [0.298738, 0.601520],
+     'metr_c_d': [0.32712, 0.52381],
+     'metr_c_e': [0.223355, 0.213809],
+     'metr_nc': [0, -0.03092784],
+     'metr_nc_d': [0, 0.1071429],
+     'metr_nc_e': [0.0, -0.06382979],
+     'eatr_c': [0.299459779, 0.527],
+     'eatr_c_d': [0.308062784, 0.394],
+     'eatr_c_e': [0.211177821, 0.2013308],
+     'eatr_nc': [0.0, -0.012],
+     'eatr_nc_d': [0.0, 0.012],
+     'eatr_nc_e': [0.0, -0.06]})
+correct_df1 = pd.DataFrame(
+    {'Asset Type': ['Inventories', 'Autos'],
+     'delta': [0.0, 0.1],
+     'rho_c': [0.042780, 0.075286],
+     'rho_c_d': [0.029723, 0.042000],
+     'rho_c_e': [0.115883, 0.114476],
+     'rho_nc': [0.0400, 0.0388],
+     'rho_nc_d': [0.0100, 0.0112],
+     'rho_nc_e': [0.100, 0.094],
+     'metr_c': [0.298738, 0.601520],
+     'metr_c_d': [0.32712, 0.52381],
+     'metr_c_e': [0.223355, 0.213809],
+     'metr_nc': [0, -0.03092784],
+     'metr_nc_d': [0, 0.1071429],
+     'metr_nc_e': [0.0, -0.06382979],
+     'eatr_c': [0.298737211, 0.830621786],
+     'eatr_c_d': [0.318847088, 0.519728845],
+     'eatr_c_e': [0.092374524, 0.069356709],
+     'eatr_nc': [0.0, -0.028050491],
+     'eatr_nc_d': [0.0, 0.028050491],
+     'eatr_nc_e': [0.0, -0.140252454]})
+test_data = [(0.10, correct_df0), (0.042780, correct_df1)]
+
+
+@pytest.mark.parametrize('p,expected', test_data,
+                         ids=['p=0.10', 'p=0.042780'])
+def test_eatr(p, expected):
+    # Test METR and METTR calculations
+    df = pd.DataFrame(
+        {'Asset Type': ['Inventories', 'Autos'],
+         'delta': [0.0, 0.1],
+         'rho_c': [0.042780, 0.075286],
+         'rho_c_d': [0.029723, 0.042000],
+         'rho_c_e': [0.115883, 0.114476],
+         'rho_nc': [0.0400, 0.0388],
+         'rho_nc_d': [0.0100, 0.0112],
+         'rho_nc_e': [0.100, 0.094],
+         'metr_c': [0.298738, 0.601520],
+         'metr_c_d': [0.32712, 0.52381],
+         'metr_c_e': [0.223355, 0.213809],
+         'metr_nc': [0, -0.03092784],
+         'metr_nc_d': [0, 0.1071429],
+         'metr_nc_e': [0.0, -0.06382979]})
+    stat_tax = np.array([0.3, 0.0])
+    financing_list = ['', '_d', '_e']
+    entity_list = ['_c', '_nc']
+    test_df = calc_final_outputs.eatr(df, p, stat_tax, entity_list,
+                                      financing_list)
+    expected = expected[['Asset Type', 'delta', 'rho_c', 'rho_c_d',
+                         'rho_c_e', 'rho_nc', 'rho_nc_d', 'rho_nc_e',
+                         'metr_c', 'eatr_c', 'metr_nc', 'eatr_nc',
+                         'metr_c_d', 'eatr_c_d', 'metr_nc_d',
+                         'eatr_nc_d', 'metr_c_e', 'eatr_c_e',
+                         'metr_nc_e', 'eatr_nc_e']]
+    test_df = test_df[['Asset Type', 'delta', 'rho_c', 'rho_c_d',
+                         'rho_c_e', 'rho_nc', 'rho_nc_d', 'rho_nc_e',
+                         'metr_c', 'eatr_c', 'metr_nc', 'eatr_nc',
+                         'metr_c_d', 'eatr_c_d', 'metr_nc_d',
+                         'eatr_nc_d', 'metr_c_e', 'eatr_c_e',
+                         'metr_nc_e', 'eatr_nc_e']]
 
     assert_frame_equal(test_df, expected, check_dtype=False,
                        check_less_precise=True)

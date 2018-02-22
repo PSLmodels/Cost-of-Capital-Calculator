@@ -232,6 +232,7 @@ def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
 
     # Miscellaneous parameters
     m = 0.44  # Divident payout rate
+    p = 0.2  # Profit rate to compute EATR
 
     # Intermediate variables
     sprime_c_td = ((1 / Y_td) * np.log(((1 - tau_td) * np.exp(i * Y_td))
@@ -611,7 +612,7 @@ def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
                   'int_haircut': int_haircut,
                   'financing_list': financing_list,
                   'entity_list': entity_list,
-                  'delta': delta, 'Y_v': Y_v, 'phi': phi,
+                  'delta': delta, 'Y_v': Y_v, 'phi': phi, 'p': p,
                   'expense_inventory': expense_inventory,
                   'asset_dict': asset_dict,
                   'ind_dict': ind_dict,
