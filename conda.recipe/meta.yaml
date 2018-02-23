@@ -1,6 +1,6 @@
 package:
   name: btax
-  version: 0.4
+  version: 0.0.0
 
 source:
   path: ..
@@ -49,4 +49,3 @@ test:
     - btax.pull_soi_proprietorship
     - btax.read_bea
     - btax.util
-
