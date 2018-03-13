@@ -3,6 +3,7 @@ import re
 
 import pytest
 import json
+import numpy as np
 
 from btax.parameters import DEFAULTS, get_params, translate_param_names
 from btax.execute import runner
@@ -53,7 +54,17 @@ def tst_once(fast_or_slow, **user_params):
         # is seen from defaults
         user_params = translate_param_names(**user_params)
         default_params = translate_param_names()
-        assert user_params != default_params, repr((user_params, default_params))
+        # try:
+        #     assert (np.array([user_params]) != np.array([default_params])).all(), repr((user_params, default_params))
+        # except AttributeError:
+        #     assert user_params != default_params, repr((user_params, default_params))
+        for k, v in user_params.items():
+            print('user_params = ', user_params, ' default = ', default_params)
+            print('user = ', v, ' default = ', default_params[k])
+            try:
+                assert (np.array([v]) != np.array([default_params[k]])).all()
+            except AttributeError:
+                assert v != default_params[k]
 
 
 def tst_each_param_has_effect(fast_or_slow, k, v):
@@ -88,6 +99,9 @@ def tst_each_param_has_effect(fast_or_slow, k, v):
         val = (v['max'][0] + v['min'][0]) / 2.1
     elif isinstance(default, int):
         val = default + 1
+    elif type(user_mods[k]) == np.array:
+        if len(user_mods[k]) > 1:
+            val = np.array([0.5, 0.5])
     else:
         val = default + 0.05
     if isinstance(val, float) and val == 0.:
