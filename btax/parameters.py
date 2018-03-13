@@ -93,8 +93,8 @@ def translate_param_names(start_year=DEFAULT_START_YEAR, **user_mods):
         'pi': user_mods['btax_econ_inflat'],
         'i': user_mods['btax_econ_nomint'],
         'ace_c': user_mods['btax_other_corpeq'],
-        'int_haircut': np.array([user_mods['btax_other_hair_c'],
-                                 user_mods['btax_other_hair_nc']]),
+        'int_haircut_c': user_mods['btax_other_hair_c'],
+        'int_haircut_nc': user_mods['btax_other_hair_nc'],
         'inv_credit': user_mods['btax_other_invest'],
         'w': user_mods['btax_other_proptx'],
         'bonus_deprec': user_bonus_deprec,
@@ -167,7 +167,8 @@ def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
     ace_nc = 0.
     ace_array = np.array([ace_c, ace_nc])
     r_ace = i
-    int_haircut = user_params['int_haircut']
+    int_haircut = np.array([user_params['int_haircut_c'],
+                            user_params['int_haircut_nc']])
     bonus_deprec = user_params['bonus_deprec']
     deprec_system = user_params['deprec_system']
     phi = user_params['phi']
