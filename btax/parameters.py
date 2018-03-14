@@ -190,10 +190,10 @@ def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
         # test below is that calculator can be created
         CUR_PATH = os.path.abspath(os.path.dirname(__file__))
         TAXDATA_PATH = os.path.join(CUR_PATH, 'test_data',
-                                    'puf91taxdata.csv.gz')
+                                    'cps.csv.gz')
         TAXDATA = pd.read_csv(TAXDATA_PATH, compression='gzip')
         WEIGHTS_PATH = os.path.join(CUR_PATH, 'test_data',
-                                    'puf91weights.csv.gz')
+                                    'cps_weights.csv.gz')
         WEIGHTS = pd.read_csv(WEIGHTS_PATH, compression='gzip')
         from btax.get_taxcalc_rates import get_calculator
         calc = get_calculator(baseline=False,
