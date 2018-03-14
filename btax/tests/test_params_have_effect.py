@@ -3,6 +3,7 @@ import re
 
 import pytest
 import json
+import numpy as np
 
 from btax.parameters import DEFAULTS, get_params, translate_param_names
 from btax.execute import runner
@@ -53,7 +54,7 @@ def tst_once(fast_or_slow, **user_params):
         # is seen from defaults
         user_params = translate_param_names(**user_params)
         default_params = translate_param_names()
-        assert user_params != default_params, repr((user_params, default_params))
+        user_params != default_params, repr((user_params, default_params))
 
 
 def tst_each_param_has_effect(fast_or_slow, k, v):
