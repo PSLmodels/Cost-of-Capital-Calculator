@@ -76,9 +76,9 @@ def get_paths():
     paths['_BEA_DIR'] = _BEA_DIR = os.path.join(_RAW_DIR, 'BEA')
     paths['_FIN_ACCT_DIR'] = _FIN_ACCT_DIR =\
     os.path.join(_RAW_DIR, 'national_accounts')
-    paths['_OUT_DIR'] = os.environ.get('BTAX_OUT_DIR', 'btax_output_dir')
-    if not os.path.exists(paths['_OUT_DIR']):
-        os.mkdir(paths['_OUT_DIR'])
+    # paths['_OUT_DIR'] = os.environ.get('BTAX_OUT_DIR', 'btax_output_dir')
+    # if not os.path.exists(paths['_OUT_DIR']):
+    #     os.mkdir(paths['_OUT_DIR'])
     paths['_BEA_ASSET_PATH'] = _BEA_ASSET_PATH =\
         os.path.join(_BEA_DIR, "detailnonres_stk1.xlsx")
     paths['_SOI_BEA_CROSS'] = _SOI_BEA_CROSS =\
