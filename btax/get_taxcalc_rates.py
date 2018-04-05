@@ -15,10 +15,10 @@ This py-file creates the following other file(s):
 from __future__ import print_function
 import numpy as np
 from taxcalc import *
-from btax.util import DEFAULT_START_YEAR, RECORDS_START_YEAR
+from btax.util import DEFAULT_START_YEAR, RECORDS_START_YEAR, TC_LAST_YEAR
 
-def get_calculator(baseline, calculator_start_year, reform=None, data=None,
-                   weights=None, records_start_year=None):
+def get_calculator(baseline, calculator_start_year, reform=None,
+                   data=None, weights=None, records_start_year=None):
     '''
     This function creates the tax calculator object for the microsim
 
@@ -38,7 +38,9 @@ def get_calculator(baseline, calculator_start_year, reform=None, data=None,
     '''
     # create a calculator
     policy1 = Policy()
-    if data is not None:
+    if data is not None and "cps" in data:
+        records1 = Records.cps_constructor()
+    elif data is not None:
         records1 = Records(data=data, weights=weights,
                            start_year=records_start_year)
     else:
@@ -54,15 +56,18 @@ def get_calculator(baseline, calculator_start_year, reform=None, data=None,
     # the default set up increments year to 2013
     calc1 = Calculator(records=records1, policy=policy1)
 
-    # this increment_year function extrapolates all PUF variables to the
-    # next year so this step takes the calculator to the start_year
-    for i in range(calculator_start_year-2013):
+    # this increment_year function extrapolates all PUF variables to
+    # the next year so this step takes the calculator to the start_year
+    if calculator_start_year > TC_LAST_YEAR:
+        raise RuntimeError("Start year is beyond data extrapolation.")
+    while calc1.current_year < calculator_start_year:
         calc1.increment_year()
 
     return calc1
 
 
-def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={}):
+def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={},
+              data=None):
     '''
     --------------------------------------------------------------------
     This function computes weighted average marginal tax rates using
@@ -79,8 +84,9 @@ def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={}):
     --------------------------------------------------------------------
     '''
 
-    calc1 = get_calculator(baseline=baseline, calculator_start_year=start_year,
-                           reform=reform)
+    calc1 = get_calculator(baseline=baseline,
+                           calculator_start_year=start_year,
+                           reform=reform, data=data)
 
     # running all the functions and calculates taxes
     calc1.calc_all()
