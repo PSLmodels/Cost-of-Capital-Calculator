@@ -107,7 +107,8 @@ def translate_param_names(start_year=DEFAULT_START_YEAR, **user_mods):
     return user_params
 
 
-def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
+def get_params(test_run, baseline, start_year, iit_reform, data,
+               **user_mods):
     """
     Sets values to all the model parameters.
 
@@ -206,7 +207,7 @@ def get_params(test_run, baseline, start_year, iit_reform, **user_mods):
         assert calc.current_year == start_year
     else:
         from btax.get_taxcalc_rates import get_rates
-        indiv_rates = get_rates(baseline, start_year, iit_reform)
+        indiv_rates = get_rates(baseline, start_year, iit_reform, data)
         tau_nc = indiv_rates['tau_nc']
         tau_div = indiv_rates['tau_div']
         tau_int = indiv_rates['tau_int']
