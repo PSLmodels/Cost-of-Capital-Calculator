@@ -52,7 +52,7 @@ ASSET_PRE_CACHE_FILE = 'asset_data.pkl'
 
 
 def run_btax(test_run, baseline=False, start_year=DEFAULT_START_YEAR,
-             iit_reform=None, **user_params):
+             iit_reform=None, data=None, **user_params):
     """
     Runner script that kicks off the calculations for B-Tax
 
@@ -107,7 +107,7 @@ def run_btax(test_run, baseline=False, start_year=DEFAULT_START_YEAR,
         raise
     # get parameters
     parameters = params.get_params(test_run, baseline, start_year,
-                                   iit_reform, **user_params)
+                                   iit_reform, data, **user_params)
 
     # make calculations by asset and create formated output
     output_by_asset = calc_final_outputs.asset_calcs(parameters,
@@ -121,7 +121,9 @@ def run_btax(test_run, baseline=False, start_year=DEFAULT_START_YEAR,
     return output_by_asset, output_by_industry
 
 
-def run_btax_with_baseline_delta(test_run, start_year, iit_reform,
+def run_btax_with_baseline_delta(test_run,
+                                 start_year=DEFAULT_START_YEAR,
+                                 iit_reform=None, data=None,
                                  **user_params):
     """
     Runner script that kicks off the calculations for B-Tax
@@ -140,7 +142,7 @@ def run_btax_with_baseline_delta(test_run, start_year, iit_reform,
 
     econ_params = filter_user_params_for_econ(**user_params)
     base_output_by_asset, base_output_by_industry = \
-        run_btax(test_run, True, start_year, {}, **econ_params)
+        run_btax(test_run, True, start_year, {}, data=data, **econ_params)
     asset_row_grouping = {}
     subset = zip(*(getattr(base_output_by_asset, at) for at in
                    ('Asset', 'asset_category', 'mettr_c', 'mettr_nc')))
@@ -162,7 +164,7 @@ def run_btax_with_baseline_delta(test_run, start_year, iit_reform,
     row_grouping = {'asset': asset_row_grouping,
                     'industry': industry_row_grouping}
     reform_output_by_asset, reform_output_by_industry =\
-        run_btax(test_run, False, start_year, iit_reform, **user_params)
+        run_btax(test_run, False, start_year, iit_reform, data=data, **user_params)
     changed_output_by_asset =\
         diff_two_tables(reform_output_by_asset, base_output_by_asset)
     changed_output_by_industry =\
