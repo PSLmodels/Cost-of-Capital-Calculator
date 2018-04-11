@@ -11,6 +11,9 @@ DEFAULT_START_YEAR = 2018
 # Start year for tax data (e.g. year of PUF)
 RECORDS_START_YEAR = 2011
 
+# Latest year TaxData extrapolates to
+TC_LAST_YEAR = 2027
+
 
 def to_str(x):
     """
