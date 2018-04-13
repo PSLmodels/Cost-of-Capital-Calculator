@@ -1,0 +1,51 @@
+package:
+  name: btax
+  version: {{ environ.get("GIT_DESCRIBE_TAG", "NOTAG")}}
+
+source:
+  path: ..
+
+requirements:
+  build:
+    - setuptools
+    - scipy
+    - taxcalc
+    - numpy >=1.12.1
+    - pandas >=0.20.1
+    - python
+    - pytest
+    - xlrd
+    - bokeh >=0.12.3
+
+  run:
+    - setuptools
+    - scipy
+    - taxcalc
+    - numpy >=1.12.1
+    - pandas >=0.20.1
+    - python
+    - pytest
+    - xlrd
+    - bokeh >=0.12.3
+
+about:
+  home: https://github.com/open-source-economics/B-Tax/
+
+
+test:
+  imports:
+    - btax
+    - btax.parameters
+    - btax.run_btax
+    - btax.calc_z
+    - btax.calc_final_outputs
+    - btax.calibrate_financing
+    - btax.check_output
+    - btax.execute
+    - btax.format_output
+    - btax.pull_soi_corp
+    - btax.front_end_util
+    - btax.get_taxcalc_rates
+    - btax.pull_soi_proprietorship
+    - btax.read_bea
+    - btax.util

@@ -1,9 +1,5 @@
 include btax/data/depreciation_rates/*.xlsx
 include btax/data/depreciation_rates/*.csv
-include btax/data/reference_data/*.xls
-include btax/data/reference_data/*.csv
-include btax/data/notes/*.xlsx
-include btax/data/pickles/*.pkl
 include btax/data/raw_data/BEA/*.csv
 include btax/data/raw_data/BEA/*.xlsx
 include btax/data/raw_data/Inventories/*.xls

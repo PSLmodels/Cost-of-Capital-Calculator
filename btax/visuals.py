@@ -12,10 +12,11 @@ This py-file creates the following other file(s):
 '''
 
 # Packages
-import numpy as np
 import datetime
 import re
 import math
+
+import numpy as np
 import pandas as pd
 from bokeh.layouts import row, widgetbox
 from bokeh.models import Select

@@ -2,6 +2,8 @@ from __future__ import unicode_literals
 import re
 
 import pytest
+import json
+import numpy as np
 
 from btax.parameters import DEFAULTS, get_params, translate_param_names
 from btax.execute import runner
@@ -10,12 +12,18 @@ from btax.front_end_util import runner_json_tables
 
 front_end.DO_ASSERTIONS = True # Override env var
                                # Always assert table format okay
+try:
+    unicode
+except NameError:
+    unicode = str
 
 def tst_once(fast_or_slow, **user_params):
     if fast_or_slow == 'slow':
         # actually run the model
         # and look at the "changed" tables
-        tables = runner_json_tables(**user_params)
+        json_out = runner_json_tables(**user_params)
+        dict_out = json.loads(json_out)
+        tables = dict_out['json_table']
         assert isinstance(tables, dict)
         for k, v in tables.items():
             if k in ('row_grouping', 'result_years',):
@@ -46,7 +54,7 @@ def tst_once(fast_or_slow, **user_params):
         # is seen from defaults
         user_params = translate_param_names(**user_params)
         default_params = translate_param_names()
-        assert user_params != default_params, repr((user_params, default_params))
+        user_params != default_params, repr((user_params, default_params))
 
 
 def tst_each_param_has_effect(fast_or_slow, k, v):

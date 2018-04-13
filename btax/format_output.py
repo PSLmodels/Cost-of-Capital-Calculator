@@ -12,8 +12,11 @@ import os.path
 import sys
 import pandas as pd
 import numpy as np
-import cPickle as pickle
-from util import get_paths, read_from_egg
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
+from btax.util import get_paths, read_from_egg
 
 
 globals().update(get_paths())

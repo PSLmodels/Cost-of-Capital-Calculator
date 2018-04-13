@@ -1,0 +1,18 @@
+name: btax-dev
+channels:
+- ospc
+dependencies:
+- taxcalc>=0.15.0
+- numpy >=1.12.1
+- pandas >=0.22.0
+- numba
+- toolz
+- six
+- bokeh >=0.12.3
+- mock
+- pep8
+- pylint
+- coverage
+- pytest-pep8
+- pytest-xdist
+- xlrd
