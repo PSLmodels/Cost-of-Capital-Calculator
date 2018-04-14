@@ -235,9 +235,10 @@ def asset_calcs(params, asset_data):
         pd.DataFrame({'delta': output_by_asset.
                       groupby(['major_asset_group']).
                       apply(wavg, "delta", "assets_c")}).reset_index()
-    corp_list = ['z_c', 'z_c_d', 'z_c_e', 'rho_c', 'rho_c_d', 'rho_c_e']
+    corp_list = ['z_c', 'z_c_d', 'z_c_e', 'rho_c', 'rho_c_d', 'rho_c_e',
+                 'ucc_c', 'ucc_c_d', 'ucc_c_e']
     noncorp_list = ['z_nc', 'z_nc_d', 'z_nc_e', 'rho_nc', 'rho_nc_d',
-                    'rho_nc_e']
+                    'rho_nc_e', 'ucc_nc', 'ucc_nc_d', 'ucc_nc_e']
     for item in corp_list:
         by_major_asset[item] =\
             (pd.DataFrame({item: output_by_asset.
@@ -269,9 +270,6 @@ def asset_calcs(params, asset_data):
     by_major_asset['Asset Type'] = by_major_asset['major_asset_group']
 
     # make calculation for overall rates
-    corp_list = ['z_c', 'z_c_d', 'z_c_e', 'rho_c', 'rho_c_d', 'rho_c_e']
-    noncorp_list = ['z_nc', 'z_nc_d', 'z_nc_e', 'rho_nc', 'rho_nc_d',
-                    'rho_nc_e']
     overall = pd.DataFrame(
         {'delta': ((output_by_asset['delta'] *
                     output_by_asset['assets_c']).sum() /
