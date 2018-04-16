@@ -4,22 +4,19 @@ import pandas as pd
 import json
 from pandas.testing import assert_frame_equal
 from btax import run_btax
-os.path.abspath(os.path.dirname(__file__))
 
 CUR_PATH = os.path.abspath(os.path.dirname(__file__))
 
 # Load input values
 input_tuple = tuple(json.load(open(os.path.join(CUR_PATH,
                                             'run_btax_inputs.json'))))
-test_run, baseline, start_year, iit_reform, user_params = input_tuple
-# Load JSON with results to check against
-result_by_asset = pd.read_json(json.load(open(
-    os.path.join(CUR_PATH, 'run_btax_outputs.json')))[0])
-result_by_industry = pd.read_json(json.load(open(
-    os.path.join(CUR_PATH, 'run_btax_outputs.json')))[1])
-# Run B-Tax with these inputs
+test_run, baseline, start_year, iit_reform, data, user_params = input_tuple
+result_by_asset = pd.read_json(os.path.join(CUR_PATH,
+                                            'run_btax_asset_output.json'))
+result_by_industry = pd.read_json(os.path.join(CUR_PATH,
+                                            'run_btax_industry_output.json'))
 test_by_asset, test_by_industry = run_btax.run_btax(
-    test_run, baseline, start_year, iit_reform, **user_params)
+    test_run, baseline, start_year, iit_reform, data='cps', **user_params)
 # Lists of variables to compare
 asset_var_list = ['delta', 'z_c', 'z_c_d', 'z_c_e', 'z_nc',
                   'z_nc_d', 'z_nc_e', 'rho_c', 'rho_c_d', 'rho_c_e',
@@ -50,9 +47,11 @@ industry_var_list = ['delta_c', 'delta_c', 'z_c', 'z_c_d', 'z_c_e',
 def test_run_btax_asset(test_params, expected):
     # Test the run_btax.run_btax() function by reading in inputs and
     # confirming that output variables have the same values.
-    # Don't just compare pickles of output because want this test to
-    # work as add new output variables.
     var_list, test_df = test_params
-
+    # test_df.sort_values(by=index, inplace=True)
+    test_df.sort_index(inplace=True)
+    test_df.reset_index(inplace=True)
+    expected.sort_index(inplace=True)
+    expected.reset_index(inplace=True)
     assert_frame_equal(test_df[var_list], expected[var_list],
-                       check_dtype=False)
+                       check_dtype=False, check_index_type=False)
