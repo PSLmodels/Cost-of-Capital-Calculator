@@ -54,4 +54,5 @@ def test_run_btax_asset(test_params, expected):
     expected.sort_index(inplace=True)
     expected.reset_index(inplace=True)
     assert_frame_equal(test_df[var_list], expected[var_list],
-                       check_dtype=False, check_index_type=False)
+                       check_dtype=False, check_index_type=False,
+                       check_exact=False)
