@@ -2,6 +2,7 @@ import pytest
 import os
 import pandas as pd
 import json
+import numpy as np
 from pandas.testing import assert_frame_equal
 from btax import run_btax
 
@@ -10,7 +11,7 @@ CUR_PATH = os.path.abspath(os.path.dirname(__file__))
 # Load input values
 input_tuple = tuple(json.load(open(os.path.join(CUR_PATH,
                                             'run_btax_inputs.json'))))
-test_run, baseline, start_year, iit_reform, data, user_params = input_tuple
+test_run, baseline, start_year, iit_reform, data, user_params=input_tuple
 result_by_asset = pd.read_json(os.path.join(CUR_PATH,
                                             'run_btax_asset_output.json'))
 result_by_industry = pd.read_json(os.path.join(CUR_PATH,
