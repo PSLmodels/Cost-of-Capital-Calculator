@@ -1,1 +1,1 @@
-[true, false, 2018, {}, {"btax_depr_3yr_exp": 0.0, "btax_depr_5yr_exp": 0.0, "btax_depr_7yr_exp": 0.0, "btax_depr_10yr_exp": 0.0, "btax_depr_15yr_exp": 0.0, "btax_depr_20yr_exp": 0.0, "btax_depr_25yr_exp": 0.0, "btax_depr_27_5yr_exp": 0.0, "btax_depr_39yr_exp": 0.0, "inventory_method": 3, "btax_depr_land_exp": 30.0}]
+[false, true, 2018, {}, "cps", {}]
