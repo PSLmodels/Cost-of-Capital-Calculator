@@ -1,0 +1,156 @@
+{
+    "project_one_line": {
+        "start_header": null,
+        "end_header": null,
+        "source": null,
+        "type": null,
+        "data": null
+    },
+    "key_features": {
+        "start_header": null,
+        "end_header": null,
+        "source": null,
+        "type": null,
+        "data": null
+    },
+    "project_overview": {
+        "start_header": "B-Tax",
+        "end_header": "Disclaimer",
+        "source": "README.md",
+        "type": "github_file",
+        "data": null
+    },
+    "citation": {
+        "start_header": "Citing the B-Tax Model",
+        "end_header": null,
+        "source": "README.md",
+        "type": "github_file",
+        "data": null
+    },
+    "license": {
+        "start_header": null,
+        "end_header": null,
+        "source": "https://github.com/open-source-economics/B-Tax/blob/master/LICENSE.md",
+        "data": "<p>CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
+        "type": "html"
+    },
+    "user_documentation": {
+        "start_header": null,
+        "end_header": null,
+        "source": null,
+        "type": "html",
+        "data": "<a href=\"http://open-source-economics.github.io/Tax-Calculator/index.html\">http://open-source-economics.github.io/Tax-Calculator/index.html</a>"
+    },
+    "user_changelog": {
+        "start_header": null,
+        "end_header": null,
+        "source": null,
+        "type": null,
+        "data": null
+    },
+    "user_changelog_recent": {
+        "start_header": null,
+        "end_header": null,
+        "source": "http://open-source-economics.github.io/Tax-Calculator/index.html#whatsnew",
+        "type": "html",
+        "data": "<a href=\"http://open-source-economics.github.io/Tax-Calculator/index.html#whatsnew\">http://open-source-economics.github.io/Tax-Calculator/index.html#whatsnew</a>"
+    },
+    "dev_changelog": {
+        "start_header": "2018-09-11 Release 0.21.0 : first release compatible only with Python 3.6",
+        "end_header": "2018-09-06 Release 0.20.3 : LAST RELEASE COMPATIBLE WITH PYTHON 2.7",
+        "source": "RELEASES.md",
+        "type": "github_file",
+        "data": null
+    },
+    "disclaimer": {
+        "start_header": "Disclaimer",
+        "end_header": "Using/contributing to B-Tax",
+        "source": "README.md",
+        "type": "github_file",
+        "data": null
+    },
+    "user_case_studies": {
+        "start_header": null,
+        "end_header": null,
+        "source": null,
+        "type": null,
+        "data": null
+    },
+    "project_roadmap": {
+        "start_header": null,
+        "end_header": null,
+        "source": null,
+        "type": null,
+        "data": null
+    },
+    "contributor_overview": {
+        "start_header": null,
+        "end_header": null,
+        "source": null,
+        "type": null,
+        "data": null
+    },
+    "contributor_guide": {
+        "start_header": "Using/contributing to B-Tax",
+        "end_header": "Citing the B-Tax Model",
+        "source": "README.md",
+        "type": "github_file",
+        "data": null
+    },
+    "governance_overview": {
+        "start_header": null,
+        "end_header": null,
+        "source": null,
+        "type": null,
+        "data": null
+    },
+    "public_funding": {
+        "start_header": null,
+        "end_header": null,
+        "source": null,
+        "type": null,
+        "data": null
+    },
+    "link_to_webapp": {
+        "data": "<a href=\"http://www.ospc.org/ccc/\">http://www.ospc.org/ccc/</a>",
+        "source": null,
+        "type": "html",
+        "start_header": null,
+        "end_header": null
+    },
+    "public_issue_tracker": {
+        "start_header": null,
+        "end_header": null,
+        "data": "<a href=\"https://github.com/open-source-economics/B-Tax/issues\">https://github.com/open-source-economics/B-Tax/issues</a>",
+        "source": null,
+        "type": "html"
+    },
+    "public_qanda": {
+        "start_header": null,
+        "end_header": null,
+        "data": "<a href=\"https://github.com/open-source-economics/Tax-Calculator/issues\">https://github.com/open-source-economics/Tax-Calculator/issues</a>",
+        "source": null,
+        "type": "html"
+    },
+    "core_maintainers": {
+        "start_header": null,
+        "end_header": null,
+        "data": "<ul><li>Martin Holmer</li><li>Matt Jensen</li></ul>",
+        "source": null,
+        "type": "html"
+    },
+    "unit_test": {
+        "start_header": null,
+        "end_header": null,
+        "data": "<a href=\"https://github.com/open-source-economics/Tax-Calculator/tree/master/taxcalc/tests\">https://github.com/open-source-economics/Tax-Calculator/tree/master/taxcalc/tests</a>",
+        "source": "https://github.com/open-source-economics/Tax-Calculator/tree/master/taxcalc/tests",
+        "type": "html"
+    },
+    "integration_test": {
+        "start_header": null,
+        "end_header": null,
+        "data": "<a href=\"https://github.com/open-source-economics/Tax-Calculator/tree/master/taxcalc/tests\">https://github.com/open-source-economics/Tax-Calculator/tree/master/taxcalc/tests</a>",
+        "source": "https://github.com/open-source-economics/Tax-Calculator/tree/master/taxcalc/tests",
+        "type": "html"
+    }
+}
