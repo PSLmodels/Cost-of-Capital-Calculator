@@ -2,9 +2,9 @@ name: btax-dev
 channels:
 - ospc
 dependencies:
-- taxcalc>=0.15.0
+- taxcalc>=0.22.0
 - numpy >=1.12.1
-- pandas >=0.22.0
+- pandas >=0.23.4
 - numba
 - toolz
 - six
