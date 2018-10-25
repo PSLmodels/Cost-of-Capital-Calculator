@@ -37,7 +37,7 @@ def load_proprietorship_data(entity_dfs):
     # Opening data on depreciable fixed assets, inventories, and land
     # for non-farm sole props
     nonfarm_df = format_dataframe(pd.read_excel(_NFARM_PATH, skiprows=2,
-                                                skip_footer=8))
+                                                skipfooter=8))
     # Cuts off the repeated columns so only the data for all sole props
     # remains
     nonfarm_df = nonfarm_df.T.groupby(sort=False, level=0).first().T
@@ -53,7 +53,7 @@ def load_proprietorship_data(entity_dfs):
 
     # Opens the nonfarm inventory data
     nonfarm_inv = prt.format_excel(pd.read_excel(_NFARM_INV, skiprows=1,
-                                                 skip_footer=8))
+                                                 skipfooter=8))
     # Cuts off the repeated columns so only the data for all sole props remains
     nonfarm_inv = nonfarm_inv.T.groupby(sort=False, level=0).first().T
     nonfarm_inv.columns = [to_str(c) for c in nonfarm_inv.columns]
