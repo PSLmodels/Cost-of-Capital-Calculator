@@ -24,8 +24,8 @@ def test_get_econ_depr():
     correct_df = correct_df[['bea_asset_code', 'Asset', 'delta']]
 
     assert_frame_equal(
-        test_df.reindex_axis(sorted(test_df.columns), axis=1),
-        correct_df.reindex_axis(sorted(correct_df.columns), axis=1),
+        test_df.reindex(sorted(test_df.columns), axis=1),
+        correct_df.reindex(sorted(correct_df.columns), axis=1),
         check_dtype=False)
 
 
@@ -93,8 +93,8 @@ def test_calc_tax_depr_rates():
                              'z_nc_d', 'z_c_e', 'z_nc_e']]
 
     assert_frame_equal(
-        test_df.reindex_axis(sorted(test_df.columns), axis=1),
-        correct_df.reindex_axis(sorted(correct_df.columns), axis=1),
+        test_df.reindex(sorted(test_df.columns), axis=1),
+        correct_df.reindex(sorted(correct_df.columns), axis=1),
         check_dtype=False)
 
     # Test with expensing of land and inventories
@@ -139,8 +139,8 @@ def test_calc_tax_depr_rates():
                              'z_nc_d', 'z_c_e', 'z_nc_e']]
 
     assert_frame_equal(
-        test_df.reindex_axis(sorted(test_df.columns), axis=1),
-        correct_df.reindex_axis(sorted(correct_df.columns), axis=1),
+        test_df.reindex(sorted(test_df.columns), axis=1),
+        correct_df.reindex(sorted(correct_df.columns), axis=1),
         check_dtype=False)
 
 
@@ -188,8 +188,8 @@ def test_npv_tax_deprec():
                              'z_nc_e']]
 
     assert_frame_equal(
-        test_df.reindex_axis(sorted(test_df.columns), axis=1),
-        correct_df.reindex_axis(sorted(correct_df.columns), axis=1),
+        test_df.reindex(sorted(test_df.columns), axis=1),
+        correct_df.reindex(sorted(correct_df.columns), axis=1),
         check_dtype=False)
 
 
@@ -230,8 +230,8 @@ def test_dbsl():
                              'z_c_e', 'z_nc_e']]
 
     assert_frame_equal(
-        test_df.reindex_axis(sorted(test_df.columns), axis=1),
-        correct_df.reindex_axis(sorted(correct_df.columns), axis=1),
+        test_df.reindex(sorted(test_df.columns), axis=1),
+        correct_df.reindex(sorted(correct_df.columns), axis=1),
         check_dtype=False)
 
 
@@ -272,8 +272,8 @@ def test_sl():
                              'z_nc_e']]
 
     assert_frame_equal(
-        test_df.reindex_axis(sorted(test_df.columns), axis=1),
-        correct_df.reindex_axis(sorted(correct_df.columns), axis=1),
+        test_df.reindex(sorted(test_df.columns), axis=1),
+        correct_df.reindex(sorted(correct_df.columns), axis=1),
         check_dtype=False)
 
 
@@ -310,8 +310,8 @@ def test_econ():
                              'z_nc_e']]
 
     assert_frame_equal(
-        test_df.reindex_axis(sorted(test_df.columns), axis=1),
-        correct_df.reindex_axis(sorted(correct_df.columns), axis=1),
+        test_df.reindex(sorted(test_df.columns), axis=1),
+        correct_df.reindex(sorted(correct_df.columns), axis=1),
         check_dtype=False)
 
 
