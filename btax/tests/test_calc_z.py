@@ -332,6 +332,6 @@ def test_expensing():
                              'z_nc_d', 'z_c_e', 'z_nc_e']]
 
     assert_frame_equal(
-        test_df.reindex_axis(sorted(test_df.columns), axis=1),
-        correct_df.reindex_axis(sorted(correct_df.columns), axis=1),
+        test_df.reindex(sorted(test_df.columns), axis=1),
+        correct_df.reindex(sorted(correct_df.columns), axis=1),
         check_dtype=False)
