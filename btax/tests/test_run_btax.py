@@ -55,8 +55,7 @@ def test_run_btax_asset(test_params, expected):
     test_df.reset_index(inplace=True)
     expected.sort_index(inplace=True)
     expected.reset_index(inplace=True)
-    print('Max diff = ', np.absolute(test_df[var_list] -
-                                     expected[var_list]).max())
+
     assert_frame_equal(test_df[var_list], expected[var_list],
                        check_dtype=False, check_index_type=False,
                        check_exact=False, check_less_precise=True)
