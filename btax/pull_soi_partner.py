@@ -72,7 +72,7 @@ def load_partner_data(entity_dfs):
     xwalk = pd.read_csv(_DETAIL_PART_CROSS_PATH)
     xwalk.rename({k: str(k) for k in xwalk.columns}, inplace=True)
     xwalk['Industry:'] =\
-        xwalk['Industry:'].apply(lambda x: re.sub('[\s+]', '', x))
+        xwalk['Industry:'].apply(lambda x: re.sub(r'[\s+]', '', x))
     # keep only codes that help to identify complete industries
     xwalk = xwalk[xwalk['complete'] == 1]
     # read in partner data - partner assets
@@ -97,7 +97,7 @@ def load_partner_data(entity_dfs):
     df03 = df03[['Item', 'Fixed Assets', 'Inventories',
                  'Land']]
     df03['Item'] =\
-        df03['Item'].apply(lambda x: re.sub('[\s+]', '', x))
+        df03['Item'].apply(lambda x: re.sub(r'[\s+]', '', x))
 
     # partner data - income
     df01 = format_excel(pd.read_excel(_INC_FILE, skiprows=2,
@@ -112,7 +112,7 @@ def load_partner_data(entity_dfs):
     df01 = df01[['Item', 'Depreciation']]
     df01['Item old'] = df01['Item'].str.strip()
     df01['Item'] =\
-        df01['Item'].apply(lambda x: re.sub('[\s+]', '', x))
+        df01['Item'].apply(lambda x: re.sub(r'[\s+]', '', x))
 
     # merge two partner data sources together so that all variables together
     df03 = pd.merge(df03, df01, how='inner',
@@ -163,7 +163,7 @@ def load_partner_data(entity_dfs):
                         left_on=['INDY_CD'], right_on=['minor_code'],
                         left_index=False, right_index=False, sort=False,
                         copy=True, indicator=True)
-    part_data = sector_df.append([major_df, minor_df],
+    part_data = sector_df.append([major_df, minor_df], sort=True,
                                  ignore_index=True).copy().reset_index()
     part_data.drop(['bea_inv_name', 'bea_code', '_merge'], axis=1,
                    inplace=True)
@@ -282,10 +282,10 @@ def load_partner_data(entity_dfs):
                           (df05['part_type'] == key), 'inc_ratio'].values
     # add other sector codes for manufacturing
     manu = df05[df05['Codes:'] == 31]
-    df_manu = (manu.append(manu)).reset_index(drop=True)
+    df_manu = (manu.append(manu, sort=True)).reset_index(drop=True)
     df_manu.loc[:len(part_types), 'Codes:'] = 32
     df_manu.loc[len(part_types):, 'Codes:'] = 33
-    df05 = df05.append(df_manu, ignore_index=True).reset_index(drop=True).copy()
+    df05 = df05.append(df_manu, sort=True, ignore_index=True).reset_index(drop=True).copy()
     # # Merge SOI codes to BEA data
     df05_sector = df05[(df05['Codes:'] > 9) & (df05['Codes:'] < 100)]
     df05_major = df05[(df05['Codes:'] > 99) & (df05['Codes:'] < 1000)]
@@ -302,7 +302,7 @@ def load_partner_data(entity_dfs):
                         left_on=['Codes:'], right_on=['minor_code'],
                         left_index=False, right_index=False, sort=False,
                         copy=True, indicator=True)
-    df05 = sector_df.append([major_df, minor_df],
+    df05 = sector_df.append([major_df, minor_df], sort=True,
                             ignore_index=True).copy().reset_index()
     df05.drop(['bea_inv_name', 'bea_code', '_merge'], axis=1,
               inplace=True)
