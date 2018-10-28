@@ -13,7 +13,7 @@ The **first way** to use B-Tax is to download the source code and install the mo
 * Install the [Anaconda distribution](https://www.anaconda.com/distribution/) of Python
 * Clone this repository to a directory on your computer
 * From the terminal (or Conda command prompt), navigate to the directory to which you cloned this repository and run `conda env create -f environment.yml`
-* Then, `source activate btax-dev`
+* Then, `source activate btax-dev` (or `activate btax-dev` if using a Windows machine)
 * Then install by `python setup.py install` (use `python setup.py develop` if you would like to modifty the code base and run the updated model)
 * Navigate to `./run_examples`
 * Run the model with an example reform from terminal/command prompt by typing `python run_btax_example.py`

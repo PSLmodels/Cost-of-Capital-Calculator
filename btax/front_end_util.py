@@ -381,7 +381,8 @@ def _dataframe_to_json_table(df, defaults, label, index_col):
         keep_columns = [x[0] for x in defaults
                         if x[1]['table_id'] in (group, 'all')]
         df2 = df[keep_columns]
-        df2[index_col] = [replace_unicode_spaces(s) for s in df2[index_col]]
+        df2.loc[:, index_col] = [replace_unicode_spaces(s) for s in
+                                 df2[index_col]]
         df2.set_index(index_col, inplace=True)
         df2.columns = new_column_names
         if 'reform' in label:
