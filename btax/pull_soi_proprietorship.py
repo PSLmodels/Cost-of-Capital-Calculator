@@ -37,7 +37,7 @@ def load_proprietorship_data(entity_dfs):
     # Opening data on depreciable fixed assets, inventories, and land
     # for non-farm sole props
     nonfarm_df = format_dataframe(pd.read_excel(_NFARM_PATH, skiprows=2,
-                                                skip_footer=8))
+                                                skipfooter=8))
     # Cuts off the repeated columns so only the data for all sole props
     # remains
     nonfarm_df = nonfarm_df.T.groupby(sort=False, level=0).first().T
@@ -46,14 +46,14 @@ def load_proprietorship_data(entity_dfs):
     # Keep only variables of interest
     nonfarm_df = nonfarm_df[['Industry', 'Depreciation deduction [1,2]']]
     nonfarm_df['Industry'] =\
-        nonfarm_df['Industry'].apply(lambda x: re.sub('[\s+]', '', x))
+        nonfarm_df['Industry'].apply(lambda x: re.sub(r'[\s+]', '', x))
     nonfarm_df.rename(columns={"Industry": "Item",
                                "Depreciation deduction [1,2]": "Depreciation"},
                       inplace=True)
 
     # Opens the nonfarm inventory data
     nonfarm_inv = prt.format_excel(pd.read_excel(_NFARM_INV, skiprows=1,
-                                                 skip_footer=8))
+                                                 skipfooter=8))
     # Cuts off the repeated columns so only the data for all sole props remains
     nonfarm_inv = nonfarm_inv.T.groupby(sort=False, level=0).first().T
     nonfarm_inv.columns = [to_str(c) for c in nonfarm_inv.columns]
@@ -68,7 +68,7 @@ def load_proprietorship_data(entity_dfs):
                                 "Inventory, end of year": "Inventories"},
                        inplace=True)
     nonfarm_inv['Item'] =\
-        nonfarm_inv['Item'].apply(lambda x: re.sub('[\s+]', '', x))
+        nonfarm_inv['Item'].apply(lambda x: re.sub(r'[\s+]', '', x))
     # merge together two sole prop data sources
     # have to manually fix a couple names to be compatible
     nonfarm_df.loc[nonfarm_df['Item'] ==
@@ -91,7 +91,7 @@ def load_proprietorship_data(entity_dfs):
     xwalk = xwalk[xwalk['complete'] == 1]
     xwalk = xwalk[['Industry', 'INDY_CD']]
     xwalk['Industry'] =\
-        xwalk['Industry'].apply(lambda x: re.sub('[\s+]', '',x))
+        xwalk['Industry'].apply(lambda x: re.sub(r'[\s+]', '',x))
 
     # merge industry codes to sole prop data
     nonfarm_df = pd.merge(nonfarm_df, xwalk, how='inner', left_on=['Item'],
@@ -110,7 +110,8 @@ def load_proprietorship_data(entity_dfs):
                          524159, 55, 521, 525, 531115]
     for i in range(len(missing_code_list)):
         df.loc[i] = [int(missing_code_list[i]), 0., 0.]
-    nonfarm_df = nonfarm_df.append(df, ignore_index=True).copy().reset_index()
+    nonfarm_df = nonfarm_df.append(df, sort=True,
+                                   ignore_index=True).copy().reset_index()
 
     # attribute over a minor industry only idenfified in w/ other minor
     # ind in SOI
@@ -155,7 +156,7 @@ def load_proprietorship_data(entity_dfs):
                         left_on=['INDY_CD'], right_on=['minor_code'],
                         left_index=False, right_index=False, sort=False,
                         copy=True, indicator=True)
-    nonfarm_data = sector_df.append([major_df, minor_df],
+    nonfarm_data = sector_df.append([major_df, minor_df], sort=True,
                                     ignore_index=True).copy().reset_index()
     nonfarm_data.drop(['bea_inv_name', 'bea_code', '_merge'], axis=1,
                       inplace=True)

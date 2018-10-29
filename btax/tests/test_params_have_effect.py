@@ -74,7 +74,7 @@ def tst_each_param_has_effect(fast_or_slow, k, v):
         user_mods = {}
     if k in ('btax_betr_corp', 'btax_betr_pass'):
         return # these are tested by btax_betr_entity_Switch test
-    pat = 'btax_depr_([\d\w_]+)yr_exp'
+    pat = r'btax_depr_([\d\w_]+)yr_exp'
     match = re.search(pat, k)
     if match:
         yr = match.groups()[0]
