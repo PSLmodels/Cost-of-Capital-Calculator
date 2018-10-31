@@ -9,15 +9,16 @@ from btax import run_btax
 CUR_PATH = os.path.abspath(os.path.dirname(__file__))
 
 # Load input values
-input_tuple = tuple(json.load(open(os.path.join(CUR_PATH,
-                                            'run_btax_inputs.json'))))
-test_run, baseline, start_year, iit_reform, data, user_params=input_tuple
-result_by_asset = pd.read_json(os.path.join(CUR_PATH,
-                                            'run_btax_asset_output.json'))
-result_by_industry = pd.read_json(os.path.join(CUR_PATH,
-                                            'run_btax_industry_output.json'))
+input_tuple = tuple(json.load(open(os.path.join(
+    CUR_PATH, 'run_btax_inputs.json'))))
+test_run, baseline, start_year, iit_reform, data, user_params = input_tuple
+result_by_asset = pd.read_json(os.path.join(
+    CUR_PATH, 'run_btax_asset_output.json'))
+result_by_industry = pd.read_json(os.path.join(
+    CUR_PATH, 'run_btax_industry_output.json'))
 test_by_asset, test_by_industry = run_btax.run_btax(
     test_run, baseline, start_year, iit_reform, data='cps', **user_params)
+
 # Lists of variables to compare
 asset_var_list = ['delta', 'z_c', 'z_c_d', 'z_c_e', 'z_nc',
                   'z_nc_d', 'z_nc_e', 'rho_c', 'rho_c_d', 'rho_c_e',
@@ -54,6 +55,7 @@ def test_run_btax_asset(test_params, expected):
     test_df.reset_index(inplace=True)
     expected.sort_index(inplace=True)
     expected.reset_index(inplace=True)
+
     assert_frame_equal(test_df[var_list], expected[var_list],
                        check_dtype=False, check_index_type=False,
                        check_exact=False, check_less_precise=True)
