@@ -34,7 +34,7 @@ The **first way** to use B-Tax is to download the source code and install the mo
   * `./run_examples/changed_byindustry.csv`
     * Differences in cost of capital, marginal effective tax rates, effective average tax rates, and other model output between the baseline and reform reform policies, organized by production industry.
 
-If you run into errors running the example script, please open a new issue in the B-Tax repo with a description of the issue and any relevant tracebacks you receive.
+The CSV output files can be compared to the `./run_examples/*_expected.csv` files that are checked into the repository to confirm that you are generating the expected output.  If you run into errors running the example script, please open a new issue in the B-Tax repo with a description of the issue and any relevant tracebacks you receive.
 
 
 The **second way** to use B-Tax is through a web
