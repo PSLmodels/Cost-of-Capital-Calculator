@@ -14,14 +14,16 @@ The **first way** to use B-Tax is to download the source code and install the mo
 * Clone this repository to a directory on your computer
 * From the terminal (or Conda command prompt), navigate to the directory to which you cloned this repository and run `conda env create -f environment.yml`
 * Then, `source activate btax-dev` (or `activate btax-dev` if using a Windows machine)
-* Then install by `python setup.py install` (use `python setup.py develop` if you would like to modifty the code base and run the updated model)
+* Then install by `pip install -e .`
 * Navigate to `./run_examples`
 * Run the model with an example reform from terminal/command prompt by typing `python run_btax_example.py`
 * You can adjust the `./run_examples/run_btax_example.py` by adjusting the individual income tax reform (using a dictionary or JSON file in a format that is consistent with [Tax Calculator](https://github.com/open-source-economics/Tax-Calculator)) or other model parameters specified in the `user_params` or `kwargs` dictionaries.
 * Model outputs will be saved in the following files:
-  * `./run_examples/base_byasset.csv`
+  *  `asset_data.pkl`
+    * Dataframe with the distribution of assets by industry and tax treatment.  This dataframe is cached in a pickle file to be used in later runs, thereby reducing run time.
+  * `./run_examples/baseline_byasset.csv`
     * Cost of capital, marginal effective tax rates, effective average tax rates, and other model output for the baseline policy, organized by asset.
-  * `./run_examples/base_byindustry.csv`
+  * `./run_examples/baseline_byindustry.csv`
     * Cost of capital, marginal effective tax rates, effective average tax rates, and other model output for the baseline policy, organized by production industry.
   * `./run_examples/reform_byasset.csv`
     * Cost of capital, marginal effective tax rates, effective average tax rates, and other model output for the reform policy, organized by asset.
