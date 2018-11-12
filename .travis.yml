@@ -22,8 +22,8 @@ install:
   - export BTAX_CUR_DIR=${BUILD_DIR}/btax
   - mkdir btax_output_dir
   - pip install -e .
-  
+
 
 script:
   - python -c "from btax import *" && echo B-Tax can be imported
-  - py.test -m "not slow and not needs_puf" ${BTAX_CUR_DIR}/tests
+  - py.test -m "not slow and not needs_puf and not local" ${BTAX_CUR_DIR}/tests
