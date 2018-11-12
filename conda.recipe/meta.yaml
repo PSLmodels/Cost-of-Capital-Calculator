@@ -1,32 +1,24 @@
 package:
   name: btax
-  version: {{ environ.get("GIT_DESCRIBE_TAG", "NOTAG")}}
+  version: 0.0.0
 
 source:
   path: ..
 
 requirements:
   build:
+    - python=3.6
+    - taxcalc
     - setuptools
     - scipy
-    - taxcalc
-    - numpy >=1.12.1
-    - pandas >=0.20.1
-    - python
-    - pytest
     - xlrd
-    - bokeh >=0.12.3
 
   run:
+    - python=3.6
+    - taxcalc
     - setuptools
     - scipy
-    - taxcalc
-    - numpy >=1.12.1
-    - pandas >=0.20.1
-    - python
-    - pytest
     - xlrd
-    - bokeh >=0.12.3
 
 about:
   home: https://github.com/open-source-economics/B-Tax/
