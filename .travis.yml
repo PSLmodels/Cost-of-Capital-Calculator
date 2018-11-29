@@ -17,7 +17,7 @@ install:
   - conda install --file conda-requirements.txt # xlrd, possibly others
   - export BUILD_DIR=`pwd`
   - pip install -r requirements.txt
-  - conda install -c ospc taxcalc
+  - conda install -c PSLmodels taxcalc
   - export BTAX_OUT_DIR=btax_output_dir # make an output dir
   - export BTAX_CUR_DIR=${BUILD_DIR}/btax
   - mkdir btax_output_dir
