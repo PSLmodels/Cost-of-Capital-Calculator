@@ -12,7 +12,6 @@ config = {
     'description': 'B-Tax: A Cost of Capital Calculator',
     'url': 'https://github.com/open-source-economics/B-Tax',
     'download_url': 'https://github.com/open-source-economics/B-Tax',
-    'description': 'btax',
     'long_description': longdesc,
     'version': version,
     'license': 'CC0 1.0 Universal public domain dedication',

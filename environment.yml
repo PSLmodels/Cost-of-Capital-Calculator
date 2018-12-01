@@ -1,6 +1,6 @@
 name: btax-dev
 channels:
-- ospc
+- PSLmodels
 dependencies:
 - python=3.6
 - taxcalc
