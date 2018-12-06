@@ -77,7 +77,7 @@ def load_partner_data(entity_dfs):
     xwalk = xwalk[xwalk['complete'] == 1]
     # read in partner data - partner assets
     df = format_excel(pd.read_excel(_AST_FILE, skiprows=2,
-                                    skip_footer=6))
+                                    skipfooter=6))
     # Cuts off the repeated columns so only the data for all
     # partnerships remains
     df.index = [to_str(x) for x in df.index]
@@ -87,6 +87,7 @@ def load_partner_data(entity_dfs):
     df03.reset_index(inplace=True, drop=True)
     # Keep only variables of interest
     df03.columns = [to_str(c) for c in df03.columns]
+    df03.to_csv("partner03.csv")
     try:
         df03['Fixed Assets'] =\
             (df03['Depreciable assets'] -
@@ -101,7 +102,7 @@ def load_partner_data(entity_dfs):
 
     # partner data - income
     df01 = format_excel(pd.read_excel(_INC_FILE, skiprows=2,
-                                      skip_footer=6))
+                                      skipfooter=6))
     # Cuts off the repeated columns so only the data for all
     # partnerships remains
     df01 = df01.T.groupby(sort=False, level=0).first().T
@@ -213,7 +214,7 @@ def load_partner_data(entity_dfs):
     '''
 
     # Read in data by partner type (gives income allocation by partner type)
-    df05 = format_excel(pd.read_excel(_TYP_FILE, skiprows=1, skip_footer=5))
+    df05 = format_excel(pd.read_excel(_TYP_FILE, skiprows=1, skipfooter=5))
     df05.columns = [to_str(c) for c in df05.columns]
     df05 = df05[['Item', 'All partners', 'Corporate general partners',
                  'Corporate limited partners',
@@ -370,6 +371,7 @@ def format_excel(df):
     df = df.drop(df.index[[0, len(df)-1]])
     df = df.fillna(0)
     df = df.replace('[d]', 0)
+    df = df.replace('[d]  ', 0)
     df = df.replace('[2]  ', 0)
     df.reset_index(inplace=True, drop=True)
     df.iloc[:, 1:] = df.iloc[:, 1:] * _AST_FILE_FCTR
