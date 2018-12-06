@@ -104,18 +104,18 @@ def get_paths():
     paths['_PRT_DIR'] = _PRT_DIR = os.path.join(_SOI_DIR, 'soi_partner')
     paths['_DETAIL_PART_CROSS_PATH'] = _DETAIL_PART_CROSS_PATH =\
         os.path.join(_PRT_DIR, 'partner_crosswalk_detailed_industries.csv')
-    paths['_INC_FILE'] = _INC_FILE = os.path.join(_PRT_DIR, '15pa01.xlsx')
-    paths['_AST_FILE'] = _AST_FILE = os.path.join(_PRT_DIR, '15pa03.xlsx')
+    paths['_INC_FILE'] = _INC_FILE = os.path.join(_PRT_DIR, '14pa01.xls')
+    paths['_AST_FILE'] = _AST_FILE = os.path.join(_PRT_DIR, '14pa03.xls')
     paths['_TYP_IN_CROSS_PATH'] = _TYP_IN_CROSS_PATH =\
         os.path.join(_PRT_DIR, '13pa05_Crosswalk.csv')
-    paths['_TYP_FILE'] = _TYP_FILE = os.path.join(_PRT_DIR, '15pa05.xlsx')
+    paths['_TYP_FILE'] = _TYP_FILE = os.path.join(_PRT_DIR, '14pa05.xls')
     paths['_PROP_DIR'] = _PROP_DIR = os.path.join(_SOI_DIR,
                                                   'soi_proprietorship')
     paths['_PRT_DIR'] = _PRT_DIR = os.path.join(_SOI_DIR, 'soi_partner')
     paths['_NFARM_PATH'] = _NFARM_PATH = os.path.join(_PROP_DIR,
-                                                      '15sp01br.xlsx')
+                                                      '14sp01br.xls')
     paths['_NFARM_INV'] = _NFARM_INV = os.path.join(_PROP_DIR,
-                                                    '15sp02is.xlsx')
+                                                    '14sp02is.xls')
     paths['_FARM_IN_PATH'] = _FARM_IN_PATH = os.path.join(_PROP_DIR,
                                                           'farm_data.csv')
     paths['_DETAIL_SOLE_PROP_CROSS_PATH'] =\

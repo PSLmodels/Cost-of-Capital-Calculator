@@ -41,11 +41,11 @@ def fixed_assets(soi_data):
     """
     # Read in BEA fixed asset table
     bea_FA = pd.read_excel(_BEA_ASSET_PATH, sheetname="Datasets")
-    bea_FA = bea_FA[['2013']]
+    bea_FA = bea_FA[['2014']]
     bea_FA['long_code'] = bea_FA.index
     bea_FA.dropna(subset=['long_code'], inplace=True)
     bea_FA.reset_index(drop=True, inplace=True)
-    bea_FA.rename(columns={"2013": "assets"}, inplace=True)
+    bea_FA.rename(columns={"2014": "assets"}, inplace=True)
     bea_FA['assets'] = bea_FA['assets'] * _BEA_IN_FILE_FCTR
     bea_FA['bea_asset_code'] = bea_FA.long_code.str[-6:-2]
     bea_FA['bea_ind_code'] = bea_FA.long_code.str[3:7]
@@ -136,9 +136,9 @@ def inventories(soi_data):
     bea_inventories = pd.read_excel(_BEA_INV, sheetname="Sheet0",
                                     skiprows=6, skip_footer=4)
     bea_inventories.reset_index()
-    bea_inventories = bea_inventories[['Unnamed: 1', 'IV.1']].copy()
+    bea_inventories = bea_inventories[['Unnamed: 1', 'IV.2']].copy()
     bea_inventories.rename(columns={"Unnamed: 1": "bea_inv_name",
-                                    "IV.1": "BEA Inventories"},
+                                    "IV.2": "BEA Inventories"},
                            inplace=True)
     bea_inventories['bea_inv_name'] =\
         bea_inventories['bea_inv_name'].str.strip()
@@ -187,9 +187,9 @@ def land(soi_data, bea_FA):
     bea_residential = pd.read_excel(_BEA_RES, sheetname="Sheet0",
                                     skiprows=5, skip_footer=2)
     bea_residential.reset_index()
-    bea_residential = bea_residential[[u'\xa0', '2013']].copy()
+    bea_residential = bea_residential[[u'\xa0', '2014']].copy()
     bea_residential.rename(columns={u"\xa0": "entity_type",
-                                    "2013": "Fixed Assets"},
+                                    "2014": "Fixed Assets"},
                            inplace=True)
     bea_residential['Fixed Assets'] *= _BEA_INV_RES_FCTR
     bea_residential['entity_type'] = bea_residential['entity_type'].str.strip()
@@ -208,8 +208,8 @@ def land(soi_data, bea_FA):
     # owner occ sector (includes land and structures)
     b101 = pd.read_csv(_B101_PATH, header=5, encoding='utf-8')
     b101.reset_index()
-    b101 = b101[['Unnamed: 0', '2013']].copy()
-    b101.rename(columns={"Unnamed: 0": "Variable", "2013": "Value"},
+    b101 = b101[['Unnamed: 0', '2014']].copy()
+    b101.rename(columns={"Unnamed: 0": "Variable", "2014": "Value"},
                 inplace=True)
     b101['Value'] *= _FIN_ACCT_FILE_FCTR
     b101['Variable'] = b101['Variable'].str.strip()
