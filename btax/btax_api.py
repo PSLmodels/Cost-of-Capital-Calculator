@@ -4,53 +4,38 @@ import six
 import re
 import numpy as np
 import pickle
-import scipy.interpolate as si
 import pkg_resources
 
-# import ogusa
+# import btax
 from btax.parametersbase import ParametersBase
 from btax.get_taxcalc_rates import get_rates
 from btax.calc_z import calc_tax_depr_rates, get_econ_depr
 from btax.util import read_from_egg, DEFAULT_START_YEAR, RECORDS_START_YEAR
-# from ogusa import elliptical_u_est
 
 
 class Specifications(ParametersBase):
     """
-    Inherits ParametersBase. Implements the PolicyBrain API for OG-USA
+    Inherits ParametersBase. Implements the PolicyBrain API for B-Tax
     """
     DEFAULTS_FILENAME = 'default_parameters.json'
 
-    def __init__(self,
-                 run_micro=False, output_base=BASELINE_DIR,
-                 baseline_dir=BASELINE_DIR, test=False, time_path=True,
-                 baseline=False, reform={}, guid='', data='cps',
-                 flag_graphs=False, client=None, num_workers=1):
+    def __init__(self, test=False, time_path=True, baseline=False,
+                 iit_reform={}, data='cps'):
         super(Specifications, self).__init__()
 
         # reads in default parameter values
         self._vals = self._params_dict_from_json_file()
 
-        self.output_base = output_base
-        self.baseline_dir = baseline_dir
         self.test = test
-        self.time_path = time_path
         self.baseline = baseline
-        self.reform = reform
-        self.guid = guid
+        self.iit_reform = iit_reform
         self.data = data
-        self.flag_graphs = flag_graphs
-        self.num_workers = num_workers
 
-        # put OG-USA version in parameters to save for reference
-        self.ogusa_version = pkg_resources.get_distribution("ogusa").version
+        # put B-Tax version in parameters to save for reference
+        self.btax_version = pkg_resources.get_distribution("btax").version
 
         # does cheap calculations to find parameter values
         self.initialize()
-
-        # does more costly tax function estimation
-        if run_micro:
-            self.get_tax_function_parameters(self, client, run_micro=True)
 
         self.parameter_warnings = ''
         self.parameter_errors = ''
@@ -72,15 +57,6 @@ class Specifications(ParametersBase):
             values = data.get('value', None)
             setattr(self, name, self._expand_array(values, intg_val,
                                                    bool_val, string_val))
-        if self.test:
-            # Make smaller statespace for testing
-            self.S = int(40)
-            self.lambdas = np.array([0.6, 0.4]).reshape(2, 1)
-            self.J = self.lambdas.shape[0]
-            self.maxiter = 35
-            self.mindist_SS = 1e-6
-            self.mindist_TPI = 1e-3
-            self.nu = .4
 
         self.compute_default_params()
 
@@ -90,7 +66,8 @@ class Specifications(ParametersBase):
         """
         # Find individual income tax rates from Tax-Calculator
         # maybe have an if statement to go to tax-calc?
-        indiv_rates = get_rates(baseline, start_year, iit_reform, data)
+        indiv_rates = get_rates(self.baseline, self.start_year,
+                                self.iit_reform, self.data)
         self.tau_nc = indiv_rates['tau_nc']
         self.tau_div = indiv_rates['tau_div']
         self.tau_int = indiv_rates['tau_int']
@@ -107,28 +84,48 @@ class Specifications(ParametersBase):
             u_nc = self.PT_entity_tax_rate
         self.u_array = np.array([u_c, u_nc])
 
-        sprime_c_td = ((1 / self.Y_td) * np.log(((1 - self.tau_td) * np.exp(self.nominal_interest_rate * self.Y_td))
-                                           + self.tau_td) - self.inflation_rate)
-        s_c_d_td = self.gamma * (self.nominal_interest_rate - self.inflation_rate) + (1 - self.gamma) * sprime_c_td
-        s_c_d = (self.alpha_c_d_ft * (((1 - self.tau_int) * self.nominal_interest_rate) - self.inflation_rate) + self.alpha_c_d_td *
-                 s_c_d_td + self.alpha_c_d_nt * (self.nominal_interest_rate - self.inflation_rate))
+        sprime_c_td = ((1 / self.Y_td) *
+                       np.log(((1 - self.tau_td) *
+                               np.exp(self.nominal_interest_rate *
+                                      self.Y_td)) + self.tau_td) -
+                       self.inflation_rate)
+        s_c_d_td = (self.gamma * (self.nominal_interest_rate -
+                                  self.inflation_rate) +
+                    (1 - self.gamma) * sprime_c_td)
+        s_c_d = (self.alpha_c_d_ft * (((1 - self.tau_int) *
+                                       self.nominal_interest_rate) -
+                                      self.inflation_rate) +
+                 self.alpha_c_d_td * s_c_d_td + self.alpha_c_d_nt *
+                 (self.nominal_interest_rate - self.inflation_rate))
         s_nc_d_td = s_c_d_td
-        s_nc_d = (self.alpha_nc_d_ft * (((1 - self.tau_int) * self.nominal_interest_rate) - self.inflation_rate) + self.alpha_nc_d_td
-                  * s_nc_d_td + self.alpha_nc_d_nt * (self.nominal_interest_rate - self.inflation_rate))
+        s_nc_d = (self.alpha_nc_d_ft * (((1 - self.tau_int) *
+                                         self.nominal_interest_rate) -
+                                        self.inflation_rate) +
+                  self.alpha_nc_d_td * s_nc_d_td + self.alpha_nc_d_nt *
+                  (self.nominal_interest_rate - self.inflation_rate))
 
-        g_scg = ((1 / self.Y_scg) * np.log(((1 - self.tau_scg) * np.exp((self.inflation_rate + self.m * self.E_c)
-                                                              * self.Y_scg)) +
-                                      self.tau_scg) - self.inflation_rate)
-        g_lcg = ((1 / self.Y_lcg) * np.log(((1 - self.tau_lcg) * np.exp((self.inflation_rate + self.m * self.E_c)
-                                                              * self.Y_lcg)) +
-                                      self.tau_lcg) - self.inflation_rate)
-        g = self.omega_scg * g_scg + self.omega_lcg * g_lcg + self.omega_xcg * self.m * self.E_c
+        g_scg = ((1 / self.Y_scg) * np.log(((1 - self.tau_scg) *
+                                            np.exp((self.inflation_rate
+                                                    + self.m * self.E_c)
+                                                   * self.Y_scg)) +
+                                           self.tau_scg) -
+                 self.inflation_rate)
+        g_lcg = ((1 / self.Y_lcg) * np.log(((1 - self.tau_lcg) *
+                                            np.exp((self.inflation_rate
+                                                    + self.m * self.E_c)
+                                                   * self.Y_lcg)) +
+                                           self.tau_lcg) -
+                 self.inflation_rate)
+        g = (self.omega_scg * g_scg + self.omega_lcg * g_lcg +
+             self.omega_xcg * self.m * self.E_c)
         s_c_e_ft = (1 - self.m) * self.E_c * (1 - self.tau_div) + g
-        s_c_e_td = ((1 / self.Y_td) * np.log(((1 - self.tau_td) * np.exp((self.inflation_rate + self.E_c) *
-                                                               self.Y_td)) +
-                                        self.tau_td) - self.inflation_rate)
-        s_c_e = (self.alpha_c_e_ft * s_c_e_ft + self.alpha_c_e_td * s_c_e_td +
-                 self.alpha_c_e_nt * self.E_c)
+        s_c_e_td = ((1 / self.Y_td) *
+                    np.log(((1 - self.tau_td) *
+                            np.exp((self.inflation_rate + self.E_c) *
+                                   self.Y_td)) + self.tau_td) -
+                    self.inflation_rate)
+        s_c_e = (self.alpha_c_e_ft * s_c_e_ft + self.alpha_c_e_td *
+                 s_c_e_td + self.alpha_c_e_nt * self.E_c)
 
         s_c = self.f_c * s_c_d + (1 - self.f_c) * s_c_e
 
@@ -139,10 +136,12 @@ class Specifications(ParametersBase):
         s_array = np.array([[s_c, s_nc], [s_c_d, s_nc_d], [s_c_e, s_nc_e]])
         f_array = np.array([[self.f_c, self.f_nc], [1, 1], [0, 0]])
         ace_array = np.array([self.ace, self.ace_nc])
-        r = (f_array * (self.nominal_interest_rate * (1 - (1 - self.int_haircut) * self.u_array)) + (1 -
-                                                                  f_array) *
-             (E_array + self.inflation_rate - E_array * self.r_ace * ace_array))
-        r_prime = f_array * self.nominal_interest_rate + (1 - f_array) * (E_array + self.inflation_rate)
+        r = (f_array * (self.nominal_interest_rate *
+                        (1 - (1 - self.int_haircut) * self.u_array)) +
+             (1 - f_array) * (E_array + self.inflation_rate - E_array *
+                              self.r_ace * ace_array))
+        r_prime = (f_array * self.nominal_interest_rate + (1 - f_array)
+                   * (E_array + self.inflation_rate))
 
         # if no entity level taxes on pass-throughs, ensure mettr and metr
         # on non-corp entities the same
@@ -158,33 +157,34 @@ class Specifications(ParametersBase):
             # entity level tax that might now favor debt
             s_array[0, 1] = self.f_nc * s_nc_d + (1 - self.f_nc) * s_c_e
             s_array[2, 1] = s_c_e
-        delta = get_econ_depr()
-        tax_methods = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0,
-                       'Economic': 1.0, 'Expensing': 1.0}
-        financing_list = ['', '_d', '_e']
-        entity_list = ['_c', '_nc']
+        self.delta = get_econ_depr()
+        self.tax_methods = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0,
+                            'Economic': 1.0, 'Expensing': 1.0}
+        self.financing_list = ['', '_d', '_e']
+        self.entity_list = ['_c', '_nc']
 
         # Create dictionaries with depreciation system and rate of bonus
         # depreciation by asset class
         class_list = [3, 5, 7, 10, 15, 20, 25, 27.5, 39]
         class_list_str = [(str(i) if i != 27.5 else '27_5') for i in
                           class_list]
-        deprec_system = {}
-        bonus_deprec = {}
+        self.deprec_system = {}
+        self.bonus_deprec = {}
         for cl in class_list_str:
-            deprec_system[cl] = getattr(self, 'DeprecSystem_{}yr'.format(cl))
-            bonus_deprec[cl] = getattr(self, 'BonusDeprec_{}yr'.format(cl))
+            self.deprec_system[cl] = getattr(self,
+                                             'DeprecSystem_{}yr'.format(cl))
+            self.bonus_deprec[cl] = getattr(self,
+                                            'BonusDeprec_{}yr'.format(cl))
         tax_methods = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0,
                        'Economic': 1.0, 'Expensing': 1.0}
-        financing_list = ['', '_d', '_e']
-        entity_list = ['_c', '_nc']
-        z = calc_tax_depr_rates(r, self.inflation_rate,
-                                delta, bonus_deprec, deprec_system,
-                                self.inventory_expensing,
-                                self.land_expensing, tax_methods,
-                                financing_list, entity_list)
-
-
+        self.financing_list = ['', '_d', '_e']
+        self.entity_list = ['_c', '_nc']
+        self.z = calc_tax_depr_rates(r, self.inflation_rate,
+                                     self.delta, self.bonus_deprec,
+                                     self.deprec_system,
+                                     self.inventory_expensing,
+                                     self.land_expensing, tax_methods,
+                                     self.financing_list, self.entity_list)
 
     def read_tax_func_estimate(self, pickle_path, pickle_file):
         '''
@@ -478,7 +478,7 @@ class Specifications(ParametersBase):
 # changes
 def reform_warnings_errors(user_mods):
     """
-    Generate warnings and errors for OG-USA parameter specifications
+    Generate warnings and errors for B-Tax parameter specifications
     Parameters:
     -----------
     user_mods : dict created by read_json_param_objects
@@ -486,15 +486,15 @@ def reform_warnings_errors(user_mods):
     ------
     rtn_dict : dict with endpoint specific warning and error messages
     """
-    rtn_dict = {'ogusa': {'warnings': '', 'errors': ''}}
+    rtn_dict = {'btax': {'warnings': '', 'errors': ''}}
 
     # create Specifications object and implement reform
     specs = Specifications()
     specs._ignore_errors = True
     try:
-        specs.update_specifications(user_mods['ogusa'], raise_errors=False)
-        rtn_dict['ogusa']['warnings'] = specs.parameter_warnings
-        rtn_dict['ogusa']['errors'] = specs.parameter_errors
+        specs.update_specifications(user_mods['btax'], raise_errors=False)
+        rtn_dict['btax']['warnings'] = specs.parameter_warnings
+        rtn_dict['btax']['errors'] = specs.parameter_errors
     except ValueError as valerr_msg:
-        rtn_dict['ogusa']['errors'] = valerr_msg.__str__()
+        rtn_dict['btax']['errors'] = valerr_msg.__str__()
     return rtn_dict
