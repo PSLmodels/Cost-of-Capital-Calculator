@@ -9,7 +9,8 @@ import pkg_resources
 
 # import ogusa
 from btax.parametersbase import ParametersBase
-from btax import get_taxcalc_rates
+from btax.get_taxcalc_rates import get_rates
+from btax.calc_z import calc_tax_depr_rates, get_econ_depr
 from btax.util import read_from_egg, DEFAULT_START_YEAR, RECORDS_START_YEAR
 # from ogusa import elliptical_u_est
 
@@ -89,8 +90,7 @@ class Specifications(ParametersBase):
         """
         # Find individual income tax rates from Tax-Calculator
         # maybe have an if statement to go to tax-calc?
-        indiv_rates = get_taxcalc_rates.get_rates(baseline, start_year,
-                                                  iit_reform, data)
+        indiv_rates = get_rates(baseline, start_year, iit_reform, data)
         self.tau_nc = indiv_rates['tau_nc']
         self.tau_div = indiv_rates['tau_div']
         self.tau_int = indiv_rates['tau_int']
@@ -100,52 +100,54 @@ class Specifications(ParametersBase):
         self.tau_td = indiv_rates['tau_td']
         self.tau_h = indiv_rates['tau_h']
 
-        u_c = user_params['u_c']
-        if user_params['u_nc'] == 0.0:
-            u_nc = tau_nc
+        u_c = self.CIT_rate
+        if not self.PT_entity_tax_ind:
+            u_nc = self.tau_nc
         else:
-            u_nc = user_params['u_nc']
-        u_array = np.array([u_c, u_nc])
+            u_nc = self.PT_entity_tax_rate
+        self.u_array = np.array([u_c, u_nc])
 
-        sprime_c_td = ((1 / Y_td) * np.log(((1 - tau_td) * np.exp(i * Y_td))
-                                           + tau_td) - pi)
-        s_c_d_td = gamma * (i - pi) + (1 - gamma) * sprime_c_td
-        s_c_d = (alpha_c_d_ft * (((1 - tau_int) * i) - pi) + alpha_c_d_td *
-                 s_c_d_td + alpha_c_d_nt * (i - pi))
+        sprime_c_td = ((1 / self.Y_td) * np.log(((1 - self.tau_td) * np.exp(self.nominal_interest_rate * self.Y_td))
+                                           + self.tau_td) - self.inflation_rate)
+        s_c_d_td = self.gamma * (self.nominal_interest_rate - self.inflation_rate) + (1 - self.gamma) * sprime_c_td
+        s_c_d = (self.alpha_c_d_ft * (((1 - self.tau_int) * self.nominal_interest_rate) - self.inflation_rate) + self.alpha_c_d_td *
+                 s_c_d_td + self.alpha_c_d_nt * (self.nominal_interest_rate - self.inflation_rate))
         s_nc_d_td = s_c_d_td
-        s_nc_d = (alpha_nc_d_ft * (((1 - tau_int) * i) - pi) + alpha_nc_d_td
-                  * s_nc_d_td + alpha_nc_d_nt * (i - pi))
+        s_nc_d = (self.alpha_nc_d_ft * (((1 - self.tau_int) * self.nominal_interest_rate) - self.inflation_rate) + self.alpha_nc_d_td
+                  * s_nc_d_td + self.alpha_nc_d_nt * (self.nominal_interest_rate - self.inflation_rate))
 
-        g_scg = ((1 / Y_scg) * np.log(((1 - tau_scg) * np.exp((pi + m * E_c)
-                                                              * Y_scg)) +
-                                      tau_scg) - pi)
-        g_lcg = ((1 / Y_lcg) * np.log(((1 - tau_lcg) * np.exp((pi + m * E_c)
-                                                              * Y_lcg)) +
-                                      tau_lcg) - pi)
-        g = omega_scg * g_scg + omega_lcg * g_lcg + omega_xcg * m * E_c
-        s_c_e_ft = (1 - m) * E_c * (1 - tau_div) + g
-        s_c_e_td = ((1 / Y_td) * np.log(((1 - tau_td) * np.exp((pi + E_c) *
-                                                               Y_td)) +
-                                        tau_td) - pi)
-        s_c_e = (alpha_c_e_ft * s_c_e_ft + alpha_c_e_td * s_c_e_td +
-                 alpha_c_e_nt * E_c)
+        g_scg = ((1 / self.Y_scg) * np.log(((1 - self.tau_scg) * np.exp((self.inflation_rate + self.m * self.E_c)
+                                                              * self.Y_scg)) +
+                                      self.tau_scg) - self.inflation_rate)
+        g_lcg = ((1 / self.Y_lcg) * np.log(((1 - self.tau_lcg) * np.exp((self.inflation_rate + self.m * self.E_c)
+                                                              * self.Y_lcg)) +
+                                      self.tau_lcg) - self.inflation_rate)
+        g = self.omega_scg * g_scg + self.omega_lcg * g_lcg + self.omega_xcg * self.m * self.E_c
+        s_c_e_ft = (1 - self.m) * self.E_c * (1 - self.tau_div) + g
+        s_c_e_td = ((1 / self.Y_td) * np.log(((1 - self.tau_td) * np.exp((self.inflation_rate + self.E_c) *
+                                                               self.Y_td)) +
+                                        self.tau_td) - self.inflation_rate)
+        s_c_e = (self.alpha_c_e_ft * s_c_e_ft + self.alpha_c_e_td * s_c_e_td +
+                 self.alpha_c_e_nt * self.E_c)
 
-        s_c = f_c * s_c_d + (1 - f_c) * s_c_e
+        s_c = self.f_c * s_c_d + (1 - self.f_c) * s_c_e
 
         E_nc = s_c_e
-        E_array = np.array([E_c, E_nc])
+        E_array = np.array([self.E_c, E_nc])
         s_nc_e = E_nc
-        s_nc = f_nc * s_nc_d + (1 - f_nc) * s_nc_e
+        s_nc = self.f_nc * s_nc_d + (1 - self.f_nc) * s_nc_e
         s_array = np.array([[s_c, s_nc], [s_c_d, s_nc_d], [s_c_e, s_nc_e]])
-        r = (f_array * (i * (1 - (1 - int_haircut) * u_array)) + (1 -
+        f_array = np.array([[self.f_c, self.f_nc], [1, 1], [0, 0]])
+        ace_array = np.array([self.ace, self.ace_nc])
+        r = (f_array * (self.nominal_interest_rate * (1 - (1 - self.int_haircut) * self.u_array)) + (1 -
                                                                   f_array) *
-             (E_array + pi - E_array * r_ace * ace_array))
-        r_prime = f_array * i + (1 - f_array) * (E_array + pi)
+             (E_array + self.inflation_rate - E_array * self.r_ace * ace_array))
+        r_prime = f_array * self.nominal_interest_rate + (1 - f_array) * (E_array + self.inflation_rate)
 
         # if no entity level taxes on pass-throughs, ensure mettr and metr
         # on non-corp entities the same
-        if user_params['u_nc'] == 0.0:
-            r_prime[:, 1] = s_array[:, 1] + pi
+        if not self.PT_entity_tax_ind:
+            r_prime[:, 1] = s_array[:, 1] + self.inflation_rate
         # If entity level tax, assume distribute earnings at same rate corps
         # distribute dividends and these are taxed at dividends tax rate
         # (which seems likely).  Also implicitly assumed that if entity
@@ -154,15 +156,32 @@ class Specifications(ParametersBase):
         else:
             # keep debt and equity financing ratio the same even though now
             # entity level tax that might now favor debt
-            s_array[0, 1] = f_nc * s_nc_d + (1 - f_nc) * s_c_e
+            s_array[0, 1] = self.f_nc * s_nc_d + (1 - self.f_nc) * s_c_e
             s_array[2, 1] = s_c_e
         delta = get_econ_depr()
         tax_methods = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0,
                        'Economic': 1.0, 'Expensing': 1.0}
         financing_list = ['', '_d', '_e']
         entity_list = ['_c', '_nc']
-        z = calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system,
-                                expense_inventory, expense_land, tax_methods,
+
+        # Create dictionaries with depreciation system and rate of bonus
+        # depreciation by asset class
+        class_list = [3, 5, 7, 10, 15, 20, 25, 27.5, 39]
+        class_list_str = [(str(i) if i != 27.5 else '27_5') for i in
+                          class_list]
+        deprec_system = {}
+        bonus_deprec = {}
+        for cl in class_list_str:
+            deprec_system[cl] = getattr(self, 'DeprecSystem_{}yr'.format(cl))
+            bonus_deprec[cl] = getattr(self, 'BonusDeprec_{}yr'.format(cl))
+        tax_methods = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0,
+                       'Economic': 1.0, 'Expensing': 1.0}
+        financing_list = ['', '_d', '_e']
+        entity_list = ['_c', '_nc']
+        z = calc_tax_depr_rates(r, self.inflation_rate,
+                                delta, bonus_deprec, deprec_system,
+                                self.inventory_expensing,
+                                self.land_expensing, tax_methods,
                                 financing_list, entity_list)
 
 
