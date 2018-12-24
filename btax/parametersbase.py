@@ -1,5 +1,5 @@
 """
-Tax-Calculator abstract base parameters class.
+B-Tax abstract base parameters class.
 """
 # CODING-STYLE CHECKS:
 # pep8 parameters.py

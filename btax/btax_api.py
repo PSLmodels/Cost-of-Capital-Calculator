@@ -8,12 +8,9 @@ import scipy.interpolate as si
 import pkg_resources
 
 # import ogusa
-from ogusa.parametersbase import ParametersBase
-from ogusa import elliptical_u_est
-from ogusa import demographics
-from ogusa import income
-from ogusa import txfunc
-from ogusa.utils import BASELINE_DIR, TC_LAST_YEAR
+from btax.parametersbase import ParametersBase
+from btax import get_taxcalc_rates
+from btax.util import read_from_egg, DEFAULT_START_YEAR, RECORDS_START_YEAR
 # from ogusa import elliptical_u_est
 
 
@@ -90,229 +87,85 @@ class Specifications(ParametersBase):
         """
         Does cheap calculations to return parameter values
         """
-        # get parameters of elliptical utility function
-        self.b_ellipse, self.upsilon = elliptical_u_est.estimation(
-            self.frisch,
-            self.ltilde
-        )
-        # determine length of budget window from start year and last
-        # year in TC
-        self.BW = int(TC_LAST_YEAR - self.start_year + 1)
-        # Find number of economically active periods of life
-        self.E = int(self.starting_age * (self.S / (self.ending_age -
-                                                    self.starting_age)))
-        # Find rates in model periods from annualized rates
-        self.beta = (self.beta_annual ** ((self.ending_age -
-                                          self.starting_age) / self.S))
-        self.delta = (1 - ((1 - self.delta_annual) **
-                           ((self.ending_age - self.starting_age) / self.S)))
-        self.g_y = ((1 + self.g_y_annual) ** ((self.ending_age -
-                                               self.starting_age) /
-                                              self.S) - 1)
-        self.delta_tau = (1 - ((1 - self.delta_tau_annual) **
-                               ((self.ending_age - self.starting_age) /
-                                self.S)))
-        # open economy parameters
-        self.ss_firm_r_annual = self.world_int_rate
-        self.ss_hh_r_annual = self.ss_firm_r_annual
-        self.ss_firm_r = ((1 + self.ss_firm_r_annual) **
-                          ((self.ending_age - self.starting_age) /
-                           self.S) - 1)
-        self.ss_hh_r = ((1 + self.ss_hh_r_annual) **
-                        ((self.ending_age - self.starting_age) /
-                         self.S) - 1)
-        self.tpi_firm_r = np.ones(self.T+self.S) * self.ss_firm_r
-        self.tpi_hh_r = np.ones(self.T+self.S) * self.ss_hh_r
-        self.tG2 = int(self.T * 0.8)
-        T_shift = np.concatenate((
-            self.T_shifts, np.zeros((self.T + self.S -
-                                     self.T_shifts.size, 1))))
-        G_shift = np.concatenate((
-            self.G_shifts, np.zeros((self.T - self.G_shifts.size, 1))))
-        self.ALPHA_T = (np.ones(self.T + self.S) * self.alpha_T +
-                        np.squeeze(T_shift))
-        self.ALPHA_G = (np.ones(self.T) * self.alpha_G +
-                        np.squeeze(G_shift))
+        # Find individual income tax rates from Tax-Calculator
+        # maybe have an if statement to go to tax-calc?
+        indiv_rates = get_taxcalc_rates.get_rates(baseline, start_year,
+                                                  iit_reform, data)
+        self.tau_nc = indiv_rates['tau_nc']
+        self.tau_div = indiv_rates['tau_div']
+        self.tau_int = indiv_rates['tau_int']
+        self.tau_scg = indiv_rates['tau_scg']
+        self.tau_lcg = indiv_rates['tau_lcg']
+        self.tau_xcg = 0.00  # tax rate on capital gains held to death
+        self.tau_td = indiv_rates['tau_td']
+        self.tau_h = indiv_rates['tau_h']
 
-        # set period of retirement
-        self.retire = np.int(np.round(((self.retirement_age -
-                                        self.starting_age) * self.S) /
-                                      80.0) - 1)
-
-        # get population objects
-        (self.omega, self.g_n_ss, self.omega_SS, self.surv_rate,
-         self.rho, self.g_n, self.imm_rates,
-         self.omega_S_preTP) = demographics.get_pop_objs(
-                self.E, self.S, self.T, 1, 100, self.start_year,
-                self.flag_graphs)
-        # for constant demographics
-        if self.constant_demographics:
-            self.g_n_ss = 0.0
-            self.g_n = np.zeros(self.T + self.S)
-            surv_rate1 = np.ones((self.S, ))  # prob start at age S
-            surv_rate1[1:] = np.cumprod(self.surv_rate[:-1], dtype=float)
-            # number of each age alive at any time
-            omega_SS = np.ones(self.S) * surv_rate1
-            self.omega_SS = omega_SS/omega_SS.sum()
-            self.imm_rates = np.zeros((self.T + self.S, self.S))
-            self.omega = np.tile(np.reshape(self.omega_SS, (1, self.S)),
-                                 (self.T + self.S, 1))
-            self.omega_S_preTP = self.omega_SS
-
-        # Interpolate chi_n and create omega_SS_80 if necessary
-        if self.S == 80:
-            self.omega_SS_80 = self.omega_SS
-            self.chi_n = self.chi_n_80
-        elif self.S < 80:
-            self.age_midp_80 = np.linspace(20.5, 99.5, 80)
-            self.chi_n_interp = si.interp1d(self.age_midp_80,
-                                            np.squeeze(self.chi_n_80),
-                                            kind='cubic')
-            self.newstep = 80.0 / self.S
-            self.age_midp_S = np.linspace(20 + 0.5 * self.newstep,
-                                          100 - 0.5 * self.newstep,
-                                          self.S)
-            self.chi_n = self.chi_n_interp(self.age_midp_S)
-            (_, _, self.omega_SS_80, _, _, _, _, _) = \
-                demographics.get_pop_objs(20, 80, 320, 1, 100,
-                                          self.start_year, False)
-        self.e = income.get_e_interp(
-            self.S, self.omega_SS, self.omega_SS_80, self.lambdas,
-            plot=False)
-
-    def get_tax_function_parameters(self, client, run_micro=False):
-        # Income tax parameters
-        if self.baseline:
-            tx_func_est_path = os.path.join(
-                self.output_base, 'TxFuncEst_baseline{}.pkl'.format(self.guid),
-            )
+        u_c = user_params['u_c']
+        if user_params['u_nc'] == 0.0:
+            u_nc = tau_nc
         else:
-            tx_func_est_path = os.path.join(
-                self.output_base, 'TxFuncEst_policy{}.pkl'.format(self.guid),
-            )
-        if run_micro:
-            txfunc.get_tax_func_estimate(
-                self.BW, self.S, self.starting_age, self.ending_age,
-                self.baseline, self.analytical_mtrs, self.tax_func_type,
-                self.age_specific, self.start_year, self.reform, self.guid,
-                tx_func_est_path, self.data, client, self.num_workers)
-        if self.baseline:
-            baseline_pckl = "TxFuncEst_baseline{}.pkl".format(self.guid)
-            estimate_file = tx_func_est_path
-            print('Using baseline tax parameters from ', tx_func_est_path)
-            dict_params = self.read_tax_func_estimate(estimate_file,
-                                                      baseline_pckl)
+            u_nc = user_params['u_nc']
+        u_array = np.array([u_c, u_nc])
 
+        sprime_c_td = ((1 / Y_td) * np.log(((1 - tau_td) * np.exp(i * Y_td))
+                                           + tau_td) - pi)
+        s_c_d_td = gamma * (i - pi) + (1 - gamma) * sprime_c_td
+        s_c_d = (alpha_c_d_ft * (((1 - tau_int) * i) - pi) + alpha_c_d_td *
+                 s_c_d_td + alpha_c_d_nt * (i - pi))
+        s_nc_d_td = s_c_d_td
+        s_nc_d = (alpha_nc_d_ft * (((1 - tau_int) * i) - pi) + alpha_nc_d_td
+                  * s_nc_d_td + alpha_nc_d_nt * (i - pi))
+
+        g_scg = ((1 / Y_scg) * np.log(((1 - tau_scg) * np.exp((pi + m * E_c)
+                                                              * Y_scg)) +
+                                      tau_scg) - pi)
+        g_lcg = ((1 / Y_lcg) * np.log(((1 - tau_lcg) * np.exp((pi + m * E_c)
+                                                              * Y_lcg)) +
+                                      tau_lcg) - pi)
+        g = omega_scg * g_scg + omega_lcg * g_lcg + omega_xcg * m * E_c
+        s_c_e_ft = (1 - m) * E_c * (1 - tau_div) + g
+        s_c_e_td = ((1 / Y_td) * np.log(((1 - tau_td) * np.exp((pi + E_c) *
+                                                               Y_td)) +
+                                        tau_td) - pi)
+        s_c_e = (alpha_c_e_ft * s_c_e_ft + alpha_c_e_td * s_c_e_td +
+                 alpha_c_e_nt * E_c)
+
+        s_c = f_c * s_c_d + (1 - f_c) * s_c_e
+
+        E_nc = s_c_e
+        E_array = np.array([E_c, E_nc])
+        s_nc_e = E_nc
+        s_nc = f_nc * s_nc_d + (1 - f_nc) * s_nc_e
+        s_array = np.array([[s_c, s_nc], [s_c_d, s_nc_d], [s_c_e, s_nc_e]])
+        r = (f_array * (i * (1 - (1 - int_haircut) * u_array)) + (1 -
+                                                                  f_array) *
+             (E_array + pi - E_array * r_ace * ace_array))
+        r_prime = f_array * i + (1 - f_array) * (E_array + pi)
+
+        # if no entity level taxes on pass-throughs, ensure mettr and metr
+        # on non-corp entities the same
+        if user_params['u_nc'] == 0.0:
+            r_prime[:, 1] = s_array[:, 1] + pi
+        # If entity level tax, assume distribute earnings at same rate corps
+        # distribute dividends and these are taxed at dividends tax rate
+        # (which seems likely).  Also implicitly assumed that if entity
+        # level tax, then only additional taxes on pass-through income are
+        # capital gains and dividend taxes
         else:
-            policy_pckl = "TxFuncEst_policy{}.pkl".format(self.guid)
-            estimate_file = tx_func_est_path
-            print('Using reform policy tax parameters from ', tx_func_est_path)
-            dict_params = self.read_tax_func_estimate(estimate_file,
-                                                      policy_pckl)
+            # keep debt and equity financing ratio the same even though now
+            # entity level tax that might now favor debt
+            s_array[0, 1] = f_nc * s_nc_d + (1 - f_nc) * s_c_e
+            s_array[2, 1] = s_c_e
+        delta = get_econ_depr()
+        tax_methods = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0,
+                       'Economic': 1.0, 'Expensing': 1.0}
+        financing_list = ['', '_d', '_e']
+        entity_list = ['_c', '_nc']
+        z = calc_tax_depr_rates(r, pi, delta, bonus_deprec, deprec_system,
+                                expense_inventory, expense_land, tax_methods,
+                                financing_list, entity_list)
 
-        self.mean_income_data = dict_params['tfunc_avginc'][0]
-        try:
-            self.taxcalc_version = dict_params['taxcalc_version']
-        except KeyError:
-            self.taxcalc_version = 'No version recorded'
 
-        # Reorder indices of tax function and tile for all years after
-        # budget window ends
-        num_etr_params = dict_params['tfunc_etr_params_S'].shape[2]
-        num_mtrx_params = dict_params['tfunc_mtrx_params_S'].shape[2]
-        num_mtry_params = dict_params['tfunc_mtry_params_S'].shape[2]
-        # First check to see if tax parameters that are used were
-        # estimated with a budget window and ages that are as long as
-        # the those implied based on the start year and model age.
-        # N.B. the tax parameters dictionary does not save the years
-        # that correspond to the parameter estimates, so the start year
-        # used there may name match what is used in a run that reads in
-        # some cached tax function parameters.  Likewise for age.
-        params_list = ['etr', 'mtrx', 'mtry']
-        BW_in_tax_params = dict_params['tfunc_etr_params_S'].shape[1]
-        S_in_tax_params = dict_params['tfunc_etr_params_S'].shape[0]
-        if self.BW != BW_in_tax_params:
-            print('Warning: There is a discrepency between the start' +
-                  ' year of the model and that of the tax functions!!')
-        # After printing warning, make it work by tiling
-        if self.BW > BW_in_tax_params:
-            for item in params_list:
-                dict_params['tfunc_' + item + '_params_S'] =\
-                    np.concatenate(
-                        (dict_params['tfunc_' + item + '_params_S'],
-                         np.tile(dict_params['tfunc_' + item +
-                                             '_params_S'][:, -1, :].
-                                 reshape(S_in_tax_params, 1, num_etr_params),
-                                 (1, self.BW - BW_in_tax_params, 1))),
-                        axis=1)
-                dict_params['tfunc_avg_' + item] =\
-                    np.append(dict_params['tfunc_avg_' + item],
-                              np.tile(dict_params['tfunc_avg_' + item][-1],
-                                      (self.BW - BW_in_tax_params)))
-        if self.S != S_in_tax_params:
-            print('Warning: There is a discrepency between the ages' +
-                  ' used in the model and those in the tax functions!!')
-        # After printing warning, make it work by tiling
-        if self.S > S_in_tax_params:
-            for item in params_list:
-                    dict_params['tfunc_' + item + '_params_S'] =\
-                        np.concatenate(
-                            (dict_params['tfunc_' + item + '_params_S'],
-                             np.tile(dict_params['tfunc_' + item +
-                                                 '_params_S'][-1, :, :].
-                                     reshape(1, self.BW, num_etr_params),
-                                     (self.S - S_in_tax_params, 1, 1))),
-                            axis=0)
-        self.etr_params = np.empty((self.T, self.S, num_etr_params))
-        self.mtrx_params = np.empty((self.T, self.S, num_mtrx_params))
-        self.mtry_params = np.empty((self.T, self.S, num_mtry_params))
-        self.etr_params[:self.BW, :, :] =\
-            np.transpose(
-                dict_params['tfunc_etr_params_S'][:self.S, :self.BW, :],
-                axes=[1, 0, 2])
-        self.etr_params[self.BW:, :, :] =\
-            np.tile(np.transpose(
-                dict_params['tfunc_etr_params_S'][:self.S, -1, :].reshape(
-                    self.S, 1, num_etr_params), axes=[1, 0, 2]),
-                    (self.T - self.BW, 1, 1))
-        self.mtrx_params[:self.BW, :, :] =\
-            np.transpose(
-                dict_params['tfunc_mtrx_params_S'][:self.S, :self.BW, :],
-                axes=[1, 0, 2])
-        self.mtrx_params[self.BW:, :, :] =\
-            np.transpose(
-                dict_params['tfunc_mtrx_params_S'][:self.S, -1, :].reshape(
-                    self.S, 1, num_mtrx_params), axes=[1, 0, 2])
-        self.mtry_params[:self.BW, :, :] =\
-            np.transpose(
-                dict_params['tfunc_mtry_params_S'][:self.S, :self.BW, :],
-                axes=[1, 0, 2])
-        self.mtry_params[self.BW:, :, :] =\
-            np.transpose(
-                dict_params['tfunc_mtry_params_S'][:self.S, -1, :].reshape(
-                    self.S, 1, num_mtry_params), axes=[1, 0, 2])
-
-        if self.constant_rates:
-            print('Using constant rates!')
-            # # Make all ETRs equal the average
-            self.etr_params = np.zeros(self.etr_params.shape)
-            # set shift to average rate
-            self.etr_params[:, :, 10] = dict_params['tfunc_avg_etr']
-
-            # # Make all MTRx equal the average
-            self.mtrx_params = np.zeros(self.mtrx_params.shape)
-            # set shift to average rate
-            self.mtrx_params[:, :, 10] = dict_params['tfunc_avg_mtrx']
-
-            # # Make all MTRy equal the average
-            self.mtry_params = np.zeros(self.mtry_params.shape)
-            # set shift to average rate
-            self.mtry_params[:, :, 10] = dict_params['tfunc_avg_mtry']
-        if self.zero_taxes:
-            print('Zero taxes!')
-            self.etr_params = np.zeros(self.etr_params.shape)
-            self.mtrx_params = np.zeros(self.mtrx_params.shape)
-            self.mtry_params = np.zeros(self.mtry_params.shape)
 
     def read_tax_func_estimate(self, pickle_path, pickle_file):
         '''
