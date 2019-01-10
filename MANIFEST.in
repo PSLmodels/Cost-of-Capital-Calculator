@@ -11,6 +11,7 @@ include btax/data/raw_data/Land/*.xlsx
 include btax/data/raw_data/national_accounts/*.csv
 include btax/data/raw_data/soi/soi_corporate/*.csv
 include btax/data/raw_data/soi/soi_partner/*.csv
+include btax/data/raw_data/soi/soi_partner/*.xls
 include btax/data/raw_data/soi/soi_proprietorship/*.csv
 include btax/data/raw_data/*.csv
 include btax/param_defaults/*.json
