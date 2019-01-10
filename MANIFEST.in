@@ -13,5 +13,5 @@ include btax/data/raw_data/soi/soi_corporate/*.csv
 include btax/data/raw_data/soi/soi_partner/*.csv
 include btax/data/raw_data/soi/soi_partner/*.xls
 include btax/data/raw_data/soi/soi_proprietorship/*.csv
-include btax/data/raw_data/*.csv
+include btax/data/raw_data/soi/soi_proprietorship/*.xls
 include btax/param_defaults/*.json
