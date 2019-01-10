@@ -234,7 +234,7 @@ def get_params(test_run, baseline, start_year, iit_reform, data,
     gamma = 0.3
 
     # Miscellaneous parameters
-    m = 0.44  # Divident payout rate
+    m = 0.44  # Dividend payout rate
     p = 0.2  # Profit rate to compute EATR
 
     # Intermediate variables
