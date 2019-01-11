@@ -191,19 +191,10 @@ def get_params(test_run, baseline, start_year, iit_reform, data,
         tau_td = 0.215  # tax rate on equity return held in tax deferred
         tau_h = 0.181  # tax rate owner occupied housing deductions
         # test below is that calculator can be created
-        CUR_PATH = os.path.abspath(os.path.dirname(__file__))
-        TAXDATA_PATH = os.path.join(CUR_PATH, 'test_data',
-                                    'cps.csv.gz')
-        TAXDATA = pd.read_csv(TAXDATA_PATH, compression='gzip')
-        WEIGHTS_PATH = os.path.join(CUR_PATH, 'test_data',
-                                    'cps_weights.csv.gz')
-        WEIGHTS = pd.read_csv(WEIGHTS_PATH, compression='gzip')
         from btax.get_taxcalc_rates import get_calculator
         calc = get_calculator(baseline=False,
                               calculator_start_year=start_year,
-                              reform=iit_reform, data=TAXDATA,
-                              weights=WEIGHTS,
-                              records_start_year=RECORDS_START_YEAR)
+                              reform=iit_reform, data='cps')
         assert calc.current_year == start_year
     else:
         from btax.get_taxcalc_rates import get_rates
