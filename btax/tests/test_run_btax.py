@@ -3,7 +3,7 @@ import os
 import pandas as pd
 import json
 import numpy as np
-from pandas.testing import assert_frame_equal
+from pandas.util.testing import assert_frame_equal
 from btax import run_btax
 
 CUR_PATH = os.path.abspath(os.path.dirname(__file__))
@@ -50,12 +50,13 @@ def test_run_btax_asset(test_params, expected):
     # Test the run_btax.run_btax() function by reading in inputs and
     # confirming that output variables have the same values.
     var_list, test_df = test_params
-    # test_df.sort_values(by=index, inplace=True)
     test_df.sort_index(inplace=True)
     test_df.reset_index(inplace=True)
     expected.sort_index(inplace=True)
     expected.reset_index(inplace=True)
 
-    assert_frame_equal(test_df[var_list], expected[var_list],
-                       check_dtype=False, check_index_type=False,
-                       check_exact=False, check_less_precise=True)
+    for item in var_list:
+        assert np.allclose(test_df[item], expected[item], atol=1e-4)
+    # assert_frame_equal(test_df[var_list], expected[var_list],
+    #                    check_dtype=False, check_index_type=False,
+    #                    check_exact=False, check_less_precise=2)
