@@ -8,6 +8,9 @@ import pandas as pd
 # Default year for model runs
 DEFAULT_START_YEAR = 2018
 
+# Year of asset data
+ASSET_DATA_CSV_YEAR = 2013
+
 # Start year for tax data (e.g. year of PUF)
 RECORDS_START_YEAR = 2011
 
