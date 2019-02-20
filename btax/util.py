@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from collections import OrderedDict, defaultdict
 import numbers
 import os
+import json
 from pkg_resources import resource_stream, Requirement
 import pandas as pd
 
@@ -16,6 +17,13 @@ RECORDS_START_YEAR = 2011
 
 # Latest year TaxData extrapolates to
 TC_LAST_YEAR = 2027
+
+# DEFAULT_ASSET_COLS = json.loads(read_from_egg
+#                                 (os.path.join('param_defaults',
+#                                               'btax_results_by_asset.json')))
+# DEFAULT_INDUSTRY_COLS = json.loads(read_from_egg
+#                                    (os.path.join('param_defaults',
+#                                                  'btax_results_by_industry.json')))
 
 
 def to_str(x):
@@ -205,3 +213,78 @@ def wavg(group, avg_name, weight_name):
         return (d * w).sum() / w.sum()
     except ZeroDivisionError:
         return d.mean()
+
+
+def read_egg_csv(fname, index_col=None):
+    """
+    Read from egg the file named fname that contains CSV data and
+    return pandas DataFrame containing the data.
+    """
+    try:
+        path_in_egg = os.path.join('taxcalc', fname)
+        vdf = pd.read_csv(
+            pkg_resources.resource_stream(
+                pkg_resources.Requirement.parse('taxcalc'),
+                path_in_egg),
+            index_col=index_col
+        )
+    except Exception:
+        raise ValueError('could not read {} data from egg'.format(fname))
+    # cannot call read_egg_ function in unit tests
+    return vdf  # pragma: no cover
+
+
+def read_egg_json(fname):
+    """
+    Read from egg the file named fname that contains JSON data and
+    return dictionary containing the data.
+    """
+    try:
+        path_in_egg = os.path.join('taxcalc', fname)
+        pdict = json.loads(
+            pkg_resources.resource_stream(
+                pkg_resources.Requirement.parse('taxcalc'),
+                path_in_egg).read().decode('utf-8'),
+            object_pairs_hook=collections.OrderedDict
+        )
+    except Exception:
+        raise ValueError('could not read {} data from egg'.format(fname))
+    # cannot call read_egg_ function in unit tests
+    return pdict  # pragma: no cover
+
+
+def json_to_dict(json_text):
+    """
+    Convert specified JSON text into an ordered Python dictionary.
+    Parameters
+    ----------
+    json_text: string
+        JSON text.
+    Raises
+    ------
+    ValueError:
+        if json_text contains a JSON syntax error.
+    Returns
+    -------
+    dictionary: collections.OrderedDict
+        JSON data expressed as an ordered Python dictionary.
+    """
+    try:
+        ordered_dict = json.loads(json_text,
+                                  object_pairs_hook=collections.OrderedDict)
+    except ValueError as valerr:
+        text_lines = json_text.split('\n')
+        msg = 'Text below contains invalid JSON:\n'
+        msg += str(valerr) + '\n'
+        msg += 'Above location of the first error may be approximate.\n'
+        msg += 'The invalid JSON text is between the lines:\n'
+        bline = ('XXXX----.----1----.----2----.----3----.----4'
+                 '----.----5----.----6----.----7')
+        msg += bline + '\n'
+        linenum = 0
+        for line in text_lines:
+            linenum += 1
+            msg += '{:04d}{}'.format(linenum, line) + '\n'
+        msg += bline + '\n'
+        raise ValueError(msg)
+    return ordered_dict
