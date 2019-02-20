@@ -8,8 +8,8 @@ B-Tax asset and tax-entity type Records class.
 import os
 import numpy as np
 import pandas as pd
-from btax.utils import read_egg_csv, read_egg_json, json_to_dict
-from btax.utils import ASSET_DATA_CSV_YEAR
+from btax.util import read_egg_csv, read_egg_json, json_to_dict
+from btax.util import ASSET_DATA_CSV_YEAR
 
 
 class Records():
