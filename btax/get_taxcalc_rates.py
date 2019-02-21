@@ -17,6 +17,7 @@ import numpy as np
 from taxcalc import *
 from btax.util import DEFAULT_START_YEAR, RECORDS_START_YEAR, TC_LAST_YEAR
 
+
 def get_calculator(baseline, calculator_start_year, reform=None,
                    data=None, weights=None, records_start_year=None):
     '''

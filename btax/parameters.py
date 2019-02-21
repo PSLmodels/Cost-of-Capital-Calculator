@@ -55,8 +55,14 @@ class Specifications(ParametersBase):
             bool_val = data.get('boolean_value', None)
             string_val = data.get('string_value', None)
             values = data.get('value', None)
-            setattr(self, name, self._expand_array(values, intg_val,
-                                                   bool_val, string_val))
+
+            # this if statement is to avoid errors when trying to
+            # expand list of all strings
+            if string_val:
+                pass
+            else:
+                setattr(self, name, self._expand_array(
+                    values, intg_val, bool_val, string_val))
 
         self.compute_default_params()
 
@@ -78,6 +84,8 @@ class Specifications(ParametersBase):
         self.tau_h = indiv_rates['tau_h']
 
         u_c = self.CIT_rate
+        print('corp rate = ', u_c)
+        print('PT entity tax = ', self.PT_entity_tax_ind)
         if not self.PT_entity_tax_ind:
             u_nc = self.tau_nc
         else:
@@ -185,49 +193,6 @@ class Specifications(ParametersBase):
                                      self.inventory_expensing,
                                      self.land_expensing, tax_methods,
                                      self.financing_list, self.entity_list)
-
-    def read_tax_func_estimate(self, pickle_path, pickle_file):
-        '''
-        --------------------------------------------------------------------
-        This function reads in tax function parameters
-        --------------------------------------------------------------------
-
-        INPUTS:
-        pickle_path = string, path to pickle with tax function parameter
-                      estimates
-        pickle_file = string, name of pickle file with tax function
-                      parmaeter estimates
-
-        OTHER FUNCTIONS AND FILES CALLED BY THIS FUNCTION:
-        /picklepath/ = pickle file with dictionary of tax function
-                       estimated parameters
-
-        OBJECTS CREATED WITHIN FUNCTION:
-        dict_params = dictionary, contains numpy arrays of tax function
-                      estimates
-
-        RETURNS: dict_params
-        --------------------------------------------------------------------
-        '''
-        if os.path.exists(pickle_path):
-            print('pickle path exists')
-            with open(pickle_path, 'rb') as pfile:
-                try:
-                    dict_params = pickle.load(pfile, encoding='latin1')
-                except TypeError:
-                    dict_params = pickle.load(pfile)
-        else:
-            from pkg_resources import resource_stream, Requirement
-            path_in_egg = pickle_file
-            pkl_path = os.path.join(os.path.dirname(__file__), '..',
-                                    path_in_egg)
-            with open(pkl_path, 'rb') as pfile:
-                try:
-                    dict_params = pickle.load(pfile, encoding='latin1')
-                except TypeError:
-                    dict_params = pickle.load(pfile)
-
-        return dict_params
 
     def default_parameters(self):
         """
