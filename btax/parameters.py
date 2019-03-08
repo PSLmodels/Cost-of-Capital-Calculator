@@ -20,7 +20,7 @@ class Specifications(ParametersBase):
     DEFAULTS_FILENAME = 'default_parameters.json'
 
     def __init__(self, test=False, time_path=True, baseline=False,
-                 iit_reform={}, data='cps'):
+                 year=2018, iit_reform={}, data='cps'):
         super(Specifications, self).__init__()
 
         # reads in default parameter values
@@ -28,6 +28,7 @@ class Specifications(ParametersBase):
 
         self.test = test
         self.baseline = baseline
+        self.year = year
         self.iit_reform = iit_reform
         self.data = data
 
@@ -55,14 +56,27 @@ class Specifications(ParametersBase):
             bool_val = data.get('boolean_value', None)
             string_val = data.get('string_value', None)
             values = data.get('value', None)
+            # choose just value for one year
+            data_startyear = data.get('start_year', None)
+            try:
+                if len(values) > 1:
+                    value = values[self.year - data_startyear - 1]
+                else:
+                    value = values
+            except TypeError:
+                value = values
 
             # this if statement is to avoid errors when trying to
             # expand list of all strings
             if string_val:
-                pass
-            else:
+                # pass
                 setattr(self, name, self._expand_array(
-                    values, intg_val, bool_val, string_val))
+                    value, intg_val, bool_val, string_val))
+            else:
+                # setattr(self, name, self._expand_array(
+                #     values, intg_val, bool_val, string_val))
+                setattr(self, name, self._expand_array(
+                    value, intg_val, bool_val, string_val))
 
         self.compute_default_params()
 
@@ -141,13 +155,26 @@ class Specifications(ParametersBase):
         E_array = np.array([self.E_c, E_nc])
         s_nc_e = E_nc
         s_nc = self.f_nc * s_nc_d + (1 - self.f_nc) * s_nc_e
-        s_array = np.array([[s_c, s_nc], [s_c_d, s_nc_d], [s_c_e, s_nc_e]])
+        s_array = np.squeeze(np.array([[s_c, s_nc], [s_c_d, s_nc_d], [s_c_e, s_nc_e]]))
         f_array = np.array([[self.f_c, self.f_nc], [1, 1], [0, 0]])
         ace_array = np.array([self.ace, self.ace_nc])
-        r = (f_array * (self.nominal_interest_rate *
-                        (1 - (1 - self.int_haircut) * self.u_array)) +
-             (1 - f_array) * (E_array + self.inflation_rate - E_array *
-                              self.r_ace * ace_array))
+        r = np.empty_like(f_array)
+        # r = (f_array * (self.nominal_interest_rate *
+        #                 (1 - (1 - self.int_haircut) * self.u_array)) +
+        #      (1 - f_array) * (E_array + self.inflation_rate - E_array *
+        #                       self.r_ace * ace_array))
+        r[:, 0] = (f_array[:, 0] * (
+            self.nominal_interest_rate *
+            (1 - (1 - self.interest_deduct_haircut_corp) *
+             self.u_array[0])) + (1 - f_array[:, 0]) *
+                   (E_array[0] + self.inflation_rate - E_array[0] *
+                    self.ace_int_rate * ace_array[0]))
+        r[:, 1] = (f_array[:, 1] * (
+            self.nominal_interest_rate *
+            (1 - (1 - self.interest_deduct_haircut_PT) *
+             self.u_array[1])) + (1 - f_array[:, 1]) *
+                   (E_array[1] + self.inflation_rate - E_array[1] *
+                    self.ace_int_rate * ace_array[1]))
         r_prime = (f_array * self.nominal_interest_rate + (1 - f_array)
                    * (E_array + self.inflation_rate))
 
@@ -183,6 +210,7 @@ class Specifications(ParametersBase):
                                              'DeprecSystem_{}yr'.format(cl))
             self.bonus_deprec[cl] = getattr(self,
                                             'BonusDeprec_{}yr'.format(cl))
+        self.bonus_deprec['100'] = 0.0  # to handle land and inventories - fixed later, but should work on this
         tax_methods = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0,
                        'Economic': 1.0, 'Expensing': 1.0}
         self.financing_list = ['', '_d', '_e']
