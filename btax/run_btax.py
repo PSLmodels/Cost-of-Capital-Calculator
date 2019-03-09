@@ -130,7 +130,7 @@ def run_btax_with_baseline_delta(base_params, reform_params, data=None):
 
     """
     base_output_by_asset, base_output_by_industry = \
-        run_btax(base_params, True, {}, data=data)
+        run_btax(base_params, True, data=data)
     asset_row_grouping = {}
     subset = zip(*(getattr(base_output_by_asset, at) for at in
                    ('Asset', 'asset_category', 'mettr_c', 'mettr_nc')))
