@@ -18,13 +18,6 @@ RECORDS_START_YEAR = 2011
 # Latest year TaxData extrapolates to
 TC_LAST_YEAR = 2027
 
-# DEFAULT_ASSET_COLS = json.loads(read_from_egg
-#                                 (os.path.join('param_defaults',
-#                                               'btax_results_by_asset.json')))
-# DEFAULT_INDUSTRY_COLS = json.loads(read_from_egg
-#                                    (os.path.join('param_defaults',
-#                                                  'btax_results_by_industry.json')))
-
 
 def to_str(x):
     """
@@ -64,6 +57,14 @@ def read_from_egg(tfile):
         with open(template_path, 'r') as f:
             contents = f.read()
     return contents
+
+
+DEFAULT_ASSET_COLS = json.loads(read_from_egg
+                                (os.path.join('param_defaults',
+                                              'btax_results_by_asset.json')))
+DEFAULT_INDUSTRY_COLS = json.loads(read_from_egg
+                                   (os.path.join('param_defaults',
+                                                 'btax_results_by_industry.json')))
 
 
 def get_paths():
