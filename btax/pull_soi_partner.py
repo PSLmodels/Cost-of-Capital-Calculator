@@ -370,6 +370,7 @@ def format_excel(df):
     df = df.drop(df.index[[0, len(df)-1]])
     df = df.fillna(0)
     df = df.replace('[d]', 0)
+    df = df.replace('[d]  ', 0)
     df = df.replace('[2]  ', 0)
     df.reset_index(inplace=True, drop=True)
     df.iloc[:, 1:] = df.iloc[:, 1:] * _AST_FILE_FCTR
