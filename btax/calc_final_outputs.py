@@ -109,7 +109,7 @@ def metr(df, r_prime, inflation_rate, save_rate, entity_list,
     return df
 
 
-def eatr(df, p, stat_tax, entity_list, financing_list):
+def eatr(df, profit_rate, stat_tax, entity_list, financing_list):
     """
     Compute the EATR
 
@@ -128,9 +128,9 @@ def eatr(df, p, stat_tax, entity_list, financing_list):
     for i in range(len(financing_list)):
         for j in range(len(entity_list)):
             df['eatr' + entity_list[j] + financing_list[i]] = \
-                ((((p - df['rho' + entity_list[j] + financing_list[i]]) /
-                 p) * stat_tax[j]) + ((df['rho' + entity_list[j] +
-                                          financing_list[i]] / p) *
+                ((((profit_rate - df['rho' + entity_list[j] + financing_list[i]]) /
+                 profit_rate) * stat_tax[j]) + ((df['rho' + entity_list[j] +
+                                          financing_list[i]] / profit_rate) *
                                       df['metr' + entity_list[j] +
                                          financing_list[i]]))
 
@@ -160,7 +160,7 @@ def asset_calcs(p, asset_data):
     z = p.z
     Y_v = p.Y_v
     phi = p.phi
-    p = p.profit_rate
+    profit_rate = p.profit_rate
     expense_inventory = p.inventory_expensing
     financing_list = p.financing_list
     entity_list = p.entity_list
@@ -186,7 +186,7 @@ def asset_calcs(p, asset_data):
                                       entity_list, financing_list)
     output_by_asset = metr(output_by_asset, r_prime, inflation_rate,
                            save_rate, entity_list, financing_list)
-    output_by_asset = eatr(output_by_asset, p, stat_tax, entity_list,
+    output_by_asset = eatr(output_by_asset, profit_rate, stat_tax, entity_list,
                            financing_list)
 
     # create asset category variable
@@ -262,7 +262,7 @@ def asset_calcs(p, asset_data):
     # calculate metr, mettr
     by_major_asset = metr(by_major_asset, r_prime, inflation_rate,
                           save_rate, entity_list, financing_list)
-    by_major_asset = eatr(by_major_asset, p, stat_tax, entity_list,
+    by_major_asset = eatr(by_major_asset, profit_rate, stat_tax, entity_list,
                           financing_list)
 
     # make asset type = major asset group in by_major_asset
@@ -295,7 +295,7 @@ def asset_calcs(p, asset_data):
     # calculate the cost of capital, metr, mettr
     overall = metr(overall, r_prime, inflation_rate, save_rate,
                    entity_list, financing_list)
-    overall = eatr(overall, p, stat_tax, entity_list, financing_list)
+    overall = eatr(overall, profit_rate, stat_tax, entity_list, financing_list)
 
     # append by_major_asset to output_by_asset
     # drop asset types that are only one in major group
@@ -334,7 +334,7 @@ def industry_calcs(p, asset_data, output_by_asset):
     stat_tax = p.u_array
     save_rate = p.s_array
     r_prime = p.r_prime
-    p = p.profit_rate
+    profit_rate = p.profit_rate
     financing_list = p.financing_list
     entity_list = p.entity_list
     bea_code_dict = p.bea_code_dict
@@ -397,7 +397,7 @@ def industry_calcs(p, asset_data, output_by_asset):
     # calculate metr and mettr and eatr
     by_industry_tax = metr(by_industry_tax, r_prime, inflation_rate,
                            save_rate, entity_list, financing_list)
-    by_industry_tax = eatr(by_industry_tax, p, stat_tax, entity_list,
+    by_industry_tax = eatr(by_industry_tax, profit_rate, stat_tax, entity_list,
                            financing_list)
 
     # put together in different format (later we should consider changing how
@@ -468,7 +468,7 @@ def industry_calcs(p, asset_data, output_by_asset):
     # calculate metr and mettr and eatr
     by_major_ind_tax = metr(by_major_ind_tax, r_prime, inflation_rate,
                             save_rate, entity_list, financing_list)
-    by_major_ind_tax = eatr(by_major_ind_tax, p, stat_tax, entity_list,
+    by_major_ind_tax = eatr(by_major_ind_tax, profit_rate, stat_tax, entity_list,
                             financing_list)
 
     # put together in different format (later we should consider
@@ -537,7 +537,7 @@ def industry_calcs(p, asset_data, output_by_asset):
     # calculate metr and mettr and eatr
     overall = metr(overall, r_prime, inflation_rate, save_rate,
                    entity_list, financing_list)
-    overall = eatr(overall, p, stat_tax, entity_list, financing_list)
+    overall = eatr(overall, profit_rate, stat_tax, entity_list, financing_list)
 
     # append by_major_asset to output_by_asset
     # drop major inds when only one in major group

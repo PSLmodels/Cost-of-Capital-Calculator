@@ -155,7 +155,7 @@ class Specifications(ParametersBase):
         E_array = np.array([self.E_c, E_nc])
         s_nc_e = E_nc
         s_nc = self.f_nc * s_nc_d + (1 - self.f_nc) * s_nc_e
-        s_array = np.squeeze(np.array([[s_c, s_nc], [s_c_d, s_nc_d], [s_c_e, s_nc_e]]))
+        self.s_array = np.squeeze(np.array([[s_c, s_nc], [s_c_d, s_nc_d], [s_c_e, s_nc_e]]))
         f_array = np.array([[self.f_c, self.f_nc], [1, 1], [0, 0]])
         ace_array = np.array([self.ace, self.ace_nc])
         r = np.empty_like(f_array)
@@ -181,7 +181,7 @@ class Specifications(ParametersBase):
         # if no entity level taxes on pass-throughs, ensure mettr and metr
         # on non-corp entities the same
         if not self.PT_entity_tax_ind:
-            r_prime[:, 1] = s_array[:, 1] + self.inflation_rate
+            r_prime[:, 1] = self.s_array[:, 1] + self.inflation_rate
         # If entity level tax, assume distribute earnings at same rate corps
         # distribute dividends and these are taxed at dividends tax rate
         # (which seems likely).  Also implicitly assumed that if entity
@@ -190,8 +190,8 @@ class Specifications(ParametersBase):
         else:
             # keep debt and equity financing ratio the same even though now
             # entity level tax that might now favor debt
-            s_array[0, 1] = self.f_nc * s_nc_d + (1 - self.f_nc) * s_c_e
-            s_array[2, 1] = s_c_e
+            self.s_array[0, 1] = self.f_nc * s_nc_d + (1 - self.f_nc) * s_c_e
+            self.s_array[2, 1] = s_c_e
         self.delta = get_econ_depr()
         self.tax_methods = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0,
                             'Economic': 1.0, 'Expensing': 1.0}
