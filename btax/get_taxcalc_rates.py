@@ -99,7 +99,7 @@ def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={},
     calc1.calc_all()
 
     # Loop over years in window of calculations
-    end_year = 2027
+    end_year = 2018
     tau_nc = np.zeros(end_year - start_year + 1)
     tau_div = np.zeros_like(tau_nc)
     tau_int = np.zeros_like(tau_nc)
