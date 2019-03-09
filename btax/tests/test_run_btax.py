@@ -5,6 +5,7 @@ import json
 import numpy as np
 from pandas.util.testing import assert_frame_equal
 from btax import run_btax
+from btax.parameters import Specifications
 
 CUR_PATH = os.path.abspath(os.path.dirname(__file__))
 
@@ -16,8 +17,9 @@ result_by_asset = pd.read_json(os.path.join(
     CUR_PATH, 'run_btax_asset_output.json'))
 result_by_industry = pd.read_json(os.path.join(
     CUR_PATH, 'run_btax_industry_output.json'))
+parameters = Specifications(year=start_year, iit_reform=iit_reform)
 test_by_asset, test_by_industry = run_btax.run_btax(
-    test_run, baseline, start_year, iit_reform, data='cps', **user_params)
+    parameters, baseline, data='cps')
 
 # Lists of variables to compare
 asset_var_list = ['delta', 'z_c', 'z_c_d', 'z_c_e', 'z_nc',
