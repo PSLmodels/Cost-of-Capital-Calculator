@@ -60,7 +60,7 @@ class Specifications(ParametersBase):
             data_startyear = data.get('start_year', None)
             try:
                 if len(values) > 1:
-                    value = values[self.year - data_startyear - 1]
+                    value = values[self.year - data_startyear]
                 else:
                     value = values
             except TypeError:
