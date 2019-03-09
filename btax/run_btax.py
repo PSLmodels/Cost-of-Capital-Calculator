@@ -51,8 +51,7 @@ ModelDiffs = namedtuple('ModelDiffs', TABLE_ORDER + ['row_grouping'])
 ASSET_PRE_CACHE_FILE = 'asset_data.pkl'
 
 
-def run_btax(params, baseline=False,
-             iit_reform=None, data=None):
+def run_btax(params, baseline=False, data=None):
     """
     Runner script that kicks off the calculations for B-Tax
 
@@ -60,7 +59,6 @@ def run_btax(params, baseline=False,
         test_run: boolean, True if test run (doesn't use puf.csv)
         baseline: boolean, True if run with current law parameters
         start_year: integer, tax year METRs computed for
-        iit_reform: dictionary, reform to pass to Tax-Calculator
         user_params: dictionary, user defined parametesr for B-Tax
 
     Returns:
@@ -69,7 +67,6 @@ def run_btax(params, baseline=False,
 
     """
     calc_assets = False
-    iit_reform = iit_reform or {}
     asset_data = None
     for repeat in range(2):
         if calc_assets or not os.path.exists(ASSET_PRE_CACHE_FILE):
@@ -118,15 +115,13 @@ def run_btax(params, baseline=False,
     return output_by_asset, output_by_industry
 
 
-def run_btax_with_baseline_delta(base_params, reform_params,
-                                 iit_reform=None, data=None,):
+def run_btax_with_baseline_delta(base_params, reform_params, data=None):
     """
     Runner script that kicks off the calculations for B-Tax
 
     Args:
         test_run: boolean, True if test run (doesn't use puf.csv)
         start_year: interger, tax year METRs computed for
-        iit_reform: dictionary, reform to pass to Tax-Calculator
         user_params: dictionary, user defined parametesr for B-Tax
 
     Returns:
@@ -157,7 +152,7 @@ def run_btax_with_baseline_delta(base_params, reform_params,
     row_grouping = {'asset': asset_row_grouping,
                     'industry': industry_row_grouping}
     reform_output_by_asset, reform_output_by_industry =\
-        run_btax(reform_params, False, iit_reform, data=data)
+        run_btax(reform_params, False, data=data)
     changed_output_by_asset =\
         diff_two_tables(reform_output_by_asset, base_output_by_asset)
     changed_output_by_industry =\
