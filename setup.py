@@ -9,15 +9,15 @@ with open('README.md') as f:
 version = '0.0.0'
 
 config = {
-    'description': 'B-Tax: A Cost of Capital Calculator',
-    'url': 'https://github.com/open-source-economics/B-Tax',
-    'download_url': 'https://github.com/open-source-economics/B-Tax',
+    'description': 'Cost-of-Capital-Calculator: A Cost of Capital Calculator',
+    'url': 'https://github.com/open-source-economics/Cost-of-Capital-Calculator',
+    'download_url': 'https://github.com/open-source-economics/Cost-of-Capital-Calculator',
     'long_description': longdesc,
     'version': version,
     'license': 'CC0 1.0 Universal public domain dedication',
-    'packages': ['btax'],
+    'packages': ['ccc'],
     'include_package_data': True,
-    'name': 'btax',
+    'name': 'ccc',
     'install_requires': ['numpy', 'pandas', 'taxcalc', 'scipy', 'xlrd'],
     'classifiers': [
         'Development Status :: 4 - Beta',

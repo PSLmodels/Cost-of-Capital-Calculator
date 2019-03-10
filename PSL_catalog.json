@@ -2,7 +2,7 @@
     "project_one_line": {
         "start_header": null,
         "end_header": null,
-        "source": "https://github.com/open-source-economics/B-Tax",
+        "source": "https://github.com/open-source-economics/Cost-of-Capital-Calculator",
         "type": "html",
         "data": "<p>Evaluates the effect of US federal taxes on businesses' investment incentives</p>"
     },
@@ -14,14 +14,14 @@
         "data": null
     },
     "project_overview": {
-        "start_header": "B-Tax",
+        "start_header": "Cost-of-Capital-Calculator",
         "end_header": "Disclaimer",
         "source": "README.md",
         "type": "github_file",
         "data": null
     },
     "citation": {
-        "start_header": "Citing the B-Tax Model",
+        "start_header": "Citing the Cost-of-Capital-Calculator Model",
         "end_header": null,
         "source": "README.md",
         "type": "github_file",
@@ -30,14 +30,14 @@
     "license": {
         "start_header": null,
         "end_header": null,
-        "source": "https://github.com/open-source-economics/B-Tax/blob/master/LICENSE.md",
+        "source": "https://github.com/open-source-economics/Cost-of-Capital-Calculator/blob/master/LICENSE.md",
         "data": "<p>CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</p>",
         "type": "html"
     },
     "user_documentation": {
         "start_header": null,
         "end_header": null,
-        "data": "<a href=\"https://github.com/open-source-economics/B-Tax/blob/master/Guides/CCC_Guide.pdf\">https://github.com/open-source-economics/B-Tax/blob/master/Guides/CCC_Guide.pdf</a>",
+        "data": "<a href=\"https://github.com/open-source-economics/Cost-of-Capital-Calculator/blob/master/Guides/CCC_Guide.pdf\">https://github.com/open-source-economics/Cost-of-Capital-Calculator/blob/master/Guides/CCC_Guide.pdf</a>",
         "source": null,
         "type": "html"
     },
@@ -64,7 +64,7 @@
     },
     "disclaimer": {
         "start_header": "Disclaimer",
-        "end_header": "Using/contributing to B-Tax",
+        "end_header": "Using/contributing to Cost-of-Capital-Calculator",
         "source": "README.md",
         "type": "github_file",
         "data": null
@@ -91,8 +91,8 @@
         "data": null
     },
     "contributor_guide": {
-        "start_header": "Using/contributing to B-Tax",
-        "end_header": "Citing the B-Tax Model",
+        "start_header": "Using/contributing to Cost-of-Capital-Calculator",
+        "end_header": "Citing the Cost-of-Capital-Calculator Model",
         "source": "README.md",
         "type": "github_file",
         "data": null
@@ -121,14 +121,14 @@
     "public_issue_tracker": {
         "start_header": null,
         "end_header": null,
-        "data": "<a href=\"https://github.com/open-source-economics/B-Tax/issues\">https://github.com/open-source-economics/B-Tax/issues</a>",
+        "data": "<a href=\"https://github.com/open-source-economics/Cost-of-Capital-Calculator/issues\">https://github.com/open-source-economics/Cost-of-Capital-Calculator/issues</a>",
         "source": null,
         "type": "html"
     },
     "public_qanda": {
         "start_header": null,
         "end_header": null,
-        "data": "<a href=\"https://github.com/open-source-economics/B-Tax/issues\">https://github.com/open-source-economics/B-Tax/issues</a>",
+        "data": "<a href=\"https://github.com/open-source-economics/Cost-of-Capital-Calculator/issues\">https://github.com/open-source-economics/Cost-of-Capital-Calculator/issues</a>",
         "source": null,
         "type": "html"
     },
@@ -142,14 +142,14 @@
     "unit_test": {
         "start_header": null,
         "end_header": null,
-        "data": "<a href=\"https://github.com/open-source-economics/B-Tax/tree/master/btax/tests\">https://github.com/open-source-economics/B-Tax/tree/master/btax/tests</a>",
+        "data": "<a href=\"https://github.com/open-source-economics/Cost-of-Capital-Calculator/tree/master/ccc/tests\">https://github.com/open-source-economics/Cost-of-Capital-Calculator/tree/master/ccc/tests</a>",
         "source": null,
         "type": "html"
     },
     "integration_test": {
         "start_header": null,
         "end_header": null,
-        "data": "<a href=\"https://github.com/open-source-economics/B-Tax/tree/master/btax/tests\">https://github.com/open-source-economics/B-Tax/tree/master/btax/tests</a>",
+        "data": "<a href=\"https://github.com/open-source-economics/Cost-of-Capital-Calculator/tree/master/ccc/tests\">https://github.com/open-source-economics/Cost-of-Capital-Calculator/tree/master/ccc/tests</a>",
         "source": null,
         "type": "html"
     }

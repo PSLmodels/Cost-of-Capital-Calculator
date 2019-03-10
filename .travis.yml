@@ -17,11 +17,11 @@ install:
   - export BUILD_DIR=`pwd`
   - pip install -r requirements.txt
   - conda install -c PSLmodels taxcalc
-  - export BTAX_OUT_DIR=btax_output_dir # make an output dir
-  - export BTAX_CUR_DIR=${BUILD_DIR}/btax
-  - mkdir btax_output_dir
+  - export ccc_OUT_DIR=ccc_output_dir # make an output dir
+  - export ccc_CUR_DIR=${BUILD_DIR}/ccc
+  - mkdir ccc_output_dir
   - python setup.py develop
 
 script:
-  - python -c "from btax import *" && echo B-Tax can be imported
-  - py.test -m "not slow and not needs_puf and not local" ${BTAX_CUR_DIR}/tests
+  - python -c "from ccc import *" && echo Cost-of-Capital-Calculator can be imported
+  - py.test -m "not slow and not needs_puf and not local" ${ccc_CUR_DIR}/tests
