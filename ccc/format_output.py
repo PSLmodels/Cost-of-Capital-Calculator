@@ -1,7 +1,7 @@
 """
 Output formatting script (format_output.py):
 -------------------------------------------------------------------------------
-This module takes in numpy arrays of the B-Tax final and intermediate
+This module takes in numpy arrays of the Cost-of-Capital-Calculator final and intermediate
 calculations and then puts them into Pandas Dataframes in a format suitable
 for tabular representation in the web app.
 Last updated: 8/2/2016.
@@ -16,14 +16,14 @@ try:
     import cPickle as pickle
 except ImportError:
     import pickle
-from btax.util import get_paths, read_from_egg
+from ccc.util import get_paths, read_from_egg
 
 
 globals().update(get_paths())
 
 
 def CBO_compare(vars_by_asset):
-    """Function to compare B-Tax output to CBO calcuations
+    """Function to compare Cost-of-Capital-Calculator output to CBO calcuations
 
         :param user_params: The user input for implementing reforms
         :type user_params: dictionary

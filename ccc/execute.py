@@ -1,8 +1,8 @@
 """
-Runner Script (run_btax.py):
+Runner Script (run_ccc.py):
 ------------------------------------------------------------------------
 Initial module that contains the method to start the calculations in
-B-Tax. Makes function calls to split out fixed assets by entity type
+Cost-of-Capital-Calculator. Makes function calls to split out fixed assets by entity type
 (pull_soi_data), allocate fixed assets to industries (read_bea), grab
 all the parameters for the final calculations (get_params), and
 calculate the Cost of Capital, Marginal Effective Tax Rates, and
@@ -12,10 +12,10 @@ method compares the calculated values with those produced by the CBO.
 # Import packages
 from __future__ import unicode_literals
 from collections import namedtuple
-from btax.util import (get_paths, diff_two_tables,
+from ccc.util import (get_paths, diff_two_tables,
                        filter_user_params_for_econ)
-from btax.front_end_util import replace_unicode_spaces
-from btax.run_btax import run_btax
+from ccc.front_end_util import replace_unicode_spaces
+from ccc.run_ccc import run_ccc
 
 globals().update(get_paths())
 TABLE_ORDER = ['base_output_by_asset', 'reform_output_by_asset',
@@ -28,7 +28,7 @@ ASSET_PRE_CACHE_FILE = 'asset_data.pkl'
 
 def runner(test_run, start_year, iit_reform, **user_params):
     """
-    Runs B-Tax, computing results for a baseline and reform and then
+    Runs Cost-of-Capital-Calculator, computing results for a baseline and reform and then
     the differnece between the two.
 
     Args:
@@ -45,7 +45,7 @@ def runner(test_run, start_year, iit_reform, **user_params):
     """
     econ_params = filter_user_params_for_econ(**user_params)
     base_output_by_asset, base_output_by_industry =\
-        run_btax(test_run, True, start_year, {}, **econ_params)
+        run_ccc(test_run, True, start_year, {}, **econ_params)
     asset_row_grouping = {}
     subset = zip(*(getattr(base_output_by_asset, at) for at in
                    ('Asset', 'asset_category', 'mettr_c', 'mettr_nc')))
@@ -67,7 +67,7 @@ def runner(test_run, start_year, iit_reform, **user_params):
     row_grouping = {'asset': asset_row_grouping,
                     'industry': industry_row_grouping}
     reform_output_by_asset, reform_output_by_industry =\
-        run_btax(test_run, False, start_year, iit_reform, **user_params)
+        run_ccc(test_run, False, start_year, iit_reform, **user_params)
     changed_output_by_asset = diff_two_tables(reform_output_by_asset,
                                               base_output_by_asset)
     changed_output_by_industry = diff_two_tables(reform_output_by_industry,
@@ -80,7 +80,7 @@ def runner(test_run, start_year, iit_reform, **user_params):
 
 
 def main():
-    run_btax()
+    run_ccc()
 
 
 if __name__ == '__main__':

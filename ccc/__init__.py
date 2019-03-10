@@ -1,8 +1,8 @@
 """
-Specify what is available to import from the btax package.
+Specify what is available to import from the ccc package.
 """
-from btax.parameters import *
-from btax.parametersbase import *
-from btax.records import *
+from ccc.parameters import *
+from ccc.parametersbase import *
+from ccc.records import *
 
 __version__ = '0.0.0'

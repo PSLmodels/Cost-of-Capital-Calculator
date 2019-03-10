@@ -2,11 +2,11 @@ from __future__ import unicode_literals
 from collections import defaultdict
 import os
 import json
-from btax.util import DEFAULT_ASSET_COLS, DEFAULT_INDUSTRY_COLS
-from btax.util import DEFAULT_START_YEAR
+from ccc.util import DEFAULT_ASSET_COLS, DEFAULT_INDUSTRY_COLS
+from ccc.util import DEFAULT_START_YEAR
 
 # Row labels, in order, including minor headings like "Durable goods"
-BTAX_TABLE_ASSET_ORDER = ("All Investments", "Equipment", "Mainframes",
+ccc_TABLE_ASSET_ORDER = ("All Investments", "Equipment", "Mainframes",
                           "PCs", "DASDs", "Printers", "Terminals",
                           "Tape drives", "Storage devices",
                           "System integrators", "Communications",
@@ -70,7 +70,7 @@ BTAX_TABLE_ASSET_ORDER = ("All Investments", "Equipment", "Mainframes",
                           "Financial and real estate services",
                           "All other nonmanufacturing, n.e.c.",
                           "Inventories", "Land")
-BTAX_TABLE_INDUSTRY_ORDER = ("All Investments",
+ccc_TABLE_INDUSTRY_ORDER = ("All Investments",
                              "Agriculture, forestry, fishing, and hunting",
                              "Farms",
                              "Forestry, fishing, and related activities",
@@ -143,7 +143,7 @@ BTAX_TABLE_INDUSTRY_ORDER = ("All Investments",
                              "Other services, except government")
 # If any minor headings are needed, such as "Durable goods", put them
 # in "breaks" below
-BTAX_TABLE_BREAKS = {'industry': ['Durable goods', 'Nondurable goods'],
+ccc_TABLE_BREAKS = {'industry': ['Durable goods', 'Nondurable goods'],
                      'asset': []}
 SPACES = (u'\xa0', u'\u00a0', u' ')
 
@@ -151,24 +151,24 @@ SPACES = (u'\xa0', u'\u00a0', u' ')
 ASSET_COL_META = dict(DEFAULT_ASSET_COLS)
 INDUSTRY_COL_META = dict(DEFAULT_INDUSTRY_COLS)
 
-DO_ASSERTIONS = int(os.environ.get('BTAX_TABLE_ASSERTIONS', False))
+DO_ASSERTIONS = int(os.environ.get('ccc_TABLE_ASSERTIONS', False))
 
 
 def runner_json_tables(test_run=False, start_year=DEFAULT_START_YEAR,
                        iit_reform=None, **user_params):
     """
-    Run B-Tax nad create JSON files for PolicyBrain tables.
+    Run Cost-of-Capital-Calculator nad create JSON files for PolicyBrain tables.
 
     Args:
         test_run: boolean, whether test (don't use PUF/Tax-Calc)
         start_year: integer, tax year draft policy from
         iit_reform: dictionary, tax parameters for Tax-Calculator
-        user_params: dictionary, user defined parameters for B-Tax
+        user_params: dictionary, user defined parameters for Cost-of-Capital-Calculator
 
     Returns:
         json_table: json object, serialized DataFrames
     """
-    from btax.execute import runner, TABLE_ORDER
+    from ccc.execute import runner, TABLE_ORDER
     out = runner(test_run, start_year, iit_reform, **user_params)
 
     all_dataframes = {'base_output_by_asset': out[0].to_json(),
@@ -217,12 +217,12 @@ def add_summary_rows_and_breaklines(results, first_budget_year,
     Return organized and labeled table results for display
 
     Args:
-        results: dictionary, B-Tax results tables
+        results: dictionary, Cost-of-Capital-Calculator results tables
         first_budget_year: integer, first year in budget window/start_year
         do_assertions: boolean, whether or not to do assertions
 
     Returns:
-        tables: dictionary, tables of B-Tax results formatted
+        tables: dictionary, tables of Cost-of-Capital-Calculator results formatted
     """
     do_assertions = do_assertions or DO_ASSERTIONS
     tables_to_process = {k: v for k, v in results.items()
@@ -264,13 +264,13 @@ def add_summary_rows_and_breaklines(results, first_budget_year,
             keys = tuple(group_data)
             # This is the actual row order
             if is_asset:
-                row_order = BTAX_TABLE_ASSET_ORDER
+                row_order = ccc_TABLE_ASSET_ORDER
             else:
-                row_order = BTAX_TABLE_INDUSTRY_ORDER
+                row_order = ccc_TABLE_INDUSTRY_ORDER
             # breaks and befores below deal with
             # putting breaklines in the table
             # for "Durable Goods" and "Nondurable Goods"
-            breaks = BTAX_TABLE_BREAKS['asset' if is_asset else 'industry']
+            breaks = ccc_TABLE_BREAKS['asset' if is_asset else 'industry']
             befores = []
             for b in breaks:
                 before = [r1 for r1, r2 in zip(row_order[:-1], row_order[1:])
@@ -397,13 +397,13 @@ def _dataframe_to_json_table(df, defaults, label, index_col):
 
 
 def output_by_asset_to_json_table(df, table_name):
-    from btax.parameters import DEFAULT_ASSET_COLS
+    from ccc.parameters import DEFAULT_ASSET_COLS
     return _dataframe_to_json_table(df, DEFAULT_ASSET_COLS,
                                     table_name, 'Asset Type')
 
 
 def output_by_industry_to_json_table(df, table_name):
-    from btax.parameters import DEFAULT_INDUSTRY_COLS
+    from ccc.parameters import DEFAULT_INDUSTRY_COLS
     return _dataframe_to_json_table(df, DEFAULT_INDUSTRY_COLS,
                                     table_name, 'Industry')
 

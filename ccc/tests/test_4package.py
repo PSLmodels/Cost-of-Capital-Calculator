@@ -18,14 +18,14 @@ TESTS_PATH = os.path.abspath(os.path.dirname(__file__))
 @pytest.mark.local
 def test_for_package_existence():
     """
-    Ensure that no conda btax package is installed when running pytest.
-    Primarily to help developers catch mistaken installations of btax;
+    Ensure that no conda ccc package is installed when running pytest.
+    Primarily to help developers catch mistaken installations of ccc;
     the local mark prevents test from running on GitHub.
     """
-    out = subprocess.check_output(['conda', 'list', 'btax']).decode('ascii')
-    envless_out = out.replace('btax-dev', 'environment')
-    if re.search('btax', envless_out) is not None:
-        assert 'btax package' == 'installed'
+    out = subprocess.check_output(['conda', 'list', 'ccc']).decode('ascii')
+    envless_out = out.replace('ccc-dev', 'environment')
+    if re.search('ccc', envless_out) is not None:
+        assert 'ccc package' == 'installed'
 
 
 def test_for_consistency(tests_path=TESTS_PATH):

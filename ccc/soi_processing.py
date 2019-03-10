@@ -9,10 +9,10 @@ and proprietorship dataframes and to interpolate missing data.
 # Import packages
 import pandas as pd
 # Import custom modules
-import btax.pull_soi_corp as corp
-import btax.pull_soi_partner as prt
-import btax.pull_soi_proprietorship as prop
-from btax.util import get_paths
+import ccc.pull_soi_corp as corp
+import ccc.pull_soi_partner as prt
+import ccc.pull_soi_proprietorship as prop
+from ccc.util import get_paths
 globals().update(get_paths())
 
 

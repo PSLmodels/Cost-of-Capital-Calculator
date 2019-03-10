@@ -6,16 +6,16 @@ import numpy as np
 import pickle
 import pkg_resources
 
-# import btax
-from btax.parametersbase import ParametersBase
-from btax.get_taxcalc_rates import get_rates
-from btax.calc_z import calc_tax_depr_rates, get_econ_depr
-from btax.util import read_from_egg, DEFAULT_START_YEAR, RECORDS_START_YEAR
+# import ccc
+from ccc.parametersbase import ParametersBase
+from ccc.get_taxcalc_rates import get_rates
+from ccc.calc_z import calc_tax_depr_rates, get_econ_depr
+from ccc.util import read_from_egg, DEFAULT_START_YEAR, RECORDS_START_YEAR
 
 
 class Specifications(ParametersBase):
     """
-    Inherits ParametersBase. Implements the PolicyBrain API for B-Tax
+    Inherits ParametersBase. Implements the PolicyBrain API for Cost-of-Capital-Calculator
     """
     DEFAULTS_FILENAME = 'default_parameters.json'
 
@@ -32,8 +32,8 @@ class Specifications(ParametersBase):
         self.iit_reform = iit_reform
         self.data = data
 
-        # put B-Tax version in parameters to save for reference
-        self.btax_version = pkg_resources.get_distribution("btax").version
+        # put Cost-of-Capital-Calculator version in parameters to save for reference
+        self.ccc_version = pkg_resources.get_distribution("ccc").version
 
         if call_tc:
             # Find individual income tax rates from Tax-Calculator
@@ -1098,7 +1098,7 @@ class Specifications(ParametersBase):
 # changes
 def reform_warnings_errors(user_mods):
     """
-    Generate warnings and errors for B-Tax parameter specifications
+    Generate warnings and errors for Cost-of-Capital-Calculator parameter specifications
     Parameters:
     -----------
     user_mods : dict created by read_json_param_objects
@@ -1106,15 +1106,15 @@ def reform_warnings_errors(user_mods):
     ------
     rtn_dict : dict with endpoint specific warning and error messages
     """
-    rtn_dict = {'btax': {'warnings': '', 'errors': ''}}
+    rtn_dict = {'ccc': {'warnings': '', 'errors': ''}}
 
     # create Specifications object and implement reform
     specs = Specifications()
     specs._ignore_errors = True
     try:
-        specs.update_specifications(user_mods['btax'], raise_errors=False)
-        rtn_dict['btax']['warnings'] = specs.parameter_warnings
-        rtn_dict['btax']['errors'] = specs.parameter_errors
+        specs.update_specifications(user_mods['ccc'], raise_errors=False)
+        rtn_dict['ccc']['warnings'] = specs.parameter_warnings
+        rtn_dict['ccc']['errors'] = specs.parameter_errors
     except ValueError as valerr_msg:
-        rtn_dict['btax']['errors'] = valerr_msg.__str__()
+        rtn_dict['ccc']['errors'] = valerr_msg.__str__()
     return rtn_dict

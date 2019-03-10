@@ -4,7 +4,7 @@ Fixed Asset Breakdown (check_asset_alloc.py):
 
 This script reads in BEA, SOI, and and Financial Accounts data.
 It computes totals from these data and then compares those totals to
-objects produced from run_btax.  Differences are printed to the screen.
+objects produced from run_ccc.  Differences are printed to the screen.
 In addition, a series of tables showing the split of assets between corporat
 and non-corporate tax treatement across industry are produced for comparison with
 similar tables from the CBO.
@@ -18,7 +18,7 @@ import numpy as np
 import pandas as pd
 import xlrd
 import pickle
-from btax.util import get_paths
+from ccc.util import get_paths
 
 # Directories:
 globals().update(get_paths())
@@ -121,40 +121,40 @@ noncorp_land -= owner_occ_house_land
 
 
 '''
-Read in asset pickle ued by B-Tax and compare totals
+Read in asset pickle ued by Cost-of-Capital-Calculator and compare totals
 '''
 asset_data = pickle.load(open('asset_data.pkl', 'rb'))
-total_btax_assets = asset_data['assets'].sum()
-total_btax_LAND = asset_data.loc[asset_data['Asset Type']=='Land','assets'].sum()
-total_btax_INV = asset_data.loc[asset_data['Asset Type']=='Inventories','assets'].sum()
-total_btax_RES_FA = asset_data.loc[asset_data['Asset Type']=='Residential','assets'].sum()
-total_btax_FA = total_btax_assets - total_btax_LAND - total_btax_INV - total_btax_RES_FA
-print('diff in FA: ', total_btax_RES_FA-total_bea_RES_FA)
+total_ccc_assets = asset_data['assets'].sum()
+total_ccc_LAND = asset_data.loc[asset_data['Asset Type']=='Land','assets'].sum()
+total_ccc_INV = asset_data.loc[asset_data['Asset Type']=='Inventories','assets'].sum()
+total_ccc_RES_FA = asset_data.loc[asset_data['Asset Type']=='Residential','assets'].sum()
+total_ccc_FA = total_ccc_assets - total_ccc_LAND - total_ccc_INV - total_ccc_RES_FA
+print('diff in FA: ', total_ccc_RES_FA-total_bea_RES_FA)
 
 
 '''
-Print percentage differences between control totals and BTax data
+Print percentage differences between control totals and ccc data
 '''
-print('Diff in Non-residential Fixed Assets: ', (total_btax_FA-total_bea_FA)/total_bea_FA)
-print('Diff in Land: ', (total_btax_LAND-total_finacct_LAND)/total_finacct_LAND)
-print('Diff in Inventories: ', (total_btax_INV-total_bea_INV)/total_bea_INV)
-print('Diff in Residential Fixed Assets: ', (total_btax_RES_FA-total_bea_RES_FA)/total_bea_RES_FA)
+print('Diff in Non-residential Fixed Assets: ', (total_ccc_FA-total_bea_FA)/total_bea_FA)
+print('Diff in Land: ', (total_ccc_LAND-total_finacct_LAND)/total_finacct_LAND)
+print('Diff in Inventories: ', (total_ccc_INV-total_bea_INV)/total_bea_INV)
+print('Diff in Residential Fixed Assets: ', (total_ccc_RES_FA-total_bea_RES_FA)/total_bea_RES_FA)
 
-print("amount non-res fixed assets: ", total_btax_FA)
-print("amount of land: ", total_btax_LAND)
-print("amount of inventories: ", total_btax_INV)
-print("amount of res fixed assets: ", total_btax_RES_FA)
-print("diff in res fixed assets: ", total_btax_RES_FA-total_bea_RES_FA)
+print("amount non-res fixed assets: ", total_ccc_FA)
+print("amount of land: ", total_ccc_LAND)
+print("amount of inventories: ", total_ccc_INV)
+print("amount of res fixed assets: ", total_ccc_RES_FA)
+print("diff in res fixed assets: ", total_ccc_RES_FA-total_bea_RES_FA)
 '''
 Do differences in fixed assets by industry (the place where BEA data has detail)
 '''
-btax_FA = asset_data[asset_data['Asset Type']!='Land'].copy()
-btax_FA = btax_FA[btax_FA['Asset Type']!='Inventories'].copy()
-btax_FA = btax_FA[btax_FA['Asset Type']!='Land'].copy()
-btax_FA = btax_FA[btax_FA['Asset Type']!='Residential'].copy()
+ccc_FA = asset_data[asset_data['Asset Type']!='Land'].copy()
+ccc_FA = ccc_FA[ccc_FA['Asset Type']!='Inventories'].copy()
+ccc_FA = ccc_FA[ccc_FA['Asset Type']!='Land'].copy()
+ccc_FA = ccc_FA[ccc_FA['Asset Type']!='Residential'].copy()
 bea_ind = pd.DataFrame(bea_FA.groupby('bea_ind_code').sum()).reset_index()
-btax_ind = pd.DataFrame(btax_FA.groupby('bea_ind_code').sum()).reset_index()
-FA_ind = pd.merge(bea_ind, btax_ind, how='left', left_on=['bea_ind_code'],
+ccc_ind = pd.DataFrame(ccc_FA.groupby('bea_ind_code').sum()).reset_index()
+FA_ind = pd.merge(bea_ind, ccc_ind, how='left', left_on=['bea_ind_code'],
   right_on=['bea_ind_code'], left_index=False, right_index=False, sort=False,
   copy=True)
 FA_ind['difference'] = FA_ind['assets_x']-FA_ind['assets_y']
@@ -164,11 +164,11 @@ FA_ind.to_csv('FixedAsset_DiffsByInd.csv',encoding='utf-8')
 '''
 Find shares of assets attributed to corp/non-corp by industry
 '''
-btax_FA['assets_nc'] = 0
-btax_FA['assets_c'] = 0
-btax_FA.loc[btax_FA['tax_treat']=='non-corporate','assets_nc']= btax_FA.loc[btax_FA['tax_treat']=='non-corporate','assets']
-btax_FA.loc[btax_FA['tax_treat']=='corporate','assets_c']= btax_FA.loc[btax_FA['tax_treat']=='corporate','assets']
-shares_corp_non = pd.DataFrame(btax_FA.groupby(['bea_ind_code'])['assets_c','assets_nc','assets'].sum()).reset_index()
+ccc_FA['assets_nc'] = 0
+ccc_FA['assets_c'] = 0
+ccc_FA.loc[ccc_FA['tax_treat']=='non-corporate','assets_nc']= ccc_FA.loc[ccc_FA['tax_treat']=='non-corporate','assets']
+ccc_FA.loc[ccc_FA['tax_treat']=='corporate','assets_c']= ccc_FA.loc[ccc_FA['tax_treat']=='corporate','assets']
+shares_corp_non = pd.DataFrame(ccc_FA.groupby(['bea_ind_code'])['assets_c','assets_nc','assets'].sum()).reset_index()
 shares_corp_non['Corp Share'] = shares_corp_non['assets_c']/(shares_corp_non['assets_c']+shares_corp_non['assets_nc'])
 shares_corp_non['Non-corp Share'] = shares_corp_non['assets_nc']/(shares_corp_non['assets_c']+shares_corp_non['assets_nc'])
 shares_corp_non['check'] = (shares_corp_non['assets_c']+shares_corp_non['assets_nc'])-shares_corp_non['assets']
@@ -185,18 +185,18 @@ shares_corp_non.to_csv('shares_corp_non.csv',encoding='utf-8')
 '''
 Find shares of assets attributed to corp/non-corp partnerships by industry
 '''
-btax_FA = asset_data[asset_data['Asset Type']!='Land'].copy()
-btax_part_FA = btax_FA[btax_FA['entity_type']=='partnership'].copy()
-btax_part_FA = btax_part_FA[btax_part_FA['Asset Type']!='Inventories'].copy()
-btax_part_FA = btax_part_FA[btax_part_FA['Asset Type']!='Land'].copy()
-btax_part_FA = btax_part_FA[btax_part_FA['Asset Type']!='Residential'].copy()
-btax_part_FA['assets_nc'] = 0
-btax_part_FA['assets_c'] = 0
-btax_part_FA.loc[btax_part_FA['tax_treat']=='non-corporate','assets_nc']= btax_part_FA.loc[btax_part_FA['tax_treat']=='non-corporate','assets']
-btax_part_FA.loc[btax_part_FA['tax_treat']=='corporate','assets_c']= btax_part_FA.loc[btax_part_FA['tax_treat']=='corporate','assets']
-# shares_corp_non = pd.DataFrame({btax_FA.groupby(
+ccc_FA = asset_data[asset_data['Asset Type']!='Land'].copy()
+ccc_part_FA = ccc_FA[ccc_FA['entity_type']=='partnership'].copy()
+ccc_part_FA = ccc_part_FA[ccc_part_FA['Asset Type']!='Inventories'].copy()
+ccc_part_FA = ccc_part_FA[ccc_part_FA['Asset Type']!='Land'].copy()
+ccc_part_FA = ccc_part_FA[ccc_part_FA['Asset Type']!='Residential'].copy()
+ccc_part_FA['assets_nc'] = 0
+ccc_part_FA['assets_c'] = 0
+ccc_part_FA.loc[ccc_part_FA['tax_treat']=='non-corporate','assets_nc']= ccc_part_FA.loc[ccc_part_FA['tax_treat']=='non-corporate','assets']
+ccc_part_FA.loc[ccc_part_FA['tax_treat']=='corporate','assets_c']= ccc_part_FA.loc[ccc_part_FA['tax_treat']=='corporate','assets']
+# shares_corp_non = pd.DataFrame({ccc_FA.groupby(
 #     ['bea_ind_code'])['assets_c','assets_nc','assets'].sum()}).reset_index()
-part_corp_non = pd.DataFrame(btax_part_FA.groupby(['bea_ind_code'])['assets_c','assets_nc','assets'].sum()).reset_index()
+part_corp_non = pd.DataFrame(ccc_part_FA.groupby(['bea_ind_code'])['assets_c','assets_nc','assets'].sum()).reset_index()
 part_corp_non['Corp Share'] = part_corp_non['assets_c']/(part_corp_non['assets_c']+part_corp_non['assets_nc'])
 part_corp_non['Non-corp Share'] = part_corp_non['assets_nc']/(part_corp_non['assets_c']+part_corp_non['assets_nc'])
 part_corp_non['check'] = (part_corp_non['assets_c']+part_corp_non['assets_nc'])-part_corp_non['assets']

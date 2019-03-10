@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import pytest
 from pandas.testing import assert_frame_equal
-from btax import calc_final_outputs
+from ccc import calc_final_outputs
 
 
 correct_df0 = pd.DataFrame(

@@ -3,7 +3,7 @@ import os.path
 import sys
 import numpy as np
 import pandas as pd
-from btax.util import get_paths
+from ccc.util import get_paths
 globals().update(get_paths())
 _OOH_VALUE = os.path.join(_DATA_DIR, 'b101.csv')
 _DEBT_NFCORP = os.path.join(_DATA_DIR, 'l103.csv')

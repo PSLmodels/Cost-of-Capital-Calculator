@@ -4,22 +4,22 @@ import pandas as pd
 import json
 import numpy as np
 from pandas.util.testing import assert_frame_equal
-from btax import run_btax
-from btax.parameters import Specifications
+from ccc import run_ccc
+from ccc.parameters import Specifications
 
 CUR_PATH = os.path.abspath(os.path.dirname(__file__))
 
 # Load input values
 input_tuple = tuple(json.load(open(os.path.join(
-    CUR_PATH, 'run_btax_inputs.json'))))
+    CUR_PATH, 'run_ccc_inputs.json'))))
 test_run, baseline, start_year, iit_reform, data, user_params = input_tuple
 result_by_asset = pd.read_json(os.path.join(
-    CUR_PATH, 'run_btax_asset_output.json'))
+    CUR_PATH, 'run_ccc_asset_output.json'))
 result_by_industry = pd.read_json(os.path.join(
-    CUR_PATH, 'run_btax_industry_output.json'))
+    CUR_PATH, 'run_ccc_industry_output.json'))
 parameters = Specifications(year=start_year, call_tc=True,
                             iit_reform=iit_reform)
-test_by_asset, test_by_industry = run_btax.run_btax(
+test_by_asset, test_by_industry = run_ccc.run_ccc(
     parameters, baseline, data='cps')
 
 # Lists of variables to compare
@@ -49,8 +49,8 @@ industry_var_list = ['delta_c', 'delta_c', 'z_c', 'z_c_d', 'z_c_e',
                           ((industry_var_list, test_by_industry),
                            result_by_industry)],
                          ids=['by assset', 'by industry'])
-def test_run_btax_asset(test_params, expected):
-    # Test the run_btax.run_btax() function by reading in inputs and
+def test_run_ccc_asset(test_params, expected):
+    # Test the run_ccc.run_ccc() function by reading in inputs and
     # confirming that output variables have the same values.
     var_list, test_df = test_params
     test_df.sort_index(inplace=True)

@@ -1,6 +1,6 @@
 *.pyc
 MANIFEST
-btax.egg-info
+ccc.egg-info
 build/*
 dist/*
 *.aux

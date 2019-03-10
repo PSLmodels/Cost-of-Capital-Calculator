@@ -15,7 +15,7 @@ This py-file creates the following other file(s):
 from __future__ import print_function
 import numpy as np
 from taxcalc import *
-from btax.util import DEFAULT_START_YEAR, RECORDS_START_YEAR, TC_LAST_YEAR
+from ccc.util import DEFAULT_START_YEAR, RECORDS_START_YEAR, TC_LAST_YEAR
 
 
 def get_calculator(baseline, calculator_start_year, reform=None,

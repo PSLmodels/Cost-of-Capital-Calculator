@@ -12,7 +12,7 @@ industries.
 from __future__ import print_function, unicode_literals
 import pandas as pd
 # Directory names:
-from btax.util import get_paths
+from ccc.util import get_paths
 globals().update(get_paths())
 
 _DFLT_S_CORP_COLS_DICT = DFLT_S_CORP_COLS_DICT =\

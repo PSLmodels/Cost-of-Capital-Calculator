@@ -1,7 +1,7 @@
 import os
 import tempfile
 import pytest
-from btax.parameters import Specifications, reform_warnings_errors
+from ccc.parameters import Specifications, reform_warnings_errors
 
 
 JSON_REVISION_FILE = """{
@@ -80,17 +80,17 @@ def test_implement_bad_reform2():
 
 
 def test_reform_warnings_errors():
-    user_mods = {'btax': {'profit_rate': 0.3}}
+    user_mods = {'ccc': {'profit_rate': 0.3}}
 
     ew = reform_warnings_errors(user_mods)
-    assert len(ew['btax']['errors']) == 0
-    assert len(ew['btax']['warnings']) == 0
+    assert len(ew['ccc']['errors']) == 0
+    assert len(ew['ccc']['warnings']) == 0
 
-    user_mods = {'btax': {'profit_rate': -0.1}}
+    user_mods = {'ccc': {'profit_rate': -0.1}}
 
     bad_ew = reform_warnings_errors(user_mods)
-    assert len(bad_ew['btax']['errors']) > 0
-    assert len(bad_ew['btax']['warnings']) == 0
+    assert len(bad_ew['ccc']['errors']) > 0
+    assert len(bad_ew['ccc']['warnings']) == 0
 
 
 def test_simple_eval():

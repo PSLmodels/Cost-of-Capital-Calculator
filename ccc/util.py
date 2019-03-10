@@ -49,8 +49,8 @@ def read_from_egg(tfile):
     template_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                  tfile)
     if not os.path.exists(template_path):
-        path_in_egg = os.path.join("btax", tfile)
-        buf = resource_stream(Requirement.parse("btax"), path_in_egg)
+        path_in_egg = os.path.join("ccc", tfile)
+        buf = resource_stream(Requirement.parse("ccc"), path_in_egg)
         _bytes = buf.read()
         contents = str(_bytes)
     else:
@@ -61,16 +61,16 @@ def read_from_egg(tfile):
 
 DEFAULT_ASSET_COLS = json.loads(read_from_egg
                                 (os.path.join('param_defaults',
-                                              'btax_results_by_asset.json')))
+                                              'ccc_results_by_asset.json')))
 DEFAULT_INDUSTRY_COLS = json.loads(read_from_egg
                                    (os.path.join('param_defaults',
-                                                 'btax_results_by_industry.json')))
+                                                 'ccc_results_by_industry.json')))
 
 
 def get_paths():
     """
     Function to define constants that contain strings with paths to the
-    various datafiles B-Tax relies on.
+    various datafiles Cost-of-Capital-Calculator relies on.
 
     Args:
         None
@@ -91,7 +91,7 @@ def get_paths():
     paths['_BEA_DIR'] = _BEA_DIR = os.path.join(_RAW_DIR, 'BEA')
     paths['_FIN_ACCT_DIR'] = _FIN_ACCT_DIR =\
     os.path.join(_RAW_DIR, 'national_accounts')
-    # paths['_OUT_DIR'] = os.environ.get('BTAX_OUT_DIR', 'btax_output_dir')
+    # paths['_OUT_DIR'] = os.environ.get('ccc_OUT_DIR', 'ccc_output_dir')
     # if not os.path.exists(paths['_OUT_DIR']):
     #     os.mkdir(paths['_OUT_DIR'])
     paths['_BEA_ASSET_PATH'] = _BEA_ASSET_PATH =\
@@ -191,7 +191,7 @@ def filter_user_params_for_econ(**user_params):
         econ_params: dictionary, economic parameters
     """
     econ_params = {k: v for k, v in user_params.items() if
-                   k.startswith('btax_econ_')}
+                   k.startswith('ccc_econ_')}
 
     return econ_params
 

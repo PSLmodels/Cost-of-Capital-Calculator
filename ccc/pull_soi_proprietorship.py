@@ -14,8 +14,8 @@ import re
 import sys
 import numpy as np
 import pandas as pd
-from btax.util import get_paths, to_str
-import btax.pull_soi_partner as prt
+from ccc.util import get_paths, to_str
+import ccc.pull_soi_partner as prt
 globals().update(get_paths())
 
 _DDCT_FILE_FCTR = 10**3

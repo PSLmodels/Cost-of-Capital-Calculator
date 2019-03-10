@@ -14,8 +14,8 @@ import os.path
 import sys
 import pandas as pd
 import numpy as np
-import btax.parameters as param
-from btax.util import get_paths, wavg
+import ccc.parameters as param
+from ccc.util import get_paths, wavg
 
 globals().update(get_paths())
 

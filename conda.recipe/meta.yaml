@@ -1,5 +1,5 @@
 package:
-  name: btax
+  name: ccc
   version: 0.0.0
 
 source:
@@ -21,23 +21,23 @@ requirements:
     - xlrd
 
 about:
-  home: https://github.com/open-source-economics/B-Tax/
+  home: https://github.com/open-source-economics/Cost-of-Capital-Calculator/
 
 
 test:
   imports:
-    - btax
-    - btax.parameters
-    - btax.run_btax
-    - btax.calc_z
-    - btax.calc_final_outputs
-    - btax.calibrate_financing
-    - btax.check_output
-    - btax.execute
-    - btax.format_output
-    - btax.pull_soi_corp
-    - btax.front_end_util
-    - btax.get_taxcalc_rates
-    - btax.pull_soi_proprietorship
-    - btax.read_bea
-    - btax.util
+    - ccc
+    - ccc.parameters
+    - ccc.run_ccc
+    - ccc.calc_z
+    - ccc.calc_final_outputs
+    - ccc.calibrate_financing
+    - ccc.check_output
+    - ccc.execute
+    - ccc.format_output
+    - ccc.pull_soi_corp
+    - ccc.front_end_util
+    - ccc.get_taxcalc_rates
+    - ccc.pull_soi_proprietorship
+    - ccc.read_bea
+    - ccc.util

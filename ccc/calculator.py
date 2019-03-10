@@ -1,5 +1,5 @@
 """
-B-Tax Calculator class.
+Cost-of-Capital-Calculator Calculator class.
 """
 # CODING-STYLE CHECKS:
 # pycodestyle calculator.py
@@ -13,11 +13,11 @@ import copy
 import urllib
 import numpy as np
 import pandas as pd
-from btax.calcfunctions import (cost_of_capital, metr, eatr)
-from btax.policy import Policy
-from btax.records import Records
-from btax.behavior import Behavior
-from btax.utils import (json_to_dict,
+from ccc.calcfunctions import (cost_of_capital, metr, eatr)
+from ccc.policy import Policy
+from ccc.records import Records
+from ccc.behavior import Behavior
+from ccc.utils import (json_to_dict,
                            DIST_VARIABLES, create_distribution_table,
                            DIFF_VARIABLES, create_difference_table,
                            create_diagnostic_table,

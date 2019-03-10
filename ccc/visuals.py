@@ -2,7 +2,7 @@
 ------------------------------------------------------------------------
 Last updated 8/5/2016
 
-This program reads in the btax output dataframes and plots the results.
+This program reads in the ccc output dataframes and plots the results.
 
 This py-file calls the following other file(s):
 

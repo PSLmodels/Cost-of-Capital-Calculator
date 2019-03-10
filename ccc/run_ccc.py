@@ -1,8 +1,8 @@
 """
-Runner Script (run_btax.py):
+Runner Script (run_ccc.py):
 ------------------------------------------------------------------------
 Initial module that contains the method to start the calculations in
-B-Tax. Makes function calls to split out fixed assets by entity type
+Cost-of-Capital-Calculator. Makes function calls to split out fixed assets by entity type
 (pull_soi_data), allocate fixed assets to industries (read_bea), grab
 all the parameters for the final calculations (get_params), and
 calculate the Cost of Capital, Marginal Effective Tax Rates, and
@@ -25,20 +25,20 @@ import sys
 import numpy as np
 import pandas as pd
 
-from btax.soi_processing import pull_soi_data
-from btax import calc_final_outputs
-from btax import check_output
-from btax.util import (get_paths,
+from ccc.soi_processing import pull_soi_data
+from ccc import calc_final_outputs
+from ccc import check_output
+from ccc.util import (get_paths,
                        read_from_egg,
                        diff_two_tables,
                        filter_user_params_for_econ)
-from btax import read_bea
-import btax.soi_processing as soi
-import btax.parameters as params
-from btax import format_output
-from btax.front_end_util import (runner_json_tables,
+from ccc import read_bea
+import ccc.soi_processing as soi
+import ccc.parameters as params
+from ccc import format_output
+from ccc.front_end_util import (runner_json_tables,
                                  replace_unicode_spaces)
-from btax.util import DEFAULT_START_YEAR
+from ccc.util import DEFAULT_START_YEAR
 
 globals().update(get_paths())
 TABLE_ORDER = ['base_output_by_asset', 'reform_output_by_asset',
@@ -51,15 +51,15 @@ ModelDiffs = namedtuple('ModelDiffs', TABLE_ORDER + ['row_grouping'])
 ASSET_PRE_CACHE_FILE = 'asset_data.pkl'
 
 
-def run_btax(params, baseline=False, data=None):
+def run_ccc(params, baseline=False, data=None):
     """
-    Runner script that kicks off the calculations for B-Tax
+    Runner script that kicks off the calculations for Cost-of-Capital-Calculator
 
     Args:
         test_run: boolean, True if test run (doesn't use puf.csv)
         baseline: boolean, True if run with current law parameters
         start_year: integer, tax year METRs computed for
-        user_params: dictionary, user defined parametesr for B-Tax
+        user_params: dictionary, user defined parametesr for Cost-of-Capital-Calculator
 
     Returns:
         output_by_asset: dataframe, output variables for all assets
@@ -115,14 +115,14 @@ def run_btax(params, baseline=False, data=None):
     return output_by_asset, output_by_industry
 
 
-def run_btax_with_baseline_delta(base_params, reform_params, data=None):
+def run_ccc_with_baseline_delta(base_params, reform_params, data=None):
     """
-    Runner script that kicks off the calculations for B-Tax
+    Runner script that kicks off the calculations for Cost-of-Capital-Calculator
 
     Args:
         test_run: boolean, True if test run (doesn't use puf.csv)
         start_year: interger, tax year METRs computed for
-        user_params: dictionary, user defined parametesr for B-Tax
+        user_params: dictionary, user defined parametesr for Cost-of-Capital-Calculator
 
     Returns:
         ModelDiffs: tuple, contains 6 dataframes for output by asset and
@@ -130,7 +130,7 @@ def run_btax_with_baseline_delta(base_params, reform_params, data=None):
 
     """
     base_output_by_asset, base_output_by_industry = \
-        run_btax(base_params, True, data=data)
+        run_ccc(base_params, True, data=data)
     asset_row_grouping = {}
     subset = zip(*(getattr(base_output_by_asset, at) for at in
                    ('Asset', 'asset_category', 'mettr_c', 'mettr_nc')))
@@ -152,7 +152,7 @@ def run_btax_with_baseline_delta(base_params, reform_params, data=None):
     row_grouping = {'asset': asset_row_grouping,
                     'industry': industry_row_grouping}
     reform_output_by_asset, reform_output_by_industry =\
-        run_btax(reform_params, False, data=data)
+        run_ccc(reform_params, False, data=data)
     changed_output_by_asset =\
         diff_two_tables(reform_output_by_asset, base_output_by_asset)
     changed_output_by_industry =\
@@ -178,7 +178,7 @@ def run_btax_with_baseline_delta(base_params, reform_params, data=None):
 
 
 def main():
-    run_btax()
+    run_ccc()
 
 
 if __name__ == '__main__':
