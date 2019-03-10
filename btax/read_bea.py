@@ -40,9 +40,10 @@ def fixed_assets(soi_data):
         bea_FA: DataFrame, BEA fixed asset data
     """
     # Read in BEA fixed asset table
-    bea_FA = pd.read_excel(_BEA_ASSET_PATH, sheetname="Datasets")
-    bea_FA = bea_FA[['2013']]
-    bea_FA['long_code'] = bea_FA.index
+    bea_all = pd.read_excel(_BEA_ASSET_PATH, sheet_name="Datasets")
+    bea_FA = bea_all[['Unnamed: 0', '2013']].copy()
+    # bea_FA['long_code'] = bea_FA.index
+    bea_FA.rename(columns={'Unnamed: 0': 'long_code'}, inplace=True)
     bea_FA.dropna(subset=['long_code'], inplace=True)
     bea_FA.reset_index(drop=True, inplace=True)
     bea_FA.rename(columns={"2013": "assets"}, inplace=True)
@@ -52,7 +53,7 @@ def fixed_assets(soi_data):
     bea_FA['bea_asset_code'] = bea_FA['bea_asset_code'].str.strip()
 
     # Read in BEA asset names
-    bea_asset_names = pd.read_excel(_BEA_ASSET_PATH, sheetname="110C",
+    bea_asset_names = pd.read_excel(_BEA_ASSET_PATH, sheet_name="110C",
                                     header=5,
                                     converters={'Asset Codes': str})
     bea_asset_names = bea_asset_names[['Asset Codes', 'NIPA Asset Types']]
@@ -71,7 +72,7 @@ def fixed_assets(soi_data):
                       right_index=False, sort=False, copy=True)
 
     # Read in BEA industry names
-    bea_ind_names = pd.read_excel(_BEA_ASSET_PATH, sheetname="readme",
+    bea_ind_names = pd.read_excel(_BEA_ASSET_PATH, sheet_name="readme",
                                   converters={'BEA CODE': str}, header=14)
     bea_ind_names = bea_ind_names[['INDUSTRY TITLE ', 'BEA CODE']]
     bea_ind_names.dropna(subset=['BEA CODE'], inplace=True)
@@ -133,7 +134,7 @@ def inventories(soi_data):
     # note I had to edit this by hand becaue of the subindustries under
     # manufacturing and wholesale trade.  Not sure how to read those
     # are unique names otherwise.
-    bea_inventories = pd.read_excel(_BEA_INV, sheetname="Sheet0",
+    bea_inventories = pd.read_excel(_BEA_INV, sheet_name="Sheet0",
                                     skiprows=6, skip_footer=4)
     bea_inventories.reset_index()
     bea_inventories = bea_inventories[['Unnamed: 1', 'IV.1']].copy()
@@ -184,7 +185,7 @@ def land(soi_data, bea_FA):
     noncorp_land = 13792.4 * _FIN_ACCT_FILE_FCTR
 
     # read in BEA data on residential fixed assets
-    bea_residential = pd.read_excel(_BEA_RES, sheetname="Sheet0",
+    bea_residential = pd.read_excel(_BEA_RES, sheet_name="Sheet0",
                                     skiprows=5, skip_footer=2)
     bea_residential.reset_index()
     bea_residential = bea_residential[[u'\xa0', '2013']].copy()
@@ -339,7 +340,7 @@ def combine(fixed_assets, inventories, land, res_assets, owner_occ_dict):
 
     # Merge industry names to asset data
     # Read in BEA industry names
-    bea_ind_names = pd.read_excel(_BEA_ASSET_PATH, sheetname="readme",
+    bea_ind_names = pd.read_excel(_BEA_ASSET_PATH, sheet_name="readme",
                                   converters={'BEA CODE': str}, header=14)
     bea_ind_names = bea_ind_names[['INDUSTRY TITLE ', 'BEA CODE']]
     bea_ind_names.dropna(subset=['BEA CODE'], inplace=True)
