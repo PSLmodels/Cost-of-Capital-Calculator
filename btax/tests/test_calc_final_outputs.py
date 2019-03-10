@@ -4,6 +4,7 @@ import pytest
 from pandas.testing import assert_frame_equal
 from btax import calc_final_outputs
 
+
 correct_df0 = pd.DataFrame(
     {'Asset Type': ['Inventories', 'Autos'],
      'delta': [0.0, 0.1],

@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from collections import defaultdict
 import os
 import json
-from btax.parameters import DEFAULT_ASSET_COLS, DEFAULT_INDUSTRY_COLS
+from btax.util import DEFAULT_ASSET_COLS, DEFAULT_INDUSTRY_COLS
 from btax.util import DEFAULT_START_YEAR
 
 # Row labels, in order, including minor headings like "Durable goods"

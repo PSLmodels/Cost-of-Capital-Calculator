@@ -1,0 +1,46 @@
+{
+  "read": {
+    "Asset Type": {
+      "type": "string",
+      "desc": "Description of asset"
+    },
+    "assets": {
+      "type": "float",
+      "desc": "Dollar value of assets"
+    },
+    "bea_asset_code": {
+      "type": "string",
+      "desc": "BEA code for asset type"
+    },
+    "bea_ind_code": {
+      "type": "string",
+      "desc": "BEA code for production industry"
+    },
+    "entity_type": {
+      "type": "string",
+      "desc": "Tax entity type (e.g., C corporation, S corporation, partnership, sole proprietorship)"
+    },
+    "minor_code_alt": {
+      "type": "string",
+      "desc": "BEA code for production industry"
+    },
+    "part_type": {
+      "type": "string",
+      "desc": "Partnership type (e.g, not a partnership, corporate partneship,)"
+    },
+    "tax_treat": {
+      "type": "string",
+      "desc": "Tax treatment (whether corporate or pass-through)"
+    },
+    "Industry": {
+      "type": "string",
+      "desc": "Descriptive name of production industry"
+    },
+    },
+  }
+}
+
+
+'level_0', 'Asset Type', 'assets', 'bea_asset_code', 'bea_ind_code',
+       'entity_type', 'index', 'minor_code_alt', 'part_type', 'tax_treat',
+       'Industry'
