@@ -17,7 +17,8 @@ result_by_asset = pd.read_json(os.path.join(
     CUR_PATH, 'run_btax_asset_output.json'))
 result_by_industry = pd.read_json(os.path.join(
     CUR_PATH, 'run_btax_industry_output.json'))
-parameters = Specifications(year=start_year, iit_reform=iit_reform)
+parameters = Specifications(year=start_year, call_tc=True,
+                            iit_reform=iit_reform)
 test_by_asset, test_by_industry = run_btax.run_btax(
     parameters, baseline, data='cps')
 
