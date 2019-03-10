@@ -59,7 +59,7 @@ def test_run_btax_asset(test_params, expected):
     expected.reset_index(inplace=True)
 
     for item in var_list:
-        assert np.allclose(test_df[item], expected[item], atol=1e-2)
+        assert np.allclose(test_df[item], expected[item], atol=1e-5)
     # assert_frame_equal(test_df[var_list], expected[var_list],
     #                    check_dtype=False, check_index_type=False,
     #                    check_exact=False, check_less_precise=2)
