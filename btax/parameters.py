@@ -37,7 +37,7 @@ class Specifications(ParametersBase):
 
         if call_tc:
             # Find individual income tax rates from Tax-Calculator
-            indiv_rates = get_rates(self.baseline, self.start_year,
+            indiv_rates = get_rates(self.baseline, self.year,
                                     self.iit_reform, self.data)
         else:
             # Set indiv rates to some values
