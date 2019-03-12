@@ -81,6 +81,7 @@ def get_paths():
     paths = {}
     _CUR_DIR = _MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
     _DATA_DIR = os.path.join(_MAIN_DIR, 'data')
+    paths['_CUR_DIR'] = _CUR_DIR
     paths['_MAIN_DIR'] = paths['_DATA_DIR'] = _MAIN_DIR
     paths['_RATE_DIR'] = _RATE_DIR = os.path.join(_DATA_DIR,
                                                   'depreciation_rates')
