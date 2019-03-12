@@ -14,7 +14,7 @@ from __future__ import unicode_literals
 import re
 import numpy as np
 import pandas as pd
-from ccc.util import get_paths, to_str
+from ccc.utils import get_paths, to_str
 globals().update(get_paths())
 
 # Constants

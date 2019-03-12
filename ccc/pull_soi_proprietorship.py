@@ -14,7 +14,7 @@ import re
 import sys
 import numpy as np
 import pandas as pd
-from ccc.util import get_paths, to_str
+from ccc.utils import get_paths, to_str
 import ccc.pull_soi_partner as prt
 globals().update(get_paths())
 
@@ -115,16 +115,16 @@ def load_proprietorship_data(entity_dfs):
 
     # attribute over a minor industry only idenfified in w/ other minor
     # ind in SOI
-    nonfarm_df.ix[nonfarm_df['INDY_CD'] == 531115, 'Depreciation'] =\
+    nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531115, 'Depreciation'] =\
         (nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531135,
                          'Depreciation'].values * 0.5)
-    nonfarm_df.ix[nonfarm_df['INDY_CD'] == 531115, 'Inventories'] =\
+    nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531115, 'Inventories'] =\
         (nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531135,
                          'Inventories'].values * 0.5)
-    nonfarm_df.ix[nonfarm_df['INDY_CD'] == 531135, 'Depreciation'] =\
+    nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531135, 'Depreciation'] =\
         (nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531135,
                          'Depreciation'].values * 0.5)
-    nonfarm_df.ix[nonfarm_df['INDY_CD'] == 531135, 'Inventories'] =\
+    nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531135, 'Inventories'] =\
         (nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531135,
                          'Inventories'].values * 0.5)
 
@@ -196,7 +196,7 @@ def load_proprietorship_data(entity_dfs):
 
     # allocate capital based on ratios
     for var in columns:
-        nonfarm.ix[nonfarm['INDY_CD'] > 99999, var + '_ratio'] = 1.
+        nonfarm.loc[nonfarm['INDY_CD'] > 99999, var + '_ratio'] = 1.
         nonfarm[var] = nonfarm[var] * nonfarm[var + '_ratio']
 
     nonfarm.drop(list(x + '_ratio' for x in columns), axis=1, inplace=True)
@@ -245,8 +245,8 @@ def load_proprietorship_data(entity_dfs):
     sp_farm_cstock = np.array([sp_farm_assts, 0, sp_farm_land])
 
     # Adds farm data to industry 111
-    nonfarm.ix[nonfarm['INDY_CD'] == 111, 'Fixed Assets'] += sp_farm_cstock[0]
-    nonfarm.ix[nonfarm['INDY_CD'] == 111, 'Land'] += sp_farm_cstock[2]
+    nonfarm.loc[nonfarm['INDY_CD'] == 111, 'Fixed Assets'] += sp_farm_cstock[0]
+    nonfarm.loc[nonfarm['INDY_CD'] == 111, 'Land'] += sp_farm_cstock[2]
 
     # Creates the dictionary of sector : dataframe that is returned and
     # used to update entity_dfs

@@ -16,7 +16,7 @@ try:
     import cPickle as pickle
 except ImportError:
     import pickle
-from ccc.util import get_paths, read_from_egg
+from ccc.utils import get_paths, read_from_egg
 
 
 globals().update(get_paths())

@@ -12,7 +12,7 @@ import pandas as pd
 import ccc.pull_soi_corp as corp
 import ccc.pull_soi_partner as prt
 import ccc.pull_soi_proprietorship as prop
-from ccc.util import get_paths
+from ccc.utils import get_paths
 globals().update(get_paths())
 
 
@@ -63,13 +63,13 @@ def pull_soi_data():
     soi_bea_ind_codes.drop_duplicates(subset=['minor_code_alt'],
                                       inplace=True)
     soi_data['tax_treat'] = 'non-corporate'
-    soi_data.ix[soi_data['entity_type'] == 'c_corp', 'tax_treat'] = 'corporate'
-    soi_data.ix[(soi_data['entity_type'] == 'partnership') &
-                (soi_data['part_type'] == 'Corporate general partners'),
-                'tax_treat'] = 'corporate'
-    soi_data.ix[(soi_data['entity_type'] == 'partnership') &
-                (soi_data['part_type'] == 'Corporate limited partners'),
-                'tax_treat'] = 'corporate'
+    soi_data.loc[soi_data['entity_type'] == 'c_corp', 'tax_treat'] = 'corporate'
+    soi_data.loc[(soi_data['entity_type'] == 'partnership') &
+                 (soi_data['part_type'] == 'Corporate general partners'),
+                 'tax_treat'] = 'corporate'
+    soi_data.loc[(soi_data['entity_type'] == 'partnership') &
+                 (soi_data['part_type'] == 'Corporate limited partners'),
+                 'tax_treat'] = 'corporate'
     soi_data = pd.merge(soi_data, soi_bea_ind_codes, how='left',
                         left_on=['minor_code_alt'],
                         right_on=['minor_code_alt'], left_index=False,

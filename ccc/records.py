@@ -8,8 +8,8 @@ Cost-of-Capital-Calculator asset and tax-entity type Records class.
 import os
 import numpy as np
 import pandas as pd
-from ccc.util import read_egg_csv, read_egg_json, json_to_dict
-from ccc.util import ASSET_DATA_CSV_YEAR
+from ccc.utils import read_egg_csv, read_egg_json, json_to_dict
+from ccc.utils import ASSET_DATA_CSV_YEAR
 
 
 class Records():
