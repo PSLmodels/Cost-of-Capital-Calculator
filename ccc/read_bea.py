@@ -330,12 +330,12 @@ def combine(fixed_assets, inventories, land, res_assets, owner_occ_dict):
     land['bea_asset_code'] = 'LAND'
 
     # append dataframes to each other
-    asset_data = fixed_assets.append([inventories, land, res_assets],
+    asset_data = fixed_assets.append([inventories, land, res_assets], sort=True,
                                      ignore_index=True).copy().reset_index()
 
     # add owner occupied housing by appending dictionary
     owner_occ = pd.DataFrame.from_dict(owner_occ_dict)
-    asset_data = asset_data.append(owner_occ,
+    asset_data = asset_data.append(owner_occ, sort=True,
                                    ignore_index=True).copy().reset_index()
 
     # Merge industry names to asset data

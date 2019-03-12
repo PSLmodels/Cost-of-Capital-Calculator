@@ -48,7 +48,7 @@ def pull_soi_data():
                                               'Inventories']].copy()
     sole_prop.loc[:, 'entity_type'] = 'sole_prop'
 
-    soi_data = c_corp.append([s_corp, partner, sole_prop],
+    soi_data = c_corp.append([s_corp, partner, sole_prop], sort=True,
                              ignore_index=True).copy().reset_index()
     soi_data['part_type'] = soi_data['part_type'].fillna('Not a partnership')
 
