@@ -135,7 +135,7 @@ def inventories(soi_data):
     # manufacturing and wholesale trade.  Not sure how to read those
     # are unique names otherwise.
     bea_inventories = pd.read_excel(_BEA_INV, sheet_name="Sheet0",
-                                    skiprows=6, skip_footer=4)
+                                    skiprows=6, skipfooter=4)
     bea_inventories.reset_index()
     bea_inventories = bea_inventories[['Unnamed: 1', 'IV.1']].copy()
     bea_inventories.rename(columns={"Unnamed: 1": "bea_inv_name",
@@ -186,7 +186,7 @@ def land(soi_data, bea_FA):
 
     # read in BEA data on residential fixed assets
     bea_residential = pd.read_excel(_BEA_RES, sheet_name="Sheet0",
-                                    skiprows=5, skip_footer=2)
+                                    skiprows=5, skipfooter=2)
     bea_residential.reset_index()
     bea_residential = bea_residential[[u'\xa0', '2013']].copy()
     bea_residential.rename(columns={u"\xa0": "entity_type",
