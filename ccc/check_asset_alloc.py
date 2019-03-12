@@ -18,7 +18,7 @@ import numpy as np
 import pandas as pd
 import xlrd
 import pickle
-from ccc.util import get_paths
+from ccc.utils import get_paths
 
 # Directories:
 globals().update(get_paths())
