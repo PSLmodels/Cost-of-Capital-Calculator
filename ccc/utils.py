@@ -91,7 +91,7 @@ def get_paths():
                                                   'depreciation_rates')
     paths['_BEA_DIR'] = _BEA_DIR = os.path.join(_RAW_DIR, 'BEA')
     paths['_FIN_ACCT_DIR'] = _FIN_ACCT_DIR =\
-    os.path.join(_RAW_DIR, 'national_accounts')
+        os.path.join(_RAW_DIR, 'national_accounts')
     # paths['_OUT_DIR'] = os.environ.get('ccc_OUT_DIR', 'ccc_output_dir')
     # if not os.path.exists(paths['_OUT_DIR']):
     #     os.mkdir(paths['_OUT_DIR'])
