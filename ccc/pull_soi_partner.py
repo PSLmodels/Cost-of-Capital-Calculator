@@ -10,7 +10,6 @@ entities.
 """
 
 # Packages:
-from __future__ import unicode_literals
 import re
 import numpy as np
 import pandas as pd
@@ -30,12 +29,12 @@ def load_partner_data(entity_dfs):
     each partner type and stores them in the soi dictionary.
 
     Args:
-        entity_dfs: dictionary, contains dataframs with SOI
-                    data by entity type
+        entity_dfs (dictionary): dictionary of DataFrames with SOI data
+            by entity type
 
     Returns:
-        entity_dfs: dictionary, dataframe with SOI data by
-                    entity type
+        entity_dfs (dictionary): dictionary of DataFrames with SOI data
+            by entity type
     """
 
     # with new cross walk:
@@ -76,8 +75,8 @@ def load_partner_data(entity_dfs):
     # keep only codes that help to identify complete industries
     xwalk = xwalk[xwalk['complete'] == 1]
     # read in partner data - partner assets
-    df = format_excel(pd.read_excel(_AST_FILE, skiprows=2,
-                                    skipfooter=6))
+    df = format_excel(
+        pd.read_excel(_AST_FILE, skiprows=2, skipfooter=6))
     # Cuts off the repeated columns so only the data for all
     # partnerships remains
     df.index = [to_str(x) for x in df.index]
@@ -100,8 +99,8 @@ def load_partner_data(entity_dfs):
         df03['Item'].apply(lambda x: re.sub(r'[\s+]', '', x))
 
     # partner data - income
-    df01 = format_excel(pd.read_excel(_INC_FILE, skiprows=2,
-                                      skipfooter=6))
+    df01 = format_excel(
+        pd.read_excel(_INC_FILE, skiprows=2, skipfooter=6))
     # Cuts off the repeated columns so only the data for all
     # partnerships remains
     df01 = df01.T.groupby(sort=False, level=0).first().T
@@ -115,16 +114,11 @@ def load_partner_data(entity_dfs):
         df01['Item'].apply(lambda x: re.sub(r'[\s+]', '', x))
 
     # merge two partner data sources together so that all variables together
-    df03 = pd.merge(df03, df01, how='inner',
-                    left_on=['Item'], right_on=['Item'],
-                    left_index=False, right_index=False,
-                    sort=False, copy=True)
+    df03 = df03.merge(df01, how='inner', on=['Item'], copy=True)
 
     # merge industry codes to partner data
-    df03 = pd.merge(df03, xwalk, how='inner',
-                    left_on=['Item'], right_on=['Industry:'],
-                    left_index=False, right_index=False,
-                    sort=False, copy=True)
+    df03 = df03.merge(xwalk, how='inner', left_on=['Item'],
+                      right_on=['Industry:'], copy=True)
     df03.drop(['Item', 'Industry:', 'Codes:', 'Notes:',
                'complete'], axis=1, inplace=True)
 
@@ -134,14 +128,14 @@ def load_partner_data(entity_dfs):
 
     # create ratios for minor industry assets using corporate
     # data read in crosswalk for bea and soi industry codes
-    soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS,
-                                    dtype={'bea_ind_code': str})
+    soi_bea_ind_codes = pd.read_csv(
+        _SOI_BEA_CROSS, dtype={'bea_ind_code': str})
     soi_bea_ind_codes.columns =\
         [to_str(c) for c in soi_bea_ind_codes.columns]
     soi_bea_ind_codes.drop('notes', axis=1, inplace=True)
     # drop one repeated minor ind code in crosswalk
-    soi_bea_ind_codes.drop_duplicates(subset=['minor_code_alt'],
-                                      inplace=True)
+    soi_bea_ind_codes.drop_duplicates(
+        subset=['minor_code_alt'], inplace=True)
 
     # merge codes to partner data
     # likely better way to do this...
@@ -151,20 +145,18 @@ def load_partner_data(entity_dfs):
                       (df03['INDY_CD'] < 1000)]
     df03_minor = df03[(df03['INDY_CD'] > 99999) &
                       (df03['INDY_CD'] < 1000000)]
-    sector_df = pd.merge(df03_sector, soi_bea_ind_codes, how='inner',
-                         left_on=['INDY_CD'], right_on=['sector_code'],
-                         left_index=False, right_index=False, sort=False,
-                         copy=True, indicator=True)
-    major_df = pd.merge(df03_major, soi_bea_ind_codes, how='inner',
-                        left_on=['INDY_CD'], right_on=['major_code'],
-                        left_index=False, right_index=False, sort=False,
-                        copy=True, indicator=True)
-    minor_df = pd.merge(df03_minor, soi_bea_ind_codes, how='inner',
-                        left_on=['INDY_CD'], right_on=['minor_code'],
-                        left_index=False, right_index=False, sort=False,
-                        copy=True, indicator=True)
-    part_data = sector_df.append([major_df, minor_df], sort=True,
-                                 ignore_index=True).copy().reset_index()
+    sector_df = df03_sector.merge(
+        soi_bea_ind_codes, how='inner', left_on=['INDY_CD'],
+        right_on=['sector_code'], copy=True, indicator=True)
+    major_df = df03_major.merge(
+        soi_bea_ind_codes, how='inner', left_on=['INDY_CD'],
+        right_on=['major_code'], copy=True, indicator=True)
+    minor_df = df03_minor.merge(
+        soi_bea_ind_codes, how='inner', left_on=['INDY_CD'],
+        right_on=['minor_code'], copy=True, indicator=True)
+    part_data = sector_df.append(
+        [major_df, minor_df], sort=True,
+        ignore_index=True).copy().reset_index()
     part_data.drop(['bea_inv_name', 'bea_code', '_merge'], axis=1,
                    inplace=True)
 
@@ -174,24 +166,21 @@ def load_partner_data(entity_dfs):
     # in total corp data - note that s corp data already unique by sector
     columns = ['Fixed Assets', 'Inventories', 'Land', 'Depreciation']
     s_corp = entity_dfs['s_corp'][['minor_code_alt']+columns]
-    corp = pd.merge(s_corp, soi_bea_ind_codes, how='inner',
-                    left_on=['minor_code_alt'],
-                    right_on=['minor_code_alt'], left_index=False,
-                    right_index=False, sort=False, suffixes=('_x', '_y'),
-                    copy=True)
+    corp = s_corp.merge(
+        soi_bea_ind_codes, how='inner', on=['minor_code_alt'],
+        suffixes=('_x', '_y'), copy=True)
     for var in columns:
         corp[var+'_ratio'] =\
-            corp.groupby(['major_code'])[var].apply(lambda x: x/float(x.sum()))
+            corp.groupby(['major_code'])[var].apply(
+                lambda x: x / float(x.sum()))
 
-    corp.drop(['bea_inv_name','bea_code','sector_code', 'minor_code'] +
-              columns, axis=1, inplace=True)
+    corp.drop(['bea_inv_name', 'bea_code', 'sector_code',
+               'minor_code'] + columns, axis=1, inplace=True)
 
     # merge these ratios to the partner data
-    part_data = pd.merge(part_data, corp, how='right',
-                         left_on=['minor_code_alt'],
-                         right_on=['minor_code_alt'], left_index=False,
-                         right_index=False, sort=False,
-                         suffixes=('_x', '_y'), copy=True)
+    part_data = part_data.merge(
+        corp, how='right', on=['minor_code_alt'], suffixes=('_x', '_y'),
+        copy=True)
 
     # allocate capital based on ratios
     for var in columns:
@@ -208,12 +197,11 @@ def load_partner_data(entity_dfs):
     # off by 7%.  Going forward with this- it may be that industry
     # splits aren't adding to SOI control total
 
-    '''
-    Attribute by partner type
-    '''
+    # Attribute by partner type
 
     # Read in data by partner type (gives income allocation by partner type)
-    df05 = format_excel(pd.read_excel(_TYP_FILE, skiprows=1, skipfooter=5))
+    df05 = format_excel(
+        pd.read_excel(_TYP_FILE, skiprows=1, skipfooter=5))
     df05.columns = [to_str(c) for c in df05.columns]
     df05 = df05[['Item', 'All partners', 'Corporate general partners',
                  'Corporate limited partners',
@@ -256,10 +244,9 @@ def load_partner_data(entity_dfs):
     typ_cross.columns = [to_str(c) for c in typ_cross.columns]
     typ_cross['Industry:'] = typ_cross['Industry:'].str.strip()
     df05['Item'] = df05['Item'].str.strip()
-    df05 = pd.merge(df05, typ_cross, how='inner', left_on=['Item'],
-                    right_on=['Industry:'], left_index=False,
-                    right_index=False, sort=False, copy=True,
-                    indicator=False)
+    df05 = df05.merge(
+        typ_cross, how='inner', left_on=['Item'],
+        right_on=['Industry:'], copy=True)
 
     # # create sums by group
     grouped = pd.DataFrame({'sum': df05.groupby(['Codes:']).
@@ -267,9 +254,7 @@ def load_partner_data(entity_dfs):
     # merge grouped data back to original df
     # One could make this more efficient - one line of code - with appropriate
     # pandas methods using groupby and apply above
-    df05 = pd.merge(df05, grouped, how='left', left_on=['Codes:'],
-                    right_on=['Codes:'], left_index=False,
-                    right_index=False, sort=False, copy=True)
+    df05 = df05.merge(grouped, how='left', on=['Codes:'], copy=True)
     df05['inc_ratio'] = (df05['net_inc'].astype(float).abs() /
                          df05['sum'].replace({0: np.nan})).replace({np.nan: 0})
     df05 = df05[['Codes:', 'part_type', 'net_inc', 'inc_ratio']]
@@ -285,34 +270,30 @@ def load_partner_data(entity_dfs):
     df_manu = (manu.append(manu, sort=True)).reset_index(drop=True)
     df_manu.loc[:len(part_types), 'Codes:'] = 32
     df_manu.loc[len(part_types):, 'Codes:'] = 33
-    df05 = df05.append(df_manu, sort=True, ignore_index=True).reset_index(drop=True).copy()
+    df05 = df05.append(df_manu, sort=True,
+                       ignore_index=True).reset_index(drop=True).copy()
     # # Merge SOI codes to BEA data
     df05_sector = df05[(df05['Codes:'] > 9) & (df05['Codes:'] < 100)]
     df05_major = df05[(df05['Codes:'] > 99) & (df05['Codes:'] < 1000)]
     df05_minor = df05[(df05['Codes:'] > 99999) & (df05['Codes:'] < 1000000)]
-    sector_df = pd.merge(df05_sector, soi_bea_ind_codes, how='inner',
-                         left_on=['Codes:'], right_on=['sector_code'],
-                         left_index=False, right_index=False, sort=False,
-                         copy=True, indicator=True)
-    major_df = pd.merge(df05_major, soi_bea_ind_codes, how='inner',
-                        left_on=['Codes:'], right_on=['major_code'],
-                        left_index=False, right_index=False, sort=False,
-                        copy=True, indicator=True)
-    minor_df = pd.merge(df05_minor, soi_bea_ind_codes, how='inner',
-                        left_on=['Codes:'], right_on=['minor_code'],
-                        left_index=False, right_index=False, sort=False,
-                        copy=True, indicator=True)
+    sector_df = df05_sector.merge(
+        soi_bea_ind_codes, how='inner', left_on=['Codes:'],
+        right_on=['sector_code'], copy=True, indicator=True)
+    major_df = df05_major.merge(
+        soi_bea_ind_codes, how='inner', left_on=['Codes:'],
+        right_on=['major_code'], copy=True, indicator=True)
+    minor_df = df05_minor.merge(
+        soi_bea_ind_codes, how='inner', left_on=['Codes:'],
+        right_on=['minor_code'], copy=True, indicator=True)
     df05 = sector_df.append([major_df, minor_df], sort=True,
                             ignore_index=True).copy().reset_index()
     df05.drop(['bea_inv_name', 'bea_code', '_merge'], axis=1,
               inplace=True)
 
     # # merge partner type ratios with partner asset data
-    part_assets = pd.merge(df05, part_data, how='left',
-                           left_on=['minor_code_alt'],
-                           right_on=['minor_code_alt'],
-                           left_index=False, right_index=False,
-                           sort=False, copy=True, indicator=True)
+    part_assets = df05.merge(
+        part_data, how='left', on=['minor_code_alt'], copy=True,
+        indicator=True)
     part_assets.drop(['Codes:', '_merge'], axis=1, inplace=True)
 
     # allocate across partner type
@@ -333,26 +314,27 @@ def abs_sum(group, avg_name):
     Computes the sum of absolute values within a group.
 
     Args:
-        group: pandas groupby object, grouping
-        avg_name: string, variable name to take sum over
+        group (Pandas groupby object): grouping
+        avg_name (string): variable name to take sum over
 
     Returns:
-        summand: pandas groupby object, grouping
+        summand (Pandas groupby object): grouping
     """
     d = group[avg_name]
     summand = (np.absolute(d)).sum()
 
     return summand
 
+
 def format_excel(df):
     """
     Formats an excel file.
 
     Args:
-        df: DataFrame, table of data read in from an Excel file
+        df (DataFrame): table of data read in from an Excel file
 
     Returns:
-        df: DataFrame, formatted DataFrame
+        df (DataFrame): formatted DataFrame
     """
 
     for i, element in enumerate(df.iloc[0, :]):

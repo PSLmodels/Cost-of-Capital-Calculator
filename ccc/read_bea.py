@@ -348,8 +348,7 @@ def combine(fixed_assets, inventories, land, res_assets, owner_occ_dict):
     bea_ind_names.rename(columns={"INDUSTRY TITLE ": "Industry",
                                   "BEA CODE": "bea_ind_code"},
                          inplace=True)
-    asset_data = pd.merge(asset_data, bea_ind_names, how='left',
-                          on=['bea_ind_code'], left_index=False,
-                          right_index=False, sort=False, copy=True)
+    asset_data = asset_data.merge(
+        bea_ind_names, how='left', on=['bea_ind_code'], copy=True)
 
     return asset_data
