@@ -33,11 +33,26 @@ inventories = read_bea.inventories(soi_data)
 # and industry
 # this function also takes care of residential fixed assets
 # and the owner-occupied housing sector
-land, res_assets, owner_occ_dict = read_bea.land(soi_data,
-                                             fixed_assets)
+land, res_assets, owner_occ_dict = read_bea.land(
+    soi_data, fixed_assets)
 # put all asset data together
-asset_data = read_bea.combine(fixed_assets, inventories,
-                          land, res_assets,
-                          owner_occ_dict)
+asset_data = read_bea.combine(
+    fixed_assets, inventories, land, res_assets, owner_occ_dict)
+# collapse over different entity types and just get the sum of corporate
+# and non-corporate by industry and asset type
+asset_data_by_tax_treat = pd.DataFrame(asset_data.groupby(
+    by=['tax_treat', 'Asset Type', 'assets', 'bea_asset_code',
+        'bea_ind_code', 'minor_code_alt'],
+    as_index=False)['assets'].sum()).reset_index()
+# Merge in major industry and asset grouping names...
+# Add major asset groups
+#     output_by_asset['major_asset_group'] = output_by_asset['Asset Type']
+#     output_by_asset['major_asset_group'].replace(major_asset_groups,
+#                                                  inplace=True)
+# # Add major industry groupings
+#     by_industry_asset['Industry'] = by_industry_asset['Industry'].str.strip()
+#     by_industry_asset['major_industry'] = by_industry_asset['bea_ind_code']
+#     by_industry_asset['major_industry'].replace(bea_code_dict, inplace=True)
 # save result to csv
-asset_data.to_csv(os.path.join(_CUR_DIR, 'ccc_asset_data.csv'))
+asset_data_by_tax_treat.to_csv(os.path.join(_CUR_DIR,
+                                            'ccc_asset_data.csv'))
