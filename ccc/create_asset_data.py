@@ -18,6 +18,8 @@ from ccc.utils import (get_paths,
 from ccc import read_bea
 import ccc.soi_processing as soi
 from ccc.utils import get_paths
+from ccc import pull_depreciation
+from constants import MAJOR_ASSET_GROUPS, BEA_CODE_DICT
 globals().update(get_paths())
 
 
@@ -41,18 +43,34 @@ asset_data = read_bea.combine(
 # collapse over different entity types and just get the sum of corporate
 # and non-corporate by industry and asset type
 asset_data_by_tax_treat = pd.DataFrame(asset_data.groupby(
-    by=['tax_treat', 'Asset Type', 'assets', 'bea_asset_code',
-        'bea_ind_code', 'minor_code_alt'],
-    as_index=False)['assets'].sum()).reset_index()
+    ['tax_treat', 'Asset Type', 'assets', 'bea_asset_code',
+     'bea_ind_code', 'Industry', 'minor_code_alt']).sum()).reset_index()
+asset_data_by_tax_treat.drop(columns=['level_0', 'index'], inplace=True)
 # Merge in major industry and asset grouping names...
-# Add major asset groups
-#     output_by_asset['major_asset_group'] = output_by_asset['Asset Type']
-#     output_by_asset['major_asset_group'].replace(major_asset_groups,
-#                                                  inplace=True)
-# # Add major industry groupings
-#     by_industry_asset['Industry'] = by_industry_asset['Industry'].str.strip()
-#     by_industry_asset['major_industry'] = by_industry_asset['bea_ind_code']
-#     by_industry_asset['major_industry'].replace(bea_code_dict, inplace=True)
+# Add major asset group
+asset_data_by_tax_treat['major_asset_group'] =\
+    asset_data_by_tax_treat['Asset Type']
+asset_data_by_tax_treat['major_asset_group'].replace(MAJOR_ASSET_GROUPS,
+                                                     inplace=True)
+# Add major industry groupings
+asset_data_by_tax_treat['Industry'] =\
+    asset_data_by_tax_treat['Industry'].str.strip()
+asset_data_by_tax_treat['major_industry'] =\
+    asset_data_by_tax_treat['bea_ind_code']
+asset_data_by_tax_treat['major_industry'].replace(BEA_CODE_DICT,
+                                                  inplace=True)
+# Merge in economic depreciation rates and tax depreciation systems
+deprec_info = pull_depreciation.get_depr()
+asset_data_by_tax_treat = asset_data_by_tax_treat.merge(
+    deprec_info, on='bea_asset_code', how='left', copy=True)
+
+# Give land and inventories depreciation info?
+
+# clean up
+asset_data_by_tax_treat.drop(columns=['Asset Type_x', 'Asset Type_y'],
+                             inplace=True)
+asset_data_by_tax_treat.rename(
+    columns={"Assets": "asset_name"}, inplace=True)
 # save result to csv
 asset_data_by_tax_treat.to_csv(os.path.join(_CUR_DIR,
                                             'ccc_asset_data.csv'))
