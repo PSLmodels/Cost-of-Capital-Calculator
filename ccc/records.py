@@ -12,7 +12,7 @@ from ccc.utils import read_egg_csv, read_egg_json, json_to_dict
 from ccc.utils import ASSET_DATA_CSV_YEAR
 
 
-class Records():
+class Assets():
     """
     Constructor for the asset-entity type Records class.
 
@@ -40,9 +40,9 @@ class Records():
 
     Notes
     -----
-    Typical usage when using asset_data.csv input data is as follows::
+    Typical usage when using ccc_asset_data.csv input data is as follows::
 
-        recs = Records()
+        assets = Assets()
 
     which uses all the default parameters of the constructor.
 
@@ -54,13 +54,13 @@ class Records():
     # suppress pylint warnings about too many class instance attributes:
     # pylint: disable=too-many-instance-attributes
 
-    ASSET_YEAR = 2013
+    ASSET_YEAR = ASSET_DATA_CSV_YEAR
 
     CUR_PATH = os.path.abspath(os.path.dirname(__file__))
     VAR_INFO_FILENAME = 'records_variables.json'
 
     def __init__(self,
-                 data='asset_data.csv',
+                 data='ccc_asset_data.csv',
                  start_year=ASSET_DATA_CSV_YEAR):
         # pylint: disable=too-many-arguments,too-many-locals
         self.__data_year = start_year
@@ -94,11 +94,11 @@ class Records():
     @staticmethod
     def read_var_info():
         """
-        Read Records variables metadata from JSON file;
+        Read Assets variables metadata from JSON file;
         returns dictionary and specifies static varname sets listed below.
         """
-        var_info_path = os.path.join(Records.CUR_PATH,
-                                     Records.VAR_INFO_FILENAME)
+        var_info_path = os.path.join(Assets.CUR_PATH,
+                                     Assets.VAR_INFO_FILENAME)
         if os.path.exists(var_info_path):
             with open(var_info_path) as vfile:
                 json_text = vfile.read()
@@ -106,43 +106,30 @@ class Records():
         else:
             # cannot call read_egg_ function in unit tests
             vardict = read_egg_json(
-                Records.VAR_INFO_FILENAME)  # pragma: no cover
-        Records.INTEGER_READ_VARS = set(k for k, v in vardict['read'].items()
-                                        if v['type'] == 'int')
+                Assets.VAR_INFO_FILENAME)  # pragma: no cover
+        Assets.INTEGER_READ_VARS = set(k for k, v in vardict['read'].items()
+                                       if v['type'] == 'int')
         FLOAT_READ_VARS = set(k for k, v in vardict['read'].items()
                               if v['type'] == 'float')
-        Records.MUST_READ_VARS = set(k for k, v in vardict['read'].items()
-                                     if v.get('required'))
-        Records.USABLE_READ_VARS = Records.INTEGER_READ_VARS | FLOAT_READ_VARS
-        INT_CALCULATED_VARS = set(k for k, v in vardict['calc'].items()
-                                  if v['type'] == 'int')
-        FLOAT_CALCULATED_VARS = set(k for k, v in vardict['calc'].items()
-                                    if v['type'] == 'float')
-        FIXED_CALCULATED_VARS = set(k for k, v in vardict['calc'].items()
-                                    if v['type'] == 'unchanging_float')
-        Records.CALCULATED_VARS = (INT_CALCULATED_VARS |
-                                   FLOAT_CALCULATED_VARS |
-                                   FIXED_CALCULATED_VARS)
-        Records.CHANGING_CALCULATED_VARS = FLOAT_CALCULATED_VARS
-        Records.INTEGER_VARS = Records.INTEGER_READ_VARS | INT_CALCULATED_VARS
+        Assets.MUST_READ_VARS = set(k for k, v in vardict['read'].items()
+                                    if v.get('required'))
+        Assets.USABLE_READ_VARS = Assets.INTEGER_READ_VARS | FLOAT_READ_VARS
+        Assets.INTEGER_VARS = Assets.INTEGER_READ_VARS
         return vardict
 
     # specify various sets of variable names
     INTEGER_READ_VARS = set()
     MUST_READ_VARS = set()
     USABLE_READ_VARS = set()
-    CALCULATED_VARS = set()
-    CHANGING_CALCULATED_VARS = set()
     INTEGER_VARS = set()
 
-    def _read_data(self, data, exact_calcs):
+    def _read_data(self, data):
         """
         Read Records data from file or use specified DataFrame as data.
-        Specifies exact array depending on boolean value of exact_calcs.
         """
         # pylint: disable=too-many-statements,too-many-branches
-        if Records.INTEGER_VARS == set():
-            Records.read_var_info()
+        if Assets.INTEGER_VARS == set():
+            Assets.read_var_info()
         # read specified data
         if isinstance(data, pd.DataFrame):
             assetdf = data
@@ -161,9 +148,9 @@ class Records():
         READ_VARS = set()
         self.IGNORED_VARS = set()
         for varname in list(assetdf.columns.values):
-            if varname in Records.USABLE_READ_VARS:
+            if varname in Assets.USABLE_READ_VARS:
                 READ_VARS.add(varname)
-                if varname in Records.INTEGER_READ_VARS:
+                if varname in Assets.INTEGER_READ_VARS:
                     setattr(self, varname,
                             assetdf[varname].astype(np.int32).values)
                 else:
@@ -172,23 +159,21 @@ class Records():
             else:
                 self.IGNORED_VARS.add(varname)
         # check that MUST_READ_VARS are all present in assetdf
-        if not Records.MUST_READ_VARS.issubset(READ_VARS):
+        if not Assets.MUST_READ_VARS.issubset(READ_VARS):
             msg = 'Records data missing one or more MUST_READ_VARS'
             raise ValueError(msg)
         # delete intermediate assetdf object
         del assetdf
         # create other class variables that are set to all zeros
-        UNREAD_VARS = Records.USABLE_READ_VARS - READ_VARS
-        ZEROED_VARS = Records.CALCULATED_VARS | UNREAD_VARS
+        UNREAD_VARS = Assets.USABLE_READ_VARS - READ_VARS
+        ZEROED_VARS = UNREAD_VARS
         for varname in ZEROED_VARS:
-            if varname in Records.INTEGER_VARS:
+            if varname in Assets.INTEGER_VARS:
                 setattr(self, varname,
                         np.zeros(self.array_length, dtype=np.int32))
             else:
                 setattr(self, varname,
                         np.zeros(self.array_length, dtype=np.float64))
-        # specify value of exact array
-        self.exact[:] = np.where(exact_calcs is True, 1, 0)
         # delete intermediate variables
         del READ_VARS
         del UNREAD_VARS
