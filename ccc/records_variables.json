@@ -1,6 +1,6 @@
 {
   "read": {
-    "Asset Type": {
+    "asset_name": {
       "type": "string",
       "desc": "Description of asset"
     },
@@ -16,17 +16,9 @@
       "type": "string",
       "desc": "BEA code for production industry"
     },
-    "entity_type": {
-      "type": "string",
-      "desc": "Tax entity type (e.g., C corporation, S corporation, partnership, sole proprietorship)"
-    },
     "minor_code_alt": {
       "type": "string",
       "desc": "BEA code for production industry"
-    },
-    "part_type": {
-      "type": "string",
-      "desc": "Partnership type (e.g, not a partnership, corporate partneship,)"
     },
     "tax_treat": {
       "type": "string",
@@ -36,11 +28,37 @@
       "type": "string",
       "desc": "Descriptive name of production industry"
     },
+    "major_asset_group": {
+      "type": "string",
+      "desc": "Broad category of assets that asset belongs to"
     },
+    "major_industry": {
+      "type": "string",
+      "desc": "Broad industry category that industry belongs to"
+    },
+    "GDS Class Life": {
+      "type": "integer",
+      "desc": "General Depreciation System life of asset"
+    },
+    "GDS Life": {
+      "type": "integer",
+      "desc": "General Depreciation System life of asset"
+    },
+    "ADS Life": {
+      "type": "integer",
+      "desc": "Alternative Depreciation System life of asset"
+    },
+    "System": {
+      "type": "string",
+      "desc": "Current law depreciation system used for asset"
+    },
+    "Method": {
+      "type": "string",
+      "desc": "Current law method of depreciation used (Straight line (SL), 200% declining balance, etc.)"
+    },
+    "delta": {
+      "type": "float",
+      "desc": "Annual rate of economic depreciation of asset"
+    }
   }
 }
-
-
-'level_0', 'Asset Type', 'assets', 'bea_asset_code', 'bea_ind_code',
-       'entity_type', 'index', 'minor_code_alt', 'part_type', 'tax_treat',
-       'Industry'
