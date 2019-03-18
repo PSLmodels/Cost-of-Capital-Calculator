@@ -70,7 +70,7 @@ asset_data_by_tax_treat = asset_data_by_tax_treat.merge(
 asset_data_by_tax_treat.drop(columns=['Asset Type_x', 'Asset Type_y'],
                              inplace=True)
 asset_data_by_tax_treat.rename(
-    columns={"Assets": "asset_name"}, inplace=True)
+    columns={"Asset": "asset_name"}, inplace=True)
 # save result to csv
 asset_data_by_tax_treat.to_csv(os.path.join(_CUR_DIR,
                                             'ccc_asset_data.csv'))
