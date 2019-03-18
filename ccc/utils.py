@@ -247,7 +247,7 @@ def read_egg_json(fname):
             pkg_resources.resource_stream(
                 pkg_resources.Requirement.parse('taxcalc'),
                 path_in_egg).read().decode('utf-8'),
-            object_pairs_hook=collections.OrderedDict
+            object_pairs_hook=OrderedDict
         )
     except Exception:
         raise ValueError('could not read {} data from egg'.format(fname))
@@ -273,7 +273,7 @@ def json_to_dict(json_text):
     """
     try:
         ordered_dict = json.loads(json_text,
-                                  object_pairs_hook=collections.OrderedDict)
+                                  object_pairs_hook=OrderedDict)
     except ValueError as valerr:
         text_lines = json_text.split('\n')
         msg = 'Text below contains invalid JSON:\n'
