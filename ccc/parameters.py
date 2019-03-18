@@ -10,7 +10,7 @@ import pkg_resources
 from ccc.parametersbase import ParametersBase
 from ccc.get_taxcalc_rates import get_rates
 from ccc.calc_z import calc_tax_depr_rates, get_econ_depr
-from ccc.util import read_from_egg, DEFAULT_START_YEAR, RECORDS_START_YEAR
+from ccc.utils import read_from_egg, DEFAULT_START_YEAR, RECORDS_START_YEAR
 
 
 class Specifications(ParametersBase):

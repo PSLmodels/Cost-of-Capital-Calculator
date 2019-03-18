@@ -14,7 +14,7 @@ import numpy as np
 import pandas as pd
 
 # Importing custom modules:
-from ccc.util import get_paths, str_modified
+from ccc.utils import get_paths, str_modified
 
 # Directories:
 globals().update(get_paths())

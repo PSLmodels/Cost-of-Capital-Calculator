@@ -16,7 +16,7 @@ except ImportError:
 
 import pandas as pd
 
-from ccc.util import get_paths
+from ccc.utils import get_paths
 
 globals().update(get_paths())
 

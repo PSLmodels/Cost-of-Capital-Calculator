@@ -15,7 +15,7 @@ import sys
 import pandas as pd
 import numpy as np
 import ccc.parameters as param
-from ccc.util import get_paths, wavg
+from ccc.utils import get_paths, wavg
 
 globals().update(get_paths())
 

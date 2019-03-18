@@ -9,12 +9,10 @@ impute the data for sole props. The sole prop inventory and farm data
 is also loaded in.
 """
 
-import os.path
 import re
-import sys
 import numpy as np
 import pandas as pd
-from ccc.util import get_paths, to_str
+from ccc.utils import get_paths, to_str
 import ccc.pull_soi_partner as prt
 globals().update(get_paths())
 
@@ -27,17 +25,18 @@ def load_proprietorship_data(entity_dfs):
     imputed.
 
     Args:
-        param entity_dfs: dictioinary, dataframes of SOI data by industry
+        entity_dfs (dictioinary): Dictionary of DataFrames of SOI data
+            by industry
 
     Returns:
-        data: dictionary, dataframe with SOI sole prop capital stock
-              data organized by industry
+        data (dictionary): Dictionary with a DataFrame of SOI sole prop
+            capital stock data organized by industry
     """
 
     # Opening data on depreciable fixed assets, inventories, and land
     # for non-farm sole props
-    nonfarm_df = format_dataframe(pd.read_excel(_NFARM_PATH, skiprows=2,
-                                                skipfooter=8))
+    nonfarm_df = format_dataframe(
+        pd.read_excel(_NFARM_PATH, skiprows=2, skipfooter=8))
     # Cuts off the repeated columns so only the data for all sole props
     # remains
     nonfarm_df = nonfarm_df.T.groupby(sort=False, level=0).first().T
@@ -47,13 +46,14 @@ def load_proprietorship_data(entity_dfs):
     nonfarm_df = nonfarm_df[['Industry', 'Depreciation deduction [1,2]']]
     nonfarm_df['Industry'] =\
         nonfarm_df['Industry'].apply(lambda x: re.sub(r'[\s+]', '', x))
-    nonfarm_df.rename(columns={"Industry": "Item",
-                               "Depreciation deduction [1,2]": "Depreciation"},
-                      inplace=True)
+    nonfarm_df.rename(
+        columns={"Industry": "Item",
+                 "Depreciation deduction [1,2]": "Depreciation"},
+        inplace=True)
 
     # Opens the nonfarm inventory data
-    nonfarm_inv = prt.format_excel(pd.read_excel(_NFARM_INV, skiprows=1,
-                                                 skipfooter=8))
+    nonfarm_inv = prt.format_excel(
+        pd.read_excel(_NFARM_INV, skiprows=1, skipfooter=8))
     # Cuts off the repeated columns so only the data for all sole props remains
     nonfarm_inv = nonfarm_inv.T.groupby(sort=False, level=0).first().T
     nonfarm_inv.columns = [to_str(c) for c in nonfarm_inv.columns]
@@ -80,10 +80,8 @@ def load_proprietorship_data(entity_dfs):
     nonfarm_df.loc[nonfarm_df['Item'] ==
                    "OOtherautorepairandmaintenance(includingoilchange,lubrication,andcarwashes)",
                    'Item'] = 'Otherautorepairandmaintenance(includingoilchange,lube,andcarwashes)'
-    nonfarm_df = pd.merge(nonfarm_df, nonfarm_inv, how='inner',
-                          left_on=['Item'], right_on=['Item'],
-                          left_index=False, right_index=False,
-                          sort=False, copy=True)
+    nonfarm_df = nonfarm_df.merge(nonfarm_inv, how='inner', on=['Item'],
+                                  copy=True)
 
     # read in crosswalk for these data
     xwalk = pd.read_csv(_DETAIL_SOLE_PROP_CROSS_PATH)
@@ -91,12 +89,11 @@ def load_proprietorship_data(entity_dfs):
     xwalk = xwalk[xwalk['complete'] == 1]
     xwalk = xwalk[['Industry', 'INDY_CD']]
     xwalk['Industry'] =\
-        xwalk['Industry'].apply(lambda x: re.sub(r'[\s+]', '',x))
+        xwalk['Industry'].apply(lambda x: re.sub(r'[\s+]', '', x))
 
     # merge industry codes to sole prop data
-    nonfarm_df = pd.merge(nonfarm_df, xwalk, how='inner', left_on=['Item'],
-                          right_on=['Industry'], left_index=False,
-                          right_index=False, sort=False, copy=True)
+    nonfarm_df = nonfarm_df.merge(xwalk, how='inner', left_on=['Item'],
+                                  right_on=['Industry'], copy=True)
     nonfarm_df.drop(['Item', 'Industry'], axis=1, inplace=True)
 
     # Sums together the repeated codes into one industry
@@ -110,28 +107,28 @@ def load_proprietorship_data(entity_dfs):
                          524159, 55, 521, 525, 531115]
     for i in range(len(missing_code_list)):
         df.loc[i] = [int(missing_code_list[i]), 0., 0.]
-    nonfarm_df = nonfarm_df.append(df, sort=True,
-                                   ignore_index=True).copy().reset_index()
+    nonfarm_df = nonfarm_df.append(
+        df, sort=True, ignore_index=True).copy().reset_index()
 
     # attribute over a minor industry only idenfified in w/ other minor
     # ind in SOI
-    nonfarm_df.ix[nonfarm_df['INDY_CD'] == 531115, 'Depreciation'] =\
+    nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531115, 'Depreciation'] =\
         (nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531135,
-                         'Depreciation'].values * 0.5)
-    nonfarm_df.ix[nonfarm_df['INDY_CD'] == 531115, 'Inventories'] =\
+                        'Depreciation'].values * 0.5)
+    nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531115, 'Inventories'] =\
         (nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531135,
-                         'Inventories'].values * 0.5)
-    nonfarm_df.ix[nonfarm_df['INDY_CD'] == 531135, 'Depreciation'] =\
+                        'Inventories'].values * 0.5)
+    nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531135, 'Depreciation'] =\
         (nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531135,
-                         'Depreciation'].values * 0.5)
-    nonfarm_df.ix[nonfarm_df['INDY_CD'] == 531135, 'Inventories'] =\
+                        'Depreciation'].values * 0.5)
+    nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531135, 'Inventories'] =\
         (nonfarm_df.loc[nonfarm_df['INDY_CD'] == 531135,
-                         'Inventories'].values * 0.5)
+                        'Inventories'].values * 0.5)
 
     # create ratios for minor industry assets using corporate data
     # read in crosswalk for bea and soi industry codes
-    soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS,
-                                    dtype={'bea_ind_code': str})
+    soi_bea_ind_codes = pd.read_csv(
+        _SOI_BEA_CROSS, dtype={'bea_ind_code': str})
     soi_bea_ind_codes.drop('notes', axis=1, inplace=True)
     # drop one repeated minor ind code in crosswalk
     soi_bea_ind_codes.drop_duplicates(subset=['minor_code_alt'], inplace=True)
@@ -144,20 +141,18 @@ def load_proprietorship_data(entity_dfs):
                                (nonfarm_df['INDY_CD'] < 1000)]
     nonfarm_minor = nonfarm_df[(nonfarm_df['INDY_CD'] > 99999) &
                                (nonfarm_df['INDY_CD'] < 1000000)]
-    sector_df = pd.merge(nonfarm_sector, soi_bea_ind_codes, how='inner',
-                         left_on=['INDY_CD'], right_on=['sector_code'],
-                         left_index=False, right_index=False, sort=False,
-                         copy=True, indicator=True)
-    major_df = pd.merge(nonfarm_major, soi_bea_ind_codes, how='inner',
-                        left_on=['INDY_CD'], right_on=['major_code'],
-                        left_index=False, right_index=False, sort=False,
-                        copy=True, indicator=True)
-    minor_df = pd.merge(nonfarm_minor, soi_bea_ind_codes, how='inner',
-                        left_on=['INDY_CD'], right_on=['minor_code'],
-                        left_index=False, right_index=False, sort=False,
-                        copy=True, indicator=True)
-    nonfarm_data = sector_df.append([major_df, minor_df], sort=True,
-                                    ignore_index=True).copy().reset_index()
+    sector_df = nonfarm_sector.merge(
+        soi_bea_ind_codes, how='inner', left_on=['INDY_CD'],
+        right_on=['sector_code'], copy=True, indicator=True)
+    major_df = nonfarm_major.merge(
+        soi_bea_ind_codes, how='inner', left_on=['INDY_CD'],
+        right_on=['major_code'], copy=True, indicator=True)
+    minor_df = nonfarm_minor.merge(
+        soi_bea_ind_codes, how='inner', left_on=['INDY_CD'],
+        right_on=['minor_code'], copy=True, indicator=True)
+    nonfarm_data = sector_df.append(
+        [major_df, minor_df], sort=True,
+        ignore_index=True).copy().reset_index()
     nonfarm_data.drop(['bea_inv_name', 'bea_code', '_merge'], axis=1,
                       inplace=True)
 
@@ -172,23 +167,21 @@ def load_proprietorship_data(entity_dfs):
     # sum at industry-partner type level
     part_data = part_data.groupby(['minor_code_alt']).sum().reset_index()
     part2 = part_data[['minor_code_alt']+columns].copy()
-    partner = pd.merge(part2, soi_bea_ind_codes, how='inner',
-                       left_on=['minor_code_alt'], right_on=['minor_code_alt'],
-                       left_index=False, right_index=False, sort=False,
-                       suffixes=('_x', '_y'), copy=True)
+    partner = part2.merge(
+        soi_bea_ind_codes, how='inner', on=['minor_code_alt'],
+        suffixes=('_x', '_y'), copy=True)
 
     for var in columns:
         partner[var+'_ratio'] =\
-            partner.groupby(['major_code'])[var].apply(lambda x: x/float(x.sum()))
+            partner.groupby(['major_code'])[var].apply(
+                lambda x: x / float(x.sum()))
 
     partner.drop(['bea_inv_name', 'bea_code', 'sector_code',
                   'minor_code'] + columns, axis=1, inplace=True)
     # merge these ratios to the sole prop data
-    nonfarm = pd.merge(nonfarm_data, partner, how='right',
-                       left_on=['minor_code_alt'],
-                       right_on=['minor_code_alt'], left_index=False,
-                       right_index=False, sort=False, suffixes=('_x', '_y'),
-                       copy=True, indicator=True)
+    nonfarm = nonfarm_data.merge(
+        partner, how='right', on=['minor_code_alt'],
+        suffixes=('_x', '_y'), copy=True, indicator=True)
     # filling in missing values.  This works ok now but need to be
     # careful as the ratio value could cause problems
     nonfarm['Inventories'].fillna(value=0., axis=0, inplace=True)
@@ -196,15 +189,15 @@ def load_proprietorship_data(entity_dfs):
 
     # allocate capital based on ratios
     for var in columns:
-        nonfarm.ix[nonfarm['INDY_CD'] > 99999, var + '_ratio'] = 1.
+        nonfarm.loc[nonfarm['INDY_CD'] > 99999, var + '_ratio'] = 1.
         nonfarm[var] = nonfarm[var] * nonfarm[var + '_ratio']
 
     nonfarm.drop(list(x + '_ratio' for x in columns), axis=1, inplace=True)
     nonfarm.drop(['index', 'sector_code', 'major_code_x', 'minor_code',
                   'major_code_y', '_merge'], axis=1, inplace=True)
 
-    # data here totals out for allocable industries (so doesn't hit SOI totals
-    # for all industries bc some not allocated to an industry)
+    # data here totals out for allocable industries (so doesn't hit
+    # SOI totals for all industries bc some not allocated to an industry)
 
     # merge in partner data to get ratios need to impute FA's and land
     part_ratios = part_data[['minor_code_alt', 'Fixed Assets',
@@ -214,11 +207,9 @@ def load_proprietorship_data(entity_dfs):
     part_ratios['Land_ratio'] = (part_ratios['Land'] /
                                  part_ratios['Fixed Assets'])
     part_ratios = part_ratios[['minor_code_alt', 'FA_ratio', 'Land_ratio']]
-    nonfarm = pd.merge(nonfarm, part_ratios, how='inner',
-                       left_on=['minor_code_alt'],
-                       right_on=['minor_code_alt'], left_index=False,
-                       right_index=False, sort=False, suffixes=('_x', '_y'),
-                       copy=True, indicator=False)
+    nonfarm = nonfarm.merge(
+        part_ratios, how='inner', on=['minor_code_alt'],
+        suffixes=('_x', '_y'), copy=True, indicator=False)
 
     # need to find ratio of assets from BEA to SOI
     bea_ratio = 1.
@@ -234,19 +225,19 @@ def load_proprietorship_data(entity_dfs):
     asst_land = farm_df['R_p'][0] + farm_df['Q_p'][0]
     land_ratio =\
         np.array((part_data.loc[part_data['minor_code_alt'] == 111,
-                                 'Land'] /
+                                'Land'] /
                   (part_data.loc[part_data['minor_code_alt'] == 111,
-                                  'Fixed Assets'] +
+                                 'Fixed Assets'] +
                    part_data.loc[part_data['minor_code_alt'] == 111,
-                                  'Land'])))
+                                 'Land'])))
     part_land = land_ratio * asst_land
     sp_farm_land = farm_df['A_sp'][0] * part_land / farm_df['A_p'][0]
     sp_farm_assts = farm_df['R_sp'][0] + farm_df['Q_sp'][0] - sp_farm_land
     sp_farm_cstock = np.array([sp_farm_assts, 0, sp_farm_land])
 
     # Adds farm data to industry 111
-    nonfarm.ix[nonfarm['INDY_CD'] == 111, 'Fixed Assets'] += sp_farm_cstock[0]
-    nonfarm.ix[nonfarm['INDY_CD'] == 111, 'Land'] += sp_farm_cstock[2]
+    nonfarm.loc[nonfarm['INDY_CD'] == 111, 'Fixed Assets'] += sp_farm_cstock[0]
+    nonfarm.loc[nonfarm['INDY_CD'] == 111, 'Land'] += sp_farm_cstock[2]
 
     # Creates the dictionary of sector : dataframe that is returned and
     # used to update entity_dfs
@@ -260,10 +251,11 @@ def format_columns(nonfarm_df):
     Removes extra characters from the columns of the dataframe
 
     Args:
-        nonfarm_df: DataFrame, nonfarm capital stock data
+        nonfarm_df (DataFrame): nonfarm sole prop capital stock data
 
     Returns:
-        nonfarm_df: DataFrame, the formatted dataframe
+        nonfarm_df (DataFrame): formatted nonfarm sole prop capital
+            stock data
     """
     columns = nonfarm_df.columns.tolist()
     for i in range(0, len(columns)):
@@ -284,10 +276,11 @@ def format_dataframe(nonfarm_df):
     SOI codes and multiplies by a factor of a thousand
 
     Args:
-        nonfarm_df: DataFrame, the dataframe that will be formatted
+        nonfarm_df (DataFrame): nonfarm sole prop capital stock data
 
     Returns:
-        nonfarm_df: DataFrame, the dataframe in a simple format
+        nonfarm_df (DataFrame): formatted nonfarm sole prop capital
+            stock data
     """
 
     # Creates a list from the first row of the dataframe
@@ -295,7 +288,8 @@ def format_dataframe(nonfarm_df):
     # Replaces the first item in the list with a new label
     columns[0] = 'Industry'
     # Sets the values of the columns on the dataframes
-    nonfarm_df.columns = list(to_str(x).replace('\n', ' ') for x in columns)
+    nonfarm_df.columns = list(
+        to_str(x).replace('\n', ' ') for x in columns)
     # Drops the first couple of rows and last row in the dataframe
     nonfarm_df.dropna(inplace=True)
     # Multiplies each value in the dataframe by a factor of 1000

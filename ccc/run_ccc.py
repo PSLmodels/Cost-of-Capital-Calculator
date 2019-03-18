@@ -28,7 +28,7 @@ import pandas as pd
 from ccc.soi_processing import pull_soi_data
 from ccc import calc_final_outputs
 from ccc import check_output
-from ccc.util import (get_paths,
+from ccc.utils import (get_paths,
                        read_from_egg,
                        diff_two_tables,
                        filter_user_params_for_econ)
@@ -38,7 +38,7 @@ import ccc.parameters as params
 from ccc import format_output
 from ccc.front_end_util import (runner_json_tables,
                                  replace_unicode_spaces)
-from ccc.util import DEFAULT_START_YEAR
+from ccc.utils import DEFAULT_START_YEAR
 
 globals().update(get_paths())
 TABLE_ORDER = ['base_output_by_asset', 'reform_output_by_asset',

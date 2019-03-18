@@ -12,20 +12,20 @@ import pandas as pd
 import ccc.pull_soi_corp as corp
 import ccc.pull_soi_partner as prt
 import ccc.pull_soi_proprietorship as prop
-from ccc.util import get_paths
+from ccc.utils import get_paths
 globals().update(get_paths())
 
 
 def pull_soi_data():
     """
-    Creates a dictionary that is updated with the soi entity data after
-    each method.
+    Creates a DataFrame contains SOI data on assets for each tax
+    entity type.
 
-    Args: None
+    Args:
+        None
 
     Returns:
-        soi_data: dictionary, dict of DataFrames organized by entity
-                  type (corp, partner, sole prop)
+        soi_data (DataFrame): DataFramw with assets by
     """
     entity_dfs = {}
     entity_dfs.update(corp.load_corp_data())
@@ -48,31 +48,30 @@ def pull_soi_data():
                                               'Inventories']].copy()
     sole_prop.loc[:, 'entity_type'] = 'sole_prop'
 
-    soi_data = c_corp.append([s_corp, partner, sole_prop],
+    soi_data = c_corp.append([s_corp, partner, sole_prop], sort=True,
                              ignore_index=True).copy().reset_index()
     soi_data['part_type'] = soi_data['part_type'].fillna('Not a partnership')
 
-    # merge to industry codes xwalk, which will be helpful when merging with
-    # BEA data
+    # merge to industry codes xwalk, which will be helpful when merging
+    # with BEA data
     # create ratios for minor industry assets using corporate data
     # read in crosswalk for bea and soi industry codes
-    soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS,
-                                    dtype={'bea_ind_code': str})
+    soi_bea_ind_codes = pd.read_csv(
+        _SOI_BEA_CROSS, dtype={'bea_ind_code': str})
     soi_bea_ind_codes.drop('notes', axis=1, inplace=True)
     # drop one repeated minor ind code in crosswalk
-    soi_bea_ind_codes.drop_duplicates(subset=['minor_code_alt'],
-                                      inplace=True)
+    soi_bea_ind_codes.drop_duplicates(
+        subset=['minor_code_alt'], inplace=True)
     soi_data['tax_treat'] = 'non-corporate'
-    soi_data.ix[soi_data['entity_type'] == 'c_corp', 'tax_treat'] = 'corporate'
-    soi_data.ix[(soi_data['entity_type'] == 'partnership') &
-                (soi_data['part_type'] == 'Corporate general partners'),
-                'tax_treat'] = 'corporate'
-    soi_data.ix[(soi_data['entity_type'] == 'partnership') &
-                (soi_data['part_type'] == 'Corporate limited partners'),
-                'tax_treat'] = 'corporate'
-    soi_data = pd.merge(soi_data, soi_bea_ind_codes, how='left',
-                        left_on=['minor_code_alt'],
-                        right_on=['minor_code_alt'], left_index=False,
-                        right_index=False, sort=False, copy=True)
+    soi_data.loc[soi_data['entity_type'] == 'c_corp', 'tax_treat'] =\
+        'corporate'
+    soi_data.loc[(soi_data['entity_type'] == 'partnership') &
+                 (soi_data['part_type'] == 'Corporate general partners'),
+                 'tax_treat'] = 'corporate'
+    soi_data.loc[(soi_data['entity_type'] == 'partnership') &
+                 (soi_data['part_type'] == 'Corporate limited partners'),
+                 'tax_treat'] = 'corporate'
+    soi_data = soi_data.merge(soi_bea_ind_codes, how='left',
+                              on=['minor_code_alt'], copy=True)
 
     return soi_data

@@ -9,10 +9,9 @@ between the two, the c corporation data can be allocated to all the
 industries.
 """
 # Packages:
-from __future__ import print_function, unicode_literals
 import pandas as pd
 # Directory names:
-from ccc.util import get_paths
+from ccc.utils import get_paths
 globals().update(get_paths())
 
 _DFLT_S_CORP_COLS_DICT = DFLT_S_CORP_COLS_DICT =\
@@ -36,11 +35,12 @@ def load_corp_data():
     Reads in the total corp and s corp data and calculates the c corp
     data.
 
-    Args: None
+    Args:
+        None
 
     Returns:
-        corp_data: dictionary, dict contains DataFrame of SOI corporate
-                   capital stock data
+        corp_data (dictionary): dictionary containing DataFrames of SOI
+        corporate capital stock data
     """
     cols_dict = _DFLT_S_CORP_COLS_DICT
     # Dataframe column names
@@ -82,20 +82,18 @@ def load_corp_data():
     # inner join means that we keep only rows that match in both datasets
     # this should keep only unique soi minor industries
     # in total corp data - note that s corp data already unique by sector
-    tot_corp = pd.merge(tot_corp, soi_bea_ind_codes, how='inner',
-                        left_on=['INDY_CD'], right_on=['minor_code_alt'],
-                        left_index=False, right_index=False,
-                        sort=False, suffixes=('_x', '_y'), copy=True,
-                        indicator=False)
+    tot_corp = tot_corp.merge(
+        soi_bea_ind_codes, how='inner', left_on=['INDY_CD'],
+        right_on=['minor_code_alt'], suffixes=('_x', '_y'), copy=True)
 
     # apportion s corp data across industries within sectors so has same
     # level of industry detail as total corp data
     s_corp = calc_proportions(tot_corp, s_corp, columns)
 
     # merge s corp and total corp to find c corp only
-    c_corp = pd.merge(tot_corp, s_corp, how='inner', on=['INDY_CD'],
-                      left_index=False, right_index=False, sort=False,
-                      suffixes=('_x', '_y'), copy=True, indicator=False)
+    c_corp = tot_corp.merge(
+        s_corp, how='inner', on=['INDY_CD'], suffixes=('_x', '_y'),
+        copy=True)
 
     # calculate s corp values by minor industry using ratios
     for var in columns:
@@ -138,13 +136,13 @@ def calc_proportions(tot_corp, s_corp, columns):
     in missing s corp data.
 
     Args:
-        tot_corp: DataFrame, capital stock for all corporations
-        s_corp: DataFrame, capital stock for S-corporations
-        columns: list, names of variables to keep
+        tot_corp (DataFrame): capital stock for all corporations
+        s_corp (DataFrame): capital stock for S-corporations
+        columns (list): names of variables to keep
 
     Returns:
-        s_corp: DataFrame, capital stock for S-corporations with all
-                industries filled in
+        s_corp (DataFrame): capital stock for S-corporations with all
+            industries filled in
     """
     # find ratio of variable in minor industry to variable in sector
     # in total corp data
@@ -160,10 +158,10 @@ def calc_proportions(tot_corp, s_corp, columns):
     # sector code (many to one merge)
     # first just keep s corp columns want_
     # merge ratios to s corp data
-    s_corp = pd.merge(corp_ratios, s_corp, how='inner',
-                      left_on=['sector_code'], right_on=['INDY_CD'],
-                      left_index=False, right_index=False, sort=False,
-                      suffixes=('_x', '_y'), copy=True, indicator=True)
+    s_corp = corp_ratios.merge(
+        s_corp, how='inner', left_on=['sector_code'],
+        right_on=['INDY_CD'], suffixes=('_x', '_y'), copy=True,
+        indicator=True)
 
     # calculate s corp values by minor industry using ratios
     for var in columns:

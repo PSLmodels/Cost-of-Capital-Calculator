@@ -81,6 +81,7 @@ def get_paths():
     paths = {}
     _CUR_DIR = _MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
     _DATA_DIR = os.path.join(_MAIN_DIR, 'data')
+    paths['_CUR_DIR'] = _CUR_DIR
     paths['_MAIN_DIR'] = paths['_DATA_DIR'] = _MAIN_DIR
     paths['_RATE_DIR'] = _RATE_DIR = os.path.join(_DATA_DIR,
                                                   'depreciation_rates')
@@ -90,7 +91,7 @@ def get_paths():
                                                   'depreciation_rates')
     paths['_BEA_DIR'] = _BEA_DIR = os.path.join(_RAW_DIR, 'BEA')
     paths['_FIN_ACCT_DIR'] = _FIN_ACCT_DIR =\
-    os.path.join(_RAW_DIR, 'national_accounts')
+        os.path.join(_RAW_DIR, 'national_accounts')
     # paths['_OUT_DIR'] = os.environ.get('ccc_OUT_DIR', 'ccc_output_dir')
     # if not os.path.exists(paths['_OUT_DIR']):
     #     os.mkdir(paths['_OUT_DIR'])
