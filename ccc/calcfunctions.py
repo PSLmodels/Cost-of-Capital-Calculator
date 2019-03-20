@@ -6,6 +6,10 @@ def dbsl(Y, b, bonus, r):
     Makes the calculation for the declining balance with a switch to
     straight line (DBSL) method of depreciation.
 
+    ..math::
+        z = \frac{\beta}{\beta+r}\left[1-e^{-(\beta+r)Y^{*}}\right]+
+        \frac{e^{-\beta Y^{*}}}{(Y-Y^{*})r}\left[e^{-rY^{*}}-e^{-rY}\right]
+
     Args:
         df: dataframe, contains economic depreciation and tax
             depreciation schedules for all assets where DBSL depreciation
@@ -41,6 +45,9 @@ def sl(Y, bonus, r):
     """
     Makes the calculation for straight line (SL) method of depreciation.
 
+    ..math::
+        z = \frac{e^{-rY}}{Yr}
+
     Args:
         df: dataframe, contains economic depreciation and tax
             depreciation schedules for all assets where DBSL depreciation
@@ -67,6 +74,9 @@ def econ(delta, bonus, r, pi):
     """
     Makes the calculation for the NPV of depreciation using economic
     depreciation rates.
+
+    ..math::
+        z = \frac{\delta}{(\delta + r - \pi)}
 
     Args:
         df: dataframe, contains economic depreciation and tax
@@ -111,6 +121,9 @@ def npv_tax_deprec(Y, b, delta, bonus, r, pi, method):
                 types, all financing types, and all tax treatment types
 
     """
+    *** Might want to create the "method" in the main dataframe and then
+    pass that as a series to this function - then use @jit to loop through
+    this quickly - although I don't know if that's fast with the if statements
 
     if method == 'dbsl':
         z = dbsl(Y, b, bonus, r)
@@ -127,10 +140,13 @@ def npv_tax_deprec(Y, b, delta, bonus, r, pi, method):
     return z
 
 
-def cost_of_capital(delta, z, w, expense_inventory, u, inv_credit, phi,
+def eq_cost_of_capital(delta, z, w, expense_inventory, u, inv_credit, phi,
                     Y_v, pi, r):
     """
     Compute the cost of capital
+
+    ..math::
+        \rho = \frac{(r-\pi+\delta)}{1-u(1-uz)+w-\delta
 
     Args:
         df: DataFrame, assets by type with depreciation rates
@@ -164,18 +180,31 @@ def cost_of_capital(delta, z, w, expense_inventory, u, inv_credit, phi,
     return rho
 
 
-def ucc(rho, delta):
+def eq_ucc(rho, delta):
     """
     Compute the user cost of capital
+
+    ..math::
+        ucc = \rho + \delta
+
+    Args:
+        rho =
+        delta ():
+
+    Returns:
+        ucc
     """
     ucc = rho + delta
 
     return ucc
 
 
-def metr(rho, r_prime, pi):
+def eq_metr(rho, r_prime, pi):
     """
     Compute the marginal effective tax rate (METR)
+
+    ..math::
+        metr = \frac{\rho - (r^{'}-\pi)}{\rho}
 
     Args:
         df: DataFrame, assets by type with depreciation rates and cost
@@ -197,9 +226,12 @@ def metr(rho, r_prime, pi):
     return metr
 
 
-def mettr(rho, s):
+def eq_mettr(rho, s):
     """
     Compute the marginal effective total tax rate (METTR)
+
+    ..math::
+        mettr = \frac{\rho - s}{\rho}
 
     Args:
         df: DataFrame, assets by type with depreciation rates and cost
@@ -221,9 +253,12 @@ def mettr(rho, s):
     return mettr
 
 
-def tax_wedge(rho, s):
+def eq_tax_wedge(rho, s):
     """
     Compute the tax wedge
+
+    ..math::
+        wedge = \rho - s
 
     Args:
         df: DataFrame, assets by type with depreciation rates and cost
@@ -245,9 +280,13 @@ def tax_wedge(rho, s):
     return wedge
 
 
-def eatr(rho, metr, profit_rate, u):
+def eq_eatr(rho, metr, profit_rate, u):
     """
     Compute the effective average tax rate (EATR)
+
+    ..math::
+        eatr = \left(\frac{p - rho}{p}\right)u +
+            \left(\frac{\rho}{p}\right)metr
 
     Args:
         df: DataFrame, assets by type with depreciation rates and cost
