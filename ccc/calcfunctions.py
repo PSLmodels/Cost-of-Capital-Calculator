@@ -1,4 +1,28 @@
 import numpy as np
+from ccc.constants import TAX_METHODS
+from ccc.utils import str_modified
+
+
+def update_depr_methods(df, p):
+    # update tax_deprec_rates based on user defined parameters
+    df['System'] = df['GDS Life'].apply(str_modified)
+    df['System'].replace(p.deprec_system, inplace=True)
+    df.loc[df['System'] == 'ADS', 'Method'] = 'SL'
+    df.loc[df['System'] == 'Economic', 'Method'] = 'Economic'
+
+    # add bonus depreciation to tax deprec parameters dataframe
+    df['bonus'] = df['GDS Class Life'].apply(str_modified)
+    df['bonus'].replace(p.bonus_deprec, inplace=True)
+
+    df['b'] = df['Method']
+    df['b'].replace(TAX_METHODS, inplace=True)
+
+    df.loc[df['System'] == 'ADS', 'Y'] = df.loc[df['System'] == 'ADS',
+                                                'ADS Life']
+    df.loc[df['System'] == 'GDS', 'Y'] = df.loc[df['System'] == 'GDS',
+                                                'GDS Life']
+
+    return df
 
 
 def dbsl(Y, b, bonus, r):
@@ -101,7 +125,8 @@ def econ(delta, bonus, r, pi):
     return z
 
 
-def npv_tax_deprec(Y, b, delta, bonus, r, pi, method):
+# def npv_tax_depr(df, p):
+def npv_tax_depr(df, r, pi):
     """
     Depending on the method of depreciation, makes calls to either
     the straight line or declining balance calculations.
@@ -121,27 +146,21 @@ def npv_tax_deprec(Y, b, delta, bonus, r, pi, method):
                 types, all financing types, and all tax treatment types
 
     """
-    *** Might want to create the "method" in the main dataframe and then
-    pass that as a series to this function - then use @jit to loop through
-    this quickly - although I don't know if that's fast with the if statements
+    idx = (df['Method'] == 'DB 200%') | (df['Method'] == 'DB 150%')
+    df.loc[idx, 'z'] = dbsl(df.loc[idx, 'Y'], df.loc[idx, 'b'],
+                            df.loc[idx, 'bonus'], r)
+    idx = df['Method'] == 'SL'
+    df.loc[idx, 'z'] = sl(df.loc[idx, 'Y'], df.loc[idx, 'bonus'], r)
+    idx = df['Method'] == 'Economic'
+    df.loc[idx, 'z'] = econ(df.loc[idx, 'delta'], df.loc[idx, 'bonus'],
+                            r, pi)
+    idx = df['Method'] == 'Expensing'
+    df.loc[idx, 'z'] = 1.0
 
-    if method == 'dbsl':
-        z = dbsl(Y, b, bonus, r)
-    elif method == 'sl':
-        z = sl(Y, bonus, r)
-    elif method == 'econ':
-        z = econ(delta, bonus, r, pi)
-    elif method == 'expensing':
-        z = np.ones(len(Y))
-    else:
-        err = 'Not a valid depreication method'
-        raise RuntimeError(err)
-
-    return z
+    return df['z']
 
 
-def eq_cost_of_capital(delta, z, w, expense_inventory, u, inv_credit, phi,
-                    Y_v, pi, r):
+def eq_coc(delta, z, w, u, inv_tax_credit, Y_v, pi, r):
     """
     Compute the cost of capital
 
@@ -151,9 +170,9 @@ def eq_cost_of_capital(delta, z, w, expense_inventory, u, inv_credit, phi,
     Args:
         df: DataFrame, assets by type with depreciation rates
         w: scalar, property tax rate
-        expense_inventory: boolean, whether inventories are expensed
+        inventory_expensing: boolean, whether inventories are expensed
         stat_tax: Numpy array, entity level taxes for corp and noncorp
-        inv_credit: scalar, investment tax credit
+        inv_tax_credit: scalar, investment tax credit
         phi: scalar, fraction of inventories using FIFO
         Y_v: integer, number of years inventories held
         inflation_rate: scalar, rate of inflation
@@ -167,18 +186,46 @@ def eq_cost_of_capital(delta, z, w, expense_inventory, u, inv_credit, phi,
                       capital
 
     """
-    if not expense_inventory:
-        rho_FIFO = (((1 / Y_v) * np.log((np.exp(r * Y_v) - u) /
-                                        (1 - u))) - pi)
-        rho_LIFO = ((1 / Y_v) * np.log((np.exp((r - pi) * Y_v) - u) /
-                                       (1 - u)))
-        rho = phi * rho_FIFO + (1 - phi) * rho_LIFO
-    else:
-        rho = (((r - pi + delta) / (1 - u)) * (1 - inv_credit - u * z) +
-               w - delta)
+    rho = (((r - pi + delta) / (1 - u)) *
+           (1 - inv_tax_credit - u * z) + w - delta)
 
     return rho
 
+
+
+def eq_coc_inventory(delta, u, phi, Y_v, pi, r):
+    """
+    Compute the cost of capital
+
+    ..math::
+        \rho = \frac{(r-\pi+\delta)}{1-u(1-uz)+w-\delta
+
+    Args:
+        df: DataFrame, assets by type with depreciation rates
+        w: scalar, property tax rate
+        inventory_expensing: boolean, whether inventories are expensed
+        stat_tax: Numpy array, entity level taxes for corp and noncorp
+        inv_tax_credit: scalar, investment tax credit
+        phi: scalar, fraction of inventories using FIFO
+        Y_v: integer, number of years inventories held
+        inflation_rate: scalar, rate of inflation
+        discount_rate: Numpy array, discount rate used by entity type
+                                    and financing used
+        entity_list: list, identifiers for entity type
+        financing_list: list, indentifiers for financing used
+
+    Returns:
+        df: DataFrame, assets by type with depreciation and cost of
+                      capital
+
+    """
+    rho_FIFO = (((1 / Y_v) * np.log((np.exp(r * Y_v) - u) /
+                                    (1 - u))) - pi)
+    rho_LIFO = ((1 / Y_v) * np.log((np.exp((r - pi) * Y_v) - u) /
+                                   (1 - u)))
+    rho = phi * rho_FIFO + (1 - phi) * rho_LIFO
+
+    return rho
 
 def eq_ucc(rho, delta):
     """
