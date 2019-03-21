@@ -1175,7 +1175,7 @@
         "out_of_range_action": "stop",
         "compatible_data": {"puf": true, "cps": true}
     },
-    "ace": {
+    "ace_c": {
         "long_name": "Allowance for corporate equity.",
         "description": "Allowance for corporate equity (fraction of equity deductible).",
         "irs_ref": "",
