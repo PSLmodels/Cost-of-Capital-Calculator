@@ -144,37 +144,39 @@ class Assets():
             raise ValueError(msg)
         self.__dim = len(assetdf.index)
         self.__index = assetdf.index
-        # create class variables using assetdf column names
-        READ_VARS = set()
-        self.IGNORED_VARS = set()
-        for varname in list(assetdf.columns.values):
-            if varname in Assets.USABLE_READ_VARS:
-                READ_VARS.add(varname)
-                if varname in Assets.INTEGER_READ_VARS:
-                    setattr(self, varname,
-                            assetdf[varname].astype(np.int32).values)
-                else:
-                    setattr(self, varname,
-                            assetdf[varname].astype(np.float64).values)
-            else:
-                self.IGNORED_VARS.add(varname)
-        # check that MUST_READ_VARS are all present in assetdf
-        if not Assets.MUST_READ_VARS.issubset(READ_VARS):
-            msg = 'Records data missing one or more MUST_READ_VARS'
-            raise ValueError(msg)
-        # delete intermediate assetdf object
-        del assetdf
-        # create other class variables that are set to all zeros
-        UNREAD_VARS = Assets.USABLE_READ_VARS - READ_VARS
-        ZEROED_VARS = UNREAD_VARS
-        for varname in ZEROED_VARS:
-            if varname in Assets.INTEGER_VARS:
-                setattr(self, varname,
-                        np.zeros(self.array_length, dtype=np.int32))
-            else:
-                setattr(self, varname,
-                        np.zeros(self.array_length, dtype=np.float64))
-        # delete intermediate variables
-        del READ_VARS
-        del UNREAD_VARS
-        del ZEROED_VARS
+
+        self.df = assetdf
+        # # create class variables using assetdf column names
+        # READ_VARS = set()
+        # self.IGNORED_VARS = set()
+        # for varname in list(assetdf.columns.values):
+        #     if varname in Assets.USABLE_READ_VARS:
+        #         READ_VARS.add(varname)
+        #         if varname in Assets.INTEGER_READ_VARS:
+        #             setattr(self, varname,
+        #                     assetdf[varname].astype(np.int32).values)
+        #         else:
+        #             setattr(self, varname,
+        #                     assetdf[varname].astype(np.float64).values)
+        #     else:
+        #         self.IGNORED_VARS.add(varname)
+        # # check that MUST_READ_VARS are all present in assetdf
+        # if not Assets.MUST_READ_VARS.issubset(READ_VARS):
+        #     msg = 'Records data missing one or more MUST_READ_VARS'
+        #     raise ValueError(msg)
+        # # delete intermediate assetdf object
+        # del assetdf
+        # # create other class variables that are set to all zeros
+        # UNREAD_VARS = Assets.USABLE_READ_VARS - READ_VARS
+        # ZEROED_VARS = UNREAD_VARS
+        # for varname in ZEROED_VARS:
+        #     if varname in Assets.INTEGER_VARS:
+        #         setattr(self, varname,
+        #                 np.zeros(self.array_length, dtype=np.int32))
+        #     else:
+        #         setattr(self, varname,
+        #                 np.zeros(self.array_length, dtype=np.float64))
+        # # delete intermediate variables
+        # del READ_VARS
+        # del UNREAD_VARS
+        # del ZEROED_VARS
