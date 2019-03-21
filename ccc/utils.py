@@ -1,9 +1,8 @@
-from __future__ import unicode_literals
+import pkg_resources
 from collections import OrderedDict, defaultdict
 import numbers
 import os
 import json
-from pkg_resources import resource_stream, Requirement
 import pandas as pd
 
 # Default year for model runs
@@ -50,7 +49,8 @@ def read_from_egg(tfile):
                                  tfile)
     if not os.path.exists(template_path):
         path_in_egg = os.path.join("ccc", tfile)
-        buf = resource_stream(Requirement.parse("ccc"), path_in_egg)
+        buf = pkg_resources.resource_stream(
+            pkg_resources.Requirement.parse("ccc"), path_in_egg)
         _bytes = buf.read()
         contents = str(_bytes)
     else:
@@ -223,10 +223,10 @@ def read_egg_csv(fname, index_col=None):
     return pandas DataFrame containing the data.
     """
     try:
-        path_in_egg = os.path.join('taxcalc', fname)
+        path_in_egg = os.path.join('ccc', fname)
         vdf = pd.read_csv(
             pkg_resources.resource_stream(
-                pkg_resources.Requirement.parse('taxcalc'),
+                pkg_resources.Requirement.parse('ccc'),
                 path_in_egg),
             index_col=index_col
         )
@@ -242,10 +242,10 @@ def read_egg_json(fname):
     return dictionary containing the data.
     """
     try:
-        path_in_egg = os.path.join('taxcalc', fname)
+        path_in_egg = os.path.join('ccc', fname)
         pdict = json.loads(
             pkg_resources.resource_stream(
-                pkg_resources.Requirement.parse('taxcalc'),
+                pkg_resources.Requirement.parse('ccc'),
                 path_in_egg).read().decode('utf-8'),
             object_pairs_hook=OrderedDict
         )
