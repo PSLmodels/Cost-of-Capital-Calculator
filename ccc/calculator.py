@@ -17,7 +17,7 @@ from ccc.calcfunctions import (update_depr_methods, npv_tax_depr,
                                eq_coc, eq_coc_inventory, eq_ucc,
                                eq_metr, eq_mettr, eq_tax_wedge, eq_eatr)
 from ccc.parameters import Specifications
-from ccc.assets import Assets
+from ccc.data import Assets
 from ccc.utils import json_to_dict
 # import pdb
 
@@ -105,7 +105,7 @@ class Calculator():
                     dfs[t].loc[idx, 'rho_' + str(f)] = eq_coc_inventory(
                         dfs[t].loc[idx, 'delta'], self.__p.u[t],
                         self.__p.phi, self.__p.Y_v,
-                        self.__p.inflation_rate, self.__pp.r[t][f])
+                        self.__p.inflation_rate, self.__p.r[t][f])
                 dfs[t]['ucc_' + str(f)] = eq_ucc(
                     dfs[t]['rho_' + str(f)], dfs[t]['delta'])
                 dfs[t]['metr_' + str(f)] = eq_metr(
@@ -116,7 +116,7 @@ class Calculator():
                 dfs[t]['tax_wedge_' + str(f)] = eq_tax_wedge(
                     dfs[t]['rho_' + str(f)], self.__p.s[t][f])
                 dfs[t]['eatr_' + str(f)] = eq_eatr(
-                    dfs[t]['rho'], dfs[t]['metr_' + str(f)],
+                    dfs[t]['rho_' + str(f)], dfs[t]['metr_' + str(f)],
                     self.__p.profit_rate, self.__p.u[t])
         self.__assets.df = pd.concat(dfs, ignore_index=True, copy=True)
 

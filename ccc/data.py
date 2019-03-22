@@ -1,5 +1,5 @@
 """
-Cost-of-Capital-Calculator asset and tax-entity type Records class.
+Cost-of-Capital-Calculator asset data class.
 """
 # CODING-STYLE CHECKS:
 # pycodestyle records.py
