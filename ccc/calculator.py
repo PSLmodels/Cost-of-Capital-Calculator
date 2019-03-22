@@ -83,18 +83,42 @@ class Calculator():
         Call all tax-calculation functions for the current_year.
         """
         # conducts static analysis of Calculator object for current_year
-        df = update_depr_methods(assets.df, p)
-        df['z']= npv_tax_depr(df, p.r['c']['mix'], p.inflation_rate)
-        df['rho'] = eq_coc(df['delta'], df['z'], p.property_tax, p.u['c'], p.inv_tax_credit,
-                     p.Y_v, p.inflation_rate, p.r['c']['e'])
-        if not p.inventory_expensing:
-            idx = df['asset_name'] == 'Inventories'
-            df.loc[idx, 'rho'] = eq_coc_inventory(df.loc[idx, 'delta'], p.u['c'], p.phi, p.Y_v, p.inflation_rate, p.r['c']['mix'])
-        df['ucc'] = eq_ucc(df['rho'], df['delta'])
-        df['metr'] = eq_metr(df['rho'], p.r_prime['c']['mix'], p.inflation_rate)
-        df['mettr'] = eq_mettr(df['rho'], p.s['c']['mix'])
-        df['tax_wedge'] = eq_tax_wedge(df['rho'], p.s['c']['mix'])
-        df['eatr'] = eq_eatr(df['rho'], df['metr'], p.profit_rate, p.u['c'])
+        self.__assets.df = update_depr_methods(self.__assets.df,
+                                               self.__p)
+        dfs = {'c': self.__assets.df[
+               self.__assets.df['tax_treat'] == 'corporate'].copy(),
+               'nc': self.__assets.df[
+               self.__assets.df['tax_treat'] == 'non-corporate'].copy()}
+        # separate into corp and non-corp dataframe here
+        for t in self.__p.entity_list:
+            for f in self.__p.financing_list:
+                dfs[t]['z_' + str(f)] = npv_tax_depr(
+                    dfs[t], self.__p.r[t][f], self.__p.inflation_rate)
+                dfs[t]['rho_' + str(f)] = eq_coc(
+                    dfs[t]['delta'], dfs[t]['z_' + str(f)],
+                    self.__p.property_tax,
+                    self.__p.u[t], self.__p.inv_tax_credit,
+                    self.__p.Y_v, self.__p.inflation_rate,
+                    self.__p.r[t][f])
+                if not self.__p.inventory_expensing:
+                    idx = dfs[t]['asset_name'] == 'Inventories'
+                    dfs[t].loc[idx, 'rho_' + str(f)] = eq_coc_inventory(
+                        dfs[t].loc[idx, 'delta'], self.__p.u[t],
+                        self.__p.phi, self.__p.Y_v,
+                        self.__p.inflation_rate, self.__pp.r[t][f])
+                dfs[t]['ucc_' + str(f)] = eq_ucc(
+                    dfs[t]['rho_' + str(f)], dfs[t]['delta'])
+                dfs[t]['metr_' + str(f)] = eq_metr(
+                    dfs[t]['rho_' + str(f)], self.__p.r_prime[t][f],
+                    self.__p.inflation_rate)
+                dfs[t]['mettr_' + str(f)] = eq_mettr(
+                    dfs[t]['rho_' + str(f)], self.__p.s[t][f])
+                dfs[t]['tax_wedge_' + str(f)] = eq_tax_wedge(
+                    dfs[t]['rho_' + str(f)], self.__p.s[t][f])
+                dfs[t]['eatr_' + str(f)] = eq_eatr(
+                    dfs[t]['rho'], dfs[t]['metr_' + str(f)],
+                    self.__p.profit_rate, self.__p.u[t])
+        self.__assets.df = pd.concat(dfs, ignore_index=True, copy=True)
 
     def store_assets(self):
         """
@@ -150,3 +174,7 @@ class Calculator():
         return self.__assets.data_year
 
 # Can put functions for tabular, text, graphical output here
+# create function to have table like CBO with groupings
+    # so need to create function to do averages over groups- just a .groupby.apply?
+# create function to have bubble plot
+# create function to have tables like old B-Tax output?
