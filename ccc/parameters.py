@@ -222,16 +222,9 @@ class Specifications(ParametersBase):
                                              'DeprecSystem_{}yr'.format(cl))
             self.bonus_deprec[cl] = getattr(self,
                                             'BonusDeprec_{}yr'.format(cl))
-        self.bonus_deprec['100'] = 0.0  # to handle land and inventories - fixed later, but should work on this
-        self.financing_list = ['', '_d', '_e']
-        self.entity_list = ['_c', '_nc']
-        # self.z = calc_tax_depr_rates(r, self.inflation_rate,
-        #                              self.delta, self.bonus_deprec,
-        #                              self.deprec_system,
-        #                              self.inventory_expensing,
-        #                              self.land_expensing, tax_methods,
-        #                              self.financing_list, self.entity_list)
-
+        # to handle land and inventories
+        # this is fixed later, but should work on this
+        self.bonus_deprec['100'] = 0.0
 
     def default_parameters(self):
         """
