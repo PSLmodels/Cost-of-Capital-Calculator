@@ -10,13 +10,25 @@ from ccc import calcfunctions as cf
 #
 #     assert_frame_equal(test_df, expected_df)
 #
-#
-# def test_dbsl(Y, b, bonus, r):
-#     test_val = cf.dbsl(Y, b, bonus, r)
-#
-#     assert(np.allclose(test_val, expected_val))
-#
-#
+
+
+Y = np.array([40, 3, 10, 20, 8])
+b = np.array([1.2, 1.0, 1.5, 2.0, 1.8])
+bonus = np.array([0.0, 0.0, 0.4, 1.0, 0.9])
+r = np.array([0.05, 0.05, 0.05, 0.05, 0.05])
+expected_val = np.array([0.440513504372, 0.9286134905, 0.880930116585,
+                         1.0, 0.984770923379])
+test_data = [(Y, b, bonus, r, expected_val)]
+
+
+@pytest.mark.parametrize('Y,b,bonus,r,expected_val', test_data,
+                         ids=['Test 0'])
+def test_dbsl(Y, b, bonus, r, expected_val):
+    test_val = cf.dbsl(Y, b, bonus, r)
+
+    assert(np.allclose(test_val, expected_val))
+
+
 # def test_sl(Y, bonus, r):
 #     test_val = cf.sl(Y, bonus, r)
 #

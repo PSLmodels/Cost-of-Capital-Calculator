@@ -51,7 +51,6 @@ def dbsl(Y, b, bonus, r):
             treatment types
 
     """
-
     beta = Y / b
     Y_star = Y * (1 - (1 / b))
     z = (
@@ -192,7 +191,6 @@ def eq_coc(delta, z, w, u, inv_tax_credit, Y_v, pi, r):
     return rho
 
 
-
 def eq_coc_inventory(delta, u, phi, Y_v, pi, r):
     """
     Compute the cost of capital
@@ -226,6 +224,7 @@ def eq_coc_inventory(delta, u, phi, Y_v, pi, r):
     rho = phi * rho_FIFO + (1 - phi) * rho_LIFO
 
     return rho
+
 
 def eq_ucc(rho, delta):
     """
