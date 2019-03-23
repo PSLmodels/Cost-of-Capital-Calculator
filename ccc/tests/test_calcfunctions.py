@@ -45,12 +45,22 @@ from ccc import calcfunctions as cf
 #     test_val = cf.eq_coc_inventory(delta, u, phi, Y_v, pi, r)
 #
 #     assert(np.allclose(test_val, expected_val))
-#
-#
-# def test_eq_ucc(rho, delta):
-#     test_val = cf.eq_ucc(rho, delta)
-#
-#     assert(np.allclose(test_val, expected_val))
+
+
+rho = np.array([0.075285714, 0.0388, 0.042, 0.0112, 0.114475829, 0.094])
+delta = np.array([0.05, 0.06, 0.04, 0.03, 0.11, 0.12])
+expected_val = np.array([0.125285714, 0.0988, 0.082, 0.0412,
+                         0.224475829, 0.214])
+test_data = [(rho, delta, expected_val)]
+
+
+@pytest.mark.parametrize('rho,delta,expected_val', test_data,
+                         ids=['Test 0'])
+def test_eq_ucc(rho, delta, expected_val):
+    test_val = cf.eq_ucc(rho, delta)
+
+    assert(np.allclose(test_val, expected_val))
+
 
 rho = np.array([0.075285714, 0.0388, 0.042, 0.0112, 0.114475829, 0.094])
 r_prime = np.array([0.05, 0.06, 0.04, 0.03, 0.11, 0.12])
@@ -68,18 +78,36 @@ def test_eq_metr(rho, r_prime, pi, expected_val):
     assert(np.allclose(test_val, expected_val))
 
 
-# def test_eq_mettr(rho, s):
-#     test_val = cf.eq_mettr(rho, s)
-#
-#     assert(np.allclose(test_val, expected_val))
-#
-#
-# def test_eq_tax_wedge(rho, s):
-#     test_val = cf.eq_tax_wedge(rho, s)
-#
-#     assert(np.allclose(test_val, expected_val))
-#
-#
+rho = np.array([0.075285714, 0.0388, 0.042, 0.0112, 0.114475829, 0.094])
+s = np.array([0.05, 0.06, 0.04, 0.03, 0.11, 0.12])
+expected_val = np.array([0.335863378, -0.546391753, 0.047619048,
+                         -1.678571429, 0.03909846, -0.276595745])
+test_data = [(rho, s, expected_val)]
+
+
+@pytest.mark.parametrize('rho,s,expected_val', test_data,
+                         ids=['Test 0'])
+def test_eq_mettr(rho, s, expected_val):
+    test_val = cf.eq_mettr(rho, s)
+
+    assert(np.allclose(test_val, expected_val))
+
+
+rho = np.array([0.075285714, 0.0388, 0.042, 0.0112, 0.114475829, 0.094])
+s = np.array([0.05, 0.06, 0.04, 0.03, 0.11, 0.12])
+expected_val = np.array([0.02528571, -0.0212, 0.002, -0.0188,
+                         0.00447583, -0.026])
+test_data = [(rho, s, expected_val)]
+
+
+@pytest.mark.parametrize('rho,s,expected_val', test_data,
+                         ids=['Test 0'])
+def test_eq_tax_wedge(rho, s, expected_val):
+    test_val = cf.eq_tax_wedge(rho, s)
+
+    assert(np.allclose(test_val, expected_val))
+
+
 # def test_eq_eatr(rho, metr, profit_rate, u):
 #     test_val = cf.eq_eatr(rho, metr, profit_rate, u)
 #
