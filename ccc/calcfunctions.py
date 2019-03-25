@@ -159,7 +159,7 @@ def npv_tax_depr(df, r, pi):
     return df['z']
 
 
-def eq_coc(delta, z, w, u, inv_tax_credit, Y_v, pi, r):
+def eq_coc(delta, z, w, u, inv_tax_credit, pi, r):
     """
     Compute the cost of capital
 

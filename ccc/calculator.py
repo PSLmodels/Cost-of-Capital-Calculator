@@ -98,8 +98,7 @@ class Calculator():
                     dfs[t]['delta'], dfs[t]['z_' + str(f)],
                     self.__p.property_tax,
                     self.__p.u[t], self.__p.inv_tax_credit,
-                    self.__p.Y_v, self.__p.inflation_rate,
-                    self.__p.r[t][f])
+                    self.__p.inflation_rate, self.__p.r[t][f])
                 if not self.__p.inventory_expensing:
                     idx = dfs[t]['asset_name'] == 'Inventories'
                     dfs[t].loc[idx, 'rho_' + str(f)] = eq_coc_inventory(
