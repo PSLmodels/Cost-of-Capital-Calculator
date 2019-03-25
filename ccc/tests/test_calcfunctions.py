@@ -65,12 +65,27 @@ def test_econ(delta, bonus, r, pi, expected_val):
 #     test_df = cf.npv_tax_depr(df, r, pi)
 #
 #     assert_frame_equal(test_df, expected_df)
-#
-#
-# def test_eq_coc(delta, z, w, u, inv_tax_credit, Y_v, pi, r):
-#     test_val = cf.eq_coc(delta, z, w, u, inv_tax_credit, Y_v, pi, r)
-#
-#     assert(np.allclose(test_val, expected_val))
+
+
+delta = np.array([0.1, 0.1, 0.1, 0.1, 0.1, 0.1])
+z = np.array([0.1, 0, 0.5, 1, 0.55556, 0.8])
+w = np.array([0.01, 0.01, 0.01, 0.01, 0.01, 0.01])
+u = np.array([0.3, 0, 0.3, 0, 0.3, 0])
+inv_tax_credit = np.array([0.08, 0.08, 0.08, 0.08, 0.08, 0.08])
+pi = np.array([0.02, 0.02, 0.02, 0.02, 0.02, 0.02])
+r = np.array([0.05, 0.06, 0.04, 0.03, 0.11, 0.12])
+
+expected_val = np.array([0.075285714, 0.0388, 0.042, 0.0112,
+                         0.114475829, 0.094])
+test_data = [(delta, z, w, u, inv_tax_credit, pi, r, expected_val)]
+
+
+@pytest.mark.parametrize('delta,z,w,u,inv_tax_credit,pi,r,expected_val',
+                         test_data, ids=['Test 0'])
+def test_eq_coc(delta, z, w, u, inv_tax_credit, pi, r, expected_val):
+    test_val = cf.eq_coc(delta, z, w, u, inv_tax_credit, pi, r)
+
+    assert(np.allclose(test_val, expected_val))
 #
 #
 # def test_eq_coc_inventory(delta, u, phi, Y_v, pi, r):
