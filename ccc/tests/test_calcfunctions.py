@@ -12,35 +12,55 @@ from ccc import calcfunctions as cf
 #
 
 
-Y = np.array([40, 3, 10, 20, 8])
-b = np.array([1.2, 1.0, 1.5, 2.0, 1.8])
-bonus = np.array([0.0, 0.0, 0.4, 1.0, 0.9])
-r = np.array([0.05, 0.05, 0.05, 0.05, 0.05])
-expected_val = np.array([0.440513504372, 0.9286134905, 0.880930116585,
-                         1.0, 0.984770923379])
-test_data = [(Y, b, bonus, r, expected_val)]
+# Y = np.array([40, 3, 10, 20, 8])
+# b = np.array([1.2, 1.0, 1.5, 2.0, 1.8])
+# bonus = np.array([0.0, 0.0, 0.4, 1.0, 0.9])
+# r = np.array([0.03, 0.03, 0.03, 0.03, 0.03])
+# expected_val = np.array([0.588563059, 0.956320164, 0.924042198, 1,
+#                          0.99041001])
+# test_data = [(Y, b, bonus, r, expected_val)]
+#
+#
+# @pytest.mark.parametrize('Y,b,bonus,r,expected_val', test_data,
+#                          ids=['Test 0'])
+# def test_dbsl(Y, b, bonus, r, expected_val):
+#     test_val = cf.dbsl(Y, b, bonus, r)
+#
+#     assert(np.allclose(test_val, expected_val))
 
 
-@pytest.mark.parametrize('Y,b,bonus,r,expected_val', test_data,
+Y = np.array([40, 1, 10, 20, 8])
+bonus = np.array([0, 0, 0.4, 1, 1.2])
+r = np.array([0.12, 0.12, 0.12, 0.12, 0.12])
+expected_val = np.array([0.206618803, 0.942329694, 0.749402894, 1,
+                         1.071436018])
+test_data = [(Y, bonus, r, expected_val)]
+
+
+@pytest.mark.parametrize('Y,bonus,r,expected_val', test_data,
                          ids=['Test 0'])
-def test_dbsl(Y, b, bonus, r, expected_val):
-    test_val = cf.dbsl(Y, b, bonus, r)
+def test_sl(Y, bonus, r, expected_val):
+    test_val = cf.sl(Y, bonus, r)
 
     assert(np.allclose(test_val, expected_val))
 
 
-# def test_sl(Y, bonus, r):
-#     test_val = cf.sl(Y, bonus, r)
-#
-#     assert(np.allclose(test_val, expected_val))
-#
-#
-# def test_econ(delta, bonus, r, pi):
-#     test_val = cf.econ(delta, bonus, r, pi)
-#
-#     assert(np.allclose(test_val, expected_val))
-#
-#
+delta = np.array([0.01, 0.1, 0.1, 0.02, 0.1])
+bonus = np.array([0, 0, 0.4, 1, 1.2])
+r = np.array([0.12, 0.12, 0.12, 0.12, 0.12])
+pi = np.array([0.03, 0.03, 0.03, 0.03, 0.03])
+expected_val = np.array([0.1, 0.526315789, 0.715789474, 1, 1.094736842])
+test_data = [(delta, bonus, r, pi, expected_val)]
+
+
+@pytest.mark.parametrize('delta,bonus,r,pi,expected_val', test_data,
+                         ids=['Test 0'])
+def test_econ(delta, bonus, r, pi, expected_val):
+    test_val = cf.econ(delta, bonus, r, pi)
+
+    assert(np.allclose(test_val, expected_val))
+
+
 # def test_npv_tax_depr(df, r, pi):
 #     test_df = cf.npv_tax_depr(df, r, pi)
 #
