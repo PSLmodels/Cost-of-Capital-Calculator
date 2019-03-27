@@ -51,14 +51,14 @@ def dbsl(Y, b, bonus, r):
             treatment types
 
     """
-    beta = Y / b
+    beta = b / Y
     Y_star = Y * (1 - (1 / b))
     z = (
         bonus + ((1 - bonus) * (((beta / (beta + r)) *
                                  (1 - np.exp(-1 * (beta + r) * Y_star)))
                                 + ((np.exp(-1 * beta * Y_star) /
-                                    ((Y - Y_star * r)) *
-                                    np.exp(-1 * r * Y_star) -
+                                    ((Y - Y_star) * r)) *
+                                   (np.exp(-1 * r * Y_star) -
                                     np.exp(-1 * r * Y))))))
 
     return z
