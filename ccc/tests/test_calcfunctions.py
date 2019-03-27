@@ -88,7 +88,6 @@ def test_eq_coc(delta, z, w, u, inv_tax_credit, pi, r, expected_val):
     assert(np.allclose(test_val, expected_val))
 
 
-delta = np.array([0, 0, 0, 0, 0, 0])
 u = np.array([0.3, 0, 0.3, 0, 0.3, 0])
 phi = np.array([0.33, 0.33, 0.33, 0.33, 0.33, 0.33])
 Y_v = np.array([8, 8, 8, 8, 8, 8])
@@ -97,13 +96,13 @@ r = np.array([0.05, 0.06, 0.04, 0.03, 0.11, 0.12])
 
 expected_val = np.array([0.042779968, 0.04, 0.029723255, 0.01,
                          0.115882546, 0.1])
-test_data = [(delta, u, phi, Y_v, pi, r, expected_val)]
+test_data = [(u, phi, Y_v, pi, r, expected_val)]
 
 
-@pytest.mark.parametrize('delta,u,phi,Y_v,pi,r,expected_val',
+@pytest.mark.parametrize('u,phi,Y_v,pi,r,expected_val',
                          test_data, ids=['Test 0'])
-def test_eq_coc_inventory(delta, u, phi, Y_v, pi, r, expected_val):
-    test_val = cf.eq_coc_inventory(delta, u, phi, Y_v, pi, r)
+def test_eq_coc_inventory(u, phi, Y_v, pi, r, expected_val):
+    test_val = cf.eq_coc_inventory(u, phi, Y_v, pi, r)
 
     assert(np.allclose(test_val, expected_val))
 

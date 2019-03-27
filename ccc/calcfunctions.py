@@ -191,12 +191,12 @@ def eq_coc(delta, z, w, u, inv_tax_credit, pi, r):
     return rho
 
 
-def eq_coc_inventory(delta, u, phi, Y_v, pi, r):
+def eq_coc_inventory(u, phi, Y_v, pi, r):
     """
     Compute the cost of capital
 
     ..math::
-        \rho = \frac{(r-\pi+\delta)}{1-u(1-uz)+w-\delta
+        \rho = \phi \rho_{FIFO} + (1-\phi)\rho_{LIFO}
 
     Args:
         df: DataFrame, assets by type with depreciation rates
