@@ -168,8 +168,19 @@ def test_eq_tax_wedge(rho, s, expected_val):
     assert(np.allclose(test_val, expected_val))
 
 
-# def test_eq_eatr(rho, metr, profit_rate, u):
-#     test_val = cf.eq_eatr(rho, metr, profit_rate, u)
-#
-#     assert(np.allclose(test_val, expected_val))
-#
+rho = np.array([0.075285714, 0.0388, 0.042, 0.0112, 0.114475829, 0.094])
+metr = np.array([0.601518027, -0.030927835, 0.523809524, 0.107142857,
+                 0.213807831, -0.063829787])
+profit_rate = np.array([0.1, 0.2, 0.3, 0.05, 0.5, 1])
+u = np.array([0.35, 0.21, 0, 0.4, 1, 0.9])
+expected_val = np.array([0.539357143, 0.16326, 0.073333333, 0.3344,
+                         0.82, 0.8094])
+test_data = [(rho, metr, profit_rate, u, expected_val)]
+
+
+@pytest.mark.parametrize('rho,metr,profit_rate,u,expected_val', test_data,
+                         ids=['Test 0'])
+def test_eq_eatr(rho, metr, profit_rate, u, expected_val):
+    test_val = cf.eq_eatr(rho, metr, profit_rate, u)
+
+    assert(np.allclose(test_val, expected_val))
