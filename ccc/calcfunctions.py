@@ -69,7 +69,7 @@ def sl(Y, bonus, r):
     Makes the calculation for straight line (SL) method of depreciation.
 
     ..math::
-        z = \frac{e^{-rY}}{Yr}
+        z = \frac{1 - e^{-rY}}{Yr}
 
     Args:
         df: dataframe, contains economic depreciation and tax

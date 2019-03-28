@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import pytest
-from pandas.testing import assert_frame_equal
+from pandas.testing import assert_series_equal
 from ccc import calcfunctions as cf
 
 
@@ -61,10 +61,29 @@ def test_econ(delta, bonus, r, pi, expected_val):
     assert(np.allclose(test_val, expected_val))
 
 
-# def test_npv_tax_depr(df, r, pi):
-#     test_df = cf.npv_tax_depr(df, r, pi)
-#
-#     assert_frame_equal(test_df, expected_df)
+df = pd.DataFrame.from_dict({
+    'Method': ['DB 200%', 'DB 150%', 'SL', 'Economic', 'Expensing',
+               'DB 200%', 'DB 150%', 'SL', 'Economic', 'Expensing'],
+    'Y': [10, 10, 8, 8, 8, 10, 10, 8, 8, 8],
+    'delta': [0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08],
+    'b': [2, 1.5, 1, 1, 1, 2, 1.5, 1, 1, 1],
+    'bonus': [0, 0, 0, 0, 0, 0.5, 0.5, 0.5, 0.5, 0.5]})
+r = 0.05
+pi = 0.02
+expected_df = df.copy()
+expected_df['z'] = pd.Series([0.824294709, 0.801550194, 0.824199885,
+                              0.727272727, 1, 0.912147355, 0.900775097,
+                              0.912099942, 0.863636364, 1],
+                             index=expected_df.index)
+test_data = [(df, r, pi, expected_df['z'])]
+
+
+@pytest.mark.parametrize('df,r,pi,expected_df', test_data,
+                         ids=['Test 0'])
+def test_npv_tax_depr(df, r, pi, expected_df):
+    test_df = cf.npv_tax_depr(df, r, pi)
+    print('Types = ', type(test_df), type(expected_df))
+    assert_series_equal(test_df, expected_df)
 
 
 delta = np.array([0.1, 0.1, 0.1, 0.1, 0.1, 0.1])
