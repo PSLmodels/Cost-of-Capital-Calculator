@@ -1,15 +1,38 @@
 import pandas as pd
 import numpy as np
 import pytest
-from pandas.testing import assert_series_equal
+from pandas.testing import assert_series_equal, assert_frame_equal
 from ccc import calcfunctions as cf
+from ccc.parameters import Specifications
 
 
-# def test_update_depr_methods(df, p):
-#     test_df = cf.update_depr_methods(df, p)
-#
-#     assert_frame_equal(test_df, expected_df)
-#
+p = Specifications()
+df = pd.DataFrame.from_dict({
+    'Method': ['DB 200%', 'DB 150%', 'SL', 'Economic', 'Expensing',
+               'DB 200%', 'DB 150%', 'SL', 'Economic', 'Expensing'],
+    'GDS Life': [10, 10, 3, 15, 27.5, 27.5, 10, 3, 15, 7],
+    'ADS Life': [10, 10, 3, 15, 27.5, 27.5, 10, 3, 15, 7],
+    'GDS Class Life': [10, 10, 3, 15, 27.5, 27.5, 10, 3, 15, 7]})
+expected_df = df.copy()
+expected_df['System'] = pd.Series(['GDS', 'GDS', 'GDS', 'GDS', 'GDS',
+                                   'GDS', 'GDS', 'GDS', 'GDS', 'GDS'],
+                                  index=expected_df.index)
+expected_df['bonus'] = pd.Series([1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0,
+                                  1.0, 1.0, 1.0],
+                                 index=expected_df.index)
+expected_df['b'] = pd.Series([2, 1.5, 1, 1, 1, 2, 1.5, 1, 1, 1],
+                             index=expected_df.index)
+expected_df['Y'] = pd.Series([10, 10, 3, 15, 27.5, 27.5, 10, 3, 15, 7],
+                             index=expected_df.index)
+test_data = [(df, p, expected_df)]
+
+
+@pytest.mark.parametrize('df,p,expected_df', test_data,
+                         ids=['Test 0'])
+def test_update_depr_methods(df, p, expected_df):
+    test_df = cf.update_depr_methods(df, p)
+
+    assert_frame_equal(test_df, expected_df)
 
 
 Y = np.array([40, 3, 10, 20, 8])
