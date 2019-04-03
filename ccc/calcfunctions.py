@@ -124,8 +124,7 @@ def econ(delta, bonus, r, pi):
     return z
 
 
-# def npv_tax_depr(df, p):
-def npv_tax_depr(df, r, pi):
+def npv_tax_depr(df, r, pi, land_expensing):
     """
     Depending on the method of depreciation, makes calls to either
     the straight line or declining balance calculations.
@@ -155,6 +154,8 @@ def npv_tax_depr(df, r, pi):
                             r, pi)
     idx = df['Method'] == 'Expensing'
     df.loc[idx, 'z'] = 1.0
+    idx = df['asset_name'] == 'Land'
+    df.loc[idx, 'z'] = land_expensing
 
     return df['z']
 
