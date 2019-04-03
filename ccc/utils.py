@@ -1,5 +1,6 @@
 import pkg_resources
-from collections import OrderedDict, defaultdict
+from collections import OrderedDict
+import warnings
 import numbers
 import os
 import json
@@ -209,7 +210,6 @@ def wavg(group, avg_name, weight_name):
     Returns:
         d: groupby object, weighted avg by group
     """
-    import warnings
     warnings.filterwarnings('error')
     d = group[avg_name]
     w = group[weight_name]
