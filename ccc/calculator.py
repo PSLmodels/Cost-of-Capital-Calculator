@@ -157,8 +157,8 @@ class Calculator():
         # Can put some if statements here if want to exclude land/inventory/etc
         overall_df = pd.DataFrame(self.__assets.df.groupby(
             ['tax_treat']).apply(self.__f)).reset_index()
-        overall_df['major_asset_group'] = 'overall'
-        overall_df['asset_name'] = 'overall'
+        overall_df['major_asset_group'] = 'Overall'
+        overall_df['asset_name'] = 'Overall'
         overall_df = self.calc_other(overall_df)
         df = pd.concat([asset_df, major_asset_df, overall_df],
                        ignore_index=True, copy=True,
@@ -166,6 +166,36 @@ class Calculator():
         # Drop duplicate rows in case, e.g., only one asset in major
         # asset group
         df.drop_duplicates(subset=['asset_name', 'major_asset_group',
+                                   'tax_treat'], inplace=True)
+
+        return df
+
+    def calc_by_industry(self):
+        '''
+        Calculates all variables by industry, including overall, and by
+        major asset categories.
+        '''
+        self.calc_base()
+        ind_df = pd.DataFrame(self.__assets.df.groupby(
+            ['major_industry', 'bea_ind_code', 'Industry',
+             'tax_treat']).apply(self.__f)).reset_index()
+        ind_df = self.calc_other(ind_df)
+        major_ind_df = pd.DataFrame(self.__assets.df.groupby(
+            ['major_industry', 'tax_treat']).apply(self.__f)).reset_index()
+        major_ind_df['Industry'] = major_ind_df['major_industry']
+        major_ind_df = self.calc_other(major_ind_df)
+        # Can put some if statements here if want to exclude land/inventory/etc
+        overall_df = pd.DataFrame(self.__assets.df.groupby(
+            ['tax_treat']).apply(self.__f)).reset_index()
+        overall_df['major_industry'] = 'Overall'
+        overall_df['Industry'] = 'Overall'
+        overall_df = self.calc_other(overall_df)
+        df = pd.concat([ind_df, major_ind_df, overall_df],
+                       ignore_index=True, copy=True,
+                       sort=True).reset_index()
+        # Drop duplicate rows in case, e.g., only one industry in major
+        # industry group
+        df.drop_duplicates(subset=['Industry', 'major_industry',
                                    'tax_treat'], inplace=True)
 
         return df
