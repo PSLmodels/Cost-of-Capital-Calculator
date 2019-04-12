@@ -172,12 +172,15 @@ def diff_two_tables(df1, df2):
     assert tuple(df1.columns) == tuple(df2.columns)
     diffs = OrderedDict()
     for c in df1.columns:
-        example = getattr(df1, c).iloc[0]
-        can_diff = isinstance(example, numbers.Number)
-        if can_diff:
-            diffs[c] = getattr(df1, c) - getattr(df2, c)
-        else:
-            diffs[c] = getattr(df1, c)
+        try:
+            example = getattr(df1, c).iloc[0]
+            can_diff = isinstance(example, numbers.Number)
+            if can_diff:
+                diffs[c] = getattr(df1, c) - getattr(df2, c)
+            else:
+                diffs[c] = getattr(df1, c)
+        except AttributeError:
+            pass
     diff_df = pd.DataFrame(diffs)
     return diff_df
 
