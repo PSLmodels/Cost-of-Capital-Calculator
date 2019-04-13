@@ -85,6 +85,10 @@ def test_econ(delta, bonus, r, pi, expected_val):
 
 
 df = pd.DataFrame.from_dict({
+    'asset_name': ['Steam engines', 'Custom software', 'Other furniture',
+                   'Mining and oilfield machinery', 'Expensing', 'PCs',
+                   'Terminals', 'Manufacturing', 'Wind and solar',
+                   'Equipment'],
     'Method': ['DB 200%', 'DB 150%', 'SL', 'Economic', 'Expensing',
                'DB 200%', 'DB 150%', 'SL', 'Economic', 'Expensing'],
     'Y': [10, 10, 8, 8, 8, 10, 10, 8, 8, 8],
@@ -93,18 +97,19 @@ df = pd.DataFrame.from_dict({
     'bonus': [0, 0, 0, 0, 0, 0.5, 0.5, 0.5, 0.5, 0.5]})
 r = 0.05
 pi = 0.02
+land_expensing = 0.0
 expected_df = df.copy()
 expected_df['z'] = pd.Series([0.824294709, 0.801550194, 0.824199885,
                               0.727272727, 1, 0.912147355, 0.900775097,
                               0.912099942, 0.863636364, 1],
                              index=expected_df.index)
-test_data = [(df, r, pi, expected_df['z'])]
+test_data = [(df, r, pi, land_expensing, expected_df['z'], )]
 
 
-@pytest.mark.parametrize('df,r,pi,expected_df', test_data,
-                         ids=['Test 0'])
-def test_npv_tax_depr(df, r, pi, expected_df):
-    test_df = cf.npv_tax_depr(df, r, pi)
+@pytest.mark.parametrize('df,r,pi,land_expensing,expected_df',
+                         test_data, ids=['Test 0'])
+def test_npv_tax_depr(df, r, pi, land_expensing, expected_df):
+    test_df = cf.npv_tax_depr(df, r, pi, land_expensing)
     print('Types = ', type(test_df), type(expected_df))
     assert_series_equal(test_df, expected_df)
 
