@@ -1,9 +1,9 @@
-from __future__ import unicode_literals
-from collections import OrderedDict, defaultdict
+import pkg_resources
+from collections import OrderedDict
+import warnings
 import numbers
 import os
 import json
-from pkg_resources import resource_stream, Requirement
 import pandas as pd
 
 # Default year for model runs
@@ -50,7 +50,8 @@ def read_from_egg(tfile):
                                  tfile)
     if not os.path.exists(template_path):
         path_in_egg = os.path.join("ccc", tfile)
-        buf = resource_stream(Requirement.parse("ccc"), path_in_egg)
+        buf = pkg_resources.resource_stream(
+            pkg_resources.Requirement.parse("ccc"), path_in_egg)
         _bytes = buf.read()
         contents = str(_bytes)
     else:
@@ -171,12 +172,15 @@ def diff_two_tables(df1, df2):
     assert tuple(df1.columns) == tuple(df2.columns)
     diffs = OrderedDict()
     for c in df1.columns:
-        example = getattr(df1, c).iloc[0]
-        can_diff = isinstance(example, numbers.Number)
-        if can_diff:
-            diffs[c] = getattr(df1, c) - getattr(df2, c)
-        else:
-            diffs[c] = getattr(df1, c)
+        try:
+            example = getattr(df1, c).iloc[0]
+            can_diff = isinstance(example, numbers.Number)
+            if can_diff:
+                diffs[c] = getattr(df1, c) - getattr(df2, c)
+            else:
+                diffs[c] = getattr(df1, c)
+        except AttributeError:
+            pass
     diff_df = pd.DataFrame(diffs)
     return diff_df
 
@@ -209,11 +213,12 @@ def wavg(group, avg_name, weight_name):
     Returns:
         d: groupby object, weighted avg by group
     """
+    warnings.filterwarnings('error')
     d = group[avg_name]
     w = group[weight_name]
     try:
         return (d * w).sum() / w.sum()
-    except ZeroDivisionError:
+    except Warning:
         return d.mean()
 
 
@@ -223,10 +228,10 @@ def read_egg_csv(fname, index_col=None):
     return pandas DataFrame containing the data.
     """
     try:
-        path_in_egg = os.path.join('taxcalc', fname)
+        path_in_egg = os.path.join('ccc', fname)
         vdf = pd.read_csv(
             pkg_resources.resource_stream(
-                pkg_resources.Requirement.parse('taxcalc'),
+                pkg_resources.Requirement.parse('ccc'),
                 path_in_egg),
             index_col=index_col
         )
@@ -242,12 +247,12 @@ def read_egg_json(fname):
     return dictionary containing the data.
     """
     try:
-        path_in_egg = os.path.join('taxcalc', fname)
+        path_in_egg = os.path.join('ccc', fname)
         pdict = json.loads(
             pkg_resources.resource_stream(
-                pkg_resources.Requirement.parse('taxcalc'),
+                pkg_resources.Requirement.parse('ccc'),
                 path_in_egg).read().decode('utf-8'),
-            object_pairs_hook=collections.OrderedDict
+            object_pairs_hook=OrderedDict
         )
     except Exception:
         raise ValueError('could not read {} data from egg'.format(fname))
@@ -273,7 +278,7 @@ def json_to_dict(json_text):
     """
     try:
         ordered_dict = json.loads(json_text,
-                                  object_pairs_hook=collections.OrderedDict)
+                                  object_pairs_hook=OrderedDict)
     except ValueError as valerr:
         text_lines = json_text.split('\n')
         msg = 'Text below contains invalid JSON:\n'

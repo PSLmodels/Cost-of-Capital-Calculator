@@ -1,3 +1,6 @@
+TAX_METHODS = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0,
+               'Economic': 1.0, 'Expensing': 1.0}
+
 ASSET_DICT = dict.fromkeys(['Mainframes', 'PCs', 'DASDs',
                         'Printers', 'Terminals', 'Tape drives',
                         'Storage devices', 'System integrators',
