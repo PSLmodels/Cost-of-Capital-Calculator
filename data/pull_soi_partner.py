@@ -13,7 +13,8 @@ entities.
 import re
 import numpy as np
 import pandas as pd
-from ccc.utils import get_paths, to_str
+from ccc.utils import to_str
+from data_paths import get_paths
 globals().update(get_paths())
 
 # Constants

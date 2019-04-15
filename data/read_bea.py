@@ -12,7 +12,7 @@ dictionaries to map the codes.
 # Packages:
 import numpy as np
 import pandas as pd
-from ccc.utils import get_paths
+from data_paths import get_paths
 
 # Directories:
 globals().update(get_paths())

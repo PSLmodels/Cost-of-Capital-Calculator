@@ -12,7 +12,7 @@ import pandas as pd
 import pull_soi_corp as corp
 import pull_soi_partner as prt
 import pull_soi_proprietorship as prop
-from ccc.utils import get_paths
+from data_paths import get_paths
 globals().update(get_paths())
 
 

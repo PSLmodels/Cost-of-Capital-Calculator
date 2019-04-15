@@ -12,8 +12,9 @@ is also loaded in.
 import re
 import numpy as np
 import pandas as pd
-from ccc.utils import get_paths, to_str
+from ccc.utils import to_str
 import pull_soi_partner as prt
+from data_paths import get_paths
 globals().update(get_paths())
 
 _DDCT_FILE_FCTR = 10**3

@@ -11,7 +11,7 @@ industries.
 # Packages:
 import pandas as pd
 # Directory names:
-from ccc.utils import get_paths
+from data_paths import get_paths
 globals().update(get_paths())
 
 _DFLT_S_CORP_COLS_DICT = DFLT_S_CORP_COLS_DICT =\
