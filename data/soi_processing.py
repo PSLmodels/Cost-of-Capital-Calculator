@@ -9,9 +9,9 @@ and proprietorship dataframes and to interpolate missing data.
 # Import packages
 import pandas as pd
 # Import custom modules
-import ccc.pull_soi_corp as corp
-import ccc.pull_soi_partner as prt
-import ccc.pull_soi_proprietorship as prop
+import pull_soi_corp as corp
+import pull_soi_partner as prt
+import pull_soi_proprietorship as prop
 from ccc.utils import get_paths
 globals().update(get_paths())
 

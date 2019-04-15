@@ -60,14 +60,6 @@ def read_from_egg(tfile):
     return contents
 
 
-DEFAULT_ASSET_COLS = json.loads(read_from_egg
-                                (os.path.join('param_defaults',
-                                              'ccc_results_by_asset.json')))
-DEFAULT_INDUSTRY_COLS = json.loads(read_from_egg
-                                   (os.path.join('param_defaults',
-                                                 'ccc_results_by_industry.json')))
-
-
 def get_paths():
     """
     Function to define constants that contain strings with paths to the

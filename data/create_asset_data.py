@@ -8,18 +8,14 @@ import os.path
 import sys
 import numpy as np
 import pandas as pd
-from ccc.soi_processing import pull_soi_data
-from ccc import calc_final_outputs
-from ccc import check_output
 from ccc.utils import (get_paths,
                        read_from_egg,
                        diff_two_tables,
                        filter_user_params_for_econ)
-from ccc import read_bea
-import ccc.soi_processing as soi
-from ccc.utils import get_paths
-from ccc import pull_depreciation
-from constants import MAJOR_ASSET_GROUPS, BEA_CODE_DICT
+import read_bea
+from soi_processing import pull_soi_data
+import pull_depreciation
+from ccc.constants import MAJOR_ASSET_GROUPS, BEA_CODE_DICT
 globals().update(get_paths())
 
 

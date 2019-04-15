@@ -13,7 +13,7 @@ import re
 import numpy as np
 import pandas as pd
 from ccc.utils import get_paths, to_str
-import ccc.pull_soi_partner as prt
+import pull_soi_partner as prt
 globals().update(get_paths())
 
 _DDCT_FILE_FCTR = 10**3
