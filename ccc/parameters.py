@@ -9,17 +9,19 @@ import pkg_resources
 # import ccc
 from ccc.parametersbase import ParametersBase
 from ccc.get_taxcalc_rates import get_rates
-from ccc.utils import read_from_egg, DEFAULT_START_YEAR, RECORDS_START_YEAR
+from ccc.utils import DEFAULT_START_YEAR
 
 
 class Specifications(ParametersBase):
     """
-    Inherits ParametersBase. Implements the PolicyBrain API for Cost-of-Capital-Calculator
+    Inherits ParametersBase. Implements the PolicyBrain API for
+    Cost-of-Capital-Calculator
     """
     DEFAULTS_FILENAME = 'default_parameters.json'
 
     def __init__(self, test=False, time_path=True, baseline=False,
-                 year=2018, call_tc=False, iit_reform={}, data='cps'):
+                 year=DEFAULT_START_YEAR, call_tc=False, iit_reform={},
+                 data='cps'):
         super(Specifications, self).__init__()
 
         # reads in default parameter values
@@ -31,7 +33,8 @@ class Specifications(ParametersBase):
         self.iit_reform = iit_reform
         self.data = data
 
-        # put Cost-of-Capital-Calculator version in parameters to save for reference
+        # put Cost-of-Capital-Calculator version in parameters to save
+        # for reference
         self.ccc_version = pkg_resources.get_distribution("ccc").version
 
         if call_tc:
@@ -203,7 +206,6 @@ class Specifications(ParametersBase):
             # entity level tax that might now favor debt
             self.s['nc']['mix'] = self.f_nc * s_nc_d + (1 - self.f_nc) * s_c_e
             self.s['c']['e'] = s_c_e
-        self.delta = get_econ_depr()
         self.tax_methods = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0,
                             'Economic': 1.0, 'Expensing': 1.0}
         self.r = r
