@@ -3,6 +3,7 @@ import os
 import pandas as pd
 import numpy as np
 import numbers
+import subprocess
 from pandas.testing import assert_frame_equal
 from ccc.parameters import Specifications
 from ccc.calculator import Calculator
@@ -29,7 +30,7 @@ result_by_industry = pd.read_json(os.path.join(
                          [(test_by_asset, result_by_asset),
                           (test_by_industry, result_by_industry)],
                          ids=['by assset', 'by industry'])
-def test_run_ccc_asset(test_df, expected_df):
+def test_run_ccc(test_df, expected_df):
     # Test the run_ccc.run_ccc() function by reading in inputs and
     # confirming that output variables have the same values.
     test_df.sort_index(inplace=True)
@@ -48,4 +49,33 @@ def test_run_ccc_asset(test_df, expected_df):
                 pass
         except AttributeError:
             pass
-    # assert_frame_equal(test_df, expected_df)
+
+
+def test_run_ccc_example():
+    '''
+    Test that the example script runs
+    '''
+    run_example_path = os.path.join(CUR_PATH, '..', '..', 'run_examples')
+    subprocess.call('cd ' + run_example_path +
+                    ' ; python run_ccc_example.py', shell=True)
+
+
+@pytest.mark.parametrize(
+    'file_name', ['baseline_byindustry', 'baseline_byasset',
+                  'reform_byindustry', 'reform_byasset',
+                  'changed_byindustry', 'changed_byasset'],
+    ids=['baseline by industry', 'baseline by asset',
+         'reform by industry', 'reform by asset', 'changed by industry',
+         'changed by asset'])
+def test_run_ccc_example_output(file_name):
+    '''
+    Tests the script in ../../run_examples/run_ccc_example.py to
+    ensure that it produces the expected results that are checked into
+    the repo.
+    '''
+    run_example_path = os.path.join(CUR_PATH, '..', '..', 'run_examples')
+    test_path = os.path.join(run_example_path, file_name + '.csv')
+    test_df = pd.read_csv(test_path)
+    expected_path = os.path.join(run_example_path, file_name + '_expected.csv')
+    expected_df = pd.read_csv(expected_path)
+    assert_frame_equal(test_df, expected_df)
