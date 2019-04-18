@@ -200,6 +200,43 @@ class Calculator():
 
         return df
 
+    def summary_table(self, calc, output_variable='mettr',
+                      include_land=True, include_inventories=True,
+                      output_type='csv', path=''):
+    '''
+    Create table summarizing the output_variable under the baseline
+    and reform policies.
+
+    Parameters
+    ----------
+    calc : Calculator object
+        calc represents the reform while self represents the baseline
+    output_variable : string
+        specifies which output variable to summarize in the table
+    include_land : boolean
+        specifies whether to include land in overall calculations
+    include_inventories : boolean
+        specifies whether to include inventories in overall calculations
+    output_type : string
+        specifies the type of file to save table to:
+            - 'csv'
+            - 'tex'
+            - 'excel'
+            - 'json'
+    path : string
+        specifies path to save file with table to
+    Returns
+    -------
+    table saved to disk
+    '''
+    # Make table...
+    #     - want overall calcs from by asset df
+    #         - but may want to exclude land, inventories
+    #         - can will need an average over corp and non-corp together
+    #     - do this for baseline and reform
+    #     - final table will just include reform and diff
+    # Save table...
+
     def store_assets(self):
         """
         Make internal copy of embedded Assets object that can then be
