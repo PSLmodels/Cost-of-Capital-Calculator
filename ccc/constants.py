@@ -1,3 +1,10 @@
+VAR_DICT = {'mettr': 'Marginal Effective Total Tax Rate',
+            'metr': 'Marginal Effective Tax Rate',
+            'rho': 'Cost of Capital',
+            'ucc': 'User Cost of Capital',
+            'tax_wedge': 'Tax Wedge',
+            'z': 'NPV of Depreciation Deductions'}
+
 TAX_METHODS = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0,
                'Economic': 1.0, 'Expensing': 1.0}
 

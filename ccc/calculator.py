@@ -15,6 +15,7 @@ from ccc.calcfunctions import (update_depr_methods, npv_tax_depr,
 from ccc.parameters import Specifications
 from ccc.data import Assets
 from ccc.utils import wavg, diff_two_tables
+from ccc.constants import VAR_DICT
 # import pdb
 
 
@@ -207,34 +208,27 @@ class Calculator():
         Create table summarizing the output_variable under the baseline
         and reform policies.
 
-        Parameters
-        ----------
-        calc : Calculator object
-            calc represents the reform while self represents the baseline
-        output_variable : string
-            specifies which output variable to summarize in the table
-        include_land : boolean
-            specifies whether to include land in overall calculations
-        include_inventories : boolean
-            specifies whether to include inventories in overall calculations
-        output_type : string
-            specifies the type of file to save table to:
-                - 'csv'
-                - 'tex'
-                - 'excel'
-                - 'json'
-        path : string
-            specifies path to save file with table to
-        Returns
-        -------
-        table saved to disk
+        Args:
+            calc : Calculator object
+                calc represents the reform while self represents the baseline
+            output_variable : string
+                specifies which output variable to summarize in the table
+            include_land : boolean
+                specifies whether to include land in overall calculations
+            include_inventories : boolean
+                specifies whether to include inventories in overall calculations
+            output_type : string
+                specifies the type of file to save table to:
+                    - 'csv'
+                    - 'tex'
+                    - 'excel'
+                    - 'json'
+            path : string
+                specifies path to save file with table to
+
+        Returns:
+            None, table saved to disk
         '''
-        var_dict = {'mettr': 'Marginal Effective Total Tax Rate',
-                    'metr': 'Marginal Effective Tax Rate',
-                    'rho': 'Cost of Capital',
-                    'ucc': 'User Cost of Capital',
-                    'tax_wedge': 'Tax Wedge',
-                    'z': 'NPV of Depreciation Deductions'}
         self.calc_base()
         calc.calc_base()
         base_df = self.__assets.df
@@ -275,7 +269,7 @@ class Calculator():
             '': ['Overall', 'Corporations', '   Equity Financed',
                  '   Debt Financed', 'Pass-Through Entities',
                  '   Equity Financed', '   Debt Financed'],
-            var_dict[output_variable]: [
+            VAR_DICT[output_variable]: [
                 reform_tab[
                     reform_tab['tax_treat'] ==
                     'all'][output_variable + '_mix'].values[0],
@@ -335,6 +329,29 @@ class Calculator():
         else:
             print('Please enter a valid output format')
             assert(False)
+
+    def asset_bubble_plot(self, calc, output_variable, include_land,
+                          include_inventories, path):
+        '''
+        Create table summarizing the output_variable under the baseline
+        and reform policies.
+
+        Args:
+            calc : Calculator object
+                calc represents the reform while self represents the baseline
+            output_variable : string
+                specifies which output variable to summarize in the plot
+            include_land : boolean
+                specifies whether to include land in overall calculations
+            include_inventories : boolean
+                specifies whether to include inventories in overall calculations
+            path : string
+                specifies path to save file with table to
+
+        Returns:
+            None, table saved to disk
+        '''
+        
 
     def store_assets(self):
         """
