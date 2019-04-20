@@ -14,7 +14,7 @@ from ccc.calcfunctions import (update_depr_methods, npv_tax_depr,
                                eq_metr, eq_mettr, eq_tax_wedge, eq_eatr)
 from ccc.parameters import Specifications
 from ccc.data import Assets
-from ccc.utils import wavg
+from ccc.utils import wavg, diff_two_tables
 # import pdb
 
 
@@ -203,39 +203,138 @@ class Calculator():
     def summary_table(self, calc, output_variable='mettr',
                       include_land=True, include_inventories=True,
                       output_type='csv', path=''):
-    '''
-    Create table summarizing the output_variable under the baseline
-    and reform policies.
+        '''
+        Create table summarizing the output_variable under the baseline
+        and reform policies.
 
-    Parameters
-    ----------
-    calc : Calculator object
-        calc represents the reform while self represents the baseline
-    output_variable : string
-        specifies which output variable to summarize in the table
-    include_land : boolean
-        specifies whether to include land in overall calculations
-    include_inventories : boolean
-        specifies whether to include inventories in overall calculations
-    output_type : string
-        specifies the type of file to save table to:
-            - 'csv'
-            - 'tex'
-            - 'excel'
-            - 'json'
-    path : string
-        specifies path to save file with table to
-    Returns
-    -------
-    table saved to disk
-    '''
-    # Make table...
-    #     - want overall calcs from by asset df
-    #         - but may want to exclude land, inventories
-    #         - can will need an average over corp and non-corp together
-    #     - do this for baseline and reform
-    #     - final table will just include reform and diff
-    # Save table...
+        Parameters
+        ----------
+        calc : Calculator object
+            calc represents the reform while self represents the baseline
+        output_variable : string
+            specifies which output variable to summarize in the table
+        include_land : boolean
+            specifies whether to include land in overall calculations
+        include_inventories : boolean
+            specifies whether to include inventories in overall calculations
+        output_type : string
+            specifies the type of file to save table to:
+                - 'csv'
+                - 'tex'
+                - 'excel'
+                - 'json'
+        path : string
+            specifies path to save file with table to
+        Returns
+        -------
+        table saved to disk
+        '''
+        var_dict = {'mettr': 'Marginal Effective Total Tax Rate',
+                    'metr': 'Marginal Effective Tax Rate',
+                    'rho': 'Cost of Capital',
+                    'ucc': 'User Cost of Capital',
+                    'tax_wedge': 'Tax Wedge',
+                    'z': 'NPV of Depreciation Deductions'}
+        self.calc_base()
+        calc.calc_base()
+        base_df = self.__assets.df
+        reform_df = calc.__assets.df
+        dfs = [base_df, reform_df]
+        dfs_out = []
+        for df in dfs:
+            if not include_land:
+                df = df.drop(df[df.asset_name == 'Land'].index,
+                             inplace=True)
+            if not include_inventories:
+                df = df.drop(df[df.asset_name == 'Inventories'].index,
+                             inplace=True)
+            # Compute overall separately by tax treatment
+            treat_df = pd.DataFrame(df.groupby(
+                ['tax_treat']).apply(self.__f)).reset_index()
+            treat_df = self.calc_other(treat_df)
+            # Compute overall values, across corp and non-corp
+            # just making up a column with same value in all rows so can
+            # continute to use groupby
+            df['include'] = 1
+            all_df = pd.DataFrame.from_dict(
+                df.groupby(['include']).apply(self.__f).to_dict())
+            # set tax_treat to corporate b/c only corp and non-corp
+            # recognized in calc_other()
+            all_df['tax_treat'] = 'corporate'
+            all_df = self.calc_other(all_df)
+            all_df['tax_treat'] = 'all'
+            # Put df's together
+            dfs_out.append(pd.concat([treat_df, all_df],
+                                     ignore_index=True, copy=True,
+                                     sort=True).reset_index())
+        base_tab = dfs_out[0]
+        reform_tab = dfs_out[1]
+        # print('reform table = ', reform_tab)
+        diff_tab = diff_two_tables(base_tab, reform_tab)
+        table_dict = {
+            '': ['Overall', 'Corporations', '   Equity Financed',
+                 '   Debt Financed', 'Pass-Through Entities',
+                 '   Equity Financed', '   Debt Financed'],
+            var_dict[output_variable]: [
+                reform_tab[
+                    reform_tab['tax_treat'] ==
+                    'all'][output_variable + '_mix'].values[0],
+                reform_tab[
+                    reform_tab['tax_treat'] ==
+                    'corporate'][output_variable + '_mix'].values[0],
+                reform_tab[
+                    reform_tab['tax_treat'] ==
+                    'corporate'][output_variable + '_e'].values[0],
+                reform_tab[
+                    reform_tab['tax_treat'] ==
+                    'corporate'][output_variable + '_d'].values[0],
+                reform_tab[
+                    reform_tab['tax_treat'] ==
+                    'non-corporate'][output_variable + '_mix'].values[0],
+                reform_tab[
+                    reform_tab['tax_treat'] ==
+                    'non-corporate'][output_variable + '_e'].values[0],
+                reform_tab[
+                    reform_tab['tax_treat'] ==
+                    'non-corporate'][output_variable + '_d'].values[0]],
+            'Change from Baseline (pp)': [
+                diff_tab[
+                    diff_tab['tax_treat'] ==
+                    'all'][output_variable + '_mix'].values[0],
+                diff_tab[
+                    diff_tab['tax_treat'] ==
+                    'corporate'][output_variable + '_mix'].values[0],
+                diff_tab[
+                    diff_tab['tax_treat'] ==
+                    'corporate'][output_variable + '_e'].values[0],
+                diff_tab[
+                    diff_tab['tax_treat'] ==
+                    'corporate'][output_variable + '_d'].values[0],
+                diff_tab[
+                    diff_tab['tax_treat'] ==
+                    'non-corporate'][output_variable + '_mix'].values[0],
+                diff_tab[
+                    diff_tab['tax_treat'] ==
+                    'non-corporate'][output_variable + '_e'].values[0],
+                diff_tab[
+                    diff_tab['tax_treat'] ==
+                    'non-corporate'][output_variable + '_d'].values[0]]}
+        # Make df with dict so can use pandas functions
+        table_df = pd.DataFrame.from_dict(table_dict, orient='columns')
+        if output_type == 'tex':
+            table_df.to_latex(buf=path, index=False, na_rep='',
+                              float_format=lambda x: '%.2f' % x)
+        elif output_type == 'csv':
+            table_df.to_csv(path_or_buf=path, index=False, na_rep='',
+                            float_format="%.2f")
+        elif output_type == 'json':
+            table_df.to_json(path_or_buf=path, double_precision=2)
+        elif output_type == 'excel':
+            table_df.to_excel(excel_writer=path, index=False, na_rep='',
+                              float_format="%.2f")
+        else:
+            print('Please enter a valid output format')
+            assert(False)
 
     def store_assets(self):
         """
@@ -293,7 +392,7 @@ class Calculator():
     def __f(self, x):
         '''
         Private method.  A fuction to compute sums and weighted averages
-        in same groubpy object.
+        from a groubpy object.
         '''
         d = {}
         d['assets'] = x['assets'].sum()
