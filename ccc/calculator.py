@@ -35,31 +35,22 @@ class Calculator():
     """
     Constructor for the Calculator class.
 
-    Parameters
-    ----------
-    p: Specifications class object
-        this argument must be specified and object is copied for internal use
+    Args:
+        p: CCC Specifications class object, contains parameters, this
+            argument must be specified and object is copied for internal
+            use
+        assets: CCC Assets class object, contains asset data, this
+            argument must be specified and object is copied for
+            internal use
+        verbose: boolean, specifies whether or not to write to stdout
+            data-loaded and data-extrapolated progress reports; default
+            value is true.
 
-    assets: Assets class object
-        this argument must be specified and object is copied for internal use
+    Raises:
+        ValueError: if parameters are not the appropriate type.
 
-    verbose: boolean
-        specifies whether or not to write to stdout data-loaded and
-        data-extrapolated progress reports; default value is true.
-
-    behavior: Behavior class object
-        specifies behavioral responses used by Calculator; default is None,
-        which implies no behavioral responses to p reform;
-        when argument is an object it is copied for internal use
-
-    Raises
-    ------
-    ValueError:
-        if parameters are not the appropriate type.
-
-    Returns
-    -------
-    class instance: Calculator
+    Returns:
+        Calculator: class instance
 
     Notes
     -----
@@ -68,10 +59,11 @@ class Calculator():
          pol = Specifications()
          rec = Assets()
          calc1 = Calculator(p=pol, assets=rec)  # current-law
-         pol.implement_reform(...)
-         calc2 = Calculator(p=pol, assets=rec)  # reform
-    All calculations are done on the internal copies of the Specifications and
-    Assets objects passed to each of the two Calculator constructors.
+         pol2 = Specifications(...reform parameters...)
+         calc2 = Calculator(p=pol2, assets=rec)  # reform
+    All calculations are done on the internal copies of the
+    Specifications and Assets objects passed to each of the two
+    Calculator constructors.
     """
     # pylint: disable=too-many-public-methods
 
@@ -89,7 +81,15 @@ class Calculator():
 
     def calc_other(self, df):
         '''
-        Calculates variables that depend on z and rho
+        Calculates variables that depend on z and rho such as metr, ucc
+
+        Args:
+            df: pandas DataFrame, assets by indusry and tax_treatment
+                with depreciation rates, cost of capital, etc.
+
+        Returns:
+            df: pandas DataFrame, input dataframe, but with additional
+                columns (ucc, metr, mettr, tax_wedge, eatr)
         '''
         dfs = {'c': df[df['tax_treat'] == 'corporate'].copy(),
                'nc': df[df['tax_treat'] == 'non-corporate'].copy()}
@@ -119,6 +119,12 @@ class Calculator():
         (z), and computing the cost of capital (rho) and then calling
         the calc_all() function to do computations that dependon rho and
         z.
+
+        Args:
+            None
+
+        Returns:
+            None
         """
         # conducts static analysis of Calculator object for current_year
         self.__assets.df = update_depr_methods(self.__assets.df,
@@ -149,6 +155,12 @@ class Calculator():
     def calc_all(self):
         '''
         Calculates all CCC variables for some CCC Assets object.
+
+        Args:
+            None
+
+        Returns:
+            None
         '''
         self.calc_base()
         self.__assets.df = self.calc_other(self.__assets.df)
@@ -157,6 +169,13 @@ class Calculator():
         '''
         Calculates all variables by asset, including overall, and by
         major asset categories.
+
+        Args:
+            None
+
+        Returns:
+            df: pandas DataFrame, rows are assets and major asset
+                groupings with columns for all output variables
         '''
         self.calc_base()
         asset_df = pd.DataFrame(self.__assets.df.groupby(
@@ -187,6 +206,13 @@ class Calculator():
         '''
         Calculates all variables by industry, including overall, and by
         major asset categories.
+
+        Args:
+            None
+
+        Returns:
+            df: pandas DataFrame, rows are minor industries and major
+                industry groupings with columns for all output variables
         '''
         self.calc_base()
         ind_df = pd.DataFrame(self.__assets.df.groupby(
@@ -221,22 +247,21 @@ class Calculator():
         and reform policies.
 
         Args:
-            calc : Calculator object
-                calc represents the reform while self represents the baseline
-            output_variable : string
-                specifies which output variable to summarize in the table
-            include_land : boolean
-                specifies whether to include land in overall calculations
-            include_inventories : boolean
-                specifies whether to include inventories in overall calculations
-            output_type : string
-                specifies the type of file to save table to:
+            calc: CCC Calculator object, calc represents the reform
+                while self represents the baseline
+            output_variable: string, specifies which output variable to
+                summarize in the table
+            include_land: boolean, specifies whether to include land in
+                overall calculations
+            include_inventories: boolean, specifies whether to include
+                inventories in overall calculations
+            output_type: string, specifies the type of file to save
+                table to:
                     - 'csv'
                     - 'tex'
                     - 'excel'
                     - 'json'
-            path : string
-                specifies path to save file with table to
+            path: string, specifies path to save file with table to
 
         Returns:
             None, table saved to disk
@@ -349,19 +374,18 @@ class Calculator():
         and reform policies.
 
         Args:
-            calc : Calculator object
-                calc represents the reform while self represents the baseline
-            output_variable : string
-                specifies which output variable to summarize in the plot
-            include_land : boolean
-                specifies whether to include land in overall calculations
-            include_inventories : boolean
-                specifies whether to include inventories in overall calculations
-            path : string
-                specifies path to save file with table to
+            calc: CCC Calculator object, calc represents the reform
+                while self represents the baseline
+            output_variable: string, specifies which output variable to
+                summarize in the plot
+            include_land: boolean, specifies whether to include land in
+                overall calculations
+            include_inventories: boolean, specifies whether to include
+                inventories in overall calculations
+            path: string, specifies path to save file with table to
 
         Returns:
-            None, table saved to disk
+            None, plot saved to disk
         '''
         base_df = self.calc_by_asset()
         reform_df = calc.calc_by_asset()
@@ -371,8 +395,8 @@ class Calculator():
         list_string = ['base', 'change', 'reform']
 
         data_sources = {}
-        for i, df_i in enumerate(list_df):
-            df = df_i.copy()
+        for i, df in enumerate(list_df):
+            # df = df_i.copy()
             for t in ['c', 'nc']:
                 if t == 'c':
                     df.drop(df[df.tax_treat !=
@@ -398,7 +422,6 @@ class Calculator():
                     df.drop(df[df.major_asset_group ==
                                     'Intellectual Property'].index,
                                  inplace=True)
-
                 # define the size DataFrame, if change, use base sizes
                 if list_string[i] == 'base':
                     SIZES = list(range(20, 80, 15))
@@ -407,14 +430,16 @@ class Calculator():
                     df['size'] = size
                 else:
                     df['size'] = size
-
                 # form the two Categories: Equipment and Structures
-                equipment_df =\
-                    df[(~df.major_asset_group.str.contains('Structures')) &
-                       (~df.major_asset_group.str.contains('Buildings'))]
-                structure_df =\
-                    df[(df.major_asset_group.str.contains('Structures')) |
-                       (df.major_asset_group.str.contains('Buildings'))]
+                equipment_df = df.drop(df[df.major_asset_group.str.contains('Structures')].index)
+                equipment_df.drop(equipment_df[equipment_df.major_asset_group.str.contains('Buildings')].index, inplace=True)
+                # equipment_df =\
+                #     df[(~df.major_asset_group.str.contains('Structures')) &
+                #        (~df.major_asset_group.str.contains('Buildings'))]
+                # structure_df =\
+                #     df[(df.major_asset_group.str.contains('Structures')) |
+                #        (df.major_asset_group.str.contains('Buildings'))]
+                structure_df = df.drop(df[~df.major_asset_group.str.contains('Structures|Buildings')].index)
 
                 format_fields = ['metr_mix', 'metr_d', 'metr_e',
                                  'mettr_mix', 'mettr_d', 'mettr_e',
@@ -436,14 +461,16 @@ class Calculator():
                     'Other Structures': 'Other',
                     'Computers and Software': 'Computers and Software',
                     'Industrial Machinery': 'Industrial Machinery'}
-                equipment_df.loc[:, 'short_category'] =\
-                    equipment_df.loc[:, 'major_asset_group'].map(make_short)
+
+                # equipment_df.loc[:, 'short_category'] =\
+                #     equipment_df['major_asset_group'].map(make_short)
                 # structure_df.loc[:, 'short_category'] =\
                 #     structure_df['major_asset_group'].map(make_short)
-                # equipment_df['short_category'] =\
-                #     equipment_df['major_asset_group']
-                # equipment_df['short_category'].replace(make_short,
-                #                                        inplace=True)
+                equipment_df['short_category'] = 4
+                equipment_df['short_category'] =\
+                    equipment_df['major_asset_group']
+                equipment_df['short_category'].replace(make_short,
+                                                       inplace=True)
                 structure_df['short_category'] =\
                     structure_df['major_asset_group']
                 structure_df['short_category'].replace(make_short,
@@ -471,7 +498,8 @@ class Calculator():
                     simple_structure_copy = structure_copy.filter(
                         items=['size', 'rate', 'hover', 'short_category',
                                'asset_name'])
-                    data_sources[list_string[i] + '_structure_' + f] =\
+                    data_sources[list_string[i] + '_structure_' + f +
+                                 '_' + t] =\
                         ColumnDataSource(simple_structure_copy)
 
                 # Create initial data sources to plot on load
@@ -661,6 +689,12 @@ class Calculator():
         Make internal copy of embedded Assets object that can then be
         restored after interim calculations that make temporary changes
         to the embedded Assets object.
+
+        Args:
+            None
+
+        Returns:
+            None
         """
         assert self.__stored_assets is None
         self.__stored_assets = copy.deepcopy(self.__assets)
@@ -669,6 +703,12 @@ class Calculator():
         """
         Set the embedded Assets object to the stored Assets object
         that was saved in the last call to the store_assets() method.
+
+        Args:
+            None
+
+        Returns:
+            None
         """
         assert isinstance(self.__stored_assets, Assets)
         self.__assets = copy.deepcopy(self.__stored_assets)
@@ -682,6 +722,13 @@ class Calculator():
         If param_value is not None, set named parameter in
          embedded Specifications object to specified param_value and
          return None (which can be ignored).
+
+         Args:
+             param_name: string, parameter name
+             param_value: python object, value to set parameter to
+
+         Returns:
+             None
         """
         if param_value is None:
             return getattr(self.__p, param_name)
@@ -692,6 +739,12 @@ class Calculator():
     def reform_warnings(self):
         """
         Calculator class embedded Specifications object's reform_warnings.
+
+        Args:
+            None
+
+        Returns:
+            None
         """
         return self.__p.parameter_warnings
 
@@ -699,6 +752,12 @@ class Calculator():
     def current_year(self):
         """
         Calculator class current calendar year property.
+
+        Args:
+            None
+
+        Returns:
+            None
         """
         return self.__p.current_year
 
@@ -706,6 +765,12 @@ class Calculator():
     def data_year(self):
         """
         Calculator class initial (i.e., first) assets data year property.
+
+        Args:
+            None
+
+        Returns:
+            None
         """
         return self.__assets.data_year
 
@@ -713,6 +778,12 @@ class Calculator():
         '''
         Private method.  A fuction to compute sums and weighted averages
         from a groubpy object.
+
+        Args:
+            x: grouby object, grouping of data to make calculations over
+
+        Returns:
+            d: pandas Series, computed variables for the group
         '''
         d = {}
         d['assets'] = x['assets'].sum()
@@ -726,8 +797,3 @@ class Calculator():
 
         return pd.Series(d, index=['assets', 'delta', 'rho_mix', 'rho_d',
                                    'rho_e', 'z_mix', 'z_d', 'z_e'])
-
-# Can put functions for tabular, text, graphical output here
-# create function to have table like CBO with groupings
-# create function to have bubble plot
-# create function to have tables like old B-Tax output?
