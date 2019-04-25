@@ -18,7 +18,7 @@ from ccc.utils import wavg, diff_two_tables
 from ccc.constants import VAR_DICT
 # import pdb
 # importing Bokeh libraries
-from bokeh.plotting import figure
+from bokeh.plotting import figure, show
 from bokeh.models import ColumnDataSource, CustomJS, LabelSet
 from bokeh.models.widgets import Panel, Tabs, RadioButtonGroup
 from bokeh.models import HoverTool, WheelZoomTool, ResetTool, SaveTool
@@ -395,33 +395,26 @@ class Calculator():
         list_string = ['base', 'change', 'reform']
 
         data_sources = {}
-        for i, df in enumerate(list_df):
-            # df = df_i.copy()
+        for i, df_i in enumerate(list_df):
             for t in ['c', 'nc']:
                 if t == 'c':
-                    df.drop(df[df.tax_treat !=
-                                    'corporate'].index, inplace=True)
+                    df = df_i.drop(df_i[df_i.tax_treat !=
+                                        'corporate'].index)
                 else:
-                    # df = df[df['tax_treat'] == 'non-corporate']
-                    df.drop(df[df.tax_treat !=
-                                    'non-corporate'].index, inplace=True)
-                # remove data from Intellectual Property, Land, and
+                    df = df_i.drop(df_i[df_i.tax_treat !=
+                                        'non-corporate'].index)
+                # Remove data from Intellectual Property, Land, and
                 # Inventories Categories
                 if not include_land:
-                    # df = df.drop(df[df.asset_name == 'Land'].index).copy()
                     df.drop(df[df.asset_name == 'Land'].index,
-                                 inplace=True)
+                            inplace=True)
                 if not include_inventories:
-                    # df = df.drop(df[df.asset_name ==
-                    #                 'Inventories'].index).copy()
                     df.drop(df[df.asset_name ==
-                                    'Inventories'].index, inplace=True)
+                               'Inventories'].index, inplace=True)
                 if not include_IP:
-                    # df = df.drop(df[df.major_asset_group ==
-                    #                 'Intellectual Property'].index).copy()
                     df.drop(df[df.major_asset_group ==
-                                    'Intellectual Property'].index,
-                                 inplace=True)
+                               'Intellectual Property'].index,
+                            inplace=True)
                 # define the size DataFrame, if change, use base sizes
                 if list_string[i] == 'base':
                     SIZES = list(range(20, 80, 15))
@@ -430,17 +423,29 @@ class Calculator():
                     df['size'] = size
                 else:
                     df['size'] = size
-                # form the two Categories: Equipment and Structures
-                equipment_df = df.drop(df[df.major_asset_group.str.contains('Structures')].index)
-                equipment_df.drop(equipment_df[equipment_df.major_asset_group.str.contains('Buildings')].index, inplace=True)
-                # equipment_df =\
-                #     df[(~df.major_asset_group.str.contains('Structures')) &
-                #        (~df.major_asset_group.str.contains('Buildings'))]
-                # structure_df =\
-                #     df[(df.major_asset_group.str.contains('Structures')) |
-                #        (df.major_asset_group.str.contains('Buildings'))]
-                structure_df = df.drop(df[~df.major_asset_group.str.contains('Structures|Buildings')].index)
+                # Form the two categories: Equipment and Structures
+                equipment_df = df.drop(
+                    df[df.major_asset_group.str.contains(
+                        'Structures')].index)
+                equipment_df.drop(equipment_df[
+                    equipment_df.major_asset_group.str.contains(
+                        'Buildings')].index, inplace=True)
+                # Drop overall category and overall equipment
+                equipment_df.drop(
+                    equipment_df[equipment_df.asset_name ==
+                                 'Overall'].index, inplace=True)
+                equipment_df.drop(
+                    equipment_df[equipment_df.asset_name ==
+                                 'Equipment'].index, inplace=True)
+                structure_df = df.drop(df[
+                    ~df.major_asset_group.str.contains(
+                        'Structures|Buildings')].index)
+                # Drop value for all structures
+                structure_df.drop(structure_df[
+                    structure_df.asset_name == 'Structures'].index,
+                                  inplace=True)
 
+                # Output variables available in plot
                 format_fields = ['metr_mix', 'metr_d', 'metr_e',
                                  'mettr_mix', 'mettr_d', 'mettr_e',
                                  'rho_mix', 'rho_d', 'rho_e', 'z_mix',
@@ -462,11 +467,6 @@ class Calculator():
                     'Computers and Software': 'Computers and Software',
                     'Industrial Machinery': 'Industrial Machinery'}
 
-                # equipment_df.loc[:, 'short_category'] =\
-                #     equipment_df['major_asset_group'].map(make_short)
-                # structure_df.loc[:, 'short_category'] =\
-                #     structure_df['major_asset_group'].map(make_short)
-                equipment_df['short_category'] = 4
                 equipment_df['short_category'] =\
                     equipment_df['major_asset_group']
                 equipment_df['short_category'].replace(make_short,
@@ -545,6 +545,7 @@ class Calculator():
                    'Corporate Investments in Equipment')
         p.title.align = 'center'
         p.title.text_color = '#6B6B73'
+        show(p)
 
         hover = p.select(dict(type=HoverTool))
         # see if can change asset_name to Asset in the first arg
@@ -675,14 +676,34 @@ class Calculator():
                       [c_nc_buttons, interest_buttons],
                       [format_buttons, type_buttons]]
         )
+        # layout = gridplot([p, p2], ncols=2, plot_width=250, plot_height=250)
 
         # Create components
         js, div = components(layout)
         cdn_js = CDN.js_files[0]
         cdn_css = CDN.css_files[0]
 
+
+#         # Function to help with format
+# def  output_page(**kwargs):
+#     here = path.dirname(path.abspath(__file__))
+#     j2_env = Environment(loader=FileSystemLoader(here), trim_blocks=True)
+#     content = j2_env.get_template('template.j2').render(**kwargs)
+#     with open('index.html', 'w') as output_file:
+#         output_file.write(content)
+#
+# #display the graph
+# option_widgets = widgetbox(children = [rate_label, rate_buttons,
+#                                        depreciation_label, depreciation_buttons,
+#                                        deductibility_label, deductibility_buttons,
+#                                        individual_label, individual_buttons])
+#
+#
+# layout = column(p, option_widgets)
+# show(layout)
+
         # return js, div, cdn_js, cdn_css
-        return layout
+        return tabs #layout
 
     def store_assets(self):
         """
