@@ -305,7 +305,6 @@ def eq_eatr(rho, metr, p, u):
     Returns:
         eatr: array_like, EATR
     """
-    eatr = (((profit_rate - rho) / profit_rate) * u +
-            (rho / profit_rate) * metr)
+    eatr = ((p - rho) / p) * u + (rho / p) * metr
 
     return eatr
