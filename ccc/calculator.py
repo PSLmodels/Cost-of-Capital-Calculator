@@ -20,10 +20,12 @@ from ccc.constants import VAR_DICT
 # importing Bokeh libraries
 from bokeh.plotting import figure, show
 from bokeh.io import curdoc
+from bokeh.transform import dodge
+from bokeh.core.properties import value
 from bokeh.models import ColumnDataSource, CustomJS, LabelSet, Title
 from bokeh.models.widgets import Select, Panel, Tabs, RadioButtonGroup
 from bokeh.models import HoverTool, WheelZoomTool, ResetTool, SaveTool
-from bokeh.models import NumeralTickFormatter
+from bokeh.models import NumeralTickFormatter, Span
 from bokeh.layouts import gridplot, column, widgetbox
 from bokeh.embed import components
 from bokeh.resources import CDN
@@ -214,7 +216,8 @@ class Calculator():
 
         return df
 
-    def calc_by_industry(self):
+    def calc_by_industry(self, include_inventories=True,
+                         include_land=True):
         '''
         Calculates all variables by industry, including overall, and by
         major asset categories.
@@ -227,16 +230,22 @@ class Calculator():
                 industry groupings with columns for all output variables
         '''
         self.calc_base()
-        ind_df = pd.DataFrame(self.__assets.df.groupby(
+        df1 = self.__assets.df
+        if not include_land:
+            df1.drop(df1[df1.asset_name == 'Land'].index, inplace=True)
+        if not include_inventories:
+            df1.drop(df1[df1.asset_name == 'Inventories'].index,
+                     inplace=True)
+        ind_df = pd.DataFrame(df1.groupby(
             ['major_industry', 'bea_ind_code', 'Industry',
              'tax_treat']).apply(self.__f)).reset_index()
         ind_df = self.calc_other(ind_df)
-        major_ind_df = pd.DataFrame(self.__assets.df.groupby(
+        major_ind_df = pd.DataFrame(df1.groupby(
             ['major_industry', 'tax_treat']).apply(self.__f)).reset_index()
         major_ind_df['Industry'] = major_ind_df['major_industry']
         major_ind_df = self.calc_other(major_ind_df)
         # Can put some if statements here if want to exclude land/inventory/etc
-        overall_df = pd.DataFrame(self.__assets.df.groupby(
+        overall_df = pd.DataFrame(df1.groupby(
             ['tax_treat']).apply(self.__f)).reset_index()
         overall_df['major_industry'] = 'Overall'
         overall_df['Industry'] = 'Overall'
@@ -792,6 +801,103 @@ class Calculator():
             else:
                 print('Please enter a valid output format')
                 assert(False)
+
+    def grouped_bar(self, calc, output_variable='mettr',
+                    group_by_asset=True, corporate=True,
+                    include_land=True, include_inventories=True):
+        if group_by_asset:
+            base_df = self.calc_by_asset()
+            reform_df = calc.calc_by_asset()
+            base_df.drop(base_df[base_df.asset_name !=
+                                 base_df.major_asset_group].index,
+                         inplace=True)
+            reform_df.drop(
+                reform_df[reform_df.asset_name !=
+                          reform_df.major_asset_group].index,
+                inplace=True)
+            if not include_land:
+                base_df.drop(
+                    base_df[base_df.asset_name == 'Land'].index,
+                    inplace=True)
+                reform_df.drop(
+                    reform_df[reform_df.asset_name == 'Land'].index,
+                    inplace=True)
+            if not include_inventories:
+                base_df.drop(
+                    base_df[base_df.asset_name == 'Inventories'].index,
+                    inplace=True)
+                reform_df.drop(
+                    reform_df[reform_df.asset_name == 'Inventories'].index,
+                    inplace=True)
+            plot_label = 'major_asset_group'
+            plot_title = VAR_DICT[output_variable] + ' by Asset Category'
+        else:
+            base_df = self.calc_by_industry(
+                include_land=include_land,
+                include_inventories=include_inventories)
+            reform_df = calc.calc_by_industry(
+                include_land=include_land,
+                include_inventories=include_inventories)
+            base_df.drop(base_df[base_df.Industry !=
+                                 base_df.major_industry].index,
+                         inplace=True)
+            reform_df.drop(
+                reform_df[reform_df.Industry !=
+                          reform_df.major_industry].index,
+                inplace=True)
+            plot_label = 'major_industry'
+            plot_title = VAR_DICT[output_variable] + ' by Industry'
+        # Append dfs together so base policies in one
+        base_df['policy'] = 'Baseline'
+        reform_df['policy'] = 'Reform'
+        df = base_df.append(reform_df)
+        # Drop corporate or non-corporate per arguments
+        if corporate:
+            df.drop(df[df.tax_treat == 'non-corporate'].index,
+                    inplace=True)
+        else:
+            df.drop(df[df.tax_treat == 'corporate'].index,
+                    inplace=True)
+        # Get mean overall for baseline and reform
+        mean_base = df[(df[plot_label] == 'Overall') &
+                       (df.policy == 'Baseline')][output_variable +
+                                                  '_mix'].values[0]
+        mean_reform = df[(df[plot_label] == 'Overall') &
+                         (df.policy == 'Reform')][output_variable +
+                                                  '_mix'].values[0]
+        # Drop overall means from df
+        df.drop(df[df[plot_label] == 'Overall'].index, inplace=True)
+        # Drop extra vars and make wide format
+        df1 = df[[plot_label, output_variable + '_mix', 'policy']]
+        df2 = df1.pivot(index=plot_label, columns='policy',
+                        values=output_variable + '_mix')
+        df2.reset_index(inplace=True)
+        # Create grouped barplot
+        source = ColumnDataSource(data=df2)
+
+        p = figure(x_range=df2[plot_label], plot_height=350,
+                   title=plot_title, toolbar_location=None, tools="")
+        p.vbar(x=dodge(plot_label,  0.0,  range=p.x_range),
+               top='Baseline', width=0.2, source=source, color=BLUE,
+               legend=value('Baseline'))
+        p.vbar(x=dodge(plot_label,  0.25, range=p.x_range),
+               top='Reform', width=0.2, source=source, color=RED,
+               legend=value('Reform'))
+        p.x_range.range_padding = 0.1
+        p.xgrid.grid_line_color = None
+        p.legend.location = "top_left"
+        p.legend.orientation = "horizontal"
+
+        # Add lines for overall mean for baseline and reform
+        bline = Span(location=mean_base, dimension='width',
+                     line_color=BLUE,
+                     line_alpha=0.2, line_width=2, line_dash='dashed')
+        rline = Span(location=mean_reform, dimension='width',
+                     line_color=RED,
+                     line_alpha=0.2, line_width=2, line_dash='dashed')
+        p.renderers.extend([bline, rline])
+
+        return p
 
     def asset_bubble_plot(self, calc, output_variable='mettr',
                           include_land=False, include_inventories=False,
