@@ -19,17 +19,17 @@ from ccc.constants import VAR_DICT
 # import pdb
 # importing Bokeh libraries
 from bokeh.plotting import figure, show
-from bokeh.models import ColumnDataSource, CustomJS, LabelSet
-from bokeh.models.widgets import Panel, Tabs, RadioButtonGroup
+from bokeh.io import curdoc
+from bokeh.models import ColumnDataSource, CustomJS, LabelSet, Title
+from bokeh.models.widgets import Select, Panel, Tabs, RadioButtonGroup
 from bokeh.models import HoverTool, WheelZoomTool, ResetTool, SaveTool
 from bokeh.models import NumeralTickFormatter
-from bokeh.layouts import gridplot, column
+from bokeh.layouts import gridplot, column, widgetbox
 from bokeh.embed import components
 from bokeh.resources import CDN
 # import styles and callback
-from ccc.styles import RED, BLUE
+from ccc.styles import (PLOT_FORMATS, TITLE_FORMATS, RED, BLUE)
 from ccc.controls_callback_script import CONTROLS_CALLBACK_SCRIPT
-
 
 class Calculator():
     """
@@ -179,26 +179,38 @@ class Calculator():
         '''
         self.calc_base()
         asset_df = pd.DataFrame(self.__assets.df.groupby(
-            ['major_asset_group', 'bea_asset_code', 'asset_name',
-             'tax_treat']).apply(self.__f)).reset_index()
+            ['major_asset_group', 'minor_asset_group', 'bea_asset_code',
+             'asset_name', 'tax_treat']).apply(self.__f)).reset_index()
         asset_df = self.calc_other(asset_df)
+        # Find values across minor asset groups
+        minor_asset_df = pd.DataFrame(self.__assets.df.groupby(
+            ['minor_asset_group', 'major_asset_group',
+             'tax_treat']).apply(self.__f)).reset_index()
+        minor_asset_df['asset_name'] =\
+            minor_asset_df['minor_asset_group']
+        minor_asset_df = self.calc_other(minor_asset_df)
+        # Find values across major asset_groups
         major_asset_df = pd.DataFrame(self.__assets.df.groupby(
             ['major_asset_group', 'tax_treat']).apply(self.__f)).reset_index()
+        major_asset_df['minor_asset_group'] =\
+            major_asset_df['major_asset_group']
         major_asset_df['asset_name'] = major_asset_df['major_asset_group']
         major_asset_df = self.calc_other(major_asset_df)
         # Can put some if statements here if want to exclude land/inventory/etc
         overall_df = pd.DataFrame(self.__assets.df.groupby(
             ['tax_treat']).apply(self.__f)).reset_index()
         overall_df['major_asset_group'] = 'Overall'
+        overall_df['minor_asset_group'] = 'Overall'
         overall_df['asset_name'] = 'Overall'
         overall_df = self.calc_other(overall_df)
-        df = pd.concat([asset_df, major_asset_df, overall_df],
-                       ignore_index=True, copy=True,
+        df = pd.concat([asset_df, minor_asset_df, major_asset_df,
+                        overall_df], ignore_index=True, copy=True,
                        sort=True).reset_index()
         # Drop duplicate rows in case, e.g., only one asset in major
-        # asset group
-        df.drop_duplicates(subset=['asset_name', 'major_asset_group',
-                                   'tax_treat'], inplace=True)
+        # or minor asset group
+        df.drop_duplicates(subset=['asset_name', 'minor_asset_group',
+                                   'major_asset_group', 'tax_treat'],
+                           inplace=True)
 
         return df
 
@@ -241,7 +253,7 @@ class Calculator():
 
     def summary_table(self, calc, output_variable='mettr',
                       include_land=True, include_inventories=True,
-                      output_type='csv', path=''):
+                      output_type='csv', path=None):
         '''
         Create table summarizing the output_variable under the baseline
         and reform policies.
@@ -305,7 +317,29 @@ class Calculator():
             '': ['Overall', 'Corporations', '   Equity Financed',
                  '   Debt Financed', 'Pass-Through Entities',
                  '   Equity Financed', '   Debt Financed'],
-            VAR_DICT[output_variable]: [
+            VAR_DICT[output_variable] + ' Under Baseline Policy': [
+                base_tab[
+                    base_tab['tax_treat'] ==
+                    'all'][output_variable + '_mix'].values[0],
+                base_tab[
+                    base_tab['tax_treat'] ==
+                    'corporate'][output_variable + '_mix'].values[0],
+                base_tab[
+                    base_tab['tax_treat'] ==
+                    'corporate'][output_variable + '_e'].values[0],
+                base_tab[
+                    base_tab['tax_treat'] ==
+                    'corporate'][output_variable + '_d'].values[0],
+                base_tab[
+                    base_tab['tax_treat'] ==
+                    'non-corporate'][output_variable + '_mix'].values[0],
+                base_tab[
+                    base_tab['tax_treat'] ==
+                    'non-corporate'][output_variable + '_e'].values[0],
+                base_tab[
+                    base_tab['tax_treat'] ==
+                    'non-corporate'][output_variable + '_d'].values[0]],
+            VAR_DICT[output_variable] + ' Under Reform Policy': [
                 reform_tab[
                     reform_tab['tax_treat'] ==
                     'all'][output_variable + '_mix'].values[0],
@@ -351,20 +385,225 @@ class Calculator():
                     'non-corporate'][output_variable + '_d'].values[0]]}
         # Make df with dict so can use pandas functions
         table_df = pd.DataFrame.from_dict(table_dict, orient='columns')
-        if output_type == 'tex':
-            table_df.to_latex(buf=path, index=False, na_rep='',
-                              float_format=lambda x: '%.2f' % x)
-        elif output_type == 'csv':
-            table_df.to_csv(path_or_buf=path, index=False, na_rep='',
-                            float_format="%.2f")
-        elif output_type == 'json':
-            table_df.to_json(path_or_buf=path, double_precision=2)
-        elif output_type == 'excel':
-            table_df.to_excel(excel_writer=path, index=False, na_rep='',
-                              float_format="%.2f")
+        # Put in percentage points
+        table_df[VAR_DICT[output_variable] +
+                 ' Under Baseline Policy'] *= 100
+        table_df[VAR_DICT[output_variable] +
+                 ' Under Reform Policy'] *= 100
+        table_df['Change from Baseline (pp)'] *= 100
+        if path is None:
+            if output_type == 'tex':
+                tab_str = table_df.to_latex(
+                    buf=path, index=False, na_rep='',
+                    float_format=lambda x: '%.0f' % x)
+                return tab_str
+            elif output_type == 'json':
+                tab_str = table_df.to_json(
+                    path_or_buf=path, double_precision=0)
+                return tab_str
+            else:
+                return table_df
         else:
-            print('Please enter a valid output format')
-            assert(False)
+            if output_type == 'tex':
+                table_df.to_latex(buf=path, index=False, na_rep='',
+                                  float_format=lambda x: '%.0f' % x)
+            elif output_type == 'csv':
+                table_df.to_csv(path_or_buf=path, index=False, na_rep='',
+                                float_format="%.0f")
+            elif output_type == 'json':
+                table_df.to_json(path_or_buf=path, double_precision=0)
+            elif output_type == 'excel':
+                table_df.to_excel(excel_writer=path, index=False, na_rep='',
+                                  float_format="%.0f")
+            else:
+                print('Please enter a valid output format')
+                assert(False)
+
+    def asset_summary_table(self, calc, output_variable='mettr',
+                            include_land=True, include_inventories=True,
+                            output_type='csv', path=None):
+        '''
+        Create table summarizing the output_variable under the baseline
+        and reform policies by major asset grouping.
+
+        Args:
+            calc: CCC Calculator object, calc represents the reform
+                while self represents the baseline
+            output_variable: string, specifies which output variable to
+                summarize in the table
+            include_land: boolean, specifies whether to include land in
+                overall calculations
+            include_inventories: boolean, specifies whether to include
+                inventories in overall calculations
+            output_type: string, specifies the type of file to save
+                table to:
+                    - 'csv'
+                    - 'tex'
+                    - 'excel'
+                    - 'json'
+            path: string, specifies path to save file with table to
+
+        Returns:
+            None, table saved to disk
+        '''
+        self.calc_base()
+        calc.calc_base()
+        base_df = self.__assets.df
+        reform_df = calc.__assets.df
+        dfs = [base_df, reform_df]
+        dfs_out = []
+        for df in dfs:
+            if not include_land:
+                df = df.drop(df[df.asset_name == 'Land'].index).copy()
+            if not include_inventories:
+                df = df.drop(df[df.asset_name ==
+                                'Inventories'].index).copy()
+            # Make dataframe with just results for major asset cateogries
+            major_asset_df = pd.DataFrame(df.groupby(
+                ['major_asset_group',
+                 'tax_treat']).apply(self.__f)).reset_index()
+            major_asset_df['asset_name'] =\
+                major_asset_df['major_asset_group']
+            major_asset_df = self.calc_other(major_asset_df)
+            # Compute overall separately by tax treatment
+            treat_df = pd.DataFrame(df.groupby(
+                ['tax_treat']).apply(self.__f)).reset_index()
+            treat_df = self.calc_other(treat_df)
+            treat_df['major_asset_group'] = 'Overall'
+            # Compute overall values, across corp and non-corp
+            # just making up a column with same value in all rows so can
+            # continute to use groupby
+            df['include'] = 1
+            all_df = pd.DataFrame.from_dict(
+                df.groupby(['include']).apply(self.__f).to_dict())
+            # set tax_treat to corporate b/c only corp and non-corp
+            # recognized in calc_other()
+            all_df['tax_treat'] = 'corporate'
+            all_df = self.calc_other(all_df)
+            all_df['tax_treat'] = 'all'
+            all_df['major_asset_group'] = 'Overall'
+            # Put df's together
+            dfs_out.append(pd.concat([major_asset_df, treat_df, all_df],
+                                     ignore_index=True, copy=True,
+                                     sort=True).reset_index())
+        base_tab = dfs_out[0]
+        reform_tab = dfs_out[1]
+        # print('reform table = ', reform_tab)
+        diff_tab = diff_two_tables(base_tab, reform_tab)
+        major_groups = ['Equipment', 'Structures',
+                        'Intellectual Property']
+        if include_inventories:
+                major_groups.append('Inventories')
+        if include_land:
+            major_groups.append('Land')
+        category_list = ['Overall', 'Corporate']
+        base_out_list = [
+            base_tab[base_tab['tax_treat'] ==
+                     'all'][output_variable + '_mix'].values[0],
+            base_tab[(
+                base_tab['tax_treat'] == 'corporate') &
+                     (base_tab['major_asset_group'] == 'Overall')]
+            [output_variable + '_mix'].values[0]]
+        reform_out_list = [
+            reform_tab[reform_tab['tax_treat'] == 'all']
+            [output_variable + '_mix'].values[0],
+            reform_tab[(
+                reform_tab['tax_treat'] == 'corporate') &
+                     (reform_tab['major_asset_group'] == 'Overall')]
+            [output_variable + '_mix'].values[0]]
+        diff_out_list = [
+            diff_tab[diff_tab['tax_treat'] == 'all']
+            [output_variable + '_mix'].values[0],
+            diff_tab[(
+                diff_tab['tax_treat'] == 'corporate') &
+                     (diff_tab['major_asset_group'] == 'Overall')]
+            [output_variable + '_mix'].values[0]]
+        for item in major_groups:
+                category_list.append('   ' + item)
+                base_out_list.append(
+                    base_tab[(base_tab['tax_treat'] == 'corporate') &
+                             (base_tab['major_asset_group'] == item)]
+                    [output_variable + '_mix'].values[0])
+                reform_out_list.append(
+                    reform_tab[(reform_tab['tax_treat'] == 'corporate')
+                               &
+                               (reform_tab['major_asset_group'] == item)]
+                    [output_variable + '_mix'].values[0])
+                diff_out_list.append(
+                    diff_tab[(diff_tab['tax_treat'] == 'corporate') &
+                             (diff_tab['major_asset_group'] == item)]
+                    [output_variable + '_mix'].values[0])
+        category_list.append('Pass-through')
+        base_out_list.append(base_tab[
+            (base_tab['tax_treat'] == 'non-corporate') &
+            (base_tab['major_asset_group'] == 'Overall')]
+                             [output_variable + '_mix'].values[0])
+        reform_out_list.append(reform_tab[
+            (reform_tab['tax_treat'] == 'non-corporate') &
+            (reform_tab['major_asset_group'] == 'Overall')]
+                               [output_variable + '_mix'].values[0])
+        diff_out_list.append(diff_tab[
+            (diff_tab['tax_treat'] == 'non-corporate') &
+            (diff_tab['major_asset_group'] == 'Overall')]
+                             [output_variable + '_mix'].values[0])
+        for item in major_groups:
+                category_list.append('   ' + item)
+                base_out_list.append(
+                    base_tab[(base_tab['tax_treat'] == 'non-corporate') &
+                             (base_tab['major_asset_group'] == item)]
+                    [output_variable + '_mix'].values[0])
+                reform_out_list.append(
+                    reform_tab[
+                        (reform_tab['tax_treat'] == 'non-corporate') &
+                        (reform_tab['major_asset_group'] == item)]
+                    [output_variable + '_mix'].values[0])
+                diff_out_list.append(
+                    diff_tab[
+                        (diff_tab['tax_treat'] == 'non-corporate') &
+                        (diff_tab['major_asset_group'] == item)]
+                    [output_variable + '_mix'].values[0])
+        table_dict = {
+            'Category': category_list,
+            VAR_DICT[output_variable] + ' Under Baseline Policy':
+            base_out_list,
+            VAR_DICT[output_variable] + ' Under Reform Policy':
+            reform_out_list,
+            'Change from Baseline (pp)': diff_out_list}
+        # Make df with dict so can use pandas functions
+        table_df = pd.DataFrame.from_dict(table_dict, orient='columns')
+        # Put in percentage points
+        table_df[VAR_DICT[output_variable] +
+                 ' Under Baseline Policy'] *= 100
+        table_df[VAR_DICT[output_variable] +
+                 ' Under Reform Policy'] *= 100
+        table_df['Change from Baseline (pp)'] *= 100
+        if path is None:
+            if output_type == 'tex':
+                tab_str = table_df.to_latex(
+                    buf=path, index=False, na_rep='',
+                    float_format=lambda x: '%.0f' % x)
+                return tab_str
+            elif output_type == 'json':
+                tab_str = table_df.to_json(
+                    path_or_buf=path, double_precision=0)
+                return tab_str
+            else:
+                return table_df
+        else:
+            if output_type == 'tex':
+                table_df.to_latex(buf=path, index=False, na_rep='',
+                                  float_format=lambda x: '%.0f' % x)
+            elif output_type == 'csv':
+                table_df.to_csv(path_or_buf=path, index=False, na_rep='',
+                                float_format="%.0f")
+            elif output_type == 'json':
+                table_df.to_json(path_or_buf=path, double_precision=0)
+            elif output_type == 'excel':
+                table_df.to_excel(excel_writer=path, index=False, na_rep='',
+                                  float_format="%.0f")
+            else:
+                print('Please enter a valid output format')
+                assert(False)
 
     def asset_bubble_plot(self, calc, output_variable='mettr',
                           include_land=False, include_inventories=False,
@@ -416,7 +655,7 @@ class Calculator():
                                'Intellectual Property'].index,
                             inplace=True)
                 # define the size DataFrame, if change, use base sizes
-                if list_string[i] == 'base':
+                if list_string[i] != 'change':
                     SIZES = list(range(20, 80, 15))
                     size = pd.qcut(df['assets'].values, len(SIZES),
                                    labels=SIZES)
@@ -468,11 +707,11 @@ class Calculator():
                     'Industrial Machinery': 'Industrial Machinery'}
 
                 equipment_df['short_category'] =\
-                    equipment_df['major_asset_group']
+                    equipment_df['minor_asset_group']
                 equipment_df['short_category'].replace(make_short,
                                                        inplace=True)
                 structure_df['short_category'] =\
-                    structure_df['major_asset_group']
+                    structure_df['minor_asset_group']
                 structure_df['short_category'].replace(make_short,
                                                        inplace=True)
 
@@ -503,7 +742,7 @@ class Calculator():
                         ColumnDataSource(simple_structure_copy)
 
                 # Create initial data sources to plot on load
-                if list_string[i] == 'base':
+                if (list_string[i] == 'base' and t == 'c'):
                     equipment_copy = equipment_df.copy()
                     equipment_copy['rate'] = equipment_copy['mettr_mix']
                     equipment_copy['hover'] = equipment_copy.apply(
@@ -545,11 +784,9 @@ class Calculator():
                    'Corporate Investments in Equipment')
         p.title.align = 'center'
         p.title.text_color = '#6B6B73'
-        show(p)
 
         hover = p.select(dict(type=HoverTool))
-        # see if can change asset_name to Asset in the first arg
-        hover.tooltips = [('asset_name', ' @asset_name (@hover)')]
+        hover.tooltips = [('Asset', ' @asset_name (@hover)')]
 
         p.xaxis.axis_label = "Marginal effective total tax rate"
         p.xaxis[0].formatter = NumeralTickFormatter(format="0.1%")
@@ -580,19 +817,19 @@ class Calculator():
         legend_cds = ColumnDataSource(
             {'size': SIZES, 'label': ['<$20B', '', '', '<$1T'],
              'x': [0, .15, .35, .6]})
-        p_legend = figure(height=150, width=480, x_range=(-0.075, .75),
+        p_legend = figure(height=150, width=480, x_range=(-0.075, 75),
                           title='Asset Amount')
         p_legend.circle(y=None, x='x', size='size', source=legend_cds,
                         color=BLUE, fill_alpha=.4, alpha=.4,
                         line_color="#333333")
-        lab_set = LabelSet(y=None, x='x', text='label', x_offset=-20,
-                           y_offset=-50, source=legend_cds)
-        p_legend.add_layout(lab_set)
+        l1 = LabelSet(y=None, x='x', text='label', x_offset=-20,
+                      y_offset=-50, source=legend_cds)
+        p_legend.add_layout(l1)
         p_legend.axis.visible = False
         p_legend.grid.grid_line_color = None
         p_legend.toolbar.active_drag = None
 
-        data_sources['equip_plot'] = p
+        # data_sources['equip_plot'] = p
 
         # Structures plot
         p2 = figure(plot_height=540, plot_width=990,
@@ -604,8 +841,7 @@ class Calculator():
         p2.title.text_color = '#6B6B73'
 
         hover = p2.select(dict(type=HoverTool))
-        # See if can replace asset_name with Asset in first arg below
-        hover.tooltips = [('asset_name', ' @asset_name (@hover)')]
+        hover.tooltips = [('Asset', ' @asset_name (@hover)')]
         p2.xaxis.axis_label = "Marginal effective total tax rate"
         p2.xaxis[0].formatter = NumeralTickFormatter(format="0.1%")
         p2.toolbar_location = None
@@ -643,8 +879,6 @@ class Calculator():
         p2_legend.grid.grid_line_color = None
         p2_legend.toolbar.active_drag = None
 
-        data_sources['struc_plot'] = p2
-
         # add buttons
         controls_callback = CustomJS(
             args=data_sources, code=CONTROLS_CALLBACK_SCRIPT)
@@ -677,33 +911,267 @@ class Calculator():
                       [format_buttons, type_buttons]]
         )
         # layout = gridplot([p, p2], ncols=2, plot_width=250, plot_height=250)
+        doc = curdoc()
+        doc.add_root(layout)
 
         # Create components
-        js, div = components(layout)
-        cdn_js = CDN.js_files[0]
-        cdn_css = CDN.css_files[0]
+        # js, div = components(layout)
+        # cdn_js = CDN.js_files[0]
+        # cdn_css = CDN.css_files[0]
+
+        # Set up an application
+        from bokeh.application.handlers import FunctionHandler
+        from bokeh.application import Application
+        # handler = FunctionHandler(doc)
+        # app = Application(handler)
+        app = Application(doc)
+
+        return app#layout
+
+    def asset_bubble_simple(self, calc, output_variable='mettr_mix',
+                          include_land=False, include_inventories=False,
+                          include_IP=False, path=''):
+        '''
+        Create table summarizing the output_variable under the baseline
+        and reform policies.
+
+        Args:
+            calc: CCC Calculator object, calc represents the reform
+                while self represents the baseline
+            output_variable: string, specifies which output variable to
+                summarize in the plot
+            include_land: boolean, specifies whether to include land in
+                overall calculations
+            include_inventories: boolean, specifies whether to include
+                inventories in overall calculations
+            path: string, specifies path to save file with table to
+
+        Returns:
+            None, plot saved to disk
+        '''
+        # load data as DataFrame
+        df = self.calc_by_asset()
+        # Keep only corporate
+        df = df.drop(df[df.tax_treat != 'corporate'].index)
+        # remove data from Intellectual Property, Land, and Inventories Categories
+        if not include_land:
+            df.drop(df[df.asset_name == 'Land'].index,
+                    inplace=True)
+        if not include_inventories:
+            df.drop(df[df.asset_name ==
+                       'Inventories'].index, inplace=True)
+        if not include_IP:
+            df.drop(df[df.major_asset_group ==
+                       'Intellectual Property'].index,
+                    inplace=True)
+
+        # define the size DataFrame
+        SIZES = list(range(20, 80, 15))
+        df['size'] = pd.qcut(df['assets'].values, len(SIZES), labels=SIZES)
+
+        # Form the two Categories: Equipment and Structures
+        equipment_df = df.drop(
+            df[df.minor_asset_group.str.contains(
+                'Structures')].index)
+        equipment_df.drop(equipment_df[
+            equipment_df.minor_asset_group.str.contains(
+                'Buildings')].index, inplace=True)
+        # Drop overall category and overall equipment
+        equipment_df.drop(
+            equipment_df[equipment_df.asset_name ==
+                         'Overall'].index, inplace=True)
+        equipment_df.drop(
+            equipment_df[equipment_df.asset_name ==
+                         'Equipment'].index, inplace=True)
+        structure_df = df.drop(df[
+            ~df.minor_asset_group.str.contains(
+                'Structures|Buildings')].index)
+
+        # Make short category
+        make_short = {
+            'Instruments and Communications Equipment':
+            'Instruments and Communications',
+            'Office and Residential Equipment':
+            'Office and Residential',
+            'Other Equipment': 'Other',
+            'Transportation Equipment': 'Transportation',
+            'Other Industrial Equipment': 'Other Industrial',
+            'Nonresidential Buildings': 'Nonresidential Bldgs',
+            'Residential Buildings': 'Residential Bldgs',
+            'Mining and Drilling Structures': 'Mining and Drilling',
+            'Other Structures': 'Other',
+            'Computers and Software': 'Computers and Software',
+            'Industrial Machinery': 'Industrial Machinery'}
 
 
-#         # Function to help with format
-# def  output_page(**kwargs):
-#     here = path.dirname(path.abspath(__file__))
-#     j2_env = Environment(loader=FileSystemLoader(here), trim_blocks=True)
-#     content = j2_env.get_template('template.j2').render(**kwargs)
-#     with open('index.html', 'w') as output_file:
-#         output_file.write(content)
-#
-# #display the graph
-# option_widgets = widgetbox(children = [rate_label, rate_buttons,
-#                                        depreciation_label, depreciation_buttons,
-#                                        deductibility_label, deductibility_buttons,
-#                                        individual_label, individual_buttons])
-#
-#
-# layout = column(p, option_widgets)
-# show(layout)
+        equipment_df['short_category'] =\
+            equipment_df['minor_asset_group']
+        equipment_df['short_category'].replace(make_short,
+                                               inplace=True)
+        structure_df['short_category'] =\
+            structure_df['minor_asset_group']
+        structure_df['short_category'].replace(make_short,
+                                               inplace=True)
 
-        # return js, div, cdn_js, cdn_css
-        return tabs #layout
+        #Choose the year
+        data_sources = {}
+        format_fields = [output_variable]
+
+        #Add the Reform and the Baseline to Equipment Asset
+        for f in format_fields:
+            equipment_copy = equipment_df.copy()
+            equipment_copy['baseline'] = equipment_copy[f]
+            equipment_copy['hover'] = equipment_copy.apply(lambda x: "{0:.1f}%".format(x[f] * 100), axis=1)
+            data_sources['equipment_' + f] = ColumnDataSource(equipment_copy[['baseline', 'size', 'hover', 'assets', 'short_category', 'asset_name']])
+        fudge_factor = '                          ' # this a spacer for the y-axis label
+
+        # Add the Reform and the Baseline to Structures Asset
+        for f in format_fields:
+            structure_copy = structure_df.copy()
+            structure_copy['baseline'] = structure_copy[f]
+            structure_copy['hover'] = structure_copy.apply(lambda x: "{0:.1f}%".format(x[f] * 100), axis=1)
+            structure_copy['short_category'] = structure_copy['short_category'].str.replace('Residential Bldgs', fudge_factor + 'Residential Bldgs')
+            data_sources['structure_' + f] = ColumnDataSource(structure_copy[['baseline', 'size', 'hover', 'assets', 'short_category', 'asset_name']])
+
+        #Define categories for Equipments assets
+        equipment_assets = ['Computers and Software',
+                            'Instruments and Communications',
+                            'Office and Residential',
+                            'Transportation',
+                            'Industrial Machinery',
+                            'Other Industrial',
+                            'Other']
+
+        #Define categories for Structures assets
+        structure_assets = ['Residential Bldgs',
+                            'Nonresidential Bldgs',
+                            'Mining and Drilling',
+                            'Other']
+
+        # Equipment plot
+        p = figure(plot_height=540,
+                   plot_width=990,
+                   x_range = (-.05, .51),
+                   y_range=list(reversed(equipment_assets)),
+                   #x_axis_location="above",
+                   tools='hover',
+                   background_fill_alpha=0,
+                   # change things on all axes
+                   **PLOT_FORMATS)
+        p.add_layout(Title(text='Marginal Effective Tax Rates on Corporate Investments in Equipment', **TITLE_FORMATS),"above")
+
+        hover = p.select(dict(type=HoverTool))
+        hover.tooltips = [('Asset', ' @asset_name (@hover)')]
+
+        source=data_sources['equipment_' + output_variable];
+
+        p.xaxis.axis_label = "Marginal Effective Tax Rate"
+        p.xaxis[0].formatter = NumeralTickFormatter(format="0.1%")
+
+        #p.yaxis.axis_label = "Equipment"
+        p.toolbar_location = None
+        p.min_border_right = 5
+
+        #p.min_border_bottom = -10
+        p.outline_line_width = 5
+        p.border_fill_alpha = 0
+        p.xaxis.major_tick_line_color = "firebrick"
+        p.xaxis.major_tick_line_width = 3
+        p.xaxis.minor_tick_line_color = "orange"
+
+        p.outline_line_width = 1
+        p.outline_line_alpha = 1
+        p.outline_line_color = "black"
+
+        p.circle(x='baseline',
+                 y='short_category',
+                 color=BLUE,
+                 size='size',
+                 line_color="#333333",
+                 line_alpha=.1,
+                 fill_alpha=0.4,
+                 source=ColumnDataSource(data_sources['equipment_' + output_variable].data),
+                 alpha=.4)
+
+        # equipment_renderer = p.circle(x='reform',
+        #                               y='short_category',
+        #                               size='size',
+        #                               #line_color="white",
+        #                               source=data_sources['equipment_' + output_variable],
+        #                               color = BLUE,
+        #                               alpha=.4,
+        #                               line_color = "firebrick",
+        #                               line_dash = [8, 3],
+        #                               line_width = 1)
+        # Style the tools
+        p.add_tools(WheelZoomTool(), ResetTool(), SaveTool())
+        p.toolbar_location = "right"
+        p.toolbar.logo = None
+
+        # Structures plot
+        p2 = figure(plot_height=540,
+                    plot_width=990,
+                    x_range = (-.05, .51),
+                    y_range=list(reversed(structure_assets)),
+                    tools='hover',
+                    background_fill_alpha=0,
+                    **PLOT_FORMATS)
+        p2.add_layout(Title(text='Marginal Effective Tax Rates on Corporate Investments in Structures', **TITLE_FORMATS),"above")
+
+        hover = p2.select(dict(type=HoverTool))
+        hover.tooltips = [('Asset', ' @asset_name (@hover)')]
+        p2.xaxis.axis_label = "Marginal Effective Tax Rate"
+        p2.xaxis[0].formatter = NumeralTickFormatter(format="0.1%")
+        #p2.yaxis.axis_label = "Structures"
+        p2.toolbar_location = None
+        p2.min_border_right = 5
+        #p2.min_border_top = -13
+        p2.outline_line_width = 0
+        p2.border_fill_alpha = 0
+
+        p2.xaxis.major_tick_line_color = "firebrick"
+        p2.xaxis.major_tick_line_width = 3
+        p2.xaxis.minor_tick_line_color = "orange"
+
+
+        p2.circle(x='baseline',
+                  y='short_category',
+                  color=RED,
+                  size='size',
+                  line_color="#333333",
+                  # line_alpha=.1,
+                  fill_alpha=0.4,
+                  source=ColumnDataSource(data_sources['structure_' + output_variable].data),
+                  alpha=.4)
+
+        p2.outline_line_width = 1
+        p2.outline_line_alpha = 1
+        p2.outline_line_color = "black"
+
+        # structure_renderer = p2.circle(x='reform',
+        #                                y='short_category',
+        #                                color=BLUE,
+        #                                size='size',
+        #                                #line_color="white",
+        #                                source=data_sources['structure_' + output_variable],
+        #                                alpha=.4,
+        #                                line_color = "firebrick",
+        #                                line_dash = [8, 3],
+        #                                line_width = 1)
+
+        # Style the tools
+        p2.add_tools(WheelZoomTool(), ResetTool(), SaveTool())
+        p2.toolbar_location = "right"
+        p2.toolbar.logo = None
+
+        # Create Tabs
+        tab = Panel(child=p, title='Equipment')
+        tab2 = Panel(child=p2, title='Structures')
+        tabs = Tabs(tabs=[tab, tab2])
+
+        # create layout and add to curdoc
+        # curdoc().add_root(tabs)
+        return tabs
 
     def store_assets(self):
         """
