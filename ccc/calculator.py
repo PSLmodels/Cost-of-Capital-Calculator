@@ -286,10 +286,10 @@ class Calculator():
         dfs_out = []
         for df in dfs:
             if not include_land:
-                df = df.drop(df[df.asset_name == 'Land'].index).copy()
+                df.drop(df[df.asset_name == 'Land'].index, inplace=True)
             if not include_inventories:
-                df = df.drop(df[df.asset_name ==
-                                'Inventories'].index).copy()
+                df.drop(df[df.asset_name ==
+                                'Inventories'].index, inplace=True)
             # Compute overall separately by tax treatment
             treat_df = pd.DataFrame(df.groupby(
                 ['tax_treat']).apply(self.__f)).reset_index()
@@ -454,10 +454,10 @@ class Calculator():
         dfs_out = []
         for df in dfs:
             if not include_land:
-                df = df.drop(df[df.asset_name == 'Land'].index).copy()
+                df.drop(df[df.asset_name == 'Land'].index, inplace=True)
             if not include_inventories:
-                df = df.drop(df[df.asset_name ==
-                                'Inventories'].index).copy()
+                df.drop(df[df.asset_name == 'Inventories'].index,
+                        inplace=True)
             # Make dataframe with just results for major asset cateogries
             major_asset_df = pd.DataFrame(df.groupby(
                 ['major_asset_group',
@@ -605,6 +605,194 @@ class Calculator():
                 print('Please enter a valid output format')
                 assert(False)
 
+    def industry_summary_table(self, calc, output_variable='mettr',
+                               include_land=True,
+                               include_inventories=True,
+                               output_type='csv', path=None):
+        '''
+        Create table summarizing the output_variable under the baseline
+        and reform policies by major asset grouping.
+
+        Args:
+            calc: CCC Calculator object, calc represents the reform
+                while self represents the baseline
+            output_variable: string, specifies which output variable to
+                summarize in the table
+            include_land: boolean, specifies whether to include land in
+                overall calculations
+            include_inventories: boolean, specifies whether to include
+                inventories in overall calculations
+            output_type: string, specifies the type of file to save
+                table to:
+                    - 'csv'
+                    - 'tex'
+                    - 'excel'
+                    - 'json'
+            path: string, specifies path to save file with table to
+
+        Returns:
+            None, table saved to disk
+        '''
+        self.calc_base()
+        calc.calc_base()
+        base_df = self.__assets.df
+        reform_df = calc.__assets.df
+        dfs = [base_df, reform_df]
+        dfs_out = []
+        for df in dfs:
+            if not include_land:
+                df.drop(df[df.asset_name == 'Land'].index, inplace=True)
+            if not include_inventories:
+                df.drop(df[df.asset_name == 'Inventories'].index,
+                        inplace=True)
+            # Make dataframe with just results for major industry
+            major_ind_df = pd.DataFrame(self.__assets.df.groupby(
+                ['major_industry', 'tax_treat']).apply(self.__f)).reset_index()
+            major_ind_df['Industry'] = major_ind_df['major_industry']
+            major_ind_df = self.calc_other(major_ind_df)
+            # Compute overall separately by tax treatment
+            treat_df = pd.DataFrame(df.groupby(
+                ['tax_treat']).apply(self.__f)).reset_index()
+            treat_df = self.calc_other(treat_df)
+            treat_df['major_industry'] = 'Overall'
+            # Compute overall values, across corp and non-corp
+            # just making up a column with same value in all rows so can
+            # continute to use groupby
+            df['include'] = 1
+            all_df = pd.DataFrame.from_dict(
+                df.groupby(['include']).apply(self.__f).to_dict())
+            # set tax_treat to corporate b/c only corp and non-corp
+            # recognized in calc_other()
+            all_df['tax_treat'] = 'corporate'
+            all_df = self.calc_other(all_df)
+            all_df['tax_treat'] = 'all'
+            all_df['major_industry'] = 'Overall'
+            # Put df's together
+            dfs_out.append(pd.concat([major_ind_df, treat_df, all_df],
+                                     ignore_index=True, copy=True,
+                                     sort=True).reset_index())
+        base_tab = dfs_out[0]
+        reform_tab = dfs_out[1]
+        # print('reform table = ', reform_tab)
+        diff_tab = diff_two_tables(base_tab, reform_tab)
+        major_inds = [
+            'Agriculture, forestry, fishing, and hunting',
+            'Mining', 'Utilities', 'Construction', 'Manufacturing',
+            'Wholesale trade', 'Retail trade',
+            'Transportation and warehousing', 'Information',
+            'Finance and insurance',
+            'Real estate and rental and leasing',
+            'Professional, scientific, and technical services',
+            'Management of companies and enterprises',
+            'Administrative and waste management services',
+            'Educational services',
+            'Health care and social assistance',
+            'Arts, entertainment, and recreation',
+            'Accommodation and food services',
+            'Other services, except government']
+        category_list = ['Overall', 'Corporate']
+        base_out_list = [
+            base_tab[base_tab['tax_treat'] ==
+                     'all'][output_variable + '_mix'].values[0],
+            base_tab[base_tab['tax_treat'] ==
+                     'corporate'][output_variable + '_mix'].values[0]]
+        reform_out_list = [
+            reform_tab[reform_tab['tax_treat'] == 'all']
+            [output_variable + '_mix'].values[0],
+            reform_tab[reform_tab['tax_treat'] == 'corporate']
+            [output_variable + '_mix'].values[0]]
+        diff_out_list = [
+            diff_tab[diff_tab['tax_treat'] == 'all']
+            [output_variable + '_mix'].values[0],
+            diff_tab[diff_tab['tax_treat'] == 'corporate']
+            [output_variable + '_mix'].values[0]]
+        for item in major_inds:
+                category_list.append('   ' + item)
+                base_out_list.append(
+                    base_tab[(base_tab['tax_treat'] == 'corporate') &
+                             (base_tab['major_industry'] == item)]
+                    [output_variable + '_mix'].values[0])
+                reform_out_list.append(
+                    reform_tab[(reform_tab['tax_treat'] == 'corporate')
+                               &
+                               (reform_tab['major_industry'] == item)]
+                    [output_variable + '_mix'].values[0])
+                diff_out_list.append(
+                    diff_tab[(diff_tab['tax_treat'] == 'corporate') &
+                             (diff_tab['major_industry'] == item)]
+                    [output_variable + '_mix'].values[0])
+        category_list.append('Pass-through')
+        base_out_list.append(base_tab[
+            (base_tab['tax_treat'] == 'non-corporate') &
+            (base_tab['major_industry'] == 'Overall')]
+                             [output_variable + '_mix'].values[0])
+        reform_out_list.append(reform_tab[
+            (reform_tab['tax_treat'] == 'non-corporate') &
+            (reform_tab['major_industry'] == 'Overall')]
+                               [output_variable + '_mix'].values[0])
+        diff_out_list.append(diff_tab[
+            (diff_tab['tax_treat'] == 'non-corporate') &
+            (diff_tab['major_industry'] == 'Overall')]
+                             [output_variable + '_mix'].values[0])
+        for item in major_inds:
+                category_list.append('   ' + item)
+                base_out_list.append(
+                    base_tab[(base_tab['tax_treat'] == 'non-corporate') &
+                             (base_tab['major_industry'] == item)]
+                    [output_variable + '_mix'].values[0])
+                reform_out_list.append(
+                    reform_tab[
+                        (reform_tab['tax_treat'] == 'non-corporate') &
+                        (reform_tab['major_industry'] == item)]
+                    [output_variable + '_mix'].values[0])
+                diff_out_list.append(
+                    diff_tab[
+                        (diff_tab['tax_treat'] == 'non-corporate') &
+                        (diff_tab['major_industry'] == item)]
+                    [output_variable + '_mix'].values[0])
+        table_dict = {
+            'Category': category_list,
+            VAR_DICT[output_variable] + ' Under Baseline Policy':
+            base_out_list,
+            VAR_DICT[output_variable] + ' Under Reform Policy':
+            reform_out_list,
+            'Change from Baseline (pp)': diff_out_list}
+        # Make df with dict so can use pandas functions
+        table_df = pd.DataFrame.from_dict(table_dict, orient='columns')
+        # Put in percentage points
+        table_df[VAR_DICT[output_variable] +
+                 ' Under Baseline Policy'] *= 100
+        table_df[VAR_DICT[output_variable] +
+                 ' Under Reform Policy'] *= 100
+        table_df['Change from Baseline (pp)'] *= 100
+        if path is None:
+            if output_type == 'tex':
+                tab_str = table_df.to_latex(
+                    buf=path, index=False, na_rep='',
+                    float_format=lambda x: '%.0f' % x)
+                return tab_str
+            elif output_type == 'json':
+                tab_str = table_df.to_json(
+                    path_or_buf=path, double_precision=0)
+                return tab_str
+            else:
+                return table_df
+        else:
+            if output_type == 'tex':
+                table_df.to_latex(buf=path, index=False, na_rep='',
+                                  float_format=lambda x: '%.0f' % x)
+            elif output_type == 'csv':
+                table_df.to_csv(path_or_buf=path, index=False, na_rep='',
+                                float_format="%.0f")
+            elif output_type == 'json':
+                table_df.to_json(path_or_buf=path, double_precision=0)
+            elif output_type == 'excel':
+                table_df.to_excel(excel_writer=path, index=False, na_rep='',
+                                  float_format="%.0f")
+            else:
+                print('Please enter a valid output format')
+                assert(False)
+
     def asset_bubble_plot(self, calc, output_variable='mettr',
                           include_land=False, include_inventories=False,
                           include_IP=False, path=''):
@@ -665,7 +853,7 @@ class Calculator():
                 # Form the two categories: Equipment and Structures
                 equipment_df = df.drop(
                     df[df.major_asset_group.str.contains(
-                        'Structures')].index)
+                        'Structures')].index).copy()
                 equipment_df.drop(equipment_df[
                     equipment_df.major_asset_group.str.contains(
                         'Buildings')].index, inplace=True)
@@ -678,7 +866,7 @@ class Calculator():
                                  'Equipment'].index, inplace=True)
                 structure_df = df.drop(df[
                     ~df.major_asset_group.str.contains(
-                        'Structures|Buildings')].index)
+                        'Structures|Buildings')].index).copy()
                 # Drop value for all structures
                 structure_df.drop(structure_df[
                     structure_df.asset_name == 'Structures'].index,
@@ -952,8 +1140,9 @@ class Calculator():
         # load data as DataFrame
         df = self.calc_by_asset()
         # Keep only corporate
-        df = df.drop(df[df.tax_treat != 'corporate'].index)
-        # remove data from Intellectual Property, Land, and Inventories Categories
+        df.drop(df[df.tax_treat != 'corporate'].index, inplace=True)
+        # remove data from Intellectual Property, Land, and
+        # Inventories Categories
         if not include_land:
             df.drop(df[df.asset_name == 'Land'].index,
                     inplace=True)
@@ -972,7 +1161,7 @@ class Calculator():
         # Form the two Categories: Equipment and Structures
         equipment_df = df.drop(
             df[df.minor_asset_group.str.contains(
-                'Structures')].index)
+                'Structures')].index).copy()
         equipment_df.drop(equipment_df[
             equipment_df.minor_asset_group.str.contains(
                 'Buildings')].index, inplace=True)
@@ -985,7 +1174,7 @@ class Calculator():
                          'Equipment'].index, inplace=True)
         structure_df = df.drop(df[
             ~df.minor_asset_group.str.contains(
-                'Structures|Buildings')].index)
+                'Structures|Buildings')].index).copy()
 
         # Make short category
         make_short = {
