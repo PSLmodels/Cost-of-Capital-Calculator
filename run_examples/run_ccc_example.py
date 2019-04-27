@@ -23,7 +23,6 @@ iit_reform = ref['policy']
 # Initialize Asset and Calculator Objects
 assets = Assets()
 # Baseline
-# baseline_parameters = Specifications(year=2018, call_tc=True, iit_reform={})
 baseline_parameters = Specifications(year=2018, call_tc=False, iit_reform={})
 calc1 = Calculator(baseline_parameters, assets)
 # Reform

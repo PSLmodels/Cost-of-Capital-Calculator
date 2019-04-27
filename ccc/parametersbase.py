@@ -6,7 +6,6 @@ Cost-of-Capital-Calculator abstract base parameters class.
 
 import os
 import json
-import six
 import abc
 import ast
 import collections as collect
@@ -65,14 +64,14 @@ class ParametersBase(object):
                             cls.DEFAULTS_FILENAME)
         if os.path.exists(path):
             with open(path) as pfile:
-                params_dict = json.load(pfile,
-                                        object_pairs_hook=collect.OrderedDict)
+                params_dict = json.load(
+                    pfile, object_pairs_hook=collect.OrderedDict)
             return params_dict
 
     def _update(self, mods):
         """
-        Private method used by public implement_reform and update_* methods
-        in inheriting classes.
+        Private method used by public implement_reform and update_*
+        methods in inheriting classes.
         Parameters
         ----------
         mods: dictionary containing a parameter:value pairs
@@ -97,7 +96,7 @@ class ParametersBase(object):
             string_val = self._vals[name].get('string_value', None)
             # set post-reform values of parameter with name
             used_names.add(name)
-            cval = getattr(self, name, None)
+            # cval = getattr(self, name, None)
             # print("Is this a string: ", string_val, name)
             print(name, ' has been updated to: ', values)
             nval = self._expand_array(values, intg_val, bool_val,
@@ -152,17 +151,20 @@ class ParametersBase(object):
         '+': lambda pvalue, val: pvalue + val,
         '-': lambda pvalue, val: pvalue - val,
         '*': lambda pvalue, val: pvalue * val,
-        '/': lambda pvalue, val: pvalue / val if val > 0 else 'ERROR: Cannot divide by zero',
+        '/': lambda pvalue, val: pvalue / val if val > 0 else
+        'ERROR: Cannot divide by zero',
     }
 
     def simple_eval(self, param_string):
         """
-        Parses `param_string` and returns result. `param_string can be either:
-            1. `param_name op scalar` -- this will be parsed into param, op, and scalar
-                    where `op` is a key in `OP_DICT`. The corresponding function is
-                    applied to the parameter value and the scalar value.
-            2. `param_name` -- simply return the parameter value that is retrieved
-                    from the object
+        Parses `param_string` and returns result. `param_string can be
+        either:
+            1. `param_name op scalar` -- this will be parsed into param,
+                    op, and scalar where `op` is a key in `OP_DICT`.
+                    The corresponding function is applied to the
+                    parameter value and the scalar value.
+            2. `param_name` -- simply return the parameter value that
+                    is retrieved from the object
         Parameters
         ----------
         param_string : string of form `param op scalar` or `param`

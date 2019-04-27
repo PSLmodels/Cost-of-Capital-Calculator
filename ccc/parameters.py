@@ -481,7 +481,9 @@ class Specifications(ParametersBase):
 # changes
 def reform_warnings_errors(user_mods):
     """
-    Generate warnings and errors for Cost-of-Capital-Calculator parameter specifications
+    Generate warnings and errors for Cost-of-Capital-Calculator
+    parameter specifications
+
     Parameters:
     -----------
     user_mods : dict created by read_json_param_objects

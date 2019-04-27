@@ -1530,10 +1530,10 @@ class Calculator():
         # Format axes
         p.xaxis.axis_label = "Marginal Effective Tax Rate"
         p.xaxis[0].formatter = NumeralTickFormatter(format="0.1%")
-        #p.yaxis.axis_label = "Equipment"
+        # p.yaxis.axis_label = "Equipment"
         p.toolbar_location = None
         p.min_border_right = 5
-        #p.min_border_bottom = -10
+        # p.min_border_bottom = -10
         p.outline_line_width = 5
         p.border_fill_alpha = 0
         p.xaxis.major_tick_line_color = "firebrick"
@@ -1594,10 +1594,10 @@ class Calculator():
         # Format axes
         p2.xaxis.axis_label = "Marginal Effective Tax Rate"
         p2.xaxis[0].formatter = NumeralTickFormatter(format="0.1%")
-        #p2.yaxis.axis_label = "Structures"
+        # p2.yaxis.axis_label = "Structures"
         p2.toolbar_location = None
         p2.min_border_right = 5
-        #p2.min_border_top = -13
+        # p2.min_border_top = -13
         p2.outline_line_width = 0
         p2.border_fill_alpha = 0
         p2.xaxis.major_tick_line_color = "firebrick"

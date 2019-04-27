@@ -14,7 +14,7 @@ This py-file creates the following other file(s):
 '''
 from __future__ import print_function
 import numpy as np
-from taxcalc import *
+from taxcalc import Policy, Records, Calculator
 from ccc.utils import DEFAULT_START_YEAR, TC_LAST_YEAR
 
 
