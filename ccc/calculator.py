@@ -18,18 +18,17 @@ from ccc.utils import wavg, diff_two_tables
 from ccc.constants import VAR_DICT
 # import pdb
 # importing Bokeh libraries
-from bokeh.plotting import figure, show
-from bokeh.io import curdoc
+from bokeh.plotting import figure
 from bokeh.transform import dodge
 from bokeh.core.properties import value
-from bokeh.models import ColumnDataSource, CustomJS, LabelSet, Title, FuncTickFormatter, BoxAnnotation, PrintfTickFormatter
-from bokeh.models.widgets import Select, Panel, Tabs, RadioButtonGroup
-from bokeh.models import HoverTool, WheelZoomTool, ResetTool, SaveTool
-from bokeh.models import NumeralTickFormatter, Span
+from bokeh.models import (ColumnDataSource, CustomJS, LabelSet, Title,
+                          FuncTickFormatter, BoxAnnotation, HoverTool,
+                          NumeralTickFormatter, Span)
+from bokeh.models.widgets import Panel, Tabs, RadioButtonGroup
 from bokeh.models.tickers import FixedTicker
-from bokeh.layouts import gridplot, column, widgetbox
-from bokeh.embed import components
-from bokeh.resources import CDN
+from bokeh.layouts import gridplot, column
+
+
 # import styles and callback
 from ccc.styles import (PLOT_FORMATS, TITLE_FORMATS, RED, BLUE)
 from ccc.controls_callback_script import CONTROLS_CALLBACK_SCRIPT
