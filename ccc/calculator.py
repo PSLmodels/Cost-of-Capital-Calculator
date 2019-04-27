@@ -23,7 +23,7 @@ from bokeh.transform import dodge
 from bokeh.core.properties import value
 from bokeh.models import (ColumnDataSource, CustomJS, LabelSet, Title,
                           FuncTickFormatter, BoxAnnotation, HoverTool,
-                          NumeralTickFormatter, Span)
+                          NumeralTickFormatter, Span, Title)
 from bokeh.models.widgets import Panel, Tabs, RadioButtonGroup
 from bokeh.models.tickers import FixedTicker
 from bokeh.layouts import gridplot, column
@@ -942,15 +942,13 @@ class Calculator():
             reform_df.drop(reform_df[reform_df.tax_treat ==
                                      'non-corporate'].index,
                            inplace=True)
-            plot_title = (VAR_DICT[output_variable] +
-                          ' for Corporate Investments')
+            plot_subtitle = 'Corporate Investments'
         else:
             base_df.drop(base_df[base_df.tax_treat ==
                                  'corporate'].index, inplace=True)
             reform_df.drop(reform_df[reform_df.tax_treat ==
                                      'corporate'].index, inplace=True)
-            plot_title = (VAR_DICT[output_variable] +
-                          ' for Pass-Through Investments')
+            plot_subtitle = 'Pass-Through Investments'
         dfs = [base_df, reform_df]
         policy_list = ['baseline', 'reform']
         # Create dictionary for source data
@@ -995,9 +993,14 @@ class Calculator():
                    toolbar_location=None, tools='')
 
         # Format graph title and features
-        p.title.text = plot_title
-        p.title.align = 'center'
-        p.title.text_font_size = '16pt'
+        # Add title
+        p.add_layout(Title(text=plot_subtitle,
+                           text_font_style="italic"), 'above')
+        p.add_layout(Title(text=VAR_DICT[output_variable],
+                           text_font_size="16pt"), 'above')
+        # p.title.text = plot_title
+        # p.title.align = 'center'
+        # p.title.text_font_size = '16pt'
         p.title.text_font = 'Helvetica'
         p.xgrid.grid_line_color = None
         p.ygrid.grid_line_color = None
@@ -1030,6 +1033,7 @@ class Calculator():
         p.add_layout(standard_region)
         p.add_layout(debt_region)
         p.add_layout(equity_region)
+
 
         # Draw baseline ranges onto graph
         p.segment('positions', 'mins', 'positions', 'maxes', color=BLUE,
