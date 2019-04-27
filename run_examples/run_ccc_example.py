@@ -9,8 +9,7 @@ import taxcalc
 from ccc.data import Assets
 from ccc.parameters import Specifications
 from ccc.calculator import Calculator
-from bokeh.plotting import figure
-from bokeh.io import output_file, show, save
+from bokeh.io import show
 
 # Read in a reform to compare against
 # Note that TCJA is current law baseline in TC 0.16+
