@@ -34,6 +34,7 @@ from bokeh.resources import CDN
 from ccc.styles import (PLOT_FORMATS, TITLE_FORMATS, RED, BLUE)
 from ccc.controls_callback_script import CONTROLS_CALLBACK_SCRIPT
 
+
 class Calculator():
     """
     Constructor for the Calculator class.
@@ -298,8 +299,8 @@ class Calculator():
             if not include_land:
                 df.drop(df[df.asset_name == 'Land'].index, inplace=True)
             if not include_inventories:
-                df.drop(df[df.asset_name ==
-                                'Inventories'].index, inplace=True)
+                df.drop(df[df.asset_name == 'Inventories'].index,
+                        inplace=True)
             # Compute overall separately by tax treatment
             treat_df = pd.DataFrame(df.groupby(
                 ['tax_treat']).apply(self.__f)).reset_index()
@@ -856,9 +857,11 @@ class Calculator():
         if corporate:
             df.drop(df[df.tax_treat == 'non-corporate'].index,
                     inplace=True)
+            plot_title = plot_title + ' for Corporate Investments'
         else:
             df.drop(df[df.tax_treat == 'corporate'].index,
                     inplace=True)
+            plot_title = plot_title + ' for Pass-Through Investments'
         # Get mean overall for baseline and reform
         mean_base = df[(df[plot_label] == 'Overall') &
                        (df.policy == 'Baseline')][output_variable +
@@ -940,11 +943,15 @@ class Calculator():
             reform_df.drop(reform_df[reform_df.tax_treat ==
                                      'non-corporate'].index,
                            inplace=True)
+            plot_title = (VAR_DICT[output_variable] +
+                          ' for Corporate Investments')
         else:
             base_df.drop(base_df[base_df.tax_treat ==
                                  'corporate'].index, inplace=True)
             reform_df.drop(reform_df[reform_df.tax_treat ==
                                      'corporate'].index, inplace=True)
+            plot_title = (VAR_DICT[output_variable] +
+                          ' for Pass-Through Investments')
         dfs = [base_df, reform_df]
         policy_list = ['baseline', 'reform']
         # Create dictionary for source data
@@ -986,10 +993,10 @@ class Calculator():
 
         # Create figure on which to plot
         p = figure(plot_width=500, plot_height=500, x_range=(-0.5, 2.5),
-                   tools=[])
+                   toolbar_location=None, tools='')
 
         # Format graph title and features
-        p.title.text = VAR_DICT[output_variable]
+        p.title.text = plot_title
         p.title.align = 'center'
         p.title.text_font_size = '16pt'
         p.title.text_font = 'Helvetica'
@@ -1001,22 +1008,12 @@ class Calculator():
         p.xaxis[0].ticker = FixedTicker(ticks=[0, 1, 2])
         # Done as a custom function instead of a categorical axis because
         # categorical axes do not work well with other features
-        # p.xaxis.formatter = FuncTickFormatter(code="""
-        #     function (tick) {
-        #         var types = ["Typically Financed", "Debt Financed",
-        #         "Equity Financed"];
-        #         return types[tick];
-        #     }
-        # """)
         p.xaxis.formatter = FuncTickFormatter(code="""
             var types = ["Typically Financed", "Debt Financed", "Equity Financed"]
             return types[tick]
         """)
         p.yaxis.axis_label = VAR_DICT[output_variable]
         p.yaxis[0].formatter = NumeralTickFormatter(format="0%")
-        # p.yaxis.bounds = (-90.0, 70.0)
-        # p.y_range.start = -1.6
-        # p.y_range.end = 0.70
 
         # Line separating positive and negative values
         zline = Span(location=0, dimension='width', line_alpha=0.2,
@@ -1070,9 +1067,9 @@ class Calculator():
 
         return p
 
-    def asset_bubble_plot(self, calc, output_variable='mettr',
-                          include_land=False, include_inventories=False,
-                          include_IP=False, path=''):
+    def bubble_widget(self, calc, output_variable='mettr',
+                      include_land=False, include_inventories=False,
+                      include_IP=False, path=''):
         '''
         Create table summarizing the output_variable under the baseline
         and reform policies.
@@ -1273,17 +1270,12 @@ class Calculator():
                  line_color="#333333", fill_alpha=.4,
                  source=data_sources['equip_source'], alpha=.4)
 
-        # Style the tools
-        p.add_tools(WheelZoomTool(), ResetTool(), SaveTool())
-        p.toolbar_location = "right"
-        p.toolbar.logo = None
-
         # Define and add a legend
         legend_cds = ColumnDataSource(
             {'size': SIZES, 'label': ['<$20B', '', '', '<$1T'],
              'x': [0, .15, .35, .6]})
-        p_legend = figure(height=150, width=480, x_range=(-0.075, 75),
-                          title='Asset Amount')
+        p_legend = figure(height=150, width=380, x_range=(-0.075, 75),
+                          title='Asset Amount', tools='')
         p_legend.circle(y=None, x='x', size='size', source=legend_cds,
                         color=BLUE, fill_alpha=.4, alpha=.4,
                         line_color="#333333")
@@ -1326,14 +1318,9 @@ class Calculator():
         p2.outline_line_alpha = 1
         p2.outline_line_color = "black"
 
-        # Style the tools
-        p2.add_tools(WheelZoomTool(), ResetTool(), SaveTool())
-        p2.toolbar_location = "right"
-        p2.toolbar.logo = None
-
         # Define and add a legend
         p2_legend = figure(height=150, width=380, x_range=(-0.075, .75),
-                           title='Asset Amount')
+                           title='Asset Amount', tools='')
         p2_legend.circle(y=None, x='x', size='size', source=legend_cds,
                          color=RED, fill_alpha=.4, alpha=.4,
                          line_color="#333333")
@@ -1376,8 +1363,8 @@ class Calculator():
                       [format_buttons, type_buttons]]
         )
         # layout = gridplot([p, p2], ncols=2, plot_width=250, plot_height=250)
-        doc = curdoc()
-        doc.add_root(layout)
+        # doc = curdoc()
+        # doc.add_root(layout)
 
         # Create components
         # js, div = components(layout)
@@ -1385,17 +1372,17 @@ class Calculator():
         # cdn_css = CDN.css_files[0]
 
         # Set up an application
-        from bokeh.application.handlers import FunctionHandler
-        from bokeh.application import Application
-        # handler = FunctionHandler(doc)
-        # app = Application(handler)
-        app = Application(doc)
+        # from bokeh.application.handlers import FunctionHandler
+        # from bokeh.application import Application
+        # # handler = FunctionHandler(doc)
+        # # app = Application(handler)
+        # app = Application(doc)
 
-        return app#layout
+        return layout
 
-    def asset_bubble_simple(self, calc, output_variable='mettr_mix',
-                          include_land=False, include_inventories=False,
-                          include_IP=False, path=''):
+    def asset_bubble(self, calc, output_variable='mettr_mix',
+                     include_land=False, include_inventories=False,
+                     include_IP=False, path=''):
         '''
         Create table summarizing the output_variable under the baseline
         and reform policies.
@@ -1414,11 +1401,11 @@ class Calculator():
         Returns:
             None, plot saved to disk
         '''
-        # load data as DataFrame
+        # Load data as DataFrame
         df = self.calc_by_asset()
         # Keep only corporate
         df.drop(df[df.tax_treat != 'corporate'].index, inplace=True)
-        # remove data from Intellectual Property, Land, and
+        # Remove data from Intellectual Property, Land, and
         # Inventories Categories
         if not include_land:
             df.drop(df[df.asset_name == 'Land'].index,
@@ -1469,7 +1456,6 @@ class Calculator():
             'Computers and Software': 'Computers and Software',
             'Industrial Machinery': 'Industrial Machinery'}
 
-
         equipment_df['short_category'] =\
             equipment_df['minor_asset_group']
         equipment_df['short_category'].replace(make_short,
@@ -1478,28 +1464,36 @@ class Calculator():
             structure_df['minor_asset_group']
         structure_df['short_category'].replace(make_short,
                                                inplace=True)
-
-        #Choose the year
+        # Set up datasources
         data_sources = {}
         format_fields = [output_variable]
-
-        #Add the Reform and the Baseline to Equipment Asset
+        # Add the Reform and the Baseline to Equipment Asset
         for f in format_fields:
             equipment_copy = equipment_df.copy()
             equipment_copy['baseline'] = equipment_copy[f]
-            equipment_copy['hover'] = equipment_copy.apply(lambda x: "{0:.1f}%".format(x[f] * 100), axis=1)
-            data_sources['equipment_' + f] = ColumnDataSource(equipment_copy[['baseline', 'size', 'hover', 'assets', 'short_category', 'asset_name']])
-        fudge_factor = '                          ' # this a spacer for the y-axis label
+            equipment_copy['hover'] = equipment_copy.apply(
+                lambda x: "{0:.1f}%".format(x[f] * 100), axis=1)
+            data_sources['equipment_' + f] = ColumnDataSource(
+                equipment_copy[['baseline', 'size', 'hover', 'assets',
+                                'short_category', 'asset_name']])
+        # A spacer for the y-axis label
+        fudge_factor = '                          '
 
         # Add the Reform and the Baseline to Structures Asset
         for f in format_fields:
             structure_copy = structure_df.copy()
             structure_copy['baseline'] = structure_copy[f]
-            structure_copy['hover'] = structure_copy.apply(lambda x: "{0:.1f}%".format(x[f] * 100), axis=1)
-            structure_copy['short_category'] = structure_copy['short_category'].str.replace('Residential Bldgs', fudge_factor + 'Residential Bldgs')
-            data_sources['structure_' + f] = ColumnDataSource(structure_copy[['baseline', 'size', 'hover', 'assets', 'short_category', 'asset_name']])
+            structure_copy['hover'] = structure_copy.apply(
+                lambda x: "{0:.1f}%".format(x[f] * 100), axis=1)
+            structure_copy['short_category'] =\
+                structure_copy['short_category'].str.replace(
+                    'Residential Bldgs', fudge_factor +
+                    'Residential Bldgs')
+            data_sources['structure_' + f] = ColumnDataSource(
+                structure_copy[['baseline', 'size', 'hover', 'assets',
+                                'short_category', 'asset_name']])
 
-        #Define categories for Equipments assets
+        # Define categories for Equipments assets
         equipment_assets = ['Computers and Software',
                             'Instruments and Communications',
                             'Office and Residential',
@@ -1508,7 +1502,7 @@ class Calculator():
                             'Other Industrial',
                             'Other']
 
-        #Define categories for Structures assets
+        # Define categories for Structures assets
         structure_assets = ['Residential Bldgs',
                             'Nonresidential Bldgs',
                             'Mining and Drilling',
@@ -1517,34 +1511,35 @@ class Calculator():
         # Equipment plot
         p = figure(plot_height=540,
                    plot_width=990,
-                   x_range = (-.05, .51),
+                   x_range=(-.05, .51),
                    y_range=list(reversed(equipment_assets)),
-                   #x_axis_location="above",
+                   # x_axis_location="above",
+                   toolbar_location=None,
                    tools='hover',
                    background_fill_alpha=0,
                    # change things on all axes
                    **PLOT_FORMATS)
-        p.add_layout(Title(text='Marginal Effective Tax Rates on Corporate Investments in Equipment', **TITLE_FORMATS),"above")
+        p.add_layout(Title(
+            text=('Marginal Effective Tax Rates on Corporate Investments'
+                  + ' in Equipment'), **TITLE_FORMATS), 'above')
 
         hover = p.select(dict(type=HoverTool))
         hover.tooltips = [('Asset', ' @asset_name (@hover)')]
 
-        source=data_sources['equipment_' + output_variable];
+        # source = data_sources['equipment_' + output_variable]
 
+        # Format axes
         p.xaxis.axis_label = "Marginal Effective Tax Rate"
         p.xaxis[0].formatter = NumeralTickFormatter(format="0.1%")
-
         #p.yaxis.axis_label = "Equipment"
         p.toolbar_location = None
         p.min_border_right = 5
-
         #p.min_border_bottom = -10
         p.outline_line_width = 5
         p.border_fill_alpha = 0
         p.xaxis.major_tick_line_color = "firebrick"
         p.xaxis.major_tick_line_width = 3
         p.xaxis.minor_tick_line_color = "orange"
-
         p.outline_line_width = 1
         p.outline_line_alpha = 1
         p.outline_line_color = "black"
@@ -1556,36 +1551,48 @@ class Calculator():
                  line_color="#333333",
                  line_alpha=.1,
                  fill_alpha=0.4,
-                 source=ColumnDataSource(data_sources['equipment_' + output_variable].data),
+                 source=ColumnDataSource(
+                     data_sources['equipment_' + output_variable].data),
                  alpha=.4)
 
-        # equipment_renderer = p.circle(x='reform',
-        #                               y='short_category',
-        #                               size='size',
-        #                               #line_color="white",
-        #                               source=data_sources['equipment_' + output_variable],
-        #                               color = BLUE,
-        #                               alpha=.4,
-        #                               line_color = "firebrick",
-        #                               line_dash = [8, 3],
-        #                               line_width = 1)
+        # Define and add a legend
+        legend_cds = ColumnDataSource(
+            {'size': SIZES, 'label': ['<$20B', '', '', '<$1T'],
+             'x': [0, .15, .35, .6]})
+        p_legend = figure(height=150, width=380, x_range=(-0.075, 75),
+                          title='Asset Amount', tools='')
+        p_legend.circle(y=None, x='x', size='size', source=legend_cds,
+                        color=BLUE, fill_alpha=.4, alpha=.4,
+                        line_color="#333333")
+        l1 = LabelSet(y=None, x='x', text='label', x_offset=-20,
+                      y_offset=-50, source=legend_cds)
+        p_legend.add_layout(l1)
+        p_legend.axis.visible = False
+        p_legend.grid.grid_line_color = None
+        p_legend.toolbar.active_drag = None
+
         # Style the tools
-        p.add_tools(WheelZoomTool(), ResetTool(), SaveTool())
-        p.toolbar_location = "right"
-        p.toolbar.logo = None
+        # p.add_tools(WheelZoomTool(), ResetTool(), SaveTool())
+        # p.toolbar_location = "right"
+        # p.toolbar.logo = None
 
         # Structures plot
         p2 = figure(plot_height=540,
                     plot_width=990,
-                    x_range = (-.05, .51),
+                    x_range=(-.05, .51),
                     y_range=list(reversed(structure_assets)),
+                    toolbar_location=None,
                     tools='hover',
                     background_fill_alpha=0,
                     **PLOT_FORMATS)
-        p2.add_layout(Title(text='Marginal Effective Tax Rates on Corporate Investments in Structures', **TITLE_FORMATS),"above")
+        p2.add_layout(Title(
+            text=('Marginal Effective Tax Rates on Corporate ' +
+                  + 'Investments in Structures'), **TITLE_FORMATS),
+                  'above')
 
         hover = p2.select(dict(type=HoverTool))
         hover.tooltips = [('Asset', ' @asset_name (@hover)')]
+        # Format axes
         p2.xaxis.axis_label = "Marginal Effective Tax Rate"
         p2.xaxis[0].formatter = NumeralTickFormatter(format="0.1%")
         #p2.yaxis.axis_label = "Structures"
@@ -1594,11 +1601,9 @@ class Calculator():
         #p2.min_border_top = -13
         p2.outline_line_width = 0
         p2.border_fill_alpha = 0
-
         p2.xaxis.major_tick_line_color = "firebrick"
         p2.xaxis.major_tick_line_width = 3
         p2.xaxis.minor_tick_line_color = "orange"
-
 
         p2.circle(x='baseline',
                   y='short_category',
@@ -1607,36 +1612,32 @@ class Calculator():
                   line_color="#333333",
                   # line_alpha=.1,
                   fill_alpha=0.4,
-                  source=ColumnDataSource(data_sources['structure_' + output_variable].data),
+                  source=ColumnDataSource(
+                      data_sources['structure_' + output_variable].data),
                   alpha=.4)
 
         p2.outline_line_width = 1
         p2.outline_line_alpha = 1
         p2.outline_line_color = "black"
 
-        # structure_renderer = p2.circle(x='reform',
-        #                                y='short_category',
-        #                                color=BLUE,
-        #                                size='size',
-        #                                #line_color="white",
-        #                                source=data_sources['structure_' + output_variable],
-        #                                alpha=.4,
-        #                                line_color = "firebrick",
-        #                                line_dash = [8, 3],
-        #                                line_width = 1)
-
-        # Style the tools
-        p2.add_tools(WheelZoomTool(), ResetTool(), SaveTool())
-        p2.toolbar_location = "right"
-        p2.toolbar.logo = None
+        # Define and add a legend
+        p2_legend = figure(height=150, width=380, x_range=(-0.075, .75),
+                           title='Asset Amount', tools='')
+        p2_legend.circle(y=None, x='x', size='size', source=legend_cds,
+                         color=RED, fill_alpha=.4, alpha=.4,
+                         line_color="#333333")
+        l2 = LabelSet(y=None, x='x', text='label', x_offset=-20,
+                      y_offset=-50, source=legend_cds)
+        p2_legend.add_layout(l2)
+        p2_legend.axis.visible = False
+        p2_legend.grid.grid_line_color = None
+        p2_legend.toolbar.active_drag = None
 
         # Create Tabs
-        tab = Panel(child=p, title='Equipment')
-        tab2 = Panel(child=p2, title='Structures')
+        tab = Panel(child=column([p, p_legend]), title='Equipment')
+        tab2 = Panel(child=column([p2, p2_legend]), title='Structures')
         tabs = Tabs(tabs=[tab, tab2])
 
-        # create layout and add to curdoc
-        # curdoc().add_root(tabs)
         return tabs
 
     def store_assets(self):
