@@ -286,7 +286,7 @@ class Calculator():
             path: string, specifies path to save file with table to
 
         Returns:
-            None, table saved to disk
+            table_df: DataFrame, table
         '''
         self.calc_base()
         calc.calc_base()
@@ -429,6 +429,67 @@ class Calculator():
                 print('Please enter a valid output format')
                 assert(False)
 
+    def asset_share_table(self, output_type='csv', path=None):
+        '''
+        Create table summarizing the output_variable under the baseline
+        and reform policies.
+
+        Args:
+            output_type: string, specifies the type of file to save
+                table to:
+                    - 'csv'
+                    - 'tex'
+                    - 'excel'
+                    - 'json'
+            path: string, specifies path to save file with table to
+
+        Returns:
+            table_df: DataFrame, table
+        '''
+        df = pd.DataFrame(self.__assets.df.groupby(
+                ['tax_treat', 'major_industry'])
+                          ['assets'].sum()).reset_index()
+        table_df = df.pivot(index='major_industry', columns='tax_treat',
+                            values='assets').reset_index()
+        table_df['c_share'] = (table_df['corporate'] /
+                               (table_df['corporate'] +
+                                table_df['non-corporate']))
+        table_df['nc_share'] = (table_df['non-corporate'] /
+                                (table_df['corporate'] +
+                                 table_df['non-corporate']))
+        table_df.drop(labels=['corporate', 'non-corporate'], axis=1,
+                      inplace=True)
+        table_df.rename(columns={'c_share': 'corporate',
+                                 'nc_shape': 'non-corporate'},
+                        inplace=True)
+        if path is None:
+            if output_type == 'tex':
+                tab_str = table_df.to_latex(
+                    buf=path, index=False, na_rep='',
+                    float_format=lambda x: '%.2f' % x)
+                return tab_str
+            elif output_type == 'json':
+                tab_str = table_df.to_json(
+                    path_or_buf=path, double_precision=2)
+                return tab_str
+            else:
+                return table_df
+        else:
+            if output_type == 'tex':
+                table_df.to_latex(buf=path, index=False, na_rep='',
+                                  float_format=lambda x: '%.2f' % x)
+            elif output_type == 'csv':
+                table_df.to_csv(path_or_buf=path, index=False, na_rep='',
+                                float_format="%.2f")
+            elif output_type == 'json':
+                table_df.to_json(path_or_buf=path, double_precision=0)
+            elif output_type == 'excel':
+                table_df.to_excel(excel_writer=path, index=False, na_rep='',
+                                  float_format="%.2f")
+            else:
+                print('Please enter a valid output format')
+                assert(False)
+
     def asset_summary_table(self, calc, output_variable='mettr',
                             include_land=True, include_inventories=True,
                             output_type='csv', path=None):
@@ -454,7 +515,7 @@ class Calculator():
             path: string, specifies path to save file with table to
 
         Returns:
-            None, table saved to disk
+            table_df: DataFrame, table
         '''
         self.calc_base()
         calc.calc_base()
@@ -641,7 +702,7 @@ class Calculator():
             path: string, specifies path to save file with table to
 
         Returns:
-            None, table saved to disk
+            table_df: DataFrame, table
         '''
         self.calc_base()
         calc.calc_base()
