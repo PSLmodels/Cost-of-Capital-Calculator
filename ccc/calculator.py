@@ -22,10 +22,11 @@ from bokeh.plotting import figure, show
 from bokeh.io import curdoc
 from bokeh.transform import dodge
 from bokeh.core.properties import value
-from bokeh.models import ColumnDataSource, CustomJS, LabelSet, Title
+from bokeh.models import ColumnDataSource, CustomJS, LabelSet, Title, FuncTickFormatter, BoxAnnotation, PrintfTickFormatter
 from bokeh.models.widgets import Select, Panel, Tabs, RadioButtonGroup
 from bokeh.models import HoverTool, WheelZoomTool, ResetTool, SaveTool
 from bokeh.models import NumeralTickFormatter, Span
+from bokeh.models.tickers import FixedTicker
 from bokeh.layouts import gridplot, column, widgetbox
 from bokeh.embed import components
 from bokeh.resources import CDN
@@ -896,6 +897,176 @@ class Calculator():
                      line_color=RED,
                      line_alpha=0.2, line_width=2, line_dash='dashed')
         p.renderers.extend([bline, rline])
+
+        return p
+
+    def range_plot(self, calc, output_variable='mettr',
+                   corporate=True, include_land=True,
+                   include_inventories=True):
+        base_df = self.calc_by_asset()
+        reform_df = calc.calc_by_asset()
+        base_df.drop(base_df[
+            (base_df.asset_name != base_df.major_asset_group) &
+            (base_df.asset_name != 'Overall') &
+            (base_df.asset_name != 'Land') &
+            (base_df.asset_name != 'Inventories')].index, inplace=True)
+        reform_df.drop(reform_df[
+                (reform_df.asset_name != reform_df.major_asset_group) &
+                (reform_df.asset_name != 'Overall') &
+                (reform_df.asset_name != 'Land') &
+                (reform_df.asset_name != 'Inventories')].index,
+                       inplace=True)
+        if not include_land:
+            base_df.drop(
+                base_df[base_df.asset_name == 'Land'].index,
+                inplace=True)
+            reform_df.drop(
+                reform_df[reform_df.asset_name == 'Land'].index,
+                inplace=True)
+        if not include_inventories:
+            base_df.drop(
+                base_df[base_df.asset_name == 'Inventories'].index,
+                inplace=True)
+            reform_df.drop(
+                reform_df[reform_df.asset_name == 'Inventories'].index,
+                inplace=True)
+        # Append dfs together so base policies in one
+        base_df['policy'] = 'Baseline'
+        reform_df['policy'] = 'Reform'
+        # Drop corporate or non-corporate per arguments
+        if corporate:
+            base_df.drop(base_df[base_df.tax_treat ==
+                                 'non-corporate'].index, inplace=True)
+            reform_df.drop(reform_df[reform_df.tax_treat ==
+                                     'non-corporate'].index,
+                           inplace=True)
+        else:
+            base_df.drop(base_df[base_df.tax_treat ==
+                                 'corporate'].index, inplace=True)
+            reform_df.drop(reform_df[reform_df.tax_treat ==
+                                     'corporate'].index, inplace=True)
+        dfs = [base_df, reform_df]
+        policy_list = ['baseline', 'reform']
+        # Create dictionary for source data
+        source_dict = {
+            'baseline': {'mins': [], 'maxes': [], 'means': [],
+                         'min_asset': [], 'max_asset': [],
+                         'mean_asset': [],
+                         'types': ["Typically Financed",
+                                   "Debt Financed", "Equity Financed"],
+                         'positions': [-0.1, 0.9, 1.9]},
+            'reform': {'mins': [], 'maxes': [], 'means': [],
+                       'min_asset': [], 'max_asset': [],
+                       'mean_asset': [],
+                       'types': ["Typically Financed",
+                                 "Debt Financed", "Equity Financed"],
+                       'positions': [0.1, 1.1, 2.1]}}
+        for i, df in enumerate(dfs):
+            for fin in ('_mix', '_d', '_e'):
+                max_index = df[output_variable + fin].idxmax()
+                min_index = df[output_variable + fin].idxmin()
+                maxval = df.loc[max_index][output_variable + fin]
+                minval = df.loc[min_index][output_variable + fin]
+                minasset = df.loc[min_index]['asset_name']
+                maxasset = df.loc[max_index]['asset_name']
+                meanval = df[df.asset_name ==
+                             'Overall'][output_variable + fin].values[0]
+                meanasset = 'Overall'
+
+                # put values in dictionary
+                source_dict[policy_list[i]]['mins'].append(minval)
+                source_dict[policy_list[i]]['maxes'].append(maxval)
+                source_dict[policy_list[i]]['means'].append(meanval)
+                source_dict[policy_list[i]]['min_asset'].append(minasset)
+                source_dict[policy_list[i]]['max_asset'].append(maxasset)
+                source_dict[policy_list[i]]['mean_asset'].append(meanasset)
+
+        base_source = ColumnDataSource(data=source_dict['baseline'])
+        reform_source = ColumnDataSource(data=source_dict['reform'])
+
+        # Create figure on which to plot
+        p = figure(plot_width=500, plot_height=500, x_range=(-0.5, 2.5),
+                   tools=[])
+
+        # Format graph title and features
+        p.title.text = VAR_DICT[output_variable]
+        p.title.align = 'center'
+        p.title.text_font_size = '16pt'
+        p.title.text_font = 'Helvetica'
+        p.xgrid.grid_line_color = None
+        p.ygrid.grid_line_color = None
+
+        # Format axis labels
+        p.xaxis.axis_label = "Method of Financing"
+        p.xaxis[0].ticker = FixedTicker(ticks=[0, 1, 2])
+        # Done as a custom function instead of a categorical axis because
+        # categorical axes do not work well with other features
+        # p.xaxis.formatter = FuncTickFormatter(code="""
+        #     function (tick) {
+        #         var types = ["Typically Financed", "Debt Financed",
+        #         "Equity Financed"];
+        #         return types[tick];
+        #     }
+        # """)
+        p.xaxis.formatter = FuncTickFormatter(code="""
+            var types = ["Typically Financed", "Debt Financed", "Equity Financed"]
+            return types[tick]
+        """)
+        p.yaxis.axis_label = VAR_DICT[output_variable]
+        p.yaxis[0].formatter = NumeralTickFormatter(format="0%")
+        # p.yaxis.bounds = (-90.0, 70.0)
+        # p.y_range.start = -1.6
+        # p.y_range.end = 0.70
+
+        # Line separating positive and negative values
+        zline = Span(location=0, dimension='width', line_alpha=0.2,
+                     line_width=2, line_dash='dashed')
+        p.renderers.extend([zline])
+
+        # Color different regions
+        standard_region = BoxAnnotation(right=0.5, fill_alpha=0.2,
+                                        fill_color='white')
+        debt_region = BoxAnnotation(left=0.5, right=1.5, fill_alpha=0.1,
+                                    fill_color='white')
+        equity_region = BoxAnnotation(left=1.5, fill_alpha=0.2,
+                                      fill_color='white')
+
+        p.add_layout(standard_region)
+        p.add_layout(debt_region)
+        p.add_layout(equity_region)
+
+        # Draw baseline ranges onto graph
+        p.segment('positions', 'mins', 'positions', 'maxes', color=BLUE,
+                  line_width=2, source=base_source)
+        # Add circles for means
+        p.circle('positions', 'means', size=12, color=BLUE,
+                 source=base_source, legend=value("Baseline"))
+        # Add circles for maxes and mins
+        p.circle('positions', 'mins', size=12, color=BLUE,
+                 source=base_source, legend=value("Baseline"))
+        p.circle('positions', 'maxes', size=12, color=BLUE,
+                 source=base_source, legend=value("Baseline"))
+
+        # Draw reformed ranges onto graph
+        p.segment('positions', 'mins', 'positions', 'maxes', color=RED,
+                  line_width=2, source=reform_source)
+        # Add circles for means
+        p.circle('positions', 'means', size=12, color=RED,
+                 source=reform_source, legend=value("Reform"))
+        # Add circles for maxes and mins
+        p.circle('positions', 'mins', size=12, color=RED,
+                 source=reform_source, legend=value("Reform"))
+        p.circle('positions', 'maxes', size=12, color=RED,
+                 source=reform_source, legend=value("Reform"))
+
+        # Set legend location
+        p.legend.location = "bottom_right"
+
+        # Display rate and asset type when hovering over a glyph
+        # hover = HoverTool(
+        #         tooltips=[(output_variable, "@mins"),
+        #                     ("Asset",  "@min_asset")])
+        # p.add_tools(hover)
 
         return p
 
