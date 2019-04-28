@@ -111,6 +111,7 @@ class Specifications(ParametersBase):
         self.financing_list = ['mix', 'd', 'e']
         self.entity_list = ['c', 'nc']
 
+        # Compute required after-tax rates of return for savers
         sprime_c_td = ((1 / self.Y_td) *
                        np.log(((1 - self.tau_td) *
                                np.exp(self.nominal_interest_rate *
@@ -165,13 +166,16 @@ class Specifications(ParametersBase):
         else:
             self.u['nc'] = self.PT_entity_tax_rate
         E_dict = {'c': self.E_c, 'nc': E_nc}
+        # Allowance for Corporate Equity
         ace_dict = {'c': self.ace_c, 'nc': self.ace_nc}
+        # Limitation on interest deduction
         int_haircut_dict = {'c': self.interest_deduct_haircut_corp,
                             'nc': self.interest_deduct_haircut_PT}
         self.s = {'c': {'mix': s_c, 'd': s_c_d, 'e': s_c_e},
                   'nc': {'mix': s_nc, 'd': s_nc_d, 'e': s_nc_e}}
         f_dict = {'c': {'mix': self.f_c, 'd': 1.0, 'e': 0.0},
                   'nc': {'mix': self.f_nc, 'd': 1.0, 'e': 0.0}}
+        # Compute firm discount factors
         r = {}
         for t in self.entity_list:
             r[t] = {}
@@ -182,6 +186,7 @@ class Specifications(ParametersBase):
                                      self.u[t])) + (1 - f_dict[t][f]) *
                     (E_dict[t] + self.inflation_rate - E_dict[t] *
                      self.ace_int_rate * ace_dict[t]))
+        # Compute firm after-tax rates of return
         r_prime = {}
         for t in self.entity_list:
             r_prime[t] = {}
@@ -476,7 +481,9 @@ class Specifications(ParametersBase):
 # changes
 def reform_warnings_errors(user_mods):
     """
-    Generate warnings and errors for Cost-of-Capital-Calculator parameter specifications
+    Generate warnings and errors for Cost-of-Capital-Calculator
+    parameter specifications
+
     Parameters:
     -----------
     user_mods : dict created by read_json_param_objects

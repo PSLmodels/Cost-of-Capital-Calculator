@@ -73,9 +73,11 @@ def test_run_ccc_example_output(file_name):
     ensure that it produces the expected results that are checked into
     the repo.
     '''
-    run_example_path = os.path.join(CUR_PATH, '..', '..', 'run_examples')
+    run_example_path = os.path.join(CUR_PATH, '..', '..',
+                                    'run_examples')
     test_path = os.path.join(run_example_path, file_name + '.csv')
     test_df = pd.read_csv(test_path)
-    expected_path = os.path.join(run_example_path, file_name + '_expected.csv')
+    expected_path = os.path.join(run_example_path, file_name +
+                                 '_expected.csv')
     expected_df = pd.read_csv(expected_path)
     assert_frame_equal(test_df, expected_df)

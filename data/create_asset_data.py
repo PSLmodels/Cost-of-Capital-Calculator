@@ -14,7 +14,8 @@ from ccc.utils import (read_from_egg,
 import read_bea
 from soi_processing import pull_soi_data
 import pull_depreciation
-from ccc.constants import MAJOR_ASSET_GROUPS, BEA_CODE_DICT
+from ccc.constants import (MAJOR_ASSET_GROUPS, MINOR_ASSET_GROUPS,
+                           BEA_CODE_DICT)
 from data_paths import get_paths
 globals().update(get_paths())
 
@@ -47,6 +48,11 @@ asset_data_by_tax_treat.drop(columns=['level_0', 'index'], inplace=True)
 asset_data_by_tax_treat['major_asset_group'] =\
     asset_data_by_tax_treat['Asset Type']
 asset_data_by_tax_treat['major_asset_group'].replace(MAJOR_ASSET_GROUPS,
+                                                     inplace=True)
+# Add minor asset group
+asset_data_by_tax_treat['minor_asset_group'] =\
+    asset_data_by_tax_treat['Asset Type']
+asset_data_by_tax_treat['minor_asset_group'].replace(MINOR_ASSET_GROUPS,
                                                      inplace=True)
 # Add major industry groupings
 asset_data_by_tax_treat['Industry'] =\

@@ -9,6 +9,7 @@ import taxcalc
 from ccc.data import Assets
 from ccc.parameters import Specifications
 from ccc.calculator import Calculator
+from bokeh.io import show
 
 # Read in a reform to compare against
 # Note that TCJA is current law baseline in TC 0.16+
@@ -22,11 +23,13 @@ iit_reform = ref['policy']
 # Initialize Asset and Calculator Objects
 assets = Assets()
 # Baseline
-baseline_parameters = Specifications(year=2018, call_tc=True, iit_reform={})
+baseline_parameters = Specifications(year=2018, call_tc=False, iit_reform={})
 calc1 = Calculator(baseline_parameters, assets)
 # Reform
-reform_parameters = Specifications(year=2018, call_tc=True,
-                                   iit_reform=iit_reform)
+# reform_parameters = Specifications(year=2018, call_tc=True,
+#                                    iit_reform=iit_reform)
+reform_parameters = Specifications(year=2018, call_tc=False,
+                                   iit_reform={})
 business_tax_adjustments = {
     'CIT_rate': 0.35, 'BonusDeprec_3yr': 0.50, 'BonusDeprec_5yr': 0.50,
     'BonusDeprec_7yr': 0.50, 'BonusDeprec_10yr': 0.50,
@@ -54,3 +57,7 @@ base_assets_df.to_csv('baseline_byasset.csv', encoding='utf-8')
 reform_assets_df.to_csv('reform_byasset.csv', encoding='utf-8')
 diff_industry_df.to_csv('changed_byindustry.csv', encoding='utf-8')
 diff_assets_df.to_csv('changed_byasset.csv', encoding='utf-8')
+
+# # create bokeh plot
+p = calc1.range_plot(calc2)
+show(p)

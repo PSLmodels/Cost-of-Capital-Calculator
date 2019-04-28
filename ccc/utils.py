@@ -145,6 +145,13 @@ def read_egg_csv(fname, index_col=None):
     """
     Read from egg the file named fname that contains CSV data and
     return pandas DataFrame containing the data.
+
+    Args:
+        fname: string, name of csv file
+        index_col: string, name of column containing index
+
+    Returns:
+        vdf: pandas DataFrame, data from csv file
     """
     try:
         path_in_egg = os.path.join('ccc', fname)
@@ -164,6 +171,12 @@ def read_egg_json(fname):
     """
     Read from egg the file named fname that contains JSON data and
     return dictionary containing the data.
+
+    Args:
+        fname: string, name of JSON file
+
+    Returns:
+        pdict: dictionary, data from JSON file
     """
     try:
         path_in_egg = os.path.join('ccc', fname)
@@ -182,18 +195,16 @@ def read_egg_json(fname):
 def json_to_dict(json_text):
     """
     Convert specified JSON text into an ordered Python dictionary.
-    Parameters
-    ----------
-    json_text: string
-        JSON text.
-    Raises
-    ------
-    ValueError:
-        if json_text contains a JSON syntax error.
-    Returns
-    -------
-    dictionary: collections.OrderedDict
-        JSON data expressed as an ordered Python dictionary.
+
+    Args:
+        json_text: string, JSON text
+
+    Raises:
+        ValueError: if json_text contains a JSON syntax error
+
+    Returns:
+        ordered_dict: collections.OrderedDict, JSON data expressed as
+            an ordered Python dictionary.
     """
     try:
         ordered_dict = json.loads(json_text,
