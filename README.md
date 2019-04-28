@@ -17,10 +17,8 @@ The **first way** to use Cost-of-Capital-Calculator is to download the source co
 * Then install by `pip install -e .`
 * Navigate to `./run_examples`
 * Run the model with an example reform from terminal/command prompt by typing `python run_ccc_example.py`
-* You can adjust the `./run_examples/run_ccc_example.py` by adjusting the individual income tax reform (using a dictionary or JSON file in a format that is consistent with [Tax Calculator](https://github.com/open-source-economics/Tax-Calculator)) or other model parameters specified in the `user_params` or `kwargs` dictionaries.
+* You can adjust the `./run_examples/run_ccc_example.py` by adjusting the individual income tax reform (using a dictionary or JSON file in a format that is consistent with [Tax Calculator](https://github.com/open-source-economics/Tax-Calculator)) or other model parameters specified in the `business_tax_adjustments` dictionary.
 * Model outputs will be saved in the following files:
-  *  `asset_data.pkl`
-    * Dataframe with the distribution of assets by industry and tax treatment.  This dataframe is cached in a pickle file to be used in later runs, thereby reducing run time.
   * `./run_examples/baseline_byasset.csv`
     * Cost of capital, marginal effective tax rates, effective average tax rates, and other model output for the baseline policy, organized by asset.
   * `./run_examples/baseline_byindustry.csv`
