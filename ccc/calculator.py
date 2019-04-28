@@ -429,7 +429,9 @@ class Calculator():
                 print('Please enter a valid output format')
                 assert(False)
 
-    def asset_share_table(self, output_type='csv', path=None):
+    def asset_share_table(self, include_land=True,
+                          include_inventories=True, output_type='csv',
+                          path=None):
         '''
         Create table summarizing the output_variable under the baseline
         and reform policies.
@@ -446,22 +448,48 @@ class Calculator():
         Returns:
             table_df: DataFrame, table
         '''
-        df = pd.DataFrame(self.__assets.df.groupby(
+        df = self.__assets.df.copy()
+        if not include_land:
+            df.drop(df[df.asset_name == 'Land'].index, inplace=True)
+        if not include_inventories:
+            df.drop(df[df.asset_name == 'Inventories'].index,
+                    inplace=True)
+        df1 = pd.DataFrame(df.groupby(
                 ['tax_treat', 'major_industry'])
                           ['assets'].sum()).reset_index()
-        table_df = df.pivot(index='major_industry', columns='tax_treat',
-                            values='assets').reset_index()
-        table_df['c_share'] = (table_df['corporate'] /
-                               (table_df['corporate'] +
-                                table_df['non-corporate']))
-        table_df['nc_share'] = (table_df['non-corporate'] /
-                                (table_df['corporate'] +
-                                 table_df['non-corporate']))
-        table_df.drop(labels=['corporate', 'non-corporate'], axis=1,
-                      inplace=True)
-        table_df.rename(columns={'c_share': 'corporate',
-                                 'nc_shape': 'non-corporate'},
-                        inplace=True)
+        df2 = df1.pivot(index='major_industry', columns='tax_treat',
+                             values='assets').reset_index()
+        df2['c_share'] = (df2['corporate'] / (df2['corporate'] +
+                                              df2['non-corporate']))
+        df2['nc_share'] = (df2['non-corporate'] / (df2['corporate'] +
+                                                   df2['non-corporate']))
+        df2.drop(labels=['corporate', 'non-corporate'], axis=1,
+                 inplace=True)
+        df2.rename(columns={'c_share': 'Corporate',
+                            'nc_share': 'Pass-Through',
+                            'major_industry': 'Industry'}, inplace=True)
+        # Create dictionary for table to get industry's in specific order
+        major_inds = [
+            'Agriculture, forestry, fishing, and hunting',
+            'Mining', 'Utilities', 'Construction', 'Manufacturing',
+            'Wholesale trade', 'Retail trade',
+            'Transportation and warehousing', 'Information',
+            'Finance and insurance',
+            'Real estate and rental and leasing',
+            'Professional, scientific, and technical services',
+            'Management of companies and enterprises',
+            'Administrative and waste management services',
+            'Educational services',
+            'Health care and social assistance',
+            'Arts, entertainment, and recreation',
+            'Accommodation and food services',
+            'Other services, except government']
+        table_dict = {'Industry': [], 'Corporate': [], 'Pass-Through': []}
+        for item in major_inds:
+            table_dict['Industry'].append(item)
+            table_dict['Corporate'].append(df2[df2.Industry == item]['Corporate'].values[0])
+            table_dict['Pass-Through'].append(df2[df2.Industry == item]['Pass-Through'].values[0])
+        table_df = pd.DataFrame.from_dict(table_dict, orient='columns')
         if path is None:
             if output_type == 'tex':
                 tab_str = table_df.to_latex(
