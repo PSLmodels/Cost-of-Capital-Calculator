@@ -19,7 +19,7 @@ from ccc.utils import DEFAULT_START_YEAR, TC_LAST_YEAR
 
 
 def get_calculator(baseline, calculator_start_year, reform=None,
-                   data=None, weights=None, records_start_year=None):
+                   data='cps', weights=None, records_start_year=None):
     '''
     This function creates the tax calculator object for the microsim
 
@@ -73,7 +73,7 @@ def get_calculator(baseline, calculator_start_year, reform=None,
 
 
 def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={},
-              data=None):
+              data='cps'):
     '''
     This function computes weighted average marginal tax rates using
     micro data from the tax calculator
