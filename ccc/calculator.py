@@ -322,7 +322,7 @@ class Calculator():
         base_tab = dfs_out[0]
         reform_tab = dfs_out[1]
         # print('reform table = ', reform_tab)
-        diff_tab = diff_two_tables(base_tab, reform_tab)
+        diff_tab = diff_two_tables(reform_tab, base_tab)
         table_dict = {
             '': ['Overall', 'Corporations', '   Equity Financed',
                  '   Debt Financed', 'Pass-Through Entities',
@@ -575,7 +575,7 @@ class Calculator():
         base_tab = dfs_out[0]
         reform_tab = dfs_out[1]
         # print('reform table = ', reform_tab)
-        diff_tab = diff_two_tables(base_tab, reform_tab)
+        diff_tab = diff_two_tables(reform_tab, base_tab)
         major_groups = ['Equipment', 'Structures',
                         'Intellectual Property']
         if include_inventories:
@@ -760,7 +760,7 @@ class Calculator():
         base_tab = dfs_out[0]
         reform_tab = dfs_out[1]
         # print('reform table = ', reform_tab)
-        diff_tab = diff_two_tables(base_tab, reform_tab)
+        diff_tab = diff_two_tables(reform_tab, base_tab)
         category_list = ['Overall', 'Corporate']
         base_out_list = [
             base_tab[base_tab['tax_treat'] ==
@@ -1154,7 +1154,7 @@ class Calculator():
         '''
         base_df = self.calc_by_asset()
         reform_df = calc.calc_by_asset()
-        change_df = diff_two_tables(base_df, reform_df)
+        change_df = diff_two_tables(reform_df, base_df)
 
         list_df = [base_df, change_df, reform_df]
         list_string = ['base', 'change', 'reform']
