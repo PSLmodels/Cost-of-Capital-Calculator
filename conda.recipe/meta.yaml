@@ -27,17 +27,13 @@ about:
 test:
   imports:
     - ccc
+    - ccc.data
     - ccc.parameters
-    - ccc.run_ccc
-    - ccc.calc_z
-    - ccc.calc_final_outputs
-    - ccc.calibrate_financing
-    - ccc.check_output
-    - ccc.execute
-    - ccc.format_output
-    - ccc.pull_soi_corp
-    - ccc.front_end_util
+    - ccc.parametersbase
+    - ccc.calculator
+    - ccc.calcfunctions
     - ccc.get_taxcalc_rates
-    - ccc.pull_soi_proprietorship
-    - ccc.read_bea
-    - ccc.util
+    - ccc.styles
+    - ccc.controls_callback_script
+    - ccc.constants
+    - ccc.utils
