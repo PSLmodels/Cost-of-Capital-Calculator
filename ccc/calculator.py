@@ -15,7 +15,7 @@ from ccc.calcfunctions import (update_depr_methods, npv_tax_depr,
 from ccc.parameters import Specifications
 from ccc.data import Assets
 from ccc.utils import wavg, diff_two_tables
-from ccc.constants import VAR_DICT
+from ccc.constants import VAR_DICT, MAJOR_IND_ORDERED
 # import pdb
 # importing Bokeh libraries
 from bokeh.plotting import figure
@@ -23,7 +23,7 @@ from bokeh.transform import dodge
 from bokeh.core.properties import value
 from bokeh.models import (ColumnDataSource, CustomJS, LabelSet, Title,
                           FuncTickFormatter, BoxAnnotation, HoverTool,
-                          NumeralTickFormatter, Span, Title)
+                          NumeralTickFormatter, Span)
 from bokeh.models.widgets import Panel, Tabs, RadioButtonGroup
 from bokeh.models.tickers import FixedTicker
 from bokeh.layouts import gridplot, column
@@ -469,26 +469,13 @@ class Calculator():
                             'nc_share': 'Pass-Through',
                             'major_industry': 'Industry'}, inplace=True)
         # Create dictionary for table to get industry's in specific order
-        major_inds = [
-            'Agriculture, forestry, fishing, and hunting',
-            'Mining', 'Utilities', 'Construction', 'Manufacturing',
-            'Wholesale trade', 'Retail trade',
-            'Transportation and warehousing', 'Information',
-            'Finance and insurance',
-            'Real estate and rental and leasing',
-            'Professional, scientific, and technical services',
-            'Management of companies and enterprises',
-            'Administrative and waste management services',
-            'Educational services',
-            'Health care and social assistance',
-            'Arts, entertainment, and recreation',
-            'Accommodation and food services',
-            'Other services, except government']
         table_dict = {'Industry': [], 'Corporate': [], 'Pass-Through': []}
-        for item in major_inds:
+        for item in MAJOR_IND_ORDERED:
             table_dict['Industry'].append(item)
-            table_dict['Corporate'].append(df2[df2.Industry == item]['Corporate'].values[0])
-            table_dict['Pass-Through'].append(df2[df2.Industry == item]['Pass-Through'].values[0])
+            table_dict['Corporate'].append(
+                df2[df2.Industry == item]['Corporate'].values[0])
+            table_dict['Pass-Through'].append(
+                df2[df2.Industry == item]['Pass-Through'].values[0])
         table_df = pd.DataFrame.from_dict(table_dict, orient='columns')
         if path is None:
             if output_type == 'tex':
@@ -774,21 +761,6 @@ class Calculator():
         reform_tab = dfs_out[1]
         # print('reform table = ', reform_tab)
         diff_tab = diff_two_tables(base_tab, reform_tab)
-        major_inds = [
-            'Agriculture, forestry, fishing, and hunting',
-            'Mining', 'Utilities', 'Construction', 'Manufacturing',
-            'Wholesale trade', 'Retail trade',
-            'Transportation and warehousing', 'Information',
-            'Finance and insurance',
-            'Real estate and rental and leasing',
-            'Professional, scientific, and technical services',
-            'Management of companies and enterprises',
-            'Administrative and waste management services',
-            'Educational services',
-            'Health care and social assistance',
-            'Arts, entertainment, and recreation',
-            'Accommodation and food services',
-            'Other services, except government']
         category_list = ['Overall', 'Corporate']
         base_out_list = [
             base_tab[base_tab['tax_treat'] ==
@@ -805,7 +777,7 @@ class Calculator():
             [output_variable + '_mix'].values[0],
             diff_tab[diff_tab['tax_treat'] == 'corporate']
             [output_variable + '_mix'].values[0]]
-        for item in major_inds:
+        for item in MAJOR_IND_ORDERED:
                 category_list.append('   ' + item)
                 base_out_list.append(
                     base_tab[(base_tab['tax_treat'] == 'corporate') &
@@ -833,7 +805,7 @@ class Calculator():
             (diff_tab['tax_treat'] == 'non-corporate') &
             (diff_tab['major_industry'] == 'Overall')]
                              [output_variable + '_mix'].values[0])
-        for item in major_inds:
+        for item in MAJOR_IND_ORDERED:
                 category_list.append('   ' + item)
                 base_out_list.append(
                     base_tab[(base_tab['tax_treat'] == 'non-corporate') &
