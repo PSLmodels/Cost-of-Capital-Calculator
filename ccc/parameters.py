@@ -3,7 +3,6 @@ import os
 import six
 import re
 import numpy as np
-import pickle
 import pkg_resources
 
 # import ccc
