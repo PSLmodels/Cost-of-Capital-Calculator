@@ -4,7 +4,6 @@ from ccc.parameters import Specifications
 from ccc.get_taxcalc_rates import get_rates
 
 
-@pytest.mark.needs_puf
 @pytest.mark.parametrize(
         'year',
         [2015, 2017, 2027],
