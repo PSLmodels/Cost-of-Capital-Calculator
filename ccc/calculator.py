@@ -15,7 +15,7 @@ from ccc.calcfunctions import (update_depr_methods, npv_tax_depr,
 from ccc.parameters import Specifications
 from ccc.data import Assets
 from ccc.utils import wavg, diff_two_tables
-from ccc.constants import VAR_DICT
+from ccc.constants import VAR_DICT, MAJOR_IND_ORDERED
 # import pdb
 # importing Bokeh libraries
 from bokeh.plotting import figure
@@ -23,7 +23,7 @@ from bokeh.transform import dodge
 from bokeh.core.properties import value
 from bokeh.models import (ColumnDataSource, CustomJS, LabelSet, Title,
                           FuncTickFormatter, BoxAnnotation, HoverTool,
-                          NumeralTickFormatter, Span, Title)
+                          NumeralTickFormatter, Span)
 from bokeh.models.widgets import Panel, Tabs, RadioButtonGroup
 from bokeh.models.tickers import FixedTicker
 from bokeh.layouts import gridplot, column
@@ -286,7 +286,7 @@ class Calculator():
             path: string, specifies path to save file with table to
 
         Returns:
-            None, table saved to disk
+            table_df: DataFrame, table
         '''
         self.calc_base()
         calc.calc_base()
@@ -429,6 +429,82 @@ class Calculator():
                 print('Please enter a valid output format')
                 assert(False)
 
+    def asset_share_table(self, include_land=True,
+                          include_inventories=True, output_type='csv',
+                          path=None):
+        '''
+        Create table summarizing the output_variable under the baseline
+        and reform policies.
+
+        Args:
+            output_type: string, specifies the type of file to save
+                table to:
+                    - 'csv'
+                    - 'tex'
+                    - 'excel'
+                    - 'json'
+            path: string, specifies path to save file with table to
+
+        Returns:
+            table_df: DataFrame, table
+        '''
+        df = self.__assets.df.copy()
+        if not include_land:
+            df.drop(df[df.asset_name == 'Land'].index, inplace=True)
+        if not include_inventories:
+            df.drop(df[df.asset_name == 'Inventories'].index,
+                    inplace=True)
+        df1 = pd.DataFrame(df.groupby(
+                ['tax_treat', 'major_industry'])
+                          ['assets'].sum()).reset_index()
+        df2 = df1.pivot(index='major_industry', columns='tax_treat',
+                             values='assets').reset_index()
+        df2['c_share'] = (df2['corporate'] / (df2['corporate'] +
+                                              df2['non-corporate']))
+        df2['nc_share'] = (df2['non-corporate'] / (df2['corporate'] +
+                                                   df2['non-corporate']))
+        df2.drop(labels=['corporate', 'non-corporate'], axis=1,
+                 inplace=True)
+        df2.rename(columns={'c_share': 'Corporate',
+                            'nc_share': 'Pass-Through',
+                            'major_industry': 'Industry'}, inplace=True)
+        # Create dictionary for table to get industry's in specific order
+        table_dict = {'Industry': [], 'Corporate': [], 'Pass-Through': []}
+        for item in MAJOR_IND_ORDERED:
+            table_dict['Industry'].append(item)
+            table_dict['Corporate'].append(
+                df2[df2.Industry == item]['Corporate'].values[0])
+            table_dict['Pass-Through'].append(
+                df2[df2.Industry == item]['Pass-Through'].values[0])
+        table_df = pd.DataFrame.from_dict(table_dict, orient='columns')
+        if path is None:
+            if output_type == 'tex':
+                tab_str = table_df.to_latex(
+                    buf=path, index=False, na_rep='',
+                    float_format=lambda x: '%.2f' % x)
+                return tab_str
+            elif output_type == 'json':
+                tab_str = table_df.to_json(
+                    path_or_buf=path, double_precision=2)
+                return tab_str
+            else:
+                return table_df
+        else:
+            if output_type == 'tex':
+                table_df.to_latex(buf=path, index=False, na_rep='',
+                                  float_format=lambda x: '%.2f' % x)
+            elif output_type == 'csv':
+                table_df.to_csv(path_or_buf=path, index=False, na_rep='',
+                                float_format="%.2f")
+            elif output_type == 'json':
+                table_df.to_json(path_or_buf=path, double_precision=0)
+            elif output_type == 'excel':
+                table_df.to_excel(excel_writer=path, index=False, na_rep='',
+                                  float_format="%.2f")
+            else:
+                print('Please enter a valid output format')
+                assert(False)
+
     def asset_summary_table(self, calc, output_variable='mettr',
                             include_land=True, include_inventories=True,
                             output_type='csv', path=None):
@@ -454,7 +530,7 @@ class Calculator():
             path: string, specifies path to save file with table to
 
         Returns:
-            None, table saved to disk
+            table_df: DataFrame, table
         '''
         self.calc_base()
         calc.calc_base()
@@ -641,7 +717,7 @@ class Calculator():
             path: string, specifies path to save file with table to
 
         Returns:
-            None, table saved to disk
+            table_df: DataFrame, table
         '''
         self.calc_base()
         calc.calc_base()
@@ -685,21 +761,6 @@ class Calculator():
         reform_tab = dfs_out[1]
         # print('reform table = ', reform_tab)
         diff_tab = diff_two_tables(base_tab, reform_tab)
-        major_inds = [
-            'Agriculture, forestry, fishing, and hunting',
-            'Mining', 'Utilities', 'Construction', 'Manufacturing',
-            'Wholesale trade', 'Retail trade',
-            'Transportation and warehousing', 'Information',
-            'Finance and insurance',
-            'Real estate and rental and leasing',
-            'Professional, scientific, and technical services',
-            'Management of companies and enterprises',
-            'Administrative and waste management services',
-            'Educational services',
-            'Health care and social assistance',
-            'Arts, entertainment, and recreation',
-            'Accommodation and food services',
-            'Other services, except government']
         category_list = ['Overall', 'Corporate']
         base_out_list = [
             base_tab[base_tab['tax_treat'] ==
@@ -716,7 +777,7 @@ class Calculator():
             [output_variable + '_mix'].values[0],
             diff_tab[diff_tab['tax_treat'] == 'corporate']
             [output_variable + '_mix'].values[0]]
-        for item in major_inds:
+        for item in MAJOR_IND_ORDERED:
                 category_list.append('   ' + item)
                 base_out_list.append(
                     base_tab[(base_tab['tax_treat'] == 'corporate') &
@@ -744,7 +805,7 @@ class Calculator():
             (diff_tab['tax_treat'] == 'non-corporate') &
             (diff_tab['major_industry'] == 'Overall')]
                              [output_variable + '_mix'].values[0])
-        for item in major_inds:
+        for item in MAJOR_IND_ORDERED:
                 category_list.append('   ' + item)
                 base_out_list.append(
                     base_tab[(base_tab['tax_treat'] == 'non-corporate') &

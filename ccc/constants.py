@@ -5,6 +5,22 @@ VAR_DICT = {'mettr': 'Marginal Effective Total Tax Rate',
             'tax_wedge': 'Tax Wedge',
             'z': 'NPV of Depreciation Deductions'}
 
+MAJOR_IND_ORDERED = [
+    'Agriculture, forestry, fishing, and hunting',
+    'Mining', 'Utilities', 'Construction', 'Manufacturing',
+    'Wholesale trade', 'Retail trade',
+    'Transportation and warehousing', 'Information',
+    'Finance and insurance',
+    'Real estate and rental and leasing',
+    'Professional, scientific, and technical services',
+    'Management of companies and enterprises',
+    'Administrative and waste management services',
+    'Educational services',
+    'Health care and social assistance',
+    'Arts, entertainment, and recreation',
+    'Accommodation and food services',
+    'Other services, except government']
+
 TAX_METHODS = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0,
                'Economic': 1.0, 'Expensing': 1.0}
 
