@@ -1708,43 +1708,6 @@ class Calculator():
 
         return tabs
 
-    def create calc.comp_output(calc, out_var, other args):
-        '''
-        Function to create output for the COMP platform
-        '''
-        out_table = calc1.summary_table(calc2, output_variable=out_var,
-                                        type='csv')
-        df = calc1.summary_table(calc2, output_variable=out_var,
-                                 type='csv')
-        plt = calc1.grouped_bar(calc2, output_variable=out_var)
-        js, div = components(plt)
-        comp_dict = {
-            "renderable": [
-                {
-                  "media_type": "bokeh",
-                  "title": plt.title,
-                  "data": {
-                            "javascript": js,
-                            "html": div
-                        }
-                },
-                {
-                  "media_type": "table",
-                  "title":  out_var + "Summary Table",
-                  "data": df.to_html()
-                },
-              ],
-            "downloadable": [
-                {
-                  "media_type": "CSV",
-                  "title": out_var + "Summary Table",
-                  "data": out_table
-                }
-              ]
-            }
-
-    return comp_dict
-
     def store_assets(self):
         """
         Make internal copy of embedded Assets object that can then be
