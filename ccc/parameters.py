@@ -8,7 +8,6 @@ import pkg_resources
 import paramtools
 
 # import ccc
-from ccc.parametersbase import ParametersBase
 from ccc.get_taxcalc_rates import get_rates
 from ccc.utils import DEFAULT_START_YEAR
 
