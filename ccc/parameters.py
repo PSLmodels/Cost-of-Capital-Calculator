@@ -27,10 +27,7 @@ class Specifications(paramtools.Parameters):
                 year=DEFAULT_START_YEAR, call_tc=False, iit_reform={},
                 data='cps'):
         super().__init__()
-        self.set_state(year=self.start_year)
-
-        # reads in default parameter values
-        # self._vals /= self._params_dict_from_json_file()
+        self.set_state(year=year)
 
         self.test = test
         self.baseline = baseline
@@ -54,7 +51,6 @@ class Specifications(paramtools.Parameters):
         run_micro: boolean that indicates whether to estimate tax funtions
                 from microsim model
         """
-
         if call_tc:
             # Find individual income tax rates from Tax-Calculator
             indiv_rates = get_rates(self.baseline, self.year,
