@@ -14,7 +14,6 @@ CUR_PATH = os.path.abspath(os.path.dirname(__file__))
 # Load input values
 p = Specifications()
 assets = Assets()
-p = Specifications()
 calc1 = Calculator(p, assets)
 # Compute results
 test_by_asset = calc1.calc_by_asset()
