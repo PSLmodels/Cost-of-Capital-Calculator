@@ -1,0 +1,3431 @@
+{
+    "schema": {
+        "labels": {
+            "year": {
+                "type": "int",
+                "validators": {"range": {"min": 2015, "max": 2029}}
+            }
+        }
+    },
+    "CIT_rate": {
+        "description": "Top statutory corporate income tax rate",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.35
+            },
+            {
+                "year": 2016,
+                "value": 0.35
+            },
+            {
+                "year": 2017,
+                "value": 0.35
+            },
+            {
+                "year": 2018,
+                "value": 0.21
+            },
+            {
+                "year": 2019,
+                "value": 0.21
+            },
+            {
+                "year": 2020,
+                "value": 0.21
+            },
+            {
+                "year": 2021,
+                "value": 0.21
+            },
+            {
+                "year": 2022,
+                "value": 0.21
+            },
+            {
+                "year": 2023,
+                "value": 0.21
+            },
+            {
+                "year": 2024,
+                "value": 0.21
+            },
+            {
+                "year": 2025,
+                "value": 0.21
+            },
+            {
+                "year": 2026,
+                "value": 0.21
+            },
+            {
+                "year": 2027,
+                "value": 0.21
+            },
+            {
+                "year": 2028,
+                "value": 0.21
+            }
+        ],
+        "title": "Top statutory corporate income tax rate",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "PT_entity_tax_ind": {
+        "description": "Indicator variable indicating whether or not there is an entity-level tax on pass-through businesses. This tax is levied on entity-level profits.  Owners also pay individual income taxes on the distributions.",
+        "notes": "Note that is this indicator is True, then the METR calculation for pass-through businesses will represent the effects of the entity-level tax and not the indvidiual-level tax.  This is becaue the METR represents the effective tax rate from the first layer of taxation.  The statutory rate on pass-through entities is set with the PT_entity_tax_rate parameter.",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": false
+            },
+            {
+                "year": 2016,
+                "value": false
+            },
+            {
+                "year": 2017,
+                "value": false
+            },
+            {
+                "year": 2018,
+                "value": false
+            },
+            {
+                "year": 2019,
+                "value": false
+            },
+            {
+                "year": 2020,
+                "value": false
+            },
+            {
+                "year": 2021,
+                "value": false
+            },
+            {
+                "year": 2022,
+                "value": false
+            },
+            {
+                "year": 2023,
+                "value": false
+            },
+            {
+                "year": 2024,
+                "value": false
+            },
+            {
+                "year": 2025,
+                "value": false
+            },
+            {
+                "year": 2026,
+                "value": false
+            },
+            {
+                "year": 2027,
+                "value": false
+            },
+            {
+                "year": 2028,
+                "value": false
+            }
+        ],
+        "title": "Non-corporate Entity Level Income Tax Indicator",
+        "type": "bool",
+        "validators": {
+            "range": {
+                "min": false,
+                "max": true
+            }
+        }
+    },
+    "PT_entity_tax_rate": {
+        "description": "Statutory income tax rate on pass-through business income levied at the entity level.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.0
+            },
+            {
+                "year": 2016,
+                "value": 0.0
+            },
+            {
+                "year": 2017,
+                "value": 0.0
+            },
+            {
+                "year": 2018,
+                "value": 0.0
+            },
+            {
+                "year": 2019,
+                "value": 0.0
+            },
+            {
+                "year": 2020,
+                "value": 0.0
+            },
+            {
+                "year": 2021,
+                "value": 0.0
+            },
+            {
+                "year": 2022,
+                "value": 0.0
+            },
+            {
+                "year": 2023,
+                "value": 0.0
+            },
+            {
+                "year": 2024,
+                "value": 0.0
+            },
+            {
+                "year": 2025,
+                "value": 0.0
+            },
+            {
+                "year": 2026,
+                "value": 0.0
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "title": "Statutory income tax rate on pass-through business income levied at the entity level.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "DeprecSystem_3yr": {
+        "description": "Depreciation system used for 3-year class property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": "GDS"
+            },
+            {
+                "year": 2016,
+                "value": "GDS"
+            },
+            {
+                "year": 2017,
+                "value": "GDS"
+            },
+            {
+                "year": 2018,
+                "value": "GDS"
+            },
+            {
+                "year": 2019,
+                "value": "GDS"
+            },
+            {
+                "year": 2020,
+                "value": "GDS"
+            },
+            {
+                "year": 2021,
+                "value": "GDS"
+            },
+            {
+                "year": 2022,
+                "value": "GDS"
+            },
+            {
+                "year": 2023,
+                "value": "GDS"
+            },
+            {
+                "year": 2024,
+                "value": "GDS"
+            },
+            {
+                "year": 2025,
+                "value": "GDS"
+            },
+            {
+                "year": 2026,
+                "value": "GDS"
+            },
+            {
+                "year": 2027,
+                "value": "GDS"
+            },
+            {
+                "year": 2028,
+                "value": "GDS"
+            }
+        ],
+        "title": "Depreciation system used for 3-year class property.",
+        "type": "str",
+        "validators": {
+            "choice": {
+                "choices": [
+                    "GDS",
+                    "ADS",
+                    "Economic"
+                ]
+            }
+        }
+    },
+    "BonusDeprec_3yr": {
+        "description": "Bonus depreciation rate on 3-year class property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.5
+            },
+            {
+                "year": 2016,
+                "value": 0.5
+            },
+            {
+                "year": 2017,
+                "value": 0.5
+            },
+            {
+                "year": 2018,
+                "value": 1.0
+            },
+            {
+                "year": 2019,
+                "value": 1.0
+            },
+            {
+                "year": 2020,
+                "value": 1.0
+            },
+            {
+                "year": 2021,
+                "value": 1.0
+            },
+            {
+                "year": 2022,
+                "value": 1.0
+            },
+            {
+                "year": 2023,
+                "value": 0.8
+            },
+            {
+                "year": 2024,
+                "value": 0.6
+            },
+            {
+                "year": 2025,
+                "value": 0.4
+            },
+            {
+                "year": 2026,
+                "value": 0.2
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "title": "Bonus depreciation rate on 3-year class property.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "DeprecSystem_5yr": {
+        "description": "Depreciation system used for 5-year class property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": "GDS"
+            },
+            {
+                "year": 2016,
+                "value": "GDS"
+            },
+            {
+                "year": 2017,
+                "value": "GDS"
+            },
+            {
+                "year": 2018,
+                "value": "GDS"
+            },
+            {
+                "year": 2019,
+                "value": "GDS"
+            },
+            {
+                "year": 2020,
+                "value": "GDS"
+            },
+            {
+                "year": 2021,
+                "value": "GDS"
+            },
+            {
+                "year": 2022,
+                "value": "GDS"
+            },
+            {
+                "year": 2023,
+                "value": "GDS"
+            },
+            {
+                "year": 2024,
+                "value": "GDS"
+            },
+            {
+                "year": 2025,
+                "value": "GDS"
+            },
+            {
+                "year": 2026,
+                "value": "GDS"
+            },
+            {
+                "year": 2027,
+                "value": "GDS"
+            },
+            {
+                "year": 2028,
+                "value": "GDS"
+            }
+        ],
+        "title": "Depreciation system used for 5-year class property.",
+        "type": "str",
+        "validators": {
+            "choice": {
+                "choices": [
+                    "GDS",
+                    "ADS",
+                    "Economic"
+                ]
+            }
+        }
+    },
+    "BonusDeprec_5yr": {
+        "description": "Bonus depreciation rate on 5-year class property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.5
+            },
+            {
+                "year": 2016,
+                "value": 0.5
+            },
+            {
+                "year": 2017,
+                "value": 0.5
+            },
+            {
+                "year": 2018,
+                "value": 1.0
+            },
+            {
+                "year": 2019,
+                "value": 1.0
+            },
+            {
+                "year": 2020,
+                "value": 1.0
+            },
+            {
+                "year": 2021,
+                "value": 1.0
+            },
+            {
+                "year": 2022,
+                "value": 1.0
+            },
+            {
+                "year": 2023,
+                "value": 0.8
+            },
+            {
+                "year": 2024,
+                "value": 0.6
+            },
+            {
+                "year": 2025,
+                "value": 0.4
+            },
+            {
+                "year": 2026,
+                "value": 0.2
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "title": "Bonus depreciation rate on 5-year class property.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "DeprecSystem_7yr": {
+        "description": "Depreciation system used for 7-year class property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": "GDS"
+            },
+            {
+                "year": 2016,
+                "value": "GDS"
+            },
+            {
+                "year": 2017,
+                "value": "GDS"
+            },
+            {
+                "year": 2018,
+                "value": "GDS"
+            },
+            {
+                "year": 2019,
+                "value": "GDS"
+            },
+            {
+                "year": 2020,
+                "value": "GDS"
+            },
+            {
+                "year": 2021,
+                "value": "GDS"
+            },
+            {
+                "year": 2022,
+                "value": "GDS"
+            },
+            {
+                "year": 2023,
+                "value": "GDS"
+            },
+            {
+                "year": 2024,
+                "value": "GDS"
+            },
+            {
+                "year": 2025,
+                "value": "GDS"
+            },
+            {
+                "year": 2026,
+                "value": "GDS"
+            },
+            {
+                "year": 2027,
+                "value": "GDS"
+            },
+            {
+                "year": 2028,
+                "value": "GDS"
+            }
+        ],
+        "title": "Depreciation system used for 7-year class property.",
+        "type": "str",
+        "validators": {
+            "choice": {
+                "choices": [
+                    "GDS",
+                    "ADS",
+                    "Economic"
+                ]
+            }
+        }
+    },
+    "BonusDeprec_7yr": {
+        "description": "Bonus depreciation rate on 7-year class property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.5
+            },
+            {
+                "year": 2016,
+                "value": 0.5
+            },
+            {
+                "year": 2017,
+                "value": 0.5
+            },
+            {
+                "year": 2018,
+                "value": 1.0
+            },
+            {
+                "year": 2019,
+                "value": 1.0
+            },
+            {
+                "year": 2020,
+                "value": 1.0
+            },
+            {
+                "year": 2021,
+                "value": 1.0
+            },
+            {
+                "year": 2022,
+                "value": 1.0
+            },
+            {
+                "year": 2023,
+                "value": 0.8
+            },
+            {
+                "year": 2024,
+                "value": 0.6
+            },
+            {
+                "year": 2025,
+                "value": 0.4
+            },
+            {
+                "year": 2026,
+                "value": 0.2
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "title": "Bonus depreciation rate on 7-year class property.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "DeprecSystem_10yr": {
+        "description": "Depreciation system used for 10-year class property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": "GDS"
+            },
+            {
+                "year": 2016,
+                "value": "GDS"
+            },
+            {
+                "year": 2017,
+                "value": "GDS"
+            },
+            {
+                "year": 2018,
+                "value": "GDS"
+            },
+            {
+                "year": 2019,
+                "value": "GDS"
+            },
+            {
+                "year": 2020,
+                "value": "GDS"
+            },
+            {
+                "year": 2021,
+                "value": "GDS"
+            },
+            {
+                "year": 2022,
+                "value": "GDS"
+            },
+            {
+                "year": 2023,
+                "value": "GDS"
+            },
+            {
+                "year": 2024,
+                "value": "GDS"
+            },
+            {
+                "year": 2025,
+                "value": "GDS"
+            },
+            {
+                "year": 2026,
+                "value": "GDS"
+            },
+            {
+                "year": 2027,
+                "value": "GDS"
+            },
+            {
+                "year": 2028,
+                "value": "GDS"
+            }
+        ],
+        "title": "Depreciation system used for 10-year class property.",
+        "type": "str",
+        "validators": {
+            "choice": {
+                "choices": [
+                    "GDS",
+                    "ADS",
+                    "Economic"
+                ]
+            }
+        }
+    },
+    "BonusDeprec_10yr": {
+        "description": "Bonus depreciation rate on 10-year class property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.5
+            },
+            {
+                "year": 2016,
+                "value": 0.5
+            },
+            {
+                "year": 2017,
+                "value": 0.5
+            },
+            {
+                "year": 2018,
+                "value": 1.0
+            },
+            {
+                "year": 2019,
+                "value": 1.0
+            },
+            {
+                "year": 2020,
+                "value": 1.0
+            },
+            {
+                "year": 2021,
+                "value": 1.0
+            },
+            {
+                "year": 2022,
+                "value": 1.0
+            },
+            {
+                "year": 2023,
+                "value": 0.8
+            },
+            {
+                "year": 2024,
+                "value": 0.6
+            },
+            {
+                "year": 2025,
+                "value": 0.4
+            },
+            {
+                "year": 2026,
+                "value": 0.2
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "title": "Bonus depreciation rate on 10-year class property.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "DeprecSystem_15yr": {
+        "description": "Depreciation system used for 15-year class property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": "GDS"
+            },
+            {
+                "year": 2016,
+                "value": "GDS"
+            },
+            {
+                "year": 2017,
+                "value": "GDS"
+            },
+            {
+                "year": 2018,
+                "value": "GDS"
+            },
+            {
+                "year": 2019,
+                "value": "GDS"
+            },
+            {
+                "year": 2020,
+                "value": "GDS"
+            },
+            {
+                "year": 2021,
+                "value": "GDS"
+            },
+            {
+                "year": 2022,
+                "value": "GDS"
+            },
+            {
+                "year": 2023,
+                "value": "GDS"
+            },
+            {
+                "year": 2024,
+                "value": "GDS"
+            },
+            {
+                "year": 2025,
+                "value": "GDS"
+            },
+            {
+                "year": 2026,
+                "value": "GDS"
+            },
+            {
+                "year": 2027,
+                "value": "GDS"
+            },
+            {
+                "year": 2028,
+                "value": "GDS"
+            }
+        ],
+        "title": "Depreciation system used for 15-year class property.",
+        "type": "str",
+        "validators": {
+            "choice": {
+                "choices": [
+                    "GDS",
+                    "ADS",
+                    "Economic"
+                ]
+            }
+        }
+    },
+    "BonusDeprec_15yr": {
+        "description": "Bonus depreciation rate on 15-year class property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.5
+            },
+            {
+                "year": 2016,
+                "value": 0.5
+            },
+            {
+                "year": 2017,
+                "value": 0.5
+            },
+            {
+                "year": 2018,
+                "value": 1.0
+            },
+            {
+                "year": 2019,
+                "value": 1.0
+            },
+            {
+                "year": 2020,
+                "value": 1.0
+            },
+            {
+                "year": 2021,
+                "value": 1.0
+            },
+            {
+                "year": 2022,
+                "value": 1.0
+            },
+            {
+                "year": 2023,
+                "value": 0.8
+            },
+            {
+                "year": 2024,
+                "value": 0.6
+            },
+            {
+                "year": 2025,
+                "value": 0.4
+            },
+            {
+                "year": 2026,
+                "value": 0.2
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "title": "Bonus depreciation rate on 15-year class property.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "DeprecSystem_20yr": {
+        "description": "Depreciation system used for 20-year class property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": "GDS"
+            },
+            {
+                "year": 2016,
+                "value": "GDS"
+            },
+            {
+                "year": 2017,
+                "value": "GDS"
+            },
+            {
+                "year": 2018,
+                "value": "GDS"
+            },
+            {
+                "year": 2019,
+                "value": "GDS"
+            },
+            {
+                "year": 2020,
+                "value": "GDS"
+            },
+            {
+                "year": 2021,
+                "value": "GDS"
+            },
+            {
+                "year": 2022,
+                "value": "GDS"
+            },
+            {
+                "year": 2023,
+                "value": "GDS"
+            },
+            {
+                "year": 2024,
+                "value": "GDS"
+            },
+            {
+                "year": 2025,
+                "value": "GDS"
+            },
+            {
+                "year": 2026,
+                "value": "GDS"
+            },
+            {
+                "year": 2027,
+                "value": "GDS"
+            },
+            {
+                "year": 2028,
+                "value": "GDS"
+            }
+        ],
+        "title": "Depreciation system used for 20-year class property.",
+        "type": "str",
+        "validators": {
+            "choice": {
+                "choices": [
+                    "GDS",
+                    "ADS",
+                    "Economic"
+                ]
+            }
+        }
+    },
+    "BonusDeprec_20yr": {
+        "description": "Bonus depreciation rate on 20-year class property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.5
+            },
+            {
+                "year": 2016,
+                "value": 0.5
+            },
+            {
+                "year": 2017,
+                "value": 0.5
+            },
+            {
+                "year": 2018,
+                "value": 1.0
+            },
+            {
+                "year": 2019,
+                "value": 1.0
+            },
+            {
+                "year": 2020,
+                "value": 1.0
+            },
+            {
+                "year": 2021,
+                "value": 1.0
+            },
+            {
+                "year": 2022,
+                "value": 1.0
+            },
+            {
+                "year": 2023,
+                "value": 0.8
+            },
+            {
+                "year": 2024,
+                "value": 0.6
+            },
+            {
+                "year": 2025,
+                "value": 0.4
+            },
+            {
+                "year": 2026,
+                "value": 0.2
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "title": "Bonus depreciation rate on 20-year class property.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "DeprecSystem_25yr": {
+        "description": "Depreciation system used for 25-year class property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": "GDS"
+            },
+            {
+                "year": 2016,
+                "value": "GDS"
+            },
+            {
+                "year": 2017,
+                "value": "GDS"
+            },
+            {
+                "year": 2018,
+                "value": "GDS"
+            },
+            {
+                "year": 2019,
+                "value": "GDS"
+            },
+            {
+                "year": 2020,
+                "value": "GDS"
+            },
+            {
+                "year": 2021,
+                "value": "GDS"
+            },
+            {
+                "year": 2022,
+                "value": "GDS"
+            },
+            {
+                "year": 2023,
+                "value": "GDS"
+            },
+            {
+                "year": 2024,
+                "value": "GDS"
+            },
+            {
+                "year": 2025,
+                "value": "GDS"
+            },
+            {
+                "year": 2026,
+                "value": "GDS"
+            },
+            {
+                "year": 2027,
+                "value": "GDS"
+            },
+            {
+                "year": 2028,
+                "value": "GDS"
+            }
+        ],
+        "title": "Depreciation system used for 25-year class property.",
+        "type": "str",
+        "validators": {
+            "choice": {
+                "choices": [
+                    "GDS",
+                    "ADS",
+                    "Economic"
+                ]
+            }
+        }
+    },
+    "BonusDeprec_25yr": {
+        "description": "Bonus depreciation rate on 25-year class property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.0
+            },
+            {
+                "year": 2016,
+                "value": 0.0
+            },
+            {
+                "year": 2017,
+                "value": 0.0
+            },
+            {
+                "year": 2018,
+                "value": 0.0
+            },
+            {
+                "year": 2019,
+                "value": 0.0
+            },
+            {
+                "year": 2020,
+                "value": 0.0
+            },
+            {
+                "year": 2021,
+                "value": 0.0
+            },
+            {
+                "year": 2022,
+                "value": 0.0
+            },
+            {
+                "year": 2023,
+                "value": 0.0
+            },
+            {
+                "year": 2024,
+                "value": 0.0
+            },
+            {
+                "year": 2025,
+                "value": 0.0
+            },
+            {
+                "year": 2026,
+                "value": 0.0
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "title": "Bonus depreciation rate on 25-year class property.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "DeprecSystem_27_5yr": {
+        "description": "Depreciation system used for 27.5-year class property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": "GDS"
+            },
+            {
+                "year": 2016,
+                "value": "GDS"
+            },
+            {
+                "year": 2017,
+                "value": "GDS"
+            },
+            {
+                "year": 2018,
+                "value": "GDS"
+            },
+            {
+                "year": 2019,
+                "value": "GDS"
+            },
+            {
+                "year": 2020,
+                "value": "GDS"
+            },
+            {
+                "year": 2021,
+                "value": "GDS"
+            },
+            {
+                "year": 2022,
+                "value": "GDS"
+            },
+            {
+                "year": 2023,
+                "value": "GDS"
+            },
+            {
+                "year": 2024,
+                "value": "GDS"
+            },
+            {
+                "year": 2025,
+                "value": "GDS"
+            },
+            {
+                "year": 2026,
+                "value": "GDS"
+            },
+            {
+                "year": 2027,
+                "value": "GDS"
+            },
+            {
+                "year": 2028,
+                "value": "GDS"
+            }
+        ],
+        "title": "Depreciation system used for 27.5-year class property.",
+        "type": "str",
+        "validators": {
+            "choice": {
+                "choices": [
+                    "GDS",
+                    "ADS",
+                    "Economic"
+                ]
+            }
+        }
+    },
+    "BonusDeprec_27_5yr": {
+        "description": "Bonus depreciation rate on 27.5-year class property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.0
+            },
+            {
+                "year": 2016,
+                "value": 0.0
+            },
+            {
+                "year": 2017,
+                "value": 0.0
+            },
+            {
+                "year": 2018,
+                "value": 0.0
+            },
+            {
+                "year": 2019,
+                "value": 0.0
+            },
+            {
+                "year": 2020,
+                "value": 0.0
+            },
+            {
+                "year": 2021,
+                "value": 0.0
+            },
+            {
+                "year": 2022,
+                "value": 0.0
+            },
+            {
+                "year": 2023,
+                "value": 0.0
+            },
+            {
+                "year": 2024,
+                "value": 0.0
+            },
+            {
+                "year": 2025,
+                "value": 0.0
+            },
+            {
+                "year": 2026,
+                "value": 0.0
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "title": "Bonus depreciation rate on 27.5-year class property.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "DeprecSystem_39yr": {
+        "description": "Depreciation system used for 39-year class property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": "GDS"
+            },
+            {
+                "year": 2016,
+                "value": "GDS"
+            },
+            {
+                "year": 2017,
+                "value": "GDS"
+            },
+            {
+                "year": 2018,
+                "value": "GDS"
+            },
+            {
+                "year": 2019,
+                "value": "GDS"
+            },
+            {
+                "year": 2020,
+                "value": "GDS"
+            },
+            {
+                "year": 2021,
+                "value": "GDS"
+            },
+            {
+                "year": 2022,
+                "value": "GDS"
+            },
+            {
+                "year": 2023,
+                "value": "GDS"
+            },
+            {
+                "year": 2024,
+                "value": "GDS"
+            },
+            {
+                "year": 2025,
+                "value": "GDS"
+            },
+            {
+                "year": 2026,
+                "value": "GDS"
+            },
+            {
+                "year": 2027,
+                "value": "GDS"
+            },
+            {
+                "year": 2028,
+                "value": "GDS"
+            }
+        ],
+        "title": "Depreciation system used for 39-year class property.",
+        "type": "str",
+        "validators": {
+            "choice": {
+                "choices": [
+                    "GDS",
+                    "ADS",
+                    "Economic"
+                ]
+            }
+        }
+    },
+    "BonusDeprec_39yr": {
+        "description": "Bonus depreciation rate on 39-year class property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.0
+            },
+            {
+                "year": 2016,
+                "value": 0.0
+            },
+            {
+                "year": 2017,
+                "value": 0.0
+            },
+            {
+                "year": 2018,
+                "value": 0.0
+            },
+            {
+                "year": 2019,
+                "value": 0.0
+            },
+            {
+                "year": 2020,
+                "value": 0.0
+            },
+            {
+                "year": 2021,
+                "value": 0.0
+            },
+            {
+                "year": 2022,
+                "value": 0.0
+            },
+            {
+                "year": 2023,
+                "value": 0.0
+            },
+            {
+                "year": 2024,
+                "value": 0.0
+            },
+            {
+                "year": 2025,
+                "value": 0.0
+            },
+            {
+                "year": 2026,
+                "value": 0.0
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "title": "Bonus depreciation rate on 39-year class property.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "DeprecSystem_all": {
+        "description": "Depreciation system used for all classes of property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": "GDS"
+            },
+            {
+                "year": 2016,
+                "value": "GDS"
+            },
+            {
+                "year": 2017,
+                "value": "GDS"
+            },
+            {
+                "year": 2018,
+                "value": "GDS"
+            },
+            {
+                "year": 2019,
+                "value": "GDS"
+            },
+            {
+                "year": 2020,
+                "value": "GDS"
+            },
+            {
+                "year": 2021,
+                "value": "GDS"
+            },
+            {
+                "year": 2022,
+                "value": "GDS"
+            },
+            {
+                "year": 2023,
+                "value": "GDS"
+            },
+            {
+                "year": 2024,
+                "value": "GDS"
+            },
+            {
+                "year": 2025,
+                "value": "GDS"
+            },
+            {
+                "year": 2026,
+                "value": "GDS"
+            },
+            {
+                "year": 2027,
+                "value": "GDS"
+            },
+            {
+                "year": 2028,
+                "value": "GDS"
+            }
+        ],
+        "title": "Depreciation system used for all classes of property.",
+        "type": "str",
+        "validators": {
+            "choice": {
+                "choices": [
+                    "GDS",
+                    "ADS",
+                    "Economic"
+                ]
+            }
+        }
+    },
+    "BonusDeprec_all": {
+        "description": "Bonus depreciation rate on all classes of property.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.0
+            },
+            {
+                "year": 2016,
+                "value": 0.0
+            },
+            {
+                "year": 2017,
+                "value": 0.0
+            },
+            {
+                "year": 2018,
+                "value": 0.0
+            },
+            {
+                "year": 2019,
+                "value": 0.0
+            },
+            {
+                "year": 2020,
+                "value": 0.0
+            },
+            {
+                "year": 2021,
+                "value": 0.0
+            },
+            {
+                "year": 2022,
+                "value": 0.0
+            },
+            {
+                "year": 2023,
+                "value": 0.0
+            },
+            {
+                "year": 2024,
+                "value": 0.0
+            },
+            {
+                "year": 2025,
+                "value": 0.0
+            },
+            {
+                "year": 2026,
+                "value": 0.0
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "title": "Bonus depreciation rate on all classes of property.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "land_expensing": {
+        "description": "Expensing rate on land.",
+        "notes": "",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.0
+            },
+            {
+                "year": 2016,
+                "value": 0.0
+            },
+            {
+                "year": 2017,
+                "value": 0.0
+            },
+            {
+                "year": 2018,
+                "value": 0.0
+            },
+            {
+                "year": 2019,
+                "value": 0.0
+            },
+            {
+                "year": 2020,
+                "value": 0.0
+            },
+            {
+                "year": 2021,
+                "value": 0.0
+            },
+            {
+                "year": 2022,
+                "value": 0.0
+            },
+            {
+                "year": 2023,
+                "value": 0.0
+            },
+            {
+                "year": 2024,
+                "value": 0.0
+            },
+            {
+                "year": 2025,
+                "value": 0.0
+            },
+            {
+                "year": 2026,
+                "value": 0.0
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "title": "Expensing rate on land.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "ace_c": {
+        "description": "Allowance for corporate equity (fraction of equity deductible).",
+        "notes": "This parameter gives the allowance for corporate equity (ACE). Under an ACE system, companies can deduct a notional interest on their equity.  The default rate used in Cost-of-Capital-Calculator is the nominal interest rate on corporate debt.  Moving this parameter up from zero allows the corporate to have partial to full deductibility of the notional interest on equity.",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.0
+            },
+            {
+                "year": 2016,
+                "value": 0.0
+            },
+            {
+                "year": 2017,
+                "value": 0.0
+            },
+            {
+                "year": 2018,
+                "value": 0.0
+            },
+            {
+                "year": 2019,
+                "value": 0.0
+            },
+            {
+                "year": 2020,
+                "value": 0.0
+            },
+            {
+                "year": 2021,
+                "value": 0.0
+            },
+            {
+                "year": 2022,
+                "value": 0.0
+            },
+            {
+                "year": 2023,
+                "value": 0.0
+            },
+            {
+                "year": 2024,
+                "value": 0.0
+            },
+            {
+                "year": 2025,
+                "value": 0.0
+            },
+            {
+                "year": 2026,
+                "value": 0.0
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "title": "Allowance for corporate equity.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "ace_nc": {
+        "description": "Allowance for non-corporate equity (fraction of equity deductible).",
+        "notes": "This parameter gives the allowance for non-corporate equity (ACE). Only relevant if there is an entity-level tax on pass-through businesses (PT_entity_tax_ind=True).  Under an ACE system, companies can deduct a notional interest on their equity.  The default rate used in Cost-of-Capital-Calculator is the nominal interest rate on corporate debt.  Moving this parameter up from zero allows the corporate to have partial to full deductibility of the notional interest on equity.",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.0
+            },
+            {
+                "year": 2016,
+                "value": 0.0
+            },
+            {
+                "year": 2017,
+                "value": 0.0
+            },
+            {
+                "year": 2018,
+                "value": 0.0
+            },
+            {
+                "year": 2019,
+                "value": 0.0
+            },
+            {
+                "year": 2020,
+                "value": 0.0
+            },
+            {
+                "year": 2021,
+                "value": 0.0
+            },
+            {
+                "year": 2022,
+                "value": 0.0
+            },
+            {
+                "year": 2023,
+                "value": 0.0
+            },
+            {
+                "year": 2024,
+                "value": 0.0
+            },
+            {
+                "year": 2025,
+                "value": 0.0
+            },
+            {
+                "year": 2026,
+                "value": 0.0
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "title": "Allowance for non-corporate equity.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "ace_int_rate": {
+        "description": "Notional interest rate on the allowance for corporate equity.",
+        "notes": "The default rate used in Cost-of-Capital-Calculator is the nominal interest rate on corporate debt.  Moving this parameter up from zero allows the corporate to have partial to full deductibility of the notional interest on equity.",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.068
+            },
+            {
+                "year": 2016,
+                "value": 0.068
+            },
+            {
+                "year": 2017,
+                "value": 0.068
+            },
+            {
+                "year": 2018,
+                "value": 0.068
+            },
+            {
+                "year": 2019,
+                "value": 0.068
+            },
+            {
+                "year": 2020,
+                "value": 0.068
+            },
+            {
+                "year": 2021,
+                "value": 0.068
+            },
+            {
+                "year": 2022,
+                "value": 0.068
+            },
+            {
+                "year": 2023,
+                "value": 0.068
+            },
+            {
+                "year": 2024,
+                "value": 0.068
+            },
+            {
+                "year": 2025,
+                "value": 0.068
+            },
+            {
+                "year": 2026,
+                "value": 0.068
+            },
+            {
+                "year": 2027,
+                "value": 0.068
+            },
+            {
+                "year": 2028,
+                "value": 0.068
+            }
+        ],
+        "title": "Notional interest rate on the allowance for corporate equity.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "interest_deduct_haircut_corp": {
+        "description": "Haircut on interest deductibility (fraction of interest not deductible) for C corporations.",
+        "notes": "This parameter gives the fraction of interest payments that are not allowable as deductions against income for C corporations.",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.0
+            },
+            {
+                "year": 2016,
+                "value": 0.0
+            },
+            {
+                "year": 2017,
+                "value": 0.0
+            },
+            {
+                "year": 2018,
+                "value": 0.0
+            },
+            {
+                "year": 2019,
+                "value": 0.0
+            },
+            {
+                "year": 2020,
+                "value": 0.0
+            },
+            {
+                "year": 2021,
+                "value": 0.0
+            },
+            {
+                "year": 2022,
+                "value": 0.0
+            },
+            {
+                "year": 2023,
+                "value": 0.0
+            },
+            {
+                "year": 2024,
+                "value": 0.0
+            },
+            {
+                "year": 2025,
+                "value": 0.0
+            },
+            {
+                "year": 2026,
+                "value": 0.0
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "title": "Haircut on interest deductibility for corporate entities.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "interest_deduct_haircut_PT": {
+        "description": "Haircut on interest deductibility (fraction of interest not deductible) for pass-through entities.",
+        "notes": "This parameter gives the fraction of interest payments that are not allowable as deductions against income for pass-through entities.",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.0
+            },
+            {
+                "year": 2016,
+                "value": 0.0
+            },
+            {
+                "year": 2017,
+                "value": 0.0
+            },
+            {
+                "year": 2018,
+                "value": 0.0
+            },
+            {
+                "year": 2019,
+                "value": 0.0
+            },
+            {
+                "year": 2020,
+                "value": 0.0
+            },
+            {
+                "year": 2021,
+                "value": 0.0
+            },
+            {
+                "year": 2022,
+                "value": 0.0
+            },
+            {
+                "year": 2023,
+                "value": 0.0
+            },
+            {
+                "year": 2024,
+                "value": 0.0
+            },
+            {
+                "year": 2025,
+                "value": 0.0
+            },
+            {
+                "year": 2026,
+                "value": 0.0
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "title": "Haircut on interest deductibility for pass-through entities.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "inv_tax_credit": {
+        "description": "Investment tax credit rate.",
+        "notes": "The investment tax credit rate gives the rate at which the cost of new investments are credited against the firm's tax liability.",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.0
+            },
+            {
+                "year": 2016,
+                "value": 0.0
+            },
+            {
+                "year": 2017,
+                "value": 0.0
+            },
+            {
+                "year": 2018,
+                "value": 0.0
+            },
+            {
+                "year": 2019,
+                "value": 0.0
+            },
+            {
+                "year": 2020,
+                "value": 0.0
+            },
+            {
+                "year": 2021,
+                "value": 0.0
+            },
+            {
+                "year": 2022,
+                "value": 0.0
+            },
+            {
+                "year": 2023,
+                "value": 0.0
+            },
+            {
+                "year": 2024,
+                "value": 0.0
+            },
+            {
+                "year": 2025,
+                "value": 0.0
+            },
+            {
+                "year": 2026,
+                "value": 0.0
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "title": "Investment tax credit.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "property_tax": {
+        "description": "Property tax rate.",
+        "notes": "Tax rate on business property.",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.0
+            },
+            {
+                "year": 2016,
+                "value": 0.0
+            },
+            {
+                "year": 2017,
+                "value": 0.0
+            },
+            {
+                "year": 2018,
+                "value": 0.0
+            },
+            {
+                "year": 2019,
+                "value": 0.0
+            },
+            {
+                "year": 2020,
+                "value": 0.0
+            },
+            {
+                "year": 2021,
+                "value": 0.0
+            },
+            {
+                "year": 2022,
+                "value": 0.0
+            },
+            {
+                "year": 2023,
+                "value": 0.0
+            },
+            {
+                "year": 2024,
+                "value": 0.0
+            },
+            {
+                "year": 2025,
+                "value": 0.0
+            },
+            {
+                "year": 2026,
+                "value": 0.0
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "title": "Property tax rate.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "phi": {
+        "description": "Fration of inventories that are accounted for using LIFO.",
+        "notes": "Fration of inventories that are accounted for using LIFO.",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.5
+            },
+            {
+                "year": 2016,
+                "value": 0.5
+            },
+            {
+                "year": 2017,
+                "value": 0.5
+            },
+            {
+                "year": 2018,
+                "value": 0.5
+            },
+            {
+                "year": 2019,
+                "value": 0.5
+            },
+            {
+                "year": 2020,
+                "value": 0.5
+            },
+            {
+                "year": 2021,
+                "value": 0.5
+            },
+            {
+                "year": 2022,
+                "value": 0.5
+            },
+            {
+                "year": 2023,
+                "value": 0.5
+            },
+            {
+                "year": 2024,
+                "value": 0.5
+            },
+            {
+                "year": 2025,
+                "value": 0.5
+            },
+            {
+                "year": 2026,
+                "value": 0.5
+            },
+            {
+                "year": 2027,
+                "value": 0.5
+            },
+            {
+                "year": 2028,
+                "value": 0.5
+            }
+        ],
+        "title": "Fration of inventories that are accounted for using LIFO.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "inventory_expensing": {
+        "description": "Indicator for whether inventories are immediately expensed.",
+        "notes": "Indicator for whether inventories are immediately expensed.",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": false
+            },
+            {
+                "year": 2016,
+                "value": false
+            },
+            {
+                "year": 2017,
+                "value": false
+            },
+            {
+                "year": 2018,
+                "value": false
+            },
+            {
+                "year": 2019,
+                "value": false
+            },
+            {
+                "year": 2020,
+                "value": false
+            },
+            {
+                "year": 2021,
+                "value": false
+            },
+            {
+                "year": 2022,
+                "value": false
+            },
+            {
+                "year": 2023,
+                "value": false
+            },
+            {
+                "year": 2024,
+                "value": false
+            },
+            {
+                "year": 2025,
+                "value": false
+            },
+            {
+                "year": 2026,
+                "value": false
+            },
+            {
+                "year": 2027,
+                "value": false
+            },
+            {
+                "year": 2028,
+                "value": false
+            }
+        ],
+        "title": "Indicator for whether inventories are immediately expensed.",
+        "type": "bool",
+        "validators": {
+            "range": {
+                "min": false,
+                "max": true
+            }
+        }
+    },
+    "tau_nc": {
+        "description": "Effective marginal tax rate on business income to pass-through business owners.",
+        "notes": "Effective marginal tax rate on business income to pass-through business owners.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.2490995
+            },
+            {
+                "year": 2016,
+                "value": 0.2479556
+            },
+            {
+                "year": 2017,
+                "value": 0.25046281
+            },
+            {
+                "year": 2018,
+                "value": 0.19446464
+            },
+            {
+                "year": 2019,
+                "value": 0.19562461
+            },
+            {
+                "year": 2020,
+                "value": 0.19685523
+            },
+            {
+                "year": 2021,
+                "value": 0.19766077
+            },
+            {
+                "year": 2022,
+                "value": 0.19884886
+            },
+            {
+                "year": 2023,
+                "value": 0.19994267
+            },
+            {
+                "year": 2024,
+                "value": 0.20060978
+            },
+            {
+                "year": 2025,
+                "value": 0.20190807
+            },
+            {
+                "year": 2026,
+                "value": 0.25600702
+            },
+            {
+                "year": 2027,
+                "value": 0.25676479
+            },
+            {
+                "year": 2028,
+                "value": 0.25755235
+            }
+        ],
+        "title": "Effective marginal tax rate on business income to pass-through business owners.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": false,
+                "max": true
+            }
+        }
+    },
+    "tau_div": {
+        "description": "Effective marginal tax rate on dividends.",
+        "notes": "Effective marginal tax rate on dividends.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.19575483
+            },
+            {
+                "year": 2016,
+                "value": 0.19544804
+            },
+            {
+                "year": 2017,
+                "value": 0.19758772
+            },
+            {
+                "year": 2018,
+                "value": 0.18950995
+            },
+            {
+                "year": 2019,
+                "value": 0.18968229
+            },
+            {
+                "year": 2020,
+                "value": 0.18942018
+            },
+            {
+                "year": 2021,
+                "value": 0.18924854
+            },
+            {
+                "year": 2022,
+                "value": 0.18902772
+            },
+            {
+                "year": 2023,
+                "value": 0.18880683
+            },
+            {
+                "year": 2024,
+                "value": 0.18859956
+            },
+            {
+                "year": 2025,
+                "value": 0.1834317
+            },
+            {
+                "year": 2026,
+                "value": 0.193398
+            },
+            {
+                "year": 2027,
+                "value": 0.19391646
+            },
+            {
+                "year": 2028,
+                "value": 0.19444242
+            }
+        ],
+        "title": "Effective marginal tax rate on dividends.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": false,
+                "max": true
+            }
+        }
+    },
+    "tau_int": {
+        "description": "Effective marginal tax rate on interest income.",
+        "notes": "Effective marginal tax rate on interest income.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.34134317
+            },
+            {
+                "year": 2016,
+                "value": 0.34098411
+            },
+            {
+                "year": 2017,
+                "value": 0.34333629
+            },
+            {
+                "year": 2018,
+                "value": 0.31249798
+            },
+            {
+                "year": 2019,
+                "value": 0.3138236
+            },
+            {
+                "year": 2020,
+                "value": 0.31493242
+            },
+            {
+                "year": 2021,
+                "value": 0.31598961
+            },
+            {
+                "year": 2022,
+                "value": 0.31690398
+            },
+            {
+                "year": 2023,
+                "value": 0.31796143
+            },
+            {
+                "year": 2024,
+                "value": 0.31873601
+            },
+            {
+                "year": 2025,
+                "value": 0.31975979
+            },
+            {
+                "year": 2026,
+                "value": 0.35114394
+            },
+            {
+                "year": 2027,
+                "value": 0.35197288
+            },
+            {
+                "year": 2028,
+                "value": 0.3526071
+            }
+        ],
+        "title": "Effective marginal tax rate on interet income.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": false,
+                "max": true
+            }
+        }
+    },
+    "tau_scg": {
+        "description": "Effective marginal tax rate on short-term capital gains.",
+        "notes": "Effective marginal tax rate on short-term capital gains.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.32501381
+            },
+            {
+                "year": 2016,
+                "value": 0.32187144
+            },
+            {
+                "year": 2017,
+                "value": 0.33011199
+            },
+            {
+                "year": 2018,
+                "value": 0.29313441
+            },
+            {
+                "year": 2019,
+                "value": 0.29351499
+            },
+            {
+                "year": 2020,
+                "value": 0.29176639
+            },
+            {
+                "year": 2021,
+                "value": 0.29153452
+            },
+            {
+                "year": 2022,
+                "value": 0.29118966
+            },
+            {
+                "year": 2023,
+                "value": 0.29149291
+            },
+            {
+                "year": 2024,
+                "value": 0.29068875
+            },
+            {
+                "year": 2025,
+                "value": 0.29000779
+            },
+            {
+                "year": 2026,
+                "value": 0.3329625
+            },
+            {
+                "year": 2027,
+                "value": 0.33343779
+            },
+            {
+                "year": 2028,
+                "value": 0.33387833
+            }
+        ],
+        "title": "Effective marginal tax rate on short-term capital gains.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": false,
+                "max": true
+            }
+        }
+    },
+    "tau_lcg": {
+        "description": "Effective marginal tax rate on long-term capital gains.",
+        "notes": "Effective marginal tax rate on long-term capital gains.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.19382467
+            },
+            {
+                "year": 2016,
+                "value": 0.19112742
+            },
+            {
+                "year": 2017,
+                "value": 0.19754214
+            },
+            {
+                "year": 2018,
+                "value": 0.19005088
+            },
+            {
+                "year": 2019,
+                "value": 0.19041333
+            },
+            {
+                "year": 2020,
+                "value": 0.18929768
+            },
+            {
+                "year": 2021,
+                "value": 0.18901008
+            },
+            {
+                "year": 2022,
+                "value": 0.18866638
+            },
+            {
+                "year": 2023,
+                "value": 0.18886661
+            },
+            {
+                "year": 2024,
+                "value": 0.18841345
+            },
+            {
+                "year": 2025,
+                "value": 0.18790512
+            },
+            {
+                "year": 2026,
+                "value": 0.19959892
+            },
+            {
+                "year": 2027,
+                "value": 0.20016214
+            },
+            {
+                "year": 2028,
+                "value": 0.20054408
+            }
+        ],
+        "title": "Effective marginal tax rate on long-term capital gains.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": false,
+                "max": true
+            }
+        }
+    },
+    "tau_xcg": {
+        "description": "Marginal tax rate on capital gains held until death.",
+        "notes": "Marginal tax rate on capital gains held until death.",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.0
+            },
+            {
+                "year": 2016,
+                "value": 0.0
+            },
+            {
+                "year": 2017,
+                "value": 0.0
+            },
+            {
+                "year": 2018,
+                "value": 0.0
+            },
+            {
+                "year": 2019,
+                "value": 0.0
+            },
+            {
+                "year": 2020,
+                "value": 0.0
+            },
+            {
+                "year": 2021,
+                "value": 0.0
+            },
+            {
+                "year": 2022,
+                "value": 0.0
+            },
+            {
+                "year": 2023,
+                "value": 0.0
+            },
+            {
+                "year": 2024,
+                "value": 0.0
+            },
+            {
+                "year": 2025,
+                "value": 0.0
+            },
+            {
+                "year": 2026,
+                "value": 0.0
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "title": "Marginal tax rate on capital gains held until death.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": false,
+                "max": true
+            }
+        }
+    },
+    "tau_td": {
+        "description": "Effective marginal tax rate on assets held in tax-deferred accounts.",
+        "notes": "Effective marginal tax rate on assets held in tax-deferred accounts.  Default value from CBO (2014)",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.25002152
+            },
+            {
+                "year": 2016,
+                "value": 0.25007244
+            },
+            {
+                "year": 2017,
+                "value": 0.25141759
+            },
+            {
+                "year": 2018,
+                "value": 0.21879166
+            },
+            {
+                "year": 2019,
+                "value": 0.21971122
+            },
+            {
+                "year": 2020,
+                "value": 0.22029358
+            },
+            {
+                "year": 2021,
+                "value": 0.22007998
+            },
+            {
+                "year": 2022,
+                "value": 0.22012302
+            },
+            {
+                "year": 2023,
+                "value": 0.22032671
+            },
+            {
+                "year": 2024,
+                "value": 0.22047184
+            },
+            {
+                "year": 2025,
+                "value": 0.22088928
+            },
+            {
+                "year": 2026,
+                "value": 0.25364168
+            },
+            {
+                "year": 2027,
+                "value": 0.25393561
+            },
+            {
+                "year": 2028,
+                "value": 0.25463737
+            }
+        ],
+        "title": "Effective marginal tax rate on assets held in tax-deferred accounts.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": false,
+                "max": true
+            }
+        }
+    },
+    "tau_h": {
+        "description": "Effective marginal tax rate on owner occupied housing deductions.",
+        "notes": "Effective marginal tax rate on owner occupied housing deductions.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.16494673
+            },
+            {
+                "year": 2016,
+                "value": 0.16589146
+            },
+            {
+                "year": 2017,
+                "value": 0.16632574
+            },
+            {
+                "year": 2018,
+                "value": 0.04372886
+            },
+            {
+                "year": 2019,
+                "value": 0.04452513
+            },
+            {
+                "year": 2020,
+                "value": 0.04542737
+            },
+            {
+                "year": 2021,
+                "value": 0.04604778
+            },
+            {
+                "year": 2022,
+                "value": 0.04661032
+            },
+            {
+                "year": 2023,
+                "value": 0.04711117
+            },
+            {
+                "year": 2024,
+                "value": 0.04740878
+            },
+            {
+                "year": 2025,
+                "value": 0.04786262
+            },
+            {
+                "year": 2026,
+                "value": 0.16783091
+            },
+            {
+                "year": 2027,
+                "value": 0.16810659
+            },
+            {
+                "year": 2028,
+                "value": 0.16827156
+            }
+        ],
+        "title": "Effective marginal tax rate on owner occupied housing deductions.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": false,
+                "max": true
+            }
+        }
+    },
+    "inflation_rate": {
+        "description": "Inflation rate.",
+        "notes": "The default inflation rate is determined by the forecast of the Congressional Budget Office (CBO).",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.024
+            },
+            {
+                "year": 2016,
+                "value": 0.024
+            },
+            {
+                "year": 2017,
+                "value": 0.024
+            },
+            {
+                "year": 2018,
+                "value": 0.024
+            },
+            {
+                "year": 2019,
+                "value": 0.024
+            },
+            {
+                "year": 2020,
+                "value": 0.024
+            },
+            {
+                "year": 2021,
+                "value": 0.024
+            },
+            {
+                "year": 2022,
+                "value": 0.024
+            },
+            {
+                "year": 2023,
+                "value": 0.024
+            },
+            {
+                "year": 2024,
+                "value": 0.024
+            },
+            {
+                "year": 2025,
+                "value": 0.024
+            },
+            {
+                "year": 2026,
+                "value": 0.024
+            },
+            {
+                "year": 2027,
+                "value": 0.024
+            },
+            {
+                "year": 2028,
+                "value": 0.024
+            }
+        ],
+        "title": "Inflation rate.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": -0.1,
+                "max": 0.2
+            }
+        }
+    },
+    "nominal_interest_rate": {
+        "description": "Nominal interest rate paid on business debt.",
+        "notes": "The default nominal interest rate is taken as the yeild on BBB corporate bonds.",
+        "start_year": 2015,
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.068
+            },
+            {
+                "year": 2016,
+                "value": 0.068
+            },
+            {
+                "year": 2017,
+                "value": 0.068
+            },
+            {
+                "year": 2018,
+                "value": 0.068
+            },
+            {
+                "year": 2019,
+                "value": 0.068
+            },
+            {
+                "year": 2020,
+                "value": 0.068
+            },
+            {
+                "year": 2021,
+                "value": 0.068
+            },
+            {
+                "year": 2022,
+                "value": 0.068
+            },
+            {
+                "year": 2023,
+                "value": 0.068
+            },
+            {
+                "year": 2024,
+                "value": 0.068
+            },
+            {
+                "year": 2025,
+                "value": 0.068
+            },
+            {
+                "year": 2026,
+                "value": 0.068
+            },
+            {
+                "year": 2027,
+                "value": 0.068
+            },
+            {
+                "year": 2028,
+                "value": 0.068
+            }
+        ],
+        "title": "Nominal interest rate paid on business debt.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 0.2
+            }
+        }
+    },
+    "E_c": {
+        "description": "Expected, after-tax return on corporate equity.",
+        "notes": "Expected, after-tax return on corporate equity.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.058,
+        "title": "Expected, after-tax return on corporate equity.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 0.2
+            }
+        }
+    },
+    "f_c": {
+        "description": "Fraction of corporate investment financed by debt.",
+        "notes": "Fraction of corporate investment financed by debt.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.32,
+        "title": "Fraction of corporate investment financed by debt.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "f_nc": {
+        "description": "Fraction of non-corporate investment financed by debt.",
+        "notes": "Fraction of non-corporate investment financed by debt.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.29,
+        "title": "Fraction of non-corporate investment financed by debt.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "omega_scg": {
+        "description": "Fraction of capital gains that are taxed at short-term rate.",
+        "notes": "Fraction of capital gains that are taxed at short-term rate.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.035,
+        "title": "Fraction of capital gains that are taxed at short-term rate.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "omega_lcg": {
+        "description": "Fraction of capital gains that are taxed at long-term rate.",
+        "notes": "Fraction of capital gains that are taxed at long-term rate.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.496,
+        "title": "Fraction of capital gains that are taxed at long-term rate.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "omega_xcg": {
+        "description": "Fraction of capital gains that are untaxed.",
+        "notes": "Fraction of capital gains that are untaxed.  This could be because of a step-up in basis at death or that they are gains accruing to a non-taxable entity.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.469,
+        "title": "Fraction of capital gains that are untaxed.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "alpha_c_e_ft": {
+        "description": "Fraction of corporate equity held in fully-taxable accounts.",
+        "notes": "Fraction of corporate equity held in fully-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.572,
+        "title": "Fraction of corporate equity held in fully-taxable accounts.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "alpha_c_e_td": {
+        "description": "Fraction of corporate equity held in tax-deferred accounts.",
+        "notes": "Fraction of corporate equity held in tax-deferred accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.039,
+        "title": "Fraction of corporate equity held in tax-deferred accounts.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "alpha_c_e_nt": {
+        "description": "Fraction of corporate equity held in non-taxable accounts.",
+        "notes": "Fraction of corporate equity held in non-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.389,
+        "title": "Fraction of corporate equity held in non-taxable accounts.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "alpha_c_d_ft": {
+        "description": "Fraction of corporate debt held in fully-taxable accounts.",
+        "notes": "Fraction of corporate debt held in fully-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.523,
+        "title": "Fraction of corporate debt held in fully-taxable accounts.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "alpha_c_d_td": {
+        "description": "Fraction of corporate debt held in tax-deferred accounts.",
+        "notes": "Fraction of corporate debt held in tax-deferred accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.149,
+        "title": "Fraction of corporate debt held in tax-deferred accounts.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "alpha_c_d_nt": {
+        "description": "Fraction of corporate debt held in non-taxable accounts.",
+        "notes": "Fraction of corporate debt held in non-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.328,
+        "title": "Fraction of corporate debt held in non-taxable accounts.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "alpha_nc_d_ft": {
+        "description": "Fraction of non-corporate debt held in fully-taxable accounts.",
+        "notes": "Fraction of non-corporate debt held in fully-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.763,
+        "title": "Fraction of non-corporate debt held in fully-taxable accounts.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "alpha_nc_d_td": {
+        "description": "Fraction of non-corporate debt held in tax-deferred accounts.",
+        "notes": "Fraction of non-corporate debt held in tax-deferred accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.101,
+        "title": "Fraction of non-corporate debt held in tax-deferred accounts.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "alpha_nc_d_nt": {
+        "description": "Fraction of non-corporate debt held in non-taxable accounts.",
+        "notes": "Fraction of non-corporate debt held in non-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.136,
+        "title": "Fraction of non-corporate debt held in non-taxable accounts.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "alpha_h_d_ft": {
+        "description": "Fraction of homeowner equity held in fully-taxable accounts.",
+        "notes": "Fraction of homeowner equity held in fully-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.779,
+        "title": "Fraction of homeowner equity held in fully-taxable accounts.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "alpha_h_d_td": {
+        "description": "Fraction of homeowner equity held in tax-deferred accounts.",
+        "notes": "Fraction of homeowner equity held in tax-deferred accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.037,
+        "title": "Fraction of homeowner equity held in tax-deferred accounts.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "alpha_h_d_nt": {
+        "description": "Fraction of homeowner equity held in non-taxable accounts.",
+        "notes": "Fraction of homeowner equity held in non-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.183,
+        "title": "Fraction of homeowner equity held in non-taxable accounts.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "Y_td": {
+        "description": "Number of years assets are held in tax-deferred accounts.",
+        "notes": "Number of years assets are held in tax-deferred accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 8,
+        "title": "Number of years assets are held in tax-deferred accounts.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 100.0
+            }
+        }
+    },
+    "Y_scg": {
+        "description": "Number of years assets held before short-term capital gains are realized.",
+        "notes": "Number of years assets held before short-term capital gains are realized.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.3333,
+        "title": "Number of years assets held before short-term capital gains are realized.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 100.0
+            }
+        }
+    },
+    "Y_lcg": {
+        "description": "Number of years assets held before long-term capital gains are realized.",
+        "notes": "Number of years assets held before long-term capital gains are realized.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 8,
+        "title": "Number of years assets held before long-term capital gains are realized.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 100.0
+            }
+        }
+    },
+    "Y_v": {
+        "description": "Number of years inventories are held.",
+        "notes": "Number of years inventories are held.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.3333,
+        "title": "Number of years inventories are held.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 100.0
+            }
+        }
+    },
+    "gamma": {
+        "description": "Fraction of debt owned through whole life-insurance policies.",
+        "notes": "Fraction of debt owned through whole life-insurance policies.  Default value from CBO's Computing Effective Tax Rates on Capital Income (2007)",
+        "value": 0.3,
+        "title": "Fraction of debt owned through whole life-insurance policies.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "m": {
+        "description": "Dividend payout rate.",
+        "notes": "Dividend payout rate.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "value": 0.44,
+        "title": "Dividend payout rate.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "profit_rate": {
+        "description": "Profit rate used when computing EATR.",
+        "notes": "Profit rate used when computing EATR.",
+        "value": 0.2,
+        "title": "Profit rate used when computing EATR.",
+        "type": "float",
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "start_year": {
+        "description": "Tax year in which to start model analysis",
+        "notes": "",
+        "value": 2019,
+        "title": "Tax year in which to start model analysis",
+        "type": "int",
+        "validators": {
+            "range": {
+                "min": 2015,
+                "max": 2027
+            }
+        }
+    }
+}
