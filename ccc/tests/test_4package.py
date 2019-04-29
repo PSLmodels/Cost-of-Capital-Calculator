@@ -40,7 +40,8 @@ def test_for_consistency(tests_path=TESTS_PATH):
         'mock',
         'pycodestyle',
         'pylint',
-        'coverage'
+        'coverage',
+        'paramtools',
     ])
     # read conda.recipe/meta.yaml requirements
     meta_file = os.path.join(tests_path, '..', '..',
