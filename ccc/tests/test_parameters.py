@@ -46,8 +46,7 @@ def test_implement_reform():
     assert specs.profit_rate == 0.4
     assert specs.m == 0.5
     assert specs.start_year == 2019
-    assert len(specs.parameter_errors) == 0
-    assert len(specs.parameter_warnings) == 0
+    assert len(specs.errors) == 0
 
 
 def test_implement_bad_reform1():
@@ -59,9 +58,11 @@ def test_implement_bad_reform1():
 
     specs.update_specifications(new_specs, raise_errors=False)
 
-    assert len(specs.parameter_errors) > 0
-    assert specs.parameter_errors == 'ERROR: profit_rate value 1.2 > max value 1.0\n'
-    assert len(specs.parameter_warnings) == 0
+    assert len(specs.errors) > 0
+    print(specs.errors)
+    exp = {'profit_rate': ['profit_rate 1.2 must be less than 1.0.']}
+    assert specs.errors == exp
+
 
 
 def test_implement_bad_reform2():
@@ -74,9 +75,14 @@ def test_implement_bad_reform2():
 
     specs.update_specifications(new_specs, raise_errors=False)
 
-    assert len(specs.parameter_errors) > 0
-    assert specs.parameter_errors == "ERROR: DeprecSystem_3yr value ['not_a_deprec_system'] not in possible values ['GDS', 'ADS', 'Economic']\n"
-    assert len(specs.parameter_warnings) == 0
+    assert len(specs.errors) > 0
+    exp = {
+        'DeprecSystem_3yr': [
+            'DeprecSystem_3yr "not_a_deprec_system" must be in list of choices GDS, ADS, Economic.'
+        ]
+    }
+    assert specs.errors == exp
+
 
 
 def test_reform_warnings_errors():
@@ -93,10 +99,10 @@ def test_reform_warnings_errors():
     assert len(bad_ew['ccc']['warnings']) == 0
 
 
-def test_simple_eval():
-    specs = Specifications()
-    specs.profit_rate = 1.0
-    assert specs.simple_eval('profit_rate / 2') == 0.5
-    assert specs.simple_eval('profit_rate * 2') == 2.0
-    assert specs.simple_eval('profit_rate - 2') == -1.0
-    assert specs.simple_eval('profit_rate + 2') == 3.0
+# def test_simple_eval():
+#     specs = Specifications()
+#     specs.profit_rate = 1.0
+#     assert specs.simple_eval('profit_rate / 2') == 0.5
+#     assert specs.simple_eval('profit_rate * 2') == 2.0
+#     assert specs.simple_eval('profit_rate - 2') == -1.0
+#     assert specs.simple_eval('profit_rate + 2') == 3.0
