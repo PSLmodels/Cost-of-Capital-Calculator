@@ -36,7 +36,7 @@ class Specifications(ParametersBase):
         # for reference
         self.ccc_version = pkg_resources.get_distribution("ccc").version
 
-        # does cheap calculations to find parameter values
+        # initialize parameter values from JSON
         self.initialize(call_tc=call_tc)
 
         self.parameter_warnings = ''
@@ -83,24 +83,15 @@ class Specifications(ParametersBase):
             # Find individual income tax rates from Tax-Calculator
             indiv_rates = get_rates(self.baseline, self.year,
                                     self.iit_reform, self.data)
-        else:
-            # Set indiv rates to some values
-            indiv_rates = {'tau_nc': np.array([0.1929392]),
-                           'tau_div': np.array([0.1882453]),
-                           'tau_int': np.array([0.31239301]),
-                           'tau_scg': np.array([0.29068557]),
-                           'tau_lcg': np.array([0.18837299]),
-                           'tau_td': np.array([0.21860396]),
-                           'tau_h': np.array([0.04376291])}
-        self.tau_nc = indiv_rates['tau_nc']
-        self.tau_div = indiv_rates['tau_div']
-        self.tau_int = indiv_rates['tau_int']
-        self.tau_scg = indiv_rates['tau_scg']
-        self.tau_lcg = indiv_rates['tau_lcg']
-        self.tau_xcg = 0.00  # tax rate on capital gains held to death
-        self.tau_td = indiv_rates['tau_td']
-        self.tau_h = indiv_rates['tau_h']
-
+            self.tau_nc = indiv_rates['tau_nc']
+            self.tau_div = indiv_rates['tau_div']
+            self.tau_int = indiv_rates['tau_int']
+            self.tau_scg = indiv_rates['tau_scg']
+            self.tau_lcg = indiv_rates['tau_lcg']
+            self.tau_xcg = 0.00  # tax rate on capital gains held to death
+            self.tau_td = indiv_rates['tau_td']
+            self.tau_h = indiv_rates['tau_h']
+        # does cheap calculations to find parameter values
         self.compute_default_params()
 
     def compute_default_params(self):
