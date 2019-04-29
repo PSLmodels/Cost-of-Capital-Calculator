@@ -29,7 +29,6 @@ test:
     - ccc
     - ccc.data
     - ccc.parameters
-    - ccc.parametersbase
     - ccc.calculator
     - ccc.calcfunctions
     - ccc.get_taxcalc_rates
