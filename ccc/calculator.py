@@ -458,7 +458,7 @@ class Calculator():
                 ['tax_treat', 'major_industry'])
                           ['assets'].sum()).reset_index()
         df2 = df1.pivot(index='major_industry', columns='tax_treat',
-                             values='assets').reset_index()
+                        values='assets').reset_index()
         df2['c_share'] = (df2['corporate'] / (df2['corporate'] +
                                               df2['non-corporate']))
         df2['nc_share'] = (df2['non-corporate'] / (df2['corporate'] +
@@ -574,12 +574,11 @@ class Calculator():
                                      sort=True).reset_index())
         base_tab = dfs_out[0]
         reform_tab = dfs_out[1]
-        # print('reform table = ', reform_tab)
         diff_tab = diff_two_tables(reform_tab, base_tab)
         major_groups = ['Equipment', 'Structures',
                         'Intellectual Property']
         if include_inventories:
-                major_groups.append('Inventories')
+            major_groups.append('Inventories')
         if include_land:
             major_groups.append('Land')
         category_list = ['Overall', 'Corporate']
@@ -732,7 +731,7 @@ class Calculator():
                 df.drop(df[df.asset_name == 'Inventories'].index,
                         inplace=True)
             # Make dataframe with just results for major industry
-            major_ind_df = pd.DataFrame(self.__assets.df.groupby(
+            major_ind_df = pd.DataFrame(df.groupby(
                 ['major_industry', 'tax_treat']).apply(self.__f)).reset_index()
             major_ind_df['Industry'] = major_ind_df['major_industry']
             major_ind_df = self.calc_other(major_ind_df)
@@ -759,23 +758,25 @@ class Calculator():
                                      sort=True).reset_index())
         base_tab = dfs_out[0]
         reform_tab = dfs_out[1]
-        # print('reform table = ', reform_tab)
         diff_tab = diff_two_tables(reform_tab, base_tab)
         category_list = ['Overall', 'Corporate']
         base_out_list = [
             base_tab[base_tab['tax_treat'] ==
                      'all'][output_variable + '_mix'].values[0],
-            base_tab[base_tab['tax_treat'] ==
-                     'corporate'][output_variable + '_mix'].values[0]]
+            base_tab[(base_tab['tax_treat'] == 'corporate') &
+                     (base_tab['major_industry'] == 'Overall')]
+            [output_variable + '_mix'].values[0]]
         reform_out_list = [
             reform_tab[reform_tab['tax_treat'] == 'all']
             [output_variable + '_mix'].values[0],
-            reform_tab[reform_tab['tax_treat'] == 'corporate']
+            reform_tab[(reform_tab['tax_treat'] == 'corporate') &
+                       (reform_tab['major_industry'] == 'Overall')]
             [output_variable + '_mix'].values[0]]
         diff_out_list = [
             diff_tab[diff_tab['tax_treat'] == 'all']
             [output_variable + '_mix'].values[0],
-            diff_tab[diff_tab['tax_treat'] == 'corporate']
+            diff_tab[(diff_tab['tax_treat'] == 'corporate') &
+                     (diff_tab['major_industry'] == 'Overall')]
             [output_variable + '_mix'].values[0]]
         for item in MAJOR_IND_ORDERED:
                 category_list.append('   ' + item)
@@ -951,6 +952,10 @@ class Calculator():
         p.xgrid.grid_line_color = None
         p.legend.location = "top_left"
         p.legend.orientation = "horizontal"
+        if not group_by_asset:
+            p.xaxis.major_label_orientation = 45
+            p.plot_height = 800
+            p.plot_width = 800
 
         # Add lines for overall mean for baseline and reform
         bline = Span(location=mean_base, dimension='width',
@@ -1094,7 +1099,6 @@ class Calculator():
         p.add_layout(standard_region)
         p.add_layout(debt_region)
         p.add_layout(equity_region)
-
 
         # Draw baseline ranges onto graph
         p.segment('positions', 'mins', 'positions', 'maxes', color=BLUE,
@@ -1578,7 +1582,7 @@ class Calculator():
                    x_range=(-.05, .51),
                    y_range=list(reversed(equipment_assets)),
                    # x_axis_location="above",
-                   toolbar_location=None,
+                   # toolbar_location=None,
                    tools='hover',
                    background_fill_alpha=0,
                    # change things on all axes
@@ -1645,13 +1649,13 @@ class Calculator():
                     plot_width=990,
                     x_range=(-.05, .51),
                     y_range=list(reversed(structure_assets)),
-                    toolbar_location=None,
+                    # toolbar_location=None,
                     tools='hover',
                     background_fill_alpha=0,
                     **PLOT_FORMATS)
         p2.add_layout(Title(
             text=('Marginal Effective Tax Rates on Corporate ' +
-                  + 'Investments in Structures'), **TITLE_FORMATS),
+                  'Investments in Structures'), **TITLE_FORMATS),
                   'above')
 
         hover = p2.select(dict(type=HoverTool))
