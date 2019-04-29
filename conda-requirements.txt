@@ -6,3 +6,4 @@ six
 toolz
 pandas>=0.18
 pytest
+paramtools>=0.5.1
