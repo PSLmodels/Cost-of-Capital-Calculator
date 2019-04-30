@@ -6,22 +6,15 @@ python:
 
 install:
   # Install conda
-  - wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
+  - wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update conda
-  - conda create -n test-environment python=$TRAVIS_PYTHON_VERSION pandas numpy
-  - source activate test-environment
-  - conda install -c conda-forge --file conda-requirements.txt # xlrd, possibly others
-  - export BUILD_DIR=`pwd`
-  - pip install -r requirements.txt
-  - conda install -c PSLmodels taxcalc
-  - export ccc_OUT_DIR=ccc_output_dir # make an output dir
-  - export ccc_CUR_DIR=${BUILD_DIR}/ccc
-  - mkdir ccc_output_dir
-  - python setup.py develop
+  - conda config --set always_yes yes
+  - conda update -n base -c defaults conda
+  - conda create -n ccc-dev python=$TRAVIS_PYTHON_VERSION;
+  - source activate ccc-dev
+  - conda env update -f environment.yml
+  - pip install -e .
 
 script:
-  - python -c "from ccc import *" && echo Cost-of-Capital-Calculator can be imported
-  - py.test -m "not slow and not needs_puf and not local" ${ccc_CUR_DIR}/tests
+  - py.test -m "not slow and not needs_puf and not local" -v
