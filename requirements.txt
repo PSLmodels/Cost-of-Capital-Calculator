@@ -1,2 +1,0 @@
-plotly
-enum34
