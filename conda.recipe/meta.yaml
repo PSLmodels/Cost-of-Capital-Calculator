@@ -18,7 +18,7 @@ requirements:
     - python=3.6
     - taxcalc
     - setuptools
-    - paramtools
+    - paramtools>=0.5.1
     - scipy
     - xlrd
 
