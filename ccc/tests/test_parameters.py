@@ -38,14 +38,12 @@ def test_implement_reform():
     specs = Specifications()
     new_specs = {
         'profit_rate': 0.4,
-        'm': 0.5,
-        'start_year': 2019
+        'm': 0.5
     }
 
     specs.update_specifications(new_specs)
     assert specs.profit_rate == 0.4
     assert specs.m == 0.5
-    assert specs.start_year == 2019
     assert len(specs.errors) == 0
 
 
@@ -62,7 +60,6 @@ def test_implement_bad_reform1():
     print(specs.errors)
     exp = {'profit_rate': ['profit_rate 1.2 must be less than 1.0.']}
     assert specs.errors == exp
-
 
 
 def test_implement_bad_reform2():

@@ -5,16 +5,12 @@
                 "type": "int",
                 "validators": {"range": {"min": 2015, "max": 2028}}
             }
-        },
-        "additional_members": {
-            "start_year": {"type": "int"}
         }
     },
     "CIT_rate": {
         "description": "Top statutory corporate income tax rate",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.35
@@ -84,8 +80,7 @@
     "PT_entity_tax_ind": {
         "description": "Indicator variable indicating whether or not there is an entity-level tax on pass-through businesses. This tax is levied on entity-level profits.  Owners also pay individual income taxes on the distributions.",
         "notes": "Note that is this indicator is True, then the METR calculation for pass-through businesses will represent the effects of the entity-level tax and not the indvidiual-level tax.  This is becaue the METR represents the effective tax rate from the first layer of taxation.  The statutory rate on pass-through entities is set with the PT_entity_tax_rate parameter.",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": false
@@ -155,8 +150,7 @@
     "PT_entity_tax_rate": {
         "description": "Statutory income tax rate on pass-through business income levied at the entity level.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.0
@@ -226,8 +220,7 @@
     "DeprecSystem_3yr": {
         "description": "Depreciation system used for 3-year class property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": "GDS"
@@ -300,8 +293,7 @@
     "BonusDeprec_3yr": {
         "description": "Bonus depreciation rate on 3-year class property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.5
@@ -371,8 +363,7 @@
     "DeprecSystem_5yr": {
         "description": "Depreciation system used for 5-year class property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": "GDS"
@@ -445,8 +436,7 @@
     "BonusDeprec_5yr": {
         "description": "Bonus depreciation rate on 5-year class property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.5
@@ -516,8 +506,7 @@
     "DeprecSystem_7yr": {
         "description": "Depreciation system used for 7-year class property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": "GDS"
@@ -590,8 +579,7 @@
     "BonusDeprec_7yr": {
         "description": "Bonus depreciation rate on 7-year class property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.5
@@ -661,8 +649,7 @@
     "DeprecSystem_10yr": {
         "description": "Depreciation system used for 10-year class property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": "GDS"
@@ -735,8 +722,7 @@
     "BonusDeprec_10yr": {
         "description": "Bonus depreciation rate on 10-year class property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.5
@@ -806,8 +792,7 @@
     "DeprecSystem_15yr": {
         "description": "Depreciation system used for 15-year class property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": "GDS"
@@ -880,8 +865,7 @@
     "BonusDeprec_15yr": {
         "description": "Bonus depreciation rate on 15-year class property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.5
@@ -951,8 +935,7 @@
     "DeprecSystem_20yr": {
         "description": "Depreciation system used for 20-year class property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": "GDS"
@@ -1025,8 +1008,7 @@
     "BonusDeprec_20yr": {
         "description": "Bonus depreciation rate on 20-year class property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.5
@@ -1096,8 +1078,7 @@
     "DeprecSystem_25yr": {
         "description": "Depreciation system used for 25-year class property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": "GDS"
@@ -1170,8 +1151,7 @@
     "BonusDeprec_25yr": {
         "description": "Bonus depreciation rate on 25-year class property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.0
@@ -1241,8 +1221,7 @@
     "DeprecSystem_27_5yr": {
         "description": "Depreciation system used for 27.5-year class property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": "GDS"
@@ -1315,8 +1294,7 @@
     "BonusDeprec_27_5yr": {
         "description": "Bonus depreciation rate on 27.5-year class property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.0
@@ -1386,8 +1364,7 @@
     "DeprecSystem_39yr": {
         "description": "Depreciation system used for 39-year class property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": "GDS"
@@ -1460,8 +1437,7 @@
     "BonusDeprec_39yr": {
         "description": "Bonus depreciation rate on 39-year class property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.0
@@ -1531,8 +1507,7 @@
     "DeprecSystem_all": {
         "description": "Depreciation system used for all classes of property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": "GDS"
@@ -1605,8 +1580,7 @@
     "BonusDeprec_all": {
         "description": "Bonus depreciation rate on all classes of property.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.0
@@ -1676,8 +1650,7 @@
     "land_expensing": {
         "description": "Expensing rate on land.",
         "notes": "",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.0
@@ -1747,8 +1720,7 @@
     "ace_c": {
         "description": "Allowance for corporate equity (fraction of equity deductible).",
         "notes": "This parameter gives the allowance for corporate equity (ACE). Under an ACE system, companies can deduct a notional interest on their equity.  The default rate used in Cost-of-Capital-Calculator is the nominal interest rate on corporate debt.  Moving this parameter up from zero allows the corporate to have partial to full deductibility of the notional interest on equity.",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.0
@@ -1818,8 +1790,7 @@
     "ace_nc": {
         "description": "Allowance for non-corporate equity (fraction of equity deductible).",
         "notes": "This parameter gives the allowance for non-corporate equity (ACE). Only relevant if there is an entity-level tax on pass-through businesses (PT_entity_tax_ind=True).  Under an ACE system, companies can deduct a notional interest on their equity.  The default rate used in Cost-of-Capital-Calculator is the nominal interest rate on corporate debt.  Moving this parameter up from zero allows the corporate to have partial to full deductibility of the notional interest on equity.",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.0
@@ -1889,8 +1860,7 @@
     "ace_int_rate": {
         "description": "Notional interest rate on the allowance for corporate equity.",
         "notes": "The default rate used in Cost-of-Capital-Calculator is the nominal interest rate on corporate debt.  Moving this parameter up from zero allows the corporate to have partial to full deductibility of the notional interest on equity.",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.068
@@ -1960,8 +1930,7 @@
     "interest_deduct_haircut_corp": {
         "description": "Haircut on interest deductibility (fraction of interest not deductible) for C corporations.",
         "notes": "This parameter gives the fraction of interest payments that are not allowable as deductions against income for C corporations.",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.0
@@ -2031,8 +2000,7 @@
     "interest_deduct_haircut_PT": {
         "description": "Haircut on interest deductibility (fraction of interest not deductible) for pass-through entities.",
         "notes": "This parameter gives the fraction of interest payments that are not allowable as deductions against income for pass-through entities.",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.0
@@ -2102,8 +2070,7 @@
     "inv_tax_credit": {
         "description": "Investment tax credit rate.",
         "notes": "The investment tax credit rate gives the rate at which the cost of new investments are credited against the firm's tax liability.",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.0
@@ -2173,8 +2140,7 @@
     "property_tax": {
         "description": "Property tax rate.",
         "notes": "Tax rate on business property.",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.0
@@ -2244,8 +2210,7 @@
     "phi": {
         "description": "Fration of inventories that are accounted for using LIFO.",
         "notes": "Fration of inventories that are accounted for using LIFO.",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.5
@@ -2315,8 +2280,7 @@
     "inventory_expensing": {
         "description": "Indicator for whether inventories are immediately expensed.",
         "notes": "Indicator for whether inventories are immediately expensed.",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": false
@@ -2386,8 +2350,7 @@
     "tau_nc": {
         "description": "Effective marginal tax rate on business income to pass-through business owners.",
         "notes": "Effective marginal tax rate on business income to pass-through business owners.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.2490995
@@ -2457,8 +2420,7 @@
     "tau_div": {
         "description": "Effective marginal tax rate on dividends.",
         "notes": "Effective marginal tax rate on dividends.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.19575483
@@ -2528,8 +2490,7 @@
     "tau_int": {
         "description": "Effective marginal tax rate on interest income.",
         "notes": "Effective marginal tax rate on interest income.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.34134317
@@ -2599,8 +2560,7 @@
     "tau_scg": {
         "description": "Effective marginal tax rate on short-term capital gains.",
         "notes": "Effective marginal tax rate on short-term capital gains.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.32501381
@@ -2670,8 +2630,7 @@
     "tau_lcg": {
         "description": "Effective marginal tax rate on long-term capital gains.",
         "notes": "Effective marginal tax rate on long-term capital gains.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.19382467
@@ -2741,8 +2700,7 @@
     "tau_xcg": {
         "description": "Marginal tax rate on capital gains held until death.",
         "notes": "Marginal tax rate on capital gains held until death.",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.0
@@ -2812,8 +2770,7 @@
     "tau_td": {
         "description": "Effective marginal tax rate on assets held in tax-deferred accounts.",
         "notes": "Effective marginal tax rate on assets held in tax-deferred accounts.  Default value from CBO (2014)",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.25002152
@@ -2883,8 +2840,7 @@
     "tau_h": {
         "description": "Effective marginal tax rate on owner occupied housing deductions.",
         "notes": "Effective marginal tax rate on owner occupied housing deductions.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.16494673
@@ -2954,8 +2910,7 @@
     "inflation_rate": {
         "description": "Inflation rate.",
         "notes": "The default inflation rate is determined by the forecast of the Congressional Budget Office (CBO).",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.024
@@ -3025,8 +2980,7 @@
     "nominal_interest_rate": {
         "description": "Nominal interest rate paid on business debt.",
         "notes": "The default nominal interest rate is taken as the yeild on BBB corporate bonds.",
-        "start_year": 2015,
-        "value": [
+                "value": [
             {
                 "year": 2015,
                 "value": 0.068
@@ -3415,19 +3369,6 @@
             "range": {
                 "min": 0.0,
                 "max": 1.0
-            }
-        }
-    },
-    "start_year": {
-        "description": "Tax year in which to start model analysis",
-        "notes": "",
-        "value": 2019,
-        "title": "Tax year in which to start model analysis",
-        "type": "int",
-        "validators": {
-            "range": {
-                "min": 2015,
-                "max": 2027
             }
         }
     }
