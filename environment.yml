@@ -15,3 +15,6 @@ dependencies:
 - pylint
 - coverage
 - "paramtools>=0.5.1"
+- pip
+- pip:
+  - git+https://github.com/comp-org/Developer-Tools.git@master
