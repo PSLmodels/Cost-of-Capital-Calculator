@@ -1,4 +1,4 @@
-from compdevkit import TestFunctions
+from compdevkit import FunctionsTest
 import sys
 import os.path
 sys.path.append(
@@ -8,7 +8,7 @@ import functions
 
 
 def test_get_parameters():
-    ta = TestFunctions(
+    ta = FunctionsTest(
         model_parameters=functions.get_inputs,
         validate_inputs=functions.validate_inputs,
         run_model=functions.run_model,
