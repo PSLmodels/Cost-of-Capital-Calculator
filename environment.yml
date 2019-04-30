@@ -14,4 +14,4 @@ dependencies:
 - pycodestyle
 - pylint
 - coverage
-- paramtools
+- "paramtools>=0.5.1"
