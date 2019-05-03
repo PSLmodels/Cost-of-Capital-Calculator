@@ -168,7 +168,8 @@ class Calculator():
         self.calc_base()
         self.__assets.df = self.calc_other(self.__assets.df)
 
-    def calc_by_asset(self):
+    def calc_by_asset(self, include_inventories=True,
+                      include_land=True):
         '''
         Calculates all variables by asset, including overall, and by
         major asset categories.
@@ -869,8 +870,13 @@ class Calculator():
                     group_by_asset=True, corporate=True,
                     include_land=True, include_inventories=True):
         if group_by_asset:
-            base_df = self.calc_by_asset()
-            reform_df = calc.calc_by_asset()
+            base_df = self.calc_by_asset(
+                include_land=include_land,
+                include_inventories=include_inventories)
+            reform_df = calc.calc_by_asset(
+                    include_land=include_land,
+                    include_inventories=include_inventories
+            )
             base_df.drop(base_df[base_df.asset_name !=
                                  base_df.major_asset_group].index,
                          inplace=True)
@@ -878,20 +884,20 @@ class Calculator():
                 reform_df[reform_df.asset_name !=
                           reform_df.major_asset_group].index,
                 inplace=True)
-            if not include_land:
-                base_df.drop(
-                    base_df[base_df.asset_name == 'Land'].index,
-                    inplace=True)
-                reform_df.drop(
-                    reform_df[reform_df.asset_name == 'Land'].index,
-                    inplace=True)
-            if not include_inventories:
-                base_df.drop(
-                    base_df[base_df.asset_name == 'Inventories'].index,
-                    inplace=True)
-                reform_df.drop(
-                    reform_df[reform_df.asset_name == 'Inventories'].index,
-                    inplace=True)
+            # if not include_land:
+            #     base_df.drop(
+            #         base_df[base_df.asset_name == 'Land'].index,
+            #         inplace=True)
+            #     reform_df.drop(
+            #         reform_df[reform_df.asset_name == 'Land'].index,
+            #         inplace=True)
+            # if not include_inventories:
+            #     base_df.drop(
+            #         base_df[base_df.asset_name == 'Inventories'].index,
+            #         inplace=True)
+            #     reform_df.drop(
+            #         reform_df[reform_df.asset_name == 'Inventories'].index,
+            #         inplace=True)
             plot_label = 'major_asset_group'
             plot_title = VAR_DICT[output_variable] + ' by Asset Category'
         else:
@@ -971,8 +977,12 @@ class Calculator():
     def range_plot(self, calc, output_variable='mettr',
                    corporate=True, include_land=True,
                    include_inventories=True):
-        base_df = self.calc_by_asset()
-        reform_df = calc.calc_by_asset()
+        base_df = self.calc_by_asset(
+            include_land=include_land,
+            include_inventories=include_inventories)
+        reform_df = calc.calc_by_asset(
+            include_land=include_land,
+            include_inventories=include_inventories)
         base_df.drop(base_df[
             (base_df.asset_name != base_df.major_asset_group) &
             (base_df.asset_name != 'Overall') &
@@ -984,20 +994,20 @@ class Calculator():
                 (reform_df.asset_name != 'Land') &
                 (reform_df.asset_name != 'Inventories')].index,
                        inplace=True)
-        if not include_land:
-            base_df.drop(
-                base_df[base_df.asset_name == 'Land'].index,
-                inplace=True)
-            reform_df.drop(
-                reform_df[reform_df.asset_name == 'Land'].index,
-                inplace=True)
-        if not include_inventories:
-            base_df.drop(
-                base_df[base_df.asset_name == 'Inventories'].index,
-                inplace=True)
-            reform_df.drop(
-                reform_df[reform_df.asset_name == 'Inventories'].index,
-                inplace=True)
+        # if not include_land:
+        #     base_df.drop(
+        #         base_df[base_df.asset_name == 'Land'].index,
+        #         inplace=True)
+        #     reform_df.drop(
+        #         reform_df[reform_df.asset_name == 'Land'].index,
+        #         inplace=True)
+        # if not include_inventories:
+        #     base_df.drop(
+        #         base_df[base_df.asset_name == 'Inventories'].index,
+        #         inplace=True)
+        #     reform_df.drop(
+        #         reform_df[reform_df.asset_name == 'Inventories'].index,
+        #         inplace=True)
         # Append dfs together so base policies in one
         base_df['policy'] = 'Baseline'
         reform_df['policy'] = 'Reform'
