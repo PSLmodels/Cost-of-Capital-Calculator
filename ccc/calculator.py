@@ -402,33 +402,9 @@ class Calculator():
         table_df[VAR_DICT[output_variable] +
                  ' Under Reform Policy'] *= 100
         table_df['Change from Baseline (pp)'] *= 100
-        if path is None:
-            if output_type == 'tex':
-                tab_str = table_df.to_latex(
-                    buf=path, index=False, na_rep='',
-                    float_format=lambda x: '%.0f' % x)
-                return tab_str
-            elif output_type == 'json':
-                tab_str = table_df.to_json(
-                    path_or_buf=path, double_precision=0)
-                return tab_str
-            else:
-                return table_df
-        else:
-            if output_type == 'tex':
-                table_df.to_latex(buf=path, index=False, na_rep='',
-                                  float_format=lambda x: '%.0f' % x)
-            elif output_type == 'csv':
-                table_df.to_csv(path_or_buf=path, index=False, na_rep='',
-                                float_format="%.0f")
-            elif output_type == 'json':
-                table_df.to_json(path_or_buf=path, double_precision=0)
-            elif output_type == 'excel':
-                table_df.to_excel(excel_writer=path, index=False, na_rep='',
-                                  float_format="%.0f")
-            else:
-                print('Please enter a valid output format')
-                assert(False)
+        table = utils.save_return_table(table_df, output_type, path)
+
+        return table
 
     def asset_share_table(self, include_land=True,
                           include_inventories=True, output_type='csv',
@@ -478,33 +454,10 @@ class Calculator():
             table_dict['Pass-Through'].append(
                 df2[df2.Industry == item]['Pass-Through'].values[0])
         table_df = pd.DataFrame.from_dict(table_dict, orient='columns')
-        if path is None:
-            if output_type == 'tex':
-                tab_str = table_df.to_latex(
-                    buf=path, index=False, na_rep='',
-                    float_format=lambda x: '%.2f' % x)
-                return tab_str
-            elif output_type == 'json':
-                tab_str = table_df.to_json(
-                    path_or_buf=path, double_precision=2)
-                return tab_str
-            else:
-                return table_df
-        else:
-            if output_type == 'tex':
-                table_df.to_latex(buf=path, index=False, na_rep='',
-                                  float_format=lambda x: '%.2f' % x)
-            elif output_type == 'csv':
-                table_df.to_csv(path_or_buf=path, index=False, na_rep='',
-                                float_format="%.2f")
-            elif output_type == 'json':
-                table_df.to_json(path_or_buf=path, double_precision=0)
-            elif output_type == 'excel':
-                table_df.to_excel(excel_writer=path, index=False, na_rep='',
-                                  float_format="%.2f")
-            else:
-                print('Please enter a valid output format')
-                assert(False)
+        table = utils.save_return_table(table_df, output_type, path,
+                                        precision=2)
+
+        return table
 
     def asset_summary_table(self, calc, output_variable='mettr',
                             include_land=True, include_inventories=True,
@@ -663,33 +616,9 @@ class Calculator():
         table_df[VAR_DICT[output_variable] +
                  ' Under Reform Policy'] *= 100
         table_df['Change from Baseline (pp)'] *= 100
-        if path is None:
-            if output_type == 'tex':
-                tab_str = table_df.to_latex(
-                    buf=path, index=False, na_rep='',
-                    float_format=lambda x: '%.0f' % x)
-                return tab_str
-            elif output_type == 'json':
-                tab_str = table_df.to_json(
-                    path_or_buf=path, double_precision=0)
-                return tab_str
-            else:
-                return table_df
-        else:
-            if output_type == 'tex':
-                table_df.to_latex(buf=path, index=False, na_rep='',
-                                  float_format=lambda x: '%.0f' % x)
-            elif output_type == 'csv':
-                table_df.to_csv(path_or_buf=path, index=False, na_rep='',
-                                float_format="%.0f")
-            elif output_type == 'json':
-                table_df.to_json(path_or_buf=path, double_precision=0)
-            elif output_type == 'excel':
-                table_df.to_excel(excel_writer=path, index=False, na_rep='',
-                                  float_format="%.0f")
-            else:
-                print('Please enter a valid output format')
-                assert(False)
+        table = utils.save_return_table(table_df, output_type, path)
+
+        return table
 
     def industry_summary_table(self, calc, output_variable='mettr',
                                include_land=True,
@@ -717,7 +646,7 @@ class Calculator():
             path: string, specifies path to save file with table to
 
         Returns:
-            table_df: DataFrame, table
+            table: DataFrame or None, table
         '''
         self.calc_base()
         calc.calc_base()
@@ -838,33 +767,9 @@ class Calculator():
         table_df[VAR_DICT[output_variable] +
                  ' Under Reform Policy'] *= 100
         table_df['Change from Baseline (pp)'] *= 100
-        if path is None:
-            if output_type == 'tex':
-                tab_str = table_df.to_latex(
-                    buf=path, index=False, na_rep='',
-                    float_format=lambda x: '%.0f' % x)
-                return tab_str
-            elif output_type == 'json':
-                tab_str = table_df.to_json(
-                    path_or_buf=path, double_precision=0)
-                return tab_str
-            else:
-                return table_df
-        else:
-            if output_type == 'tex':
-                table_df.to_latex(buf=path, index=False, na_rep='',
-                                  float_format=lambda x: '%.0f' % x)
-            elif output_type == 'csv':
-                table_df.to_csv(path_or_buf=path, index=False, na_rep='',
-                                float_format="%.0f")
-            elif output_type == 'json':
-                table_df.to_json(path_or_buf=path, double_precision=0)
-            elif output_type == 'excel':
-                table_df.to_excel(excel_writer=path, index=False, na_rep='',
-                                  float_format="%.0f")
-            else:
-                print('Please enter a valid output format')
-                assert(False)
+        table = utils.save_return_table(table_df, output_type, path)
+
+        return table
 
     def grouped_bar(self, calc, output_variable='mettr',
                     group_by_asset=True, corporate=True,
