@@ -455,7 +455,7 @@ class Calculator():
                 df2[df2.Industry == item]['Pass-Through'].values[0])
         table_df = pd.DataFrame.from_dict(table_dict, orient='columns')
         table = save_return_table(table_df, output_type, path,
-                                        precision=2)
+                                  precision=2)
 
         return table
 
@@ -789,20 +789,6 @@ class Calculator():
                 reform_df[reform_df.asset_name !=
                           reform_df.major_asset_group].index,
                 inplace=True)
-            # if not include_land:
-            #     base_df.drop(
-            #         base_df[base_df.asset_name == 'Land'].index,
-            #         inplace=True)
-            #     reform_df.drop(
-            #         reform_df[reform_df.asset_name == 'Land'].index,
-            #         inplace=True)
-            # if not include_inventories:
-            #     base_df.drop(
-            #         base_df[base_df.asset_name == 'Inventories'].index,
-            #         inplace=True)
-            #     reform_df.drop(
-            #         reform_df[reform_df.asset_name == 'Inventories'].index,
-            #         inplace=True)
             plot_label = 'major_asset_group'
             plot_title = VAR_DICT[output_variable] + ' by Asset Category'
         else:
@@ -899,20 +885,6 @@ class Calculator():
                 (reform_df.asset_name != 'Land') &
                 (reform_df.asset_name != 'Inventories')].index,
                        inplace=True)
-        # if not include_land:
-        #     base_df.drop(
-        #         base_df[base_df.asset_name == 'Land'].index,
-        #         inplace=True)
-        #     reform_df.drop(
-        #         reform_df[reform_df.asset_name == 'Land'].index,
-        #         inplace=True)
-        # if not include_inventories:
-        #     base_df.drop(
-        #         base_df[base_df.asset_name == 'Inventories'].index,
-        #         inplace=True)
-        #     reform_df.drop(
-        #         reform_df[reform_df.asset_name == 'Inventories'].index,
-        #         inplace=True)
         # Append dfs together so base policies in one
         base_df['policy'] = 'Baseline'
         reform_df['policy'] = 'Reform'
