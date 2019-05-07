@@ -1,4 +1,5 @@
 import pytest
+import pandas as pd
 from ccc.parameters import Specifications
 from ccc.data import Assets
 from ccc.calculator import Calculator
@@ -65,3 +66,93 @@ def test_bubble_widget():
     calc2 = Calculator(p2, assets)
     fig = calc.bubble_widget(calc2)
     assert fig
+
+
+def test_calc_by_asset():
+    '''
+    Test difference_table method.
+    '''
+    yr = 2018
+    assets = Assets()
+    p = Specifications(year=yr)
+    calc1 = Calculator(p, assets)
+    assert calc1.current_year == yr
+    asset_df = calc1.calc_by_asset()
+    assert isinstance(asset_df, pd.DataFrame)
+
+
+def test_calc_by_industry():
+    '''
+    Test difference_table method.
+    '''
+    yr = 2018
+    assets = Assets()
+    p = Specifications(year=yr)
+    calc1 = Calculator(p, assets)
+    assert calc1.current_year == yr
+    asset_df = calc1.calc_by_industry()
+    assert isinstance(asset_df, pd.DataFrame)
+
+
+def test_summary_table():
+    '''
+    Test difference_table method.
+    '''
+    yr = 2018
+    assets = Assets()
+    p = Specifications(year=yr)
+    calc1 = Calculator(p, assets)
+    assert calc1.current_year == yr
+    reform = {'CIT_rate': 0.38}
+    p.update_specifications(reform)
+    calc2 = Calculator(p, assets)
+    assert calc2.current_year == yr
+    summary_df = calc1.summary_table(calc2)
+    assert isinstance(summary_df, pd.DataFrame)
+
+
+def test_asset_share_table():
+    '''
+    Test difference_table method.
+    '''
+    yr = 2018
+    assets = Assets()
+    p = Specifications(year=yr)
+    calc1 = Calculator(p, assets)
+    assert calc1.current_year == yr
+    asset_df = calc1.asset_share_table()
+    assert isinstance(asset_df, pd.DataFrame)
+
+
+def test_asset_summary_table():
+    '''
+    Test difference_table method.
+    '''
+    yr = 2018
+    assets = Assets()
+    p = Specifications(year=yr)
+    calc1 = Calculator(p, assets)
+    assert calc1.current_year == yr
+    reform = {'CIT_rate': 0.38}
+    p.update_specifications(reform)
+    calc2 = Calculator(p, assets)
+    assert calc2.current_year == yr
+    asset_df = calc1.asset_summary_table(calc2)
+    assert isinstance(asset_df, pd.DataFrame)
+
+
+def test_industry_summary_table():
+    '''
+    Test difference_table method.
+    '''
+    yr = 2018
+    assets = Assets()
+    p = Specifications(year=yr)
+    calc1 = Calculator(p, assets)
+    assert calc1.current_year == yr
+    reform = {'CIT_rate': 0.38}
+    p.update_specifications(reform)
+    calc2 = Calculator(p, assets)
+    assert calc2.current_year == yr
+    ind_df = calc1.industry_summary_table(calc2)
+    assert isinstance(ind_df, pd.DataFrame)

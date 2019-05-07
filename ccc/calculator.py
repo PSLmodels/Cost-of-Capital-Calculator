@@ -14,7 +14,7 @@ from ccc.calcfunctions import (update_depr_methods, npv_tax_depr,
                                eq_metr, eq_mettr, eq_tax_wedge, eq_eatr)
 from ccc.parameters import Specifications
 from ccc.data import Assets
-from ccc.utils import wavg, diff_two_tables
+from ccc.utils import wavg, diff_two_tables, save_return_table
 from ccc.constants import VAR_DICT, MAJOR_IND_ORDERED
 # import pdb
 # importing Bokeh libraries
@@ -402,7 +402,7 @@ class Calculator():
         table_df[VAR_DICT[output_variable] +
                  ' Under Reform Policy'] *= 100
         table_df['Change from Baseline (pp)'] *= 100
-        table = utils.save_return_table(table_df, output_type, path)
+        table = save_return_table(table_df, output_type, path)
 
         return table
 
@@ -454,7 +454,7 @@ class Calculator():
             table_dict['Pass-Through'].append(
                 df2[df2.Industry == item]['Pass-Through'].values[0])
         table_df = pd.DataFrame.from_dict(table_dict, orient='columns')
-        table = utils.save_return_table(table_df, output_type, path,
+        table = save_return_table(table_df, output_type, path,
                                         precision=2)
 
         return table
@@ -616,7 +616,7 @@ class Calculator():
         table_df[VAR_DICT[output_variable] +
                  ' Under Reform Policy'] *= 100
         table_df['Change from Baseline (pp)'] *= 100
-        table = utils.save_return_table(table_df, output_type, path)
+        table = save_return_table(table_df, output_type, path)
 
         return table
 
@@ -767,7 +767,7 @@ class Calculator():
         table_df[VAR_DICT[output_variable] +
                  ' Under Reform Policy'] *= 100
         table_df['Change from Baseline (pp)'] *= 100
-        table = utils.save_return_table(table_df, output_type, path)
+        table = save_return_table(table_df, output_type, path)
 
         return table
 
@@ -1698,7 +1698,7 @@ class Calculator():
         Returns:
             None
         """
-        return self.__p.current_year
+        return self.__p.year
 
     @property
     def data_year(self):
