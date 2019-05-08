@@ -24,6 +24,13 @@ class MetaParams(paramtools.Parameters):
             "type": "int",
             "value": 2019,
             "validators": {"range": {"min": 2015, "max": TC_LAST_YEAR}}
+        },
+        "data_source": {
+            "title": "Data source",
+            "description": "Data source for Tax-Calculator to use",
+            "type": "str",
+            "value": "CPS",
+            "validators": {"choice": {"choices": ["PUF", "CPS"]}}
         }
     }
 
@@ -40,7 +47,8 @@ def get_inputs(meta_params_dict):
         serializable=True,
         year=meta_params.year
     )
-    return meta_params.specification(meta_data=True), {"ccc": spec}
+    return (meta_params.specification(meta_data=True, serializable=True),
+            {"ccc": spec})
 
 
 def validate_inputs(meta_param_dict, adjustment, errors_warnings):
