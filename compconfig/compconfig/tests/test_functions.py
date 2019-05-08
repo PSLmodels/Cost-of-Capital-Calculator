@@ -16,6 +16,3 @@ def test_get_parameters():
         bad_adjustment={"ccc": {"CIT_rate": -0.1}}
     )
     ta.test()
-
-
-test_get_parameters()
