@@ -74,6 +74,8 @@ def test_run_ccc_example_output(file_name):
     '''
     run_example_path = os.path.join(CUR_PATH, '..', '..',
                                     'run_examples')
+    subprocess.call('cd ' + run_example_path +
+                    ' ; python run_ccc_example.py', shell=True)
     test_path = os.path.join(run_example_path, file_name + '.csv')
     test_df = pd.read_csv(test_path)
     expected_path = os.path.join(run_example_path, file_name +
