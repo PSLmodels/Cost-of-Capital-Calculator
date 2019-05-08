@@ -5,6 +5,7 @@ from ccc.utils import TC_LAST_YEAR
 from bokeh.embed import components
 import os
 import paramtools
+from .helpers import retrieve_puf
 
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
@@ -34,9 +35,9 @@ def get_inputs(meta_params_dict):
     meta_params = MetaParams()
     meta_params.adjust(meta_params_dict)
     params = Specifications()
-    params.specification(serializable=True)
     spec = params.specification(
         meta_data=True,
+        serializable=True,
         year=meta_params.year
     )
     return meta_params.specification(meta_data=True), {"ccc": spec}
@@ -48,7 +49,6 @@ def validate_inputs(meta_param_dict, adjustment, errors_warnings):
     '''
     # ccc doesn't look at meta_param_dict for validating inputs.
     params = Specifications()
-    params.specification(serializable=True)
     params.adjust(adjustment["ccc"], raise_errors=False)
     errors_warnings["ccc"]["errors"].update(params.errors)
     return errors_warnings
@@ -66,7 +66,6 @@ def run_model(meta_param_dict, adjustment):
     else:
         puf_df = None
     params = Specifications(year=meta_params.year, data=puf_df)
-    params.specification(serializable=True)
     params.adjust(adjustment["ccc"])
     assets = Assets()
     calc1 = Calculator(params, assets)
