@@ -11,8 +11,8 @@ import paramtools
 from ccc.get_taxcalc_rates import get_rates
 from ccc.utils import DEFAULT_START_YEAR
 
-
 CURRENT_PATH = os.path.abspath(os.path.dirname(__file__))
+
 
 class Specifications(paramtools.Parameters):
     """
@@ -23,8 +23,8 @@ class Specifications(paramtools.Parameters):
     array_first = True
 
     def __init__(self, test=False, time_path=True, baseline=False,
-                year=DEFAULT_START_YEAR, call_tc=False, iit_reform={},
-                data='cps'):
+                 year=DEFAULT_START_YEAR, call_tc=False, iit_reform={},
+                 data='cps'):
         super().__init__()
         self.set_state(year=year)
 
@@ -244,9 +244,6 @@ class Specifications(paramtools.Parameters):
             return  # no revision to implement
         self.adjust(revision, raise_errors=False)
 
-        # update state if start year is specified in the revision.
-        if "start_year" in revision:
-            self.set_state(year=self.start_year)
         if self.errors and raise_errors:
             raise ValueError('\n' + self.errors)
         self.compute_default_params()
