@@ -61,7 +61,11 @@ def run_model(meta_param_dict, adjustment):
     '''
     meta_params = MetaParams()
     meta_params.adjust(meta_param_dict)
-    params = Specifications(year=meta_params.year)
+    if meta_params.data_source == "PUF":
+        puf_df = retrieve_puf(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+    else:
+        puf_df = None
+    params = Specifications(year=meta_params.year, data=puf_df)
     params.specification(serializable=True)
     params.adjust(adjustment["ccc"])
     assets = Assets()
