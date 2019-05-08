@@ -13,9 +13,9 @@ class MetaParams(paramtools.Parameters):
     '''
     array_first = True
     defaults = {
-        "start_year": {
-            "title": "Model start year",
-            "description": "Year to run the model for.",
+        "year": {
+            "title": "Start year",
+            "description": "Year for parameters.",
             "type": "int",
             "value": 2019,
             "validators": {"range": {"min": 2015, "max": TC_LAST_YEAR}}
@@ -32,7 +32,7 @@ def get_inputs(meta_params_dict):
     params = Specifications()
     spec = params.specification(
         meta_data=True,
-        year=meta_params.start_year
+        year=meta_params.year
     )
     return meta_params.specification(meta_data=True), {"ccc": spec}
 
@@ -55,11 +55,11 @@ def run_model(meta_param_dict, adjustment):
     '''
     meta_params = MetaParams()
     meta_params.adjust(meta_param_dict)
-    params = Specifications(year=meta_params.start_year)
+    params = Specifications(year=meta_params.year)
     params.adjust(adjustment["ccc"])
     assets = Assets()
     calc1 = Calculator(params, assets)
-    params2 = Specifications(year=meta_params.start_year)
+    params2 = Specifications(year=meta_params.year)
     calc2 = Calculator(params2, assets)
     comp_dict = comp_output(calc1, calc2)
 
