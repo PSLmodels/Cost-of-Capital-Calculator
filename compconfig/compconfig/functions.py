@@ -70,10 +70,10 @@ def run_model(meta_param_dict, adjustment):
     meta_params = MetaParams()
     meta_params.adjust(meta_param_dict)
     if meta_params.data_source == "PUF":
-        puf_df = retrieve_puf(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+        data = retrieve_puf(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
     else:
-        puf_df = None
-    params = Specifications(year=meta_params.year, data=puf_df)
+        data = "cps"
+    params = Specifications(year=meta_params.year, call_tc=True, data=data)
     params.adjust(adjustment["ccc"])
     assets = Assets()
     calc1 = Calculator(params, assets)
