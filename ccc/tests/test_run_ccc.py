@@ -59,6 +59,7 @@ def test_run_ccc_example():
                     ' ; python run_ccc_example.py', shell=True)
 
 
+@pytest.mark.local
 @pytest.mark.parametrize(
     'file_name', ['baseline_byindustry', 'baseline_byasset',
                   'reform_byindustry', 'reform_byasset',
@@ -72,10 +73,7 @@ def test_run_ccc_example_output(file_name):
     ensure that it produces the expected results that are checked into
     the repo.
     '''
-    run_example_path = os.path.join(CUR_PATH, '..', '..',
-                                    'run_examples')
-    subprocess.call('cd ' + run_example_path +
-                    ' ; python run_ccc_example.py', shell=True)
+    run_example_path = os.path.join(CUR_PATH, '..', '..', 'run_examples')
     test_path = os.path.join(run_example_path, file_name + '.csv')
     test_df = pd.read_csv(test_path)
     expected_path = os.path.join(run_example_path, file_name +
