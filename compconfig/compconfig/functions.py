@@ -3,7 +3,12 @@ from ccc.data import Assets
 from ccc.calculator import Calculator
 from ccc.utils import TC_LAST_YEAR
 from bokeh.embed import components
+import os
 import paramtools
+from .helpers import retrieve_puf
+
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
 
 
 class MetaParams(paramtools.Parameters):
@@ -13,12 +18,19 @@ class MetaParams(paramtools.Parameters):
     '''
     array_first = True
     defaults = {
-        "start_year": {
-            "title": "Model start year",
-            "description": "Year to run the model for.",
+        "year": {
+            "title": "Start year",
+            "description": "Year for parameters.",
             "type": "int",
             "value": 2019,
             "validators": {"range": {"min": 2015, "max": TC_LAST_YEAR}}
+        },
+        "data_source": {
+            "title": "Data source",
+            "description": "Data source for Tax-Calculator to use",
+            "type": "str",
+            "value": "CPS",
+            "validators": {"choice": {"choices": ["PUF", "CPS"]}}
         }
     }
 
@@ -32,9 +44,11 @@ def get_inputs(meta_params_dict):
     params = Specifications()
     spec = params.specification(
         meta_data=True,
-        year=meta_params.start_year
+        serializable=True,
+        year=meta_params.year
     )
-    return meta_params.specification(meta_data=True), {"ccc": spec}
+    return (meta_params.specification(meta_data=True, serializable=True),
+            {"ccc": spec})
 
 
 def validate_inputs(meta_param_dict, adjustment, errors_warnings):
@@ -55,11 +69,16 @@ def run_model(meta_param_dict, adjustment):
     '''
     meta_params = MetaParams()
     meta_params.adjust(meta_param_dict)
-    params = Specifications(year=meta_params.start_year)
+    if meta_params.data_source == "PUF":
+        data = retrieve_puf(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+    else:
+        data = "cps"
+    params = Specifications(year=meta_params.year,
+                            call_tc=True, data=data)
     params.adjust(adjustment["ccc"])
     assets = Assets()
     calc1 = Calculator(params, assets)
-    params2 = Specifications(year=meta_params.start_year)
+    params2 = Specifications(year=meta_params.year)
     calc2 = Calculator(params2, assets)
     comp_dict = comp_output(calc1, calc2)
 
@@ -95,7 +114,7 @@ def comp_output(calc1, calc2, out_var='mettr'):
             {
               "media_type": "CSV",
               "title": out_var + "Summary Table",
-              "data": out_table
+              "data": out_table.to_csv()
             }
           ]
         }

@@ -7,7 +7,7 @@ source:
 
 requirements:
   build:
-    - python=3.6
+    - python
     - taxcalc
     - setuptools
     - paramtools

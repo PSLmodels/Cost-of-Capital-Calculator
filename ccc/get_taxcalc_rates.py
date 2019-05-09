@@ -15,11 +15,12 @@ This py-file creates the following other file(s):
 from __future__ import print_function
 import numpy as np
 from taxcalc import Policy, Records, Calculator
-from ccc.utils import DEFAULT_START_YEAR, TC_LAST_YEAR
+from ccc.utils import DEFAULT_START_YEAR, TC_LAST_YEAR, RECORDS_START_YEAR
 
 
 def get_calculator(baseline, calculator_start_year, reform=None,
-                   data='cps', weights=None, records_start_year=None):
+                   data='cps', weights=None,
+                   records_start_year=RECORDS_START_YEAR):
     '''
     This function creates the tax calculator object for the microsim
 
