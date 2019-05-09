@@ -45,7 +45,7 @@ def get_inputs(meta_params_dict):
     spec = params.specification(
         meta_data=True,
         serializable=True,
-        year=meta_params.year.tolist()
+        year=meta_params.year
     )
     return (meta_params.specification(meta_data=True, serializable=True),
             {"ccc": spec})
@@ -73,12 +73,12 @@ def run_model(meta_param_dict, adjustment):
         data = retrieve_puf(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
     else:
         data = "cps"
-    params = Specifications(year=meta_params.year.tolist(),
+    params = Specifications(year=meta_params.year,
                             call_tc=True, data=data)
     params.adjust(adjustment["ccc"])
     assets = Assets()
     calc1 = Calculator(params, assets)
-    params2 = Specifications(year=meta_params.year.tolist())
+    params2 = Specifications(year=meta_params.year)
     calc2 = Calculator(params2, assets)
     comp_dict = comp_output(calc1, calc2)
 
@@ -114,7 +114,7 @@ def comp_output(calc1, calc2, out_var='mettr'):
             {
               "media_type": "CSV",
               "title": out_var + "Summary Table",
-              "data": out_table
+              "data": out_table.to_csv()
             }
           ]
         }
