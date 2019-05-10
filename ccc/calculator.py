@@ -14,7 +14,7 @@ from ccc.calcfunctions import (update_depr_methods, npv_tax_depr,
                                eq_metr, eq_mettr, eq_tax_wedge, eq_eatr)
 from ccc.parameters import Specifications
 from ccc.data import Assets
-from ccc.utils import wavg, diff_two_tables
+from ccc.utils import wavg, diff_two_tables, save_return_table
 from ccc.constants import VAR_DICT, MAJOR_IND_ORDERED
 # import pdb
 # importing Bokeh libraries
@@ -168,7 +168,8 @@ class Calculator():
         self.calc_base()
         self.__assets.df = self.calc_other(self.__assets.df)
 
-    def calc_by_asset(self):
+    def calc_by_asset(self, include_inventories=True,
+                      include_land=True):
         '''
         Calculates all variables by asset, including overall, and by
         major asset categories.
@@ -401,33 +402,9 @@ class Calculator():
         table_df[VAR_DICT[output_variable] +
                  ' Under Reform Policy'] *= 100
         table_df['Change from Baseline (pp)'] *= 100
-        if path is None:
-            if output_type == 'tex':
-                tab_str = table_df.to_latex(
-                    buf=path, index=False, na_rep='',
-                    float_format=lambda x: '%.0f' % x)
-                return tab_str
-            elif output_type == 'json':
-                tab_str = table_df.to_json(
-                    path_or_buf=path, double_precision=0)
-                return tab_str
-            else:
-                return table_df
-        else:
-            if output_type == 'tex':
-                table_df.to_latex(buf=path, index=False, na_rep='',
-                                  float_format=lambda x: '%.0f' % x)
-            elif output_type == 'csv':
-                table_df.to_csv(path_or_buf=path, index=False, na_rep='',
-                                float_format="%.0f")
-            elif output_type == 'json':
-                table_df.to_json(path_or_buf=path, double_precision=0)
-            elif output_type == 'excel':
-                table_df.to_excel(excel_writer=path, index=False, na_rep='',
-                                  float_format="%.0f")
-            else:
-                print('Please enter a valid output format')
-                assert(False)
+        table = save_return_table(table_df, output_type, path)
+
+        return table
 
     def asset_share_table(self, include_land=True,
                           include_inventories=True, output_type='csv',
@@ -477,33 +454,10 @@ class Calculator():
             table_dict['Pass-Through'].append(
                 df2[df2.Industry == item]['Pass-Through'].values[0])
         table_df = pd.DataFrame.from_dict(table_dict, orient='columns')
-        if path is None:
-            if output_type == 'tex':
-                tab_str = table_df.to_latex(
-                    buf=path, index=False, na_rep='',
-                    float_format=lambda x: '%.2f' % x)
-                return tab_str
-            elif output_type == 'json':
-                tab_str = table_df.to_json(
-                    path_or_buf=path, double_precision=2)
-                return tab_str
-            else:
-                return table_df
-        else:
-            if output_type == 'tex':
-                table_df.to_latex(buf=path, index=False, na_rep='',
-                                  float_format=lambda x: '%.2f' % x)
-            elif output_type == 'csv':
-                table_df.to_csv(path_or_buf=path, index=False, na_rep='',
-                                float_format="%.2f")
-            elif output_type == 'json':
-                table_df.to_json(path_or_buf=path, double_precision=0)
-            elif output_type == 'excel':
-                table_df.to_excel(excel_writer=path, index=False, na_rep='',
-                                  float_format="%.2f")
-            else:
-                print('Please enter a valid output format')
-                assert(False)
+        table = save_return_table(table_df, output_type, path,
+                                  precision=2)
+
+        return table
 
     def asset_summary_table(self, calc, output_variable='mettr',
                             include_land=True, include_inventories=True,
@@ -662,33 +616,9 @@ class Calculator():
         table_df[VAR_DICT[output_variable] +
                  ' Under Reform Policy'] *= 100
         table_df['Change from Baseline (pp)'] *= 100
-        if path is None:
-            if output_type == 'tex':
-                tab_str = table_df.to_latex(
-                    buf=path, index=False, na_rep='',
-                    float_format=lambda x: '%.0f' % x)
-                return tab_str
-            elif output_type == 'json':
-                tab_str = table_df.to_json(
-                    path_or_buf=path, double_precision=0)
-                return tab_str
-            else:
-                return table_df
-        else:
-            if output_type == 'tex':
-                table_df.to_latex(buf=path, index=False, na_rep='',
-                                  float_format=lambda x: '%.0f' % x)
-            elif output_type == 'csv':
-                table_df.to_csv(path_or_buf=path, index=False, na_rep='',
-                                float_format="%.0f")
-            elif output_type == 'json':
-                table_df.to_json(path_or_buf=path, double_precision=0)
-            elif output_type == 'excel':
-                table_df.to_excel(excel_writer=path, index=False, na_rep='',
-                                  float_format="%.0f")
-            else:
-                print('Please enter a valid output format')
-                assert(False)
+        table = save_return_table(table_df, output_type, path)
+
+        return table
 
     def industry_summary_table(self, calc, output_variable='mettr',
                                include_land=True,
@@ -716,7 +646,7 @@ class Calculator():
             path: string, specifies path to save file with table to
 
         Returns:
-            table_df: DataFrame, table
+            table: DataFrame or None, table
         '''
         self.calc_base()
         calc.calc_base()
@@ -837,40 +767,21 @@ class Calculator():
         table_df[VAR_DICT[output_variable] +
                  ' Under Reform Policy'] *= 100
         table_df['Change from Baseline (pp)'] *= 100
-        if path is None:
-            if output_type == 'tex':
-                tab_str = table_df.to_latex(
-                    buf=path, index=False, na_rep='',
-                    float_format=lambda x: '%.0f' % x)
-                return tab_str
-            elif output_type == 'json':
-                tab_str = table_df.to_json(
-                    path_or_buf=path, double_precision=0)
-                return tab_str
-            else:
-                return table_df
-        else:
-            if output_type == 'tex':
-                table_df.to_latex(buf=path, index=False, na_rep='',
-                                  float_format=lambda x: '%.0f' % x)
-            elif output_type == 'csv':
-                table_df.to_csv(path_or_buf=path, index=False, na_rep='',
-                                float_format="%.0f")
-            elif output_type == 'json':
-                table_df.to_json(path_or_buf=path, double_precision=0)
-            elif output_type == 'excel':
-                table_df.to_excel(excel_writer=path, index=False, na_rep='',
-                                  float_format="%.0f")
-            else:
-                print('Please enter a valid output format')
-                assert(False)
+        table = save_return_table(table_df, output_type, path)
+
+        return table
 
     def grouped_bar(self, calc, output_variable='mettr',
                     group_by_asset=True, corporate=True,
                     include_land=True, include_inventories=True):
         if group_by_asset:
-            base_df = self.calc_by_asset()
-            reform_df = calc.calc_by_asset()
+            base_df = self.calc_by_asset(
+                include_land=include_land,
+                include_inventories=include_inventories)
+            reform_df = calc.calc_by_asset(
+                    include_land=include_land,
+                    include_inventories=include_inventories
+            )
             base_df.drop(base_df[base_df.asset_name !=
                                  base_df.major_asset_group].index,
                          inplace=True)
@@ -878,20 +789,6 @@ class Calculator():
                 reform_df[reform_df.asset_name !=
                           reform_df.major_asset_group].index,
                 inplace=True)
-            if not include_land:
-                base_df.drop(
-                    base_df[base_df.asset_name == 'Land'].index,
-                    inplace=True)
-                reform_df.drop(
-                    reform_df[reform_df.asset_name == 'Land'].index,
-                    inplace=True)
-            if not include_inventories:
-                base_df.drop(
-                    base_df[base_df.asset_name == 'Inventories'].index,
-                    inplace=True)
-                reform_df.drop(
-                    reform_df[reform_df.asset_name == 'Inventories'].index,
-                    inplace=True)
             plot_label = 'major_asset_group'
             plot_title = VAR_DICT[output_variable] + ' by Asset Category'
         else:
@@ -971,8 +868,12 @@ class Calculator():
     def range_plot(self, calc, output_variable='mettr',
                    corporate=True, include_land=True,
                    include_inventories=True):
-        base_df = self.calc_by_asset()
-        reform_df = calc.calc_by_asset()
+        base_df = self.calc_by_asset(
+            include_land=include_land,
+            include_inventories=include_inventories)
+        reform_df = calc.calc_by_asset(
+            include_land=include_land,
+            include_inventories=include_inventories)
         base_df.drop(base_df[
             (base_df.asset_name != base_df.major_asset_group) &
             (base_df.asset_name != 'Overall') &
@@ -984,20 +885,6 @@ class Calculator():
                 (reform_df.asset_name != 'Land') &
                 (reform_df.asset_name != 'Inventories')].index,
                        inplace=True)
-        if not include_land:
-            base_df.drop(
-                base_df[base_df.asset_name == 'Land'].index,
-                inplace=True)
-            reform_df.drop(
-                reform_df[reform_df.asset_name == 'Land'].index,
-                inplace=True)
-        if not include_inventories:
-            base_df.drop(
-                base_df[base_df.asset_name == 'Inventories'].index,
-                inplace=True)
-            reform_df.drop(
-                reform_df[reform_df.asset_name == 'Inventories'].index,
-                inplace=True)
         # Append dfs together so base policies in one
         base_df['policy'] = 'Baseline'
         reform_df['policy'] = 'Reform'
@@ -1783,7 +1670,7 @@ class Calculator():
         Returns:
             None
         """
-        return self.__p.current_year
+        return self.__p.year
 
     @property
     def data_year(self):
