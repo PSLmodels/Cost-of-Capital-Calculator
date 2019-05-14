@@ -1,3 +1,4 @@
+import ccc
 from ccc.parameters import Specifications
 from ccc.data import Assets
 from ccc.calculator import Calculator
@@ -95,7 +96,7 @@ def comp_output(calc1, calc2, out_var='mettr'):
     plt = calc1.grouped_bar(calc2, output_variable=out_var)
     js, div = components(plt)
     comp_dict = {
-        "model_version": "1.0.0",
+        "model_version": ccc.__version__,
         "renderable": [
             {
               "media_type": "bokeh",
