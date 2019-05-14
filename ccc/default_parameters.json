@@ -3370,18 +3370,19 @@
                 "min": 0.0,
                 "max": 1.0
             }
-        },
-      "new_view": {
-          "description": "Whether or not use the new view of dividend taxation.",
-          "notes": "Under the new view of dividend taxation, dividend taxes do not influence investment decisions.  Under the old view, they do.",
-          "value": false,
-          "title": "Use the new view of dividend taxation",
-          "type": "bool",
-          "validators": {
-              "range": {
-                "min": false,
-                "max": true
-              }
-          }
+        }
+    },
+    "new_view": {
+        "description": "Whether or not use the new view of dividend taxation.",
+        "notes": "Under the new view of dividend taxation, dividend taxes do not influence investment decisions.  Under the old view, they do.",
+        "value": false,
+        "title": "Use the new view of dividend taxation",
+        "type": "bool",
+        "validators": {
+            "range": {
+              "min": false,
+              "max": true
+            }
+        }
     }
 }
