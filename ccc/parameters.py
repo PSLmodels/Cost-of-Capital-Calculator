@@ -72,11 +72,17 @@ class Specifications(paramtools.Parameters):
         self.financing_list = ['mix', 'd', 'e']
         self.entity_list = ['c', 'nc']
 
+        # If new_view, then don't assume don't pay out any dividends
+        # This becuase under new view, equity investments are financed
+        # with retained earnings
+        if self.new_view:
+            self.m = 1
+
         # Compute required after-tax rates of return for savers
         sprime_c_td = ((1 / self.Y_td) *
                     np.log(((1 - self.tau_td) *
                             np.exp(self.nominal_interest_rate *
-                                    self.Y_td)) + self.tau_td) -
+                                   self.Y_td)) + self.tau_td) -
                     self.inflation_rate)
         s_c_d_td = (self.gamma * (self.nominal_interest_rate -
                                 self.inflation_rate) +
@@ -107,7 +113,6 @@ class Specifications(paramtools.Parameters):
                 self.inflation_rate)
         g = (self.omega_scg * g_scg + self.omega_lcg * g_lcg +
             self.omega_xcg * self.m * self.E_c)
-        s_c_e_ft = (1 - self.m) * self.E_c * (1 - self.tau_div) + g
         s_c_e_td = ((1 / self.Y_td) *
                     np.log(((1 - self.tau_td) *
                             np.exp((self.inflation_rate + self.E_c) *
