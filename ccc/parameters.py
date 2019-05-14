@@ -79,47 +79,47 @@ class Specifications(paramtools.Parameters):
             self.m = 1
 
         # Compute required after-tax rates of return for savers
-        sprime_c_td = ((1 / self.Y_td) *
-                    np.log(((1 - self.tau_td) *
-                            np.exp(self.nominal_interest_rate *
-                                   self.Y_td)) + self.tau_td) -
-                    self.inflation_rate)
+        sprime_c_td = (
+            (1 / self.Y_td) * np.log(
+                ((1 - self.tau_td) * np.exp(self.nominal_interest_rate *
+                                            self.Y_td)) + self.tau_td) -
+            self.inflation_rate)
         s_c_d_td = (self.gamma * (self.nominal_interest_rate -
-                                self.inflation_rate) +
+                                  self.inflation_rate) +
                     (1 - self.gamma) * sprime_c_td)
         s_c_d = (self.alpha_c_d_ft * (((1 - self.tau_int) *
-                                    self.nominal_interest_rate) -
-                                    self.inflation_rate) +
-                self.alpha_c_d_td * s_c_d_td + self.alpha_c_d_nt *
-                (self.nominal_interest_rate - self.inflation_rate))
+                                       self.nominal_interest_rate) -
+                                      self.inflation_rate) +
+                 self.alpha_c_d_td * s_c_d_td + self.alpha_c_d_nt *
+                 (self.nominal_interest_rate - self.inflation_rate))
         s_nc_d_td = s_c_d_td
         s_nc_d = (self.alpha_nc_d_ft * (((1 - self.tau_int) *
                                         self.nominal_interest_rate) -
                                         self.inflation_rate) +
-                self.alpha_nc_d_td * s_nc_d_td + self.alpha_nc_d_nt *
-                (self.nominal_interest_rate - self.inflation_rate))
+                  self.alpha_nc_d_td * s_nc_d_td + self.alpha_nc_d_nt *
+                  (self.nominal_interest_rate - self.inflation_rate))
 
-        g_scg = ((1 / self.Y_scg) * np.log(((1 - self.tau_scg) *
-                                            np.exp((self.inflation_rate
-                                                    + self.m * self.E_c)
-                                                * self.Y_scg)) +
-                                        self.tau_scg) -
-                self.inflation_rate)
-        g_lcg = ((1 / self.Y_lcg) * np.log(((1 - self.tau_lcg) *
-                                            np.exp((self.inflation_rate
-                                                    + self.m * self.E_c)
-                                                * self.Y_lcg)) +
-                                        self.tau_lcg) -
-                self.inflation_rate)
+        g_scg = (
+            (1 / self.Y_scg) * np.log(((1 - self.tau_scg) *
+                                       np.exp((self.inflation_rate
+                                               + self.m * self.E_c)
+                                              * self.Y_scg)) +
+                                      self.tau_scg) -
+            self.inflation_rate)
+        g_lcg = ((1 / self.Y_lcg) * np.log(
+            ((1 - self.tau_lcg) * np.exp((self.inflation_rate + self.m *
+                                          self.E_c) * self.Y_lcg)) +
+            self.tau_lcg) - self.inflation_rate)
         g = (self.omega_scg * g_scg + self.omega_lcg * g_lcg +
-            self.omega_xcg * self.m * self.E_c)
-        s_c_e_td = ((1 / self.Y_td) *
-                    np.log(((1 - self.tau_td) *
-                            np.exp((self.inflation_rate + self.E_c) *
-                                self.Y_td)) + self.tau_td) -
-                    self.inflation_rate)
+             self.omega_xcg * self.m * self.E_c)
+        s_c_e_ft = (1 - self.m) * self.E_c * (1 - self.tau_div) + g
+        s_c_e_td = (
+            (1 / self.Y_td) * np.log(
+                ((1 - self.tau_td) * np.exp((self.inflation_rate +
+                                             self.E_c) * self.Y_td)) +
+                self.tau_td) - self.inflation_rate)
         s_c_e = (self.alpha_c_e_ft * s_c_e_ft + self.alpha_c_e_td *
-                s_c_e_td + self.alpha_c_e_nt * self.E_c)
+                 s_c_e_td + self.alpha_c_e_nt * self.E_c)
 
         s_c = self.f_c * s_c_d + (1 - self.f_c) * s_c_e
 
@@ -138,9 +138,9 @@ class Specifications(paramtools.Parameters):
         int_haircut_dict = {'c': self.interest_deduct_haircut_corp,
                             'nc': self.interest_deduct_haircut_PT}
         self.s = {'c': {'mix': s_c, 'd': s_c_d, 'e': s_c_e},
-                'nc': {'mix': s_nc, 'd': s_nc_d, 'e': s_nc_e}}
+                  'nc': {'mix': s_nc, 'd': s_nc_d, 'e': s_nc_e}}
         f_dict = {'c': {'mix': self.f_c, 'd': 1.0, 'e': 0.0},
-                'nc': {'mix': self.f_nc, 'd': 1.0, 'e': 0.0}}
+                  'nc': {'mix': self.f_nc, 'd': 1.0, 'e': 0.0}}
         # Compute firm discount factors
         r = {}
         for t in self.entity_list:
@@ -149,9 +149,9 @@ class Specifications(paramtools.Parameters):
                 r[t][f] = (
                     f_dict[t][f] * (self.nominal_interest_rate *
                                     (1 - (1 - int_haircut_dict[t]) *
-                                    self.u[t])) + (1 - f_dict[t][f]) *
+                                     self.u[t])) + (1 - f_dict[t][f]) *
                     (E_dict[t] + self.inflation_rate - E_dict[t] *
-                    self.ace_int_rate * ace_dict[t]))
+                     self.ace_int_rate * ace_dict[t]))
         # Compute firm after-tax rates of return
         r_prime = {}
         for t in self.entity_list:
@@ -160,7 +160,7 @@ class Specifications(paramtools.Parameters):
                 r_prime[t][f] = (
                     f_dict[t][f] * self.nominal_interest_rate +
                     (1 - f_dict[t][f]) * (E_dict[t] +
-                                        self.inflation_rate))
+                                          self.inflation_rate))
 
         # if no entity level taxes on pass-throughs, ensure mettr and metr
         # on non-corp entities the same
@@ -175,7 +175,8 @@ class Specifications(paramtools.Parameters):
         else:
             # keep debt and equity financing ratio the same even though now
             # entity level tax that might now favor debt
-            self.s['nc']['mix'] = self.f_nc * s_nc_d + (1 - self.f_nc) * s_c_e
+            self.s['nc']['mix'] = (self.f_nc * s_nc_d + (1 - self.f_nc)
+                                   * s_c_e)
             self.s['c']['e'] = s_c_e
         self.tax_methods = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0,
                             'Economic': 1.0, 'Expensing': 1.0}
@@ -186,14 +187,14 @@ class Specifications(paramtools.Parameters):
         # depreciation by asset class
         class_list = [3, 5, 7, 10, 15, 20, 25, 27.5, 39]
         class_list_str = [(str(i) if i != 27.5 else '27_5') for i in
-                        class_list]
+                          class_list]
         self.deprec_system = {}
         self.bonus_deprec = {}
         for cl in class_list_str:
-            self.deprec_system[cl] = getattr(self,
-                                            'DeprecSystem_{}yr'.format(cl))
-            self.bonus_deprec[cl] = getattr(self,
-                                            'BonusDeprec_{}yr'.format(cl))
+            self.deprec_system[cl] = getattr(
+                self, 'DeprecSystem_{}yr'.format(cl))
+            self.bonus_deprec[cl] = getattr(
+                self, 'BonusDeprec_{}yr'.format(cl))
         # to handle land and inventories
         # this is fixed later, but should work on this
         self.bonus_deprec['100'] = 0.0
@@ -203,7 +204,8 @@ class Specifications(paramtools.Parameters):
         Return Policy object same as self except with current-law policy.
         Returns
         -------
-        Specifications: Specifications instance with the default configuration
+        Specifications: Specifications instance with the default
+        configuration
         """
         dp = Specifications()
         return dp
@@ -294,9 +296,6 @@ class Specifications(paramtools.Parameters):
         return rev_dict
 
 
-
-# copied from taxcalc.tbi.tbi.reform_errors_warnings--probably needs further
-# changes
 def reform_warnings_errors(user_mods):
     """
     Generate warnings and errors for Cost-of-Capital-Calculator
