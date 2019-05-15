@@ -1,82 +1,104 @@
 import pytest
 import os
-import pandas as pd
-import numpy as np
 import numbers
-import subprocess
+import numpy as np
+import pandas as pd
 from pandas.testing import assert_frame_equal
+import ccc
 from ccc.parameters import Specifications
 from ccc.calculator import Calculator
 from ccc.data import Assets
 
-CUR_PATH = os.path.abspath(os.path.dirname(__file__))
 
-# Load input values
-p = Specifications()
-assets = Assets()
-calc1 = Calculator(p, assets)
-# Compute results
-test_by_asset = calc1.calc_by_asset()
-test_by_industry = calc1.calc_by_industry()
-# Load expected results
-result_by_asset = pd.read_json(os.path.join(
-    CUR_PATH, 'run_ccc_asset_output.json'))
-result_by_industry = pd.read_json(os.path.join(
-    CUR_PATH, 'run_ccc_industry_output.json'))
+TDIR = os.path.abspath(os.path.dirname(__file__))
 
 
-@pytest.mark.parametrize('test_df,expected_df',
-                         [(test_by_asset, result_by_asset),
-                          (test_by_industry, result_by_industry)],
-                         ids=['by assset', 'by industry'])
-def test_run_ccc(test_df, expected_df):
-    # Test the run_ccc.run_ccc() function by reading in inputs and
-    # confirming that output variables have the same values.
-    test_df.sort_index(inplace=True)
-    test_df.reset_index(inplace=True)
-    expected_df.sort_index(inplace=True)
-    expected_df.reset_index(inplace=True)
-    assert tuple(test_df.columns) == tuple(expected_df.columns)
-    for c in expected_df.columns:
-        try:
-            example = getattr(test_df, c).iloc[0]
-            can_diff = isinstance(example, numbers.Number)
-            if can_diff:
-                assert np.allclose(test_df[c].values,
-                                   expected_df[c].values, atol=1e-5)
-            else:
+def test_calc_by_methods():
+    """
+    Test the Calculator calc_by_asset and calc_by_industry methods by
+    comparing actual and expect dataframes
+    """
+    # execute Calculator calc_by methods to get actual results
+    p = Specifications()
+    assets = Assets()
+    calc = Calculator(p, assets)
+    actual_by_asset = calc.calc_by_asset()
+    actual_by_industry = calc.calc_by_industry()
+    # load expected results from the calc_by_ methods
+    expect_by_asset = pd.read_json(
+        os.path.join(TDIR, 'run_ccc_asset_output.json')
+    )
+    expect_by_industry = pd.read_json(
+        os.path.join(TDIR, 'run_ccc_industry_output.json')
+    )
+    # compare the actual and expect DataFrames
+    for actual_df, expect_df in zip([actual_by_asset, actual_by_industry],
+                                    [expect_by_asset, expect_by_industry]):
+        actual_df.sort_index(inplace=True)
+        actual_df.reset_index(inplace=True)
+        expect_df.sort_index(inplace=True)
+        expect_df.reset_index(inplace=True)
+        assert tuple(actual_df.columns) == tuple(expect_df.columns)
+        for col in expect_df.columns:
+            try:
+                example = getattr(actual_df, col).iloc[0]
+                can_diff = isinstance(example, numbers.Number)
+                if can_diff:
+                    assert np.allclose(actual_df[col].values,
+                                       expect_df[col].values, atol=1e-5)
+                else:
+                    pass
+            except AttributeError:
                 pass
-        except AttributeError:
-            pass
 
 
-def test_run_ccc_example():
-    '''
-    Test that the example script runs
-    '''
-    run_example_path = os.path.join(CUR_PATH, '..', '..', 'run_examples')
-    subprocess.call('cd ' + run_example_path +
-                    ' ; python run_ccc_example.py', shell=True)
-
-
-@pytest.mark.local
-@pytest.mark.parametrize(
-    'file_name', ['baseline_byindustry', 'baseline_byasset',
+def test_example_output():
+    """
+    Test that can produce expected output from code in ../../example.py script
+    """
+    # execute code as found in ../../example.py script
+    # ... specify baseline and reform Calculator objects
+    assets = Assets()
+    baseline_parameters = Specifications(year=2019)
+    calc1 = Calculator(baseline_parameters, assets)
+    reform_parameters = Specifications(year=2019)
+    business_tax_adjustments = {
+        'CIT_rate': 0.35, 'BonusDeprec_3yr': 0.50, 'BonusDeprec_5yr': 0.50,
+        'BonusDeprec_7yr': 0.50, 'BonusDeprec_10yr': 0.50,
+        'BonusDeprec_15yr': 0.50, 'BonusDeprec_20yr': 0.50}
+    reform_parameters.update_specifications(business_tax_adjustments)
+    calc2 = Calculator(reform_parameters, assets)
+    # ... calculation by asset and by industry
+    baseln_assets_df = calc1.calc_by_asset()
+    reform_assets_df = calc2.calc_by_asset()
+    baseln_industry_df = calc1.calc_by_industry()
+    reform_industry_df = calc2.calc_by_industry()
+    diff_assets_df = ccc.utils.diff_two_tables(reform_assets_df,
+                                               baseln_assets_df)
+    diff_industry_df = ccc.utils.diff_two_tables(reform_industry_df,
+                                                 baseln_industry_df)
+    # ... save calculated results as csv files in ccc/test directory
+    baseln_industry_df.to_csv(os.path.join(TDIR, 'baseline_byindustry.csv'))
+    reform_industry_df.to_csv(os.path.join(TDIR, 'reform_byindustry.csv'))
+    baseln_assets_df.to_csv(os.path.join(TDIR, 'baseline_byasset.csv'))
+    reform_assets_df.to_csv(os.path.join(TDIR, 'reform_byasset.csv'))
+    diff_industry_df.to_csv(os.path.join(TDIR, 'changed_byindustry.csv'))
+    diff_assets_df.to_csv(os.path.join(TDIR, 'changed_byasset.csv'))
+    # compare actual calculated results to expected results
+    failmsg = ''
+    expect_output_dir = os.path.join(TDIR, '..', '..', 'example_output')
+    for fname in ['baseline_byindustry', 'baseline_byasset',
                   'reform_byindustry', 'reform_byasset',
-                  'changed_byindustry', 'changed_byasset'],
-    ids=['baseline by industry', 'baseline by asset',
-         'reform by industry', 'reform by asset', 'changed by industry',
-         'changed by asset'])
-def test_run_ccc_example_output(file_name):
-    '''
-    Tests the script in ../../run_examples/run_ccc_example.py to
-    ensure that it produces the expected results that are checked into
-    the repo.
-    '''
-    run_example_path = os.path.join(CUR_PATH, '..', '..', 'run_examples')
-    test_path = os.path.join(run_example_path, file_name + '.csv')
-    test_df = pd.read_csv(test_path)
-    expected_path = os.path.join(run_example_path, file_name +
-                                 '_expected.csv')
-    expected_df = pd.read_csv(expected_path)
-    assert_frame_equal(test_df, expected_df)
+                  'changed_byindustry', 'changed_byasset']:
+        actual_path = os.path.join(TDIR, fname + '.csv')
+        actual_df = pd.read_csv(actual_path)
+        expect_path = os.path.join(expect_output_dir, fname + '_expected.csv')
+        expect_df = pd.read_csv(expect_path)
+        try:
+            assert_frame_equal(actual_df, expect_df)
+            # cleanup actual results if it has same  contents as expected file
+            os.remove(actual_path)
+        except AssertionError:
+            failmsg += 'ACTUAL-vs-EXPECT DIFFERENCES FOR {}\n'.format(fname)
+    if failmsg:
+        raise AssertionError('\n' + failmsg)

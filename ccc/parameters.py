@@ -34,10 +34,6 @@ class Specifications(paramtools.Parameters):
         self.iit_reform = iit_reform
         self.data = data
 
-        # put Cost-of-Capital-Calculator version in parameters to save
-        # for reference
-        self.ccc_version = pkg_resources.get_distribution("ccc").version
-
         # initialize parameter values from JSON
         self.initialize(call_tc=call_tc)
 
