@@ -12,16 +12,13 @@ from ccc.parameters import Specifications
 from ccc.calculator import Calculator
 from ccc.utils import diff_two_tables
 
-"""
-# Read in a reform to compare against
-# Note that TCJA is current law baseline in TC 0.16+
-# Thus to compare TCJA to 2017 law, we'll use 2017 law as the reform
+# read in a reform to compare against
+#   Note that TCJA is current law baseline in Tax-Calculator,
+#   so to compare TCJA to 2017 law, we'll use 2017 law as the reform
 reform_url = ('https://raw.githubusercontent.com/'
               'PSLmodels/Tax-Calculator/master/taxcalc/'
               'reforms/2017_law.json')
-reform_dict = taxcalc.Policy.read_json_reform(reform_url)
-iit_reform = reform_dict
-"""
+iit_reform = taxcalc.Policy.read_json_reform(reform_url)
 
 # specify baseline and reform Calculator objects
 cyr = 2019
