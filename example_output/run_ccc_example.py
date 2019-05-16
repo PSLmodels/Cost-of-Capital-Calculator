@@ -1,9 +1,8 @@
 """
-Runs Cost-of-Capital-Calculator with TCJA as baseline and 2017 law as
-the reform.
-------------------------------------------------------------------------
+Runs Cost-of-Capital-Calculator with TCJA as baseline and 2017 law as reform
+----------------------------------------------------------------------------
 """
-# import support packages and Cost-of-Capital-Calculator classes
+# import support packages and Cost-of-Capital-Calculator classes and function
 import os
 from bokeh.io import show
 import taxcalc
@@ -12,21 +11,16 @@ from ccc.parameters import Specifications
 from ccc.calculator import Calculator
 from ccc.utils import diff_two_tables
 
-# read in a reform to compare against
-#   Note that TCJA is current law baseline in Tax-Calculator,
-#   so to compare TCJA to 2017 law, we'll use 2017 law as the reform
+# specify individual income and business tax reform to compare against
+# ... Note that TCJA is current-law baseline in Tax-Calculator,
+#     so to compare TCJA to 2017 law, we'll use 2017 law as the reform
 reform_url = ('https://raw.githubusercontent.com/'
               'PSLmodels/Tax-Calculator/master/taxcalc/'
               'reforms/2017_law.json')
 iit_reform = taxcalc.Policy.read_json_reform(reform_url)
-
-# specify baseline and reform Calculator objects
+# ... specify reform that implements pre-TCJA business tax policy
 cyr = 2019
-assets = Assets()
-baseline_parameters = Specifications(year=cyr)
-calc1 = Calculator(baseline_parameters, assets)
-reform_parameters = Specifications(year=cyr)
-business_tax_adjustments = {
+business_tax_reform = {
     'CIT_rate': {cyr: 0.35},
     'BonusDeprec_3yr': {cyr: 0.50},
     'BonusDeprec_5yr': {cyr: 0.50},
@@ -35,7 +29,13 @@ business_tax_adjustments = {
     'BonusDeprec_15yr': {cyr: 0.50},
     'BonusDeprec_20yr': {cyr: 0.50}
 }
-reform_parameters.update_specifications(business_tax_adjustments)
+
+# specify baseline and reform Calculator objects for 2019 calculations
+assets = Assets()
+baseline_parameters = Specifications(year=cyr)
+calc1 = Calculator(baseline_parameters, assets)
+reform_parameters = Specifications(year=cyr)
+reform_parameters.update_specifications(business_tax_reform)
 calc2 = Calculator(reform_parameters, assets)
 
 # do calculations by asset and by industry
