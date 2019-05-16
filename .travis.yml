@@ -1,8 +1,8 @@
-sudo: false
-
-language: Python
+dist: xenial
+language: python
 python:
   - "3.6"
+  - "3.7"
 
 install:
   # Install conda
@@ -13,7 +13,6 @@ install:
   - conda update -n base -c defaults conda
   - conda create -n ccc-dev python=$TRAVIS_PYTHON_VERSION;
   - source activate ccc-dev
-  - conda env update -f environment.yml
   - conda env update -f environment.yml
   - pip install pyyaml
   - pip install pytest-pep8
