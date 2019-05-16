@@ -34,7 +34,6 @@ def update_depr_methods(df, p):
                                                 'ADS Life']
     df.loc[df['System'] == 'GDS', 'Y'] = df.loc[df['System'] == 'GDS',
                                                 'GDS Life']
-
     return df
 
 
@@ -57,7 +56,6 @@ def dbsl(Y, b, bonus, r):
     Returns:
         z: array_like, net present value of depreciation deductions for
             $1 of investment
-
     """
     beta = b / Y
     Y_star = Y * (1 - (1 / b))
@@ -68,7 +66,6 @@ def dbsl(Y, b, bonus, r):
                                     ((Y - Y_star) * r)) *
                                    (np.exp(-1 * r * Y_star) -
                                     np.exp(-1 * r * Y))))))
-
     return z
 
 
@@ -90,7 +87,6 @@ def sl(Y, bonus, r):
 
     """
     z = bonus + ((1 - bonus) * ((1 - np.exp(-1 * r * Y)) / (r * Y)))
-
     return z
 
 
@@ -111,10 +107,8 @@ def econ(delta, bonus, r, pi):
     Returns:
         z: array_like, net present value of depreciation deductions for
             $1 of investment
-
     """
     z = bonus + ((1 - bonus) * (delta / (delta + r - pi)))
-
     return z
 
 
@@ -132,7 +126,6 @@ def npv_tax_depr(df, r, pi, land_expensing):
     Returns:
         z: pandas series, NPV of depreciation deductions for all asset
                 types and tax treatments
-
     """
     idx = (df['Method'] == 'DB 200%') | (df['Method'] == 'DB 150%')
     df.loc[idx, 'z'] = dbsl(df.loc[idx, 'Y'], df.loc[idx, 'b'],
@@ -146,9 +139,7 @@ def npv_tax_depr(df, r, pi, land_expensing):
     df.loc[idx, 'z'] = 1.0
     idx = df['asset_name'] == 'Land'
     df.loc[idx, 'z'] = land_expensing
-
     z = df['z']
-
     return z
 
 
@@ -175,7 +166,6 @@ def eq_coc(delta, z, w, u, inv_tax_credit, pi, r):
     """
     rho = (((r - pi + delta) / (1 - u)) *
            (1 - inv_tax_credit - u * z) + w - delta)
-
     return rho
 
 
@@ -196,14 +186,12 @@ def eq_coc_inventory(u, phi, Y_v, pi, r):
 
     Returns:
         rho: scalar, cost of capital for inventories
-
     """
     rho_FIFO = (((1 / Y_v) * np.log((np.exp(r * Y_v) - u) /
                                     (1 - u))) - pi)
     rho_LIFO = ((1 / Y_v) * np.log((np.exp((r - pi) * Y_v) - u) /
                                    (1 - u)))
     rho = phi * rho_FIFO + (1 - phi) * rho_LIFO
-
     return rho
 
 
@@ -222,7 +210,6 @@ def eq_ucc(rho, delta):
         ucc: array_like, the user cost of capital
     """
     ucc = rho + delta
-
     return ucc
 
 
@@ -240,10 +227,8 @@ def eq_metr(rho, r_prime, pi):
 
     Returns:
         metr: array_like, METR
-
     """
     metr = (rho - (r_prime - pi)) / rho
-
     return metr
 
 
@@ -263,7 +248,6 @@ def eq_mettr(rho, s):
 
     """
     mettr = (rho - s) / rho
-
     return mettr
 
 
@@ -283,7 +267,6 @@ def eq_tax_wedge(rho, s):
 
     """
     wedge = rho - s
-
     return wedge
 
 
@@ -306,5 +289,4 @@ def eq_eatr(rho, metr, p, u):
         eatr: array_like, EATR
     """
     eatr = ((p - rho) / p) * u + (rho / p) * metr
-
     return eatr

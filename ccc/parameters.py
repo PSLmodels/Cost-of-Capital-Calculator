@@ -3,41 +3,40 @@ import os
 import six
 import re
 import numpy as np
-import pkg_resources
 
-import paramtools
+import taxcalc
 
 # import ccc
 from ccc.get_taxcalc_rates import get_rates
 from ccc.utils import DEFAULT_START_YEAR
 
-CURRENT_PATH = os.path.abspath(os.path.dirname(__file__))
 
-
-class Specifications(paramtools.Parameters):
+class Specifications(taxcalc.Parameters):
     """
-    Inherits ParametersBase. Implements the PolicyBrain API for
-    Cost-of-Capital-Calculator
+    Inherits Tax-Calculator Parameters abstract base class.
     """
-    defaults = os.path.join(CURRENT_PATH, "default_parameters.json")
-    array_first = True
 
+    DEFAULTS_FILE_NAME = 'default_parameters.json'
+    DEFAULTS_FILE_PATH = os.path.abspath(os.path.dirname(__file__))
+    DEFAULTS_FIRST_YEAR = 2015
+    DEFAULTS_LAST_YEAR = 2028
+    DEFAULTS_NUM_YEARS = DEFAULTS_LAST_YEAR - DEFAULTS_FIRST_YEAR + 1
+            
     def __init__(self, test=False, time_path=True, baseline=False,
                  year=DEFAULT_START_YEAR, call_tc=False, iit_reform={},
                  data='cps'):
         super().__init__()
-        self.set_state(year=year)
-
+        self.initialize(Specifications.DEFAULTS_FIRST_YEAR,
+                        Specifications.DEFAULTS_NUM_YEARS)
+        self.set_year(year)
         self.test = test
         self.baseline = baseline
         self.year = year
         self.iit_reform = iit_reform
         self.data = data
+        self.ccc_initialize(call_tc=call_tc)
 
-        # initialize parameter values from JSON
-        self.initialize(call_tc=call_tc)
-
-    def initialize(self, call_tc=False):
+    def ccc_initialize(self, call_tc=False):
         """
         ParametersBase reads JSON file and sets attributes to self
         Next call self.compute_default_params for further initialization
@@ -191,123 +190,97 @@ class Specifications(paramtools.Parameters):
 
     def default_parameters(self):
         """
-        Return Policy object same as self except with current-law policy.
+        Return Specifications object same as self except it contains
+        default values of all the parameters.
+
         Returns
         -------
-        Specifications: Specifications instance with the default configuration
+        spec: Specifications instance with the default parameter values
         """
-        dp = Specifications()
-        return dp
+        dps = Specifications()
+        return dps
 
-    def update_specifications(self, revision, raise_errors=True):
+    def update_specifications(self, revisions, raise_errors=True):
         """
-        Updates parameter specification with values in revision dictionary
+        Updates parameter specifications with values in revisions dictionary.
+
         Parameters
         ----------
-        reform: dictionary of one or more PARAM:VALUE pairs
+        revisions: dictionary of one or more PARAM: YEAR-VALUE-DICTIONARY pairs
+
         raise_errors: boolean
             if True (the default), raises ValueError when parameter_errors
                     exists;
             if False, does not raise ValueError when parameter_errors exists
                     and leaves error handling to caller of
                     update_specifications.
+
         Raises
         ------
         ValueError:
             if raise_errors is True AND
             _validate_parameter_names_types generates errors OR
             _validate_parameter_values generates errors.
+
         Returns
         -------
         nothing: void
+
         Notes
         -----
-        Given a reform dictionary, typical usage of the Policy class
-        is as follows::
+        Given a revisions dictionary, typical usage of the Specification class
+        is as follows:
             specs = Specifications()
-            specs.update_specifications(reform)
-        An example of a multi-parameter specification is as follows::
-            spec = {
-                frisch: [0.03]
+            specs.update_specifications(revisions)
+        An example of a multi-parameter revisions dictionary is as follows:
+            revisons = {
+                'CIT_rate': {2021: [0.25]},
+                'BonusDeprec_3yr': {2021: 0.60},
             }
-        This method was adapted from the Tax-Calculator
-        behavior.py-update_behavior method.
         """
-        # check that all revisions dictionary keys are integers
-        if not isinstance(revision, dict):
-            raise ValueError('ERROR: revision is not a dictionary')
-        if not revision:
-            return  # no revision to implement
-        self.adjust(revision, raise_errors=False)
-
-        if self.errors and raise_errors:
-            raise ValueError('\n' + self.errors)
+        assert isinstance(revisions, dict)
+        if not revisions:
+            return  # no revisions to implement
+        self._update(revisions, False, False)
+        if self.parameter_errors and raise_errors:
+            raise ValueError('\n' + self.parameter_errors)
         self.compute_default_params()
 
     @staticmethod
-    def read_json_param_objects(revision):
+    def read_json_revisions(obj):
         """
-        Read JSON file and convert to dictionary
-        Returns
-        -------
-        rev_dict: formatted dictionary
+        Return a revisions dictionary, which is suitable for use with the
+        update_specifications method, that is derived from the specified
+        JSON object, which can be None or a string containing
+        a local filename,
+        a URL beginning with 'http' pointing to a JSON file hosted online, or
+        a valid JSON text.
         """
-        # next process first reform parameter
-        if revision is None:
-            rev_dict = dict()
-        elif isinstance(revision, six.string_types):
-            if os.path.isfile(revision):
-                txt = open(revision, 'r').read()
-            else:
-                txt = revision
-            # strip out //-comments without changing line numbers
-            json_str = re.sub('//.*', ' ', txt)
-            # convert JSON text into a Python dictionary
-            try:
-                rev_dict = json.loads(json_str)
-            except ValueError as valerr:
-                msg = 'Policy reform text below contains invalid JSON:\n'
-                msg += str(valerr) + '\n'
-                msg += 'Above location of the first error may be approximate.\n'
-                msg += 'The invalid JSON reform text is between the lines:\n'
-                bline = 'XX----.----1----.----2----.----3----.----4'
-                bline += '----.----5----.----6----.----7'
-                msg += bline + '\n'
-                linenum = 0
-                for line in json_str.split('\n'):
-                    linenum += 1
-                    msg += '{:02d}{}'.format(linenum, line) + '\n'
-                msg += bline + '\n'
-                raise ValueError(msg)
-        else:
-            raise ValueError('reform is neither None nor string')
+        return taxcalc.Parameters._read_json_revision(obj, 'revisions')
 
-        return rev_dict
+# end of Specifications class
 
 
-
-# copied from taxcalc.tbi.tbi.reform_errors_warnings--probably needs further
-# changes
-def reform_warnings_errors(user_mods):
+def revisions_warnings_errors(spec_revisions):
     """
-    Generate warnings and errors for Cost-of-Capital-Calculator
-    parameter specifications
+    Return warnings and errors for the specified Cost-of-Capital-Calculator
+    Specificatons parameter revisions.
 
     Parameters:
     -----------
-    user_mods : dict created by read_json_param_objects
+    spec_revisions : dict suitable for use with the
+                     Specifications.update_specifications method.
+
     Return
     ------
-    rtn_dict : dict with endpoint specific warning and error messages
+    rtn_dict : dict containing any warning or error messages
     """
-    rtn_dict = {'ccc': {'warnings': '', 'errors': ''}}
-
-    # create Specifications object and implement reform
-    specs = Specifications()
+    rtn_dict = {'warnings': '', 'errors': ''}
+    spec = Specifications()
     try:
-        specs.update_specifications(user_mods['ccc'], raise_errors=False)
-        rtn_dict['ccc']['warnings'] = []
-        rtn_dict['ccc']['errors'] = specs.errors
+        spec.update_specifications(spec_revisions, raise_errors=False)
+        if spec.parameter_errors:
+            rtn_dict['errors'] = spec.parameter_errors
     except ValueError as valerr_msg:
-        rtn_dict['ccc']['errors'] = valerr_msg.__str__()
+        rtn_dict['errors'] = valerr_msg.__str__()
     return rtn_dict

@@ -57,15 +57,21 @@ def test_example_output():
     Test that can produce expected output from code in ../../example.py script
     """
     # execute code as found in ../../example.py script
+    cyr = 2019
     # ... specify baseline and reform Calculator objects
     assets = Assets()
-    baseline_parameters = Specifications(year=2019)
+    baseline_parameters = Specifications(year=cyr)
     calc1 = Calculator(baseline_parameters, assets)
-    reform_parameters = Specifications(year=2019)
+    reform_parameters = Specifications(year=cyr)
     business_tax_adjustments = {
-        'CIT_rate': 0.35, 'BonusDeprec_3yr': 0.50, 'BonusDeprec_5yr': 0.50,
-        'BonusDeprec_7yr': 0.50, 'BonusDeprec_10yr': 0.50,
-        'BonusDeprec_15yr': 0.50, 'BonusDeprec_20yr': 0.50}
+        'CIT_rate': {cyr: 0.35},
+        'BonusDeprec_3yr': {cyr: 0.50},
+        'BonusDeprec_5yr': {cyr: 0.50},
+        'BonusDeprec_7yr': {cyr: 0.50},
+        'BonusDeprec_10yr': {cyr: 0.50},
+        'BonusDeprec_15yr': {cyr: 0.50},
+        'BonusDeprec_20yr': {cyr: 0.50}
+    }
     reform_parameters.update_specifications(business_tax_adjustments)
     calc2 = Calculator(reform_parameters, assets)
     # ... calculation by asset and by industry
@@ -78,12 +84,18 @@ def test_example_output():
     diff_industry_df = ccc.utils.diff_two_tables(reform_industry_df,
                                                  baseln_industry_df)
     # ... save calculated results as csv files in ccc/test directory
-    baseln_industry_df.to_csv(os.path.join(TDIR, 'baseline_byindustry.csv'))
-    reform_industry_df.to_csv(os.path.join(TDIR, 'reform_byindustry.csv'))
-    baseln_assets_df.to_csv(os.path.join(TDIR, 'baseline_byasset.csv'))
-    reform_assets_df.to_csv(os.path.join(TDIR, 'reform_byasset.csv'))
-    diff_industry_df.to_csv(os.path.join(TDIR, 'changed_byindustry.csv'))
-    diff_assets_df.to_csv(os.path.join(TDIR, 'changed_byasset.csv'))
+    baseln_industry_df.to_csv(os.path.join(TDIR, 'baseline_byindustry.csv'),
+                              float_format='%.5f')
+    reform_industry_df.to_csv(os.path.join(TDIR, 'reform_byindustry.csv'),
+                              float_format='%.5f')
+    baseln_assets_df.to_csv(os.path.join(TDIR, 'baseline_byasset.csv'),
+                            float_format='%.5f')
+    reform_assets_df.to_csv(os.path.join(TDIR, 'reform_byasset.csv'),
+                            float_format='%.5f')
+    diff_industry_df.to_csv(os.path.join(TDIR, 'changed_byindustry.csv'),
+                            float_format='%.5f')
+    diff_assets_df.to_csv(os.path.join(TDIR, 'changed_byasset.csv'),
+                          float_format='%.5f')
     # compare actual calculated results to expected results
     failmsg = ''
     expect_output_dir = os.path.join(TDIR, '..', '..', 'example_output')
@@ -95,7 +107,7 @@ def test_example_output():
         expect_path = os.path.join(expect_output_dir, fname + '_expected.csv')
         expect_df = pd.read_csv(expect_path)
         try:
-            assert_frame_equal(actual_df, expect_df)
+            assert_frame_equal(actual_df, expect_df, check_less_precise=False)
             # cleanup actual results if it has same  contents as expected file
             os.remove(actual_path)
         except AssertionError:
