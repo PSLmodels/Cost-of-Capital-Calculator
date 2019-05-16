@@ -7,7 +7,7 @@ import os
 from bokeh.io import show
 import taxcalc
 from ccc.data import Assets
-from ccc.parameters import Specifications
+from ccc.parameters import Specification
 from ccc.calculator import Calculator
 from ccc.utils import diff_two_tables
 
@@ -32,10 +32,10 @@ business_tax_reform = {
 
 # specify baseline and reform Calculator objects for 2019 calculations
 assets = Assets()
-baseline_parameters = Specifications(year=cyr)
+baseline_parameters = Specification(year=cyr)
 calc1 = Calculator(baseline_parameters, assets)
-reform_parameters = Specifications(year=cyr)
-reform_parameters.update_specifications(business_tax_reform)
+reform_parameters = Specification(year=cyr)
+reform_parameters.update_specification(business_tax_reform)
 calc2 = Calculator(reform_parameters, assets)
 
 # do calculations by asset and by industry

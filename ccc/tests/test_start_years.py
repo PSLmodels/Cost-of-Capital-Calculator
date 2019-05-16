@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from ccc.parameters import Specifications
+from ccc.parameters import Specification
 from ccc.get_taxcalc_rates import get_rates
 
 
@@ -26,7 +26,7 @@ def test_params_start_year(year, expected_values):
     Test that different start years return the expected parameter values
     as specificed in the default_parameters.json file.
     '''
-    p = Specifications(year=year)
+    p = Specification(year=year)
     assert(np.allclose(p.u['c'], expected_values[0]))
     assert(np.allclose(p.bonus_deprec['3'], expected_values[1]))
     assert(np.allclose(p.phi, expected_values[2]))

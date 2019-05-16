@@ -12,7 +12,7 @@ import pandas as pd
 from ccc.calcfunctions import (update_depr_methods, npv_tax_depr,
                                eq_coc, eq_coc_inventory, eq_ucc,
                                eq_metr, eq_mettr, eq_tax_wedge, eq_eatr)
-from ccc.parameters import Specifications
+from ccc.parameters import Specification
 from ccc.data import Assets
 from ccc.utils import wavg, diff_two_tables, save_return_table
 from ccc.constants import VAR_DICT, MAJOR_IND_ORDERED
@@ -39,7 +39,7 @@ class Calculator():
     Constructor for the Calculator class.
 
     Args:
-        p: CCC Specifications class object, contains parameters, this
+        p: CCC Specification class object, contains parameters, this
             argument must be specified and object is copied for internal
             use
         assets: CCC Assets class object, contains asset data, this
@@ -59,23 +59,23 @@ class Calculator():
     -----
     The most efficient way to specify current-law and reform Calculator
     objects is as follows:
-         pol = Specifications()
+         pol = Specification()
          rec = Assets()
          calc1 = Calculator(p=pol, assets=rec)  # current-law
-         pol2 = Specifications(...reform parameters...)
+         pol2 = Specification(...reform parameters...)
          calc2 = Calculator(p=pol2, assets=rec)  # reform
     All calculations are done on the internal copies of the
-    Specifications and Assets objects passed to each of the two
+    Specification and Assets objects passed to each of the two
     Calculator constructors.
     """
     # pylint: disable=too-many-public-methods
 
     def __init__(self, p=None, assets=None, verbose=True):
         # pylint: disable=too-many-arguments,too-many-branches
-        if isinstance(p, Specifications):
+        if isinstance(p, Specification):
             self.__p = copy.deepcopy(p)
         else:
-            raise ValueError('must specify p as a Specifications object')
+            raise ValueError('must specify p as a Specification object')
         if isinstance(assets, Assets):
             self.__assets = copy.deepcopy(assets)
         else:
@@ -1629,9 +1629,9 @@ class Calculator():
     def p_param(self, param_name, param_value=None):
         """
         If param_value is None, return named parameter in
-         embedded Specifications object.
+         embedded Specification object.
         If param_value is not None, set named parameter in
-         embedded Specifications object to specified param_value and
+         embedded Specification object to specified param_value and
          return None (which can be ignored).
 
          Args:
@@ -1649,7 +1649,7 @@ class Calculator():
     @property
     def reform_warnings(self):
         """
-        Calculator class embedded Specifications object's reform_warnings.
+        Calculator class embedded Specification object's reform_warnings.
 
         Args:
             None

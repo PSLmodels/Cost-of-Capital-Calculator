@@ -11,7 +11,7 @@ from ccc.get_taxcalc_rates import get_rates
 from ccc.utils import DEFAULT_START_YEAR
 
 
-class Specifications(taxcalc.Parameters):
+class Specification(taxcalc.Parameters):
     """
     Inherits Tax-Calculator Parameters abstract base class.
     """
@@ -26,8 +26,8 @@ class Specifications(taxcalc.Parameters):
                  year=DEFAULT_START_YEAR, call_tc=False, iit_reform={},
                  data='cps'):
         super().__init__()
-        self.initialize(Specifications.DEFAULTS_FIRST_YEAR,
-                        Specifications.DEFAULTS_NUM_YEARS)
+        self.initialize(Specification.DEFAULTS_FIRST_YEAR,
+                        Specification.DEFAULTS_NUM_YEARS)
         self.set_year(year)
         self.test = test
         self.baseline = baseline
@@ -190,30 +190,30 @@ class Specifications(taxcalc.Parameters):
 
     def default_parameters(self):
         """
-        Return Specifications object same as self except it contains
+        Return Specification object same as self except it contains
         default values of all the parameters.
 
         Returns
         -------
-        spec: Specifications instance with the default parameter values
+        spec: Specification instance with the default parameter values
         """
-        dps = Specifications()
+        dps = Specification()
         return dps
 
-    def update_specifications(self, revisions, raise_errors=True):
+    def update_specification(self, revision, raise_errors=True):
         """
-        Updates parameter specifications with values in revisions dictionary.
+        Updates parameter specification with values in revision dictionary.
 
         Parameters
         ----------
-        revisions: dictionary of one or more PARAM: YEAR-VALUE-DICTIONARY pairs
+        revision: dictionary of one or more PARAM: YEAR-VALUE-DICTIONARY pairs
 
         raise_errors: boolean
             if True (the default), raises ValueError when parameter_errors
                     exists;
             if False, does not raise ValueError when parameter_errors exists
-                    and leaves error handling to caller of
-                    update_specifications.
+                    and leaves error handling to caller of the 
+                    update_specification method.
 
         Raises
         ------
@@ -228,57 +228,57 @@ class Specifications(taxcalc.Parameters):
 
         Notes
         -----
-        Given a revisions dictionary, typical usage of the Specification class
+        Given a revision dictionary, typical usage of the Specification class
         is as follows:
-            specs = Specifications()
-            specs.update_specifications(revisions)
-        An example of a multi-parameter revisions dictionary is as follows:
-            revisons = {
+            spec = Specification()
+            spec.update_specification(revision)
+        An example of a multi-parameter revision dictionary is as follows:
+            revison = {
                 'CIT_rate': {2021: [0.25]},
                 'BonusDeprec_3yr': {2021: 0.60},
             }
         """
-        assert isinstance(revisions, dict)
-        if not revisions:
-            return  # no revisions to implement
-        self._update(revisions, False, False)
+        assert isinstance(revision, dict)
+        if not revision:
+            return  # no revision to implement
+        self._update(revision, False, False)
         if self.parameter_errors and raise_errors:
             raise ValueError('\n' + self.parameter_errors)
         self.compute_default_params()
 
     @staticmethod
-    def read_json_revisions(obj):
+    def read_json_revision(obj):
         """
-        Return a revisions dictionary, which is suitable for use with the
-        update_specifications method, that is derived from the specified
+        Return a revision dictionary, which is suitable for use with the
+        update_specification method, that is derived from the specified
         JSON object, which can be None or a string containing
         a local filename,
         a URL beginning with 'http' pointing to a JSON file hosted online, or
         a valid JSON text.
         """
-        return taxcalc.Parameters._read_json_revision(obj, 'revisions')
+        return taxcalc.Parameters._read_json_revision(obj, 'revision')
 
-# end of Specifications class
+# end of Specification class
 
 
-def revisions_warnings_errors(spec_revisions):
+def revision_warnings_errors(spec_revision):
     """
     Return warnings and errors for the specified Cost-of-Capital-Calculator
-    Specificatons parameter revisions.
+    Specificatons parameter revision.
 
     Parameters:
     -----------
-    spec_revisions : dict suitable for use with the
-                     Specifications.update_specifications method.
+    spec_revision : dict suitable for use with the
+                    Specification.update_specification method.
 
     Return
     ------
     rtn_dict : dict containing any warning or error messages
     """
     rtn_dict = {'warnings': '', 'errors': ''}
-    spec = Specifications()
+    spec = Specification()
     try:
-        spec.update_specifications(spec_revisions, raise_errors=False)
+        spec.update_specification(spec_revision, raise_errors=False)
         if spec.parameter_errors:
             rtn_dict['errors'] = spec.parameter_errors
     except ValueError as valerr_msg:

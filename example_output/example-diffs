@@ -1,7 +1,0 @@
-#!/bin/bash -v
-diff baseline_byasset.csv baseline_byasset_expected.csv
-diff baseline_byindustry.csv baseline_byindustry_expected.csv
-diff reform_byasset.csv reform_byasset_expected.csv
-diff reform_byindustry.csv reform_byindustry_expected.csv
-diff changed_byasset.csv changed_byasset_expected.csv
-diff changed_byindustry.csv changed_byindustry_expected.csv

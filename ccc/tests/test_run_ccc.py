@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 from pandas.testing import assert_frame_equal
 import ccc
-from ccc.parameters import Specifications
+from ccc.parameters import Specification
 from ccc.calculator import Calculator
 from ccc.data import Assets
 
@@ -19,7 +19,7 @@ def test_calc_by_methods():
     comparing actual and expect dataframes
     """
     # execute Calculator calc_by methods to get actual results
-    p = Specifications()
+    p = Specification()
     assets = Assets()
     calc = Calculator(p, assets)
     actual_by_asset = calc.calc_by_asset()
@@ -60,9 +60,9 @@ def test_example_output():
     cyr = 2019
     # ... specify baseline and reform Calculator objects
     assets = Assets()
-    baseline_parameters = Specifications(year=cyr)
+    baseline_parameters = Specification(year=cyr)
     calc1 = Calculator(baseline_parameters, assets)
-    reform_parameters = Specifications(year=cyr)
+    reform_parameters = Specification(year=cyr)
     business_tax_adjustments = {
         'CIT_rate': {cyr: 0.35},
         'BonusDeprec_3yr': {cyr: 0.50},
@@ -72,7 +72,7 @@ def test_example_output():
         'BonusDeprec_15yr': {cyr: 0.50},
         'BonusDeprec_20yr': {cyr: 0.50}
     }
-    reform_parameters.update_specifications(business_tax_adjustments)
+    reform_parameters.update_specification(business_tax_adjustments)
     calc2 = Calculator(reform_parameters, assets)
     # ... calculation by asset and by industry
     baseln_assets_df = calc1.calc_by_asset()

@@ -11,7 +11,7 @@ def update_depr_methods(df, p):
     Args:
         df: pandas DataFrame, assets by type and tax treatment with
                 current law tax depreciation methods
-        p: CCC Specifications object, model parameters
+        p: CCC Specification object, model parameters
 
     Returns:
         df: pandas DataFrame, assets by type and tax treatment with

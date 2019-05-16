@@ -1,6 +1,6 @@
 import pytest
 import pandas as pd
-from ccc.parameters import Specifications
+from ccc.parameters import Specification
 from ccc.data import Assets
 from ccc.calculator import Calculator
 
@@ -10,10 +10,10 @@ def test_range_plot():
     Test range_plot method.
     '''
     assets = Assets()
-    p = Specifications()
+    p = Specification()
     calc = Calculator(p, assets)
-    p2 = Specifications(year=2026)
-    p2.update_specifications({'CIT_rate': {2026: 0.25}})
+    p2 = Specification(year=2026)
+    p2.update_specification({'CIT_rate': {2026: 0.25}})
     calc2 = Calculator(p2, assets)
     fig = calc.range_plot(calc2)
     assert fig
@@ -26,10 +26,10 @@ def test_grouped_bar():
     Test grouped_bar method.
     '''
     assets = Assets()
-    p = Specifications()
+    p = Specification()
     calc = Calculator(p, assets)
-    p2 = Specifications(year=2026)
-    p2.update_specifications({'CIT_rate': {2026: 0.25}})
+    p2 = Specification(year=2026)
+    p2.update_specification({'CIT_rate': {2026: 0.25}})
     calc2 = Calculator(p2, assets)
     fig = calc.grouped_bar(calc2)
     assert fig
@@ -43,10 +43,10 @@ def test_asset_bubble():
     Test asset bubble plot method.
     '''
     assets = Assets()
-    p = Specifications()
+    p = Specification()
     calc = Calculator(p, assets)
-    p2 = Specifications(year=2026)
-    p2.update_specifications({'CIT_rate': {2026: 0.25}})
+    p2 = Specification(year=2026)
+    p2.update_specification({'CIT_rate': {2026: 0.25}})
     calc2 = Calculator(p2, assets)
     fig = calc.asset_bubble(calc2)
     assert fig
@@ -59,10 +59,10 @@ def test_bubble_widget():
     Test asset bubble plot method.
     '''
     assets = Assets()
-    p = Specifications()
+    p = Specification()
     calc = Calculator(p, assets)
-    p2 = Specifications(year=2026)
-    p2.update_specifications({'CIT_rate': {2026: 0.25}})
+    p2 = Specification(year=2026)
+    p2.update_specification({'CIT_rate': {2026: 0.25}})
     calc2 = Calculator(p2, assets)
     fig = calc.bubble_widget(calc2)
     assert fig
@@ -74,7 +74,7 @@ def test_calc_by_asset():
     '''
     cyr = 2018
     assets = Assets()
-    p = Specifications(year=cyr)
+    p = Specification(year=cyr)
     calc1 = Calculator(p, assets)
     assert calc1.current_year == cyr
     asset_df = calc1.calc_by_asset()
@@ -87,7 +87,7 @@ def test_calc_by_industry():
     '''
     cyr = 2018
     assets = Assets()
-    p = Specifications(year=cyr)
+    p = Specification(year=cyr)
     calc1 = Calculator(p, assets)
     assert calc1.current_year == cyr
     asset_df = calc1.calc_by_industry()
@@ -100,11 +100,11 @@ def test_summary_table():
     '''
     cyr = 2018
     assets = Assets()
-    p = Specifications(year=cyr)
+    p = Specification(year=cyr)
     calc1 = Calculator(p, assets)
     assert calc1.current_year == cyr
     reform = {'CIT_rate': {cyr: 0.38}}
-    p.update_specifications(reform)
+    p.update_specification(reform)
     calc2 = Calculator(p, assets)
     assert calc2.current_year == cyr
     summary_df = calc1.summary_table(calc2)
@@ -117,7 +117,7 @@ def test_asset_share_table():
     '''
     cyr = 2018
     assets = Assets()
-    p = Specifications(year=cyr)
+    p = Specification(year=cyr)
     calc1 = Calculator(p, assets)
     assert calc1.current_year == cyr
     asset_df = calc1.asset_share_table()
@@ -130,11 +130,11 @@ def test_asset_summary_table():
     '''
     cyr = 2018
     assets = Assets()
-    p = Specifications(year=cyr)
+    p = Specification(year=cyr)
     calc1 = Calculator(p, assets)
     assert calc1.current_year == cyr
     reform = {'CIT_rate': {cyr: 0.38}}
-    p.update_specifications(reform)
+    p.update_specification(reform)
     calc2 = Calculator(p, assets)
     assert calc2.current_year == cyr
     asset_df = calc1.asset_summary_table(calc2)
@@ -147,11 +147,11 @@ def test_industry_summary_table():
     '''
     cyr = 2018
     assets = Assets()
-    p = Specifications(year=cyr)
+    p = Specification(year=cyr)
     calc1 = Calculator(p, assets)
     assert calc1.current_year == cyr
     reform = {'CIT_rate': {cyr: 0.38}}
-    p.update_specifications(reform)
+    p.update_specification(reform)
     calc2 = Calculator(p, assets)
     assert calc2.current_year == cyr
     ind_df = calc1.industry_summary_table(calc2)

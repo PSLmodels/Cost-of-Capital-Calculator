@@ -4,8 +4,6 @@ ccc.egg-info
 .coverage
 .coveragerc
 htmlcov/*
-gitsync
-gitpr
 *.aux
 *.bbl
 *.blg
