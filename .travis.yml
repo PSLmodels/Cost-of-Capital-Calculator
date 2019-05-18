@@ -14,6 +14,7 @@ install:
   - conda create -n ccc-dev python=$TRAVIS_PYTHON_VERSION;
   - source activate ccc-dev
   - conda env update -f environment.yml
+  - pip install codecov
   - setup.py install
 
 # command to run tests

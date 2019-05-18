@@ -17,20 +17,20 @@ The **first way** to use Cost-of-Capital-Calculator is to download the source co
 * Run the model with an example reform from terminal/command prompt by typing `python example.py`
 * You can adjust the `example.py` by adjusting the individual income tax reform (using a dictionary or JSON file in a format that is consistent with [Tax Calculator](https://github.com/open-source-economics/Tax-Calculator)) or other model parameters specified in the `business_tax_adjustments` dictionary.
 * Model outputs will be saved in the following files:
-  * `./example_output/baseline_byasset.csv`
+  * `./baseline_byasset.csv`
     * Cost of capital, marginal effective tax rates, effective average tax rates, and other model output for the baseline policy, organized by asset.
-  * `./example_output/baseline_byindustry.csv`
+  * `./baseline_byindustry.csv`
     * Cost of capital, marginal effective tax rates, effective average tax rates, and other model output for the baseline policy, organized by production industry.
-  * `./example_output/reform_byasset.csv`
+  * `./reform_byasset.csv`
     * Cost of capital, marginal effective tax rates, effective average tax rates, and other model output for the reform policy, organized by asset.
-  * `./example_output/reform_byindustry.csv`
+  * `./reform_byindustry.csv`
     * Cost of capital, marginal effective tax rates, effective average tax rates, and other model output for the refrom policy, organized by production industry.
-  * `./example_output/changed_byasset.csv`
+  * `./changed_byasset.csv`
     * Differences in cost of capital, marginal effective tax rates, effective average tax rates, and other model output between the baseline and reform reform policies, organized by asset.
-  * `./example_output/changed_byindustry.csv`
+  * `./changed_byindustry.csv`
     * Differences in cost of capital, marginal effective tax rates, effective average tax rates, and other model output between the baseline and reform reform policies, organized by production industry.
 
-The CSV output files can be compared to the `./example_output/*_expected.csv` files that are checked into the repository to confirm that you are generating the expected output.  If you run into errors running the example script, please open a new issue in the Cost-of-Capital-Calculator repo with a description of the issue and any relevant tracebacks you receive.
+The CSV output files can be compared to the `./example_output/*_expected.csv` files that are checked into the repository to confirm that you are generating the expected output.  The easiest way to do this is to use the `./example-diffs` command (or `example-diffs` on Windows).  If you run into errors running the example script, please open a new issue in the Cost-of-Capital-Calculator repo with a description of the issue and any relevant tracebacks you receive.
 
 
 The **second way** to use Cost-of-Capital-Calculator is through a web
