@@ -18,7 +18,7 @@ config = {
     'packages': ['ccc'],
     'include_package_data': True,
     'name': 'ccc',
-    'install_requires': ['numpy', 'pandas', 'taxcalc', 'scipy', 'xlrd'],
+    'install_requires': ['numpy', 'pandas', 'taxcalc', 'xlrd'],
     'classifiers': [
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
@@ -28,6 +28,7 @@ config = {
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Topic :: Software Development :: Libraries :: Python Modules'],
     'tests_require': ['pytest']
 }

@@ -5,7 +5,7 @@ dependencies:
 - python
 - taxcalc
 - setuptools
-- scipy
+- pip
 - xlrd
 - pytest
 - pytest-pep8
@@ -13,3 +13,4 @@ dependencies:
 - pycodestyle
 - pylint
 - coverage
+- codecov

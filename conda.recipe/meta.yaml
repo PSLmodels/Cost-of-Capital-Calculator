@@ -10,14 +10,12 @@ requirements:
     - python
     - "taxcalc>=2.1.0"
     - setuptools
-    - scipy
     - xlrd
 
   run:
     - python
     - "taxcalc>=2.1.0"
     - setuptools
-    - scipy
     - xlrd
 
 about:
