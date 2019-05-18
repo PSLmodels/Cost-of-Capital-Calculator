@@ -6,8 +6,6 @@ dependencies:
 - python=3.6
 - taxcalc
 - setuptools
-- scipy
-- xlrd
 - pytest
 - pytest-pep8
 - pytest-xdist

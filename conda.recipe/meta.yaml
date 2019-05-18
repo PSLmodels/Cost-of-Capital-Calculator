@@ -20,8 +20,6 @@ requirements:
     - taxcalc
     - setuptools
     - paramtools >=0.5.1
-    - scipy
-    - xlrd
 
 about:
   home: https://github.com/open-source-economics/Cost-of-Capital-Calculator/
