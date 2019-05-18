@@ -13,4 +13,3 @@ dependencies:
 - pycodestyle
 - pylint
 - coverage
-- codecov
