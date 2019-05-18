@@ -15,10 +15,10 @@ CURRENT_PATH = os.path.abspath(os.path.dirname(__file__))
 
 
 class Specifications(paramtools.Parameters):
-    """
-    Inherits ParametersBase. Implements the PolicyBrain API for
-    Cost-of-Capital-Calculator
-    """
+    '''
+    Inherits the Parameters class from ParamTools. Implements the
+    ParamTools API for Cost-of-Capital-Calculator
+    '''
     defaults = os.path.join(CURRENT_PATH, "default_parameters.json")
     array_first = True
 
@@ -42,14 +42,19 @@ class Specifications(paramtools.Parameters):
         self.initialize(call_tc=call_tc)
 
     def initialize(self, call_tc=False):
-        """
-        ParametersBase reads JSON file and sets attributes to self
-        Next call self.compute_default_params for further initialization
-        Parameters:
-        -----------
-        run_micro: boolean that indicates whether to estimate tax funtions
-                from microsim model
-        """
+        '''
+        ParametersBase reads JSON file and sets attributes to self.
+        Next calls `self.compute_default_params` for further
+        initialization.
+
+        Args:
+            call_tc (bool): whether to use microsim model to estimate
+                marginal tax rates
+
+        Return:
+            None
+
+        '''
         if call_tc:
             # Find individual income tax rates from Tax-Calculator
             indiv_rates = get_rates(self.baseline, self.year,
@@ -66,9 +71,9 @@ class Specifications(paramtools.Parameters):
         self.compute_default_params()
 
     def compute_default_params(self):
-        """
+        '''
         Does cheap calculations to return parameter values
-        """
+        '''
         self.financing_list = ['mix', 'd', 'e']
         self.entity_list = ['c', 'nc']
 
@@ -194,49 +199,48 @@ class Specifications(paramtools.Parameters):
         self.bonus_deprec['100'] = 0.0
 
     def default_parameters(self):
-        """
+        '''
         Return Policy object same as self except with current-law policy.
-        Returns
-        -------
-        Specifications: Specifications instance with the default configuration
-        """
+
+        Args:
+            None
+
+        Returns:
+            dp (CCC Specifications class object): Specifications
+                instance with the default configuration
+
+        '''
         dp = Specifications()
         return dp
 
     def update_specifications(self, revision, raise_errors=True):
-        """
+        '''
         Updates parameter specification with values in revision dictionary
-        Parameters
-        ----------
-        reform: dictionary of one or more PARAM:VALUE pairs
-        raise_errors: boolean
-            if True (the default), raises ValueError when parameter_errors
-                    exists;
-            if False, does not raise ValueError when parameter_errors exists
-                    and leaves error handling to caller of
-                    update_specifications.
-        Raises
-        ------
-        ValueError:
-            if raise_errors is True AND
-            _validate_parameter_names_types generates errors OR
-            _validate_parameter_values generates errors.
-        Returns
-        -------
-        nothing: void
-        Notes
-        -----
-        Given a reform dictionary, typical usage of the Policy class
-        is as follows::
-            specs = Specifications()
-            specs.update_specifications(reform)
-        An example of a multi-parameter specification is as follows::
-            spec = {
-                frisch: [0.03]
-            }
-        This method was adapted from the Tax-Calculator
-        behavior.py-update_behavior method.
-        """
+
+        Args:
+            revision (dictionary): dictionary of one or more PARAM:VALUE pairs
+            raise_errors (bool):
+                if `True` (the default), raises ValueError when
+                    `parameter_errors` exists;
+                if `False`, does not raise ValueError when
+                    `parameter_errors` exists and leaves error handling
+                    to caller of `update_specifications`.
+        Raises:
+            ValueError:
+                if raise_errors is True AND
+                `_validate_parameter_names_types` generates errors OR
+                `_validate_parameter_values` generates errors.
+
+        Returns:
+            None
+
+        Examples:
+            Given a reform dictionary, typical usage of the Policy class
+            is as follows::
+            >>> `specs = Specifications()`
+            >>> `specs.update_specifications(reform)`
+
+        '''
         # check that all revisions dictionary keys are integers
         if not isinstance(revision, dict):
             raise ValueError('ERROR: revision is not a dictionary')
@@ -250,12 +254,16 @@ class Specifications(paramtools.Parameters):
 
     @staticmethod
     def read_json_param_objects(revision):
-        """
+        '''
         Read JSON file and convert to dictionary
-        Returns
-        -------
-        rev_dict: formatted dictionary
-        """
+
+        Args:
+            revision (JSON string): JSON of new parameter values
+
+        Returns:
+            rev_dict (dict): formatted dictionary
+
+        '''
         # next process first reform parameter
         if revision is None:
             rev_dict = dict()
@@ -289,21 +297,19 @@ class Specifications(paramtools.Parameters):
         return rev_dict
 
 
-
-# copied from taxcalc.tbi.tbi.reform_errors_warnings--probably needs further
-# changes
 def reform_warnings_errors(user_mods):
-    """
+    '''
     Generate warnings and errors for Cost-of-Capital-Calculator
     parameter specifications
 
-    Parameters:
-    -----------
-    user_mods : dict created by read_json_param_objects
-    Return
-    ------
-    rtn_dict : dict with endpoint specific warning and error messages
-    """
+    Args:
+        user_mods (dict): dictionary created by `read_json_param_objects`
+
+    Returns:
+        rtn_dict (dict): dictionary with endpoint specific warning and
+            error messages
+
+    '''
     rtn_dict = {'ccc': {'warnings': '', 'errors': ''}}
 
     # create Specifications object and implement reform

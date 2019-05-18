@@ -39,15 +39,15 @@ class Calculator():
     Constructor for the Calculator class.
 
     Args:
-        p: CCC Specifications class object, contains parameters, this
+        p (CCC Specifications class object): contains parameters, this
             argument must be specified and object is copied for internal
             use
-        assets: CCC Assets class object, contains asset data, this
+        assets (CCC Assets class object): contains asset data, this
             argument must be specified and object is copied for
             internal use
-        verbose: boolean, specifies whether or not to write to stdout
+        verbose (bool): specifies whether or not to write to stdout
             data-loaded and data-extrapolated progress reports; default
-            value is true.
+            value is `True`.
 
     Raises:
         ValueError: if parameters are not the appropriate type.
@@ -55,18 +55,20 @@ class Calculator():
     Returns:
         Calculator: class instance
 
-    Notes
-    -----
-    The most efficient way to specify current-law and reform Calculator
-    objects is as follows:
-         pol = Specifications()
-         rec = Assets()
-         calc1 = Calculator(p=pol, assets=rec)  # current-law
-         pol2 = Specifications(...reform parameters...)
-         calc2 = Calculator(p=pol2, assets=rec)  # reform
-    All calculations are done on the internal copies of the
-    Specifications and Assets objects passed to each of the two
-    Calculator constructors.
+    Notes:
+        All calculations are done on the internal copies of the
+        Specifications and Assets objects passed to each of the two
+        Calculator constructors.
+
+    Example:
+        The most efficient way to specify current-law and reform Calculator
+        objects is as follows:
+        >>> `params = Specifications()``
+        >>> `rec = Assets()``
+        >>> `calc1 = Calculator(p=params, assets=rec)  # current-law`
+        >>> `params2 = Specifications(...reform parameters...)``
+        >>> `calc2 = Calculator(p=params2, assets=rec)  # reform`
+
     """
     # pylint: disable=too-many-public-methods
 
@@ -87,12 +89,13 @@ class Calculator():
         Calculates variables that depend on z and rho such as metr, ucc
 
         Args:
-            df: pandas DataFrame, assets by indusry and tax_treatment
+            df (Pandas DataFrame): assets by indusry and tax_treatment
                 with depreciation rates, cost of capital, etc.
 
         Returns:
-            df: pandas DataFrame, input dataframe, but with additional
+            df (Pandas DataFrame): input dataframe, but with additional
                 columns (ucc, metr, mettr, tax_wedge, eatr)
+
         '''
         dfs = {'c': df[df['tax_treat'] == 'corporate'].copy(),
                'nc': df[df['tax_treat'] == 'non-corporate'].copy()}
@@ -123,11 +126,6 @@ class Calculator():
         the calc_all() function to do computations that dependon rho and
         z.
 
-        Args:
-            None
-
-        Returns:
-            None
         """
         # conducts static analysis of Calculator object for current_year
         self.__assets.df = update_depr_methods(self.__assets.df,
@@ -159,11 +157,6 @@ class Calculator():
         '''
         Calculates all CCC variables for some CCC Assets object.
 
-        Args:
-            None
-
-        Returns:
-            None
         '''
         self.calc_base()
         self.__assets.df = self.calc_other(self.__assets.df)
@@ -175,11 +168,15 @@ class Calculator():
         major asset categories.
 
         Args:
-            None
+            include_inventories (bool): whether to include inventories
+                in calculations.  Defaults to `True`.
+            include_land (bool): whether to include land in
+                calculations.  Defaults to `True`.
 
         Returns:
-            df: pandas DataFrame, rows are assets and major asset
+            df (pandas DataFrame): rows are assets and major asset
                 groupings with columns for all output variables
+
         '''
         self.calc_base()
         asset_df = pd.DataFrame(self.__assets.df.groupby(
@@ -225,11 +222,15 @@ class Calculator():
         major asset categories.
 
         Args:
-            None
+            include_inventories (bool): whether to include inventories
+                in calculations.  Defaults to `True`.
+            include_land (bool): whether to include land in
+                calculations.  Defaults to `True`.
 
         Returns:
-            df: pandas DataFrame, rows are minor industries and major
+            df (Pandas DataFrame): rows are minor industries and major
                 industry groupings with columns for all output variables
+
         '''
         self.calc_base()
         df1 = self.__assets.df
@@ -270,24 +271,25 @@ class Calculator():
         and reform policies.
 
         Args:
-            calc: CCC Calculator object, calc represents the reform
+            calc (CCC Calculator object): calc represents the reform
                 while self represents the baseline
-            output_variable: string, specifies which output variable to
-                summarize in the table
-            include_land: boolean, specifies whether to include land in
-                overall calculations
-            include_inventories: boolean, specifies whether to include
-                inventories in overall calculations
-            output_type: string, specifies the type of file to save
-                table to:
-                    - 'csv'
-                    - 'tex'
-                    - 'excel'
-                    - 'json'
-            path: string, specifies path to save file with table to
+            output_variable (string): specifies which output variable to
+                summarize in the table.  Default is the marginal
+                effective total tax rate (`mettr`).
+            include_inventories (bool): whether to include inventories
+                in calculations.  Defaults to `True`.
+            include_land (bool): whether to include land in
+                calculations.  Defaults to `True`.
+            output_type (string): specifies the type of file to save
+                table to: 'csv', 'tex', 'excel', 'json'
+                Default is `csv`.
+            path (string): specifies path to save file with table to.
+                If `None`, then returns DataFrame or string object,
+                depending on `output_type`. Default is `None`.
 
         Returns:
-            table_df: DataFrame, table
+            table_df (Pandas DataFrame): table
+
         '''
         self.calc_base()
         calc.calc_base()
@@ -414,16 +416,19 @@ class Calculator():
         and reform policies.
 
         Args:
-            output_type: string, specifies the type of file to save
-                table to:
-                    - 'csv'
-                    - 'tex'
-                    - 'excel'
-                    - 'json'
-            path: string, specifies path to save file with table to
+            include_inventories (bool): whether to include inventories
+                in calculations.  Defaults to `True`.
+            include_land (bool): whether to include land in
+                calculations.  Defaults to `True`.
+            output_type (string): specifies the type of file to save
+                table to: 'csv', 'tex', 'excel', 'json'
+            path (string): specifies path to save file with table to.
+                If `None`, then returns DataFrame or string object,
+                depending on `output_type`. Default is `None`.
 
         Returns:
-            table_df: DataFrame, table
+            table_df (Pandas DataFrame): table
+
         '''
         df = self.__assets.df.copy()
         if not include_land:
@@ -467,24 +472,24 @@ class Calculator():
         and reform policies by major asset grouping.
 
         Args:
-            calc: CCC Calculator object, calc represents the reform
+            calc (CCC Calculator object): calc represents the reform
                 while self represents the baseline
-            output_variable: string, specifies which output variable to
-                summarize in the table
-            include_land: boolean, specifies whether to include land in
-                overall calculations
-            include_inventories: boolean, specifies whether to include
-                inventories in overall calculations
-            output_type: string, specifies the type of file to save
-                table to:
-                    - 'csv'
-                    - 'tex'
-                    - 'excel'
-                    - 'json'
-            path: string, specifies path to save file with table to
+            output_variable (string): specifies which output variable to
+                summarize in the table.  Default is the marginal
+                effective total tax rate (`mettr`).
+            include_inventories (bool): whether to include inventories
+                in calculations.  Defaults to `True`.
+            include_land (bool): whether to include land in
+                calculations.  Defaults to `True`.
+            output_type (string): specifies the type of file to save
+                table to: 'csv', 'tex', 'excel', 'json'
+            path (string): specifies path to save file with table to.
+                If `None`, then returns DataFrame or string object,
+                depending on `output_type`. Default is `None`.
 
         Returns:
-            table_df: DataFrame, table
+            table_df (Pandas DataFrame): table
+
         '''
         self.calc_base()
         calc.calc_base()
@@ -629,24 +634,25 @@ class Calculator():
         and reform policies by major asset grouping.
 
         Args:
-            calc: CCC Calculator object, calc represents the reform
+            calc (CCC Calculator object): calc represents the reform
                 while self represents the baseline
-            output_variable: string, specifies which output variable to
-                summarize in the table
-            include_land: boolean, specifies whether to include land in
-                overall calculations
-            include_inventories: boolean, specifies whether to include
-                inventories in overall calculations
-            output_type: string, specifies the type of file to save
-                table to:
-                    - 'csv'
-                    - 'tex'
-                    - 'excel'
-                    - 'json'
-            path: string, specifies path to save file with table to
+            output_variable (string): specifies which output variable to
+                summarize in the table.  Default is the marginal
+                effective total tax rate (`mettr`).
+            include_inventories (bool): whether to include inventories
+                in calculations.  Defaults to `True`.
+            include_land (bool): whether to include land in
+                calculations.  Defaults to `True`.
+            output_type (string): specifies the type of file to save
+                table to: 'csv', 'tex', 'excel', 'json'
+                Default is `csv`.
+            path (string): specifies path to save file with table to.
+                If `None`, then returns DataFrame or string object,
+                depending on `output_type`. Default is `None`.
 
         Returns:
-            table: DataFrame or None, table
+            table_df (Pandas DataFrame): table
+
         '''
         self.calc_base()
         calc.calc_base()
@@ -774,6 +780,31 @@ class Calculator():
     def grouped_bar(self, calc, output_variable='mettr',
                     group_by_asset=True, corporate=True,
                     include_land=True, include_inventories=True):
+        '''
+        Create a grouped bar plot (grouped by major industry or major
+        asset group).
+
+        Args:
+            calc (CCC Calculator object): calc represents the reform
+                while self represents the baseline
+            output_variable (string): specifies which output variable to
+                summarize in the table.  Default is the marginal
+                effective total tax rate (`mettr`).
+            group_by_asset (bool): whether to group by major asset
+                group.  If `False`, then grouping is by major industry.
+                Defaults to `True`.
+            corporate (bool): whether to use data for corporate entities.
+                If `False`, then uses data for pass-through entities.
+                Defaults to `True`.
+            include_inventories (bool): whether to include inventories
+                in calculations.  Defaults to `True`.
+            include_land (bool): whether to include land in
+                calculations.  Defaults to `True`.
+
+        Returns:
+            p (Bokeh plot object): bar plot
+
+        '''
         if group_by_asset:
             base_df = self.calc_by_asset(
                 include_land=include_land,
@@ -868,6 +899,27 @@ class Calculator():
     def range_plot(self, calc, output_variable='mettr',
                    corporate=True, include_land=True,
                    include_inventories=True):
+        '''
+        Create a range plot.
+
+        Args:
+            calc (CCC Calculator object): calc represents the reform
+                while self represents the baseline
+            output_variable (string): specifies which output variable to
+                summarize in the table.  Default is the marginal
+                effective total tax rate (`mettr`).
+            corporate (bool): whether to use data for corporate entities.
+                If `False`, then uses data for pass-through entities.
+                Defaults to `True`.
+            include_inventories (bool): whether to include inventories
+                in calculations.  Defaults to `True`.
+            include_land (bool): whether to include land in
+                calculations.  Defaults to `True`.
+
+        Returns:
+            p (Bokeh plot object): bar plot
+
+        '''
         base_df = self.calc_by_asset(
             include_land=include_land,
             include_inventories=include_inventories)
@@ -1024,24 +1076,26 @@ class Calculator():
 
     def bubble_widget(self, calc, output_variable='mettr',
                       include_land=False, include_inventories=False,
-                      include_IP=False, path=''):
+                      include_IP=False):
         '''
-        Create table summarizing the output_variable under the baseline
-        and reform policies.
+        Create a bubble plot widget.
 
         Args:
-            calc: CCC Calculator object, calc represents the reform
+            calc (CCC Calculator object): calc represents the reform
                 while self represents the baseline
-            output_variable: string, specifies which output variable to
-                summarize in the plot
-            include_land: boolean, specifies whether to include land in
-                overall calculations
-            include_inventories: boolean, specifies whether to include
-                inventories in overall calculations
-            path: string, specifies path to save file with table to
+            output_variable (string): specifies which output variable to
+                summarize in the table.  Default is the marginal
+                effective total tax rate (`mettr`).
+            include_inventories (bool): whether to include inventories
+                in calculations.  Defaults to `False`.
+            include_land (bool): whether to include land in
+                calculations.  Defaults to `False`.
+            include_IP (bool): whether to include intellectual
+                property in calculations.  Defaults to `False`.
 
         Returns:
-            None, plot saved to disk
+            layout (Bokeh Layout object): widget
+
         '''
         base_df = self.calc_by_asset()
         reform_df = calc.calc_by_asset()
@@ -1336,25 +1390,28 @@ class Calculator():
         return layout
 
     def asset_bubble(self, calc, output_variable='mettr_mix',
-                     include_land=False, include_inventories=False,
+                     include_inventories=False, include_land=False,
                      include_IP=False, path=''):
         '''
-        Create table summarizing the output_variable under the baseline
-        and reform policies.
+        Create a bubble plot.
 
         Args:
-            calc: CCC Calculator object, calc represents the reform
+            calc (CCC Calculator object): calc represents the reform
                 while self represents the baseline
-            output_variable: string, specifies which output variable to
-                summarize in the plot
-            include_land: boolean, specifies whether to include land in
-                overall calculations
-            include_inventories: boolean, specifies whether to include
-                inventories in overall calculations
-            path: string, specifies path to save file with table to
+            output_variable (string): specifies which output variable to
+                summarize in the table.  Default is the marginal
+                effective total tax rate (`mettr_mix`).
+            include_inventories (bool): whether to include inventories
+                in calculations.  Defaults to `False`.
+            include_land (bool): whether to include land in
+                calculations.  Defaults to `False`.
+            include_IP (bool): whether to include intellectual
+                property in calculations.  Defaults to `False`.
+            path (string): path to save file to.
 
         Returns:
-            None, plot saved to disk
+            tabs (Bokeh Tabs object): bubble plots
+
         '''
         # Load data as DataFrame
         df = self.calc_by_asset()
@@ -1596,38 +1653,28 @@ class Calculator():
         return tabs
 
     def store_assets(self):
-        """
+        '''
         Make internal copy of embedded Assets object that can then be
         restored after interim calculations that make temporary changes
         to the embedded Assets object.
 
-        Args:
-            None
-
-        Returns:
-            None
-        """
+        '''
         assert self.__stored_assets is None
         self.__stored_assets = copy.deepcopy(self.__assets)
 
     def restore_assets(self):
-        """
+        '''
         Set the embedded Assets object to the stored Assets object
         that was saved in the last call to the store_assets() method.
 
-        Args:
-            None
-
-        Returns:
-            None
-        """
+        '''
         assert isinstance(self.__stored_assets, Assets)
         self.__assets = copy.deepcopy(self.__stored_assets)
         del self.__stored_assets
         self.__stored_assets = None
 
     def p_param(self, param_name, param_value=None):
-        """
+        '''
         If param_value is None, return named parameter in
          embedded Specifications object.
         If param_value is not None, set named parameter in
@@ -1635,12 +1682,12 @@ class Calculator():
          return None (which can be ignored).
 
          Args:
-             param_name: string, parameter name
-             param_value: python object, value to set parameter to
+             param_name (string): parameter name
+             param_value (python object): value to set parameter to
 
          Returns:
              None
-        """
+        '''
         if param_value is None:
             return getattr(self.__p, param_name)
         setattr(self.__p, param_name, param_value)
@@ -1648,41 +1695,26 @@ class Calculator():
 
     @property
     def reform_warnings(self):
-        """
+        '''
         Calculator class embedded Specifications object's reform_warnings.
 
-        Args:
-            None
-
-        Returns:
-            None
-        """
+        '''
         return self.__p.parameter_warnings
 
     @property
     def current_year(self):
-        """
+        '''
         Calculator class current calendar year property.
 
-        Args:
-            None
-
-        Returns:
-            None
-        """
+        '''
         return self.__p.year
 
     @property
     def data_year(self):
-        """
+        '''
         Calculator class initial (i.e., first) assets data year property.
 
-        Args:
-            None
-
-        Returns:
-            None
-        """
+        '''
         return self.__assets.data_year
 
     def __f(self, x):
@@ -1691,10 +1723,12 @@ class Calculator():
         from a groubpy object.
 
         Args:
-            x: grouby object, grouping of data to make calculations over
+            x (Pandas Groupby object): grouping of data to make
+                calculations over
 
         Returns:
-            d: pandas Series, computed variables for the group
+            d (Pandas Series): computed variables for the group
+
         '''
         d = {}
         d['assets'] = x['assets'].sum()

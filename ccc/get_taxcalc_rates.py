@@ -25,17 +25,19 @@ def get_calculator(baseline, calculator_start_year, reform=None,
     This function creates the tax calculator object for the microsim
 
     Args:
-        baseline: boolean, True if baseline tax policy
-        calculator_start_year: integer, first year of budget window
-        reform: dictionary, reform parameters
-        data: DataFrame, DataFrame for Records object (opt.)
-        weights: DataFrame, weights DataFrame for Records object (opt.)
-        records_start_year: integer, the start year for the data and
-                            weights dfs
+        baseline (bool): `True` if baseline tax policy
+        calculator_start_year (integer): first year of budget window
+        reform (dictionary): IIT reform parameters
+        data (string or Pandas DataFrame): path to file or DataFrame
+            for Tax-Calculator Records object (optional)
+        weights (DataFrame): weights DataFrame for Tax-Calculator
+            Records object (optional)
+        records_start_year (integer): the start year for the data and
+            weights dfs
 
     Returns:
-        calc1: Tax Calculator Calculator object with a current_year
-            equal to calculator_start_year
+        calc1 (Tax Calculator Calculator object): TC Calculator object
+            with a current_year equal to calculator_start_year
     '''
     # create a calculator
     policy1 = Policy()
@@ -80,15 +82,15 @@ def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={},
     micro data from the tax calculator
 
     Args:
-        baseline: boolean, =True if baseline tax policy, =False if reform
-        start_year: integer, first year of budget window
-        reform: dictionary, reform parameters
+        baseline (bool): `True` if baseline tax policy, `False` if reform
+        start_year (integer): first year of budget window
+        reform (dict): reform parameters
 
     Returns:
-        individual_rates: dictionary, individual income (IIT+payroll)
-                          marginal tax rates
-    '''
+        individual_rates (dict): individual income (IIT+payroll)
+            marginal tax rates
 
+    '''
     calc1 = get_calculator(baseline=baseline,
                            calculator_start_year=start_year,
                            reform=reform, data=data)
