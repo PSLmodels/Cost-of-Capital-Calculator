@@ -1,5 +1,5 @@
 Cost-of-Capital-Calclator API
-=========================
+==============================
 
 The source code for Cost-of-Capital-Calculator (CCC) is located in the
 Cost-of-Capital-Calculator/ccc directory tree.
@@ -13,7 +13,7 @@ There is also a link to the source code for each documented member.
 
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 4
    :caption: API
 
    calcfunctions
