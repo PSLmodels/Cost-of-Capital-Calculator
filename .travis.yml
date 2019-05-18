@@ -15,7 +15,7 @@ install:
   - source activate ccc-dev
   - conda env update -f environment.yml
   - pip install codecov
-  - setup.py install
+  - pip install .
 
 # command to run tests
 script:
