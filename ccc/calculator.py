@@ -12,7 +12,7 @@ import pandas as pd
 from ccc.calcfunctions import (update_depr_methods, npv_tax_depr,
                                eq_coc, eq_coc_inventory, eq_ucc,
                                eq_metr, eq_mettr, eq_tax_wedge, eq_eatr)
-from ccc.parameters import Specifications
+from ccc.parameters import Specification
 from ccc.data import Assets
 from ccc.utils import wavg, diff_two_tables, save_return_table
 from ccc.constants import VAR_DICT, MAJOR_IND_ORDERED
@@ -39,7 +39,7 @@ class Calculator():
     Constructor for the Calculator class.
 
     Args:
-        p: CCC Specifications class object, contains parameters, this
+        p: CCC Specification class object, contains parameters, this
             argument must be specified and object is copied for internal
             use
         assets: CCC Assets class object, contains asset data, this
@@ -59,23 +59,23 @@ class Calculator():
     -----
     The most efficient way to specify current-law and reform Calculator
     objects is as follows:
-         pol = Specifications()
+         pol = Specification()
          rec = Assets()
          calc1 = Calculator(p=pol, assets=rec)  # current-law
-         pol2 = Specifications(...reform parameters...)
+         pol2 = Specification(...reform parameters...)
          calc2 = Calculator(p=pol2, assets=rec)  # reform
     All calculations are done on the internal copies of the
-    Specifications and Assets objects passed to each of the two
+    Specification and Assets objects passed to each of the two
     Calculator constructors.
     """
     # pylint: disable=too-many-public-methods
 
     def __init__(self, p=None, assets=None, verbose=True):
         # pylint: disable=too-many-arguments,too-many-branches
-        if isinstance(p, Specifications):
+        if isinstance(p, Specification):
             self.__p = copy.deepcopy(p)
         else:
-            raise ValueError('must specify p as a Specifications object')
+            raise ValueError('must specify p as a Specification object')
         if isinstance(assets, Assets):
             self.__assets = copy.deepcopy(assets)
         else:
@@ -558,20 +558,20 @@ class Calculator():
                      (diff_tab['major_asset_group'] == 'Overall')]
             [output_variable + '_mix'].values[0]]
         for item in major_groups:
-                category_list.append('   ' + item)
-                base_out_list.append(
-                    base_tab[(base_tab['tax_treat'] == 'corporate') &
-                             (base_tab['major_asset_group'] == item)]
-                    [output_variable + '_mix'].values[0])
-                reform_out_list.append(
-                    reform_tab[(reform_tab['tax_treat'] == 'corporate')
-                               &
-                               (reform_tab['major_asset_group'] == item)]
-                    [output_variable + '_mix'].values[0])
-                diff_out_list.append(
-                    diff_tab[(diff_tab['tax_treat'] == 'corporate') &
-                             (diff_tab['major_asset_group'] == item)]
-                    [output_variable + '_mix'].values[0])
+            category_list.append('   ' + item)
+            base_out_list.append(
+                base_tab[(base_tab['tax_treat'] == 'corporate') &
+                         (base_tab['major_asset_group'] == item)]
+                [output_variable + '_mix'].values[0])
+            reform_out_list.append(
+                reform_tab[(reform_tab['tax_treat'] == 'corporate')
+                           &
+                           (reform_tab['major_asset_group'] == item)]
+                [output_variable + '_mix'].values[0])
+            diff_out_list.append(
+                diff_tab[(diff_tab['tax_treat'] == 'corporate') &
+                         (diff_tab['major_asset_group'] == item)]
+                [output_variable + '_mix'].values[0])
         category_list.append('Pass-through')
         base_out_list.append(base_tab[
             (base_tab['tax_treat'] == 'non-corporate') &
@@ -586,21 +586,21 @@ class Calculator():
             (diff_tab['major_asset_group'] == 'Overall')]
                              [output_variable + '_mix'].values[0])
         for item in major_groups:
-                category_list.append('   ' + item)
-                base_out_list.append(
-                    base_tab[(base_tab['tax_treat'] == 'non-corporate') &
-                             (base_tab['major_asset_group'] == item)]
-                    [output_variable + '_mix'].values[0])
-                reform_out_list.append(
-                    reform_tab[
-                        (reform_tab['tax_treat'] == 'non-corporate') &
-                        (reform_tab['major_asset_group'] == item)]
-                    [output_variable + '_mix'].values[0])
-                diff_out_list.append(
-                    diff_tab[
-                        (diff_tab['tax_treat'] == 'non-corporate') &
-                        (diff_tab['major_asset_group'] == item)]
-                    [output_variable + '_mix'].values[0])
+            category_list.append('   ' + item)
+            base_out_list.append(
+                base_tab[(base_tab['tax_treat'] == 'non-corporate') &
+                         (base_tab['major_asset_group'] == item)]
+                [output_variable + '_mix'].values[0])
+            reform_out_list.append(
+                reform_tab[
+                    (reform_tab['tax_treat'] == 'non-corporate') &
+                    (reform_tab['major_asset_group'] == item)]
+                [output_variable + '_mix'].values[0])
+            diff_out_list.append(
+                diff_tab[
+                    (diff_tab['tax_treat'] == 'non-corporate') &
+                    (diff_tab['major_asset_group'] == item)]
+                [output_variable + '_mix'].values[0])
         table_dict = {
             'Category': category_list,
             VAR_DICT[output_variable] + ' Under Baseline Policy':
@@ -709,20 +709,20 @@ class Calculator():
                      (diff_tab['major_industry'] == 'Overall')]
             [output_variable + '_mix'].values[0]]
         for item in MAJOR_IND_ORDERED:
-                category_list.append('   ' + item)
-                base_out_list.append(
-                    base_tab[(base_tab['tax_treat'] == 'corporate') &
-                             (base_tab['major_industry'] == item)]
-                    [output_variable + '_mix'].values[0])
-                reform_out_list.append(
-                    reform_tab[(reform_tab['tax_treat'] == 'corporate')
-                               &
-                               (reform_tab['major_industry'] == item)]
-                    [output_variable + '_mix'].values[0])
-                diff_out_list.append(
-                    diff_tab[(diff_tab['tax_treat'] == 'corporate') &
-                             (diff_tab['major_industry'] == item)]
-                    [output_variable + '_mix'].values[0])
+            category_list.append('   ' + item)
+            base_out_list.append(
+                base_tab[(base_tab['tax_treat'] == 'corporate') &
+                         (base_tab['major_industry'] == item)]
+                [output_variable + '_mix'].values[0])
+            reform_out_list.append(
+                reform_tab[(reform_tab['tax_treat'] == 'corporate')
+                           &
+                           (reform_tab['major_industry'] == item)]
+                [output_variable + '_mix'].values[0])
+            diff_out_list.append(
+                diff_tab[(diff_tab['tax_treat'] == 'corporate') &
+                         (diff_tab['major_industry'] == item)]
+                [output_variable + '_mix'].values[0])
         category_list.append('Pass-through')
         base_out_list.append(base_tab[
             (base_tab['tax_treat'] == 'non-corporate') &
@@ -737,21 +737,21 @@ class Calculator():
             (diff_tab['major_industry'] == 'Overall')]
                              [output_variable + '_mix'].values[0])
         for item in MAJOR_IND_ORDERED:
-                category_list.append('   ' + item)
-                base_out_list.append(
-                    base_tab[(base_tab['tax_treat'] == 'non-corporate') &
-                             (base_tab['major_industry'] == item)]
-                    [output_variable + '_mix'].values[0])
-                reform_out_list.append(
-                    reform_tab[
-                        (reform_tab['tax_treat'] == 'non-corporate') &
-                        (reform_tab['major_industry'] == item)]
-                    [output_variable + '_mix'].values[0])
-                diff_out_list.append(
-                    diff_tab[
-                        (diff_tab['tax_treat'] == 'non-corporate') &
-                        (diff_tab['major_industry'] == item)]
-                    [output_variable + '_mix'].values[0])
+            category_list.append('   ' + item)
+            base_out_list.append(
+                base_tab[(base_tab['tax_treat'] == 'non-corporate') &
+                         (base_tab['major_industry'] == item)]
+                [output_variable + '_mix'].values[0])
+            reform_out_list.append(
+                reform_tab[
+                    (reform_tab['tax_treat'] == 'non-corporate') &
+                    (reform_tab['major_industry'] == item)]
+                [output_variable + '_mix'].values[0])
+            diff_out_list.append(
+                diff_tab[
+                    (diff_tab['tax_treat'] == 'non-corporate') &
+                    (diff_tab['major_industry'] == item)]
+                [output_variable + '_mix'].values[0])
         table_dict = {
             'Category': category_list,
             VAR_DICT[output_variable] + ' Under Baseline Policy':
@@ -964,8 +964,8 @@ class Calculator():
         # Done as a custom function instead of a categorical axis because
         # categorical axes do not work well with other features
         p.xaxis.formatter = FuncTickFormatter(code="""
-            var types = ["Typically Financed", "Debt Financed", "Equity Financed"]
-            return types[tick]
+        var types = ["Typically Financed", "Debt Financed", "Equity Financed"]
+        return types[tick]
         """)
         p.yaxis.axis_label = VAR_DICT[output_variable]
         p.yaxis[0].formatter = NumeralTickFormatter(format="0%")
@@ -1629,9 +1629,9 @@ class Calculator():
     def p_param(self, param_name, param_value=None):
         """
         If param_value is None, return named parameter in
-         embedded Specifications object.
+         embedded Specification object.
         If param_value is not None, set named parameter in
-         embedded Specifications object to specified param_value and
+         embedded Specification object to specified param_value and
          return None (which can be ignored).
 
          Args:
@@ -1649,7 +1649,7 @@ class Calculator():
     @property
     def reform_warnings(self):
         """
-        Calculator class embedded Specifications object's reform_warnings.
+        Calculator class embedded Specification object's reform_warnings.
 
         Args:
             None

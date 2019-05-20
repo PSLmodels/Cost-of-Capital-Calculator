@@ -1,0 +1,6 @@
+fc baseline_byasset.csv example_output/baseline_byasset_expected.csv
+fc baseline_byindustry.csv example_output/baseline_byindustry_expected.csv
+fc reform_byasset.csv example_output/reform_byasset_expected.csv
+fc reform_byindustry.csv example_output/reform_byindustry_expected.csv
+fc changed_byasset.csv example_output/changed_byasset_expected.csv
+fc changed_byindustry.csv example_output/changed_byindustry_expected.csv
