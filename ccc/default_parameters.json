@@ -938,7 +938,7 @@
         "description": "Whether or not use the new view of dividend taxation.",
         "notes": "Under the new view of dividend taxation, dividend taxes do not influence investment decisions.  Under the old view, they do.",
         "value_yrs": ["2015"],
-        "value_type": "bool",
+        "value_type": "boolean",
         "value": [false],
         "valid_values": {"min": false, "max": true}
     }
