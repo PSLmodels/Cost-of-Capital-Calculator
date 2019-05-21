@@ -219,39 +219,34 @@ class Specification(taxcalc.Parameters):
         '''
         Updates parameter specification with values in revision dictionary.
 
-        Parameters
-        ----------
-        revision: dictionary of one or more PARAM: YEAR-VALUE-DICTIONARY pairs
+        Args:
+            revision (dict): dictionary of one or more `PARAM: YEAR-VALUE-DICTIONARY` pairs
 
-        raise_errors: boolean
-            if True (the default), raises ValueError when parameter_errors
+            raise_errors (boolean):
+                if True (the default), raises ValueError when parameter_errors
                     exists;
-            if False, does not raise ValueError when parameter_errors exists
+                if False, does not raise ValueError when parameter_errors exists
                     and leaves error handling to caller of the
                     update_specification method.
 
-        Raises
-        ------
-        ValueError:
-            if raise_errors is True AND
-            _validate_parameter_names_types generates errors OR
-            _validate_parameter_values generates errors.
+        Raises:
+            ValueError: if `raise_errors` is True AND
+                `_validate_parameter_names_types` generates errors OR
+                `_validate_parameter_values` generates errors.
 
-        Returns
-        -------
-        nothing: void
+        Returns:
+            None
 
-        Notes
-        -----
-        Given a revision dictionary, typical usage of the Specification class
-        is as follows:
-            spec = Specification()
-            spec.update_specification(revision)
-        An example of a multi-parameter revision dictionary is as follows:
-            revison = {
-                'CIT_rate': {2021: [0.25]},
-                'BonusDeprec_3yr': {2021: 0.60},
-            }
+        Notes:
+            Given a revision dictionary, typical usage of the Specification class
+            is as follows:
+                >>> spec = Specification()
+                >>> spec.update_specification(revision)
+            An example of a multi-parameter revision dictionary is as follows:
+                revison = {
+                    'CIT_rate': {2021: [0.25]},
+                    'BonusDeprec_3yr': {2021: 0.60},
+                }
         '''
         assert isinstance(revision, dict)
         if not revision:
@@ -281,14 +276,12 @@ def revision_warnings_errors(spec_revision):
     Return warnings and errors for the specified Cost-of-Capital-Calculator
     Specificaton revision in parameter values.
 
-    Parameters:
-    -----------
-    spec_revision : dictionary suitable for use with the
-                    Specification.update_specification method.
+    Args:
+        spec_revision (dict): dictionary suitable for use with the
+                    `Specification.update_specification method`.
 
-    Return
-    ------
-    rtn_dict : dictionary containing any warning or error messages
+    Returns:
+        rtn_dict (dict): dicionary containing any warning or error messages
     '''
     rtn_dict = {'warnings': '', 'errors': ''}
     spec = Specification()
