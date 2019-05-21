@@ -3,10 +3,10 @@ import numpy as np
 import pytest
 from pandas.testing import assert_series_equal, assert_frame_equal
 from ccc import calcfunctions as cf
-from ccc.parameters import Specifications
+from ccc.parameters import Specification
 
 
-p = Specifications()
+p = Specification()
 df = pd.DataFrame.from_dict({
     'Method': ['DB 200%', 'DB 150%', 'SL', 'Economic', 'Expensing',
                'DB 200%', 'DB 150%', 'SL', 'Economic', 'Expensing'],

@@ -1,0 +1,7 @@
+#!/bin/bash -v
+diff baseline_byasset.csv example_output/baseline_byasset_expected.csv
+diff baseline_byindustry.csv example_output/baseline_byindustry_expected.csv
+diff reform_byasset.csv example_output/reform_byasset_expected.csv
+diff reform_byindustry.csv example_output/reform_byindustry_expected.csv
+diff changed_byasset.csv example_output/changed_byasset_expected.csv
+diff changed_byindustry.csv example_output/changed_byindustry_expected.csv

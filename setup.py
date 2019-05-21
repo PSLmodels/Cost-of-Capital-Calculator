@@ -6,7 +6,7 @@ except ImportError:
 with open('README.md') as f:
         longdesc = f.read()
 
-version = '1.0.0'
+version = '0.0.0'
 
 config = {
     'description': 'Cost-of-Capital-Calculator: A Cost of Capital Calculator',
@@ -18,7 +18,11 @@ config = {
     'packages': ['ccc'],
     'include_package_data': True,
     'name': 'ccc',
+<<<<<<< HEAD
     'install_requires': ['numpy', 'pandas', 'taxcalc'],
+=======
+    'install_requires': ['numpy', 'pandas', 'taxcalc', 'xlrd'],
+>>>>>>> upstream/master
     'classifiers': [
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
@@ -28,6 +32,7 @@ config = {
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Topic :: Software Development :: Libraries :: Python Modules'],
     'tests_require': ['pytest']
 }

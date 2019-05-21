@@ -1,29 +1,25 @@
 package:
   name: ccc
-  version: 1.0.0
+  version: 0.0.0
 
 source:
   path: ..
 
-build:
-  noarch: python
-  number: 0
-  script: "python -m pip install . --no-deps -vv"
-
 requirements:
-  host:
+  build:
     - python
-    - pip
+    - "taxcalc>=2.1.0"
+    - setuptools
+    - xlrd
 
   run:
     - python
-    - taxcalc
+    - "taxcalc>=2.1.0"
     - setuptools
-    - paramtools >=0.5.1
+    - xlrd
 
 about:
   home: https://github.com/open-source-economics/Cost-of-Capital-Calculator/
-
 
 test:
   imports:
