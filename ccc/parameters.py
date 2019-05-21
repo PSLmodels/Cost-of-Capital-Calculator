@@ -67,6 +67,12 @@ class Specification(taxcalc.Parameters):
         self.financing_list = ['mix', 'd', 'e']
         self.entity_list = ['c', 'nc']
 
+        # If new_view, then don't assume don't pay out any dividends
+        # This becuase under new view, equity investments are financed
+        # with retained earnings
+        if self.new_view:
+            self.m = 1
+
         # Compute required after-tax rates of return for savers
         sprime_c_td = ((1 / self.Y_td) *
                        np.log(((1 - self.tau_td) *
@@ -172,7 +178,8 @@ class Specification(taxcalc.Parameters):
         else:
             # keep debt and equity financing ratio the same even though now
             # entity level tax that might now favor debt
-            self.s['nc']['mix'] = self.f_nc * s_nc_d + (1 - self.f_nc) * s_c_e
+            self.s['nc']['mix'] = (self.f_nc * s_nc_d + (1 - self.f_nc)
+                                   * s_c_e)
             self.s['c']['e'] = s_c_e
         self.tax_methods = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0,
                             'Economic': 1.0, 'Expensing': 1.0}

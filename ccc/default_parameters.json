@@ -932,5 +932,14 @@
         "value_type": "real",
         "value": [0.2],
         "valid_values": {"min": 0.0, "max": 1.0}
+    },
+    "new_view": {
+        "long_name": "Whether or not use the new view of dividend taxation.",
+        "description": "Whether or not use the new view of dividend taxation.",
+        "notes": "Under the new view of dividend taxation, dividend taxes do not influence investment decisions.  Under the old view, they do.",
+        "value_yrs": ["2015"],
+        "value_type": "boolean",
+        "value": [false],
+        "valid_values": {"min": false, "max": true}
     }
 }
