@@ -1,8 +1,9 @@
 *.pyc
 MANIFEST
 ccc.egg-info
-build/*
-dist/*
+.coverage
+.coveragerc
+htmlcov/*
 *.aux
 *.bbl
 *.blg

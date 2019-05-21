@@ -1,8 +1,8 @@
-sudo: false
-
-language: Python
+dist: xenial
+language: python
 python:
   - "3.6"
+  - "3.7"
 
 install:
   # Install conda
@@ -14,7 +14,13 @@ install:
   - conda create -n ccc-dev python=$TRAVIS_PYTHON_VERSION;
   - source activate ccc-dev
   - conda env update -f environment.yml
-  - pip install -e .
+  - pip install codecov
+  - pip install .
 
+# command to run tests
 script:
-  - py.test -m "not slow and not needs_puf and not local" -v
+  - python -c "import ccc"; coverage run -m pytest -v
+# - python -c "import ccc"; coverage run -m pytest -v --pep8
+
+after_success:
+  - codecov

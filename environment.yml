@@ -1,12 +1,11 @@
 name: ccc-dev
 channels:
 - PSLmodels
-- conda-forge
 dependencies:
-- python=3.6
+- python
 - taxcalc
 - setuptools
-- scipy
+- pip
 - xlrd
 - pytest
 - pytest-pep8
@@ -14,7 +13,3 @@ dependencies:
 - pycodestyle
 - pylint
 - coverage
-- "paramtools>=0.5.1"
-- pip
-- pip:
-  - git+https://github.com/comp-org/Developer-Tools.git@master
