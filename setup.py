@@ -18,11 +18,7 @@ config = {
     'packages': ['ccc'],
     'include_package_data': True,
     'name': 'ccc',
-<<<<<<< HEAD
-    'install_requires': ['numpy', 'pandas', 'taxcalc'],
-=======
     'install_requires': ['numpy', 'pandas', 'taxcalc', 'xlrd'],
->>>>>>> upstream/master
     'classifiers': [
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
