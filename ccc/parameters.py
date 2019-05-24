@@ -40,10 +40,14 @@ class Specification(taxcalc.Parameters):
         '''
         ParametersBase reads JSON file and sets attributes to self
         Next call self.compute_default_params for further initialization
-        Parameters:
-        -----------
-        run_micro: boolean that indicates whether to estimate tax funtions
-                from microsim model
+
+        Args:
+            call_tc (bool): whether to use Tax-Calculator to estimate
+                marginal tax rates
+
+        Returns:
+            None
+
         '''
         if call_tc:
             # Find individual income tax rates from Tax-Calculator
@@ -63,6 +67,7 @@ class Specification(taxcalc.Parameters):
     def compute_default_params(self):
         '''
         Does cheap calculations to return parameter values
+
         '''
         self.financing_list = ['mix', 'd', 'e']
         self.entity_list = ['c', 'nc']
@@ -208,9 +213,10 @@ class Specification(taxcalc.Parameters):
         Return Specification object same as self except it contains
         default values of all the parameters.
 
-        Returns
-        -------
-        spec: Specification instance with the default parameter values
+        Returns:
+            spec (CCC Specification object): Specification instance with
+                the default parameter values
+
         '''
         dps = Specification()
         return dps
@@ -220,33 +226,34 @@ class Specification(taxcalc.Parameters):
         Updates parameter specification with values in revision dictionary.
 
         Args:
-            revision (dict): dictionary of one or more `PARAM: YEAR-VALUE-DICTIONARY` pairs
+            revision (dict): dictionary of one or more
+                `PARAM: YEAR-VALUE-DICTIONARY` pairs
 
             raise_errors (boolean):
-                if True (the default), raises ValueError when parameter_errors
-                    exists;
-                if False, does not raise ValueError when parameter_errors exists
-                    and leaves error handling to caller of the
-                    update_specification method.
+                if True (the default), raises ValueError when `parameter_errors`
+                    exists; if False, does not raise ValueError when
+                    `parameter_errors` exists and leaves error handling
+                    to caller of the update_specification method.
+
+        Returns:
+            None
 
         Raises:
             ValueError: if `raise_errors` is True AND
                 `_validate_parameter_names_types` generates errors OR
                 `_validate_parameter_values` generates errors.
 
-        Returns:
-            None
-
         Notes:
-            Given a revision dictionary, typical usage of the Specification class
-            is as follows:
-                >>> spec = Specification()
-                >>> spec.update_specification(revision)
-            An example of a multi-parameter revision dictionary is as follows:
-                revison = {
+            Given a revision dictionary, typical usage of the
+                Specification class is as follows::
+                    >>> spec = Specification()
+                    >>> spec.update_specification(revision)
+            An example of a multi-parameter revision dictionary is as follows::
+                >>> revison = {
                     'CIT_rate': {2021: [0.25]},
                     'BonusDeprec_3yr': {2021: 0.60},
-                }
+                    }
+
         '''
         assert isinstance(revision, dict)
         if not revision:
@@ -265,6 +272,7 @@ class Specification(taxcalc.Parameters):
         a local filename,
         a URL beginning with 'http' pointing to a JSON file hosted online, or
         a valid JSON text.
+
         '''
         return taxcalc.Parameters._read_json_revision(obj, 'revision')
 
@@ -278,10 +286,11 @@ def revision_warnings_errors(spec_revision):
 
     Args:
         spec_revision (dict): dictionary suitable for use with the
-                    `Specification.update_specification method`.
+            `Specification.update_specification method`.
 
     Returns:
         rtn_dict (dict): dicionary containing any warning or error messages
+
     '''
     rtn_dict = {'warnings': '', 'errors': ''}
     spec = Specification()

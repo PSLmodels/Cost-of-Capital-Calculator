@@ -10,12 +10,12 @@ def update_depr_methods(df, p):
 
     Args:
         df (Pandas DataFrame): assets by type and tax treatment with
-                current law tax depreciation methods
+            current law tax depreciation methods
         p (CCC Specifications object): model parameters
 
     Returns:
         df (Pandas DataFrame): assets by type and tax treatment with
-                updated tax depreciation methods
+            updated tax depreciation methods
 
     '''
     # update tax_deprec_rates based on user defined parameters
@@ -39,12 +39,12 @@ def update_depr_methods(df, p):
 
 
 def dbsl(Y, b, bonus, r):
-    '''
+    r'''
     Makes the calculation for the declining balance with a switch to
     straight line (DBSL) method of depreciation.
 
-    ..math::
-        z = \\frac{\\beta}{\\beta+r}\\left[1-e^{-(\\beta+r)Y^{*}}\\right]+ \\frac{e^{-\\beta Y^{*}}}{(Y-Y^{*})r}\\left[e^{-rY^{*}}-e^{-rY}\\right]
+    .. math::
+        z = \frac{\beta}{\beta+r}\left[1-e^{-(\beta+r)Y^{*}}\right]+\frac{e^{-\beta Y^{*}}}{(Y-Y^{*})r}\left[e^{-rY^{*}}-e^{-rY}\right]
 
     Args:
         Y (array_like): asset life in years
@@ -56,6 +56,7 @@ def dbsl(Y, b, bonus, r):
     Returns:
         z (array_like): net present value of depreciation deductions for
             $1 of investment
+
     '''
     beta = b / Y
     Y_star = Y * (1 - (1 / b))
@@ -70,11 +71,11 @@ def dbsl(Y, b, bonus, r):
 
 
 def sl(Y, bonus, r):
-    '''
+    r'''
     Makes the calculation for straight line (SL) method of depreciation.
 
-    ..math::
-        z = \\frac{1 - e^{-rY}}{Yr}
+    .. math::
+        z = \frac{1 - e^{-rY}}{Yr}
 
     Args:
         Y (array_like): asset life in years
@@ -91,12 +92,12 @@ def sl(Y, bonus, r):
 
 
 def econ(delta, bonus, r, pi):
-    '''
+    r'''
     Makes the calculation for the NPV of depreciation deductions using
     economic depreciation rates.
 
-    ..math::
-        z = \\frac{\\delta}{(\\delta + r - \\pi)}
+    .. math::
+        z = \frac{\delta}{(\delta + r - \pi)}
 
     Args:
         delta (array_like): rate of economic depreciation
@@ -107,6 +108,7 @@ def econ(delta, bonus, r, pi):
     Returns:
         z (array_like): net present value of depreciation deductions for
             $1 of investment
+
     '''
     z = bonus + ((1 - bonus) * (delta / (delta + r - pi)))
     return z
@@ -126,6 +128,7 @@ def npv_tax_depr(df, r, pi, land_expensing):
     Returns:
         z (Pandas series): NPV of depreciation deductions for all asset
                 types and tax treatments
+
     '''
     idx = (df['Method'] == 'DB 200%') | (df['Method'] == 'DB 150%')
     df.loc[idx, 'z'] = dbsl(df.loc[idx, 'Y'], df.loc[idx, 'b'],
@@ -144,11 +147,11 @@ def npv_tax_depr(df, r, pi, land_expensing):
 
 
 def eq_coc(delta, z, w, u, inv_tax_credit, pi, r):
-    '''
+    r'''
     Compute the cost of capital
 
-    ..math::
-        \\rho = \\frac{(r-\\pi+\\delta)}{1-u(1-uz)+w-\\delta
+    .. math::
+        \rho = \frac{(r-\pi+\delta)}{1-u}(1-uz)+w-\delta
 
     Args:
         delta (array_like): rate of economic depreciation
@@ -171,11 +174,11 @@ def eq_coc(delta, z, w, u, inv_tax_credit, pi, r):
 
 
 def eq_coc_inventory(u, phi, Y_v, pi, r):
-    '''
+    r'''
     Compute the cost of capital for inventories
 
-    ..math::
-        \\rho = \\phi \\rho_{FIFO} + (1-\\phi)\\rho_{LIFO}
+    .. math::
+        \rho = \phi \rho_{FIFO} + (1-\phi)\rho_{LIFO}
 
     Args:
         u (scalar): statutory marginal tax rate for the first layer of
@@ -198,11 +201,11 @@ def eq_coc_inventory(u, phi, Y_v, pi, r):
 
 
 def eq_ucc(rho, delta):
-    '''
+    r'''
     Compute the user cost of capital
 
-    ..math::
-        ucc = \\rho + \\delta
+    .. math::
+        ucc = \rho + \delta
 
     Args:
         rho (array_like): cost of capital
@@ -217,11 +220,11 @@ def eq_ucc(rho, delta):
 
 
 def eq_metr(rho, r_prime, pi):
-    '''
+    r'''
     Compute the marginal effective tax rate (METR)
 
-    ..math::
-        metr = \\frac{\\rho - (r^{'}-\\pi)}{\\rho}
+    .. math::
+        metr = \frac{\rho - (r^{'}-\pi)}{\rho}
 
     Args:
         rho (array_like): cost of capital
@@ -237,11 +240,11 @@ def eq_metr(rho, r_prime, pi):
 
 
 def eq_mettr(rho, s):
-    '''
+    r'''
     Compute the marginal effective total tax rate (METTR)
 
-    ..math::
-        mettr = \\frac{\\rho - s}{\\rho}
+    .. math::
+        mettr = \frac{\rho - s}{\rho}
 
     Args:
         rho (array_like): cost of capital
@@ -256,11 +259,11 @@ def eq_mettr(rho, s):
 
 
 def eq_tax_wedge(rho, s):
-    '''
+    r'''
     Compute the tax wedge
 
-    ..math::
-        wedge = \\rho - s
+    .. math::
+        wedge = \rho - s
 
     Args:
         rho (array_like): cost of capital
@@ -275,11 +278,11 @@ def eq_tax_wedge(rho, s):
 
 
 def eq_eatr(rho, metr, p, u):
-    '''
+    r'''
     Compute the effective average tax rate (EATR).
 
-    ..math::
-        eatr = \\left(\\frac{p - rho}{p}\\right)u + \\left(\\frac{\\rho}{p}\\right)metr
+    .. math::
+        eatr = \left(\frac{p - rho}{p}\right)u + \left(\frac{\rho}{p}\right)metr
 
     Args:
         rho (array_like): cost of capital

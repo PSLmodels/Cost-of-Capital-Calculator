@@ -62,12 +62,12 @@ class Calculator():
 
     Example:
         The most efficient way to specify current-law and reform Calculator
-        objects is as follows:
-        >>> `params = Specifications()``
-        >>> `rec = Assets()``
-        >>> `calc1 = Calculator(p=params, assets=rec)  # current-law`
-        >>> `params2 = Specifications(...reform parameters...)``
-        >>> `calc2 = Calculator(p=params2, assets=rec)  # reform`
+            objects is as follows::
+                >>> `params = Specifications()``
+                >>> `rec = Assets()``
+                >>> `calc1 = Calculator(p=params, assets=rec)  # current-law`
+                >>> `params2 = Specifications(...reform parameters...)``
+                >>> `calc2 = Calculator(p=params2, assets=rec)  # reform`
 
     '''
     # pylint: disable=too-many-public-methods
