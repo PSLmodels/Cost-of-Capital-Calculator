@@ -12,9 +12,9 @@ from ccc.utils import DEFAULT_START_YEAR
 
 
 class Specification(taxcalc.Parameters):
-    """
+    '''
     Inherits Tax-Calculator Parameters abstract base class.
-    """
+    '''
 
     DEFAULTS_FILE_NAME = 'default_parameters.json'
     DEFAULTS_FILE_PATH = os.path.abspath(os.path.dirname(__file__))
@@ -37,14 +37,18 @@ class Specification(taxcalc.Parameters):
         self.ccc_initialize(call_tc=call_tc)
 
     def ccc_initialize(self, call_tc=False):
-        """
+        '''
         ParametersBase reads JSON file and sets attributes to self
         Next call self.compute_default_params for further initialization
-        Parameters:
-        -----------
-        run_micro: boolean that indicates whether to estimate tax funtions
-                from microsim model
-        """
+
+        Args:
+            call_tc (bool): whether to use Tax-Calculator to estimate
+                marginal tax rates
+
+        Returns:
+            None
+
+        '''
         if call_tc:
             # Find individual income tax rates from Tax-Calculator
             indiv_rates = get_rates(self.baseline, self.year,
@@ -61,9 +65,10 @@ class Specification(taxcalc.Parameters):
         self.compute_default_params()
 
     def compute_default_params(self):
-        """
+        '''
         Does cheap calculations to return parameter values
-        """
+
+        '''
         self.financing_list = ['mix', 'd', 'e']
         self.entity_list = ['c', 'nc']
 
@@ -204,55 +209,52 @@ class Specification(taxcalc.Parameters):
         self.bonus_deprec['100'] = 0.0
 
     def default_parameters(self):
-        """
+        '''
         Return Specification object same as self except it contains
         default values of all the parameters.
 
-        Returns
-        -------
-        spec: Specification instance with the default parameter values
-        """
+        Returns:
+            spec (CCC Specification object): Specification instance with
+                the default parameter values
+
+        '''
         dps = Specification()
         return dps
 
     def update_specification(self, revision, raise_errors=True):
-        """
+        '''
         Updates parameter specification with values in revision dictionary.
 
-        Parameters
-        ----------
-        revision: dictionary of one or more PARAM: YEAR-VALUE-DICTIONARY pairs
+        Args:
+            revision (dict): dictionary of one or more
+                `PARAM: YEAR-VALUE-DICTIONARY` pairs
 
-        raise_errors: boolean
-            if True (the default), raises ValueError when parameter_errors
-                    exists;
-            if False, does not raise ValueError when parameter_errors exists
-                    and leaves error handling to caller of the
-                    update_specification method.
+            raise_errors (boolean):
+                if True (the default), raises ValueError when `parameter_errors`
+                    exists; if False, does not raise ValueError when
+                    `parameter_errors` exists and leaves error handling
+                    to caller of the update_specification method.
 
-        Raises
-        ------
-        ValueError:
-            if raise_errors is True AND
-            _validate_parameter_names_types generates errors OR
-            _validate_parameter_values generates errors.
+        Returns:
+            None
 
-        Returns
-        -------
-        nothing: void
+        Raises:
+            ValueError: if `raise_errors` is True AND
+                `_validate_parameter_names_types` generates errors OR
+                `_validate_parameter_values` generates errors.
 
-        Notes
-        -----
-        Given a revision dictionary, typical usage of the Specification class
-        is as follows:
-            spec = Specification()
-            spec.update_specification(revision)
-        An example of a multi-parameter revision dictionary is as follows:
-            revison = {
-                'CIT_rate': {2021: [0.25]},
-                'BonusDeprec_3yr': {2021: 0.60},
-            }
-        """
+        Notes:
+            Given a revision dictionary, typical usage of the
+                Specification class is as follows::
+                    >>> spec = Specification()
+                    >>> spec.update_specification(revision)
+            An example of a multi-parameter revision dictionary is as follows::
+                >>> revison = {
+                    'CIT_rate': {2021: [0.25]},
+                    'BonusDeprec_3yr': {2021: 0.60},
+                    }
+
+        '''
         assert isinstance(revision, dict)
         if not revision:
             return  # no revision to implement
@@ -263,33 +265,33 @@ class Specification(taxcalc.Parameters):
 
     @staticmethod
     def read_json_revision(obj):
-        """
+        '''
         Return a revision dictionary, which is suitable for use with the
         update_specification method, that is derived from the specified
         JSON object, which can be None or a string containing
         a local filename,
         a URL beginning with 'http' pointing to a JSON file hosted online, or
         a valid JSON text.
-        """
+
+        '''
         return taxcalc.Parameters._read_json_revision(obj, 'revision')
 
 # end of Specification class
 
 
 def revision_warnings_errors(spec_revision):
-    """
+    '''
     Return warnings and errors for the specified Cost-of-Capital-Calculator
     Specificaton revision in parameter values.
 
-    Parameters:
-    -----------
-    spec_revision : dictionary suitable for use with the
-                    Specification.update_specification method.
+    Args:
+        spec_revision (dict): dictionary suitable for use with the
+            `Specification.update_specification method`.
 
-    Return
-    ------
-    rtn_dict : dictionary containing any warning or error messages
-    """
+    Returns:
+        rtn_dict (dict): dicionary containing any warning or error messages
+
+    '''
     rtn_dict = {'warnings': '', 'errors': ''}
     spec = Specification()
     try:

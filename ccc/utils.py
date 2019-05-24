@@ -20,15 +20,16 @@ TC_LAST_YEAR = 2029
 
 
 def to_str(x):
-    """
+    '''
     Function to decode string.
 
     Args:
-        x: string, string to decode
+        x (string): string to decode
 
     Returns:
-        x: string, decoded string
-    """
+        x (string): decoded string
+
+    '''
     if hasattr(x, 'decode'):
         return x.decode()
     return x
@@ -41,10 +42,11 @@ def read_from_egg(tfile):
     such as yaml.
 
     Args:
-        tfile: string, relative package path
+        tfile (string): relative package path
 
     Returns:
-        contents: yaml or json, loaded or raw
+        contents (yaml or json): loaded or raw
+
     '''
     template_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                  tfile)
@@ -61,15 +63,16 @@ def read_from_egg(tfile):
 
 
 def str_modified(i):
-    """
+    '''
     Function to deal with conversion of a decimal number to a string.
 
     Args:
-        i: scalar, number that will convert to string
+        i (scalar): number that will convert to string
 
     Returns:
-        str_i: string, number converted to a string
-    """
+        str_i (string): number converted to a string
+
+    '''
     if i == 27.5:
         str_i = '27_5'
     else:
@@ -78,16 +81,18 @@ def str_modified(i):
 
 
 def diff_two_tables(df1, df2):
-    """
+    '''
     Create the difference betweeen two dataframes.
 
     Args:
-        df1: DataFrame, first DataFrame in difference
-        df2: DataFrame, second DataFrame in difference
+        df1 (Pandas DataFrame): first DataFrame in difference
+        df2 (Pandas DataFrame): second DataFrame in difference
 
     Returns:
-        diff_df: DataFrame, DataFrame with differences between to DataFrames
-    """
+        diff_df (Pandas DataFrame): DataFrame with differences between
+            two DataFrames
+
+    '''
     assert tuple(df1.columns) == tuple(df2.columns)
     diffs = OrderedDict()
     for c in df1.columns:
@@ -105,15 +110,16 @@ def diff_two_tables(df1, df2):
 
 
 def filter_user_params_for_econ(**user_params):
-    """
+    '''
     Filter out parameters that are economic (not tax) parameters.
 
     Args:
-        user_params: dictionary, user defined parameters
+        user_params (dict): user defined parameters
 
     Returns:
-        econ_params: dictionary, economic parameters
-    """
+        econ_params (dict): economic parameters
+
+    '''
     econ_params = {k: v for k, v in user_params.items() if
                    k.startswith('ccc_econ_')}
 
@@ -121,17 +127,18 @@ def filter_user_params_for_econ(**user_params):
 
 
 def wavg(group, avg_name, weight_name):
-    """
+    '''
     Computes a weighted average.
 
     Args:
-        group: grouby object, groups of variable
-        avg_name: string, name of variable to compute wgt avg with
-        weight_name: string, name of weighting variables
+        group (Pandas Groupby object): groups of variable
+        avg_name (string): name of variable to compute wgt avg with
+        weight_name (string): name of weighting variables
 
     Returns:
-        d: groupby object, weighted avg by group
-    """
+        d (Pandas Groupby object): weighted avg by group
+
+    '''
     warnings.filterwarnings('error')
     d = group[avg_name]
     w = group[weight_name]
@@ -142,17 +149,17 @@ def wavg(group, avg_name, weight_name):
 
 
 def read_egg_csv(fname, index_col=None):
-    """
+    '''
     Read from egg the file named fname that contains CSV data and
     return pandas DataFrame containing the data.
 
     Args:
-        fname: string, name of csv file
-        index_col: string, name of column containing index
+        fname (string): name of csv file
+        index_col (string): name of column containing index
 
     Returns:
-        vdf: pandas DataFrame, data from csv file
-    """
+        vdf (Pandas DataFrame): data from csv file
+    '''
     try:
         path_in_egg = os.path.join('ccc', fname)
         vdf = pd.read_csv(
@@ -168,16 +175,17 @@ def read_egg_csv(fname, index_col=None):
 
 
 def read_egg_json(fname):
-    """
+    '''
     Read from egg the file named fname that contains JSON data and
     return dictionary containing the data.
 
     Args:
-        fname: string, name of JSON file
+        fname (string): name of JSON file
 
     Returns:
-        pdict: dictionary, data from JSON file
-    """
+        pdict (dict): data from JSON file
+
+    '''
     try:
         path_in_egg = os.path.join('ccc', fname)
         pdict = json.loads(
@@ -193,19 +201,20 @@ def read_egg_json(fname):
 
 
 def json_to_dict(json_text):
-    """
+    '''
     Convert specified JSON text into an ordered Python dictionary.
 
     Args:
-        json_text: string, JSON text
+        json_text (string): JSON text
 
     Raises:
         ValueError: if json_text contains a JSON syntax error
 
     Returns:
-        ordered_dict: collections.OrderedDict, JSON data expressed as
+        ordered_dict (collections.OrderedDict): JSON data expressed as
             an ordered Python dictionary.
-    """
+
+    '''
     try:
         ordered_dict = json.loads(json_text,
                                   object_pairs_hook=OrderedDict)
@@ -232,22 +241,16 @@ def save_return_table(table_df, output_type, path, precision=0):
     Function to save or return a table of data.
 
     Args:
-        table_df: DataFrame, table
-        output_type: string, specifies the type of file to save
-            table to:
-                - 'csv'
-                - 'tex'
-                - 'excel'
-                - 'json'
-        path: string, specifies path to save file with table to
-        precision: integer, number of significant digits to print
+        table_df (Pandas DataFrame): table
+        output_type (string): specifies the type of file to save
+            table to: 'csv', 'tex', 'excel', 'json'
+        path (string): specifies path to save file with table to
+        precision (integer): number of significant digits to print.
+            Defaults to 0.
 
     Returns:
-        table_df: DataFrame, table
+        table_df (Pandas DataFrame): table
 
-        or
-
-        None
     '''
     if path is None:
         if output_type == 'tex':

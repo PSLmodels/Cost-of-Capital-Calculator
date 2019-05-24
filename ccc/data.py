@@ -1,6 +1,6 @@
-"""
+'''
 Cost-of-Capital-Calculator asset data class.
-"""
+'''
 # CODING-STYLE CHECKS:
 # pycodestyle records.py
 # pylint --disable=locally-disabled records.py
@@ -12,40 +12,35 @@ from ccc.utils import ASSET_DATA_CSV_YEAR
 
 
 class Assets():
-    """
+    '''
     Constructor for the asset-entity type Records class.
 
-    Parameters
-    ----------
-    data: string or Pandas DataFrame
-        string describes CSV file in which records data reside;
-        DataFrame already contains records data;
-        default value is the string 'asset_data.csv'
+    Args:
+        data (string or Pandas DataFrame): string describes CSV file in
+            which records data reside; DataFrame already contains records
+            data; default value is the string 'asset_data.csv'
+        start_year (integer): specifies calendar year of the input data;
+            default value is ASSET_DATA_CSV_YEAR.
 
-    start_year: integer
-        specifies calendar year of the input data;
-        default value is ASSET_DATA_CSV_YEAR.
+    Returns:
+    Assets (class instance)
 
-    Raises
-    ------
-    ValueError:
-        if data is not the appropriate type.
-        if start_year is not an integer.
-        if files cannot be found.
+    Raises:
+        ValueError:
+            * if data is not the appropriate type.
 
-    Returns
-    -------
-    class instance: Records
+            * if start_year is not an integer.
 
-    Notes
-    -----
-    Typical usage when using ccc_asset_data.csv input data is as follows::
+            * if files cannot be found.
 
-        assets = Assets()
+    Notes:
+        Typical usage when using ccc_asset_data.csv input data is as follows::
 
-    which uses all the default parameters of the constructor.
+            >>> assets = Assets()
 
-    """
+        which uses all the default parameters of the constructor.
+
+    '''
     # suppress pylint warnings about unrecognized Records variables:
     # pylint: disable=no-member
     # suppress pylint warnings about uppercase variable names:
@@ -71,31 +66,32 @@ class Assets():
 
     @property
     def data_year(self):
-        """
+        '''
         Records class original data year property.
-        """
+        '''
         return self.__data_year
 
     @property
     def current_year(self):
-        """
+        '''
         Records class current calendar year property.
-        """
+        '''
         return self.__current_year
 
     @property
     def array_length(self):
-        """
+        '''
         Length of arrays in Records class's DataFrame.
-        """
+        '''
         return self.__dim
 
     @staticmethod
     def read_var_info():
-        """
-        Read Assets variables metadata from JSON file;
-        returns dictionary and specifies static varname sets listed below.
-        """
+        '''
+        Read Assets variables metadata from JSON file; returns
+        dictionary and specifies static varname sets listed below.
+
+        '''
         var_info_path = os.path.join(Assets.CUR_PATH,
                                      Assets.VAR_INFO_FILENAME)
         if os.path.exists(var_info_path):
@@ -123,9 +119,16 @@ class Assets():
     INTEGER_VARS = set()
 
     def _read_data(self, data):
-        """
+        '''
         Read Records data from file or use specified DataFrame as data.
-        """
+
+        Args:
+            data (string or Pandas DataFrame): data or path to data
+
+        Returns:
+            None
+
+        '''
         # pylint: disable=too-many-statements,too-many-branches
         if Assets.INTEGER_VARS == set():
             Assets.read_var_info()
