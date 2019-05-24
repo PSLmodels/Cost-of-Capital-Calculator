@@ -11,8 +11,8 @@ ccc.parameters
 .. currentmodule:: ccc.parameters
 
 .. automodule:: ccc.parameters
-  :members: reform_warnings_errors
+  :members: revision_warnings_errors
 
-.. autoclass:: Specifications
-  :members: initialize, compute_default_params, default_parameters,
-    update_specifications, read_json_param_objects
+.. autoclass:: Specification
+  :members: ccc_initialize, compute_default_params, default_parameters,
+    update_specification, read_json_revision
