@@ -4,6 +4,14 @@ from ccc import get_taxcalc_rates as tc
 from ccc.parameters import Specification
 
 
+def test_get_calculator():
+    '''
+    Test the get_calculator() function
+    '''
+    calc1 = tc.get_calculator(True, 2019)
+    assert calc1.current_year == 2019
+
+
 def test_get_rates():
     '''
     Test of the get_rates() functions
