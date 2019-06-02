@@ -100,13 +100,14 @@ def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={},
 
     # Loop over years in window of calculations
     end_year = start_year
-    tau_nc = np.zeros(end_year - start_year + 1)
-    tau_div = np.zeros_like(tau_nc)
-    tau_int = np.zeros_like(tau_nc)
-    tau_scg = np.zeros_like(tau_nc)
-    tau_lcg = np.zeros_like(tau_nc)
-    tau_td = np.zeros_like(tau_nc)
-    tau_h = np.zeros_like(tau_nc)
+    array_size = end_year - start_year + 1
+    rates_dict = {'tau_div': 'e00650', 'tau_int': 'e00300',
+                  'tau_scg': 'p22250', 'tau_lcg': 'p23250'}
+    individual_rates = {
+        'tau_nc': np.zeros(array_size), 'tau_div': np.zeros(array_size),
+        'tau_int': np.zeros(array_size), 'tau_scg': np.zeros(array_size),
+        'tau_lcg': np.zeros(array_size), 'tau_td': np.zeros(array_size),
+        'tau_h': np.zeros(array_size)}
     for year in range(start_year, end_year + 1):
         calc1.advance_to_year(year)
         print('year: ', str(calc1.current_year))
@@ -119,23 +120,6 @@ def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={},
             calc1.mtr('e02000')
         # Partnership and s corp income
         [mtr_fica_PT, mtr_iit_PT, mtr_combined_PT] = calc1.mtr('e26270')
-        # dividends
-        [mtr_fica_div, mtr_iit_div, mtr_combined_div] =\
-            calc1.mtr('e00650')
-        # interest income
-        # taxable
-        [mtr_fica_int, mtr_iit_int, mtr_combined_int] =\
-            calc1.mtr('e00300')
-        # non-taxable
-        [mtr_fica_int_te, mtr_iit_int_te, mtr_combined_int_te] =\
-            calc1.mtr('e00400')
-        # short term capital gains
-        [mtr_fica_scg, mtr_iit_scg, mtr_combined_scg] =\
-            calc1.mtr('p22250')
-        # long term capital gains
-        [mtr_fica_lcg, mtr_iit_lcg, mtr_combined_lcg] =\
-            calc1.mtr('p23250')
-
         # pension distributions
         # does PUF have e01500?  Do we want IRA distributions here?
         # Weird - I see e01500 in PUF, but error when try to call it
@@ -150,7 +134,7 @@ def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={},
         [mtr_fica_prop, mtr_iit_prop, mtr_combined_prop] =\
             calc1.mtr('e18500')
         pos_ti = calc1.array("c04800") > 0
-        tau_nc[year - start_year] = (
+        individual_rates['tau_nc'][year - start_year] = (
             (((mtr_iit_schC * np.abs(calc1.array("e00900p"))) +
               (mtr_iit_schE * np.abs(calc1.array("e02000") -
                                      calc1.array("e26270")))
@@ -160,45 +144,24 @@ def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={},
               np.abs(calc1.array("e02000") - calc1.array("e26270")) +
               np.abs(calc1.array("e26270"))) *
              pos_ti * calc1.array("s006")).sum())
-        tau_div[year - start_year] = (
-            (mtr_iit_div * calc1.array("e00650") * pos_ti *
-             calc1.array("s006")).sum() /
-            (calc1.array("e00650") * pos_ti *
-             calc1.array("s006")).sum())
-        tau_int[year - start_year] = (
-            (mtr_iit_int * calc1.array("e00300") * pos_ti *
-             calc1.array("s006")).sum() /
-            (calc1.array("e00300") * pos_ti *
-             calc1.array("s006")).sum())
-        tau_scg[year - start_year] = (
-            (mtr_iit_scg * np.abs(calc1.array("p22250")) *
-             (calc1.array("p22250") > 0.) * pos_ti *
-             calc1.array("s006")).sum() /
-            (np.abs(calc1.array("p22250")) *
-             (calc1.array("p22250") > 0.) * pos_ti *
-             calc1.array("s006")).sum())
-        tau_lcg[year - start_year] = (
-            (mtr_iit_lcg * np.abs(calc1.array("p23250")) *
-             (calc1.array("p23250") > 0.) * pos_ti *
-             calc1.array("s006")).sum() /
-            (np.abs(calc1.array("p23250")) *
-             (calc1.array("p23250") > 0.) * pos_ti *
-             calc1.array("s006")).sum())
-        tau_td[year - start_year] = (
+        individual_rates['tau_td'][year - start_year] = (
             (mtr_iit_pension * calc1.array("e01500") * pos_ti *
              calc1.array("s006")).sum() /
             (calc1.array("e01500") * pos_ti *
              calc1.array("s006")).sum())
-        tau_h[year - start_year] = -1 * (
+        individual_rates['tau_h'][year - start_year] = -1 * (
             ((mtr_iit_mtg * calc1.array("e19200")) +
              (mtr_iit_prop * calc1.array("e18500")) * pos_ti *
              calc1.array("s006")).sum() / (
                  (calc1.array("e19200")) + (calc1.array("e18500")) *
                  pos_ti * calc1.array("s006")).sum())
+        # Loop over MTRs that have only one income source
+        for k, v in rates_dict.items():
+            [mtr_fica, mtr_iit, mtr_combined] = calc1.mtr(v)
+            individual_rates[k][year - start_year] = (
+                (mtr_iit * calc1.array(v) * pos_ti *
+                 calc1.array("s006")).sum() /
+                (calc1.array(v) * pos_ti * calc1.array("s006")).sum())
 
-    individual_rates = {'tau_nc': tau_nc, 'tau_div': tau_div,
-                        'tau_int': tau_int, 'tau_scg': tau_scg,
-                        'tau_lcg': tau_lcg, 'tau_td': tau_td,
-                        'tau_h': tau_h}
     print(individual_rates)
     return individual_rates
