@@ -153,8 +153,8 @@ def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={},
         tau_nc[year - start_year] = (
             (((mtr_iit_schC * np.abs(calc1.array("e00900p"))) +
               (mtr_iit_schE * np.abs(calc1.array("e02000") -
-                                     calc1.array("e26270")))
-              + (mtr_iit_PT * np.abs(calc1.array("e26270")))) *
+                                     calc1.array("e26270"))) +
+              (mtr_iit_PT * np.abs(calc1.array("e26270")))) *
              pos_ti * calc1.array("s006")).sum() /
             ((np.abs(calc1.array("e00900p")) +
               np.abs(calc1.array("e02000") - calc1.array("e26270")) +

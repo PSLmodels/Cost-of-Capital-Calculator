@@ -569,8 +569,7 @@ class Calculator():
                          (base_tab['major_asset_group'] == item)]
                 [output_variable + '_mix'].values[0])
             reform_out_list.append(
-                reform_tab[(reform_tab['tax_treat'] == 'corporate')
-                           &
+                reform_tab[(reform_tab['tax_treat'] == 'corporate') &
                            (reform_tab['major_asset_group'] == item)]
                 [output_variable + '_mix'].values[0])
             diff_out_list.append(
@@ -721,8 +720,7 @@ class Calculator():
                          (base_tab['major_industry'] == item)]
                 [output_variable + '_mix'].values[0])
             reform_out_list.append(
-                reform_tab[(reform_tab['tax_treat'] == 'corporate')
-                           &
+                reform_tab[(reform_tab['tax_treat'] == 'corporate') &
                            (reform_tab['major_industry'] == item)]
                 [output_variable + '_mix'].values[0])
             diff_out_list.append(
@@ -1532,8 +1530,8 @@ class Calculator():
                    # change things on all axes
                    **PLOT_FORMATS)
         p.add_layout(Title(
-            text=('Marginal Effective Tax Rates on Corporate Investments'
-                  + ' in Equipment'), **TITLE_FORMATS), 'above')
+            text=('Marginal Effective Tax Rates on Corporate Investments' +
+                  ' in Equipment'), **TITLE_FORMATS), 'above')
 
         hover = p.select(dict(type=HoverTool))
         hover.tooltips = [('Asset', ' @asset_name (@hover)')]
