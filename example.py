@@ -21,14 +21,9 @@ iit_reform = taxcalc.Policy.read_json_reform(reform_url)
 # ... specify reform that implements pre-TCJA business tax policy
 cyr = 2019
 business_tax_reform = {
-    'CIT_rate': {cyr: 0.35},
-    'BonusDeprec_3yr': {cyr: 0.50},
-    'BonusDeprec_5yr': {cyr: 0.50},
-    'BonusDeprec_7yr': {cyr: 0.50},
-    'BonusDeprec_10yr': {cyr: 0.50},
-    'BonusDeprec_15yr': {cyr: 0.50},
-    'BonusDeprec_20yr': {cyr: 0.50}
-}
+    'CIT_rate': 0.35, 'BonusDeprec_3yr': 0.50, 'BonusDeprec_5yr': 0.50,
+    'BonusDeprec_7yr': 0.50, 'BonusDeprec_10yr': 0.50,
+    'BonusDeprec_15yr': 0.50, 'BonusDeprec_20yr': 0.50}
 
 # specify baseline and reform Calculator objects for 2019 calculations
 assets = Assets()
