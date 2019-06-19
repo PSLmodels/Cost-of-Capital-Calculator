@@ -2,7 +2,6 @@
 MANIFEST
 ccc.egg-info
 .coverage
-.coveragerc
 htmlcov/*
 *.aux
 *.bbl
