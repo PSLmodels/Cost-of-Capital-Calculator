@@ -3,37 +3,39 @@ import os
 import six
 import re
 import numpy as np
-
-import taxcalc
+import paramtools
 
 # import ccc
 from ccc.get_taxcalc_rates import get_rates
 from ccc.utils import DEFAULT_START_YEAR
+CURRENT_PATH = os.path.abspath(os.path.dirname(__file__))
 
-
-class Specification(taxcalc.Parameters):
+class Specification(paramtools.Parameters):
     '''
-    Inherits Tax-Calculator Parameters abstract base class.
+    Inherits ParamTools Parameters abstract base class.
     '''
-
-    DEFAULTS_FILE_NAME = 'default_parameters.json'
-    DEFAULTS_FILE_PATH = os.path.abspath(os.path.dirname(__file__))
-    DEFAULTS_FIRST_YEAR = 2015
-    DEFAULTS_LAST_YEAR = 2028
-    DEFAULTS_NUM_YEARS = DEFAULTS_LAST_YEAR - DEFAULTS_FIRST_YEAR + 1
+    defaults = os.path.join(CURRENT_PATH, "default_parameters.json")
+    # array_first = True
+    # DEFAULTS_FILE_NAME = 'default_parameters.json'
+    # DEFAULTS_FILE_PATH = os.path.abspath(os.path.dirname(__file__))
+    # DEFAULTS_FIRST_YEAR = 2015
+    # DEFAULTS_LAST_YEAR = 2028
+    # DEFAULTS_NUM_YEARS = DEFAULTS_LAST_YEAR - DEFAULTS_FIRST_YEAR + 1
 
     def __init__(self, test=False, time_path=True, baseline=False,
                  year=DEFAULT_START_YEAR, call_tc=False, iit_reform={},
                  data='cps'):
         super().__init__()
-        self.initialize(Specification.DEFAULTS_FIRST_YEAR,
-                        Specification.DEFAULTS_NUM_YEARS)
-        self.set_year(year)
+        self.set_state(year=year)
+        # self.initialize(Specification.DEFAULTS_FIRST_YEAR,
+        #                 Specification.DEFAULTS_NUM_YEARS)
+        # self.set_year(year)
         self.test = test
         self.baseline = baseline
         self.year = year
         self.iit_reform = iit_reform
         self.data = data
+        # initialize parameter values from JSON
         self.ccc_initialize(call_tc=call_tc)
 
     def ccc_initialize(self, call_tc=False):
