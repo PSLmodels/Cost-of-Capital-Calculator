@@ -10,26 +10,20 @@ from ccc.get_taxcalc_rates import get_rates
 from ccc.utils import DEFAULT_START_YEAR
 CURRENT_PATH = os.path.abspath(os.path.dirname(__file__))
 
+
 class Specification(paramtools.Parameters):
     '''
     Inherits ParamTools Parameters abstract base class.
     '''
     defaults = os.path.join(CURRENT_PATH, "default_parameters.json")
-    # array_first = True
-    # DEFAULTS_FILE_NAME = 'default_parameters.json'
-    # DEFAULTS_FILE_PATH = os.path.abspath(os.path.dirname(__file__))
-    # DEFAULTS_FIRST_YEAR = 2015
-    # DEFAULTS_LAST_YEAR = 2028
-    # DEFAULTS_NUM_YEARS = DEFAULTS_LAST_YEAR - DEFAULTS_FIRST_YEAR + 1
+    label_to_extend = "year"
+    array_first = True
 
     def __init__(self, test=False, time_path=True, baseline=False,
                  year=DEFAULT_START_YEAR, call_tc=False, iit_reform={},
                  data='cps'):
         super().__init__()
         self.set_state(year=year)
-        # self.initialize(Specification.DEFAULTS_FIRST_YEAR,
-        #                 Specification.DEFAULTS_NUM_YEARS)
-        # self.set_year(year)
         self.test = test
         self.baseline = baseline
         self.year = year
@@ -257,12 +251,14 @@ class Specification(paramtools.Parameters):
                     }
 
         '''
-        assert isinstance(revision, dict)
+        if not isinstance(revision, dict):
+            raise ValueError('ERROR: revision is not a dictionary')
+
         if not revision:
             return  # no revision to implement
-        self._update(revision, False, False)
-        if self.parameter_errors and raise_errors:
-            raise ValueError('\n' + self.parameter_errors)
+        self.adjust(revision, raise_errors=True)
+        if self.errors and raise_errors:
+            raise ValueError('\n' + self.errors)
         self.compute_default_params()
 
     @staticmethod
@@ -276,7 +272,7 @@ class Specification(paramtools.Parameters):
         a valid JSON text.
 
         '''
-        return taxcalc.Parameters._read_json_revision(obj, 'revision')
+        return paramtools.Parameters._read_json_revision(obj, 'revision')
 
 # end of Specification class
 
