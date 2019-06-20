@@ -26,10 +26,9 @@ def test_update_specification_with_json():
     cyr = 2020
     spec = Specification(year=cyr)
     new_spec_json = """
-    {"revision": {
-        "profit_rate": {"value": ["year": 2020, "value": 0.4]},
-        "m": {"value": ["year": 2020, "value": 0.5]}
-        }
+    {
+    "profit_rate": {"value": [{"year": 2020, "value": 0.4}]},
+    "m": {"value": [{"year": 2020, "value": 0.5}]}
     }
     """
     new_spec_dict = Specification.read_json_revision(new_spec_json)
