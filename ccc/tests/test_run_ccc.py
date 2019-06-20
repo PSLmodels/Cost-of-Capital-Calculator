@@ -64,14 +64,9 @@ def test_example_output():
     calc1 = Calculator(baseline_parameters, assets)
     reform_parameters = Specification(year=cyr)
     business_tax_adjustments = {
-        'CIT_rate': {cyr: 0.35},
-        'BonusDeprec_3yr': {cyr: 0.50},
-        'BonusDeprec_5yr': {cyr: 0.50},
-        'BonusDeprec_7yr': {cyr: 0.50},
-        'BonusDeprec_10yr': {cyr: 0.50},
-        'BonusDeprec_15yr': {cyr: 0.50},
-        'BonusDeprec_20yr': {cyr: 0.50}
-    }
+        'CIT_rate': 0.35, 'BonusDeprec_3yr': 0.50, 'BonusDeprec_5yr': 0.50,
+        'BonusDeprec_7yr': 0.50, 'BonusDeprec_10yr': 0.50,
+        'BonusDeprec_15yr': 0.50, 'BonusDeprec_20yr': 0.50}
     reform_parameters.update_specification(business_tax_adjustments)
     calc2 = Calculator(reform_parameters, assets)
     # ... calculation by asset and by industry

@@ -226,9 +226,9 @@ class Specification(paramtools.Parameters):
                 `PARAM: YEAR-VALUE-DICTIONARY` pairs
 
             raise_errors (boolean):
-                if True (the default), raises ValueError when `parameter_errors`
+                if True (the default), raises ValueError when `_errors`
                     exists; if False, does not raise ValueError when
-                    `parameter_errors` exists and leaves error handling
+                    `_errors` exists and leaves error handling
                     to caller of the update_specification method.
 
         Returns:
@@ -256,7 +256,7 @@ class Specification(paramtools.Parameters):
 
         if not revision:
             return  # no revision to implement
-        self.adjust(revision, raise_errors=True)
+        self.adjust(revision, raise_errors=raise_errors)
         if self.errors and raise_errors:
             raise ValueError('\n' + self.errors)
         self.compute_default_params()
@@ -272,7 +272,7 @@ class Specification(paramtools.Parameters):
         a valid JSON text.
 
         '''
-        return paramtools.Parameters._read_json_revision(obj, 'revision')
+        return paramtools.Parameters.read_params(obj, 'revision')
 
 # end of Specification class
 
@@ -294,8 +294,8 @@ def revision_warnings_errors(spec_revision):
     spec = Specification()
     try:
         spec.update_specification(spec_revision, raise_errors=False)
-        if spec.parameter_errors:
-            rtn_dict['errors'] = spec.parameter_errors
+        if spec._errors:
+            rtn_dict['errors'] = spec._errors
     except ValueError as valerr_msg:
         rtn_dict['errors'] = valerr_msg.__str__()
     return rtn_dict
