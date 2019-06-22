@@ -41,8 +41,7 @@ def test_update_specification_with_json():
     ]
     }
     """
-    new_spec_dict = Specification.read_json_revision(new_spec_json)
-    spec.update_specification(new_spec_dict)
+    spec.update_specification(new_spec_json)
     assert spec.profit_rate == 0.4
     assert spec.m == 0.5
     assert len(spec.errors) == 0

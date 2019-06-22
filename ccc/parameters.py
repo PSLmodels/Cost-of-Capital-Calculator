@@ -222,7 +222,7 @@ class Specification(paramtools.Parameters):
         Updates parameter specification with values in revision dictionary.
 
         Args:
-            revision (dict): dictionary of one or more
+            revision (dict): dictionary or JSON string with one or more
                 `PARAM: YEAR-VALUE-DICTIONARY` pairs
 
             raise_errors (boolean):
@@ -251,9 +251,10 @@ class Specification(paramtools.Parameters):
                     }
 
         '''
-        if not isinstance(revision, dict):
-            raise ValueError('ERROR: revision is not a dictionary')
-
+        if not (isinstance(revision, dict) or
+                isinstance(revision, str)):
+            raise ValueError(
+                'ERROR: revision is not a dictionary of string')
         if not revision:
             return  # no revision to implement
         self.adjust(revision, raise_errors=raise_errors)
@@ -268,8 +269,8 @@ class Specification(paramtools.Parameters):
         update_specification method, that is derived from the specified
         JSON object, which can be None or a string containing
         a local filename,
-        a URL beginning with 'http' pointing to a JSON file hosted online, or
-        a valid JSON text.
+        a URL beginning with 'http' pointing to a JSON file hosted
+        online, or a valid JSON text.
 
         '''
         return paramtools.Parameters.read_params(obj, 'revision')
