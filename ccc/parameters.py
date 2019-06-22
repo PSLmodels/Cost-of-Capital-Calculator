@@ -1,7 +1,4 @@
-import json
 import os
-import six
-import re
 import numpy as np
 import paramtools
 
@@ -97,8 +94,8 @@ class Specification(paramtools.Parameters):
 
         g_scg = ((1 / self.Y_scg) *
                  np.log(((1 - self.tau_scg) *
-                         np.exp((self.inflation_rate
-                                 + self.m * self.E_c) * self.Y_scg)) +
+                         np.exp((self.inflation_rate +
+                                 self.m * self.E_c) * self.Y_scg)) +
                         self.tau_scg) - self.inflation_rate)
         g_lcg = ((1 / self.Y_lcg) *
                  np.log(((1 - self.tau_lcg) *
@@ -179,8 +176,8 @@ class Specification(paramtools.Parameters):
         else:
             # keep debt and equity financing ratio the same even though now
             # entity level tax that might now favor debt
-            self.s['nc']['mix'] = (self.f_nc * s_nc_d + (1 - self.f_nc)
-                                   * s_c_e)
+            self.s['nc']['mix'] = (self.f_nc * s_nc_d +
+                                   (1 - self.f_nc) * s_c_e)
             self.s['c']['e'] = s_c_e
         self.tax_methods = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0,
                             'Economic': 1.0, 'Expensing': 1.0}
@@ -226,10 +223,11 @@ class Specification(paramtools.Parameters):
                 `PARAM: YEAR-VALUE-DICTIONARY` pairs
 
             raise_errors (boolean):
-                if True (the default), raises ValueError when `_errors`
-                    exists; if False, does not raise ValueError when
-                    `_errors` exists and leaves error handling
-                    to caller of the update_specification method.
+                if True (the default), raises ValueError when
+                   `parameter_errors` exists;
+                if False, does not raise ValueError when
+                   `parameter_errors` exists and leaves error handling
+                   to caller of the update_specification method.
 
         Returns:
             None
