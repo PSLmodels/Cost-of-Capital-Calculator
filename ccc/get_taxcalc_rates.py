@@ -19,7 +19,7 @@ from ccc.utils import DEFAULT_START_YEAR, TC_LAST_YEAR, RECORDS_START_YEAR
 
 
 def get_calculator(baseline, calculator_start_year, reform=None,
-                   data='cps', weights=None,
+                   data='cps', gfactors=None, weights=None,
                    records_start_year=RECORDS_START_YEAR):
     '''
     This function creates the tax calculator object for the microsim
@@ -50,7 +50,7 @@ def get_calculator(baseline, calculator_start_year, reform=None,
         # set total capital gains to zero
         records1.e01100 = np.zeros(records1.e01100.shape[0])
     elif data is not None:
-        records1 = Records(data=data, weights=weights,
+        records1 = Records(data=data, gfactors=gfactors, weights=weights,
                            start_year=records_start_year)
     else:
         records1 = Records()
