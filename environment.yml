@@ -13,3 +13,4 @@ dependencies:
 - pycodestyle
 - pylint
 - coverage
+- paramtools
