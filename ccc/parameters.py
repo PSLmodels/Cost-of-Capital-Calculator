@@ -16,7 +16,7 @@ class Specification(paramtools.Parameters):
     label_to_extend = "year"
     array_first = True
 
-    def __init__(self, test=False, time_path=True, baseline=False,
+    def __init__(self, test=False, baseline=False,
                  year=DEFAULT_START_YEAR, call_tc=False, iit_reform={},
                  data='cps'):
         super().__init__()
