@@ -44,7 +44,9 @@ def dbsl(Y, b, bonus, r):
     straight line (DBSL) method of depreciation.
 
     .. math::
-        z = \frac{\beta}{\beta+r}\left[1-e^{-(\beta+r)Y^{*}}\right]+\frac{e^{-\beta Y^{*}}}{(Y-Y^{*})r}\left[e^{-rY^{*}}-e^{-rY}\right]
+        z = \frac{\beta}{\beta+r}\left[1-e^{-(\beta+r)Y^{*}}\right]+
+            \frac{e^{-\beta Y^{*}}}{(Y-Y^{*})r}
+            \left[e^{-rY^{*}}-e^{-rY}\right]
 
     Args:
         Y (array_like): asset life in years
