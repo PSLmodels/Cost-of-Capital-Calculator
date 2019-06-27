@@ -284,7 +284,8 @@ def eq_eatr(rho, metr, p, u):
     Compute the effective average tax rate (EATR).
 
     .. math::
-        eatr = \left(\frac{p - rho}{p}\right)u + \left(\frac{\rho}{p}\right)metr
+        eatr = \left(\frac{p - rho}{p}\right)u +
+            \left(\frac{\rho}{p}\right)metr
 
     Args:
         rho (array_like): cost of capital

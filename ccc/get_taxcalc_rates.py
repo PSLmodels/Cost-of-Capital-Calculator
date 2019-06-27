@@ -1,18 +1,4 @@
-'''
-------------------------------------------------------------------------
-This program extracts weighted average marginal tax rates from the
-microsimulation model (tax-calculator).
-
-This module defines the following functions:
-    get_data()
-
-This Python script calls the following functions:
-    taxcalc
-
-This py-file creates the following other file(s):
-------------------------------------------------------------------------
-'''
-from __future__ import print_function
+# imports
 import numpy as np
 from taxcalc import Policy, Records, Calculator
 from ccc.utils import DEFAULT_START_YEAR, TC_LAST_YEAR, RECORDS_START_YEAR
