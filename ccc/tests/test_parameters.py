@@ -58,7 +58,7 @@ def test_update_bad_revision1():
     first_line = spec.errors['profit_rate'][0]
     print(first_line)
     expected_first_line =\
-        'profit_rate 1.2 must be less than 1.0 for labels year=2019.'
+        'profit_rate[year=2019] 1.2 > max 1.0 '
     assert first_line == expected_first_line
 
 
