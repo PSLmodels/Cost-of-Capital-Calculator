@@ -8,14 +8,16 @@ source:
 requirements:
   build:
     - python
-    - "taxcalc>=2.1.0"
+    - "taxcalc>=2.4.2"
+    - "paramtools>=0.7.1"
     - setuptools
     - xlrd
 
   run:
     - python
-    - "taxcalc>=2.1.0"
+    - "taxcalc>=2.4.0"
     - setuptools
+    - "paramtools>=0.7.1"
     - xlrd
 
 about:

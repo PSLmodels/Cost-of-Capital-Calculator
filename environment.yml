@@ -4,7 +4,8 @@ channels:
 - conda-forge
 dependencies:
 - python
-- taxcalc
+- "taxcalc>=2.4.2"
+- "paramtools>=0.7.1"
 - setuptools
 - pip
 - xlrd
@@ -14,4 +15,3 @@ dependencies:
 - pycodestyle
 - pylint
 - coverage
-- paramtools
