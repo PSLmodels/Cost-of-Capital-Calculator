@@ -32,6 +32,8 @@ The **first way** to use Cost-of-Capital-Calculator is to download the source co
 
 The CSV output files can be compared to the `./example_output/*_expected.csv` files that are checked into the repository to confirm that you are generating the expected output.  The easiest way to do this is to use the `./example-diffs` command (or `example-diffs` on Windows).  If you run into errors running the example script, please open a new issue in the Cost-of-Capital-Calculator repo with a description of the issue and any relevant tracebacks you receive.
 
+As an alternative to the second and third steps above, one can download the `CCC` package directly from Anaconda with the command `conda install -c pslmodels ccc`.
+
 
 The **second way** to use Cost-of-Capital-Calculator is through a web
 application, [Cost of Capital Calculator](http://www.ospc.org/ccc).  This way

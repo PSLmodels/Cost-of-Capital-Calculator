@@ -1,5 +1,5 @@
 import ccc
-from ccc.parameters import Specifications
+from ccc.parameters import Specification
 from ccc.data import Assets
 from ccc.calculator import Calculator
 from ccc.utils import TC_LAST_YEAR
@@ -42,7 +42,7 @@ def get_inputs(meta_params_dict):
     '''
     meta_params = MetaParams()
     meta_params.adjust(meta_params_dict)
-    params = Specifications()
+    params = Specification()
     spec = params.specification(
         meta_data=True,
         serializable=True,
@@ -57,7 +57,7 @@ def validate_inputs(meta_param_dict, adjustment, errors_warnings):
     Validates user inputs for parameters
     '''
     # ccc doesn't look at meta_param_dict for validating inputs.
-    params = Specifications()
+    params = Specification()
     params.adjust(adjustment["ccc"], raise_errors=False)
     errors_warnings["ccc"]["errors"].update(params.errors)
     return errors_warnings
@@ -74,12 +74,12 @@ def run_model(meta_param_dict, adjustment):
         data = retrieve_puf(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
     else:
         data = "cps"
-    params = Specifications(year=meta_params.year,
+    params = Specification(year=meta_params.year,
                             call_tc=True, data=data)
     params.adjust(adjustment["ccc"])
     assets = Assets()
     calc1 = Calculator(params, assets)
-    params2 = Specifications(year=meta_params.year)
+    params2 = Specification(year=meta_params.year)
     calc2 = Calculator(params2, assets)
     comp_dict = comp_output(calc1, calc2)
 

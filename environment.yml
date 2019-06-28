@@ -1,6 +1,7 @@
 name: ccc-dev
 channels:
 - PSLmodels
+- conda-forge
 dependencies:
 - python
 - taxcalc
@@ -13,3 +14,4 @@ dependencies:
 - pycodestyle
 - pylint
 - coverage
+- paramtools

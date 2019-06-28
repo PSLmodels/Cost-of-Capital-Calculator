@@ -64,32 +64,27 @@ def test_example_output():
     calc1 = Calculator(baseline_parameters, assets)
     reform_parameters = Specification(year=cyr)
     business_tax_adjustments = {
-        'CIT_rate': {cyr: 0.35},
-        'BonusDeprec_3yr': {cyr: 0.50},
-        'BonusDeprec_5yr': {cyr: 0.50},
-        'BonusDeprec_7yr': {cyr: 0.50},
-        'BonusDeprec_10yr': {cyr: 0.50},
-        'BonusDeprec_15yr': {cyr: 0.50},
-        'BonusDeprec_20yr': {cyr: 0.50}
-    }
+        'CIT_rate': 0.35, 'BonusDeprec_3yr': 0.50, 'BonusDeprec_5yr': 0.50,
+        'BonusDeprec_7yr': 0.50, 'BonusDeprec_10yr': 0.50,
+        'BonusDeprec_15yr': 0.50, 'BonusDeprec_20yr': 0.50}
     reform_parameters.update_specification(business_tax_adjustments)
     calc2 = Calculator(reform_parameters, assets)
     # ... calculation by asset and by industry
-    baseln_assets_df = calc1.calc_by_asset()
+    baseline_assets_df = calc1.calc_by_asset()
     reform_assets_df = calc2.calc_by_asset()
-    baseln_industry_df = calc1.calc_by_industry()
+    baseline_industry_df = calc1.calc_by_industry()
     reform_industry_df = calc2.calc_by_industry()
     diff_assets_df = ccc.utils.diff_two_tables(reform_assets_df,
-                                               baseln_assets_df)
+                                               baseline_assets_df)
     diff_industry_df = ccc.utils.diff_two_tables(reform_industry_df,
-                                                 baseln_industry_df)
+                                                 baseline_industry_df)
     # ... save calculated results as csv files in ccc/test directory
-    baseln_industry_df.to_csv(os.path.join(TDIR, 'baseline_byindustry.csv'),
-                              float_format='%.5f')
+    baseline_industry_df.to_csv(os.path.join(TDIR, 'baseline_byindustry.csv'),
+                                float_format='%.5f')
     reform_industry_df.to_csv(os.path.join(TDIR, 'reform_byindustry.csv'),
                               float_format='%.5f')
-    baseln_assets_df.to_csv(os.path.join(TDIR, 'baseline_byasset.csv'),
-                            float_format='%.5f')
+    baseline_assets_df.to_csv(os.path.join(TDIR, 'baseline_byasset.csv'),
+                              float_format='%.5f')
     reform_assets_df.to_csv(os.path.join(TDIR, 'reform_byasset.csv'),
                             float_format='%.5f')
     diff_industry_df.to_csv(os.path.join(TDIR, 'changed_byindustry.csv'),

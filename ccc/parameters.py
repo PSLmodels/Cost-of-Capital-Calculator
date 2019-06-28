@@ -1,39 +1,32 @@
-import json
 import os
-import six
-import re
 import numpy as np
-
-import taxcalc
+import paramtools
 
 # import ccc
 from ccc.get_taxcalc_rates import get_rates
 from ccc.utils import DEFAULT_START_YEAR
+CURRENT_PATH = os.path.abspath(os.path.dirname(__file__))
 
 
-class Specification(taxcalc.Parameters):
+class Specification(paramtools.Parameters):
     '''
-    Inherits Tax-Calculator Parameters abstract base class.
+    Inherits ParamTools Parameters abstract base class.
     '''
+    defaults = os.path.join(CURRENT_PATH, "default_parameters.json")
+    label_to_extend = "year"
+    array_first = True
 
-    DEFAULTS_FILE_NAME = 'default_parameters.json'
-    DEFAULTS_FILE_PATH = os.path.abspath(os.path.dirname(__file__))
-    DEFAULTS_FIRST_YEAR = 2015
-    DEFAULTS_LAST_YEAR = 2028
-    DEFAULTS_NUM_YEARS = DEFAULTS_LAST_YEAR - DEFAULTS_FIRST_YEAR + 1
-
-    def __init__(self, test=False, time_path=True, baseline=False,
+    def __init__(self, test=False, baseline=False,
                  year=DEFAULT_START_YEAR, call_tc=False, iit_reform={},
                  data='cps'):
         super().__init__()
-        self.initialize(Specification.DEFAULTS_FIRST_YEAR,
-                        Specification.DEFAULTS_NUM_YEARS)
-        self.set_year(year)
+        self.set_state(year=year)
         self.test = test
         self.baseline = baseline
         self.year = year
         self.iit_reform = iit_reform
         self.data = data
+        # initialize parameter values from JSON
         self.ccc_initialize(call_tc=call_tc)
 
     def ccc_initialize(self, call_tc=False):
@@ -226,7 +219,7 @@ class Specification(taxcalc.Parameters):
         Updates parameter specification with values in revision dictionary.
 
         Args:
-            revision (dict): dictionary of one or more
+            revision (dict): dictionary or JSON string with one or more
                 `PARAM: YEAR-VALUE-DICTIONARY` pairs
 
             raise_errors (boolean):
@@ -256,12 +249,15 @@ class Specification(taxcalc.Parameters):
                     }
 
         '''
-        assert isinstance(revision, dict)
+        if not (isinstance(revision, dict) or
+                isinstance(revision, str)):
+            raise ValueError(
+                'ERROR: revision is not a dictionary of string')
         if not revision:
             return  # no revision to implement
-        self._update(revision, False, False)
-        if self.parameter_errors and raise_errors:
-            raise ValueError('\n' + self.parameter_errors)
+        self.adjust(revision, raise_errors=raise_errors)
+        if self.errors and raise_errors:
+            raise ValueError('\n' + self.errors)
         self.compute_default_params()
 
     @staticmethod
@@ -271,11 +267,11 @@ class Specification(taxcalc.Parameters):
         update_specification method, that is derived from the specified
         JSON object, which can be None or a string containing
         a local filename,
-        a URL beginning with 'http' pointing to a JSON file hosted online, or
-        a valid JSON text.
+        a URL beginning with 'http' pointing to a JSON file hosted
+        online, or a valid JSON text.
 
         '''
-        return taxcalc.Parameters._read_json_revision(obj, 'revision')
+        return paramtools.Parameters.read_params(obj, 'revision')
 
 # end of Specification class
 
@@ -297,8 +293,8 @@ def revision_warnings_errors(spec_revision):
     spec = Specification()
     try:
         spec.update_specification(spec_revision, raise_errors=False)
-        if spec.parameter_errors:
-            rtn_dict['errors'] = spec.parameter_errors
+        if spec._errors:
+            rtn_dict['errors'] = spec._errors
     except ValueError as valerr_msg:
         rtn_dict['errors'] = valerr_msg.__str__()
     return rtn_dict
