@@ -9,6 +9,7 @@ requirements:
   build:
     - python
     - "taxcalc>=2.4.0"
+    - "paramtools>=0.7.1"
     - setuptools
     - paramtools
     - xlrd
@@ -17,7 +18,7 @@ requirements:
     - python
     - "taxcalc>=2.4.0"
     - setuptools
-    - paramtools
+    - "paramtools>=0.7.1"
     - xlrd
 
 about:
