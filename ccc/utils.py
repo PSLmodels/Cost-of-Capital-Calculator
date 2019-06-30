@@ -262,6 +262,19 @@ def save_return_table(table_df, output_type, path, precision=0):
             tab_str = table_df.to_json(
                 path_or_buf=path, double_precision=0)
             return tab_str
+        elif output_type == 'html':
+            print('Output html...')
+            # with pd.option_context('display.precision', precision):
+            tab_html = (
+                table_df.round(2).style
+                # .format({'': '', '%.' + str(precision) + '0f')
+                .set_properties(**{'font-size': '9pt',
+                                   'font-family': 'Calibri',
+                                   'text-align': 'left'})
+                .hide_index()
+                # .render()
+            )
+            return tab_html
         else:
             return table_df
     else:
