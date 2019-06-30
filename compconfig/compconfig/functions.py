@@ -100,7 +100,7 @@ def comp_output(calc1, calc2, out_var='mettr'):
         "renderable": [
             {
               "media_type": "bokeh",
-              "title": str(plt.title),
+              "title": plt.title._property_values['text'],
               "data": {
                         "javascript": js,
                         "html": div
