@@ -35,33 +35,6 @@ def to_str(x):
     return x
 
 
-def read_from_egg(tfile):
-    '''
-    Read a relative path, getting the contents locally or from the
-    installed egg, parsing the contents based on file_type if given,
-    such as yaml.
-
-    Args:
-        tfile (string): relative package path
-
-    Returns:
-        contents (yaml or json): loaded or raw
-
-    '''
-    template_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                 tfile)
-    if not os.path.exists(template_path):
-        path_in_egg = os.path.join("ccc", tfile)
-        buf = pkg_resources.resource_stream(
-            pkg_resources.Requirement.parse("ccc"), path_in_egg)
-        _bytes = buf.read()
-        contents = str(_bytes)
-    else:
-        with open(template_path, 'r') as f:
-            contents = f.read()
-    return contents
-
-
 def str_modified(i):
     '''
     Function to deal with conversion of a decimal number to a string.
