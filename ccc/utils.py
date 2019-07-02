@@ -82,23 +82,6 @@ def diff_two_tables(df1, df2):
     return diff_df
 
 
-def filter_user_params_for_econ(**user_params):
-    '''
-    Filter out parameters that are economic (not tax) parameters.
-
-    Args:
-        user_params (dict): user defined parameters
-
-    Returns:
-        econ_params (dict): economic parameters
-
-    '''
-    econ_params = {k: v for k, v in user_params.items() if
-                   k.startswith('ccc_econ_')}
-
-    return econ_params
-
-
 def wavg(group, avg_name, weight_name):
     '''
     Computes a weighted average.
