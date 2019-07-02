@@ -24,3 +24,17 @@ def test_str_modified(number, expected):
     number = '3'
     test_str = utils.str_modified(number)
     assert (number == test_str)
+
+
+def test_diff_two_tables():
+    '''
+    Test of the diff_two_tables() function
+    '''
+    dict1 = {'var1': [1, 2, 3, 4, 5], 'var2': [2, 4, 6, 8, 10]}
+    dict2 = {'var1': [1, 2, 3, 4, 5], 'var2': [2, 4, 6, 8, 10]}
+    df1 = pd.DataFrame.from_dict(dict1)
+    df2 = pd.DataFrame.from_dict(dict2)
+    expected_dict = {'var1': [0, 0, 0, 0, 0], 'var2': [0, 0, 0, 0, 0]}
+    expected_df = pd.DataFrame.from_dict(expected_dict)
+    test_df = utils.diff_two_tables(df1, df2)
+    pd.testing.assert_frame_equal(test_df, expected_df)
