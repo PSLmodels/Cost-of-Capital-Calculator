@@ -74,8 +74,8 @@ def run_model(meta_param_dict, adjustment):
         data = retrieve_puf(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
     else:
         data = "cps"
-    params = Specification(year=meta_params.year,
-                            call_tc=True, data=data)
+    params = Specification(year=meta_params.year, call_tc=True,
+                           data=data)
     params.adjust(adjustment["ccc"])
     assets = Assets()
     calc1 = Calculator(params, assets)
@@ -92,7 +92,8 @@ def comp_output(calc1, calc2, out_var='mettr'):
     '''
     out_table = calc1.summary_table(calc2, output_variable=out_var,
                                     output_type='csv')
-    df = calc1.summary_table(calc2, output_variable=out_var)
+    html_table = calc1.summary_table(calc2, output_variable=out_var,
+                                     output_type='html')
     plt = calc1.grouped_bar(calc2, output_variable=out_var)
     js, div = components(plt)
     comp_dict = {
@@ -100,7 +101,7 @@ def comp_output(calc1, calc2, out_var='mettr'):
         "renderable": [
             {
               "media_type": "bokeh",
-              "title": str(plt.title),
+              "title": plt.title._property_values['text'],
               "data": {
                         "javascript": js,
                         "html": div
@@ -109,7 +110,7 @@ def comp_output(calc1, calc2, out_var='mettr'):
             {
               "media_type": "table",
               "title":  out_var + "Summary Table",
-              "data": df.to_html()
+              "data": html_table()
             },
           ],
         "downloadable": [

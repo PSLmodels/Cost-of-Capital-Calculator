@@ -35,33 +35,6 @@ def to_str(x):
     return x
 
 
-def read_from_egg(tfile):
-    '''
-    Read a relative path, getting the contents locally or from the
-    installed egg, parsing the contents based on file_type if given,
-    such as yaml.
-
-    Args:
-        tfile (string): relative package path
-
-    Returns:
-        contents (yaml or json): loaded or raw
-
-    '''
-    template_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                 tfile)
-    if not os.path.exists(template_path):
-        path_in_egg = os.path.join("ccc", tfile)
-        buf = pkg_resources.resource_stream(
-            pkg_resources.Requirement.parse("ccc"), path_in_egg)
-        _bytes = buf.read()
-        contents = str(_bytes)
-    else:
-        with open(template_path, 'r') as f:
-            contents = f.read()
-    return contents
-
-
 def str_modified(i):
     '''
     Function to deal with conversion of a decimal number to a string.
@@ -107,23 +80,6 @@ def diff_two_tables(df1, df2):
             pass
     diff_df = pd.DataFrame(diffs)
     return diff_df
-
-
-def filter_user_params_for_econ(**user_params):
-    '''
-    Filter out parameters that are economic (not tax) parameters.
-
-    Args:
-        user_params (dict): user defined parameters
-
-    Returns:
-        econ_params (dict): economic parameters
-
-    '''
-    econ_params = {k: v for k, v in user_params.items() if
-                   k.startswith('ccc_econ_')}
-
-    return econ_params
 
 
 def wavg(group, avg_name, weight_name):
@@ -262,6 +218,19 @@ def save_return_table(table_df, output_type, path, precision=0):
             tab_str = table_df.to_json(
                 path_or_buf=path, double_precision=0)
             return tab_str
+        elif output_type == 'html':
+            print('Output html...')
+            # with pd.option_context('display.precision', precision):
+            tab_html = (
+                table_df.round(2).style
+                # .format({'': '', '%.' + str(precision) + '0f')
+                .set_properties(**{'font-size': '9pt',
+                                   'font-family': 'Calibri',
+                                   'text-align': 'left'})
+                .hide_index()
+                .render()
+            )
+            return tab_html
         else:
             return table_df
     else:

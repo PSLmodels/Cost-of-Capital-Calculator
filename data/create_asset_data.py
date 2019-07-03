@@ -8,9 +8,7 @@ import os.path
 import sys
 import numpy as np
 import pandas as pd
-from ccc.utils import (read_from_egg,
-                       diff_two_tables,
-                       filter_user_params_for_econ)
+from ccc.utils import diff_two_tables
 import read_bea
 from soi_processing import pull_soi_data
 import pull_depreciation
