@@ -228,7 +228,7 @@ def save_return_table(table_df, output_type, path, precision=0):
                                    'font-family': 'Calibri',
                                    'text-align': 'left'})
                 .hide_index()
-                # .render()
+                .render()
             )
             return tab_html
         else:

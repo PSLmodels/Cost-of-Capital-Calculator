@@ -38,3 +38,16 @@ def test_diff_two_tables():
     expected_df = pd.DataFrame.from_dict(expected_dict)
     test_df = utils.diff_two_tables(df1, df2)
     pd.testing.assert_frame_equal(test_df, expected_df)
+
+
+dict1 = {'var1': [1, 2, 3, 4, 5], 'var2': [2, 4, 6, 8, 10]}
+df1 = pd.DataFrame.from_dict(dict1)
+test_data = [(df1, 'tex', 0), (df1, 'json', 2), (df1, 'html', 3)]
+
+
+@pytest.mark.parametrize('df,output_type,precision', test_data,
+                         ids=['tex', 'json', 'html'])
+def test_save_return_table(df, output_type, precision):
+
+    test_str = utils.save_return_table(df, output_type, None, precision)
+    assert isinstance(test_str, str)
