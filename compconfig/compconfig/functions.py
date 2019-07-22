@@ -110,7 +110,7 @@ def comp_output(calc1, calc2, out_var='mettr'):
             {
               "media_type": "table",
               "title":  out_var + "Summary Table",
-              "data": html_table()
+              "data": html_table
             },
           ],
         "downloadable": [
