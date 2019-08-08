@@ -773,7 +773,7 @@
         "title": "Expensing rate on land.",
         "description": "Expensing rate on land.",
         "section_1": "Depreciation",
-        "section_2": "Expensing Land and Inventories"
+        "section_2": "Expensing Land and Inventories",
         "type": "float",
         "value": [
             {
@@ -944,7 +944,7 @@
         "title": "Indicator for whether inventories are immediately expensed",
         "description": "Indicator for whether inventories are immediately expensed.",
         "section_1": "Depreciation",
-        "section_2": "Expensing Land and Inventories"
+        "section_2": "Expensing Land and Inventories",
         "notes": "Indicator for whether inventories are immediately expensed.",
         "type": "bool",
         "value": [
@@ -1482,7 +1482,7 @@
     "inflation_rate": {
         "title": "Inflation rate",
         "description": "Inflation rate.",
-        "section_1": "Economic Assumptions"
+        "section_1": "Economic Assumptions",
         "notes": "The default inflation rate is determined by the forecast of the Congressional Budget Office (CBO).",
         "type": "float",
         "value": [
