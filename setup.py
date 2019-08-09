@@ -4,14 +4,14 @@ except ImportError:
     from distutils.core import setup
 
 with open('README.md') as f:
-        longdesc = f.read()
+    longdesc = f.read()
 
 version = '0.0.0'
 
 config = {
-    'description': 'Cost-of-Capital-Calculator: A Cost of Capital Calculator',
-    'url': 'https://github.com/open-source-economics/Cost-of-Capital-Calculator',
-    'download_url': 'https://github.com/open-source-economics/Cost-of-Capital-Calculator',
+    'description': 'CCC: A Cost of Capital Calculator',
+    'url': 'https://github.com/PSLmodels/Cost-of-Capital-Calculator',
+    'download_url': 'https://github.com/PSLmodels/Cost-of-Capital-Calculator',
     'long_description': longdesc,
     'version': version,
     'license': 'CC0 1.0 Universal public domain dedication',

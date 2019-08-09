@@ -24,11 +24,16 @@
                     }
                 }
             }
-        }
+        },
+        "additional_members": {
+            "section_1": {"type": "str"},
+            "section_2": {"type": "str"}
+          }
     },
     "CIT_rate": {
         "title": "Top statutory corporate income tax rate",
         "description": "Top statutory corporate income tax rate",
+        "section_1": "Business-entity level taxes",
         "type": "float",
         "value": [
             {
@@ -56,8 +61,9 @@
         }
     },
     "PT_entity_tax_ind": {
-        "title": "Non-corporate Entity Level Income Tax Indicator",
+        "title": "Pass-through businss entity-level tax indicator",
         "description": "Indicator variable indicating whether or not there is an entity-level tax on pass-through businesses. This tax is levied on entity-level profits.  Owners also pay individual income taxes on the distributions.",
+        "section_1": "Business-entity level taxes",
         "notes": "Note that is this indicator is True, then the METR calculation for pass-through businesses will represent the effects of the entity-level tax and not the indvidiual-level tax.  This is becaue the METR represents the effective tax rate from the first layer of taxation.  The statutory rate on pass-through entities is set with the PT_entity_tax_rate parameter.",
         "type": "bool",
         "value": [
@@ -69,8 +75,9 @@
         "validators": {}
     },
     "PT_entity_tax_rate": {
-        "title": "Statutory income tax rate on pass-through business income levied at the entity level.",
+        "title": "Statutory income tax rate on pass-through business income levied at the entity level",
         "description": "Statutory income tax rate on pass-through business income levied at the entity level.",
+        "section_1": "Business-entity level taxes",
         "type": "float",
         "value": [
             {
@@ -86,8 +93,10 @@
         }
     },
     "DeprecSystem_3yr": {
-        "title": "Depreciation system used for 3-year class property.",
+        "title": "Depreciation system used for 3-year class property",
         "description": "Depreciation system used for 3-year class property.",
+        "section_1": "Depreciation",
+        "section_2": "Depreciation System",
         "type": "str",
         "value": [
             {
@@ -106,8 +115,10 @@
         }
     },
     "BonusDeprec_3yr": {
-        "title": "Bonus depreciation rate on 3-year class property.",
+        "title": "Bonus depreciation rate on 3-year class property",
         "description": "Bonus depreciation rate on 3-year class property.",
+        "section_1": "Depreciation",
+        "section_2": "Bonus Depreciation",
         "type": "float",
         "value": [
             {
@@ -175,8 +186,10 @@
         }
     },
     "DeprecSystem_5yr": {
-        "title": "Depreciation system used for 5-year class property.",
+        "title": "Depreciation system used for 5-year class property",
         "description": "Depreciation system used for 5-year class property.",
+        "section_1": "Depreciation",
+        "section_2": "Depreciation System",
         "type": "str",
         "value": [
             {
@@ -195,8 +208,10 @@
         }
     },
     "BonusDeprec_5yr": {
-        "title": "Bonus depreciation rate on 5-year class property.",
+        "title": "Bonus depreciation rate on 5-year class property",
         "description": "Bonus depreciation rate on 5-year class property.",
+        "section_1": "Depreciation",
+        "section_2": "Bonus Depreciation",
         "type": "float",
         "value": [
             {
@@ -264,8 +279,10 @@
         }
     },
     "DeprecSystem_7yr": {
-        "title": "Depreciation system used for 7-year class property.",
+        "title": "Depreciation system used for 7-year class property",
         "description": "Depreciation system used for 7-year class property.",
+        "section_1": "Depreciation",
+        "section_2": "Depreciation System",
         "type": "str",
         "value": [
             {
@@ -284,8 +301,10 @@
         }
     },
     "BonusDeprec_7yr": {
-        "title": "Bonus depreciation rate on 7-year class property.",
+        "title": "Bonus depreciation rate on 7-year class property",
         "description": "Bonus depreciation rate on 7-year class property.",
+        "section_1": "Depreciation",
+        "section_2": "Bonus Depreciation",
         "type": "float",
         "value": [
             {
@@ -353,8 +372,10 @@
         }
     },
     "DeprecSystem_10yr": {
-        "title": "Depreciation system used for 10-year class property.",
+        "title": "Depreciation system used for 10-year class property",
         "description": "Depreciation system used for 10-year class property.",
+        "section_1": "Depreciation",
+        "section_2": "Depreciation System",
         "type": "str",
         "value": [
             {
@@ -373,8 +394,10 @@
         }
     },
     "BonusDeprec_10yr": {
-        "title": "Bonus depreciation rate on 10-year class property.",
+        "title": "Bonus depreciation rate on 10-year class property",
         "description": "Bonus depreciation rate on 10-year class property.",
+        "section_1": "Depreciation",
+        "section_2": "Bonus Depreciation",
         "type": "float",
         "value": [
             {
@@ -442,8 +465,10 @@
         }
     },
     "DeprecSystem_15yr": {
-        "title": "Depreciation system used for 15-year class property.",
+        "title": "Depreciation system used for 15-year class property",
         "description": "Depreciation system used for 15-year class property.",
+        "section_1": "Depreciation",
+        "section_2": "Depreciation System",
         "type": "str",
         "value": [
             {
@@ -462,8 +487,10 @@
         }
     },
     "BonusDeprec_15yr": {
-        "title": "Bonus depreciation rate on 15-year class property.",
+        "title": "Bonus depreciation rate on 15-year class property",
         "description": "Bonus depreciation rate on 15-year class property.",
+        "section_1": "Depreciation",
+        "section_2": "Bonus Depreciation",
         "type": "float",
         "value": [
             {
@@ -531,8 +558,10 @@
         }
     },
     "DeprecSystem_20yr": {
-        "title": "Depreciation system used for 20-year class property.",
+        "title": "Depreciation system used for 20-year class property",
         "description": "Depreciation system used for 20-year class property.",
+        "section_1": "Depreciation",
+        "section_2": "Depreciation System",
         "type": "str",
         "value": [
             {
@@ -551,8 +580,10 @@
         }
     },
     "BonusDeprec_20yr": {
-        "title": "Bonus depreciation rate on 20-year class property.",
+        "title": "Bonus depreciation rate on 20-year class property",
         "description": "Bonus depreciation rate on 20-year class property.",
+        "section_1": "Depreciation",
+        "section_2": "Bonus Depreciation",
         "type": "float",
         "value": [
             {
@@ -620,8 +651,10 @@
         }
     },
     "DeprecSystem_25yr": {
-        "title": "Depreciation system used for 25-year class property.",
+        "title": "Depreciation system used for 25-year class property",
         "description": "Depreciation system used for 25-year class property.",
+        "section_1": "Depreciation",
+        "section_2": "Depreciation System",
         "type": "str",
         "value": [
             {
@@ -640,8 +673,10 @@
         }
     },
     "BonusDeprec_25yr": {
-        "title": "Bonus depreciation rate on 25-year class property.",
+        "title": "Bonus depreciation rate on 25-year class property",
         "description": "Bonus depreciation rate on 25-year class property.",
+        "section_1": "Depreciation",
+        "section_2": "Bonus Depreciation",
         "type": "float",
         "value": [
             {
@@ -657,8 +692,10 @@
         }
     },
     "DeprecSystem_27_5yr": {
-        "title": "Depreciation system used for 27.5-year class property.",
+        "title": "Depreciation system used for 27.5-year class property",
         "description": "Depreciation system used for 27.5-year class property.",
+        "section_1": "Depreciation",
+        "section_2": "Depreciation System",
         "type": "str",
         "value": [
             {
@@ -677,8 +714,10 @@
         }
     },
     "BonusDeprec_27_5yr": {
-        "title": "Bonus depreciation rate on 27.5-year class property.",
+        "title": "Bonus depreciation rate on 27.5-year class property",
         "description": "Bonus depreciation rate on 27.5-year class property.",
+        "section_1": "Depreciation",
+        "section_2": "Bonus Depreciation",
         "type": "float",
         "value": [
             {
@@ -694,8 +733,10 @@
         }
     },
     "DeprecSystem_39yr": {
-        "title": "Depreciation system used for 39-year class property.",
+        "title": "Depreciation system used for 39-year class property",
         "description": "Depreciation system used for 39-year class property.",
+        "section_1": "Depreciation",
+        "section_2": "Depreciation System",
         "type": "str",
         "value": [
             {
@@ -714,45 +755,10 @@
         }
     },
     "BonusDeprec_39yr": {
-        "title": "Bonus depreciation rate on 39-year class property.",
+        "title": "Bonus depreciation rate on 39-year class property",
         "description": "Bonus depreciation rate on 39-year class property.",
-        "type": "float",
-        "value": [
-            {
-                "year": 2015,
-                "value": 0.0
-            }
-        ],
-        "validators": {
-            "range": {
-                "min": 0.0,
-                "max": 1.0
-            }
-        }
-    },
-    "DeprecSystem_all": {
-        "title": "Depreciation system used for all classes of property.",
-        "description": "Depreciation system used for all classes of property.",
-        "type": "str",
-        "value": [
-            {
-                "year": 2015,
-                "value": "GDS"
-            }
-        ],
-        "validators": {
-            "choice": {
-                "choices": [
-                    "GDS",
-                    "ADS",
-                    "Economic"
-                ]
-            }
-        }
-    },
-    "BonusDeprec_all": {
-        "title": "Bonus depreciation rate on all classes of property.",
-        "description": "Bonus depreciation rate on all classes of property.",
+        "section_1": "Depreciation",
+        "section_2": "Bonus Depreciation",
         "type": "float",
         "value": [
             {
@@ -770,6 +776,8 @@
     "land_expensing": {
         "title": "Expensing rate on land.",
         "description": "Expensing rate on land.",
+        "section_1": "Depreciation",
+        "section_2": "Expensing Land and Inventories",
         "type": "float",
         "value": [
             {
@@ -786,7 +794,8 @@
     },
     "ace_c": {
         "title": "Allowance for corporate equity.",
-        "description": "Allowance for corporate equity (fraction of equity deductible).",
+        "description": "Allowance for corporate equity (fraction of equity deductible)",
+        "section_1": "Deductions and Limitations on Financing",
         "notes": "This parameter gives the allowance for corporate equity (ACE). Under an ACE system, companies can deduct a notional interest on their equity.  The default rate used in Cost-of-Capital-Calculator is the nominal interest rate on corporate debt.  Moving this parameter up from zero allows the corporate to have partial to full deductibility of the notional interest on equity.",
         "type": "float",
         "value": [
@@ -803,8 +812,9 @@
         }
     },
     "ace_nc": {
-        "title": "Allowance for non-corporate equity.",
+        "title": "Allowance for non-corporate equity",
         "description": "Allowance for non-corporate equity (fraction of equity deductible).",
+        "section_1": "Deductions and Limitations on Financing",
         "notes": "This parameter gives the allowance for non-corporate equity (ACE). Only relevant if there is an entity-level tax on pass-through businesses (PT_entity_tax_ind=True).  Under an ACE system, companies can deduct a notional interest on their equity.  The default rate used in Cost-of-Capital-Calculator is the nominal interest rate on corporate debt.  Moving this parameter up from zero allows the corporate to have partial to full deductibility of the notional interest on equity.",
         "type": "float",
         "value": [
@@ -821,8 +831,9 @@
         }
     },
     "ace_int_rate": {
-        "title": "Notional interest rate on the allowance for corporate equity.",
+        "title": "Notional interest rate on the allowance for corporate equity",
         "description": "Notional interest rate on the allowance for corporate equity.",
+        "section_1": "Deductions and Limitations on Financing",
         "notes": "The default rate used in Cost-of-Capital-Calculator is the nominal interest rate on corporate debt.  Moving this parameter up from zero allows the corporate to have partial to full deductibility of the notional interest on equity.",
         "type": "float",
         "value": [
@@ -839,8 +850,9 @@
         }
     },
     "interest_deduct_haircut_corp": {
-        "title": "Haircut on interest deductibility for corporate entities.",
+        "title": "Haircut on interest deductibility for corporate entities",
         "description": "Haircut on interest deductibility (fraction of interest not deductible) for C corporations.",
+        "section_1": "Deductions and Limitations on Financing",
         "notes": "This parameter gives the fraction of interest payments that are not allowable as deductions against income for C corporations.",
         "type": "float",
         "value": [
@@ -857,8 +869,9 @@
         }
     },
     "interest_deduct_haircut_PT": {
-        "title": "Haircut on interest deductibility for pass-through entities.",
+        "title": "Haircut on interest deductibility for pass-through entities",
         "description": "Haircut on interest deductibility (fraction of interest not deductible) for pass-through entities.",
+        "section_1": "Deductions and Limitations on Financing",
         "notes": "This parameter gives the fraction of interest payments that are not allowable as deductions against income for pass-through entities.",
         "type": "float",
         "value": [
@@ -875,8 +888,9 @@
         }
     },
     "inv_tax_credit": {
-        "title": "Investment tax credit.",
+        "title": "Investment tax credit",
         "description": "Investment tax credit rate.",
+        "section_1": "Investment Tax Credits and Propoerty Tax",
         "notes": "The investment tax credit rate gives the rate at which the cost of new investments are credited against the firm's tax liability.",
         "type": "float",
         "value": [
@@ -893,8 +907,9 @@
         }
     },
     "property_tax": {
-        "title": "Property tax rate.",
+        "title": "Property tax rate",
         "description": "Property tax rate.",
+        "section_1": "Investment Tax Credits and Propoerty Tax",
         "notes": "Tax rate on business property.",
         "type": "float",
         "value": [
@@ -911,8 +926,9 @@
         }
     },
     "phi": {
-        "title": "Fration of inventories that are accounted for using LIFO.",
+        "title": "Fration of inventories that are accounted for using LIFO",
         "description": "Fration of inventories that are accounted for using LIFO.",
+        "section_1": "Accounting and Financial Policy",
         "notes": "Fration of inventories that are accounted for using LIFO.",
         "type": "float",
         "value": [
@@ -929,8 +945,10 @@
         }
     },
     "inventory_expensing": {
-        "title": "Indicator for whether inventories are immediately expensed.",
+        "title": "Indicator for whether inventories are immediately expensed",
         "description": "Indicator for whether inventories are immediately expensed.",
+        "section_1": "Depreciation",
+        "section_2": "Expensing Land and Inventories",
         "notes": "Indicator for whether inventories are immediately expensed.",
         "type": "bool",
         "value": [
@@ -942,8 +960,10 @@
         "validators": {}
     },
     "tau_nc": {
-        "title": "Effective marginal tax rate on business income to pass-through business owners.",
+        "title": "Effective marginal tax rate on business income to pass-through business owners",
         "description": "Effective marginal tax rate on business income to pass-through business owners.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Marginal Tax Rates",
         "notes": "Effective marginal tax rate on business income to pass-through business owners.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
         "type": "float",
         "value": [
@@ -1012,8 +1032,10 @@
         }
     },
     "tau_div": {
-        "title": "Effective marginal tax rate on dividends.",
+        "title": "Effective marginal tax rate on dividends",
         "description": "Effective marginal tax rate on dividends.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Marginal Tax Rates",
         "notes": "Effective marginal tax rate on dividends.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
         "type": "float",
         "value": [
@@ -1082,8 +1104,10 @@
         }
     },
     "tau_int": {
-        "title": "Effective marginal tax rate on interet income.",
+        "title": "Effective marginal tax rate on interest income",
         "description": "Effective marginal tax rate on interest income.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Marginal Tax Rates",
         "notes": "Effective marginal tax rate on interest income.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
         "type": "float",
         "value": [
@@ -1152,8 +1176,10 @@
         }
     },
     "tau_scg": {
-        "title": "Effective marginal tax rate on short-term capital gains.",
+        "title": "Effective marginal tax rate on short-term capital gains",
         "description": "Effective marginal tax rate on short-term capital gains.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Marginal Tax Rates",
         "notes": "Effective marginal tax rate on short-term capital gains.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
         "type": "float",
         "value": [
@@ -1222,8 +1248,10 @@
         }
     },
     "tau_lcg": {
-        "title": "Effective marginal tax rate on long-term capital gains.",
+        "title": "Effective marginal tax rate on long-term capital gains",
         "description": "Effective marginal tax rate on long-term capital gains.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Marginal Tax Rates",
         "notes": "Effective marginal tax rate on long-term capital gains.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
         "type": "float",
         "value": [
@@ -1292,8 +1320,10 @@
         }
     },
     "tau_xcg": {
-        "title": "Marginal tax rate on capital gains held until death.",
+        "title": "Marginal tax rate on capital gains held until death",
         "description": "Marginal tax rate on capital gains held until death.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Marginal Tax Rates",
         "notes": "Marginal tax rate on capital gains held until death.",
         "type": "float",
         "value": [
@@ -1310,8 +1340,10 @@
         }
     },
     "tau_td": {
-        "title": "Effective marginal tax rate on assets held in tax-deferred accounts.",
+        "title": "Effective marginal tax rate on assets held in tax-deferred accounts",
         "description": "Effective marginal tax rate on assets held in tax-deferred accounts.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Marginal Tax Rates",
         "notes": "Effective marginal tax rate on assets held in tax-deferred accounts.  Default value from CBO (2014)",
         "type": "float",
         "value": [
@@ -1380,8 +1412,10 @@
         }
     },
     "tau_h": {
-        "title": "Effective marginal tax rate on owner occupied housing deductions.",
+        "title": "Effective marginal tax rate on owner occupied housing deductions",
         "description": "Effective marginal tax rate on owner occupied housing deductions.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Marginal Tax Rates",
         "notes": "Effective marginal tax rate on owner occupied housing deductions.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
         "type": "float",
         "value": [
@@ -1450,8 +1484,9 @@
         }
     },
     "inflation_rate": {
-        "title": "Inflation rate.",
+        "title": "Inflation rate",
         "description": "Inflation rate.",
+        "section_1": "Economic Assumptions",
         "notes": "The default inflation rate is determined by the forecast of the Congressional Budget Office (CBO).",
         "type": "float",
         "value": [
@@ -1468,8 +1503,9 @@
         }
     },
     "nominal_interest_rate": {
-        "title": "Nominal interest rate paid on business debt.",
+        "title": "Nominal interest rate paid on business debt",
         "description": "Nominal interest rate paid on business debt.",
+        "section_1": "Economic Assumptions",
         "notes": "The default nominal interest rate is taken as the yeild on BBB corporate bonds.",
         "type": "float",
         "value": [
@@ -1486,8 +1522,10 @@
         }
     },
     "E_c": {
-        "title": "Expected, after-tax return on corporate equity.",
+        "title": "Expected, after-tax return on corporate equity",
         "description": "Expected, after-tax return on corporate equity.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Expected, after-tax return on corporate equity.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1504,8 +1542,9 @@
         }
     },
     "f_c": {
-        "title": "Fraction of corporate investment financed by debt.",
+        "title": "Fraction of corporate investment financed by debt",
         "description": "Fraction of corporate investment financed by debt.",
+        "section_1": "Accounting and Financial Policy",
         "notes": "Fraction of corporate investment financed by debt.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1522,8 +1561,9 @@
         }
     },
     "f_nc": {
-        "title": "Fraction of non-corporate investment financed by debt.",
+        "title": "Fraction of non-corporate investment financed by debt",
         "description": "Fraction of non-corporate investment financed by debt.",
+        "section_1": "Accounting and Financial Policy",
         "notes": "Fraction of non-corporate investment financed by debt.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1540,8 +1580,10 @@
         }
     },
     "omega_scg": {
-        "title": "Fraction of capital gains that are taxed at short-term rate.",
+        "title": "Fraction of capital gains that are taxed at short-term rate",
         "description": "Fraction of capital gains that are taxed at short-term rate.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Fraction of capital gains that are taxed at short-term rate.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1558,8 +1600,10 @@
         }
     },
     "omega_lcg": {
-        "title": "Fraction of capital gains that are taxed at long-term rate.",
+        "title": "Fraction of capital gains that are taxed at long-term rate",
         "description": "Fraction of capital gains that are taxed at long-term rate.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Fraction of capital gains that are taxed at long-term rate.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1576,8 +1620,10 @@
         }
     },
     "omega_xcg": {
-        "title": "Fraction of capital gains that are untaxed.",
+        "title": "Fraction of capital gains that are untaxed",
         "description": "Fraction of capital gains that are untaxed.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Fraction of capital gains that are untaxed.  This could be because of a step-up in basis at death or that they are gains accruing to a non-taxable entity.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1594,8 +1640,10 @@
         }
     },
     "alpha_c_e_ft": {
-        "title": "Fraction of corporate equity held in fully-taxable accounts.",
+        "title": "Fraction of corporate equity held in fully-taxable accounts",
         "description": "Fraction of corporate equity held in fully-taxable accounts.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Fraction of corporate equity held in fully-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1612,8 +1660,10 @@
         }
     },
     "alpha_c_e_td": {
-        "title": "Fraction of corporate equity held in tax-deferred accounts.",
+        "title": "Fraction of corporate equity held in tax-deferred accounts",
         "description": "Fraction of corporate equity held in tax-deferred accounts.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Fraction of corporate equity held in tax-deferred accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1630,8 +1680,10 @@
         }
     },
     "alpha_c_e_nt": {
-        "title": "Fraction of corporate equity held in non-taxable accounts.",
+        "title": "Fraction of corporate equity held in non-taxable accounts",
         "description": "Fraction of corporate equity held in non-taxable accounts.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Fraction of corporate equity held in non-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1648,8 +1700,10 @@
         }
     },
     "alpha_c_d_ft": {
-        "title": "Fraction of corporate debt held in fully-taxable accounts.",
+        "title": "Fraction of corporate debt held in fully-taxable accounts",
         "description": "Fraction of corporate debt held in fully-taxable accounts.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Fraction of corporate debt held in fully-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1666,8 +1720,10 @@
         }
     },
     "alpha_c_d_td": {
-        "title": "Fraction of corporate debt held in tax-deferred accounts.",
+        "title": "Fraction of corporate debt held in tax-deferred accounts",
         "description": "Fraction of corporate debt held in tax-deferred accounts.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Fraction of corporate debt held in tax-deferred accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1684,8 +1740,10 @@
         }
     },
     "alpha_c_d_nt": {
-        "title": "Fraction of corporate debt held in non-taxable accounts.",
+        "title": "Fraction of corporate debt held in non-taxable accounts",
         "description": "Fraction of corporate debt held in non-taxable accounts.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Fraction of corporate debt held in non-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1702,8 +1760,10 @@
         }
     },
     "alpha_nc_d_ft": {
-        "title": "Fraction of non-corporate debt held in fully-taxable accounts.",
+        "title": "Fraction of non-corporate debt held in fully-taxable accounts",
         "description": "Fraction of non-corporate debt held in fully-taxable accounts.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Fraction of non-corporate debt held in fully-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1720,8 +1780,10 @@
         }
     },
     "alpha_nc_d_td": {
-        "title": "Fraction of non-corporate debt held in tax-deferred accounts.",
+        "title": "Fraction of non-corporate debt held in tax-deferred accounts",
         "description": "Fraction of non-corporate debt held in tax-deferred accounts.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Fraction of non-corporate debt held in tax-deferred accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1738,8 +1800,10 @@
         }
     },
     "alpha_nc_d_nt": {
-        "title": "Fraction of non-corporate debt held in non-taxable accounts.",
+        "title": "Fraction of non-corporate debt held in non-taxable accounts",
         "description": "Fraction of non-corporate debt held in non-taxable accounts.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Fraction of non-corporate debt held in non-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1756,8 +1820,10 @@
         }
     },
     "alpha_h_d_ft": {
-        "title": "Fraction of homeowner equity held in fully-taxable accounts.",
+        "title": "Fraction of homeowner equity held in fully-taxable accounts",
         "description": "Fraction of homeowner equity held in fully-taxable accounts.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Fraction of homeowner equity held in fully-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1774,8 +1840,10 @@
         }
     },
     "alpha_h_d_td": {
-        "title": "Fraction of homeowner equity held in tax-deferred accounts.",
+        "title": "Fraction of homeowner equity held in tax-deferred accounts",
         "description": "Fraction of homeowner equity held in tax-deferred accounts.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Fraction of homeowner equity held in tax-deferred accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1792,8 +1860,10 @@
         }
     },
     "alpha_h_d_nt": {
-        "title": "Fraction of homeowner equity held in non-taxable accounts.",
+        "title": "Fraction of homeowner equity held in non-taxable accounts",
         "description": "Fraction of homeowner equity held in non-taxable accounts.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Fraction of homeowner equity held in non-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1810,8 +1880,10 @@
         }
     },
     "Y_td": {
-        "title": "Number of years assets are held in tax-deferred accounts.",
+        "title": "Number of years assets are held in tax-deferred accounts",
         "description": "Number of years assets are held in tax-deferred accounts.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Number of years assets are held in tax-deferred accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1828,8 +1900,10 @@
         }
     },
     "Y_scg": {
-        "title": "Number of years assets held before short-term capital gains are realized.",
+        "title": "Number of years assets held before short-term capital gains are realized",
         "description": "Number of years assets held before short-term capital gains are realized.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Number of years assets held before short-term capital gains are realized.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1846,8 +1920,10 @@
         }
     },
     "Y_lcg": {
-        "title": "Number of years assets held before long-term capital gains are realized.",
+        "title": "Number of years assets held before long-term capital gains are realized",
         "description": "Number of years assets held before long-term capital gains are realized.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Number of years assets held before long-term capital gains are realized.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1864,8 +1940,9 @@
         }
     },
     "Y_v": {
-        "title": "Number of years inventories are held.",
+        "title": "Number of years inventories are held",
         "description": "Number of years inventories are held.",
+        "section_1": "Accounting and Financial Policy",
         "notes": "Number of years inventories are held.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1882,8 +1959,10 @@
         }
     },
     "gamma": {
-        "title": "Fraction of debt owned through whole life-insurance policies.",
+        "title": "Fraction of debt owned through whole life-insurance policies",
         "description": "Fraction of debt owned through whole life-insurance policies.",
+        "section_1": "Individual Income Taxes",
+        "section_2": "Household Savings Behavior",
         "notes": "Fraction of debt owned through whole life-insurance policies.  Default value from CBO's Computing Effective Tax Rates on Capital Income (2007)",
         "type": "float",
         "value": [
@@ -1900,8 +1979,9 @@
         }
     },
     "m": {
-        "title": "Dividend payout rate.",
+        "title": "Dividend payout rate",
         "description": "Dividend payout rate.",
+        "section_1": "Accounting and Financial Policy",
         "notes": "Dividend payout rate.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
@@ -1918,8 +1998,9 @@
         }
     },
     "profit_rate": {
-        "title": "Profit rate used when computing EATR.",
+        "title": "Profit rate used when computing EATR",
         "description": "Profit rate used when computing EATR.",
+        "section_1": "Accounting and Financial Policy",
         "notes": "Profit rate used when computing EATR.",
         "type": "float",
         "value": [
@@ -1936,8 +2017,9 @@
         }
     },
     "new_view": {
-        "title": "Whether or not use the new view of dividend taxation.",
+        "title": "Whether or not use the new view of dividend taxation",
         "description": "Whether or not use the new view of dividend taxation.",
+        "section_1": "Accounting and Financial Policy",
         "notes": "Under the new view of dividend taxation, dividend taxes do not influence investment decisions.  Under the old view, they do.",
         "type": "bool",
         "value": [
