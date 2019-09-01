@@ -9,6 +9,7 @@ requirements:
   build:
     - python
     - "taxcalc>=2.4.2"
+    - "bokeh>=1.2.0"
     - "paramtools>=0.7.1"
     - setuptools
     - xlrd
