@@ -65,7 +65,7 @@ def validate_inputs(meta_param_dict, adjustment, errors_warnings):
 
 def run_model(meta_param_dict, adjustment):
     '''
-    Initiliazes classes from CCC that compute the model under
+    Initializes classes from CCC that compute the model under
     different policies.  Then calls function get output objects.
     '''
     meta_params = MetaParams()
@@ -74,12 +74,13 @@ def run_model(meta_param_dict, adjustment):
         data = retrieve_puf(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
     else:
         data = "cps"
-    params = Specification(year=meta_params.year, call_tc=True,
+    params = Specification(year=meta_params.year, call_tc=False,
                            data=data)
-    params.adjust(adjustment["ccc"])
     assets = Assets()
     calc1 = Calculator(params, assets)
-    params2 = Specification(year=meta_params.year)
+    params2 = Specification(year=meta_params.year, call_tc=False,
+                            data=data)
+    params2.update_specification(adjustment["ccc"])
     calc2 = Calculator(params2, assets)
     comp_dict = comp_output(calc1, calc2)
 
@@ -109,14 +110,14 @@ def comp_output(calc1, calc2, out_var='mettr'):
             },
             {
               "media_type": "table",
-              "title":  out_var + "Summary Table",
+              "title":  out_var.upper() + " Summary Table",
               "data": html_table
             },
           ],
         "downloadable": [
             {
               "media_type": "CSV",
-              "title": out_var + "Summary Table",
+              "title": out_var.upper() + " Summary Table",
               "data": out_table.to_csv()
             }
           ]
