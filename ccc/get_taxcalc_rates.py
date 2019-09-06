@@ -97,11 +97,11 @@ def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={},
     for year in range(start_year, end_year + 1):
         calc1.advance_to_year(year)
         print('year: ', str(calc1.current_year))
-        # get mtrs
-        # sch c
+        # Compute mtrs
+        # Sch C
         [mtr_fica_schC, mtr_iit_schC, mtr_combined_schC] =\
             calc1.mtr('e00900p')
-        # sch e (not s corp or partnership)
+        # Sch E  - includes partnership and s corp income
         [mtr_fica_schE, mtr_iit_schE, mtr_combined_schE] =\
             calc1.mtr('e02000')
         # Partnership and s corp income
