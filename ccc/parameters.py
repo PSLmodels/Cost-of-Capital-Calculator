@@ -84,13 +84,15 @@ class Specification(paramtools.Parameters):
                  (((1 - self.tau_int) * self.nominal_interest_rate) -
                   self.inflation_rate) +
                  self.alpha_c_d_td * s_c_d_td + self.alpha_c_d_nt *
-                 (self.nominal_interest_rate - self.inflation_rate))
+                 (self.nominal_interest_rate - self.inflation_rate) -
+                 self.tau_w)
         s_nc_d_td = s_c_d_td
         s_nc_d = (self.alpha_nc_d_ft *
                   (((1 - self.tau_int) *
                     self.nominal_interest_rate) - self.inflation_rate) +
                   self.alpha_nc_d_td * s_nc_d_td + self.alpha_nc_d_nt *
-                  (self.nominal_interest_rate - self.inflation_rate))
+                  (self.nominal_interest_rate - self.inflation_rate) -
+                  self.tau_w)
 
         g_scg = ((1 / self.Y_scg) *
                  np.log(((1 - self.tau_scg) *
@@ -115,13 +117,13 @@ class Specification(paramtools.Parameters):
         )
         s_c_e = (
             self.alpha_c_e_ft * s_c_e_ft + self.alpha_c_e_td *
-            s_c_e_td + self.alpha_c_e_nt * self.E_c
+            s_c_e_td + self.alpha_c_e_nt * self.E_c - self.tau_w
         )
 
         s_c = self.f_c * s_c_d + (1 - self.f_c) * s_c_e
 
         E_nc = s_c_e
-        s_nc_e = E_nc
+        s_nc_e = E_nc - self.tau_w
         s_nc = self.f_nc * s_nc_d + (1 - self.f_nc) * s_nc_e
         self.u = {'c': self.CIT_rate}
         if not self.PT_entity_tax_ind.all():
