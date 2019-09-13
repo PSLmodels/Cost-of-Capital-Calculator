@@ -962,7 +962,7 @@
     "tau_nc": {
         "title": "Effective marginal tax rate on business income to pass-through business owners",
         "description": "Effective marginal tax rate on business income to pass-through business owners.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Marginal Tax Rates",
         "notes": "Effective marginal tax rate on business income to pass-through business owners.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
         "type": "float",
@@ -1034,7 +1034,7 @@
     "tau_div": {
         "title": "Effective marginal tax rate on dividends",
         "description": "Effective marginal tax rate on dividends.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Marginal Tax Rates",
         "notes": "Effective marginal tax rate on dividends.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
         "type": "float",
@@ -1106,7 +1106,7 @@
     "tau_int": {
         "title": "Effective marginal tax rate on interest income",
         "description": "Effective marginal tax rate on interest income.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Marginal Tax Rates",
         "notes": "Effective marginal tax rate on interest income.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
         "type": "float",
@@ -1178,7 +1178,7 @@
     "tau_scg": {
         "title": "Effective marginal tax rate on short-term capital gains",
         "description": "Effective marginal tax rate on short-term capital gains.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Marginal Tax Rates",
         "notes": "Effective marginal tax rate on short-term capital gains.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
         "type": "float",
@@ -1250,7 +1250,7 @@
     "tau_lcg": {
         "title": "Effective marginal tax rate on long-term capital gains",
         "description": "Effective marginal tax rate on long-term capital gains.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Marginal Tax Rates",
         "notes": "Effective marginal tax rate on long-term capital gains.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
         "type": "float",
@@ -1322,7 +1322,7 @@
     "tau_xcg": {
         "title": "Marginal tax rate on capital gains held until death",
         "description": "Marginal tax rate on capital gains held until death.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Marginal Tax Rates",
         "notes": "Marginal tax rate on capital gains held until death.",
         "type": "float",
@@ -1342,7 +1342,7 @@
     "tau_td": {
         "title": "Effective marginal tax rate on assets held in tax-deferred accounts",
         "description": "Effective marginal tax rate on assets held in tax-deferred accounts.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Marginal Tax Rates",
         "notes": "Effective marginal tax rate on assets held in tax-deferred accounts.  Default value from CBO (2014)",
         "type": "float",
@@ -1414,7 +1414,7 @@
     "tau_h": {
         "title": "Effective marginal tax rate on owner occupied housing deductions",
         "description": "Effective marginal tax rate on owner occupied housing deductions.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Marginal Tax Rates",
         "notes": "Effective marginal tax rate on owner occupied housing deductions.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
         "type": "float",
@@ -1483,6 +1483,78 @@
             }
         }
     },
+    "tau_w": {
+        "title": "Effective marginal tax rate on wealth",
+        "description": "Effective marginal tax rate on wealth.",
+        "section_1": "Individual Level Taxes",
+        "section_2": "Marginal Tax Rates",
+        "notes": "Effective marginal tax rate on wealth.  Computed as a weighted average across the population.",
+        "type": "float",
+        "value": [
+            {
+                "year": 2015,
+                "value": 0.0
+            },
+            {
+                "year": 2016,
+                "value": 0.0
+            },
+            {
+                "year": 2017,
+                "value": 0.0
+            },
+            {
+                "year": 2018,
+                "value": 0.0
+            },
+            {
+                "year": 2019,
+                "value": 0.0
+            },
+            {
+                "year": 2020,
+                "value": 0.0
+            },
+            {
+                "year": 2021,
+                "value": 0.0
+            },
+            {
+                "year": 2022,
+                "value": 0.0
+            },
+            {
+                "year": 2023,
+                "value": 0.0
+            },
+            {
+                "year": 2024,
+                "value": 0.0
+            },
+            {
+                "year": 2025,
+                "value": 0.0
+            },
+            {
+                "year": 2026,
+                "value": 0.0
+            },
+            {
+                "year": 2027,
+                "value": 0.0
+            },
+            {
+                "year": 2028,
+                "value": 0.0
+            }
+        ],
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
     "inflation_rate": {
         "title": "Inflation rate",
         "description": "Inflation rate.",
@@ -1524,7 +1596,7 @@
     "E_c": {
         "title": "Expected, after-tax return on corporate equity",
         "description": "Expected, after-tax return on corporate equity.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Expected, after-tax return on corporate equity.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
@@ -1582,7 +1654,7 @@
     "omega_scg": {
         "title": "Fraction of capital gains that are taxed at short-term rate",
         "description": "Fraction of capital gains that are taxed at short-term rate.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Fraction of capital gains that are taxed at short-term rate.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
@@ -1602,7 +1674,7 @@
     "omega_lcg": {
         "title": "Fraction of capital gains that are taxed at long-term rate",
         "description": "Fraction of capital gains that are taxed at long-term rate.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Fraction of capital gains that are taxed at long-term rate.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
@@ -1622,7 +1694,7 @@
     "omega_xcg": {
         "title": "Fraction of capital gains that are untaxed",
         "description": "Fraction of capital gains that are untaxed.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Fraction of capital gains that are untaxed.  This could be because of a step-up in basis at death or that they are gains accruing to a non-taxable entity.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
@@ -1642,7 +1714,7 @@
     "alpha_c_e_ft": {
         "title": "Fraction of corporate equity held in fully-taxable accounts",
         "description": "Fraction of corporate equity held in fully-taxable accounts.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Fraction of corporate equity held in fully-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
@@ -1662,7 +1734,7 @@
     "alpha_c_e_td": {
         "title": "Fraction of corporate equity held in tax-deferred accounts",
         "description": "Fraction of corporate equity held in tax-deferred accounts.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Fraction of corporate equity held in tax-deferred accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
@@ -1682,7 +1754,7 @@
     "alpha_c_e_nt": {
         "title": "Fraction of corporate equity held in non-taxable accounts",
         "description": "Fraction of corporate equity held in non-taxable accounts.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Fraction of corporate equity held in non-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
@@ -1702,7 +1774,7 @@
     "alpha_c_d_ft": {
         "title": "Fraction of corporate debt held in fully-taxable accounts",
         "description": "Fraction of corporate debt held in fully-taxable accounts.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Fraction of corporate debt held in fully-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
@@ -1722,7 +1794,7 @@
     "alpha_c_d_td": {
         "title": "Fraction of corporate debt held in tax-deferred accounts",
         "description": "Fraction of corporate debt held in tax-deferred accounts.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Fraction of corporate debt held in tax-deferred accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
@@ -1742,7 +1814,7 @@
     "alpha_c_d_nt": {
         "title": "Fraction of corporate debt held in non-taxable accounts",
         "description": "Fraction of corporate debt held in non-taxable accounts.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Fraction of corporate debt held in non-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
@@ -1762,7 +1834,7 @@
     "alpha_nc_d_ft": {
         "title": "Fraction of non-corporate debt held in fully-taxable accounts",
         "description": "Fraction of non-corporate debt held in fully-taxable accounts.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Fraction of non-corporate debt held in fully-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
@@ -1782,7 +1854,7 @@
     "alpha_nc_d_td": {
         "title": "Fraction of non-corporate debt held in tax-deferred accounts",
         "description": "Fraction of non-corporate debt held in tax-deferred accounts.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Fraction of non-corporate debt held in tax-deferred accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
@@ -1802,7 +1874,7 @@
     "alpha_nc_d_nt": {
         "title": "Fraction of non-corporate debt held in non-taxable accounts",
         "description": "Fraction of non-corporate debt held in non-taxable accounts.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Fraction of non-corporate debt held in non-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
@@ -1822,7 +1894,7 @@
     "alpha_h_d_ft": {
         "title": "Fraction of homeowner equity held in fully-taxable accounts",
         "description": "Fraction of homeowner equity held in fully-taxable accounts.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Fraction of homeowner equity held in fully-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
@@ -1842,7 +1914,7 @@
     "alpha_h_d_td": {
         "title": "Fraction of homeowner equity held in tax-deferred accounts",
         "description": "Fraction of homeowner equity held in tax-deferred accounts.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Fraction of homeowner equity held in tax-deferred accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
@@ -1862,7 +1934,7 @@
     "alpha_h_d_nt": {
         "title": "Fraction of homeowner equity held in non-taxable accounts",
         "description": "Fraction of homeowner equity held in non-taxable accounts.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Fraction of homeowner equity held in non-taxable accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
@@ -1882,7 +1954,7 @@
     "Y_td": {
         "title": "Number of years assets are held in tax-deferred accounts",
         "description": "Number of years assets are held in tax-deferred accounts.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Number of years assets are held in tax-deferred accounts.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
@@ -1902,7 +1974,7 @@
     "Y_scg": {
         "title": "Number of years assets held before short-term capital gains are realized",
         "description": "Number of years assets held before short-term capital gains are realized.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Number of years assets held before short-term capital gains are realized.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
@@ -1922,7 +1994,7 @@
     "Y_lcg": {
         "title": "Number of years assets held before long-term capital gains are realized",
         "description": "Number of years assets held before long-term capital gains are realized.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Number of years assets held before long-term capital gains are realized.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
@@ -1961,7 +2033,7 @@
     "gamma": {
         "title": "Fraction of debt owned through whole life-insurance policies",
         "description": "Fraction of debt owned through whole life-insurance policies.",
-        "section_1": "Individual Income Taxes",
+        "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
         "notes": "Fraction of debt owned through whole life-insurance policies.  Default value from CBO's Computing Effective Tax Rates on Capital Income (2007)",
         "type": "float",
