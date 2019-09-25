@@ -48,8 +48,12 @@ def get_inputs(meta_params_dict):
         serializable=True,
         year=meta_params.year
     )
-    return (meta_params.specification(meta_data=True, serializable=True),
-            {"ccc": spec})
+    return {
+         "meta_parameters": meta_params.dump(),
+         "model_parameters": {
+             "ccc": spec.dump()
+         }
+     }
 
 
 def validate_inputs(meta_param_dict, adjustment, errors_warnings):
@@ -61,6 +65,10 @@ def validate_inputs(meta_param_dict, adjustment, errors_warnings):
     params.adjust(adjustment["ccc"], raise_errors=False)
     errors_warnings["ccc"]["errors"].update(params.errors)
     return errors_warnings
+
+
+def get_version():
+    return ccc.__version__
 
 
 def run_model(meta_param_dict, adjustment):

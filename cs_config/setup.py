@@ -9,7 +9,7 @@ import setuptools
 import os
 
 setuptools.setup(
-    name="cs_config",
+    name="cs-config",
     description="Compute Studio configuration files.",
     url="https://github.com/compute-tooling/compute-studio-kit",
     packages=setuptools.find_packages(),

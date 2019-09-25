@@ -1,18 +1,16 @@
-from cs_kit import FunctionsTest
+from cs_kit import CoreTestFunctions
 import pandas as pd
 import io
 from cs_config import functions
 
 
-def test_get_parameters():
-    ta = FunctionsTest(
-        get_inputs=functions.get_inputs,
-        validate_inputs=functions.validate_inputs,
-        run_model=functions.run_model,
-        ok_adjustment={"ccc": {"CIT_rate": 0.21}},
-        bad_adjustment={"ccc": {"CIT_rate": -0.1}}
-    )
-    ta.test()
+class TestFunctions1(CoreTestFunctions):
+    get_version = functions.get_version
+    get_inputs = functions.get_inputs
+    validate_inputs = functions.validate_inputs
+    run_model = functions.run_model,
+    ok_adjustment = {"ccc": {"CIT_rate": 0.21}},
+    bad_adjustment = {"ccc": {"CIT_rate": -0.1}}
 
 
 def test_param_effect():
