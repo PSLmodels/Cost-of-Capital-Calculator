@@ -1,7 +1,7 @@
-from compdevkit import FunctionsTest
+from cs_kit import FunctionsTest
 import pandas as pd
 import io
-from compconfig import functions
+from cs_config import functions
 
 
 def test_get_parameters():
