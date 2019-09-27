@@ -9,12 +9,12 @@ class TestFunctions1(CoreTestFunctions):
     get_inputs = functions.get_inputs
     validate_inputs = functions.validate_inputs
     run_model = functions.run_model
-    ok_adjustment = {"ccc": {"CIT_rate": 0.21}, "iit": {"STD": -1}}
-    bad_adjustment = {"ccc": {"CIT_rate": -0.1}, "iit": {}}
+    ok_adjustment = {"ccc": {"CIT_rate": 0.21}, "iit": {}}
+    bad_adjustment = {"ccc": {"CIT_rate": -0.1}, "iit": {"STD": -1}}
 
 
 def test_param_effect():
-    adjustment = {"ccc": {"CIT_rate": 0.35}}
+    adjustment = {"ccc": {"CIT_rate": 0.35}, "iit": {}}
     comp_dict = functions.run_model({}, adjustment)
     df = pd.read_csv(io.StringIO(comp_dict['downloadable'][0]['data']))
     assert df.loc[0, 'Change from Baseline (pp)'] != 0
