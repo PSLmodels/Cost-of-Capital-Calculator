@@ -101,7 +101,6 @@ def comp_output(calc1, calc2, out_var='mettr'):
     plt = calc1.grouped_bar(calc2, output_variable=out_var)
     js, div = components(plt)
     comp_dict = {
-        "model_version": ccc.__version__,
         "renderable": [
             {
               "media_type": "bokeh",
