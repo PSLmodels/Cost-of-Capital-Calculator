@@ -1,10 +1,10 @@
 import os
-import numpy as np
 import paramtools
 
 # import ccc
 from ccc.get_taxcalc_rates import get_rates
 from ccc.utils import DEFAULT_START_YEAR
+import ccc.paramfunctions as pf
 CURRENT_PATH = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -71,60 +71,10 @@ class Specification(paramtools.Parameters):
         if self.new_view:
             self.m = 1
 
-        # Compute required after-tax rates of return for savers
-        sprime_c_td = ((1 / self.Y_td) *
-                       np.log(((1 - self.tau_td) *
-                               np.exp(self.nominal_interest_rate *
-                                      self.Y_td)) + self.tau_td) -
-                       self.inflation_rate)
-        s_c_d_td = (self.gamma * (self.nominal_interest_rate -
-                                  self.inflation_rate) +
-                    (1 - self.gamma) * sprime_c_td)
-        s_c_d = (self.alpha_c_d_ft *
-                 (((1 - self.tau_int) * self.nominal_interest_rate) -
-                  self.inflation_rate) +
-                 self.alpha_c_d_td * s_c_d_td + self.alpha_c_d_nt *
-                 (self.nominal_interest_rate - self.inflation_rate) -
-                 self.tau_w)
-        s_nc_d_td = s_c_d_td
-        s_nc_d = (self.alpha_nc_d_ft *
-                  (((1 - self.tau_int) *
-                    self.nominal_interest_rate) - self.inflation_rate) +
-                  self.alpha_nc_d_td * s_nc_d_td + self.alpha_nc_d_nt *
-                  (self.nominal_interest_rate - self.inflation_rate) -
-                  self.tau_w)
+        # Get after-tax return to savers
+        self.s, E_nc = pf.calc_s(self)
 
-        g_scg = ((1 / self.Y_scg) *
-                 np.log(((1 - self.tau_scg) *
-                         np.exp((self.inflation_rate +
-                                 self.m * self.E_c) * self.Y_scg)) +
-                        self.tau_scg) - self.inflation_rate)
-        g_lcg = ((1 / self.Y_lcg) *
-                 np.log(((1 - self.tau_lcg) *
-                         np.exp((self.inflation_rate + self.m * self.E_c) *
-                                self.Y_lcg)) +
-                        self.tau_lcg) - self.inflation_rate)
-        g = (
-            self.omega_scg * g_scg + self.omega_lcg * g_lcg +
-            self.omega_xcg * self.m * self.E_c
-        )
-        s_c_e_ft = (1 - self.m) * self.E_c * (1 - self.tau_div) + g
-        s_c_e_td = (
-            (1 / self.Y_td) *
-            np.log(((1 - self.tau_td) *
-                    np.exp((self.inflation_rate + self.E_c) * self.Y_td)) +
-                   self.tau_td) - self.inflation_rate
-        )
-        s_c_e = (
-            self.alpha_c_e_ft * s_c_e_ft + self.alpha_c_e_td *
-            s_c_e_td + self.alpha_c_e_nt * self.E_c - self.tau_w
-        )
-
-        s_c = self.f_c * s_c_d + (1 - self.f_c) * s_c_e
-
-        E_nc = s_c_e
-        s_nc_e = E_nc - self.tau_w
-        s_nc = self.f_nc * s_nc_d + (1 - self.f_nc) * s_nc_e
+        # Set rate of 1st layer of taxation on investment income
         self.u = {'c': self.CIT_rate}
         if not self.PT_entity_tax_ind.all():
             self.u['nc'] = self.tau_nc
@@ -138,8 +88,7 @@ class Specification(paramtools.Parameters):
         # Limitation on interest deduction
         int_haircut_dict = {'c': self.interest_deduct_haircut_corp,
                             'nc': self.interest_deduct_haircut_PT}
-        self.s = {'c': {'mix': s_c, 'd': s_c_d, 'e': s_c_e},
-                  'nc': {'mix': s_nc, 'd': s_nc_d, 'e': s_nc_e}}
+        # Debt financing ratios
         f_dict = {'c': {'mix': self.f_c, 'd': 1.0, 'e': 0.0},
                   'nc': {'mix': self.f_nc, 'd': 1.0, 'e': 0.0}}
 
@@ -155,6 +104,7 @@ class Specification(paramtools.Parameters):
                     (E_dict[t] + self.inflation_rate - E_dict[t] *
                      self.ace_int_rate * ace_dict[t])
                 )
+        self.r = r
 
         # Compute firm after-tax rates of return
         r_prime = {}
@@ -165,6 +115,7 @@ class Specification(paramtools.Parameters):
                     f_dict[t][f] * self.nominal_interest_rate +
                     (1 - f_dict[t][f]) * (E_dict[t] + self.inflation_rate)
                 )
+
         # if no entity level taxes on pass-throughs, ensure mettr and metr
         # on non-corp entities the same
         if not self.PT_entity_tax_ind:
@@ -178,13 +129,13 @@ class Specification(paramtools.Parameters):
         else:
             # keep debt and equity financing ratio the same even though now
             # entity level tax that might now favor debt
-            self.s['nc']['mix'] = (self.f_nc * s_nc_d +
-                                   (1 - self.f_nc) * s_c_e)
-            self.s['c']['e'] = s_c_e
+            self.s['nc']['mix'] = (self.f_nc * self.s['nc']['d'] +
+                                   (1 - self.f_nc) * self.s['c']['e'])
+        self.r_prime = r_prime
+
+        # Map string tax methods into multiple of declining balance
         self.tax_methods = {'DB 200%': 2.0, 'DB 150%': 1.5, 'SL': 1.0,
                             'Economic': 1.0, 'Expensing': 1.0}
-        self.r = r
-        self.r_prime = r_prime
 
         # Create dictionaries with depreciation system and rate of bonus
         # depreciation by asset class

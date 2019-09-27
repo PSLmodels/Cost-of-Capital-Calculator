@@ -12,8 +12,14 @@ def calc_s(p):
         p (CCC Specification Object): model parameters
 
     Returns:
-        s_dict (dict): dictionary of s for investments in corporate and
-            pass-through businesses and by type of financing
+        (tuple): return to savers and required return to pass-through
+            entities:
+
+            * s_dict (dict): dictionary of s for investments in
+                corporate and pass-through businesses and by type of
+                financing
+            * E_nc (scalar): required pre-tax return on pass-through
+                investments
 
     '''
     sprime_c_td = ((1 / p.Y_td) *
@@ -21,8 +27,7 @@ def calc_s(p):
                            np.exp(p.nominal_interest_rate *
                                   p.Y_td)) + p.tau_td) -
                    p.inflation_rate)
-    s_c_d_td = (p.gamma * (p.nominal_interest_rate -
-                              p.inflation_rate) +
+    s_c_d_td = (p.gamma * (p.nominal_interest_rate - p.inflation_rate) +
                 (1 - p.gamma) * sprime_c_td)
     s_c_d = (p.alpha_c_d_ft *
              (((1 - p.tau_int) * p.nominal_interest_rate) -
@@ -73,4 +78,4 @@ def calc_s(p):
     s_dict = {'c': {'mix': s_c, 'd': s_c_d, 'e': s_c_e},
               'nc': {'mix': s_nc, 'd': s_nc_d, 'e': s_nc_e}}
 
-    return s_dict
+    return s_dict, E_nc
