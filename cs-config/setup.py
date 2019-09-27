@@ -6,7 +6,6 @@ https://docs.python.org/3.8/distutils/sourcedist.html#specifying-the-files-to-di
 """
 
 import setuptools
-import os
 
 setuptools.setup(
     name="cs-config",
