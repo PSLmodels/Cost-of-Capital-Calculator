@@ -1,6 +1,58 @@
 import numpy as np
 
 
+def calc_sprime_c_td(Y_td, tau_td, i, pi):
+    r'''
+    Compute after-tax rate of return on savings invested in
+    tax-deferred accounts.
+
+    .. math::
+        s^{'}_{c,td} = \frac{1}{Y_{td}}log((1-\tau_{td})*e^{i*Y_{td}}+\tau_{td}) - \pi
+
+    Args:
+        Y_td (scalar): number of years savings held in tax-deferred
+            retirement account
+        tau_td (scalar): effective marginal tax rate on investment
+            income from tax-deferred accounts
+        i (scalar): the nominal interest rate
+        pi (scalar): the inflation rate
+
+    Returns:
+        sprime_c_td (scalar): the after-tax return on corporate
+            investments made through tax-deferred accounts
+    '''
+    sprime_c_td = ((1 / Y_td) * np.log(((1 - tau_td) * np.exp(i * Y_td))
+                                       + tau_td) - pi)
+
+    return sprime_c_td
+
+
+def calc_s_c_d_td(gamma, i, pi, sprime_c_td):
+    r'''
+    Compute the after-tax return on corprate debt investments made
+    through tax-deferred accounts.
+
+    ..math::
+        s_{c,d,td} = \gamma(i-\pi) + (1-\gamma)s^{'}_{c,td}
+
+    Args:
+        gamma (scalar): Fraction of debt owned through whole-life
+            insurance policies
+        i (scalar): the nominal interest rate
+        pi (scalar): the inflation rate
+        sprime_c_td (scalar): the after-tax return on corporate
+            investments made through tax-deferred accounts
+
+    Returns:
+        s_c_d_td (scalar): the after-tax return on corprate debt
+            investments made through tax-deferred accounts
+
+    '''
+    s_c_d_td = gamma * (i - pi) + (1 - gamma) * sprime_c_td
+
+    return s_c_d_td
+
+
 def calc_s(p):
     '''
     Compute the after-tax rate of return to savers, s.
