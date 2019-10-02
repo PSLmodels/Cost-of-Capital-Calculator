@@ -5,11 +5,26 @@ from ccc.calculator import Calculator
 from ccc.utils import TC_LAST_YEAR
 from bokeh.embed import components
 import os
+import json
+import inspect
 import paramtools
-from .helpers import retrieve_puf
+from taxcalc import Policy
+from collections import OrderedDict
+from .helpers import retrieve_puf, convert_adj, convert_defaults
 
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
+
+# Get Tax-Calculator default parameters
+TCPATH = inspect.getfile(Policy)
+TCDIR = os.path.dirname(TCPATH)
+with open(os.path.join(TCDIR, "policy_current_law.json"), "r") as f:
+    pcl = json.loads(f.read())
+RES = convert_defaults(pcl)
+
+
+class TCParams(paramtools.Parameters):
+    defaults = RES
 
 
 class MetaParams(paramtools.Parameters):
@@ -40,16 +55,28 @@ def get_inputs(meta_params_dict):
     '''
     Function to get user input parameters from COMP
     '''
+    # Get meta-params from web app
     meta_params = MetaParams()
     meta_params.adjust(meta_params_dict)
-    params = Specification()
-    spec = params.specification(
-        meta_data=True,
-        serializable=True,
-        year=meta_params.year
-    )
-    return (meta_params.specification(meta_data=True, serializable=True),
-            {"ccc": spec})
+    # Set default CCC params
+    ccc_params = Specification(year=meta_params.year)
+    # Set default TC params
+    iit_params = TCParams()
+    iit_params.set_state(year=meta_params.year.tolist())
+    filtered_iit_params = OrderedDict()
+    for k, v in iit_params.dump().items():
+        if k == "schema" or v.get("section_1", False):
+            filtered_iit_params[k] = v
+
+    default_params = {
+        "ccc": ccc_params.dump(),
+        "iit": filtered_iit_params
+    }
+
+    return {
+         "meta_parameters": meta_params.dump(),
+         "model_parameters": default_params
+     }
 
 
 def validate_inputs(meta_param_dict, adjustment, errors_warnings):
@@ -60,7 +87,21 @@ def validate_inputs(meta_param_dict, adjustment, errors_warnings):
     params = Specification()
     params.adjust(adjustment["ccc"], raise_errors=False)
     errors_warnings["ccc"]["errors"].update(params.errors)
-    return errors_warnings
+    # Validate TC parameter inputs
+    pol_params = {}
+    # drop checkbox parameters.
+    for param, data in list(adjustment["iit"].items()):
+        if not param.endswith("checkbox"):
+            pol_params[param] = data
+    iit_params = TCParams()
+    iit_params.adjust(pol_params, raise_errors=False)
+    errors_warnings["iit"]["errors"].update(iit_params.errors)
+
+    return {"errors_warnings": errors_warnings}
+
+
+def get_version():
+    return ccc.__version__
 
 
 def run_model(meta_param_dict, adjustment):
@@ -68,18 +109,24 @@ def run_model(meta_param_dict, adjustment):
     Initializes classes from CCC that compute the model under
     different policies.  Then calls function get output objects.
     '''
+    # update MetaParams
     meta_params = MetaParams()
     meta_params.adjust(meta_param_dict)
+    # Get data chosen by user
     if meta_params.data_source == "PUF":
         data = retrieve_puf(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
     else:
         data = "cps"
+    # Get TC params adjustments
+    iit_mods = convert_adj(adjustment["iit"], meta_params.year.tolist())
+    # Baseline CCC calculator
     params = Specification(year=meta_params.year, call_tc=False,
-                           data=data)
+                           iit_reform={}, data=data)
     assets = Assets()
     calc1 = Calculator(params, assets)
-    params2 = Specification(year=meta_params.year, call_tc=False,
-                            data=data)
+    # Reform CCC calculator - includes TC adjustments
+    params2 = Specification(year=meta_params.year, call_tc=True,
+                            iit_reform=iit_mods, data=data)
     params2.update_specification(adjustment["ccc"])
     calc2 = Calculator(params2, assets)
     comp_dict = comp_output(calc1, calc2)
@@ -98,7 +145,6 @@ def comp_output(calc1, calc2, out_var='mettr'):
     plt = calc1.grouped_bar(calc2, output_variable=out_var)
     js, div = components(plt)
     comp_dict = {
-        "model_version": ccc.__version__,
         "renderable": [
             {
               "media_type": "bokeh",
