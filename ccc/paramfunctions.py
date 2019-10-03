@@ -22,8 +22,9 @@ def calc_sprime_c_td(Y_td, tau_td, i, pi):
         sprime_c_td (scalar): the after-tax return on corporate
             investments made through tax-deferred accounts
     '''
-    sprime_c_td = ((1 / Y_td) * np.log(((1 - tau_td) * np.exp(i * Y_td))
-                                       + tau_td) - pi)
+    sprime_c_td = (
+        (1 / Y_td) * np.log(((1 - tau_td) *
+                             np.exp(i * Y_td)) + tau_td) - pi)
 
     return sprime_c_td
 
