@@ -27,7 +27,7 @@ def calc_sprime_c_td(Y_td, tau_td, i, pi):
     return sprime_c_td
 
 
-def calc_s_c_d_td(gamma, i, pi, sprime_c_td):
+def calc_s_c_d_td(sprime_c_td, gamma, i, pi):
     r'''
     Compute the after-tax return on corprate debt investments made
     through tax-deferred accounts.
@@ -36,12 +36,12 @@ def calc_s_c_d_td(gamma, i, pi, sprime_c_td):
         s_{c,d,td} = \gamma(i-\pi) + (1-\gamma)s^{'}_{c,td}
 
     Args:
+        sprime_c_td (scalar): the after-tax return on corporate
+            investments made through tax-deferred accounts
         gamma (scalar): Fraction of debt owned through whole-life
             insurance policies
         i (scalar): the nominal interest rate
         pi (scalar): the inflation rate
-        sprime_c_td (scalar): the after-tax return on corporate
-            investments made through tax-deferred accounts
 
     Returns:
         s_c_d_td (scalar): the after-tax return on corprate debt
@@ -222,65 +222,41 @@ def calc_s(p):
     '''
     # Compute after-tax rate of return on savings invested in
     # tax-deferred accounts
-    sprime_c_td = ((1 / p.Y_td) *
-                   np.log(((1 - p.tau_td) *
-                           np.exp(p.nominal_interest_rate *
-                                  p.Y_td)) + p.tau_td) -
-                   p.inflation_rate)
+    sprime_c_td = calc_sprime_c_td(p.Y_td, p.tau_td,
+                                   p.nominal_interest_rate,
+                                   p.inflation_rate)
     # The after-tax return on corprate debt investments made through
     # tax-deferred accounts
-    s_c_d_td = (p.gamma * (p.nominal_interest_rate - p.inflation_rate) +
-                (1 - p.gamma) * sprime_c_td)
+    s_c_d_td = calc_s_c_d_td(sprime_c_td, p.gamma,
+                             p.nominal_interest_rate, p.inflation_rate)
     # The after-tax return on corporate debt investments
-    s_c_d = (p.alpha_c_d_ft *
-             (((1 - p.tau_int) * p.nominal_interest_rate) -
-              p.inflation_rate) +
-             p.alpha_c_d_td * s_c_d_td + p.alpha_c_d_nt *
-             (p.nominal_interest_rate - p.inflation_rate) -
-             p.tau_w)
+    s_c_d = calc_s__d(s_c_d_td, p.alpha_c_d_ft, p.alpha_c_d_td,
+                      p.alpha_c_d_nt, p.tau_int, p.tau_w,
+                      p.nominal_interest_rate, p.inflation_rate)
     # The after-tax return on non-corporate debt investments made
     # through tax deferred accounts
     s_nc_d_td = s_c_d_td
     # The after-tax return on non-corporate debt investments
-    s_nc_d = (p.alpha_nc_d_ft *
-              (((1 - p.tau_int) *
-                p.nominal_interest_rate) - p.inflation_rate) +
-              p.alpha_nc_d_td * s_nc_d_td + p.alpha_nc_d_nt *
-              (p.nominal_interest_rate - p.inflation_rate) -
-              p.tau_w)
+    s_nc_d = calc_s__d(s_nc_d_td, p.alpha_nc_d_ft, p.alpha_nc_d_td,
+                       p.alpha_nc_d_nt, p.tau_int, p.tau_w,
+                       p.nominal_interest_rate, p.inflation_rate)
     # The after-tax real, annualized return on short-term capital gains
-    g_scg = ((1 / p.Y_scg) *
-             np.log(((1 - p.tau_scg) *
-                     np.exp((p.inflation_rate +
-                             p.m * p.E_c) * p.Y_scg)) +
-                    p.tau_scg) - p.inflation_rate)
+    g_scg = calc_g__g(p.Y_scg, p.tau_scg, p.m, p.E_c, p.inflation_rate)
     # The after-tax real, annualized return on long-term capital gains
-    g_lcg = ((1 / p.Y_lcg) *
-             np.log(((1 - p.tau_lcg) *
-                     np.exp((p.inflation_rate + p.m * p.E_c) *
-                            p.Y_lcg)) +
-                    p.tau_lcg) - p.inflation_rate)
+    g_lcg = calc_g__g(p.Y_lcg, p.tau_lcg, p.m, p.E_c, p.inflation_rate)
     # The after-tax real, annualized return on all capital gains
-    g = (
-        p.omega_scg * g_scg + p.omega_lcg * g_lcg +
-        p.omega_xcg * p.m * p.E_c
-    )
+    g = calc_g(
+        g_scg, g_lcg, p.omega_scg, p.omega_lcg, p.omega_xcg, p.m, p.E_c)
     # The after-tax return on corporate equity investments made in fully
     # taxable accounts
     s_c_e_ft = (1 - p.m) * p.E_c * (1 - p.tau_div) + g
     # The after-tax return on corporate equity investments made in
     # tax-deferred acounts
-    s_c_e_td = (
-        (1 / p.Y_td) *
-        np.log(((1 - p.tau_td) *
-                np.exp((p.inflation_rate + p.E_c) * p.Y_td)) +
-               p.tau_td) - p.inflation_rate
-    )
+    s_c_e_td = calc_s_c_e_td(p.Y_td, p.tau_td, p.nominal_interest_rate,
+                             p.inflation_rate, p.E_c)
     # The after-tax return on corporate equity investments
-    s_c_e = (
-        p.alpha_c_e_ft * s_c_e_ft + p.alpha_c_e_td *
-        s_c_e_td + p.alpha_c_e_nt * p.E_c - p.tau_w
-    )
+    s_c_e = calc_s_c_e(s_c_e_ft, s_c_e_td, p.alpha_c_e_ft,
+                       p.alpha_c_e_td, p.alpha_c_e_nt, p.tau_w, p.E_c)
     # The after-tax return on corporate investments (all - debt and
     # equity combined)
     s_c = p.f_c * s_c_d + (1 - p.f_c) * s_c_e
