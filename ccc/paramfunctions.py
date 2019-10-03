@@ -7,7 +7,8 @@ def calc_sprime_c_td(Y_td, tau_td, i, pi):
     tax-deferred accounts.
 
     .. math::
-        s^{'}_{c,td} = \frac{1}{Y_{td}}log((1-\tau_{td})*e^{i*Y_{td}}+\tau_{td}) - \pi
+        s^{'}_{c,td} = \frac{1}{Y_{td}}log((1-\tau_{td})*e^{i*Y_{td}}+
+            \tau_{td}) - \pi
 
     Args:
         Y_td (scalar): number of years savings held in tax-deferred
@@ -59,7 +60,8 @@ def calc_s__d(s_d_td, alpha_d_ft, alpha_d_td, alpha_d_nt, tau_int,
     Compute the after-tax return to debt investments.
 
     ..math::
-        s_{j,d} = \alpha_{j,d,ft}((1-\tau_{int})i - \pi) + \alpha_{j,d,td}s_{j,d,td} + \alpha_{j,d,nt}(i-\pi) - \tau_{w}
+        s_{j,d} = \alpha_{j,d,ft}((1-\tau_{int})i - \pi) +
+            \alpha_{j,d,td}s_{j,d,td} + \alpha_{j,d,nt}(i-\pi) - \tau_{w}
 
     Args:
         s_d_td (scalar): after-tax return on debt investments made
@@ -90,7 +92,8 @@ def calc_g__g(Y_g, tau_cg, m, E_c, pi):
     term capital gains
 
     ..math::
-        g_{icg} = \frac{1}{Y_{icg}}\ln\biggl[(1-\tau_{icg})e^{(\pi+mE)Y_{icg}}+\tau_{icg}\biggr] + \pi
+        g_{icg} = \frac{1}{Y_{icg}}\ln\biggl[(1-\tau_{icg})e^{(\pi+mE)
+            Y_{icg}}+\tau_{icg}\biggr] + \pi
 
     Args:
         Y_g (scalar): number of years asset held before gains realized
@@ -116,7 +119,8 @@ def calc_g(g_scg, g_lcg, omega_scg, omega_lcg, omega_xcg, m, E_c):
     capital gains
 
     ..math::
-        g = \omega_{scg}\times g_{scg} + \omega_{lcg}\times g_{lcg} + \omega_{xcg}\times mE
+        g = \omega_{scg}\times g_{scg} + \omega_{lcg}\times g_{lcg} +
+            \omega_{xcg}\times mE
 
     Args:
         g_scg (scalar): the real, after-tax annualized return on short-
@@ -145,7 +149,8 @@ def calc_s_c_e_td(Y_td, tau_td, i, pi, E_c):
     in tax-deferred accounts.
 
     ..math::
-        s_{c,e,td} = \frac{1}{Y_{td}}\ln((1-\tau_{td})e^{(\pi+E)Y_{td}}+\tau_{td}) - \pi
+        s_{c,e,td} = \frac{1}{Y_{td}}\ln((1-\tau_{td})e^{(\pi+E)Y_{td}}
+            +\tau_{td}) - \pi
 
     Args:
         Y_td (scalar): years investments are held in tax-deferred
@@ -173,7 +178,8 @@ def calc_s_c_e(s_c_e_ft, s_c_e_td, alpha_c_e_ft, alpha_c_e_td,
     Calculate the after-tax return on investments in corporate equity
 
     ..math::
-        s_{c,e} = \alpha_{c,e,ft}\times s_{c,e,ft} + \alpha_{c,e,td}\times s_{c,e,td} + \alpha_{c,e,nt}\times E - \tau_{w}
+        s_{c,e} = \alpha_{c,e,ft}\times s_{c,e,ft} + \alpha_{c,e,td}
+            \times s_{c,e,td} + \alpha_{c,e,nt}\times E - \tau_{w}
 
     Args:
         s_c_e_ft (scalar): after-tax return on investments in corporate

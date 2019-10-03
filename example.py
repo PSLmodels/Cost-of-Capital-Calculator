@@ -3,7 +3,6 @@ Runs Cost-of-Capital-Calculator with TCJA as baseline and 2017 law as reform
 ----------------------------------------------------------------------------
 """
 # import support packages and Cost-of-Capital-Calculator classes and function
-import os
 from bokeh.io import show
 import taxcalc
 from ccc.data import Assets

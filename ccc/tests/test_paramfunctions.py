@@ -84,6 +84,7 @@ def test_calc_s_c_e():
 
     assert(np.allclose(test_value, 0.048955981))
 
+
 p = Specification()
 revisions = {'Y_td': 8, 'Y_scg': 2, 'Y_lcg': 7, 'tau_td': 0.2,
              'tau_int': 0.3, 'tau_scg': 0.35, 'tau_lcg': 0.12,
