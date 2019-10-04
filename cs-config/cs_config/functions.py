@@ -69,8 +69,8 @@ def get_inputs(meta_params_dict):
             filtered_iit_params[k] = v
 
     default_params = {
-        "ccc": ccc_params.dump(),
-        "iit": filtered_iit_params
+        "Business Tax Parameters": ccc_params.dump(),
+        "Individual and Payroll Tax Parameters": filtered_iit_params
     }
 
     return {
@@ -85,17 +85,21 @@ def validate_inputs(meta_param_dict, adjustment, errors_warnings):
     '''
     # ccc doesn't look at meta_param_dict for validating inputs.
     params = Specification()
-    params.adjust(adjustment["ccc"], raise_errors=False)
-    errors_warnings["ccc"]["errors"].update(params.errors)
+    params.adjust(adjustment["Business Tax Parameters"],
+                  raise_errors=False)
+    errors_warnings["Business Tax Parameters"]["errors"].update(
+        params.errors)
     # Validate TC parameter inputs
     pol_params = {}
     # drop checkbox parameters.
-    for param, data in list(adjustment["iit"].items()):
+    for param, data in list(adjustment[
+        "Individual and Payroll Tax Parameters"].items()):
         if not param.endswith("checkbox"):
             pol_params[param] = data
     iit_params = TCParams()
     iit_params.adjust(pol_params, raise_errors=False)
-    errors_warnings["iit"]["errors"].update(iit_params.errors)
+    errors_warnings["Individual and Payroll Tax Parameters"][
+        "errors"].update(iit_params.errors)
 
     return {"errors_warnings": errors_warnings}
 
@@ -118,7 +122,9 @@ def run_model(meta_param_dict, adjustment):
     else:
         data = "cps"
     # Get TC params adjustments
-    iit_mods = convert_adj(adjustment["iit"], meta_params.year.tolist())
+    iit_mods = convert_adj(adjustment[
+        "Individual and Payroll Tax Parameters"],
+                           meta_params.year.tolist())
     # Baseline CCC calculator
     params = Specification(year=meta_params.year, call_tc=False,
                            iit_reform={}, data=data)
@@ -127,7 +133,7 @@ def run_model(meta_param_dict, adjustment):
     # Reform CCC calculator - includes TC adjustments
     params2 = Specification(year=meta_params.year, call_tc=True,
                             iit_reform=iit_mods, data=data)
-    params2.update_specification(adjustment["ccc"])
+    params2.update_specification(adjustment["Business Tax Parameters"])
     calc2 = Calculator(params2, assets)
     comp_dict = comp_output(calc1, calc2)
 
