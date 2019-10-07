@@ -93,28 +93,10 @@ class Specification(paramtools.Parameters):
                   'nc': {'mix': self.f_nc, 'd': 1.0, 'e': 0.0}}
 
         # Compute firm discount factors
-        r = {}
-        for t in self.entity_list:
-            r[t] = {}
-            for f in self.financing_list:
-                r[t][f] = (
-                    f_dict[t][f] * (self.nominal_interest_rate *
-                                    (1 - (1 - int_haircut_dict[t]) *
-                                     self.u[t])) + (1 - f_dict[t][f]) *
-                    (E_dict[t] + self.inflation_rate - E_dict[t] *
-                     self.ace_int_rate * ace_dict[t])
-                )
-        self.r = r
+        self.r = pf.calc_r(self, f_dict, int_haircut_dict, E_dict, ace_dict)
 
         # Compute firm after-tax rates of return
-        r_prime = {}
-        for t in self.entity_list:
-            r_prime[t] = {}
-            for f in self.financing_list:
-                r_prime[t][f] = (
-                    f_dict[t][f] * self.nominal_interest_rate +
-                    (1 - f_dict[t][f]) * (E_dict[t] + self.inflation_rate)
-                )
+        r_prime = pf.calc_r_prime(self, f_dict, E_dict)
 
         # if no entity level taxes on pass-throughs, ensure mettr and metr
         # on non-corp entities the same
@@ -146,10 +128,10 @@ class Specification(paramtools.Parameters):
         self.deprec_system = {}
         self.bonus_deprec = {}
         for cl in class_list_str:
-            self.deprec_system[cl] = getattr(self,
-                                             'DeprecSystem_{}yr'.format(cl))
-            self.bonus_deprec[cl] = getattr(self,
-                                            'BonusDeprec_{}yr'.format(cl))
+            self.deprec_system[cl] = getattr(
+                self, 'DeprecSystem_{}yr'.format(cl))
+            self.bonus_deprec[cl] = getattr(
+                self, 'BonusDeprec_{}yr'.format(cl))
         # to handle land and inventories
         # this is fixed later, but should work on this
         self.bonus_deprec['100'] = 0.0
@@ -160,7 +142,7 @@ class Specification(paramtools.Parameters):
         default values of all the parameters.
 
         Returns:
-            spec (CCC Specification object): Specification instance with
+            dps (CCC Specification object): Specification instance with
                 the default parameter values
 
         '''
