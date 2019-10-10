@@ -279,3 +279,70 @@ def calc_s(p):
               'nc': {'mix': s_nc, 'd': s_nc_d, 'e': s_nc_e}}
 
     return s_dict, E_nc
+
+
+def calc_r(p, f_dict, int_haircut_dict, E_dict, ace_dict):
+    r'''
+    Compute firm nominal discount rates
+
+    ..math::
+        r_{m,j} = f_{m,j}\[i(1-u_{j}) - \pi\] + (1-f_{m,j})E_{j} + \pi
+
+    Args:
+        p (CCC Specification Object): model parameters
+        f_dict (dict): dictionary of fraction of investments financed
+            with debt by entity type and financing method
+        int_haircut_dict (dict): dictionary of haircut to interest paid
+            deduction by entity type
+        E_dict (dict): dictionary of pre-tax required rate of return by
+            entity type
+        ace_dict (dict): dictionary of allowance for corporate equity
+            indicators by entity type
+
+    Returns:
+        r (dict): nominal, discount rate by entity type and financing
+            method
+    '''
+    r = {}
+    for t in p.entity_list:
+        r[t] = {}
+        for f in p.financing_list:
+            r[t][f] = (
+                f_dict[t][f] * (p.nominal_interest_rate *
+                                (1 - (1 - int_haircut_dict[t]) *
+                                 p.u[t])) + (1 - f_dict[t][f]) *
+                (E_dict[t] + p.inflation_rate - E_dict[t] *
+                 p.ace_int_rate * ace_dict[t])
+            )
+
+    return r
+
+
+def calc_r_prime(p, f_dict, E_dict):
+    r'''
+    Compute firm nominal, after-tax rates of return
+
+    ..math::
+        r^{'}_{m,j} = f_{m,j}(i-\pi) + (1-f_{m,j})E_{j} + \pi
+
+    Args:
+        p (CCC Specification Object): model parameters
+        f_dict (dict): dictionary of fraction of investments financed
+            with debt by entity type and financing method
+        E_dict (dict): dictionary of pre-tax required rate of return by
+            entity type
+
+    Returns:
+        r_prime (dict): nominal, after-tax rate of return by entity type
+            and financing method
+    '''
+    r_prime = {}
+    for t in p.entity_list:
+        r_prime[t] = {}
+        for f in p.financing_list:
+            r_prime[t][f] = (
+                f_dict[t][f] * p.nominal_interest_rate +
+                (1 - f_dict[t][f]) * (E_dict[t] + p.inflation_rate)
+            )
+
+    return r_prime

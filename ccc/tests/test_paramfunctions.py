@@ -117,3 +117,62 @@ def test_calc_s(entity_type, p, expected_dict):
         assert(np.allclose(v, expected_dict[entity_type][k]))
 
     assert(np.allclose(test_E_nc, 0.048955981))
+
+
+p = Specification()
+revisions = {
+    'f_c': 0.4, 'f_nc': 0.2, 'interest_deduct_haircut_corp': 0.0,
+    'interest_deduct_haircut_PT': 0.0, 'ace_c': 0.0, 'ace_nc': 0.0,
+    'CIT_rate': 0.25, 'tau_nc': 0.22, 'nominal_interest_rate': 0.05,
+    'inflation_rate': 0.02, 'E_c': 0.08}
+p.update_specification(revisions)
+expected_r_dict = {
+    'c': {'mix': np.array([0.075]), 'd': np.array([0.0375]),
+          'e': np.array([0.1])},
+    'nc': {'mix': np.array([0.0798]), 'd': np.array([0.039]),
+           'e': np.array([0.09])}}
+
+
+@pytest.mark.parametrize('p,expected_dict',
+                         [(p, expected_r_dict)],
+                         ids=['Test 1'])
+def test_calc_r(p, expected_dict):
+    '''
+    Test of the calculation of the discount rate function
+    '''
+    f_dict = {'c': {'mix': p.f_c, 'd': 1.0, 'e': 0.0},
+              'nc': {'mix': p.f_nc, 'd': 1.0, 'e': 0.0}}
+    int_haircut_dict = {'c': p.interest_deduct_haircut_corp,
+                        'nc': p.interest_deduct_haircut_PT}
+    E_dict = {'c': p.E_c, 'nc': 0.07}
+    print('E dict = ', E_dict)
+    ace_dict = {'c': p.ace_c, 'nc': p.ace_nc}
+    test_dict = pf.calc_r(p, f_dict, int_haircut_dict, E_dict, ace_dict)
+
+    for k, v in test_dict.items():
+        for k2, v2 in v.items():
+            assert(np.allclose(v2, expected_dict[k][k2]))
+
+
+expected_rprime_dict = {
+    'c': {'mix': np.array([0.08]), 'd': np.array([0.05]),
+          'e': np.array([0.1])},
+    'nc': {'mix': np.array([0.082]), 'd': np.array([0.05]),
+           'e': np.array([0.09])}}
+
+
+@pytest.mark.parametrize('p,expected_dict',
+                         [(p, expected_rprime_dict)],
+                         ids=['Test 1'])
+def test_calc_rprime(p, expected_dict):
+    '''
+    Test of the calculation of the after-tax rate of return function
+    '''
+    f_dict = {'c': {'mix': p.f_c, 'd': 1.0, 'e': 0.0},
+              'nc': {'mix': p.f_nc, 'd': 1.0, 'e': 0.0}}
+    E_dict = {'c': p.E_c, 'nc': 0.07}
+    test_dict = pf.calc_r_prime(p, f_dict, E_dict)
+
+    for k, v in test_dict.items():
+        for k2, v2 in v.items():
+            assert(np.allclose(v2, expected_dict[k][k2]))
