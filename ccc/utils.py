@@ -228,7 +228,8 @@ def save_return_table(table_df, output_type, path, precision=0):
                                    'font-family': 'Calibri',
                                    'text-align': 'left'})
                 .hide_index()
-                .render()
+                .render().to_html(
+                    classes="table table-striped table-hover")
             )
             return tab_html
         else:
