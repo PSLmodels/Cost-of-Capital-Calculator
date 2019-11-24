@@ -3,7 +3,6 @@ from ccc.parameters import Specification
 from ccc.data import Assets
 from ccc.calculator import Calculator
 from ccc.utils import TC_LAST_YEAR
-from bokeh.plotting import figure
 from bokeh.embed import json_item
 import os
 import json
