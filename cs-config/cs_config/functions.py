@@ -3,7 +3,7 @@ from ccc.parameters import Specification
 from ccc.data import Assets
 from ccc.calculator import Calculator
 from ccc.utils import TC_LAST_YEAR
-from bokeh.embed import components
+from bokeh.embed import json_item
 import os
 import json
 import inspect
@@ -149,16 +149,13 @@ def comp_output(calc1, calc2, out_var='mettr'):
     html_table = calc1.summary_table(calc2, output_variable=out_var,
                                      output_type='html')
     plt = calc1.grouped_bar(calc2, output_variable=out_var)
-    js, div = components(plt)
+    plot_data = json_item(plt)
     comp_dict = {
         "renderable": [
             {
               "media_type": "bokeh",
               "title": plt.title._property_values['text'],
-              "data": {
-                        "javascript": js,
-                        "html": div
-                    }
+              "data": plot_data
             },
             {
               "media_type": "table",

@@ -870,10 +870,10 @@ class Calculator():
                    title=plot_title, toolbar_location=None, tools="")
         p.vbar(x=dodge(plot_label,  0.0,  range=p.x_range),
                top='Baseline', width=0.2, source=source, color=BLUE,
-               legend=value('Baseline'))
+               legend_label='Baseline')
         p.vbar(x=dodge(plot_label,  0.25, range=p.x_range),
                top='Reform', width=0.2, source=source, color=RED,
-               legend=value('Reform'))
+               legend_label='Reform')
         p.x_range.range_padding = 0.1
         p.xgrid.grid_line_color = None
         p.legend.location = "top_left"
@@ -1042,24 +1042,24 @@ class Calculator():
                   line_width=2, source=base_source)
         # Add circles for means
         p.circle('positions', 'means', size=12, color=BLUE,
-                 source=base_source, legend=value("Baseline"))
+                 source=base_source, legend_label='Baseline')
         # Add circles for maxes and mins
         p.circle('positions', 'mins', size=12, color=BLUE,
-                 source=base_source, legend=value("Baseline"))
+                 source=base_source, legend_label='Baseline')
         p.circle('positions', 'maxes', size=12, color=BLUE,
-                 source=base_source, legend=value("Baseline"))
+                 source=base_source, legend_label='Baseline')
 
         # Draw reformed ranges onto graph
         p.segment('positions', 'mins', 'positions', 'maxes', color=RED,
                   line_width=2, source=reform_source)
         # Add circles for means
         p.circle('positions', 'means', size=12, color=RED,
-                 source=reform_source, legend=value("Reform"))
+                 source=reform_source, legend_label='Reform')
         # Add circles for maxes and mins
         p.circle('positions', 'mins', size=12, color=RED,
-                 source=reform_source, legend=value("Reform"))
+                 source=reform_source, legend_label='Reform')
         p.circle('positions', 'maxes', size=12, color=RED,
-                 source=reform_source, legend=value("Reform"))
+                 source=reform_source, legend_label='Reform')
 
         # Set legend location
         p.legend.location = "bottom_right"
