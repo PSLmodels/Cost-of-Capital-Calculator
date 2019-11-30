@@ -851,7 +851,7 @@
     },
     "interest_deduct_haircut_corp": {
         "title": "Haircut on interest deductibility for corporate entities",
-        "description": "Haircut on interest deductibility (fraction of interest not deductible) for C corporations.",
+        "description": "Haircut on interest deductibility (fraction of interest not deductible) for C corporations.  Default of 0% because current law says limit is 30% of adjusted taxable income and the default assumption is that this is not binding for the marginal investment.",
         "section_1": "Deductions and Limitations on Financing",
         "notes": "This parameter gives the fraction of interest payments that are not allowable as deductions against income for C corporations.",
         "type": "float",
