@@ -125,9 +125,25 @@ def run_model(meta_param_dict, adjustment):
     iit_mods = convert_adj(adjustment[
         "Individual and Payroll Tax Parameters"],
                            meta_params.year.tolist())
+    filtered_ccc_params = {}
+    # filter out CCC params that will not change between baeline and
+    # reform runs (These are the Household Savings Behavior and
+    # Economic Assumptions)
+    constant_param_list = [
+        'omega_scg', 'omega_lcg', 'omega_xcg', 'alpha_c_e_ft',
+        'alpha_c_e_td', 'alpha_c_e_nt', 'alpha_c_d_ft', 'alpha_c_d_td',
+        'alpha_c_d_nt', 'alpha_nc_d_ft', 'alpha_nc_d_td',
+        'alpha_nc_d_nt', 'alpha_h_d_ft', 'alpha_h_d_td', 'alpha_h_d_nt',
+        'Y_td', 'Y_scg', 'Y_lcg', 'gamma', 'E_c', 'inflation_rate',
+        'nominal_interest_rate']
+    filtered_ccc_params = OrderedDict()
+    for k, v in adjustment['Business Tax Parameters'].items():
+        if k in constant_param_list:
+            filtered_ccc_params[k] = v
     # Baseline CCC calculator
     params = Specification(year=meta_params.year, call_tc=False,
                            iit_reform={}, data=data)
+    params.update_specification(filtered_ccc_params)
     assets = Assets()
     calc1 = Calculator(params, assets)
     # Reform CCC calculator - includes TC adjustments
