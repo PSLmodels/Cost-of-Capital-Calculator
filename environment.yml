@@ -5,7 +5,7 @@ channels:
 dependencies:
 - python
 - "taxcalc>=2.4.2"
-- "paramtools>=0.7.1"
+- "paramtools>=0.10.1"
 - "bokeh>=1.2.0"
 - setuptools
 - pip
@@ -16,3 +16,5 @@ dependencies:
 - pycodestyle
 - pylint
 - coverage
+- pip:
+  - cs-kit
