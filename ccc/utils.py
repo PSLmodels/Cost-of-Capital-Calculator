@@ -219,9 +219,9 @@ def save_return_table(table_df, output_type, path, precision=0):
                 path_or_buf=path, double_precision=0)
             return tab_str
         elif output_type == 'html':
-            print('Output html...')
             with pd.option_context('display.precision', precision):
                 tab_html = table_df.to_html(
+                        index=False, justify='left',
                         classes="table table-striped table-hover")
             # tab_html = (
             #     table_df.round(2).style
