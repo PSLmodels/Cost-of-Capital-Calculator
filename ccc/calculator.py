@@ -777,7 +777,8 @@ class Calculator():
 
     def grouped_bar(self, calc, output_variable='mettr',
                     group_by_asset=True, corporate=True,
-                    include_land=True, include_inventories=True):
+                    include_land=True, include_inventories=True,
+                    include_title=False):
         '''
         Create a grouped bar plot (grouped by major industry or major
         asset group).
@@ -866,6 +867,8 @@ class Calculator():
         # Create grouped barplot
         source = ColumnDataSource(data=df2)
 
+        if not include_title:
+            plot_title = None
         p = figure(x_range=df2[plot_label], plot_height=350,
                    title=plot_title, toolbar_location=None, tools="")
         p.vbar(x=dodge(plot_label,  0.0,  range=p.x_range),
