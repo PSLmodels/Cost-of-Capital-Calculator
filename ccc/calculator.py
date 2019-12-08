@@ -799,6 +799,7 @@ class Calculator():
                 in calculations.  Defaults to `True`.
             include_land (bool): whether to include land in
                 calculations.  Defaults to `True`.
+            include_title (bool): whether to include a title on the plot
 
         Returns:
             p (Bokeh plot object): bar plot
@@ -899,7 +900,7 @@ class Calculator():
 
     def range_plot(self, calc, output_variable='mettr',
                    corporate=True, include_land=True,
-                   include_inventories=True):
+                   include_inventories=True, include_title=False):
         '''
         Create a range plot.
 
@@ -908,14 +909,15 @@ class Calculator():
                 while self represents the baseline
             output_variable (string): specifies which output variable to
                 summarize in the table.  Default is the marginal
-                effective total tax rate (`mettr`).
-            corporate (bool): whether to use data for corporate entities.
-                If `False`, then uses data for pass-through entities.
-                Defaults to `True`.
+                effective total tax rate (`mettr`)
+            corporate (bool): whether to use data for corporate entities
+                If `False`, then uses data for pass-through entities
+                Defaults to `True`
             include_inventories (bool): whether to include inventories
-                in calculations.  Defaults to `True`.
+                in calculations.  Defaults to `True`
             include_land (bool): whether to include land in
-                calculations.  Defaults to `True`.
+                calculations.  Defaults to `True`
+            include_title (bool): whether to include a title on the plot
 
         Returns:
             p (Bokeh plot object): bar plot
@@ -1000,9 +1002,10 @@ class Calculator():
 
         # Format graph title and features
         # Add title
-        p.add_layout(Title(text=plot_subtitle,
-                           text_font_style="italic"), 'above')
-        p.add_layout(Title(text=VAR_DICT[output_variable],
+        if include_title:
+            p.add_layout(Title(text=plot_subtitle,
+                               text_font_style="italic"), 'above')
+            p.add_layout(Title(text=VAR_DICT[output_variable],
                            text_font_size="16pt"), 'above')
         # p.title.text = plot_title
         # p.title.align = 'center'
@@ -1077,7 +1080,7 @@ class Calculator():
 
     def bubble_widget(self, calc, output_variable='mettr',
                       include_land=False, include_inventories=False,
-                      include_IP=False):
+                      include_IP=False, include_title=False):
         '''
         Create a bubble plot widget.
 
@@ -1086,13 +1089,13 @@ class Calculator():
                 while self represents the baseline
             output_variable (string): specifies which output variable to
                 summarize in the table.  Default is the marginal
-                effective total tax rate (`mettr`).
+                effective total tax rate (`mettr`)
             include_inventories (bool): whether to include inventories
-                in calculations.  Defaults to `False`.
+                in calculations.  Defaults to `False`
             include_land (bool): whether to include land in
-                calculations.  Defaults to `False`.
+                calculations.  Defaults to `False`
             include_IP (bool): whether to include intellectual
-                property in calculations.  Defaults to `False`.
+                property in calculations.  Defaults to `False`
 
         Returns:
             layout (Bokeh Layout object): widget
@@ -1249,11 +1252,15 @@ class Calculator():
             'Mining and Drilling', 'Other']
 
         # Equipment plot
+        if include_title:
+            title_text = ('Marginal Effective Total Tax Rates on ' +
+                          'Corporate Investments in Equipment')
+        else:
+            title_text = None
         p = figure(plot_height=540, plot_width=990,
                    y_range=list(reversed(equipment_assets)),
                    tools='hover', background_fill_alpha=0,
-                   title='Marginal Effective Total Tax Rates on ' +
-                   'Corporate Investments in Equipment')
+                   title=title_text)
         p.title.align = 'center'
         p.title.text_color = '#6B6B73'
 
@@ -1299,11 +1306,15 @@ class Calculator():
         # data_sources['equip_plot'] = p
 
         # Structures plot
+        if include_title:
+            title_text2 = ('Marginal Effective Total Tax Rates on ' +
+                           'Corporate Investments in Structures')
+        else:
+            title_text2 = None
         p2 = figure(plot_height=540, plot_width=990,
                     y_range=list(reversed(structure_assets)),
                     tools='hover', background_fill_alpha=0,
-                    title='Marginal Effective Total Tax Rates on ' +
-                    'Corporate Investments in Structures')
+                    title=title_text2)
         p2.title.align = 'center'
         p2.title.text_color = '#6B6B73'
 
@@ -1392,7 +1403,7 @@ class Calculator():
 
     def asset_bubble(self, calc, output_variable='mettr_mix',
                      include_inventories=False, include_land=False,
-                     include_IP=False, path=''):
+                     include_IP=False, include_title=False, path=''):
         '''
         Create a bubble plot.
 
@@ -1403,12 +1414,13 @@ class Calculator():
                 summarize in the table.  Default is the marginal
                 effective total tax rate (`mettr_mix`).
             include_inventories (bool): whether to include inventories
-                in calculations.  Defaults to `False`.
+                in calculations.  Defaults to `False`
             include_land (bool): whether to include land in
-                calculations.  Defaults to `False`.
+                calculations.  Defaults to `False`
             include_IP (bool): whether to include intellectual
-                property in calculations.  Defaults to `False`.
-            path (string): path to save file to.
+                property in calculations.  Defaults to `False`
+            include_title (bool): whether to include a title on the plot
+            path (string): path to save file to
 
         Returns:
             tabs (Bokeh Tabs object): bubble plots
@@ -1532,9 +1544,10 @@ class Calculator():
                    background_fill_alpha=0,
                    # change things on all axes
                    **PLOT_FORMATS)
-        p.add_layout(Title(
-            text=('Marginal Effective Tax Rates on Corporate Investments' +
-                  ' in Equipment'), **TITLE_FORMATS), 'above')
+        if include_title:
+            p.add_layout(Title(
+                text=('Marginal Effective Tax Rates on Corporate Investments' +
+                      ' in Equipment'), **TITLE_FORMATS), 'above')
 
         hover = p.select(dict(type=HoverTool))
         hover.tooltips = [('Asset', ' @asset_name (@hover)')]
