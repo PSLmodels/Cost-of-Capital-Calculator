@@ -224,16 +224,6 @@ def save_return_table(table_df, output_type, path, precision=0):
                         index=False,
                         float_format=lambda x: '%10.0f' % x,
                         classes="table table-striped table-hover")
-            # tab_html = (
-            #     table_df.round(2).style
-            #     # .format({'': '', '%.' + str(precision) + '0f')
-            #     .set_properties(**{'font-size': '12pt',
-            #                        'font-family': 'Calibri',
-            #                        'text-align': 'left'})
-            #     .hide_index()
-            #     .to_html(
-            #         classes="table table-striped table-hover")
-            # )
             return tab_html
         else:
             return table_df
