@@ -1006,7 +1006,7 @@ class Calculator():
             p.add_layout(Title(text=plot_subtitle,
                                text_font_style="italic"), 'above')
             p.add_layout(Title(text=VAR_DICT[output_variable],
-                           text_font_size="16pt"), 'above')
+                               text_font_size="16pt"), 'above')
         # p.title.text = plot_title
         # p.title.align = 'center'
         # p.title.text_font_size = '16pt'
@@ -1080,7 +1080,7 @@ class Calculator():
 
     def bubble_widget(self, calc, output_variable='mettr',
                       include_land=False, include_inventories=False,
-                      include_IP=False, include_title=False):
+                      include_IP=False):
         '''
         Create a bubble plot widget.
 
@@ -1252,15 +1252,11 @@ class Calculator():
             'Mining and Drilling', 'Other']
 
         # Equipment plot
-        if include_title:
-            title_text = ('Marginal Effective Total Tax Rates on ' +
-                          'Corporate Investments in Equipment')
-        else:
-            title_text = None
         p = figure(plot_height=540, plot_width=990,
                    y_range=list(reversed(equipment_assets)),
                    tools='hover', background_fill_alpha=0,
-                   title=title_text)
+                   title='Marginal Effective Total Tax Rates on ' +
+                   'Corporate Investments in Equipment')
         p.title.align = 'center'
         p.title.text_color = '#6B6B73'
 
@@ -1306,15 +1302,11 @@ class Calculator():
         # data_sources['equip_plot'] = p
 
         # Structures plot
-        if include_title:
-            title_text2 = ('Marginal Effective Total Tax Rates on ' +
-                           'Corporate Investments in Structures')
-        else:
-            title_text2 = None
         p2 = figure(plot_height=540, plot_width=990,
                     y_range=list(reversed(structure_assets)),
                     tools='hover', background_fill_alpha=0,
-                    title=title_text2)
+                    title='Marginal Effective Total Tax Rates on ' +
+                    'Corporate Investments in Structures')
         p2.title.align = 'center'
         p2.title.text_color = '#6B6B73'
 
