@@ -7,7 +7,7 @@ import json
 import pandas as pd
 
 # Default year for model runs
-DEFAULT_START_YEAR = 2019
+DEFAULT_START_YEAR = 2020
 
 # Year of asset data
 ASSET_DATA_CSV_YEAR = 2013
