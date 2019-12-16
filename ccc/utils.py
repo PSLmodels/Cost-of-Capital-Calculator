@@ -192,7 +192,8 @@ def json_to_dict(json_text):
     return ordered_dict
 
 
-def save_return_table(table_df, output_type, path, precision=0):
+def save_return_table(table_df, output_type=None, path=None,
+                      precision=0):
     '''
     Function to save or return a table of data.
 

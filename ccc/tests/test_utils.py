@@ -51,3 +51,13 @@ def test_save_return_table(df, output_type, precision):
 
     test_str = utils.save_return_table(df, output_type, None, precision)
     assert isinstance(test_str, str)
+
+
+def test_save_return_table_df():
+    '''
+    Test that can return dataframe from utils.test_save_return_table
+    '''
+    dict1 = {'var1': [1, 2, 3, 4, 5], 'var2': [2, 4, 6, 8, 10]}
+    df1 = pd.DataFrame.from_dict(dict1)
+    test_df = utils.save_return_table(df1)
+    assert isinstance(test_df, pd.DataFrame)
