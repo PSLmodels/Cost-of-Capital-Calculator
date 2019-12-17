@@ -23,7 +23,9 @@ def test_calc_by_methods():
     assets = Assets()
     calc = Calculator(p, assets)
     actual_by_asset = calc.calc_by_asset()
+    actual_by_asset.to_json('run_ccc_asset_output.json')
     actual_by_industry = calc.calc_by_industry()
+    actual_by_industry.to_json('run_ccc_industry_output.json')
     # load expected results from the calc_by_ methods
     expect_by_asset = pd.read_json(
         os.path.join(TDIR, 'run_ccc_asset_output.json')
