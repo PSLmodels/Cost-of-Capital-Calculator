@@ -265,7 +265,7 @@ class Calculator():
 
     def summary_table(self, calc, output_variable='mettr',
                       include_land=True, include_inventories=True,
-                      output_type='csv', path=None):
+                      output_type=None, path=None):
         '''
         Create table summarizing the output_variable under the baseline
         and reform policies.
@@ -281,8 +281,8 @@ class Calculator():
             include_land (bool): whether to include land in
                 calculations.  Defaults to `True`.
             output_type (string): specifies the type of file to save
-                table to: 'csv', 'tex', 'excel', 'json'
-                Default is `csv`.
+                table to: 'csv', 'tex', 'excel', 'json'.  If 'None' a
+                DataFrame is returned. Default is None.
             path (string): specifies path to save file with table to.
                 If `None`, then returns DataFrame or string object,
                 depending on `output_type`. Default is `None`.
@@ -409,7 +409,7 @@ class Calculator():
         return table
 
     def asset_share_table(self, include_land=True,
-                          include_inventories=True, output_type='csv',
+                          include_inventories=True, output_type=None,
                           path=None):
         '''
         Create table summarizing the output_variable under the baseline
@@ -421,7 +421,8 @@ class Calculator():
             include_land (bool): whether to include land in
                 calculations.  Defaults to `True`.
             output_type (string): specifies the type of file to save
-                table to: 'csv', 'tex', 'excel', 'json'
+                table to: 'csv', 'tex', 'excel', 'json'.  If 'None' a
+                DataFrame is returned. Default is None.
             path (string): specifies path to save file with table to.
                 If `None`, then returns DataFrame or string object,
                 depending on `output_type`. Default is `None`.
@@ -466,7 +467,7 @@ class Calculator():
 
     def asset_summary_table(self, calc, output_variable='mettr',
                             include_land=True, include_inventories=True,
-                            output_type='csv', path=None):
+                            output_type=None, path=None):
         '''
         Create table summarizing the output_variable under the baseline
         and reform policies by major asset grouping.
@@ -482,7 +483,8 @@ class Calculator():
             include_land (bool): whether to include land in
                 calculations.  Defaults to `True`.
             output_type (string): specifies the type of file to save
-                table to: 'csv', 'tex', 'excel', 'json'
+                table to: 'csv', 'tex', 'excel', 'json'.  If 'None' a
+                DataFrame is returned. Default is None.
             path (string): specifies path to save file with table to.
                 If `None`, then returns DataFrame or string object,
                 depending on `output_type`. Default is `None`.
@@ -627,7 +629,7 @@ class Calculator():
     def industry_summary_table(self, calc, output_variable='mettr',
                                include_land=True,
                                include_inventories=True,
-                               output_type='csv', path=None):
+                               output_type=None, path=None):
         '''
         Create table summarizing the output_variable under the baseline
         and reform policies by major asset grouping.
@@ -643,8 +645,8 @@ class Calculator():
             include_land (bool): whether to include land in
                 calculations.  Defaults to `True`.
             output_type (string): specifies the type of file to save
-                table to: 'csv', 'tex', 'excel', 'json'
-                Default is `csv`.
+                table to: 'csv', 'tex', 'excel', 'json'.  If 'None' a
+                DataFrame is returned. Default is None.
             path (string): specifies path to save file with table to.
                 If `None`, then returns DataFrame or string object,
                 depending on `output_type`. Default is `None`.
