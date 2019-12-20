@@ -18,6 +18,7 @@ def test_get_rates():
     '''
     p = Specification()  # has default tax rates, with should equal TC
     test_dict = tc.get_rates(
-        baseline=False, start_year=2019, reform={}, data='cps')
+        baseline=False, start_year=2020, reform={}, data='cps')
     for k, v in test_dict.items():
+        print('Tax rate = ', k)
         assert(np.allclose(v, p.__dict__[k]))

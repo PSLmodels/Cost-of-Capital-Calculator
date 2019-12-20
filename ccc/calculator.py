@@ -265,7 +265,7 @@ class Calculator():
 
     def summary_table(self, calc, output_variable='mettr',
                       include_land=True, include_inventories=True,
-                      output_type='csv', path=None):
+                      output_type=None, path=None):
         '''
         Create table summarizing the output_variable under the baseline
         and reform policies.
@@ -281,8 +281,8 @@ class Calculator():
             include_land (bool): whether to include land in
                 calculations.  Defaults to `True`.
             output_type (string): specifies the type of file to save
-                table to: 'csv', 'tex', 'excel', 'json'
-                Default is `csv`.
+                table to: 'csv', 'tex', 'excel', 'json'.  If 'None' a
+                DataFrame is returned. Default is None.
             path (string): specifies path to save file with table to.
                 If `None`, then returns DataFrame or string object,
                 depending on `output_type`. Default is `None`.
@@ -409,7 +409,7 @@ class Calculator():
         return table
 
     def asset_share_table(self, include_land=True,
-                          include_inventories=True, output_type='csv',
+                          include_inventories=True, output_type=None,
                           path=None):
         '''
         Create table summarizing the output_variable under the baseline
@@ -421,7 +421,8 @@ class Calculator():
             include_land (bool): whether to include land in
                 calculations.  Defaults to `True`.
             output_type (string): specifies the type of file to save
-                table to: 'csv', 'tex', 'excel', 'json'
+                table to: 'csv', 'tex', 'excel', 'json'.  If 'None' a
+                DataFrame is returned. Default is None.
             path (string): specifies path to save file with table to.
                 If `None`, then returns DataFrame or string object,
                 depending on `output_type`. Default is `None`.
@@ -466,7 +467,7 @@ class Calculator():
 
     def asset_summary_table(self, calc, output_variable='mettr',
                             include_land=True, include_inventories=True,
-                            output_type='csv', path=None):
+                            output_type=None, path=None):
         '''
         Create table summarizing the output_variable under the baseline
         and reform policies by major asset grouping.
@@ -482,7 +483,8 @@ class Calculator():
             include_land (bool): whether to include land in
                 calculations.  Defaults to `True`.
             output_type (string): specifies the type of file to save
-                table to: 'csv', 'tex', 'excel', 'json'
+                table to: 'csv', 'tex', 'excel', 'json'.  If 'None' a
+                DataFrame is returned. Default is None.
             path (string): specifies path to save file with table to.
                 If `None`, then returns DataFrame or string object,
                 depending on `output_type`. Default is `None`.
@@ -627,7 +629,7 @@ class Calculator():
     def industry_summary_table(self, calc, output_variable='mettr',
                                include_land=True,
                                include_inventories=True,
-                               output_type='csv', path=None):
+                               output_type=None, path=None):
         '''
         Create table summarizing the output_variable under the baseline
         and reform policies by major asset grouping.
@@ -643,8 +645,8 @@ class Calculator():
             include_land (bool): whether to include land in
                 calculations.  Defaults to `True`.
             output_type (string): specifies the type of file to save
-                table to: 'csv', 'tex', 'excel', 'json'
-                Default is `csv`.
+                table to: 'csv', 'tex', 'excel', 'json'.  If 'None' a
+                DataFrame is returned. Default is None.
             path (string): specifies path to save file with table to.
                 If `None`, then returns DataFrame or string object,
                 depending on `output_type`. Default is `None`.
@@ -777,7 +779,8 @@ class Calculator():
 
     def grouped_bar(self, calc, output_variable='mettr',
                     group_by_asset=True, corporate=True,
-                    include_land=True, include_inventories=True):
+                    include_land=True, include_inventories=True,
+                    include_title=False):
         '''
         Create a grouped bar plot (grouped by major industry or major
         asset group).
@@ -798,6 +801,7 @@ class Calculator():
                 in calculations.  Defaults to `True`.
             include_land (bool): whether to include land in
                 calculations.  Defaults to `True`.
+            include_title (bool): whether to include a title on the plot
 
         Returns:
             p (Bokeh plot object): bar plot
@@ -866,6 +870,8 @@ class Calculator():
         # Create grouped barplot
         source = ColumnDataSource(data=df2)
 
+        if not include_title:
+            plot_title = None
         p = figure(x_range=df2[plot_label], plot_height=350,
                    title=plot_title, toolbar_location=None, tools="")
         p.vbar(x=dodge(plot_label,  0.0,  range=p.x_range),
@@ -896,7 +902,7 @@ class Calculator():
 
     def range_plot(self, calc, output_variable='mettr',
                    corporate=True, include_land=True,
-                   include_inventories=True):
+                   include_inventories=True, include_title=False):
         '''
         Create a range plot.
 
@@ -905,14 +911,15 @@ class Calculator():
                 while self represents the baseline
             output_variable (string): specifies which output variable to
                 summarize in the table.  Default is the marginal
-                effective total tax rate (`mettr`).
-            corporate (bool): whether to use data for corporate entities.
-                If `False`, then uses data for pass-through entities.
-                Defaults to `True`.
+                effective total tax rate (`mettr`)
+            corporate (bool): whether to use data for corporate entities
+                If `False`, then uses data for pass-through entities
+                Defaults to `True`
             include_inventories (bool): whether to include inventories
-                in calculations.  Defaults to `True`.
+                in calculations.  Defaults to `True`
             include_land (bool): whether to include land in
-                calculations.  Defaults to `True`.
+                calculations.  Defaults to `True`
+            include_title (bool): whether to include a title on the plot
 
         Returns:
             p (Bokeh plot object): bar plot
@@ -997,10 +1004,11 @@ class Calculator():
 
         # Format graph title and features
         # Add title
-        p.add_layout(Title(text=plot_subtitle,
-                           text_font_style="italic"), 'above')
-        p.add_layout(Title(text=VAR_DICT[output_variable],
-                           text_font_size="16pt"), 'above')
+        if include_title:
+            p.add_layout(Title(text=plot_subtitle,
+                               text_font_style="italic"), 'above')
+            p.add_layout(Title(text=VAR_DICT[output_variable],
+                               text_font_size="16pt"), 'above')
         # p.title.text = plot_title
         # p.title.align = 'center'
         # p.title.text_font_size = '16pt'
@@ -1083,13 +1091,13 @@ class Calculator():
                 while self represents the baseline
             output_variable (string): specifies which output variable to
                 summarize in the table.  Default is the marginal
-                effective total tax rate (`mettr`).
+                effective total tax rate (`mettr`)
             include_inventories (bool): whether to include inventories
-                in calculations.  Defaults to `False`.
+                in calculations.  Defaults to `False`
             include_land (bool): whether to include land in
-                calculations.  Defaults to `False`.
+                calculations.  Defaults to `False`
             include_IP (bool): whether to include intellectual
-                property in calculations.  Defaults to `False`.
+                property in calculations.  Defaults to `False`
 
         Returns:
             layout (Bokeh Layout object): widget
@@ -1389,7 +1397,7 @@ class Calculator():
 
     def asset_bubble(self, calc, output_variable='mettr_mix',
                      include_inventories=False, include_land=False,
-                     include_IP=False, path=''):
+                     include_IP=False, include_title=False, path=''):
         '''
         Create a bubble plot.
 
@@ -1400,12 +1408,13 @@ class Calculator():
                 summarize in the table.  Default is the marginal
                 effective total tax rate (`mettr_mix`).
             include_inventories (bool): whether to include inventories
-                in calculations.  Defaults to `False`.
+                in calculations.  Defaults to `False`
             include_land (bool): whether to include land in
-                calculations.  Defaults to `False`.
+                calculations.  Defaults to `False`
             include_IP (bool): whether to include intellectual
-                property in calculations.  Defaults to `False`.
-            path (string): path to save file to.
+                property in calculations.  Defaults to `False`
+            include_title (bool): whether to include a title on the plot
+            path (string): path to save file to
 
         Returns:
             tabs (Bokeh Tabs object): bubble plots
@@ -1529,9 +1538,10 @@ class Calculator():
                    background_fill_alpha=0,
                    # change things on all axes
                    **PLOT_FORMATS)
-        p.add_layout(Title(
-            text=('Marginal Effective Tax Rates on Corporate Investments' +
-                  ' in Equipment'), **TITLE_FORMATS), 'above')
+        if include_title:
+            p.add_layout(Title(
+                text=('Marginal Effective Tax Rates on Corporate Investments' +
+                      ' in Equipment'), **TITLE_FORMATS), 'above')
 
         hover = p.select(dict(type=HoverTool))
         hover.tooltips = [('Asset', ' @asset_name (@hover)')]

@@ -7,7 +7,7 @@ import json
 import pandas as pd
 
 # Default year for model runs
-DEFAULT_START_YEAR = 2019
+DEFAULT_START_YEAR = 2020
 
 # Year of asset data
 ASSET_DATA_CSV_YEAR = 2013
@@ -192,7 +192,8 @@ def json_to_dict(json_text):
     return ordered_dict
 
 
-def save_return_table(table_df, output_type, path, precision=0):
+def save_return_table(table_df, output_type=None, path=None,
+                      precision=0):
     '''
     Function to save or return a table of data.
 
@@ -219,20 +220,11 @@ def save_return_table(table_df, output_type, path, precision=0):
                 path_or_buf=path, double_precision=0)
             return tab_str
         elif output_type == 'html':
-            print('Output html...')
             with pd.option_context('display.precision', precision):
                 tab_html = table_df.to_html(
+                        index=False,
+                        float_format=lambda x: '%10.0f' % x,
                         classes="table table-striped table-hover")
-            # tab_html = (
-            #     table_df.round(2).style
-            #     # .format({'': '', '%.' + str(precision) + '0f')
-            #     .set_properties(**{'font-size': '12pt',
-            #                        'font-family': 'Calibri',
-            #                        'text-align': 'left'})
-            #     .hide_index()
-            #     .to_html(
-            #         classes="table table-striped table-hover")
-            # )
             return tab_html
         else:
             return table_df
