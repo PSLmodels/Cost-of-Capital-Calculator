@@ -1755,8 +1755,7 @@ class Calculator():
         from a groubpy object.
 
         Args:
-            x (Pandas Groupby object): grouping of data to make
-                calculations over
+            x (Pandas DataFrame): data for the particular grouping
 
         Returns:
             d (Pandas Series): computed variables for the group

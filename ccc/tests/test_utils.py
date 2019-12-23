@@ -1,5 +1,6 @@
 import pytest
 import pandas as pd
+import numpy as np
 import ccc.utils as utils
 
 
@@ -38,6 +39,28 @@ def test_diff_two_tables():
     expected_df = pd.DataFrame.from_dict(expected_dict)
     test_df = utils.diff_two_tables(df1, df2)
     pd.testing.assert_frame_equal(test_df, expected_df)
+
+
+def test_wavg():
+    '''
+    Test of utils.wavg() function
+    '''
+    dict1 = {'id': ['a', 'a', 'a'],
+             'var1': [1, 2, 3],
+             'var2': [2, 4, 6],
+             'wgt_var': [0.25, 0.5, 0.25]}
+    df1 = pd.DataFrame.from_dict(dict1)
+    expected_val = 2.0
+    test_val = utils.wavg(df1, 'var1', 'wgt_var')
+
+    assert np.allclose(test_val, expected_val)
+
+# def test_read_egg_csv():
+#
+# def test_read_egg_json():
+#
+#
+# def json_to_dict():
 
 
 dict1 = {'var1': [1, 2, 3, 4, 5], 'var2': [2, 4, 6, 8, 10]}

@@ -87,12 +87,12 @@ def wavg(group, avg_name, weight_name):
     Computes a weighted average.
 
     Args:
-        group (Pandas Groupby object): groups of variable
+        group (Pandas DataFrame): data for the particular grouping
         avg_name (string): name of variable to compute wgt avg with
         weight_name (string): name of weighting variables
 
     Returns:
-        d (Pandas Groupby object): weighted avg by group
+        d (scalar): weighted avg for the group
 
     '''
     warnings.filterwarnings('error')
