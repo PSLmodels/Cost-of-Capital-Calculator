@@ -5,6 +5,11 @@ VAR_DICT = {'mettr': 'Marginal Effective Total Tax Rate',
             'tax_wedge': 'Tax Wedge',
             'z': 'NPV of Depreciation Deductions'}
 
+OUTPUT_VAR_LIST = ['metr', 'mettr', 'rho', 'ucc', 'z', 'delta',
+                   'tax_wedge', 'eatr']
+
+OUTPUT_DATA_FORMATS = ['csv', 'tex', 'excel', 'json', None]
+
 MAJOR_IND_ORDERED = [
     'Agriculture, forestry, fishing, and hunting',
     'Mining', 'Utilities', 'Construction', 'Manufacturing',
