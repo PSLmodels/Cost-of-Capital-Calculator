@@ -55,12 +55,44 @@ def test_wavg():
 
     assert np.allclose(test_val, expected_val)
 
-# def test_read_egg_csv():
-#
-# def test_read_egg_json():
-#
-#
-# def json_to_dict():
+
+def test_read_egg_csv():
+    '''
+    Test of utils.read_egg_csv() function
+    '''
+    test_df = utils.read_egg_csv('ccc_asset_data.csv')
+
+    assert isinstance(test_df, pd.DataFrame)
+
+
+def test_read_egg_json():
+    '''
+    Test of utils.read_egg_csv() function
+    '''
+    test_dict = utils.read_egg_json('records_variables.json')
+
+    assert isinstance(test_dict, dict)
+
+
+def test_json_to_dict():
+    '''
+    Test of utils.json_to_dict() function
+    '''
+    json_string = """{
+      "read": {
+        "asset_name": {
+          "type": "string",
+          "desc": "Description of asset"
+        },
+        "assets": {
+          "type": "float",
+          "desc": "Dollar value of assets"
+        }
+      }
+     }"""
+    test_dict = utils.json_to_dict(json_string)
+    
+    assert test_dict['read']['asset_name']['type'] == 'string'
 
 
 dict1 = {'var1': [1, 2, 3, 4, 5], 'var2': [2, 4, 6, 8, 10]}
