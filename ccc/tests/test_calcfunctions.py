@@ -174,11 +174,20 @@ r_prime = np.array([0.05, 0.06, 0.04, 0.03, 0.11, 0.12])
 pi = 0.02
 expected_val = np.array([0.601518027, -0.030927835, 0.523809524,
                          0.107142857, 0.213807831, -0.063829787])
-test_data = [(rho, r_prime, pi, expected_val)]
+z2 = cf.econ(0.05, 0.0, 0.04, 0.02)
+rho2 = cf.eq_coc(
+    0.05, z2, 0.0, 0.35, 0.0, 0.02, 0.04)
+expected_val2 = 0.35
+rho3 = cf.eq_coc(
+    0.05, 1.0, 0.0, 0.35, 0.0, 0.02, 0.04)
+test_data = [(rho, r_prime, pi, expected_val),
+             (rho2, 0.04, 0.02, expected_val2),
+             (rho3, 0.04, 0.02, 0.0)]
 
 
 @pytest.mark.parametrize('rho,r_prime,pi,expected_val', test_data,
-                         ids=['Test 0'])
+                         ids=['Test: vector', 'Test: statutory',
+                              'Test: 0 rate'])
 def test_eq_metr(rho, r_prime, pi, expected_val):
     test_val = cf.eq_metr(rho, r_prime, pi)
 
@@ -222,11 +231,12 @@ profit_rate = np.array([0.1, 0.2, 0.3, 0.05, 0.5, 1])
 u = np.array([0.35, 0.21, 0, 0.4, 1, 0.9])
 expected_val = np.array([0.539357143, 0.16326, 0.073333333, 0.3344,
                          0.82, 0.8094])
-test_data = [(rho, metr, profit_rate, u, expected_val)]
+test_data = [(rho, metr, profit_rate, u, expected_val),
+             (rho[0], metr[0], rho[0], u[0], metr[0])]
 
 
 @pytest.mark.parametrize('rho,metr,profit_rate,u,expected_val', test_data,
-                         ids=['Test 0'])
+                         ids=['Test 0', 'Test: eatr=metr'])
 def test_eq_eatr(rho, metr, profit_rate, u, expected_val):
     test_val = cf.eq_eatr(rho, metr, profit_rate, u)
 
