@@ -87,12 +87,12 @@ def wavg(group, avg_name, weight_name):
     Computes a weighted average.
 
     Args:
-        group (Pandas Groupby object): groups of variable
+        group (Pandas DataFrame): data for the particular grouping
         avg_name (string): name of variable to compute wgt avg with
         weight_name (string): name of weighting variables
 
     Returns:
-        d (Pandas Groupby object): weighted avg by group
+        d (scalar): weighted avg for the group
 
     '''
     warnings.filterwarnings('error')
@@ -229,6 +229,11 @@ def save_return_table(table_df, output_type=None, path=None,
         else:
             return table_df
     else:
+        assert ((path.split('.')[-1] == output_type) or
+                (path.split('.')[-1] == 'xlsx' and
+                 output_type == 'excel') or
+                (path.split('.')[-1] == 'xls' and
+                    output_type == 'excel'))
         if output_type == 'tex':
             table_df.to_latex(buf=path, index=False, na_rep='',
                               float_format=lambda x: '%.' +

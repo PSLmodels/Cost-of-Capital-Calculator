@@ -15,12 +15,12 @@ from ccc.calcfunctions import (update_depr_methods, npv_tax_depr,
 from ccc.parameters import Specification
 from ccc.data import Assets
 from ccc.utils import wavg, diff_two_tables, save_return_table
-from ccc.constants import VAR_DICT, MAJOR_IND_ORDERED
+from ccc.constants import (VAR_DICT, MAJOR_IND_ORDERED, OUTPUT_VAR_LIST,
+                           OUTPUT_DATA_FORMATS)
 # import pdb
 # importing Bokeh libraries
 from bokeh.plotting import figure
 from bokeh.transform import dodge
-from bokeh.core.properties import value
 from bokeh.models import (ColumnDataSource, CustomJS, LabelSet, Title,
                           FuncTickFormatter, BoxAnnotation, HoverTool,
                           NumeralTickFormatter, Span)
@@ -291,6 +291,8 @@ class Calculator():
             table_df (Pandas DataFrame): table
 
         '''
+        assert output_variable in OUTPUT_VAR_LIST
+        assert output_type in OUTPUT_DATA_FORMATS
         self.calc_base()
         calc.calc_base()
         base_df = self.__assets.df
@@ -431,6 +433,7 @@ class Calculator():
             table_df (Pandas DataFrame): table
 
         '''
+        assert output_type in OUTPUT_DATA_FORMATS
         df = self.__assets.df.copy()
         if not include_land:
             df.drop(df[df.asset_name == 'Land'].index, inplace=True)
@@ -466,8 +469,9 @@ class Calculator():
         return table
 
     def asset_summary_table(self, calc, output_variable='mettr',
-                            include_land=True, include_inventories=True,
-                            output_type=None, path=None):
+                            financing='mix', include_land=True,
+                            include_inventories=True, output_type=None,
+                            path=None):
         '''
         Create table summarizing the output_variable under the baseline
         and reform policies by major asset grouping.
@@ -478,6 +482,9 @@ class Calculator():
             output_variable (string): specifies which output variable to
                 summarize in the table.  Default is the marginal
                 effective total tax rate (`mettr`).
+            financing (string): marginal source of finance for the new
+                investment: 'mix' for mix of debt and equity, 'd' for
+                debt, or 'e' for equity.
             include_inventories (bool): whether to include inventories
                 in calculations.  Defaults to `True`.
             include_land (bool): whether to include land in
@@ -493,6 +500,9 @@ class Calculator():
             table_df (Pandas DataFrame): table
 
         '''
+        assert financing in self.__p.financing_list
+        assert output_variable in OUTPUT_VAR_LIST
+        assert output_type in OUTPUT_DATA_FORMATS
         self.calc_base()
         calc.calc_base()
         base_df = self.__assets.df
@@ -545,68 +555,68 @@ class Calculator():
         category_list = ['Overall', 'Corporate']
         base_out_list = [
             base_tab[base_tab['tax_treat'] ==
-                     'all'][output_variable + '_mix'].values[0],
+                     'all'][output_variable + '_' + financing].values[0],
             base_tab[(
                 base_tab['tax_treat'] == 'corporate') &
                      (base_tab['major_asset_group'] == 'Overall')]
-            [output_variable + '_mix'].values[0]]
+            [output_variable + '_' + financing].values[0]]
         reform_out_list = [
             reform_tab[reform_tab['tax_treat'] == 'all']
-            [output_variable + '_mix'].values[0],
+            [output_variable + '_' + financing].values[0],
             reform_tab[(
                 reform_tab['tax_treat'] == 'corporate') &
                      (reform_tab['major_asset_group'] == 'Overall')]
-            [output_variable + '_mix'].values[0]]
+            [output_variable + '_' + financing].values[0]]
         diff_out_list = [
             diff_tab[diff_tab['tax_treat'] == 'all']
-            [output_variable + '_mix'].values[0],
+            [output_variable + '_' + financing].values[0],
             diff_tab[(
                 diff_tab['tax_treat'] == 'corporate') &
                      (diff_tab['major_asset_group'] == 'Overall')]
-            [output_variable + '_mix'].values[0]]
+            [output_variable + '_' + financing].values[0]]
         for item in major_groups:
             category_list.append('   ' + item)
             base_out_list.append(
                 base_tab[(base_tab['tax_treat'] == 'corporate') &
                          (base_tab['major_asset_group'] == item)]
-                [output_variable + '_mix'].values[0])
+                [output_variable + '_' + financing].values[0])
             reform_out_list.append(
                 reform_tab[(reform_tab['tax_treat'] == 'corporate') &
                            (reform_tab['major_asset_group'] == item)]
-                [output_variable + '_mix'].values[0])
+                [output_variable + '_' + financing].values[0])
             diff_out_list.append(
                 diff_tab[(diff_tab['tax_treat'] == 'corporate') &
                          (diff_tab['major_asset_group'] == item)]
-                [output_variable + '_mix'].values[0])
+                [output_variable + '_' + financing].values[0])
         category_list.append('Pass-through')
         base_out_list.append(base_tab[
             (base_tab['tax_treat'] == 'non-corporate') &
             (base_tab['major_asset_group'] == 'Overall')]
-                             [output_variable + '_mix'].values[0])
+                             [output_variable + '_' + financing].values[0])
         reform_out_list.append(reform_tab[
             (reform_tab['tax_treat'] == 'non-corporate') &
             (reform_tab['major_asset_group'] == 'Overall')]
-                               [output_variable + '_mix'].values[0])
+                               [output_variable + '_' + financing].values[0])
         diff_out_list.append(diff_tab[
             (diff_tab['tax_treat'] == 'non-corporate') &
             (diff_tab['major_asset_group'] == 'Overall')]
-                             [output_variable + '_mix'].values[0])
+                             [output_variable + '_' + financing].values[0])
         for item in major_groups:
             category_list.append('   ' + item)
             base_out_list.append(
                 base_tab[(base_tab['tax_treat'] == 'non-corporate') &
                          (base_tab['major_asset_group'] == item)]
-                [output_variable + '_mix'].values[0])
+                [output_variable + '_' + financing].values[0])
             reform_out_list.append(
                 reform_tab[
                     (reform_tab['tax_treat'] == 'non-corporate') &
                     (reform_tab['major_asset_group'] == item)]
-                [output_variable + '_mix'].values[0])
+                [output_variable + '_' + financing].values[0])
             diff_out_list.append(
                 diff_tab[
                     (diff_tab['tax_treat'] == 'non-corporate') &
                     (diff_tab['major_asset_group'] == item)]
-                [output_variable + '_mix'].values[0])
+                [output_variable + '_' + financing].values[0])
         table_dict = {
             'Category': category_list,
             VAR_DICT[output_variable] + ' Under Baseline Policy':
@@ -627,7 +637,7 @@ class Calculator():
         return table
 
     def industry_summary_table(self, calc, output_variable='mettr',
-                               include_land=True,
+                               financing='mix', include_land=True,
                                include_inventories=True,
                                output_type=None, path=None):
         '''
@@ -640,6 +650,9 @@ class Calculator():
             output_variable (string): specifies which output variable to
                 summarize in the table.  Default is the marginal
                 effective total tax rate (`mettr`).
+            financing (string): marginal source of finance for the new
+                investment: 'mix' for mix of debt and equity, 'd' for
+                debt, or 'e' for equity.
             include_inventories (bool): whether to include inventories
                 in calculations.  Defaults to `True`.
             include_land (bool): whether to include land in
@@ -655,6 +668,9 @@ class Calculator():
             table_df (Pandas DataFrame): table
 
         '''
+        assert financing in self.__p.financing_list
+        assert output_variable in OUTPUT_VAR_LIST
+        assert output_type in OUTPUT_DATA_FORMATS
         self.calc_base()
         calc.calc_base()
         base_df = self.__assets.df
@@ -669,7 +685,8 @@ class Calculator():
                         inplace=True)
             # Make dataframe with just results for major industry
             major_ind_df = pd.DataFrame(df.groupby(
-                ['major_industry', 'tax_treat']).apply(self.__f)).reset_index()
+                ['major_industry', 'tax_treat']).apply(
+                    self.__f)).reset_index()
             major_ind_df['Industry'] = major_ind_df['major_industry']
             major_ind_df = self.calc_other(major_ind_df)
             # Compute overall separately by tax treatment
@@ -699,65 +716,65 @@ class Calculator():
         category_list = ['Overall', 'Corporate']
         base_out_list = [
             base_tab[base_tab['tax_treat'] ==
-                     'all'][output_variable + '_mix'].values[0],
+                     'all'][output_variable + '_' + financing].values[0],
             base_tab[(base_tab['tax_treat'] == 'corporate') &
                      (base_tab['major_industry'] == 'Overall')]
-            [output_variable + '_mix'].values[0]]
+            [output_variable + '_' + financing].values[0]]
         reform_out_list = [
             reform_tab[reform_tab['tax_treat'] == 'all']
-            [output_variable + '_mix'].values[0],
+            [output_variable + '_' + financing].values[0],
             reform_tab[(reform_tab['tax_treat'] == 'corporate') &
                        (reform_tab['major_industry'] == 'Overall')]
-            [output_variable + '_mix'].values[0]]
+            [output_variable + '_' + financing].values[0]]
         diff_out_list = [
             diff_tab[diff_tab['tax_treat'] == 'all']
-            [output_variable + '_mix'].values[0],
+            [output_variable + '_' + financing].values[0],
             diff_tab[(diff_tab['tax_treat'] == 'corporate') &
                      (diff_tab['major_industry'] == 'Overall')]
-            [output_variable + '_mix'].values[0]]
+            [output_variable + '_' + financing].values[0]]
         for item in MAJOR_IND_ORDERED:
             category_list.append('   ' + item)
             base_out_list.append(
                 base_tab[(base_tab['tax_treat'] == 'corporate') &
                          (base_tab['major_industry'] == item)]
-                [output_variable + '_mix'].values[0])
+                [output_variable + '_' + financing].values[0])
             reform_out_list.append(
                 reform_tab[(reform_tab['tax_treat'] == 'corporate') &
                            (reform_tab['major_industry'] == item)]
-                [output_variable + '_mix'].values[0])
+                [output_variable + '_' + financing].values[0])
             diff_out_list.append(
                 diff_tab[(diff_tab['tax_treat'] == 'corporate') &
                          (diff_tab['major_industry'] == item)]
-                [output_variable + '_mix'].values[0])
+                [output_variable + '_' + financing].values[0])
         category_list.append('Pass-through')
         base_out_list.append(base_tab[
             (base_tab['tax_treat'] == 'non-corporate') &
             (base_tab['major_industry'] == 'Overall')]
-                             [output_variable + '_mix'].values[0])
+                             [output_variable + '_' + financing].values[0])
         reform_out_list.append(reform_tab[
             (reform_tab['tax_treat'] == 'non-corporate') &
             (reform_tab['major_industry'] == 'Overall')]
-                               [output_variable + '_mix'].values[0])
+                               [output_variable + '_' + financing].values[0])
         diff_out_list.append(diff_tab[
             (diff_tab['tax_treat'] == 'non-corporate') &
             (diff_tab['major_industry'] == 'Overall')]
-                             [output_variable + '_mix'].values[0])
+                             [output_variable + '_' + financing].values[0])
         for item in MAJOR_IND_ORDERED:
             category_list.append('   ' + item)
             base_out_list.append(
                 base_tab[(base_tab['tax_treat'] == 'non-corporate') &
                          (base_tab['major_industry'] == item)]
-                [output_variable + '_mix'].values[0])
+                [output_variable + '_' + financing].values[0])
             reform_out_list.append(
                 reform_tab[
                     (reform_tab['tax_treat'] == 'non-corporate') &
                     (reform_tab['major_industry'] == item)]
-                [output_variable + '_mix'].values[0])
+                [output_variable + '_' + financing].values[0])
             diff_out_list.append(
                 diff_tab[
                     (diff_tab['tax_treat'] == 'non-corporate') &
                     (diff_tab['major_industry'] == item)]
-                [output_variable + '_mix'].values[0])
+                [output_variable + '_' + financing].values[0])
         table_dict = {
             'Category': category_list,
             VAR_DICT[output_variable] + ' Under Baseline Policy':
@@ -778,9 +795,9 @@ class Calculator():
         return table
 
     def grouped_bar(self, calc, output_variable='mettr',
-                    group_by_asset=True, corporate=True,
-                    include_land=True, include_inventories=True,
-                    include_title=False):
+                    financing='mix', group_by_asset=True,
+                    corporate=True, include_land=True,
+                    include_inventories=True, include_title=False):
         '''
         Create a grouped bar plot (grouped by major industry or major
         asset group).
@@ -791,6 +808,9 @@ class Calculator():
             output_variable (string): specifies which output variable to
                 summarize in the table.  Default is the marginal
                 effective total tax rate (`mettr`).
+            financing (string): marginal source of finance for the new
+                investment: 'mix' for mix of debt and equity, 'd' for
+                debt, or 'e' for equity.
             group_by_asset (bool): whether to group by major asset
                 group.  If `False`, then grouping is by major industry.
                 Defaults to `True`.
@@ -807,6 +827,8 @@ class Calculator():
             p (Bokeh plot object): bar plot
 
         '''
+        assert financing in self.__p.financing_list
+        assert output_variable in OUTPUT_VAR_LIST
         if group_by_asset:
             base_df = self.calc_by_asset(
                 include_land=include_land,
@@ -855,17 +877,17 @@ class Calculator():
             plot_title = plot_title + ' for Pass-Through Investments'
         # Get mean overall for baseline and reform
         mean_base = df[(df[plot_label] == 'Overall') &
-                       (df.policy == 'Baseline')][output_variable +
-                                                  '_mix'].values[0]
+                       (df.policy == 'Baseline')][
+                           output_variable + '_' + financing].values[0]
         mean_reform = df[(df[plot_label] == 'Overall') &
-                         (df.policy == 'Reform')][output_variable +
-                                                  '_mix'].values[0]
+                         (df.policy == 'Reform')][
+                             output_variable + '_' + financing].values[0]
         # Drop overall means from df
         df.drop(df[df[plot_label] == 'Overall'].index, inplace=True)
         # Drop extra vars and make wide format
         df1 = df[[plot_label, output_variable + '_mix', 'policy']]
         df2 = df1.pivot(index=plot_label, columns='policy',
-                        values=output_variable + '_mix')
+                        values=output_variable + '_' + financing)
         df2.reset_index(inplace=True)
         # Create grouped barplot
         source = ColumnDataSource(data=df2)
@@ -925,6 +947,7 @@ class Calculator():
             p (Bokeh plot object): bar plot
 
         '''
+        assert output_variable in OUTPUT_VAR_LIST
         base_df = self.calc_by_asset(
             include_land=include_land,
             include_inventories=include_inventories)
@@ -1103,6 +1126,7 @@ class Calculator():
             layout (Bokeh Layout object): widget
 
         '''
+        assert output_variable in OUTPUT_VAR_LIST
         base_df = self.calc_by_asset()
         reform_df = calc.calc_by_asset()
         change_df = diff_two_tables(reform_df, base_df)
@@ -1731,8 +1755,7 @@ class Calculator():
         from a groubpy object.
 
         Args:
-            x (Pandas Groupby object): grouping of data to make
-                calculations over
+            x (Pandas DataFrame): data for the particular grouping
 
         Returns:
             d (Pandas Series): computed variables for the group

@@ -1,5 +1,6 @@
 import pytest
 import pandas as pd
+import numpy as np
 import ccc.utils as utils
 
 
@@ -38,6 +39,60 @@ def test_diff_two_tables():
     expected_df = pd.DataFrame.from_dict(expected_dict)
     test_df = utils.diff_two_tables(df1, df2)
     pd.testing.assert_frame_equal(test_df, expected_df)
+
+
+def test_wavg():
+    '''
+    Test of utils.wavg() function
+    '''
+    dict1 = {'id': ['a', 'a', 'a'],
+             'var1': [1, 2, 3],
+             'var2': [2, 4, 6],
+             'wgt_var': [0.25, 0.5, 0.25]}
+    df1 = pd.DataFrame.from_dict(dict1)
+    expected_val = 2.0
+    test_val = utils.wavg(df1, 'var1', 'wgt_var')
+
+    assert np.allclose(test_val, expected_val)
+
+
+def test_read_egg_csv():
+    '''
+    Test of utils.read_egg_csv() function
+    '''
+    test_df = utils.read_egg_csv('ccc_asset_data.csv')
+
+    assert isinstance(test_df, pd.DataFrame)
+
+
+def test_read_egg_json():
+    '''
+    Test of utils.read_egg_csv() function
+    '''
+    test_dict = utils.read_egg_json('records_variables.json')
+
+    assert isinstance(test_dict, dict)
+
+
+def test_json_to_dict():
+    '''
+    Test of utils.json_to_dict() function
+    '''
+    json_string = """{
+      "read": {
+        "asset_name": {
+          "type": "string",
+          "desc": "Description of asset"
+        },
+        "assets": {
+          "type": "float",
+          "desc": "Dollar value of assets"
+        }
+      }
+     }"""
+    test_dict = utils.json_to_dict(json_string)
+
+    assert test_dict['read']['asset_name']['type'] == 'string'
 
 
 dict1 = {'var1': [1, 2, 3, 4, 5], 'var2': [2, 4, 6, 8, 10]}
