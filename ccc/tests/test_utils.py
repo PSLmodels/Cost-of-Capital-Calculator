@@ -91,7 +91,7 @@ def test_json_to_dict():
       }
      }"""
     test_dict = utils.json_to_dict(json_string)
-    
+
     assert test_dict['read']['asset_name']['type'] == 'string'
 
 
