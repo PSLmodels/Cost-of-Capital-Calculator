@@ -85,39 +85,6 @@ class Assets():
         '''
         return self.__dim
 
-    @staticmethod
-    def read_var_info():
-        '''
-        Read Assets variables metadata from JSON file; returns
-        dictionary and specifies static varname sets listed below.
-
-        '''
-        var_info_path = os.path.join(Assets.CUR_PATH,
-                                     Assets.VAR_INFO_FILENAME)
-        if os.path.exists(var_info_path):
-            with open(var_info_path) as vfile:
-                json_text = vfile.read()
-            vardict = json_to_dict(json_text)
-        else:
-            # cannot call read_egg_ function in unit tests
-            vardict = read_egg_json(
-                Assets.VAR_INFO_FILENAME)  # pragma: no cover
-        Assets.INTEGER_READ_VARS = set(k for k, v in vardict['read'].items()
-                                       if v['type'] == 'int')
-        FLOAT_READ_VARS = set(k for k, v in vardict['read'].items()
-                              if v['type'] == 'float')
-        Assets.MUST_READ_VARS = set(k for k, v in vardict['read'].items()
-                                    if v.get('required'))
-        Assets.USABLE_READ_VARS = Assets.INTEGER_READ_VARS | FLOAT_READ_VARS
-        Assets.INTEGER_VARS = Assets.INTEGER_READ_VARS
-        return vardict
-
-    # specify various sets of variable names
-    INTEGER_READ_VARS = set()
-    MUST_READ_VARS = set()
-    USABLE_READ_VARS = set()
-    INTEGER_VARS = set()
-
     def _read_data(self, data):
         '''
         Read Records data from file or use specified DataFrame as data.
