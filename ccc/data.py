@@ -72,13 +72,6 @@ class Assets():
         return self.__data_year
 
     @property
-    def current_year(self):
-        '''
-        Records class current calendar year property.
-        '''
-        return self.__current_year
-
-    @property
     def array_length(self):
         '''
         Length of arrays in Records class's DataFrame.

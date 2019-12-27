@@ -14,4 +14,4 @@ ccc.data
   :members:
 
 .. autoclass:: Assets
-  :members: data_year, current_year, array_length, read_var_info, _read_data
+  :members: data_year, array_length, read_var_info, _read_data
