@@ -65,6 +65,14 @@ def test_read_egg_csv():
     assert isinstance(test_df, pd.DataFrame)
 
 
+def test_read_egg_csv_exception():
+    '''
+    Test of utils.read_egg_csv() function
+    '''
+    with pytest.raises(Exception):
+        assert utils.read_egg_csv('ccc_asset_data2.csv')
+
+
 def test_read_egg_json():
     '''
     Test of utils.read_egg_csv() function
@@ -72,6 +80,14 @@ def test_read_egg_json():
     test_dict = utils.read_egg_json('records_variables.json')
 
     assert isinstance(test_dict, dict)
+
+
+def test_read_egg_json_exception():
+    '''
+    Test of utils.read_egg_csv() function
+    '''
+    with pytest.raises(Exception):
+        assert utils.read_egg_json('records_variables2.json')
 
 
 def test_json_to_dict():
@@ -95,6 +111,18 @@ def test_json_to_dict():
     assert test_dict['read']['asset_name']['type'] == 'string'
 
 
+def test_json_to_dict_exception():
+    '''
+    Test of utils.json_to_dict() function
+    '''
+    json_string = """{
+      "CIT_rate"
+      }
+     }"""
+    with pytest.raises(Exception):
+        assert utils.json_to_dict(json_string)
+
+
 dict1 = {'var1': [1, 2, 3, 4, 5], 'var2': [2, 4, 6, 8, 10]}
 df1 = pd.DataFrame.from_dict(dict1)
 test_data = [(df1, 'tex', 0), (df1, 'json', 2), (df1, 'html', 3)]
@@ -116,3 +144,13 @@ def test_save_return_table_df():
     df1 = pd.DataFrame.from_dict(dict1)
     test_df = utils.save_return_table(df1)
     assert isinstance(test_df, pd.DataFrame)
+
+
+def test_save_return_table_exception():
+    '''
+    Test that can return dataframe from utils.test_save_return_table
+    '''
+    dict1 = {'var1': [1, 2, 3, 4, 5], 'var2': [2, 4, 6, 8, 10]}
+    df1 = pd.DataFrame.from_dict(dict1)
+    with pytest.raises(Exception):
+        assert utils.save_return_table(df1, output_type='xls')
