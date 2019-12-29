@@ -229,24 +229,26 @@ def save_return_table(table_df, output_type=None, path=None,
         else:
             return table_df
     else:
-        assert ((path.split('.')[-1] == output_type) or
-                (path.split('.')[-1] == 'xlsx' and
-                 output_type == 'excel') or
-                (path.split('.')[-1] == 'xls' and
-                    output_type == 'excel'))
-        if output_type == 'tex':
-            table_df.to_latex(buf=path, index=False, na_rep='',
-                              float_format=lambda x: '%.' +
-                              str(precision) + '0f' % x)
-        elif output_type == 'csv':
-            table_df.to_csv(path_or_buf=path, index=False, na_rep='',
-                            float_format='%.' + str(precision) + '0f')
-        elif output_type == 'json':
-            table_df.to_json(path_or_buf=path,
-                             double_precision=precision)
-        elif output_type == 'excel':
-            table_df.to_excel(excel_writer=path, index=False, na_rep='',
-                              float_format='%.' + str(precision) + '0f')
+        condition = (
+            (path.split('.')[-1] == output_type) or
+            (path.split('.')[-1] == 'xlsx' and output_type == 'excel')
+            or
+            (path.split('.')[-1] == 'xls' and output_type == 'excel'))
+        if condition:
+            if output_type == 'tex':
+                table_df.to_latex(buf=path, index=False, na_rep='',
+                                  float_format=lambda x: '%.' +
+                                  str(precision) + '0f' % x)
+            elif output_type == 'csv':
+                table_df.to_csv(path_or_buf=path, index=False,
+                                na_rep='', float_format='%.' +
+                                str(precision) + '0f')
+            elif output_type == 'json':
+                table_df.to_json(path_or_buf=path,
+                                 double_precision=precision)
+            elif output_type == 'excel':
+                table_df.to_excel(excel_writer=path, index=False,
+                                  na_rep='', float_format='%.' +
+                                  str(precision) + '0f')
         else:
-            print('Please enter a valid output format')
-            assert(False)
+            raise ValueError('Please enter a valid output format')

@@ -13,6 +13,15 @@ def test_to_str():
     assert isinstance(test_str, str)
 
 
+def test_to_str_decode():
+    '''
+    Test of the to_str() function
+    '''
+    number = '3'.encode()
+    test_str = utils.to_str(number)
+    assert isinstance(test_str, str)
+
+
 test_data = [(27.5, '27_5'), (30, '30')]
 
 
@@ -153,4 +162,5 @@ def test_save_return_table_exception():
     dict1 = {'var1': [1, 2, 3, 4, 5], 'var2': [2, 4, 6, 8, 10]}
     df1 = pd.DataFrame.from_dict(dict1)
     with pytest.raises(Exception):
-        assert utils.save_return_table(df1, output_type='xls')
+        assert utils.save_return_table(df1, output_type='xls',
+                                       path='filename.tex')
