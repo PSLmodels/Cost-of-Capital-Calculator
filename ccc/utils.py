@@ -231,8 +231,7 @@ def save_return_table(table_df, output_type=None, path=None,
     else:
         condition = (
             (path.split('.')[-1] == output_type) or
-            (path.split('.')[-1] == 'xlsx' and output_type == 'excel')
-            or
+            (path.split('.')[-1] == 'xlsx' and output_type == 'excel') or
             (path.split('.')[-1] == 'xls' and output_type == 'excel'))
         if condition:
             if output_type == 'tex':
