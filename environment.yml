@@ -10,6 +10,7 @@ dependencies:
 - setuptools
 - pip
 - xlrd
+- openpyxl
 - pytest
 - pytest-pep8
 - pytest-xdist
