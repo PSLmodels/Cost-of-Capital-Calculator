@@ -1,11 +1,14 @@
-import os
-import tempfile
 import pytest
 from ccc.parameters import Specification, revision_warnings_errors
 
 
-def test_create_specification_object():
-    spec = Specification()
+test_data = [(27.5, '27_5'), (30, '30')]
+
+
+@pytest.mark.parametrize('call_tc', [False, True],
+                         ids=['Not use TC', 'Use TC'])
+def test_create_specification_object(call_tc):
+    spec = Specification(call_tc=call_tc)
     assert spec
 
 
