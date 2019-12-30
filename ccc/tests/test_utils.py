@@ -1,6 +1,7 @@
 import pytest
 import pandas as pd
 import numpy as np
+import os
 import ccc.utils as utils
 
 
@@ -153,6 +154,34 @@ def test_save_return_table_df():
     df1 = pd.DataFrame.from_dict(dict1)
     test_df = utils.save_return_table(df1)
     assert isinstance(test_df, pd.DataFrame)
+
+
+path1 = 'output.tex'
+path2 = 'output.csv'
+path3 = 'output.json'
+path4 = 'output.xlsx'
+# # writetoafile(file.strpath)  # or use str(file)
+# assert file.read() == 'Hello\n'
+test_data = [(df1, 'tex', path1), (df1, 'csv', path2),
+             (df1, 'json', path3), (df1, 'excel', path4)]
+
+
+@pytest.mark.parametrize('df,output_type,path', test_data,
+                         ids=['tex', 'csv', 'json', 'excel'])
+def test_save_return_table_write(df, output_type, path):
+    '''
+    Test of the utils.save_return_table function for case wehn write to
+    disk
+    '''
+    utils.save_return_table(df, output_type, path=path)
+    filehandle = open(path)
+    try:
+        assert filehandle.read() is not None
+    except UnicodeDecodeError:
+        from openpyxl import load_workbook
+        wb = load_workbook(filename=path)
+        assert wb is not None
+    filehandle.close()
 
 
 def test_save_return_table_exception():
