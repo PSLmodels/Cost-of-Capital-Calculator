@@ -25,6 +25,29 @@ def test_update_specification_with_dict():
     assert len(spec.errors) == 0
 
 
+def test_new_view():
+    cyr = 2020
+    spec = Specification(year=cyr)
+    new_spec_dict = {
+        'new_view': True,
+    }
+    spec.update_specification(new_spec_dict)
+    assert spec.new_view
+    assert spec.m == 1
+
+
+def test_PT_tax():
+    cyr = 2020
+    spec = Specification(year=cyr)
+    new_spec_dict = {
+        'PT_entity_tax_ind': True,
+        'PT_entity_tax_rate': 0.44
+    }
+    spec.update_specification(new_spec_dict)
+    assert spec.PT_entity_tax_ind
+    assert spec.u['nc'] == 0.44
+
+
 def test_update_specification_with_json():
     cyr = 2020
     spec = Specification(year=cyr)
