@@ -105,6 +105,30 @@ def test_update_bad_revsions2():
     assert first_line == expected_first_line
 
 
+def test_update_bad_revsions3():
+    spec = Specification()
+    revs = 0.5
+    with pytest.raises(Exception):
+        assert spec.update_specification(revs, raise_errors=True)
+
+
+def test_update_bad_revsions4():
+    spec = Specification()
+    revs = None
+    with pytest.raises(Exception):
+        assert spec.update_specification(revs, raise_errors=True)
+
+
+def test_update_bad_revsions5():
+    spec = Specification()
+    # profit rate has an upper bound at 1.0
+    revs = {
+        'profit_rate': [{'year': spec.year, 'value': 1.2}]
+    }
+    with pytest.raises(Exception):
+        assert spec.update_specification(revs, raise_errors=True)
+
+
 def test_revision_warnings_errors():
     revs_dict_good = {'profit_rate': [{'year': 2020, 'value': 0.30}]}
     e_w = revision_warnings_errors(revs_dict_good)
