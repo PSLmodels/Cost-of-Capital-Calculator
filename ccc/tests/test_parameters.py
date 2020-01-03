@@ -129,6 +129,32 @@ def test_update_bad_revsions5():
         assert spec.update_specification(revs, raise_errors=True)
 
 
+def test_read_json_revision():
+    """
+    Check read_json_revision logic.
+    """
+    good_revision = """
+    {
+    "profit_rate": [
+        {
+            "year": 2020,
+            "value": 0.4
+        }
+    ],
+    "m": [
+        {
+            "year": 2020,
+            "value": 0.5
+        }
+    ]
+    }
+    """
+    # pllint: disable=private-method
+    with pytest.raises(ValueError):
+        # error because obj argument is neither None nor a string
+        Specification._read_json_revision(list())
+
+
 def test_revision_warnings_errors():
     revs_dict_good = {'profit_rate': [{'year': 2020, 'value': 0.30}]}
     e_w = revision_warnings_errors(revs_dict_good)

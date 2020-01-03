@@ -196,7 +196,7 @@ class Specification(paramtools.Parameters):
         self.compute_default_params()
 
     @staticmethod
-    def read_json_revision(obj):
+    def _read_json_revision(obj):
         '''
         Return a revision dictionary, which is suitable for use with the
         update_specification method, that is derived from the specified
