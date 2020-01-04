@@ -164,3 +164,7 @@ def test_revision_warnings_errors():
     e_w = revision_warnings_errors(revs_dict_bad)
     assert len(e_w['warnings']) == 0
     assert len(e_w['errors']) > 0
+    revs_dict_badder = 999
+    e_w = revision_warnings_errors(revs_dict_badder)
+    assert e_w['errors'] ==\
+        'ERROR: revision is not a dictionary of string'
