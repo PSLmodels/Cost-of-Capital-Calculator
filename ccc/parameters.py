@@ -187,9 +187,7 @@ class Specification(paramtools.Parameters):
         if not (isinstance(revision, dict) or
                 isinstance(revision, str)):
             raise ValueError(
-                'ERROR: revision is not a dictionary of string')
-        if not revision:
-            return  # no revision to implement
+                'ERROR: revision is not a dictionary or string')
         self.adjust(revision, raise_errors=raise_errors)
         if self.errors and raise_errors:
             raise ValueError('\n' + self.errors)

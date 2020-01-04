@@ -109,7 +109,7 @@ def test_update_bad_revsions3():
     spec = Specification()
     revs = 0.5
     with pytest.raises(Exception):
-        assert spec.update_specification(revs, raise_errors=True)
+        assert spec.update_specification(revs, raise_errors=False)
 
 
 def test_update_bad_revsions4():
@@ -167,4 +167,4 @@ def test_revision_warnings_errors():
     revs_dict_badder = 999
     e_w = revision_warnings_errors(revs_dict_badder)
     assert e_w['errors'] ==\
-        'ERROR: revision is not a dictionary of string'
+        'ERROR: revision is not a dictionary or string'
