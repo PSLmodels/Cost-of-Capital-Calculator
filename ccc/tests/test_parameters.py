@@ -12,6 +12,12 @@ def test_create_specification_object(call_tc):
     assert spec
 
 
+def test_default_parameters():
+    spec = Specification()
+    dps = spec.default_parameters()
+    assert dps
+
+
 def test_update_specification_with_dict():
     cyr = 2020
     spec = Specification(year=cyr)
