@@ -4,11 +4,13 @@ from ccc import get_taxcalc_rates as tc
 from ccc.parameters import Specification
 
 
-def test_get_calculator():
+@pytest.mark.parametrize('data', ['cps', 'puf.csv', None],
+                         ids=['data=CPS', 'data=PUF', 'data=None'])
+def test_get_calculator(data):
     '''
     Test the get_calculator() function
     '''
-    calc1 = tc.get_calculator(True, 2019)
+    calc1 = tc.get_calculator(True, 2019, data=data)
     assert calc1.current_year == 2019
 
 
