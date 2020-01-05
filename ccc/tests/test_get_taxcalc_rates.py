@@ -14,6 +14,14 @@ def test_get_calculator(data):
     assert calc1.current_year == 2019
 
 
+def test_get_calculator_exception():
+    '''
+    Test the get_calculator() function
+    '''
+    with pytest.raises(Exception):
+        assert tc.get_calculator(True, 2035)
+
+
 def test_get_rates():
     '''
     Test of the get_rates() functions
