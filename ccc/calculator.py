@@ -1726,14 +1726,6 @@ class Calculator():
         return None
 
     @property
-    def reform_warnings(self):
-        '''
-        Calculator class embedded Specification object's reform_warnings.
-
-        '''
-        return self.__p.parameter_warnings
-
-    @property
     def current_year(self):
         '''
         Calculator class current calendar year property.
