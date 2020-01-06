@@ -2,6 +2,7 @@ import numpy as np
 import pytest
 from ccc import get_taxcalc_rates as tc
 from ccc.parameters import Specification
+from ccc.utils import TC_LAST_YEAR
 
 
 def test_get_calculator_cps():
@@ -28,7 +29,7 @@ def test_get_calculator_exception():
     Test the get_calculator() function
     '''
     with pytest.raises(Exception):
-        assert tc.get_calculator(True, 2035)
+        assert tc.get_calculator(True, TC_LAST_YEAR + 1)
 
 
 def test_get_rates():
