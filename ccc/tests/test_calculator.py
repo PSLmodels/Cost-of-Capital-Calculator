@@ -5,6 +5,24 @@ from ccc.data import Assets
 from ccc.calculator import Calculator
 
 
+def test_Caculator_exception1():
+    '''
+    Raise exception for not passing parameters object
+    '''
+    assets = Assets()
+    with pytest.raises(Exception):
+        assert Calculator(assets=assets)
+
+
+def test_Caculator_exception2():
+    '''
+    Raise exception for not passing assets object
+    '''
+    p = Specification()
+    with pytest.raises(Exception):
+        assert Calculator(p=p)
+
+
 def test_calc_other():
     '''
     Test calc_other method
