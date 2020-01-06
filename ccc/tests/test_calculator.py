@@ -81,18 +81,26 @@ def test_calc_by_asset():
     assert ('major_asset_group' in asset_df.keys())
 
 
-def test_calc_by_industry():
+@pytest.mark.parametrize('include_land,include_inventories',
+                         [(False, False), (True, True)],
+                         ids=['No land or inv', 'Both land and inv'])
+def test_calc_by_industry(include_land, include_inventories):
     '''
     Test calc_by_industry method
     '''
     assets = Assets()
     p = Specification()
     calc = Calculator(p, assets)
-    ind_df = calc.calc_by_industry()
+    ind_df = calc.calc_by_industry(
+        include_land=include_land,
+        include_inventories=include_inventories)
     assert ('major_industry' in ind_df.keys())
 
 
-def test_summary_table():
+@pytest.mark.parametrize('include_land,include_inventories',
+                         [(False, False), (True, True)],
+                         ids=['No land or inv', 'Both land and inv'])
+def test_summary_table(include_land, include_inventories):
     '''
     Test summary_table method.
     '''
@@ -104,11 +112,16 @@ def test_summary_table():
     p.update_specification({'CIT_rate': 0.38})
     calc2 = Calculator(p, assets)
     assert calc2.current_year == cyr
-    summary_df = calc1.summary_table(calc2)
+    summary_df = calc1.summary_table(
+        calc2, include_land=include_land,
+        include_inventories=include_inventories)
     assert isinstance(summary_df, pd.DataFrame)
 
 
-def test_asset_share_table():
+@pytest.mark.parametrize('include_land,include_inventories',
+                         [(False, False), (True, True)],
+                         ids=['No land or inv', 'Both land and inv'])
+def test_asset_share_table(include_land, include_inventories):
     '''
     Test asset_share_table method.
     '''
@@ -117,11 +130,16 @@ def test_asset_share_table():
     p = Specification(year=cyr)
     calc1 = Calculator(p, assets)
     assert calc1.current_year == cyr
-    asset_df = calc1.asset_share_table()
+    asset_df = calc1.asset_share_table(
+        include_land=include_land,
+        include_inventories=include_inventories)
     assert isinstance(asset_df, pd.DataFrame)
 
 
-def test_asset_summary_table():
+@pytest.mark.parametrize('include_land,include_inventories',
+                         [(False, False), (True, True)],
+                         ids=['No land or inv', 'Both land and inv'])
+def test_asset_summary_table(include_land, include_inventories):
     '''
     Test asset_summary_table method.
     '''
@@ -133,11 +151,16 @@ def test_asset_summary_table():
     p.update_specification({'CIT_rate': 0.38})
     calc2 = Calculator(p, assets)
     assert calc2.current_year == cyr
-    asset_df = calc1.asset_summary_table(calc2)
+    asset_df = calc1.asset_summary_table(
+        calc2, include_land=include_land,
+        include_inventories=include_inventories)
     assert isinstance(asset_df, pd.DataFrame)
 
 
-def test_industry_summary_table():
+@pytest.mark.parametrize('include_land,include_inventories',
+                         [(False, False), (True, True)],
+                         ids=['No land or inv', 'Both land and inv'])
+def test_industry_summary_table(include_land, include_inventories):
     '''
     Test industry_summary_table method.
     '''
@@ -149,7 +172,9 @@ def test_industry_summary_table():
     p.update_specification({'CIT_rate': 0.38})
     calc2 = Calculator(p, assets)
     assert calc2.current_year == cyr
-    ind_df = calc1.industry_summary_table(calc2)
+    ind_df = calc1.industry_summary_table(
+        calc2, include_land=include_land,
+        include_inventories=include_inventories)
     assert isinstance(ind_df, pd.DataFrame)
 
 
