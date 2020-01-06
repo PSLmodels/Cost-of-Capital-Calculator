@@ -178,7 +178,9 @@ def test_industry_summary_table(include_land, include_inventories):
     assert isinstance(ind_df, pd.DataFrame)
 
 
-def test_range_plot():
+@pytest.mark.parametrize('corporate', [True, False],
+                         ids=['Corporate', 'Non-Corporate'])
+def test_range_plot(corporate):
     '''
     Test range_plot method.
     '''
@@ -188,13 +190,17 @@ def test_range_plot():
     p2 = Specification(year=2026)
     p2.update_specification({'CIT_rate': 0.25})
     calc2 = Calculator(p2, assets)
-    fig = calc.range_plot(calc2)
+    fig = calc.range_plot(calc2, corporate=corporate,
+                          include_title=True)
     assert fig
-    fig = calc.range_plot(calc2, output_variable='rho')
+    fig = calc.range_plot(calc2, output_variable='rho',
+                          corporate=corporate, include_title=True)
     assert fig
 
 
-def test_grouped_bar():
+@pytest.mark.parametrize('corporate', [True, False],
+                         ids=['Corporate', 'Non-Corporate'])
+def test_grouped_bar(corporate):
     '''
     Test grouped_bar method.
     '''
@@ -204,10 +210,10 @@ def test_grouped_bar():
     p2 = Specification(year=2026)
     p2.update_specification({'CIT_rate': 0.25})
     calc2 = Calculator(p2, assets)
-    fig = calc.grouped_bar(calc2)
+    fig = calc.grouped_bar(calc2, corporate=corporate)
     assert fig
     fig = calc.grouped_bar(calc2, output_variable='rho',
-                           group_by_asset=False)
+                           corporate=corporate, group_by_asset=False)
     assert fig
 
 
@@ -221,9 +227,10 @@ def test_asset_bubble():
     p2 = Specification(year=2026)
     p2.update_specification({'CIT_rate': 0.25})
     calc2 = Calculator(p2, assets)
-    fig = calc.asset_bubble(calc2)
+    fig = calc.asset_bubble(calc2, include_title=True)
     assert fig
-    fig = calc.asset_bubble(calc2, output_variable='rho_mix')
+    fig = calc.asset_bubble(calc2, output_variable='rho_mix',
+                            include_title=True)
     assert fig
 
 
