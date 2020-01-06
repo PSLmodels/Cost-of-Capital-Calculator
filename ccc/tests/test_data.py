@@ -41,6 +41,24 @@ def test_read_data():
     '''
     assets = Assets()
     df = read_egg_csv('ccc_asset_data.csv')
-
+    assets = Assets(data='ccc_asset_data.csv')
     pd.testing.assert_frame_equal(
         df, assets.df)
+
+
+def test_read_data_df():
+    '''
+    Test of Assets._read_data() method
+    '''
+    df = read_egg_csv('ccc_asset_data.csv')
+    assets = Assets(data=df)
+    pd.testing.assert_frame_equal(
+        df, assets.df)
+
+
+def test_read_data_exception():
+    '''
+    Test of Assets._read_data() method
+    '''
+    with pytest.raises(Exception):
+        assert Assets(data=3)
