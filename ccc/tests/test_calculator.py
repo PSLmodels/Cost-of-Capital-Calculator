@@ -1,5 +1,6 @@
 import pytest
 import pandas as pd
+import numpy as np
 from ccc.parameters import Specification
 from ccc.data import Assets
 from ccc.calculator import Calculator
@@ -246,3 +247,35 @@ def test_bubble_widget():
     calc2 = Calculator(p2, assets)
     fig = calc.bubble_widget(calc2)
     assert fig
+
+
+def test_store_assets():
+    assets = Assets()
+    p = Specification()
+    calc1 = Calculator(p, assets)
+    calc1.store_assets()
+    assert isinstance(calc1, Calculator)
+
+
+def test_restore_assets():
+    assets = Assets()
+    p = Specification()
+    calc1 = Calculator(p, assets)
+    calc1.store_assets()
+    calc1.restore_assets()
+    assert isinstance(calc1, Calculator)
+
+
+def test_p_param():
+    assets = Assets()
+    p = Specification()
+    calc1 = Calculator(p, assets)
+    obj = calc1.p_param('tau_int')
+    assert np.allclose(obj, np.array([0.31500528]))
+
+
+def test_data_year():
+    assets = Assets()
+    p = Specification()
+    calc1 = Calculator(p, assets)
+    assert calc1.data_year == 2013
