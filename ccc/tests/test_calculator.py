@@ -266,12 +266,21 @@ def test_restore_assets():
     assert isinstance(calc1, Calculator)
 
 
-def test_p_param():
+def test_p_param_return_value():
     assets = Assets()
     p = Specification()
     calc1 = Calculator(p, assets)
     obj = calc1.p_param('tau_int')
     assert np.allclose(obj, np.array([0.31500528]))
+
+
+def test_p_param_set_value():
+    assets = Assets()
+    p = Specification()
+    calc1 = Calculator(p, assets)
+    new_tau_int = np.array([0.396])
+    calc1.p_param('tau_int', new_tau_int)
+    assert np.allclose(calc1._Calculator__p.tau_int, new_tau_int)
 
 
 def test_data_year():
