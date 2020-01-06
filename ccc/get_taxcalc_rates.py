@@ -35,11 +35,12 @@ def get_calculator(baseline, calculator_start_year, reform=None,
         records1.p23250 = (1 - 0.06587) * records1.e01100
         # set total capital gains to zero
         records1.e01100 = np.zeros(records1.e01100.shape[0])
-    elif data is not None:
-        records1 = Records(data=data, gfactors=gfactors, weights=weights,
-                           start_year=records_start_year)
+    elif data is not None:  # pragma: no cover
+        records1 = Records(
+            data=data, gfactors=gfactors, weights=weights,
+            start_year=records_start_year)  # pragma: no cover
     else:
-        records1 = Records()
+        records1 = Records()  # pragma: no cover
 
     if baseline:
         # Should not be a reform if baseline is True

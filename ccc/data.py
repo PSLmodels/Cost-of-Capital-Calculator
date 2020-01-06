@@ -130,7 +130,7 @@ class Assets():
             assetdf = data
         elif isinstance(data, str):
             if os.path.isfile(data):
-                assetdf = pd.read_csv(data)
+                assetdf = pd.read_csv(data)  # pragma: no cover
             else:
                 # cannot call read_egg_ function in unit tests
                 assetdf = read_egg_csv(data)  # pragma: no cover

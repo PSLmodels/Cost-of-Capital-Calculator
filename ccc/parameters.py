@@ -189,8 +189,6 @@ class Specification(paramtools.Parameters):
             raise ValueError(
                 'ERROR: revision is not a dictionary or string')
         self.adjust(revision, raise_errors=raise_errors)
-        if self.errors and raise_errors:
-            raise ValueError('\n' + self.errors)
         self.compute_default_params()
 
     @staticmethod
