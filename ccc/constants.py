@@ -8,7 +8,7 @@ VAR_DICT = {'mettr': 'Marginal Effective Total Tax Rate',
 OUTPUT_VAR_LIST = ['metr', 'mettr', 'rho', 'ucc', 'z', 'delta',
                    'tax_wedge', 'eatr']
 
-OUTPUT_DATA_FORMATS = ['csv', 'tex', 'excel', 'json', None]
+OUTPUT_DATA_FORMATS = ['csv', 'tex', 'excel', 'json', 'html', None]
 
 MAJOR_IND_ORDERED = [
     'Agriculture, forestry, fishing, and hunting',
