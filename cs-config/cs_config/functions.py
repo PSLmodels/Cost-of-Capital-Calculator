@@ -164,7 +164,8 @@ def comp_output(calc1, calc2, out_var='mettr'):
                                     output_type='csv')
     html_table = calc1.summary_table(calc2, output_variable=out_var,
                                      output_type='html')
-    plt = calc1.grouped_bar(calc2, output_variable=out_var)
+    plt = calc1.grouped_bar(calc2, output_variable=out_var,
+                            include_title=True)
     plot_data = json_item(plt)
     comp_dict = {
         "renderable": [
