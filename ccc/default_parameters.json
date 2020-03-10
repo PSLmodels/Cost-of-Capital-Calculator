@@ -1650,13 +1650,70 @@
         "title": "Inflation rate",
         "description": "Inflation rate.",
         "section_1": "Economic Assumptions",
-        "notes": "The default inflation rate is determined by the forecast of the Congressional Budget Office (CBO).",
+        "notes": "The default inflation rate is determined by the forecast of the Congressional Budget Office (CBO) for the PCE price index.",
         "type": "float",
         "value": [
             {
                 "year": 2015,
-                "value": 0.024
+                "value": 0.011
+            },
+            {
+                "year": 2016,
+                "value": 0.008
+            },
+            {
+                "year": 2017,
+                "value": 0.017
+            },
+            {
+                "year": 2018,
+                "value": 0.021
+            },
+            {
+                "year": 2019,
+                "value": 0.016
+            },
+            {
+                "year": 2020,
+                "value": 0.021
+            },
+            {
+                "year": 2021,
+                "value": 0.021
+            },
+            {
+                "year": 2022,
+                "value": 0.021
+            },
+            {
+                "year": 2023,
+                "value": 0.02
+            },
+            {
+                "year": 2024,
+                "value": 0.02
+            },
+            {
+                "year": 2025,
+                "value": 0.02
+            },
+            {
+                "year": 2026,
+                "value": 0.02
+            },
+            {
+                "year": 2027,
+                "value": 0.02
+            },
+            {
+                "year": 2028,
+                "value": 0.02
+            },
+            {
+                "year": 2029,
+                "value": 0.02
             }
+
         ],
         "validators": {
             "range": {
@@ -1669,13 +1726,34 @@
         "title": "Nominal interest rate paid on business debt",
         "description": "Nominal interest rate paid on business debt.",
         "section_1": "Economic Assumptions",
-        "notes": "The default nominal interest rate is taken as the yeild on BBB corporate bonds.",
+        "notes": "The default nominal interest rate is taken as the yeild on BBB corporate bonds.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
             {
                 "year": 2015,
                 "value": 0.068
+            },
+            {
+                "year": 2016,
+                "value": 0.068
+            },
+            {
+                "year": 2017,
+                "value": 0.068
+            },
+            {
+                "year": 2018,
+                "value": 0.068
+            },
+            {
+                "year": 2019,
+                "value": 0.068
+            },
+            {
+                "year": 2020,
+                "value": 0.068
             }
+
         ],
         "validators": {
             "range": {
