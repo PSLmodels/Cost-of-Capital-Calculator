@@ -7,6 +7,7 @@ except ImportError:
     boto3 = None
 import gzip
 import pandas as pd
+from ccc.utils import TC_LAST_YEAR
 from taxcalc import Policy
 from collections import defaultdict
 
@@ -18,7 +19,7 @@ POLICY_SCHEMA = {
             "validators": {
                 "choice": {
                     "choices": [
-                        yr for yr in range(2013, 2030)
+                        yr for yr in range(2013, TC_LAST_YEAR + 1)
                     ]
                 }
             }
@@ -86,9 +87,9 @@ def convert_defaults(pcl):
 
     new_pcl = defaultdict(dict)
     new_pcl["schema"] = POLICY_SCHEMA
-    LAST_YEAR = 2028
+    LAST_YEAR = 2030
     pol = Policy()
-    pol.set_year(2028)
+    pol.set_year(LAST_YEAR)
     for param, item in pcl.items():
         values = []
         pol_val = getattr(pol, f"_{param}").tolist()
