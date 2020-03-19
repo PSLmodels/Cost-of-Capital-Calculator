@@ -271,7 +271,7 @@ def test_p_param_return_value():
     p = Specification()
     calc1 = Calculator(p, assets)
     obj = calc1.p_param('tau_int')
-    assert np.allclose(obj, np.array([0.3151072277078106]))
+    assert np.allclose(obj, np.array([0.31484782613369866]))
 
 
 def test_p_param_set_value():
