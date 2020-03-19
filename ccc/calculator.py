@@ -1374,22 +1374,22 @@ class Calculator():
         controls_callback = CustomJS(
             args=data_sources, code=CONTROLS_CALLBACK_SCRIPT)
         c_nc_buttons = RadioButtonGroup(
-            labels=['Corporate', 'Noncorporate'], active=0,
-            callback=controls_callback)
+            labels=['Corporate', 'Noncorporate'], active=0)
+        c_nc_buttons.js_on_change('value', controls_callback)
         controls_callback.args['c_nc_buttons'] = c_nc_buttons
         format_buttons = RadioButtonGroup(
-            labels=['Baseline', 'Reform', 'Change'], active=0,
-            callback=controls_callback)
+            labels=['Baseline', 'Reform', 'Change'], active=0)
+        format_buttons.js_on_change('value', controls_callback)
         controls_callback.args['format_buttons'] = format_buttons
         interest_buttons = RadioButtonGroup(
             labels=['METTR', 'METR', 'Cost of Capital',
-                    'NPV of Depreciation'], active=0, width=700,
-            callback=controls_callback)
+                    'NPV of Depreciation'], active=0, width=700)
+        interest_buttons.js_on_change('value', controls_callback)
         controls_callback.args['interest_buttons'] = interest_buttons
         type_buttons = RadioButtonGroup(
             labels=['Typically Financed', 'Equity Financed',
-                    'Debt Financed'], active=0, width=700,
-            callback=controls_callback)
+                    'Debt Financed'], active=0, width=700)
+        type_buttons.js_on_change('value', controls_callback)
         controls_callback.args['type_buttons'] = type_buttons
 
         # Create Tabs
