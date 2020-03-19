@@ -7,6 +7,7 @@ except ImportError:
     boto3 = None
 import gzip
 import pandas as pd
+from ccc.utils import TC_LAST_YEAR
 from taxcalc import Policy
 from collections import defaultdict
 
@@ -18,7 +19,7 @@ POLICY_SCHEMA = {
             "validators": {
                 "choice": {
                     "choices": [
-                        yr for yr in range(2013, 2030)
+                        yr for yr in range(2013, TC_LAST_YEAR + 1)
                     ]
                 }
             }
