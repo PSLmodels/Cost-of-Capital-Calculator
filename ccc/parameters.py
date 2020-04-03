@@ -1,5 +1,7 @@
 import os
 import paramtools
+import marshmallow as ma
+import pandas as pd
 
 # import ccc
 from ccc.get_taxcalc_rates import get_rates
@@ -205,6 +207,23 @@ class Specification(paramtools.Parameters):
         return paramtools.Parameters.read_params(obj, 'revision')
 
 # end of Specification class
+
+
+class DepreciationRules(ma.Schema):
+    life = ma.fields.Integer(validate=ma.validate.Range(min=0))
+    method = ma.fields.String(
+        validate=ma.validate.OneOf(choices=[
+            "SL", "Expensing", "DB 150%", "DB 200%", "Economic"])
+    )
+
+
+# only just added here: https://github.com/PSLmodels/ParamTools/pull/93
+paramtools.register_custom_type("depreciation_rules",
+                                ma.fields.Nested(DepreciationRules()))
+
+
+class AssetsParams(paramtools.Parameters):
+    defaults = 'tax_depreciation_rules.json'
 
 
 def revision_warnings_errors(spec_revision):
