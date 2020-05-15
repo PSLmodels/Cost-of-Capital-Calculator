@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 from pandas.testing import assert_frame_equal
 import ccc
-from ccc.parameters import Specification
+from ccc.parameters import Specification, AssetParams
 from ccc.calculator import Calculator
 from ccc.data import Assets
 
@@ -20,8 +20,9 @@ def test_calc_by_methods():
     """
     # execute Calculator calc_by methods to get actual results
     p = Specification()
+    dp = AssetParams()
     assets = Assets()
-    calc = Calculator(p, assets)
+    calc = Calculator(p, dp, assets)
     actual_by_asset = calc.calc_by_asset()
     actual_by_industry = calc.calc_by_industry()
     # load expected results from the calc_by_ methods
@@ -60,15 +61,16 @@ def test_example_output():
     cyr = 2019
     # ... specify baseline and reform Calculator objects
     assets = Assets()
+    dp = AssetParams()
     baseline_parameters = Specification(year=cyr)
-    calc1 = Calculator(baseline_parameters, assets)
+    calc1 = Calculator(baseline_parameters, dp, assets)
     reform_parameters = Specification(year=cyr)
     business_tax_adjustments = {
         'CIT_rate': 0.35, 'BonusDeprec_3yr': 0.50, 'BonusDeprec_5yr': 0.50,
         'BonusDeprec_7yr': 0.50, 'BonusDeprec_10yr': 0.50,
         'BonusDeprec_15yr': 0.50, 'BonusDeprec_20yr': 0.50}
     reform_parameters.update_specification(business_tax_adjustments)
-    calc2 = Calculator(reform_parameters, assets)
+    calc2 = Calculator(reform_parameters, dp, assets)
     # ... calculation by asset and by industry
     baseline_assets_df = calc1.calc_by_asset()
     reform_assets_df = calc2.calc_by_asset()
