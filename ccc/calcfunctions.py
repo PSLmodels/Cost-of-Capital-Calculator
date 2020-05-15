@@ -1,17 +1,19 @@
 import numpy as np
+import pandas as pd
 from ccc.constants import TAX_METHODS
 from ccc.utils import str_modified
 
 
-def update_depr_methods(df, p):
+def update_depr_methods(df, p, dp):
     '''
     Updates depreciation methods per changes from defaults that are
     specified by user.
 
     Args:
-        df (Pandas DataFrame): assets by type and tax treatment with
-            current law tax depreciation methods
-        p (CCC Specifications object): model parameters
+        df (Pandas DataFrame): assets by type and tax treatment
+        p (CCC Specifications object): CCC parameters
+        dp (CCC AssetParams object): asset-specific depreciation
+            parameters
 
     Returns:
         df (Pandas DataFrame): assets by type and tax treatment with
@@ -19,22 +21,45 @@ def update_depr_methods(df, p):
 
     '''
     # update tax_deprec_rates based on user defined parameters
-    df['System'] = df['GDS Life'].apply(str_modified)
-    df['System'].replace(p.deprec_system, inplace=True)
-    df.loc[df['System'] == 'ADS', 'Method'] = 'SL'
-    df.loc[df['System'] == 'Economic', 'Method'] = 'Economic'
-
+    # create dataframe with depreciation policy parameters
+    deprec_df = pd.DataFrame(dp.asset)
+    # split out value into two columns
+    df = pd.concat([df.drop(['value'], axis=1), df['value'].apply(
+        pd.Series)], axis=1)
+    # drop information duplicated in asset dataframe
+    deprec_df.drop('asset_name', 'minor_asset_group',
+                   'major_asset_group', 'GDS_life')
+    # merge depreciation policy parameters to asset dataframe
+    df = df.merge(deprec_df, how='left', left_on='BEA_code',
+                  right_on='BEA_code')
     # add bonus depreciation to tax deprec parameters dataframe
-    df['bonus'] = df['GDS Class Life'].apply(str_modified)
+    # ** UPDATE THIS  - maybe including bonus in new asset deprec JSON**
+    df['bonus'] = df['GDS_life'].apply(str_modified)
     df['bonus'].replace(p.bonus_deprec, inplace=True)
-
-    df['b'] = df['Method']
+    # Compute b
+    df['b'] = df['method']
     df['b'].replace(TAX_METHODS, inplace=True)
+    df.loc[df['system'] == 'ADS', 'Y'] = df.loc[df['system'] == 'ADS',
+                                                'ADS_life']
+    df.loc[df['system'] == 'GDS', 'Y'] = df.loc[df['system'] == 'GDS',
+                                                'GDS_life']
 
-    df.loc[df['System'] == 'ADS', 'Y'] = df.loc[df['System'] == 'ADS',
-                                                'ADS Life']
-    df.loc[df['System'] == 'GDS', 'Y'] = df.loc[df['System'] == 'GDS',
-                                                'GDS Life']
+    # df['System'] = df['GDS Life'].apply(str_modified)
+    # df['System'].replace(p.deprec_system, inplace=True)
+    # df.loc[df['System'] == 'ADS', 'Method'] = 'SL'
+    # df.loc[df['System'] == 'Economic', 'Method'] = 'Economic'
+    #
+    # # add bonus depreciation to tax deprec parameters dataframe
+    # df['bonus'] = df['GDS Class Life'].apply(str_modified)
+    # df['bonus'].replace(p.bonus_deprec, inplace=True)
+    #
+    # df['b'] = df['Method']
+    # df['b'].replace(TAX_METHODS, inplace=True)
+    #
+    # df.loc[df['System'] == 'ADS', 'Y'] = df.loc[df['System'] == 'ADS',
+    #                                             'ADS Life']
+    # df.loc[df['System'] == 'GDS', 'Y'] = df.loc[df['System'] == 'GDS',
+    #                                             'GDS Life']
     return df
 
 
