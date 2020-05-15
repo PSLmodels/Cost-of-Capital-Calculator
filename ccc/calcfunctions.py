@@ -24,14 +24,15 @@ def update_depr_methods(df, p, dp):
     # create dataframe with depreciation policy parameters
     deprec_df = pd.DataFrame(dp.asset)
     # split out value into two columns
-    df = pd.concat([df.drop(['value'], axis=1), df['value'].apply(
-        pd.Series)], axis=1)
+    deprec_df = pd.concat([deprec_df.drop(['value'], axis=1),
+                           deprec_df['value'].apply(pd.Series)], axis=1)
     # drop information duplicated in asset dataframe
-    deprec_df.drop('asset_name', 'minor_asset_group',
-                   'major_asset_group', 'GDS_life')
+    deprec_df.drop(columns=['asset_name', 'minor_asset_group',
+                            'major_asset_group'], inplace=True)
     # merge depreciation policy parameters to asset dataframe
-    df = df.merge(deprec_df, how='left', left_on='BEA_code',
+    df = df.merge(deprec_df, how='left', left_on='bea_asset_code',
                   right_on='BEA_code')
+    df.drop(columns=['Unnamed: 0'], inplace=True)
     # add bonus depreciation to tax deprec parameters dataframe
     # ** UPDATE THIS  - maybe including bonus in new asset deprec JSON**
     df['bonus'] = df['GDS_life'].apply(str_modified)
