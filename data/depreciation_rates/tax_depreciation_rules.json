@@ -4,8 +4,8 @@
             "BEA_code": {"type": "str"},
             "minor_asset_group": {"type": "str"},
             "major_asset_group": {"type": "str"},
-            "ADS_life": {"type": "int"},
-            "GDS_life": {"type": "int"},
+            "ADS_life": {"type": "float"},
+            "GDS_life": {"type": "float"},
             "system": {"type": "str"},
             "year": {
                 "type": "int",
@@ -480,7 +480,7 @@
               },
               {
                   "ADS_life": 14.0,
-                  "BEA_code": "SOMO ",
+                  "BEA_code": "SOMO",
                   "GDS_life": 7.0,
                   "asset_name": "Mobile structures",
                   "major_asset_group": "Structures",
