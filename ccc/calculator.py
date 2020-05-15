@@ -12,7 +12,7 @@ import pandas as pd
 from ccc.calcfunctions import (update_depr_methods, npv_tax_depr,
                                eq_coc, eq_coc_inventory, eq_ucc,
                                eq_metr, eq_mettr, eq_tax_wedge, eq_eatr)
-from ccc.parameters import Specification
+from ccc.parameters import Specification, AssetParams
 from ccc.data import Assets
 from ccc.utils import wavg, diff_two_tables, save_return_table
 from ccc.constants import (VAR_DICT, MAJOR_IND_ORDERED, OUTPUT_VAR_LIST,
@@ -72,12 +72,16 @@ class Calculator():
     '''
     # pylint: disable=too-many-public-methods
 
-    def __init__(self, p=None, assets=None, verbose=True):
+    def __init__(self, p=None, dp=None, assets=None, verbose=True):
         # pylint: disable=too-many-arguments,too-many-branches
         if isinstance(p, Specification):
             self.__p = copy.deepcopy(p)
         else:
             raise ValueError('must specify p as a Specification object')
+        if isinstance(dp, AssetParams):
+            self.__dp = copy.deepcopy(dp)
+        else:
+            raise ValueError('must specify p as an AssetParams object')
         if isinstance(assets, Assets):
             self.__assets = copy.deepcopy(assets)
         else:
@@ -128,8 +132,8 @@ class Calculator():
 
         '''
         # conducts static analysis of Calculator object for current_year
-        self.__assets.df = update_depr_methods(self.__assets.df,
-                                               self.__p)
+        self.__assets.df = update_depr_methods(
+            self.__assets.df, self.__p, self.__dp)
         dfs = {'c': self.__assets.df[
                self.__assets.df['tax_treat'] == 'corporate'].copy(),
                'nc': self.__assets.df[

@@ -30,9 +30,13 @@ def update_depr_methods(df, p, dp):
     deprec_df.drop(columns=['asset_name', 'minor_asset_group',
                             'major_asset_group'], inplace=True)
     # merge depreciation policy parameters to asset dataframe
+    df = df[['tax_treat', 'assets', 'bea_asset_code', 'bea_ind_code',
+             'Industry', 'minor_code_alt', 'major_asset_group',
+             'minor_asset_group', 'major_industry', 'asset_name',
+             'delta']]
     df = df.merge(deprec_df, how='left', left_on='bea_asset_code',
                   right_on='BEA_code')
-    df.drop(columns=['Unnamed: 0'], inplace=True)
+    # df.drop(columns=['Unnamed: 0'], inplace=True)
     # add bonus depreciation to tax deprec parameters dataframe
     # ** UPDATE THIS  - maybe including bonus in new asset deprec JSON**
     df['bonus'] = df['GDS_life'].apply(str_modified)
@@ -45,22 +49,6 @@ def update_depr_methods(df, p, dp):
     df.loc[df['system'] == 'GDS', 'Y'] = df.loc[df['system'] == 'GDS',
                                                 'GDS_life']
 
-    # df['System'] = df['GDS Life'].apply(str_modified)
-    # df['System'].replace(p.deprec_system, inplace=True)
-    # df.loc[df['System'] == 'ADS', 'Method'] = 'SL'
-    # df.loc[df['System'] == 'Economic', 'Method'] = 'Economic'
-    #
-    # # add bonus depreciation to tax deprec parameters dataframe
-    # df['bonus'] = df['GDS Class Life'].apply(str_modified)
-    # df['bonus'].replace(p.bonus_deprec, inplace=True)
-    #
-    # df['b'] = df['Method']
-    # df['b'].replace(TAX_METHODS, inplace=True)
-    #
-    # df.loc[df['System'] == 'ADS', 'Y'] = df.loc[df['System'] == 'ADS',
-    #                                             'ADS Life']
-    # df.loc[df['System'] == 'GDS', 'Y'] = df.loc[df['System'] == 'GDS',
-    #                                             'GDS Life']
     return df
 
 
@@ -158,15 +146,15 @@ def npv_tax_depr(df, r, pi, land_expensing):
                 types and tax treatments
 
     '''
-    idx = (df['Method'] == 'DB 200%') | (df['Method'] == 'DB 150%')
+    idx = (df['method'] == 'DB 200%') | (df['method'] == 'DB 150%')
     df.loc[idx, 'z'] = dbsl(df.loc[idx, 'Y'], df.loc[idx, 'b'],
                             df.loc[idx, 'bonus'], r)
-    idx = df['Method'] == 'SL'
+    idx = df['method'] == 'SL'
     df.loc[idx, 'z'] = sl(df.loc[idx, 'Y'], df.loc[idx, 'bonus'], r)
-    idx = df['Method'] == 'Economic'
+    idx = df['method'] == 'Economic'
     df.loc[idx, 'z'] = econ(df.loc[idx, 'delta'], df.loc[idx, 'bonus'],
                             r, pi)
-    idx = df['Method'] == 'Expensing'
+    idx = df['method'] == 'Expensing'
     df.loc[idx, 'z'] = 1.0
     idx = df['asset_name'] == 'Land'
     df.loc[idx, 'z'] = land_expensing
