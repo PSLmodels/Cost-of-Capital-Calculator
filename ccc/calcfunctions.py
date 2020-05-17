@@ -30,10 +30,11 @@ def update_depr_methods(df, p, dp):
     deprec_df.drop(columns=['asset_name', 'minor_asset_group',
                             'major_asset_group'], inplace=True)
     # merge depreciation policy parameters to asset dataframe
-    df = df[['tax_treat', 'assets', 'bea_asset_code', 'bea_ind_code',
-             'Industry', 'minor_code_alt', 'major_asset_group',
-             'minor_asset_group', 'major_industry', 'asset_name',
-             'delta']]
+    # df = df[['tax_treat', 'assets', 'bea_asset_code', 'bea_ind_code',
+    #          'Industry', 'minor_code_alt', 'major_asset_group',
+    #          'minor_asset_group', 'major_industry', 'asset_name',
+    #          'delta']]
+    df.drop(columns=deprec_df.keys(), inplace=True, errors='ignore')
     df = df.merge(deprec_df, how='left', left_on='bea_asset_code',
                   right_on='BEA_code')
     # df.drop(columns=['Unnamed: 0'], inplace=True)
