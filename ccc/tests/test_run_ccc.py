@@ -96,15 +96,15 @@ def test_example_output():
     # compare actual calculated results to expected results
     failmsg = ''
     expect_output_dir = os.path.join(TDIR, '..', '..', 'example_output')
-    for fname in ['baseline_byindustry', 'baseline_byasset',
-                  'reform_byindustry', 'reform_byasset',
-                  'changed_byindustry', 'changed_byasset']:
+    for fname in ['baseline_byasset', 'baseline_byindustry',
+                  'reform_byasset', 'reform_byindustry',
+                  'changed_byasset', 'changed_byindustry']:
         actual_path = os.path.join(TDIR, fname + '.csv')
         actual_df = pd.read_csv(actual_path)
         expect_path = os.path.join(expect_output_dir, fname + '_expected.csv')
         expect_df = pd.read_csv(expect_path)
         try:
-            assert_frame_equal(actual_df, expect_df, check_less_precise=False)
+            assert_frame_equal(actual_df, expect_df)
             # cleanup actual results if it has same  contents as expected file
             os.remove(actual_path)
         except AssertionError:
