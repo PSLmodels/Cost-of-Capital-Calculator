@@ -4,6 +4,7 @@ import pytest
 from pandas.testing import assert_series_equal, assert_frame_equal
 from ccc import calcfunctions as cf
 from ccc.parameters import Specification, AssetParams
+from mock import patch
 
 
 p = Specification()
