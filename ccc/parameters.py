@@ -223,9 +223,12 @@ paramtools.register_custom_type("depreciation_rules",
 
 
 class AssetParams(paramtools.Parameters):
-    defaults = os.path.join(CURRENT_PATH, "..", "data",
-                            "depreciation_rates",
-                            "tax_depreciation_rules.json")
+    print('DEFAULT path = ', os.path.join(
+        CURRENT_PATH, "..", "data", "depreciation_rates",
+        "tax_depreciation_rules.json"))
+    defaults = os.path.join(
+        CURRENT_PATH, "..", "data", "depreciation_rates",
+        "tax_depreciation_rules.json")
 
 
 def revision_warnings_errors(spec_revision):
