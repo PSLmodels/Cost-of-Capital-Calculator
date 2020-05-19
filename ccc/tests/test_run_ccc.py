@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 from pandas.testing import assert_frame_equal
 import ccc
-from ccc.parameters import Specification, AssetParams
+from ccc.parameters import Specification, DepreciationParams
 from ccc.calculator import Calculator
 from ccc.data import Assets
 
@@ -20,7 +20,7 @@ def test_calc_by_methods():
     """
     # execute Calculator calc_by methods to get actual results
     p = Specification()
-    dp = AssetParams()
+    dp = DepreciationParams()
     assets = Assets()
     calc = Calculator(p, dp, assets)
     actual_by_asset = calc.calc_by_asset()
@@ -61,7 +61,7 @@ def test_example_output():
     cyr = 2019
     # ... specify baseline and reform Calculator objects
     assets = Assets()
-    dp = AssetParams()
+    dp = DepreciationParams()
     baseline_parameters = Specification(year=cyr)
     calc1 = Calculator(baseline_parameters, dp, assets)
     reform_parameters = Specification(year=cyr)

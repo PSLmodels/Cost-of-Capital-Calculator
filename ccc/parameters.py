@@ -12,6 +12,7 @@ CURRENT_PATH = os.path.abspath(os.path.dirname(__file__))
 
 class Specification(paramtools.Parameters):
     '''
+    Specification class, contains model parameters.
     Inherits ParamTools Parameters abstract base class.
     '''
     defaults = os.path.join(CURRENT_PATH, "default_parameters.json")
@@ -222,7 +223,12 @@ paramtools.register_custom_type("depreciation_rules",
                                 ma.fields.Nested(DepreciationRules()))
 
 
-class AssetParams(paramtools.Parameters):
+class DepreciationParams(paramtools.Parameters):
+    '''
+    Depreciation parameters class, contains model depreciation
+    parameters.
+    Inherits ParamTools Parameters abstract base class.
+    '''
     defaults = os.path.join(
         CURRENT_PATH, "..", "data", "depreciation_rates",
         "tax_depreciation_rules.json")

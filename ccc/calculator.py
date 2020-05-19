@@ -12,7 +12,7 @@ import pandas as pd
 from ccc.calcfunctions import (update_depr_methods, npv_tax_depr,
                                eq_coc, eq_coc_inventory, eq_ucc,
                                eq_metr, eq_mettr, eq_tax_wedge, eq_eatr)
-from ccc.parameters import Specification, AssetParams
+from ccc.parameters import Specification, DepreciationParams
 from ccc.data import Assets
 from ccc.utils import wavg, diff_two_tables, save_return_table
 from ccc.constants import (VAR_DICT, MAJOR_IND_ORDERED, OUTPUT_VAR_LIST,
@@ -78,10 +78,10 @@ class Calculator():
             self.__p = copy.deepcopy(p)
         else:
             raise ValueError('must specify p as a Specification object')
-        if isinstance(dp, AssetParams):
+        if isinstance(dp, DepreciationParams):
             self.__dp = copy.deepcopy(dp)
         else:
-            raise ValueError('must specify p as an AssetParams object')
+            raise ValueError('must specify p as an DepreciationParams object')
         if isinstance(assets, Assets):
             self.__assets = copy.deepcopy(assets)
         else:

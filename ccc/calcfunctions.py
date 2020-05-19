@@ -12,7 +12,7 @@ def update_depr_methods(df, p, dp):
     Args:
         df (Pandas DataFrame): assets by type and tax treatment
         p (CCC Specifications object): CCC parameters
-        dp (CCC AssetParams object): asset-specific depreciation
+        dp (CCC DepreciationParams object): asset-specific depreciation
             parameters
 
     Returns:

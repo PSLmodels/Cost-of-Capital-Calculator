@@ -1,6 +1,6 @@
 import pytest
 from ccc.parameters import Specification, revision_warnings_errors
-from ccc.parameters import AssetParams
+from ccc.parameters import DepreciationParams
 
 
 test_data = [(27.5, '27_5'), (30, '30')]
@@ -178,5 +178,5 @@ def test_revision_warnings_errors():
 
 
 def test_create_depreciation_parameters_object():
-    dp = AssetParams()
+    dp = DepreciationParams()
     assert dp

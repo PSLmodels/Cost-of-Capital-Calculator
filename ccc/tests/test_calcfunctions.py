@@ -3,7 +3,7 @@ import numpy as np
 import pytest
 from pandas.testing import assert_series_equal, assert_frame_equal
 from ccc import calcfunctions as cf
-from ccc.parameters import Specification, AssetParams
+from ccc.parameters import Specification, DepreciationParams
 
 
 def test_update_depr_methods(monkeypatch):
@@ -135,8 +135,8 @@ def test_update_depr_methods(monkeypatch):
             }
         }
         """
-    monkeypatch.setattr(AssetParams, "defaults", json_str)
-    dp = AssetParams()
+    monkeypatch.setattr(DepreciationParams, "defaults", json_str)
+    dp = DepreciationParams()
     asset_df = pd.DataFrame.from_dict({'bea_asset_code': [
         '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']})
     expected_df = pd.DataFrame(dp.asset)
