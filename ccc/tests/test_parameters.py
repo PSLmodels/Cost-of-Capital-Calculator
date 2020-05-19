@@ -1,5 +1,6 @@
 import pytest
 from ccc.parameters import Specification, revision_warnings_errors
+from ccc.parameters import AssetParams
 
 
 test_data = [(27.5, '27_5'), (30, '30')]
@@ -174,3 +175,8 @@ def test_revision_warnings_errors():
     e_w = revision_warnings_errors(revs_dict_badder)
     assert e_w['errors'] ==\
         'ERROR: revision is not a dictionary or string'
+
+
+def test_create_depreciation_parameters_object():
+    dp = AssetParams()
+    assert dp
