@@ -40,7 +40,8 @@ def test_update_depr_methods(monkeypatch):
                       "major_asset_group": "Group1",
                       "minor_asset_group": "Group1",
                       "system": "GDS",
-                      "year": 2020, "value": {"life": 10, "method": "DB 200%"}
+                      "year": 2020, "value": {"life": 10,
+                                              "method": "DB 200%"}
                   },
                   {
                       "ADS_life": 10.0,
@@ -50,7 +51,8 @@ def test_update_depr_methods(monkeypatch):
                       "major_asset_group": "Group1",
                       "minor_asset_group": "Group1",
                       "system": "GDS",
-                      "year": 2020, "value": {"life": 10, "method": "DB 150%"}
+                      "year": 2020, "value": {"life": 10,
+                                              "method": "DB 150%"}
                   },
                   {
                       "ADS_life": 3.0,
@@ -60,7 +62,8 @@ def test_update_depr_methods(monkeypatch):
                       "major_asset_group": "Group1",
                       "minor_asset_group": "Group1",
                       "system": "GDS",
-                      "year": 2020, "value": {"life": 3, "method": "SL"}
+                      "year": 2020, "value": {"life": 3,
+                                              "method": "SL"}
                   },
                   {
                       "ADS_life": 15.0,
@@ -70,7 +73,8 @@ def test_update_depr_methods(monkeypatch):
                       "major_asset_group": "Group1",
                       "minor_asset_group": "Group1",
                       "system": "GDS",
-                      "year": 2020, "value": {"life": 15, "method": "Economic"}
+                      "year": 2020, "value": {"life": 15,
+                                              "method": "Economic"}
                   },
                   {
                       "ADS_life": 27.5,
@@ -80,7 +84,8 @@ def test_update_depr_methods(monkeypatch):
                       "major_asset_group": "Group1",
                       "minor_asset_group": "Group1",
                       "system": "GDS",
-                      "year": 2020, "value": {"life": 27.5, "method": "Expensing"}
+                      "year": 2020, "value": {"life": 27.5,
+                                              "method": "Expensing"}
                   },
                   {
                       "ADS_life": 27.5,
@@ -90,7 +95,8 @@ def test_update_depr_methods(monkeypatch):
                       "major_asset_group": "Group1",
                       "minor_asset_group": "Group1",
                       "system": "GDS",
-                      "year": 2020, "value": {"life": 27.5, "method": "DB 200%"}
+                      "year": 2020, "value": {"life": 27.5,
+                                              "method": "DB 200%"}
                   },
                   {
                       "ADS_life": 10.0,
@@ -100,7 +106,8 @@ def test_update_depr_methods(monkeypatch):
                       "major_asset_group": "Group1",
                       "minor_asset_group": "Group1",
                       "system": "GDS",
-                      "year": 2020, "value": {"life": 10, "method": "DB 150%"}
+                      "year": 2020, "value": {"life": 10,
+                                              "method": "DB 150%"}
                   },
                   {
                       "ADS_life": 3.0,
@@ -110,7 +117,8 @@ def test_update_depr_methods(monkeypatch):
                       "major_asset_group": "Group1",
                       "minor_asset_group": "Group1",
                       "system": "GDS",
-                      "year": 2020, "value": {"life": 3, "method": "SL"}
+                      "year": 2020, "value": {"life": 3,
+                                              "method": "SL"}
                   },
                   {
                       "ADS_life": 15.0,
@@ -120,7 +128,8 @@ def test_update_depr_methods(monkeypatch):
                       "major_asset_group": "Group1",
                       "minor_asset_group": "Group1",
                       "system": "GDS",
-                      "year": 2020, "value": {"life": 15, "method": "Economic"}
+                      "year": 2020, "value": {"life": 15,
+                                              "method": "Economic"}
                   },
                   {
                       "ADS_life": 7.0,
@@ -130,7 +139,8 @@ def test_update_depr_methods(monkeypatch):
                       "major_asset_group": "Group1",
                       "minor_asset_group": "Group1",
                       "system": "GDS",
-                      "year": 2020, "value": {"life": 7, "method": "Expensing"}
+                      "year": 2020, "value": {"life": 7,
+                                              "method": "Expensing"}
                   }]
             }
         }
