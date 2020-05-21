@@ -16,7 +16,6 @@ def test_Calculator_exception1():
     Raise exception for not passing parameters object
     '''
     assets = Assets()
-    DepreciationParams.defaults = None
     dp = DepreciationParams()
     with pytest.raises(Exception):
         assert Calculator(dp=dp, assets=assets)
