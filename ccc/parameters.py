@@ -128,11 +128,8 @@ class Specification(paramtools.Parameters):
         class_list_str = [
             (str(i) if i != 27.5 else '27_5') for i in class_list
         ]
-        self.deprec_system = {}
         self.bonus_deprec = {}
         for cl in class_list_str:
-            self.deprec_system[cl] = getattr(
-                self, 'DeprecSystem_{}yr'.format(cl))
             self.bonus_deprec[cl] = getattr(
                 self, 'BonusDeprec_{}yr'.format(cl))
         # to handle land and inventories
