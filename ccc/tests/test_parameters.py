@@ -100,14 +100,13 @@ def test_update_bad_revsions2():
     # Pick a category for depreciation that is out of bounds
     revs = {
         'profit_rate': 0.5,
-        'DeprecSystem_3yr': 'not_a_deprec_system'}
+        'PT_entity_tax_rate': 1.2}
     spec.update_specification(revs, raise_errors=False)
     assert len(spec.errors) > 0
-    first_line = spec.errors['DeprecSystem_3yr'][0]
+    first_line = spec.errors['PT_entity_tax_rate'][0]
     print('First line = ', first_line)
     expected_first_line = (
-        'DeprecSystem_3yr "not_a_deprec_system" must be in list of '
-        'choices GDS, ADS, Economic.'
+        'PT_entity_tax_rate 1.2 > max 1.0 '
     )
     assert first_line == expected_first_line
 
