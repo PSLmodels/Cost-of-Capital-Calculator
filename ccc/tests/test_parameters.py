@@ -179,3 +179,41 @@ def test_revision_warnings_errors():
 def test_create_depreciation_parameters_object():
     dp = DepreciationParams()
     assert dp
+
+
+def test_update_depreciation_params_with_dict():
+    expected_result = [{
+        'year': 2020, 'value': {'method': 'SL', 'life': 3},
+        'GDS_life': 3.0, 'ADS_life': 3.0,
+        'major_asset_group': 'Equipment',
+        'minor_asset_group': 'Computers and Software', 'system': 'GDS',
+        'asset_name': 'Custom software', 'BEA_code': 'ENS2'}]
+    dp = DepreciationParams()
+    new_dp_dict = {"asset": [
+        {"year": 2020,
+         "minor_asset_group": "Prepackaged software",
+         "value": {"life": 5, "method": "Expensing"}}]}
+    dp.adjust(new_dp_dict)
+    test_result = dp.select_eq(
+        param="asset", exact_match=False, year=2020, BEA_code="ENS2")
+    assert test_result == expected_result
+
+
+def test_update_depreciation_params_with_json():
+    expected_result = [{
+        'year': 2020, 'value': {'method': 'SL', 'life': 3},
+        'GDS_life': 3.0, 'ADS_life': 3.0,
+        'major_asset_group': 'Equipment',
+        'minor_asset_group': 'Computers and Software', 'system': 'GDS',
+        'asset_name': 'Custom software', 'BEA_code': 'ENS2'}]
+    dp = DepreciationParams()
+    new_dp_json = """
+        {"asset": [
+        {"year": 2020,
+         "minor_asset_group": "Prepackaged software",
+         "value": {"life": 5, "method": "Expensing"}}]}
+         """
+    dp.adjust(new_dp_json)
+    test_result = dp.select_eq(
+        param="asset", exact_match=False, year=2020, BEA_code="ENS2")
+    assert test_result == expected_result
