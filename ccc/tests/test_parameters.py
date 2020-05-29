@@ -183,7 +183,7 @@ def test_create_depreciation_parameters_object():
 
 def test_update_depreciation_params_with_dict():
     expected_result = [{
-        'year': 2020, 'value': {'method': 'SL', 'life': 3},
+        'year': 2020, 'value': {'method': 'Expensing', 'life': 5},
         'GDS_life': 3.0, 'ADS_life': 3.0,
         'major_asset_group': 'Equipment',
         'minor_asset_group': 'Computers and Software', 'system': 'GDS',
@@ -191,7 +191,7 @@ def test_update_depreciation_params_with_dict():
     dp = DepreciationParams()
     new_dp_dict = {"asset": [
         {"year": 2020,
-         "minor_asset_group": "Prepackaged software",
+         "asset_name": "Custom software",
          "value": {"life": 5, "method": "Expensing"}}]}
     dp.adjust(new_dp_dict)
     test_result = dp.select_eq(
@@ -201,7 +201,7 @@ def test_update_depreciation_params_with_dict():
 
 def test_update_depreciation_params_with_json():
     expected_result = [{
-        'year': 2020, 'value': {'method': 'SL', 'life': 3},
+        'year': 2020, 'value': {'method': 'Expensing', 'life': 5},
         'GDS_life': 3.0, 'ADS_life': 3.0,
         'major_asset_group': 'Equipment',
         'minor_asset_group': 'Computers and Software', 'system': 'GDS',
@@ -210,10 +210,27 @@ def test_update_depreciation_params_with_json():
     new_dp_json = """
         {"asset": [
         {"year": 2020,
-         "minor_asset_group": "Prepackaged software",
+         "asset_name": "Custom software",
          "value": {"life": 5, "method": "Expensing"}}]}
          """
     dp.adjust(new_dp_json)
     test_result = dp.select_eq(
         param="asset", exact_match=False, year=2020, BEA_code="ENS2")
+    assert test_result == expected_result
+
+
+def test_update_depreciation_params_as_a_group():
+    expected_result = [{
+        'year': 2020, 'value': {'method': 'DB 200%', 'life': 12},
+        'GDS_life': 3.0, 'ADS_life': 3.0,
+        'major_asset_group': 'Intellectual Property',
+        'minor_asset_group': 'Intellectual Property', 'system': 'GDS',
+        'asset_name': 'Own account software', 'BEA_code': 'ENS3'}]
+    dp = DepreciationParams()
+    new_dp_dict = {
+        "asset": [{"major_asset_group": "Intellectual Property",
+                   "value": {"life": 12, "method": "DB 200%"}}]}
+    dp.adjust(new_dp_dict)
+    test_result = dp.select_eq(
+        param="asset", exact_match=False, year=2020, BEA_code="ENS3")
     assert test_result == expected_result
