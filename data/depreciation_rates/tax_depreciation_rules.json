@@ -2,8 +2,43 @@
         "labels": {
             "asset_name": {"type": "str"},
             "BEA_code": {"type": "str"},
-            "minor_asset_group": {"type": "str"},
-            "major_asset_group": {"type": "str"},
+            "minor_asset_group": {
+              "type": "str",
+              "validators": {
+                      "choice": {
+                          "choices": [
+                              "Computers and Software",
+                              "Industrial Machinery",
+                              "Instruments and Communications Equipment",
+                              "Intellectual Property",
+                              "Inventories",
+                              "Land",
+                              "Mining and Drilling Structures",
+                              "Nonresidential Buildings",
+                              "Office and Residential Equipment",
+                              "Other Industrial Equipment",
+                              "Other Structures",
+                              "Residential Buildings",
+                              "Service industry machinery",
+                              "Transportation Equipment"
+                            ]
+                      }
+                  }
+                },
+            "major_asset_group": {
+              "type": "str",
+              "validators": {
+                      "choice": {
+                          "choices": [
+                              "Equipment",
+                              "Structures",
+                              "Intellectual Property",
+                              "Inventories",
+                              "Land"
+                            ]
+                      }
+                  }
+                },
             "ADS_life": {"type": "float"},
             "GDS_life": {"type": "float"},
             "system": {"type": "str"},
