@@ -1,7 +1,99 @@
 {"schema": {
         "labels": {
-            "asset_name": {"type": "str"},
-            "BEA_code": {"type": "str"},
+            "asset_name": {
+              "type": "str",
+              "validators": {
+                      "choice": {
+                          "choices": [
+                            "Mainframes", "PCs", "DASDs", "Printers",
+                            "Terminals", "Tape drives", "Storage devices",
+                            "System integrators", "Prepackaged software",
+                            "Custom software", "Communications",
+                            "Nonelectro medical instruments",
+                            "Electro medical instruments",
+                            "Nonmedical instruments",
+                            "Photocopy and related equipment",
+                            "Office and accounting equipment",
+                            "Household furniture", "Other furniture",
+                            "Household appliances",
+                            "Light trucks (including utility vehicles)",
+                            "Other trucks, buses and truck trailers", "Autos",
+                            "Aircraft", "Ships and boats", "Railroad equipment",
+                            "Steam engines", "Internal combustion engines",
+                            "Special industrial machinery",
+                            "General industrial equipment", "Nuclear fuel",
+                            "Other fabricated metals", "Metalworking machinery",
+                            "Electric transmission and distribution",
+                            "Other agricultural machinery", "Farm tractors",
+                            "Other construction machinery",
+                            "Construction tractors",
+                            "Mining and oilfield machinery",
+                            "Service industry machinery", "Other electrical",
+                            "Other", "Residential", "Manufacturing", "Office",
+                            "Hospitals", "Special care", "Medical buildings",
+                            "Multimerchandise shopping",
+                            "Food and beverage establishments", "Warehouses",
+                            "Other commercial", "Air transportation",
+                            "Other transportation", "Religious",
+                            "Educational and vocational", "Lodging",
+                            "Public safety", "Gas", "Petroleum pipelines",
+                            "Communication", "Petroleum and natural gas",
+                            "Mining", "Electric", "Wind and solar",
+                            "Amusement and recreation", "Other railroad",
+                            "Track replacement", "Local transit structures",
+                            "Other land transportation", "Farm", "Water supply",
+                            "Sewage and waste disposal",
+                            "Highway and conservation and development",
+                            "Mobile structures",
+                            "Pharmaceutical and medicine manufacturing",
+                            "Chemical manufacturing, ex. pharma and med",
+                            "Semiconductor and other component manufacturing",
+                            "Computers and peripheral equipment manufacturing",
+                            "Communications equipment manufacturing",
+                            "Navigational and other instruments manufacturing",
+                            "Other computer and electronic manufacturing, n.e.c.",
+                            "Motor vehicles and parts manufacturing",
+                            "Aerospace products and parts manufacturing",
+                            "Other manufacturing",
+                            "Scientific research and development services",
+                            "Software publishers", "Financial and real estate services",
+                            "Computer systems design and related services",
+                            "All other nonmanufacturing, n.e.c.",
+                            "Private universities and colleges",
+                            "Other nonprofit institutions", "Theatrical movies",
+                            "Long-lived television programs", "Books", "Music",
+                            "Other entertainment originals", "Own account software",
+                            "Inventories", "Land"
+                            ]
+                      }
+                  }
+            },
+            "BEA_code": {
+              "type": "str",
+              "validators": {
+                      "choice": {
+                          "choices": [
+                            "EP1A", "EP1B", "EP1C", "EP1D", "EP1E", "EP1F",
+                            "EP1G", "EP1H", "EP20", "EP34", "EP35", "EP36",
+                            "EP31", "EP12", "EI11", "EI12", "EI21", "EI22",
+                            "EI30", "EI40", "EI50", "EI60", "ET11", "ET12",
+                            "ET20", "ET30", "ET40", "ET50", "EO11", "EO12",
+                            "EO30", "EO21", "EO40", "EO22", "EO50", "EO60",
+                            "EO71", "EO72", "EO80", "SOO1", "SB31", "SB32",
+                            "SOO2", "SC03", "SC04", "SC01", "SOMO", "SC02",
+                            "SI00", "SU30", "SU60", "SU40", "SU50", "SU20",
+                            "SM01", "SM02", "SB10", "SB20", "SB41", "SB42",
+                            "SB43", "SB45", "SU11", "SU12", "SB44", "SB46",
+                            "SN00", "SO01", "SO02", "SO03", "SO04", "ENS1",
+                            "ENS2", "ENS3", "RD11", "RD12", "RD23", "RD21",
+                            "RD22", "RD24", "RD25", "RD31", "RD32", "RDOM",
+                            "RD70", "RD40", "RD50", "RD60", "RD80", "RD91",
+                            "RD92", "AE10", "AE20", "AE30", "AE40", "AE50",
+                            "RES", "LAND", "INV"
+                            ]
+                      }
+                  }
+            },
             "minor_asset_group": {
               "type": "str",
               "validators": {
@@ -39,15 +131,39 @@
                       }
                   }
                 },
-            "ADS_life": {"type": "float"},
-            "GDS_life": {"type": "float"},
-            "system": {"type": "str"},
+            "ADS_life": {
+              "type": "float",
+              "validators": {
+                      "choice": {
+                          "choices": [3.0, 4.0, 5.0, 6.0, 7.0, 9.0, 9.5, 10.0,
+                                      12.0, 14.0, 15.0, 18.0, 19.0, 20.0, 25.0,
+                                      28.0, 30.0, 40.0, 50.0, 100.0]
+                      }
+                  }
+                },
+            "GDS_life": {
+              "type": "float",
+              "validators": {
+                      "choice": {
+                          "choices": [3.0, 5.0, 7.0, 10.0, 15.0, 20.0, 25.0,
+                                      27.5, 39.0, 100.0]
+                      }
+                  }
+                },
+            "system": {
+              "type": "str",
+              "validators": {
+                      "choice": {
+                          "choices": ["ADS", "GDS", "Economic"]
+                      }
+                  }
+                },
             "year": {
                 "type": "int",
                 "validators": {"range": {"min": 2013, "max": 2030}}
             }
-        }
-    },
+    }
+  },
     "asset": {
         "title": "Tax depreciation rules for assets",
         "description": "Tax depreciation rules for assets",
