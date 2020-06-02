@@ -161,6 +161,23 @@
             "year": {
                 "type": "int",
                 "validators": {"range": {"min": 2013, "max": 2030}}
+            },
+            "life": {
+              "type": "float",
+              "validators": {
+                "range": {
+                    "min": 0.0,
+                    "max": 100.0
+                }
+            }},
+            "method": {
+              "type": "str",
+              "validators": {
+                "choice": {
+                    "choices": ["DB 150%", "DB 200%", "SL", "Expsensing",
+                                "Economic"]
+                }
+              }
             }
     }
   },
