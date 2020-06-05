@@ -208,14 +208,15 @@ class Specification(paramtools.Parameters):
 
 
 class DepreciationRules(ma.Schema):
-    life = ma.fields.Integer(validate=ma.validate.Range(min=0))
+    # set some field validation ranges that can't set in JSON
+    life = ma.fields.Float(validate=ma.validate.Range(min=0, max=100))
     method = ma.fields.String(
         validate=ma.validate.OneOf(choices=[
             "SL", "Expensing", "DB 150%", "DB 200%", "Economic"])
     )
 
 
-# only just added here: https://github.com/PSLmodels/ParamTools/pull/93
+# Register custom type defined above
 paramtools.register_custom_type("depreciation_rules",
                                 ma.fields.Nested(DepreciationRules()))
 
