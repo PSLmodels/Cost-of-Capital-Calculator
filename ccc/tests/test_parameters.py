@@ -232,27 +232,27 @@ def test_update_depreciation_params_as_a_group():
     assert test_result[2]['value']['life'] == 12
 
 
-# def test_update_depreciation_bad_revision():
-#     '''
-#     Check that parameter out of range raises exception
-#     '''
-#     dp = DepreciationParams()
-#     new_dp_dict = {"asset": [
-#         {"year": 2020,
-#          "asset_name": "Custom software",
-#          "value": {"life": 12, "method": "Expensing2"}}]}
-#     with pytest.raises(Exception):
-#         assert dp.adjust(new_dp_dict)
-#
-#
-# def test_update_depreciation_bad_revision2():
-#     '''
-#     Check that parameter out of range raises exception
-#     '''
-#     dp = DepreciationParams()
-#     new_dp_dict = {"asset": [
-#         {"year": 2020,
-#          "asset_name": "Custom software",
-#          "value": {"life": 122.0, "method": "Expensing"}}]}
-#     with pytest.raises(Exception):
-#         assert dp.adjust(new_dp_dict)
+def test_update_depreciation_bad_revision():
+    '''
+    Check that parameter out of range raises exception
+    '''
+    dp = DepreciationParams()
+    new_dp_dict = {"asset": [
+        {"year": 2020,
+         "asset_name": "Custom software",
+         "value": {"life": 12, "method": "Expensing2"}}]}
+    with pytest.raises(Exception):
+        assert dp.adjust(new_dp_dict)
+
+
+def test_update_depreciation_bad_revision2():
+    '''
+    Check that parameter out of range raises exception
+    '''
+    dp = DepreciationParams()
+    new_dp_dict = {"asset": [
+        {"year": 2020,
+         "asset_name": "Custom software",
+         "value": {"life": 122.0, "method": "Expensing"}}]}
+    with pytest.raises(Exception):
+        assert dp.adjust(new_dp_dict)
