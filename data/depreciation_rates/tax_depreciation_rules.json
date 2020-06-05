@@ -174,7 +174,7 @@
               "type": "str",
               "validators": {
                 "choice": {
-                    "choices": ["DB 150%", "DB 200%", "SL", "Expsensing",
+                    "choices": ["DB 150%", "DB 200%", "SL", "Expensing",
                                 "Economic"]
                 }
               }
