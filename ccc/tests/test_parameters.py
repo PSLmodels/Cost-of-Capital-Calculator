@@ -220,17 +220,39 @@ def test_update_depreciation_params_with_json():
 
 
 def test_update_depreciation_params_as_a_group():
-    expected_result = [{
-        'year': 2020, 'value': {'method': 'DB 200%', 'life': 12},
-        'GDS_life': 3.0, 'ADS_life': 3.0,
-        'major_asset_group': 'Intellectual Property',
-        'minor_asset_group': 'Intellectual Property', 'system': 'GDS',
-        'asset_name': 'Own account software', 'BEA_code': 'ENS3'}]
     dp = DepreciationParams()
     new_dp_dict = {
         "asset": [{"major_asset_group": "Intellectual Property",
                    "value": {"life": 12, "method": "DB 200%"}}]}
     dp.adjust(new_dp_dict)
     test_result = dp.select_eq(
-        param="asset", exact_match=False, year=2020, BEA_code="ENS3")
-    assert test_result == expected_result
+        param="asset", exact_match=False, year=2020, major_asset_group="Intellectual Property")
+    assert test_result[0]['value']['life'] == 12
+    assert test_result[1]['value']['life'] == 12
+    assert test_result[2]['value']['life'] == 12
+
+
+# def test_update_depreciation_bad_revision():
+#     '''
+#     Check that parameter out of range raises exception
+#     '''
+#     dp = DepreciationParams()
+#     new_dp_dict = {"asset": [
+#         {"year": 2020,
+#          "asset_name": "Custom software",
+#          "value": {"life": 12, "method": "Expensing2"}}]}
+#     with pytest.raises(Exception):
+#         assert dp.adjust(new_dp_dict)
+#
+#
+# def test_update_depreciation_bad_revision2():
+#     '''
+#     Check that parameter out of range raises exception
+#     '''
+#     dp = DepreciationParams()
+#     new_dp_dict = {"asset": [
+#         {"year": 2020,
+#          "asset_name": "Custom software",
+#          "value": {"life": 122.0, "method": "Expensing"}}]}
+#     with pytest.raises(Exception):
+#         assert dp.adjust(new_dp_dict)
