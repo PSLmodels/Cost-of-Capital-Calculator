@@ -226,7 +226,8 @@ def test_update_depreciation_params_as_a_group():
                    "value": {"life": 12, "method": "DB 200%"}}]}
     dp.adjust(new_dp_dict)
     test_result = dp.select_eq(
-        param="asset", exact_match=False, year=2020, major_asset_group="Intellectual Property")
+        param="asset", exact_match=False, year=2020,
+        major_asset_group="Intellectual Property")
     assert test_result[0]['value']['life'] == 12
     assert test_result[1]['value']['life'] == 12
     assert test_result[2]['value']['life'] == 12
