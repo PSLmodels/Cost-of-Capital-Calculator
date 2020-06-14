@@ -1,5 +1,7 @@
 import os
 import paramtools
+import marshmallow as ma
+import pandas as pd
 
 # import ccc
 from ccc.get_taxcalc_rates import get_rates
@@ -10,6 +12,7 @@ CURRENT_PATH = os.path.abspath(os.path.dirname(__file__))
 
 class Specification(paramtools.Parameters):
     '''
+    Specification class, contains model parameters.
     Inherits ParamTools Parameters abstract base class.
     '''
     defaults = os.path.join(CURRENT_PATH, "default_parameters.json")
@@ -125,11 +128,8 @@ class Specification(paramtools.Parameters):
         class_list_str = [
             (str(i) if i != 27.5 else '27_5') for i in class_list
         ]
-        self.deprec_system = {}
         self.bonus_deprec = {}
         for cl in class_list_str:
-            self.deprec_system[cl] = getattr(
-                self, 'DeprecSystem_{}yr'.format(cl))
             self.bonus_deprec[cl] = getattr(
                 self, 'BonusDeprec_{}yr'.format(cl))
         # to handle land and inventories
@@ -205,6 +205,31 @@ class Specification(paramtools.Parameters):
         return paramtools.Parameters.read_params(obj, 'revision')
 
 # end of Specification class
+
+
+class DepreciationRules(ma.Schema):
+    # set some field validation ranges that can't set in JSON
+    life = ma.fields.Float(validate=ma.validate.Range(min=0, max=100))
+    method = ma.fields.String(
+        validate=ma.validate.OneOf(choices=[
+            "SL", "Expensing", "DB 150%", "DB 200%", "Economic"])
+    )
+
+
+# Register custom type defined above
+paramtools.register_custom_type("depreciation_rules",
+                                ma.fields.Nested(DepreciationRules()))
+
+
+class DepreciationParams(paramtools.Parameters):
+    '''
+    Depreciation parameters class, contains model depreciation
+    parameters.
+    Inherits ParamTools Parameters abstract base class.
+    '''
+    defaults = os.path.join(
+        CURRENT_PATH, "..", "data", "depreciation_rates",
+        "tax_depreciation_rules.json")
 
 
 def revision_warnings_errors(spec_revision):

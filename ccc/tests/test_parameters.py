@@ -1,5 +1,6 @@
 import pytest
 from ccc.parameters import Specification, revision_warnings_errors
+from ccc.parameters import DepreciationParams
 
 
 test_data = [(27.5, '27_5'), (30, '30')]
@@ -99,14 +100,13 @@ def test_update_bad_revsions2():
     # Pick a category for depreciation that is out of bounds
     revs = {
         'profit_rate': 0.5,
-        'DeprecSystem_3yr': 'not_a_deprec_system'}
+        'PT_entity_tax_rate': 1.2}
     spec.update_specification(revs, raise_errors=False)
     assert len(spec.errors) > 0
-    first_line = spec.errors['DeprecSystem_3yr'][0]
+    first_line = spec.errors['PT_entity_tax_rate'][0]
     print('First line = ', first_line)
     expected_first_line = (
-        'DeprecSystem_3yr "not_a_deprec_system" must be in list of '
-        'choices GDS, ADS, Economic.'
+        'PT_entity_tax_rate 1.2 > max 1.0 '
     )
     assert first_line == expected_first_line
 
@@ -174,3 +174,86 @@ def test_revision_warnings_errors():
     e_w = revision_warnings_errors(revs_dict_badder)
     assert e_w['errors'] ==\
         'ERROR: revision is not a dictionary or string'
+
+
+def test_create_depreciation_parameters_object():
+    dp = DepreciationParams()
+    assert dp
+
+
+def test_update_depreciation_params_with_dict():
+    expected_result = [{
+        'year': 2020, 'value': {'method': 'Expensing', 'life': 5},
+        'GDS_life': 3.0, 'ADS_life': 3.0,
+        'major_asset_group': 'Equipment',
+        'minor_asset_group': 'Computers and Software', 'system': 'GDS',
+        'asset_name': 'Custom software', 'BEA_code': 'ENS2'}]
+    dp = DepreciationParams()
+    new_dp_dict = {"asset": [
+        {"year": 2020,
+         "asset_name": "Custom software",
+         "value": {"life": 5, "method": "Expensing"}}]}
+    dp.adjust(new_dp_dict)
+    test_result = dp.select_eq(
+        param="asset", exact_match=False, year=2020, BEA_code="ENS2")
+    assert test_result == expected_result
+
+
+def test_update_depreciation_params_with_json():
+    expected_result = [{
+        'year': 2020, 'value': {'method': 'Expensing', 'life': 5},
+        'GDS_life': 3.0, 'ADS_life': 3.0,
+        'major_asset_group': 'Equipment',
+        'minor_asset_group': 'Computers and Software', 'system': 'GDS',
+        'asset_name': 'Custom software', 'BEA_code': 'ENS2'}]
+    dp = DepreciationParams()
+    new_dp_json = """
+        {"asset": [
+        {"year": 2020,
+         "asset_name": "Custom software",
+         "value": {"life": 5, "method": "Expensing"}}]}
+         """
+    dp.adjust(new_dp_json)
+    test_result = dp.select_eq(
+        param="asset", exact_match=False, year=2020, BEA_code="ENS2")
+    assert test_result == expected_result
+
+
+def test_update_depreciation_params_as_a_group():
+    dp = DepreciationParams()
+    new_dp_dict = {
+        "asset": [{"major_asset_group": "Intellectual Property",
+                   "value": {"life": 12, "method": "DB 200%"}}]}
+    dp.adjust(new_dp_dict)
+    test_result = dp.select_eq(
+        param="asset", exact_match=False, year=2020,
+        major_asset_group="Intellectual Property")
+    assert test_result[0]['value']['life'] == 12
+    assert test_result[1]['value']['life'] == 12
+    assert test_result[2]['value']['life'] == 12
+
+
+def test_update_depreciation_bad_revision():
+    '''
+    Check that parameter out of range raises exception
+    '''
+    dp = DepreciationParams()
+    new_dp_dict = {"asset": [
+        {"year": 2020,
+         "asset_name": "Custom software",
+         "value": {"life": 12, "method": "Expensing2"}}]}
+    with pytest.raises(Exception):
+        assert dp.adjust(new_dp_dict)
+
+
+def test_update_depreciation_bad_revision2():
+    '''
+    Check that parameter out of range raises exception
+    '''
+    dp = DepreciationParams()
+    new_dp_dict = {"asset": [
+        {"year": 2020,
+         "asset_name": "Custom software",
+         "value": {"life": 122.0, "method": "Expensing"}}]}
+    with pytest.raises(Exception):
+        assert dp.adjust(new_dp_dict)

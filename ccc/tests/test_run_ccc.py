@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 from pandas.testing import assert_frame_equal
 import ccc
-from ccc.parameters import Specification
+from ccc.parameters import Specification, DepreciationParams
 from ccc.calculator import Calculator
 from ccc.data import Assets
 
@@ -20,8 +20,9 @@ def test_calc_by_methods():
     """
     # execute Calculator calc_by methods to get actual results
     p = Specification()
+    dp = DepreciationParams()
     assets = Assets()
-    calc = Calculator(p, assets)
+    calc = Calculator(p, dp, assets)
     actual_by_asset = calc.calc_by_asset()
     actual_by_industry = calc.calc_by_industry()
     # load expected results from the calc_by_ methods
@@ -60,15 +61,16 @@ def test_example_output():
     cyr = 2019
     # ... specify baseline and reform Calculator objects
     assets = Assets()
+    dp = DepreciationParams()
     baseline_parameters = Specification(year=cyr)
-    calc1 = Calculator(baseline_parameters, assets)
+    calc1 = Calculator(baseline_parameters, dp, assets)
     reform_parameters = Specification(year=cyr)
     business_tax_adjustments = {
         'CIT_rate': 0.35, 'BonusDeprec_3yr': 0.50, 'BonusDeprec_5yr': 0.50,
         'BonusDeprec_7yr': 0.50, 'BonusDeprec_10yr': 0.50,
         'BonusDeprec_15yr': 0.50, 'BonusDeprec_20yr': 0.50}
     reform_parameters.update_specification(business_tax_adjustments)
-    calc2 = Calculator(reform_parameters, assets)
+    calc2 = Calculator(reform_parameters, dp, assets)
     # ... calculation by asset and by industry
     baseline_assets_df = calc1.calc_by_asset()
     reform_assets_df = calc2.calc_by_asset()
@@ -94,15 +96,15 @@ def test_example_output():
     # compare actual calculated results to expected results
     failmsg = ''
     expect_output_dir = os.path.join(TDIR, '..', '..', 'example_output')
-    for fname in ['baseline_byindustry', 'baseline_byasset',
-                  'reform_byindustry', 'reform_byasset',
-                  'changed_byindustry', 'changed_byasset']:
+    for fname in ['baseline_byasset', 'baseline_byindustry',
+                  'reform_byasset', 'reform_byindustry',
+                  'changed_byasset', 'changed_byindustry']:
         actual_path = os.path.join(TDIR, fname + '.csv')
         actual_df = pd.read_csv(actual_path)
         expect_path = os.path.join(expect_output_dir, fname + '_expected.csv')
         expect_df = pd.read_csv(expect_path)
         try:
-            assert_frame_equal(actual_df, expect_df, check_less_precise=False)
+            assert_frame_equal(actual_df, expect_df)
             # cleanup actual results if it has same  contents as expected file
             os.remove(actual_path)
         except AssertionError:

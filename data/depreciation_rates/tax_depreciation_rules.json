@@ -1,0 +1,1164 @@
+{"schema": {
+        "labels": {
+            "asset_name": {
+              "type": "str",
+              "validators": {
+                      "choice": {
+                          "choices": [
+                            "Mainframes", "PCs", "DASDs", "Printers",
+                            "Terminals", "Tape drives", "Storage devices",
+                            "System integrators", "Prepackaged software",
+                            "Custom software", "Communications",
+                            "Nonelectro medical instruments",
+                            "Electro medical instruments",
+                            "Nonmedical instruments",
+                            "Photocopy and related equipment",
+                            "Office and accounting equipment",
+                            "Household furniture", "Other furniture",
+                            "Household appliances",
+                            "Light trucks (including utility vehicles)",
+                            "Other trucks, buses and truck trailers", "Autos",
+                            "Aircraft", "Ships and boats", "Railroad equipment",
+                            "Steam engines", "Internal combustion engines",
+                            "Special industrial machinery",
+                            "General industrial equipment", "Nuclear fuel",
+                            "Other fabricated metals", "Metalworking machinery",
+                            "Electric transmission and distribution",
+                            "Other agricultural machinery", "Farm tractors",
+                            "Other construction machinery",
+                            "Construction tractors",
+                            "Mining and oilfield machinery",
+                            "Service industry machinery", "Other electrical",
+                            "Other", "Residential", "Manufacturing", "Office",
+                            "Hospitals", "Special care", "Medical buildings",
+                            "Multimerchandise shopping",
+                            "Food and beverage establishments", "Warehouses",
+                            "Other commercial", "Air transportation",
+                            "Other transportation", "Religious",
+                            "Educational and vocational", "Lodging",
+                            "Public safety", "Gas", "Petroleum pipelines",
+                            "Communication", "Petroleum and natural gas",
+                            "Mining", "Electric", "Wind and solar",
+                            "Amusement and recreation", "Other railroad",
+                            "Track replacement", "Local transit structures",
+                            "Other land transportation", "Farm", "Water supply",
+                            "Sewage and waste disposal",
+                            "Highway and conservation and development",
+                            "Mobile structures",
+                            "Pharmaceutical and medicine manufacturing",
+                            "Chemical manufacturing, ex. pharma and med",
+                            "Semiconductor and other component manufacturing",
+                            "Computers and peripheral equipment manufacturing",
+                            "Communications equipment manufacturing",
+                            "Navigational and other instruments manufacturing",
+                            "Other computer and electronic manufacturing, n.e.c.",
+                            "Motor vehicles and parts manufacturing",
+                            "Aerospace products and parts manufacturing",
+                            "Other manufacturing",
+                            "Scientific research and development services",
+                            "Software publishers", "Financial and real estate services",
+                            "Computer systems design and related services",
+                            "All other nonmanufacturing, n.e.c.",
+                            "Private universities and colleges",
+                            "Other nonprofit institutions", "Theatrical movies",
+                            "Long-lived television programs", "Books", "Music",
+                            "Other entertainment originals", "Own account software",
+                            "Inventories", "Land"
+                            ]
+                      }
+                  }
+            },
+            "BEA_code": {
+              "type": "str",
+              "validators": {
+                      "choice": {
+                          "choices": [
+                            "EP1A", "EP1B", "EP1C", "EP1D", "EP1E", "EP1F",
+                            "EP1G", "EP1H", "EP20", "EP34", "EP35", "EP36",
+                            "EP31", "EP12", "EI11", "EI12", "EI21", "EI22",
+                            "EI30", "EI40", "EI50", "EI60", "ET11", "ET12",
+                            "ET20", "ET30", "ET40", "ET50", "EO11", "EO12",
+                            "EO30", "EO21", "EO40", "EO22", "EO50", "EO60",
+                            "EO71", "EO72", "EO80", "SOO1", "SB31", "SB32",
+                            "SOO2", "SC03", "SC04", "SC01", "SOMO", "SC02",
+                            "SI00", "SU30", "SU60", "SU40", "SU50", "SU20",
+                            "SM01", "SM02", "SB10", "SB20", "SB41", "SB42",
+                            "SB43", "SB45", "SU11", "SU12", "SB44", "SB46",
+                            "SN00", "SO01", "SO02", "SO03", "SO04", "ENS1",
+                            "ENS2", "ENS3", "RD11", "RD12", "RD23", "RD21",
+                            "RD22", "RD24", "RD25", "RD31", "RD32", "RDOM",
+                            "RD70", "RD40", "RD50", "RD60", "RD80", "RD91",
+                            "RD92", "AE10", "AE20", "AE30", "AE40", "AE50",
+                            "RES", "LAND", "INV"
+                            ]
+                      }
+                  }
+            },
+            "minor_asset_group": {
+              "type": "str",
+              "validators": {
+                      "choice": {
+                          "choices": [
+                              "Computers and Software",
+                              "Industrial Machinery",
+                              "Instruments and Communications Equipment",
+                              "Intellectual Property",
+                              "Inventories",
+                              "Land",
+                              "Mining and Drilling Structures",
+                              "Nonresidential Buildings",
+                              "Office and Residential Equipment",
+                              "Other Industrial Equipment",
+                              "Other Structures",
+                              "Residential Buildings",
+                              "Service industry machinery",
+                              "Transportation Equipment"
+                            ]
+                      }
+                  }
+                },
+            "major_asset_group": {
+              "type": "str",
+              "validators": {
+                      "choice": {
+                          "choices": [
+                              "Equipment",
+                              "Structures",
+                              "Intellectual Property",
+                              "Inventories",
+                              "Land"
+                            ]
+                      }
+                  }
+                },
+            "ADS_life": {
+              "type": "float",
+              "validators": {
+                      "choice": {
+                          "choices": [3.0, 4.0, 5.0, 6.0, 7.0, 9.0, 9.5, 10.0,
+                                      12.0, 14.0, 15.0, 18.0, 19.0, 20.0, 25.0,
+                                      28.0, 30.0, 40.0, 50.0, 100.0]
+                      }
+                  }
+                },
+            "GDS_life": {
+              "type": "float",
+              "validators": {
+                      "choice": {
+                          "choices": [3.0, 5.0, 7.0, 10.0, 15.0, 20.0, 25.0,
+                                      27.5, 39.0, 100.0]
+                      }
+                  }
+                },
+            "system": {
+              "type": "str",
+              "validators": {
+                      "choice": {
+                          "choices": ["ADS", "GDS", "Economic"]
+                      }
+                  }
+                },
+            "year": {
+                "type": "int",
+                "validators": {"range": {"min": 2013, "max": 2030}}
+            }
+    }
+  },
+    "asset": {
+        "title": "Tax depreciation rules for assets",
+        "description": "Tax depreciation rules for assets",
+        "type": "depreciation_rules",
+        "value": [
+              {
+                  "ADS_life": 5.0,
+                  "BEA_code": "EP1A",
+                  "GDS_life": 5.0,
+                  "asset_name": "Mainframes",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Computers and Software",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 5.0,
+                  "BEA_code": "EP1B",
+                  "GDS_life": 5.0,
+                  "asset_name": "PCs",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Computers and Software",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 5.0,
+                  "BEA_code": "EP1C",
+                  "GDS_life": 5.0,
+                  "asset_name": "DASDs",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Computers and Software",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 5.0,
+                  "BEA_code": "EP1D",
+                  "GDS_life": 5.0,
+                  "asset_name": "Printers",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Computers and Software",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 5.0,
+                  "BEA_code": "EP1E",
+                  "GDS_life": 5.0,
+                  "asset_name": "Terminals",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Computers and Software",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 5.0,
+                  "BEA_code": "EP1F",
+                  "GDS_life": 5.0,
+                  "asset_name": "Tape drives",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Computers and Software",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 5.0,
+                  "BEA_code": "EP1G",
+                  "GDS_life": 5.0,
+                  "asset_name": "Storage devices",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Computers and Software",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 5.0,
+                  "BEA_code": "EP1H",
+                  "GDS_life": 5.0,
+                  "asset_name": "System integrators",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Computers and Software",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 10.0,
+                  "BEA_code": "EP20",
+                  "GDS_life": 7.0,
+                  "asset_name": "Communications",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Instruments and Communications Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 9.0,
+                  "BEA_code": "EP34",
+                  "GDS_life": 7.0,
+                  "asset_name": "Nonelectro medical instruments",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Instruments and Communications Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 5.0,
+                  "BEA_code": "EP35",
+                  "GDS_life": 7.0,
+                  "asset_name": "Electro medical instruments",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Instruments and Communications Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 7.0,
+                  "BEA_code": "EP36",
+                  "GDS_life": 7.0,
+                  "asset_name": "Nonmedical instruments",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Instruments and Communications Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 5.0,
+                  "BEA_code": "EP31",
+                  "GDS_life": 5.0,
+                  "asset_name": "Photocopy and related equipment",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Instruments and Communications Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 10.0,
+                  "BEA_code": "EP12",
+                  "GDS_life": 5.0,
+                  "asset_name": "Office and accounting equipment",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Instruments and Communications Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 5.0,
+                  "BEA_code": "EI11",
+                  "GDS_life": 5.0,
+                  "asset_name": "Nuclear fuel",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Other Industrial Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 15.0,
+                  "BEA_code": "EI12",
+                  "GDS_life": 7.0,
+                  "asset_name": "Other fabricated metals",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Other Industrial Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 28.0,
+                  "BEA_code": "EI21",
+                  "GDS_life": 15.0,
+                  "asset_name": "Steam engines",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Transportation Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 15, "method": "DB 150%"}
+              },
+              {
+                  "ADS_life": 20.0,
+                  "BEA_code": "EI22",
+                  "GDS_life": 7.0,
+                  "asset_name": "Internal combustion engines",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Transportation Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 14.0,
+                  "BEA_code": "EI30",
+                  "GDS_life": 7.0,
+                  "asset_name": "Metalworking machinery",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Other Industrial Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 4.0,
+                  "BEA_code": "EI40",
+                  "GDS_life": 7.0,
+                  "asset_name": "Special industrial machinery",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Industrial Machinery",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 9.0,
+                  "BEA_code": "EI50",
+                  "GDS_life": 7.0,
+                  "asset_name": "General industrial equipment",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Industrial Machinery",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 30.0,
+                  "BEA_code": "EI60",
+                  "GDS_life": 15.0,
+                  "asset_name": "Electric transmission and distribution",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Other Industrial Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 15, "method": "DB 150%"}
+              },
+              {
+                  "ADS_life": 5.0,
+                  "BEA_code": "ET11",
+                  "GDS_life": 5.0,
+                  "asset_name": "Light trucks (including utility vehicles)",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Transportation Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 6.0,
+                  "BEA_code": "ET12",
+                  "GDS_life": 5.0,
+                  "asset_name": "Other trucks, buses and truck trailers",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Transportation Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 5.0,
+                  "BEA_code": "ET20",
+                  "GDS_life": 5.0,
+                  "asset_name": "Autos",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Transportation Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 6.0,
+                  "BEA_code": "ET30",
+                  "GDS_life": 5.0,
+                  "asset_name": "Aircraft",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Transportation Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 18.0,
+                  "BEA_code": "ET40",
+                  "GDS_life": 10.0,
+                  "asset_name": "Ships and boats",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Transportation Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 10, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 14.0,
+                  "BEA_code": "ET50",
+                  "GDS_life": 7.0,
+                  "asset_name": "Railroad equipment",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Transportation Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 9.0,
+                  "BEA_code": "EO11",
+                  "GDS_life": 5.0,
+                  "asset_name": "Household furniture",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Office and Residential Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 10.0,
+                  "BEA_code": "EO12",
+                  "GDS_life": 7.0,
+                  "asset_name": "Other furniture",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Office and Residential Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 10.0,
+                  "BEA_code": "EO30",
+                  "GDS_life": 7.0,
+                  "asset_name": "Other agricultural machinery",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Other Industrial Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 10.0,
+                  "BEA_code": "EO21",
+                  "GDS_life": 7.0,
+                  "asset_name": "Farm tractors",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Other Industrial Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 6.0,
+                  "BEA_code": "EO40",
+                  "GDS_life": 5.0,
+                  "asset_name": "Other construction machinery",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Other Industrial Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 4.0,
+                  "BEA_code": "EO22",
+                  "GDS_life": 5.0,
+                  "asset_name": "Construction tractors",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Other Industrial Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 10.0,
+                  "BEA_code": "EO50",
+                  "GDS_life": 7.0,
+                  "asset_name": "Mining and oilfield machinery",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Other Industrial Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 9.0,
+                  "BEA_code": "EO60",
+                  "GDS_life": 7.0,
+                  "asset_name": "Service industry machinery",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Service industry machinery",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 9.0,
+                  "BEA_code": "EO71",
+                  "GDS_life": 5.0,
+                  "asset_name": "Household appliances",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Office and Residential Equipment",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 9.0,
+                  "BEA_code": "EO72",
+                  "GDS_life": 7.0,
+                  "asset_name": "Other electrical",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Service industry machinery",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 9.0,
+                  "BEA_code": "EO80",
+                  "GDS_life": 7.0,
+                  "asset_name": "Other",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Service industry machinery",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 40.0,
+                  "BEA_code": "SOO1",
+                  "GDS_life": 39.0,
+                  "asset_name": "Office",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Nonresidential Buildings",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 39, "method": "SL"}
+              },
+              {
+                  "ADS_life": 40.0,
+                  "BEA_code": "SB31",
+                  "GDS_life": 39.0,
+                  "asset_name": "Hospitals",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Nonresidential Buildings",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 39, "method": "SL"}
+              },
+              {
+                  "ADS_life": 40.0,
+                  "BEA_code": "SB32",
+                  "GDS_life": 39.0,
+                  "asset_name": "Special care",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Nonresidential Buildings",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 39, "method": "SL"}
+              },
+              {
+                  "ADS_life": 40.0,
+                  "BEA_code": "SOO2",
+                  "GDS_life": 39.0,
+                  "asset_name": "Medical buildings",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Nonresidential Buildings",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 39, "method": "SL"}
+              },
+              {
+                  "ADS_life": 40.0,
+                  "BEA_code": "SC03",
+                  "GDS_life": 39.0,
+                  "asset_name": "Multimerchandise shopping",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Nonresidential Buildings",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 39, "method": "SL"}
+              },
+              {
+                  "ADS_life": 40.0,
+                  "BEA_code": "SC04",
+                  "GDS_life": 39.0,
+                  "asset_name": "Food and beverage establishments",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Nonresidential Buildings",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 39, "method": "SL"}
+              },
+              {
+                  "ADS_life": 40.0,
+                  "BEA_code": "SC01",
+                  "GDS_life": 39.0,
+                  "asset_name": "Warehouses",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Nonresidential Buildings",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 39, "method": "SL"}
+              },
+              {
+                  "ADS_life": 14.0,
+                  "BEA_code": "SOMO",
+                  "GDS_life": 7.0,
+                  "asset_name": "Mobile structures",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Other Structures",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 40.0,
+                  "BEA_code": "SC02",
+                  "GDS_life": 39.0,
+                  "asset_name": "Other commercial",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Nonresidential Buildings",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 39, "method": "SL"}
+              },
+              {
+                  "ADS_life": 40.0,
+                  "BEA_code": "SI00",
+                  "GDS_life": 39.0,
+                  "asset_name": "Manufacturing",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Nonresidential Buildings",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 39, "method": "SL"}
+              },
+              {
+                  "ADS_life": 19.0,
+                  "BEA_code": "SU30",
+                  "GDS_life": 15.0,
+                  "asset_name": "Electric",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Other Structures",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 15, "method": "DB 150%"}
+              },
+              {
+                  "ADS_life": 5.0,
+                  "BEA_code": "SU60",
+                  "GDS_life": 5.0,
+                  "asset_name": "Wind and solar",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Other Structures",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 14.0,
+                  "BEA_code": "SU40",
+                  "GDS_life": 5.0,
+                  "asset_name": "Gas",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Mining and Drilling Structures",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 14.0,
+                  "BEA_code": "SU50",
+                  "GDS_life": 5.0,
+                  "asset_name": "Petroleum pipelines",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Mining and Drilling Structures",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 6.0,
+                  "BEA_code": "SU20",
+                  "GDS_life": 15.0,
+                  "asset_name": "Communication",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Mining and Drilling Structures",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 15, "method": "DB 150%"}
+              },
+              {
+                  "ADS_life": 14.0,
+                  "BEA_code": "SM01",
+                  "GDS_life": 5.0,
+                  "asset_name": "Petroleum and natural gas",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Mining and Drilling Structures",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 10.0,
+                  "BEA_code": "SM02",
+                  "GDS_life": 7.0,
+                  "asset_name": "Mining",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Mining and Drilling Structures",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 40.0,
+                  "BEA_code": "SB10",
+                  "GDS_life": 39.0,
+                  "asset_name": "Religious",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Nonresidential Buildings",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 39, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 40.0,
+                  "BEA_code": "SB20",
+                  "GDS_life": 39.0,
+                  "asset_name": "Educational and vocational",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Nonresidential Buildings",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 39, "method": "SL"}
+              },
+              {
+                  "ADS_life": 40.0,
+                  "BEA_code": "SB41",
+                  "GDS_life": 39.0,
+                  "asset_name": "Lodging",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Nonresidential Buildings",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 39, "method": "SL"}
+              },
+              {
+                  "ADS_life": 10.0,
+                  "BEA_code": "SB42",
+                  "GDS_life": 7.0,
+                  "asset_name": "Amusement and recreation",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Other Structures",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 40.0,
+                  "BEA_code": "SB43",
+                  "GDS_life": 39.0,
+                  "asset_name": "Air transportation",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Nonresidential Buildings",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 39, "method": "SL"}
+              },
+              {
+                  "ADS_life": 40.0,
+                  "BEA_code": "SB45",
+                  "GDS_life": 39.0,
+                  "asset_name": "Other transportation",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Nonresidential Buildings",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 39, "method": "SL"}
+              },
+              {
+                  "ADS_life": 30.0,
+                  "BEA_code": "SU11",
+                  "GDS_life": 20.0,
+                  "asset_name": "Other railroad",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Other Structures",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 20, "method": "DB 150%"}
+              },
+              {
+                  "ADS_life": 10.0,
+                  "BEA_code": "SU12",
+                  "GDS_life": 7.0,
+                  "asset_name": "Track replacement",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Other Structures",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 40.0,
+                  "BEA_code": "SB44",
+                  "GDS_life": 39.0,
+                  "asset_name": "Local transit structures",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Other Structures",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 39, "method": "SL"}
+              },
+              {
+                  "ADS_life": 5.0,
+                  "BEA_code": "SB46",
+                  "GDS_life": 5.0,
+                  "asset_name": "Other land transportation",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Other Structures",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+              },
+              {
+                  "ADS_life": 25.0,
+                  "BEA_code": "SN00",
+                  "GDS_life": 20.0,
+                  "asset_name": "Farm",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Other Structures",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 20, "method": "DB 150%"}
+              },
+              {
+                  "ADS_life": 50.0,
+                  "BEA_code": "SO01",
+                  "GDS_life": 20.0,
+                  "asset_name": "Water supply",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Other Structures",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 20, "method": "DB 150%"}
+              },
+              {
+                  "ADS_life": 50.0,
+                  "BEA_code": "SO02",
+                  "GDS_life": 20.0,
+                  "asset_name": "Sewage and waste disposal",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Other Structures",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 20, "method": "DB 150%"}
+              },
+              {
+                  "ADS_life": 40.0,
+                  "BEA_code": "SO03",
+                  "GDS_life": 39.0,
+                  "asset_name": "Public safety",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Nonresidential Buildings",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 39, "method": "SL"}
+              },
+              {
+                  "ADS_life": 20.0,
+                  "BEA_code": "SO04",
+                  "GDS_life": 15.0,
+                  "asset_name": "Highway and conservation and development",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Other Structures",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 15, "method": "DB 150%"}
+              },
+              {
+                  "ADS_life": 3.0,
+                  "BEA_code": "ENS1",
+                  "GDS_life": 3.0,
+                  "asset_name": "Prepackaged software",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Computers and Software",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 3, "method": "SL"}
+              },
+              {
+                  "ADS_life": 3.0,
+                  "BEA_code": "ENS2",
+                  "GDS_life": 3.0,
+                  "asset_name": "Custom software",
+                  "major_asset_group": "Equipment",
+                  "minor_asset_group": "Computers and Software",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 3, "method": "SL"}
+              },
+              {
+                  "ADS_life": 3.0,
+                  "BEA_code": "ENS3",
+                  "GDS_life": 3.0,
+                  "asset_name": "Own account software",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 3, "method": "Expensing"}
+              },
+              {
+                  "ADS_life": 9.0,
+                  "BEA_code": "RD11",
+                  "GDS_life": 5.0,
+                  "asset_name": "Pharmaceutical and medicine manufacturing",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+              },
+              {
+                  "ADS_life": 9.5,
+                  "BEA_code": "RD12",
+                  "GDS_life": 5.0,
+                  "asset_name": "Chemical manufacturing, ex. pharma and med",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+              },
+              {
+                  "ADS_life": 5.0,
+                  "BEA_code": "RD23",
+                  "GDS_life": 5.0,
+                  "asset_name": "Semiconductor and other component manufacturing",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+              },
+              {
+                  "ADS_life": 6.0,
+                  "BEA_code": "RD21",
+                  "GDS_life": 5.0,
+                  "asset_name": "Computers and peripheral equipment manufacturing",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+              },
+              {
+                  "ADS_life": 6.0,
+                  "BEA_code": "RD22",
+                  "GDS_life": 5.0,
+                  "asset_name": "Communications equipment manufacturing",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+              },
+              {
+                  "ADS_life": 6.0,
+                  "BEA_code": "RD24",
+                  "GDS_life": 5.0,
+                  "asset_name": "Navigational and other instruments manufacturing",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+              },
+              {
+                  "ADS_life": 6.0,
+                  "BEA_code": "RD25",
+                  "GDS_life": 5.0,
+                  "asset_name": "Other computer and electronic manufacturing, n.e.c.",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+              },
+              {
+                  "ADS_life": 12.0,
+                  "BEA_code": "RD31",
+                  "GDS_life": 7.0,
+                  "asset_name": "Motor vehicles and parts manufacturing",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "Expensing"}
+              },
+              {
+                  "ADS_life": 10.0,
+                  "BEA_code": "RD32",
+                  "GDS_life": 7.0,
+                  "asset_name": "Aerospace products and parts manufacturing",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "Expensing"}
+              },
+              {
+                  "ADS_life": 12.0,
+                  "BEA_code": "RDOM",
+                  "GDS_life": 7.0,
+                  "asset_name": "Other manufacturing",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 7, "method": "Expensing"}
+              },
+              {
+                  "ADS_life": 6.0,
+                  "BEA_code": "RD70",
+                  "GDS_life": 5.0,
+                  "asset_name": "Scientific research and development services",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+              },
+              {
+                  "ADS_life": 3.0,
+                  "BEA_code": "RD40",
+                  "GDS_life": 3.0,
+                  "asset_name": "Software publishers",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 3, "method": "SL"}
+              },
+              {
+                  "ADS_life": 6.0,
+                  "BEA_code": "RD50",
+                  "GDS_life": 5.0,
+                  "asset_name": "Financial and real estate services",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+              },
+              {
+                  "ADS_life": 3.0,
+                  "BEA_code": "RD60",
+                  "GDS_life": 3.0,
+                  "asset_name": "Computer systems design and related services",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 3, "method": "SL"}
+              },
+              {
+                  "ADS_life": 6.0,
+                  "BEA_code": "RD80",
+                  "GDS_life": 5.0,
+                  "asset_name": "All other nonmanufacturing, n.e.c.",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+              },
+              {
+                  "ADS_life": 3.0,
+                  "BEA_code": "RD91",
+                  "GDS_life": 3.0,
+                  "asset_name": "Private universities and colleges",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 3, "method": "SL"}
+              },
+              {
+                  "ADS_life": 3.0,
+                  "BEA_code": "RD92",
+                  "GDS_life": 3.0,
+                  "asset_name": "Other nonprofit institutions",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 3, "method": "SL"}
+              },
+              {
+                  "ADS_life": 15.0,
+                  "BEA_code": "AE10",
+                  "GDS_life": 15.0,
+                  "asset_name": "Theatrical movies",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 15, "method": "Economic"}
+              },
+              {
+                  "ADS_life": 15.0,
+                  "BEA_code": "AE20",
+                  "GDS_life": 15.0,
+                  "asset_name": "Long-lived television programs",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 15, "method": "Economic"}
+              },
+              {
+                  "ADS_life": 15.0,
+                  "BEA_code": "AE30",
+                  "GDS_life": 15.0,
+                  "asset_name": "Books",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 15, "method": "Economic"}
+              },
+              {
+                  "ADS_life": 15.0,
+                  "BEA_code": "AE40",
+                  "GDS_life": 15.0,
+                  "asset_name": "Music",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 15, "method": "Economic"}
+              },
+              {
+                  "ADS_life": 15.0,
+                  "BEA_code": "AE50",
+                  "GDS_life": 15.0,
+                  "asset_name": "Other entertainment originals",
+                  "major_asset_group": "Intellectual Property",
+                  "minor_asset_group": "Intellectual Property",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 15, "method": "Economic"}
+              },
+              {
+                  "ADS_life": 30.0,
+                  "BEA_code": "RES",
+                  "GDS_life": 27.5,
+                  "asset_name": "Residential",
+                  "major_asset_group": "Structures",
+                  "minor_asset_group": "Residential Buildings",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 27.5, "method": "SL"}
+              },
+              {
+                  "ADS_life": 100.0,
+                  "BEA_code": "LAND",
+                  "GDS_life": 100.0,
+                  "asset_name": "Land",
+                  "major_asset_group": "Land",
+                  "minor_asset_group": "Land",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 100, "method": "SL"}
+              },
+              {
+                  "ADS_life": 100.0,
+                  "BEA_code": "INV",
+                  "GDS_life": 100.0,
+                  "asset_name": "Inventories",
+                  "major_asset_group": "Inventories",
+                  "minor_asset_group": "Inventories",
+                  "system": "GDS",
+                  "year": 2020, "value": {"life": 100, "method": "SL"}
+              }
+          ]
+      }
+}

@@ -94,28 +94,6 @@
             }
         }
     },
-    "DeprecSystem_3yr": {
-        "title": "Depreciation system used for 3-year class property",
-        "description": "Depreciation system used for 3-year class property.",
-        "section_1": "Depreciation",
-        "section_2": "Depreciation System",
-        "type": "str",
-        "value": [
-            {
-                "year": 2015,
-                "value": "GDS"
-            }
-        ],
-        "validators": {
-            "choice": {
-                "choices": [
-                    "GDS",
-                    "ADS",
-                    "Economic"
-                ]
-            }
-        }
-    },
     "BonusDeprec_3yr": {
         "title": "Bonus depreciation rate on 3-year class property",
         "description": "Bonus depreciation rate on 3-year class property.",
@@ -188,28 +166,6 @@
             "range": {
                 "min": 0.0,
                 "max": 1.0
-            }
-        }
-    },
-    "DeprecSystem_5yr": {
-        "title": "Depreciation system used for 5-year class property",
-        "description": "Depreciation system used for 5-year class property.",
-        "section_1": "Depreciation",
-        "section_2": "Depreciation System",
-        "type": "str",
-        "value": [
-            {
-                "year": 2015,
-                "value": "GDS"
-            }
-        ],
-        "validators": {
-            "choice": {
-                "choices": [
-                    "GDS",
-                    "ADS",
-                    "Economic"
-                ]
             }
         }
     },
@@ -288,29 +244,6 @@
             }
         }
     },
-    "DeprecSystem_7yr": {
-        "title": "Depreciation system used for 7-year class property",
-        "description": "Depreciation system used for 7-year class property.",
-        "section_1": "Depreciation",
-        "section_2": "Depreciation System",
-        "type": "str",
-        "value": [
-
-            {
-                "year": 2015,
-                "value": "GDS"
-            }
-        ],
-        "validators": {
-            "choice": {
-                "choices": [
-                    "GDS",
-                    "ADS",
-                    "Economic"
-                ]
-            }
-        }
-    },
     "BonusDeprec_7yr": {
         "title": "Bonus depreciation rate on 7-year class property",
         "description": "Bonus depreciation rate on 7-year class property.",
@@ -383,28 +316,6 @@
             "range": {
                 "min": 0.0,
                 "max": 1.0
-            }
-        }
-    },
-    "DeprecSystem_10yr": {
-        "title": "Depreciation system used for 10-year class property",
-        "description": "Depreciation system used for 10-year class property.",
-        "section_1": "Depreciation",
-        "section_2": "Depreciation System",
-        "type": "str",
-        "value": [
-            {
-                "year": 2015,
-                "value": "GDS"
-            }
-        ],
-        "validators": {
-            "choice": {
-                "choices": [
-                    "GDS",
-                    "ADS",
-                    "Economic"
-                ]
             }
         }
     },
@@ -483,28 +394,6 @@
             }
         }
     },
-    "DeprecSystem_15yr": {
-        "title": "Depreciation system used for 15-year class property",
-        "description": "Depreciation system used for 15-year class property.",
-        "section_1": "Depreciation",
-        "section_2": "Depreciation System",
-        "type": "str",
-        "value": [
-            {
-                "year": 2015,
-                "value": "GDS"
-            }
-        ],
-        "validators": {
-            "choice": {
-                "choices": [
-                    "GDS",
-                    "ADS",
-                    "Economic"
-                ]
-            }
-        }
-    },
     "BonusDeprec_15yr": {
         "title": "Bonus depreciation rate on 15-year class property",
         "description": "Bonus depreciation rate on 15-year class property.",
@@ -577,28 +466,6 @@
             "range": {
                 "min": 0.0,
                 "max": 1.0
-            }
-        }
-    },
-    "DeprecSystem_20yr": {
-        "title": "Depreciation system used for 20-year class property",
-        "description": "Depreciation system used for 20-year class property.",
-        "section_1": "Depreciation",
-        "section_2": "Depreciation System",
-        "type": "str",
-        "value": [
-            {
-                "year": 2015,
-                "value": "GDS"
-            }
-        ],
-        "validators": {
-            "choice": {
-                "choices": [
-                    "GDS",
-                    "ADS",
-                    "Economic"
-                ]
             }
         }
     },
@@ -677,28 +544,6 @@
             }
         }
     },
-    "DeprecSystem_25yr": {
-        "title": "Depreciation system used for 25-year class property",
-        "description": "Depreciation system used for 25-year class property.",
-        "section_1": "Depreciation",
-        "section_2": "Depreciation System",
-        "type": "str",
-        "value": [
-            {
-                "year": 2015,
-                "value": "GDS"
-            }
-        ],
-        "validators": {
-            "choice": {
-                "choices": [
-                    "GDS",
-                    "ADS",
-                    "Economic"
-                ]
-            }
-        }
-    },
     "BonusDeprec_25yr": {
         "title": "Bonus depreciation rate on 25-year class property",
         "description": "Bonus depreciation rate on 25-year class property.",
@@ -718,28 +563,6 @@
             }
         }
     },
-    "DeprecSystem_27_5yr": {
-        "title": "Depreciation system used for 27.5-year class property",
-        "description": "Depreciation system used for 27.5-year class property.",
-        "section_1": "Depreciation",
-        "section_2": "Depreciation System",
-        "type": "str",
-        "value": [
-            {
-                "year": 2015,
-                "value": "GDS"
-            }
-        ],
-        "validators": {
-            "choice": {
-                "choices": [
-                    "GDS",
-                    "ADS",
-                    "Economic"
-                ]
-            }
-        }
-    },
     "BonusDeprec_27_5yr": {
         "title": "Bonus depreciation rate on 27.5-year class property",
         "description": "Bonus depreciation rate on 27.5-year class property.",
@@ -756,28 +579,6 @@
             "range": {
                 "min": 0.0,
                 "max": 1.0
-            }
-        }
-    },
-    "DeprecSystem_39yr": {
-        "title": "Depreciation system used for 39-year class property",
-        "description": "Depreciation system used for 39-year class property.",
-        "section_1": "Depreciation",
-        "section_2": "Depreciation System",
-        "type": "str",
-        "value": [
-            {
-                "year": 2015,
-                "value": "GDS"
-            }
-        ],
-        "validators": {
-            "choice": {
-                "choices": [
-                    "GDS",
-                    "ADS",
-                    "Economic"
-                ]
             }
         }
     },

@@ -1,17 +1,19 @@
 import numpy as np
+import pandas as pd
 from ccc.constants import TAX_METHODS
 from ccc.utils import str_modified
 
 
-def update_depr_methods(df, p):
+def update_depr_methods(df, p, dp):
     '''
     Updates depreciation methods per changes from defaults that are
     specified by user.
 
     Args:
-        df (Pandas DataFrame): assets by type and tax treatment with
-            current law tax depreciation methods
-        p (CCC Specifications object): model parameters
+        df (Pandas DataFrame): assets by type and tax treatment
+        p (CCC Specifications object): CCC parameters
+        dp (CCC DepreciationParams object): asset-specific depreciation
+            parameters
 
     Returns:
         df (Pandas DataFrame): assets by type and tax treatment with
@@ -19,22 +21,30 @@ def update_depr_methods(df, p):
 
     '''
     # update tax_deprec_rates based on user defined parameters
-    df['System'] = df['GDS Life'].apply(str_modified)
-    df['System'].replace(p.deprec_system, inplace=True)
-    df.loc[df['System'] == 'ADS', 'Method'] = 'SL'
-    df.loc[df['System'] == 'Economic', 'Method'] = 'Economic'
-
+    # create dataframe with depreciation policy parameters
+    deprec_df = pd.DataFrame(dp.asset)
+    # split out value into two columns
+    deprec_df = pd.concat([deprec_df.drop(['value'], axis=1),
+                           deprec_df['value'].apply(pd.Series)], axis=1)
+    # drop information duplicated in asset dataframe
+    deprec_df.drop(columns=['asset_name', 'minor_asset_group',
+                            'major_asset_group'], inplace=True)
+    # merge depreciation policy parameters to asset dataframe
+    df.drop(columns=deprec_df.keys(), inplace=True, errors='ignore')
+    df = df.merge(deprec_df, how='left', left_on='bea_asset_code',
+                  right_on='BEA_code')
     # add bonus depreciation to tax deprec parameters dataframe
-    df['bonus'] = df['GDS Class Life'].apply(str_modified)
+    # ** UPDATE THIS  - maybe including bonus in new asset deprec JSON**
+    df['bonus'] = df['GDS_life'].apply(str_modified)
     df['bonus'].replace(p.bonus_deprec, inplace=True)
-
-    df['b'] = df['Method']
+    # Compute b
+    df['b'] = df['method']
     df['b'].replace(TAX_METHODS, inplace=True)
-
-    df.loc[df['System'] == 'ADS', 'Y'] = df.loc[df['System'] == 'ADS',
-                                                'ADS Life']
-    df.loc[df['System'] == 'GDS', 'Y'] = df.loc[df['System'] == 'GDS',
-                                                'GDS Life']
+    df.loc[df['system'] == 'ADS', 'Y'] = df.loc[df['system'] == 'ADS',
+                                                'ADS_life']
+    df.loc[df['system'] == 'GDS', 'Y'] = df.loc[df['system'] == 'GDS',
+                                                'GDS_life']
+    df.to_csv('check_of_merge.csv')
     return df
 
 
@@ -132,18 +142,20 @@ def npv_tax_depr(df, r, pi, land_expensing):
                 types and tax treatments
 
     '''
-    idx = (df['Method'] == 'DB 200%') | (df['Method'] == 'DB 150%')
+    idx = (df['method'] == 'DB 200%') | (df['method'] == 'DB 150%')
     df.loc[idx, 'z'] = dbsl(df.loc[idx, 'Y'], df.loc[idx, 'b'],
                             df.loc[idx, 'bonus'], r)
-    idx = df['Method'] == 'SL'
+    idx = df['method'] == 'SL'
     df.loc[idx, 'z'] = sl(df.loc[idx, 'Y'], df.loc[idx, 'bonus'], r)
-    idx = df['Method'] == 'Economic'
+    idx = df['method'] == 'Economic'
     df.loc[idx, 'z'] = econ(df.loc[idx, 'delta'], df.loc[idx, 'bonus'],
                             r, pi)
-    idx = df['Method'] == 'Expensing'
+    idx = df['method'] == 'Expensing'
     df.loc[idx, 'z'] = 1.0
     idx = df['asset_name'] == 'Land'
     df.loc[idx, 'z'] = land_expensing
+    idx = df['asset_name'] == 'Inventories'
+    df.loc[idx, 'z'] = 0.0  # not sure why I have to do this with changes
     z = df['z']
     return z
 

@@ -36,26 +36,6 @@
       "type": "string",
       "desc": "Broad industry category that industry belongs to"
     },
-    "GDS Class Life": {
-      "type": "integer",
-      "desc": "General Depreciation System life of asset"
-    },
-    "GDS Life": {
-      "type": "integer",
-      "desc": "General Depreciation System life of asset"
-    },
-    "ADS Life": {
-      "type": "integer",
-      "desc": "Alternative Depreciation System life of asset"
-    },
-    "System": {
-      "type": "string",
-      "desc": "Current law depreciation system used for asset"
-    },
-    "Method": {
-      "type": "string",
-      "desc": "Current law method of depreciation used (Straight line (SL), 200% declining balance, etc.)"
-    },
     "delta": {
       "type": "float",
       "desc": "Annual rate of economic depreciation of asset"

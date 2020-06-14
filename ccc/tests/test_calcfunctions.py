@@ -3,36 +3,173 @@ import numpy as np
 import pytest
 from pandas.testing import assert_series_equal, assert_frame_equal
 from ccc import calcfunctions as cf
-from ccc.parameters import Specification
+from ccc.parameters import Specification, DepreciationParams
 
 
-p = Specification()
-df = pd.DataFrame.from_dict({
-    'Method': ['DB 200%', 'DB 150%', 'SL', 'Economic', 'Expensing',
-               'DB 200%', 'DB 150%', 'SL', 'Economic', 'Expensing'],
-    'GDS Life': [10, 10, 3, 15, 27.5, 27.5, 10, 3, 15, 7],
-    'ADS Life': [10, 10, 3, 15, 27.5, 27.5, 10, 3, 15, 7],
-    'GDS Class Life': [10, 10, 3, 15, 27.5, 27.5, 10, 3, 15, 7]})
-expected_df = df.copy()
-expected_df['System'] = pd.Series(['GDS', 'GDS', 'GDS', 'GDS', 'GDS',
-                                   'GDS', 'GDS', 'GDS', 'GDS', 'GDS'],
-                                  index=expected_df.index)
-expected_df['bonus'] = pd.Series([1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0,
-                                  1.0, 1.0, 1.0],
-                                 index=expected_df.index)
-expected_df['b'] = pd.Series([2, 1.5, 1, 1, 1, 2, 1.5, 1, 1, 1],
-                             index=expected_df.index)
-expected_df['Y'] = pd.Series([10, 10, 3, 15, 27.5, 27.5, 10, 3, 15, 7],
-                             index=expected_df.index)
-test_data = [(df, p, expected_df)]
+def test_update_depr_methods(monkeypatch):
+    '''
+    Test of calcfunctions.update_depr_methods
+    '''
+    p = Specification()
+    json_str = """
+        {"schema": {
+            "labels": {
+                "asset_name": {"type": "str"},
+                "BEA_code": {"type": "str"},
+                "minor_asset_group": {"type": "str"},
+                "major_asset_group": {"type": "str"},
+                "ADS_life": {"type": "float"},
+                "GDS_life": {"type": "float"},
+                "system": {"type": "str"},
+                "year": {
+                    "type": "int",
+                    "validators": {"range": {"min": 2013, "max": 2030}}
+                }
+            }
+        },
+        "asset": {
+            "title": "Tax depreciation rules for assets",
+            "description": "Tax depreciation rules for assets",
+            "type": "depreciation_rules",
+            "value": [
+                  {
+                      "ADS_life": 10.0,
+                      "BEA_code": "1",
+                      "GDS_life": 10.0,
+                      "asset_name": "Steam engines",
+                      "major_asset_group": "Group1",
+                      "minor_asset_group": "Group1",
+                      "system": "GDS",
+                      "year": 2020, "value": {"life": 10,
+                                              "method": "DB 200%"}
+                  },
+                  {
+                      "ADS_life": 10.0,
+                      "BEA_code": "2",
+                      "GDS_life": 10.0,
+                      "asset_name": "Custom software",
+                      "major_asset_group": "Group1",
+                      "minor_asset_group": "Group1",
+                      "system": "GDS",
+                      "year": 2020, "value": {"life": 10,
+                                              "method": "DB 150%"}
+                  },
+                  {
+                      "ADS_life": 3.0,
+                      "BEA_code": "3",
+                      "GDS_life": 3.0,
+                      "asset_name": "Other furniture",
+                      "major_asset_group": "Group1",
+                      "minor_asset_group": "Group1",
+                      "system": "GDS",
+                      "year": 2020, "value": {"life": 3,
+                                              "method": "SL"}
+                  },
+                  {
+                      "ADS_life": 15.0,
+                      "BEA_code": "4",
+                      "GDS_life": 15.0,
+                      "asset_name": "Mining and oilfield machinery",
+                      "major_asset_group": "Group1",
+                      "minor_asset_group": "Group1",
+                      "system": "GDS",
+                      "year": 2020, "value": {"life": 15,
+                                              "method": "Economic"}
+                  },
+                  {
+                      "ADS_life": 27.5,
+                      "BEA_code": "5",
+                      "GDS_life": 27.5,
+                      "asset_name": "Expensing",
+                      "major_asset_group": "Group1",
+                      "minor_asset_group": "Group1",
+                      "system": "GDS",
+                      "year": 2020, "value": {"life": 27.5,
+                                              "method": "Expensing"}
+                  },
+                  {
+                      "ADS_life": 27.5,
+                      "BEA_code": "6",
+                      "GDS_life": 27.5,
+                      "asset_name": "PCs",
+                      "major_asset_group": "Group1",
+                      "minor_asset_group": "Group1",
+                      "system": "GDS",
+                      "year": 2020, "value": {"life": 27.5,
+                                              "method": "DB 200%"}
+                  },
+                  {
+                      "ADS_life": 10.0,
+                      "BEA_code": "7",
+                      "GDS_life": 10.0,
+                      "asset_name": "Terminals",
+                      "major_asset_group": "Group1",
+                      "minor_asset_group": "Group1",
+                      "system": "GDS",
+                      "year": 2020, "value": {"life": 10,
+                                              "method": "DB 150%"}
+                  },
+                  {
+                      "ADS_life": 3.0,
+                      "BEA_code": "8",
+                      "GDS_life": 3.0,
+                      "asset_name": "Manufacturing",
+                      "major_asset_group": "Group1",
+                      "minor_asset_group": "Group1",
+                      "system": "GDS",
+                      "year": 2020, "value": {"life": 3,
+                                              "method": "SL"}
+                  },
+                  {
+                      "ADS_life": 15.0,
+                      "BEA_code": "9",
+                      "GDS_life": 15.0,
+                      "asset_name": "Wind and solar",
+                      "major_asset_group": "Group1",
+                      "minor_asset_group": "Group1",
+                      "system": "GDS",
+                      "year": 2020, "value": {"life": 15,
+                                              "method": "Economic"}
+                  },
+                  {
+                      "ADS_life": 7.0,
+                      "BEA_code": "10",
+                      "GDS_life": 7.0,
+                      "asset_name": "Equipment",
+                      "major_asset_group": "Group1",
+                      "minor_asset_group": "Group1",
+                      "system": "GDS",
+                      "year": 2020, "value": {"life": 7,
+                                              "method": "Expensing"}
+                  }]
+            }
+        }
+        """
+    monkeypatch.setattr(DepreciationParams, "defaults", json_str)
+    dp = DepreciationParams()
+    asset_df = pd.DataFrame.from_dict({'bea_asset_code': [
+        '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']})
+    expected_df = pd.DataFrame(dp.asset)
+    expected_df = pd.concat([expected_df.drop(['value'], axis=1),
+                            expected_df['value'].apply(pd.Series)],
+                            axis=1)
+    expected_df.drop(columns=['asset_name', 'minor_asset_group',
+                              'major_asset_group'], inplace=True)
+    expected_df['bea_asset_code'] = pd.Series(
+        ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+        index=expected_df.index)
+    expected_df['bonus'] = pd.Series(
+        [1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0],
+        index=expected_df.index)
+    expected_df['b'] = pd.Series(
+        [2, 1.5, 1, 1, 1, 2, 1.5, 1, 1, 1], index=expected_df.index)
+    expected_df['Y'] = pd.Series(
+        [10, 10, 3, 15, 27.5, 27.5, 10, 3, 15, 7],
+        index=expected_df.index)
+    print('Expected df =', expected_df)
+    test_df = cf.update_depr_methods(asset_df, p, dp)
 
-
-@pytest.mark.parametrize('df,p,expected_df', test_data,
-                         ids=['Test 0'])
-def test_update_depr_methods(df, p, expected_df):
-    test_df = cf.update_depr_methods(df, p)
-
-    assert_frame_equal(test_df, expected_df)
+    assert_frame_equal(test_df, expected_df, check_like=True)
 
 
 Y = np.array([40, 3, 10, 20, 8])
@@ -89,7 +226,7 @@ df = pd.DataFrame.from_dict({
                    'Mining and oilfield machinery', 'Expensing', 'PCs',
                    'Terminals', 'Manufacturing', 'Wind and solar',
                    'Equipment'],
-    'Method': ['DB 200%', 'DB 150%', 'SL', 'Economic', 'Expensing',
+    'method': ['DB 200%', 'DB 150%', 'SL', 'Economic', 'Expensing',
                'DB 200%', 'DB 150%', 'SL', 'Economic', 'Expensing'],
     'Y': [10, 10, 8, 8, 8, 10, 10, 8, 8, 8],
     'delta': [0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08],
