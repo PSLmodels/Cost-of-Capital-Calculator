@@ -36,7 +36,7 @@ def test_get_rates():
     '''
     Test of the get_rates() functions
     '''
-    p = Specification()  # has default tax rates, with should equal TC
+    p = Specification(year=2020)  # has default tax rates, with should equal TC
     test_dict = tc.get_rates(
         baseline=False, start_year=2020, reform={}, data='cps')
     for k, v in test_dict.items():
