@@ -6,7 +6,7 @@ Runs Cost-of-Capital-Calculator with TCJA as baseline and 2017 law as reform
 from bokeh.io import show
 import taxcalc
 from ccc.data import Assets
-from ccc.parameters import Specification
+from ccc.parameters import Specification, DepreciationParams
 from ccc.calculator import Calculator
 from ccc.utils import diff_two_tables
 
@@ -27,10 +27,11 @@ business_tax_reform = {
 # specify baseline and reform Calculator objects for 2019 calculations
 assets = Assets()
 baseline_parameters = Specification(year=cyr)
-calc1 = Calculator(baseline_parameters, assets)
+dp = DepreciationParams()
+calc1 = Calculator(baseline_parameters, dp, assets)
 reform_parameters = Specification(year=cyr)
 reform_parameters.update_specification(business_tax_reform)
-calc2 = Calculator(reform_parameters, assets)
+calc2 = Calculator(reform_parameters, dp, assets)
 
 # do calculations by asset and by industry
 baseln_assets_df = calc1.calc_by_asset()
