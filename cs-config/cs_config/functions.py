@@ -2,7 +2,7 @@ import ccc
 from ccc.parameters import Specification
 from ccc.data import Assets
 from ccc.calculator import Calculator
-from ccc.utils import TC_LAST_YEAR
+from ccc.utils import TC_LAST_YEAR, DEFAULT_START_YEAR
 from bokeh.embed import json_item
 import os
 import json
@@ -38,7 +38,7 @@ class MetaParams(paramtools.Parameters):
             "title": "Start year",
             "description": "Year for parameters.",
             "type": "int",
-            "value": 2019,
+            "value": DEFAULT_START_YEAR,
             "validators": {"range": {"min": 2015, "max": TC_LAST_YEAR}}
         },
         "data_source": {
