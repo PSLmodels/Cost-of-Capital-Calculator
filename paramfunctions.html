@@ -1,0 +1,416 @@
+
+<!DOCTYPE html>
+
+<html lang="Python">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parameter Calculation Functions &#8212; Cost of Capital Calculator 1.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="CCC utility functions" href="utils.html" />
+    <link rel="prev" title="Parameters" href="parameters.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="parameter-calculation-functions">
+<span id="paramfunctions"></span><h1>Parameter Calculation Functions<a class="headerlink" href="#parameter-calculation-functions" title="Permalink to this headline">¶</a></h1>
+<p><strong>paramfunctions</strong></p>
+<div class="section" id="module-ccc.paramfunctions">
+<span id="ccc-paramfunctions"></span><h2>ccc.paramfunctions<a class="headerlink" href="#module-ccc.paramfunctions" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="ccc.paramfunctions.calc_g">
+<code class="sig-prename descclassname">ccc.paramfunctions.</code><code class="sig-name descname">calc_g</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g_scg</span></em>, <em class="sig-param"><span class="n">g_lcg</span></em>, <em class="sig-param"><span class="n">omega_scg</span></em>, <em class="sig-param"><span class="n">omega_lcg</span></em>, <em class="sig-param"><span class="n">omega_xcg</span></em>, <em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">E_c</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/paramfunctions.html#calc_g"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.paramfunctions.calc_g" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the after-tax, annualized, real rate of return on all
+capital gains</p>
+<dl class="simple">
+<dt>..math::</dt><dd><dl class="simple">
+<dt>g = omega_{scg}times g_{scg} + omega_{lcg}times g_{lcg} +</dt><dd><p>omega_{xcg}times mE</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>g_scg</strong> (<em>scalar</em>) -- the real, after-tax annualized return on short-
+term capital gains</p></li>
+<li><p><strong>g_lcg</strong> (<em>scalar</em>) -- the real, after-tax annualized return on long-
+term capital gains</p></li>
+<li><p><strong>omega_scg</strong> (<em>scalar</em>) -- the fraction of capital gains that are
+short-term</p></li>
+<li><p><strong>omega_lcg</strong> (<em>scalar</em>) -- the fraction of capital gains that are
+long-term</p></li>
+<li><p><strong>m</strong> (<em>scalar</em>) -- dividend payout rate</p></li>
+<li><p><strong>E_c</strong> (<em>scalar</em>) -- expected, after-tax return on corporate equity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>the after-tax, annualized, real rate of return on</dt><dd><p>all capital gains</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>g (scalar)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ccc.paramfunctions.calc_g__g">
+<code class="sig-prename descclassname">ccc.paramfunctions.</code><code class="sig-name descname">calc_g__g</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Y_g</span></em>, <em class="sig-param"><span class="n">tau_cg</span></em>, <em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">E_c</span></em>, <em class="sig-param"><span class="n">pi</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/paramfunctions.html#calc_g__g"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.paramfunctions.calc_g__g" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the real, after-tax annualized return on short or long-
+term capital gains</p>
+<dl class="simple">
+<dt>..math::</dt><dd><dl class="simple">
+<dt>g_{icg} = frac{1}{Y_{icg}}lnbiggl[(1-tau_{icg})e^{(pi+mE)</dt><dd><p>Y_{icg}}+tau_{icg}biggr] + pi</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Y_g</strong> (<em>scalar</em>) -- number of years asset held before gains realized</p></li>
+<li><p><strong>tau_cg</strong> (<em>scalar</em>) -- tax rate on capital gains income</p></li>
+<li><p><strong>m</strong> (<em>scalar</em>) -- dividend payout rate</p></li>
+<li><p><strong>E_c</strong> (<em>scalar</em>) -- expected, after-tax return on corporate equity</p></li>
+<li><p><strong>pi</strong> (<em>scalar</em>) -- inflation rate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>real, after-tax annualized return on capital</dt><dd><p>gains</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>g__g (scalar)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ccc.paramfunctions.calc_s">
+<code class="sig-prename descclassname">ccc.paramfunctions.</code><code class="sig-name descname">calc_s</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">p</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/paramfunctions.html#calc_s"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.paramfunctions.calc_s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the after-tax rate of return to savers, s.</p>
+<div class="math notranslate nohighlight">
+\[s = ...\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>p</strong> (<em>CCC Specification Object</em>) -- model parameters</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>return to savers and required return to pass-through</dt><dd><p>entities:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>s_dict (dict): dictionary of s for investments in</dt><dd><p>corporate and pass-through businesses and by type of
+financing</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>E_nc (scalar): required pre-tax return on pass-through</dt><dd><p>investments</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ccc.paramfunctions.calc_s__d">
+<code class="sig-prename descclassname">ccc.paramfunctions.</code><code class="sig-name descname">calc_s__d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s_d_td</span></em>, <em class="sig-param"><span class="n">alpha_d_ft</span></em>, <em class="sig-param"><span class="n">alpha_d_td</span></em>, <em class="sig-param"><span class="n">alpha_d_nt</span></em>, <em class="sig-param"><span class="n">tau_int</span></em>, <em class="sig-param"><span class="n">tau_w</span></em>, <em class="sig-param"><span class="n">i</span></em>, <em class="sig-param"><span class="n">pi</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/paramfunctions.html#calc_s__d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.paramfunctions.calc_s__d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the after-tax return to debt investments.</p>
+<dl class="simple">
+<dt>..math::</dt><dd><dl class="simple">
+<dt>s_{j,d} = alpha_{j,d,ft}((1-tau_{int})i - pi) +</dt><dd><p>alpha_{j,d,td}s_{j,d,td} + alpha_{j,d,nt}(i-pi) - tau_{w}</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s_d_td</strong> (<em>scalar</em>) -- after-tax return on debt investments made
+through tax-deferred acounts</p></li>
+<li><p><strong>alpha_d_ft</strong> (<em>scalar</em>) -- fraction of debt investments held in
+full-tax accounts</p></li>
+<li><p><strong>alpha_d_td</strong> (<em>scalar</em>) -- fraction of debt investments held in
+tax-deferred acounts</p></li>
+<li><p><strong>alpha_d_nt</strong> (<em>scalar</em>) -- fraction of debt investments held in
+tax-free accounts</p></li>
+<li><p><strong>tau_int</strong> (<em>scalar</em>) -- marginal tax rate on interest income</p></li>
+<li><p><strong>tau_w</strong> (<em>scalar</em>) -- marginal tax rate on wealth</p></li>
+<li><p><strong>i</strong> (<em>scalar</em>) -- nominal interest rate</p></li>
+<li><p><strong>pi</strong> (<em>scalar</em>) -- inflation rate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>after-tax return on debt investments</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>s__d (scalar)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ccc.paramfunctions.calc_s_c_d_td">
+<code class="sig-prename descclassname">ccc.paramfunctions.</code><code class="sig-name descname">calc_s_c_d_td</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sprime_c_td</span></em>, <em class="sig-param"><span class="n">gamma</span></em>, <em class="sig-param"><span class="n">i</span></em>, <em class="sig-param"><span class="n">pi</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/paramfunctions.html#calc_s_c_d_td"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.paramfunctions.calc_s_c_d_td" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the after-tax return on corprate debt investments made
+through tax-deferred accounts.</p>
+<dl class="simple">
+<dt>..math::</dt><dd><p>s_{c,d,td} = gamma(i-pi) + (1-gamma)s^{'}_{c,td}</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sprime_c_td</strong> (<em>scalar</em>) -- the after-tax return on corporate
+investments made through tax-deferred accounts</p></li>
+<li><p><strong>gamma</strong> (<em>scalar</em>) -- Fraction of debt owned through whole-life
+insurance policies</p></li>
+<li><p><strong>i</strong> (<em>scalar</em>) -- the nominal interest rate</p></li>
+<li><p><strong>pi</strong> (<em>scalar</em>) -- the inflation rate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>the after-tax return on corprate debt</dt><dd><p>investments made through tax-deferred accounts</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>s_c_d_td (scalar)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ccc.paramfunctions.calc_s_c_e">
+<code class="sig-prename descclassname">ccc.paramfunctions.</code><code class="sig-name descname">calc_s_c_e</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s_c_e_ft</span></em>, <em class="sig-param"><span class="n">s_c_e_td</span></em>, <em class="sig-param"><span class="n">alpha_c_e_ft</span></em>, <em class="sig-param"><span class="n">alpha_c_e_td</span></em>, <em class="sig-param"><span class="n">alpha_c_e_nt</span></em>, <em class="sig-param"><span class="n">tau_w</span></em>, <em class="sig-param"><span class="n">E_c</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/paramfunctions.html#calc_s_c_e"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.paramfunctions.calc_s_c_e" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the after-tax return on investments in corporate equity</p>
+<dl class="simple">
+<dt>..math::</dt><dd><dl class="simple">
+<dt>s_{c,e} = alpha_{c,e,ft}times s_{c,e,ft} + alpha_{c,e,td}</dt><dd><p>times s_{c,e,td} + alpha_{c,e,nt}times E - tau_{w}</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s_c_e_ft</strong> (<em>scalar</em>) -- after-tax return on investments in corporate
+equity in fully-taxable accounts</p></li>
+<li><p><strong>s_c_e_td</strong> (<em>scalar</em>) -- after-tax return on investments in corporate
+equity in tax-deferred accounts</p></li>
+<li><p><strong>alpha_c_e_ft</strong> (<em>scalar</em>) -- fraction of corporate equity investments
+made through full-taxable accounts</p></li>
+<li><p><strong>alpha_c_e_td</strong> (<em>scalar</em>) -- fraction of corporate equity investments
+made through tax-deferred accounts</p></li>
+<li><p><strong>alpha_c_e_nt</strong> (<em>scalar</em>) -- fraction of corporate equity investments
+made through tax-exempt accounts</p></li>
+<li><p><strong>tau_w</strong> (<em>scalar</em>) -- marginal tax rate on wealth</p></li>
+<li><p><strong>E_c</strong> (<em>scalar</em>) -- expected, after-tax return on corporate equity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>the after-tax return on investments in</dt><dd><p>corporate equity</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>s_c_e (scalar)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ccc.paramfunctions.calc_s_c_e_td">
+<code class="sig-prename descclassname">ccc.paramfunctions.</code><code class="sig-name descname">calc_s_c_e_td</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Y_td</span></em>, <em class="sig-param"><span class="n">tau_td</span></em>, <em class="sig-param"><span class="n">i</span></em>, <em class="sig-param"><span class="n">pi</span></em>, <em class="sig-param"><span class="n">E_c</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/paramfunctions.html#calc_s_c_e_td"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.paramfunctions.calc_s_c_e_td" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the after-tax return on investmentes in corporate equity
+in tax-deferred accounts.</p>
+<dl class="simple">
+<dt>..math::</dt><dd><dl class="simple">
+<dt>s_{c,e,td} = frac{1}{Y_{td}}ln((1-tau_{td})e^{(pi+E)Y_{td}}</dt><dd><p>+tau_{td}) - pi</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Y_td</strong> (<em>scalar</em>) -- years investments are held in tax-deferred
+accounts</p></li>
+<li><p><strong>tau_td</strong> (<em>scalar</em>) -- marginal tax rate on investments in
+tax-deferred accounts</p></li>
+<li><p><strong>i</strong> (<em>scalar</em>) -- nominal interest rate</p></li>
+<li><p><strong>pi</strong> (<em>scalar</em>) -- inflation rate</p></li>
+<li><p><strong>E_c</strong> (<em>scalar</em>) -- expected, after-tax return on corporate equity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>the after-tax return on investmentes in</dt><dd><p>corporate equity in tax-deferred accounts.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>s_c_e_td (scalar)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ccc.paramfunctions.calc_sprime_c_td">
+<code class="sig-prename descclassname">ccc.paramfunctions.</code><code class="sig-name descname">calc_sprime_c_td</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Y_td</span></em>, <em class="sig-param"><span class="n">tau_td</span></em>, <em class="sig-param"><span class="n">i</span></em>, <em class="sig-param"><span class="n">pi</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/paramfunctions.html#calc_sprime_c_td"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.paramfunctions.calc_sprime_c_td" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute after-tax rate of return on savings invested in
+tax-deferred accounts.</p>
+<div class="math notranslate nohighlight">
+\[s^{'}_{c,td} = \frac{1}{Y_{td}}log((1-\tau_{td})*e^{i*Y_{td}}+
+    \tau_{td}) - \pi\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Y_td</strong> (<em>scalar</em>) -- number of years savings held in tax-deferred
+retirement account</p></li>
+<li><p><strong>tau_td</strong> (<em>scalar</em>) -- effective marginal tax rate on investment
+income from tax-deferred accounts</p></li>
+<li><p><strong>i</strong> (<em>scalar</em>) -- the nominal interest rate</p></li>
+<li><p><strong>pi</strong> (<em>scalar</em>) -- the inflation rate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>the after-tax return on corporate</dt><dd><p>investments made through tax-deferred accounts</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>sprime_c_td (scalar)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Cost of Capital Calculator</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="contributor_guide.html">Contributor Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="public_api.html">Cost-of-Capital-Calclator API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="calcfunctions.html">Cost of Capital Calculation Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calculator.html">Cost of Capital Calculator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get_taxcalc_rates.html">Get marginal tax rates from Tax-Calculator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parameters.html">Parameters</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Parameter Calculation Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">CCC utility functions</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="public_api.html">Cost-of-Capital-Calclator API</a><ul>
+      <li>Previous: <a href="parameters.html" title="previous chapter">Parameters</a></li>
+      <li>Next: <a href="utils.html" title="next chapter">CCC utility functions</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Jason DeBacker.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/paramfunctions.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

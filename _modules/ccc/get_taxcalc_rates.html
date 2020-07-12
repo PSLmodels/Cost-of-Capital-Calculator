@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+
+<html lang="Python">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ccc.get_taxcalc_rates &#8212; Cost of Capital Calculator 1.0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for ccc.get_taxcalc_rates</h1><div class="highlight"><pre>
+<span></span><span class="c1"># imports</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">taxcalc</span> <span class="kn">import</span> <span class="n">Policy</span><span class="p">,</span> <span class="n">Records</span><span class="p">,</span> <span class="n">Calculator</span>
+<span class="kn">from</span> <span class="nn">ccc.utils</span> <span class="kn">import</span> <span class="n">DEFAULT_START_YEAR</span><span class="p">,</span> <span class="n">TC_LAST_YEAR</span><span class="p">,</span> <span class="n">RECORDS_START_YEAR</span>
+
+
+<div class="viewcode-block" id="get_calculator"><a class="viewcode-back" href="../../get_taxcalc_rates.html#ccc.get_taxcalc_rates.get_calculator">[docs]</a><span class="k">def</span> <span class="nf">get_calculator</span><span class="p">(</span><span class="n">baseline</span><span class="p">,</span> <span class="n">calculator_start_year</span><span class="p">,</span> <span class="n">reform</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                   <span class="n">data</span><span class="o">=</span><span class="s1">&#39;cps&#39;</span><span class="p">,</span> <span class="n">gfactors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                   <span class="n">records_start_year</span><span class="o">=</span><span class="n">RECORDS_START_YEAR</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This function creates the tax calculator object for the microsim</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        baseline (bool): `True` if baseline tax policy</span>
+<span class="sd">        calculator_start_year (integer): first year of budget window</span>
+<span class="sd">        reform (dictionary): IIT reform parameters</span>
+<span class="sd">        data (string or Pandas DataFrame): path to file or DataFrame</span>
+<span class="sd">            for Tax-Calculator Records object (optional)</span>
+<span class="sd">        weights (DataFrame): weights DataFrame for Tax-Calculator</span>
+<span class="sd">            Records object (optional)</span>
+<span class="sd">        records_start_year (integer): the start year for the data and</span>
+<span class="sd">            weights dfs</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        calc1 (Tax Calculator Calculator object): TC Calculator object</span>
+<span class="sd">            with a current_year equal to calculator_start_year</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># create a calculator</span>
+    <span class="n">policy1</span> <span class="o">=</span> <span class="n">Policy</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s2">&quot;cps&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">records1</span> <span class="o">=</span> <span class="n">Records</span><span class="o">.</span><span class="n">cps_constructor</span><span class="p">()</span>
+        <span class="c1"># impute short and long term capital gains if using CPS data</span>
+        <span class="c1"># in 2012 SOI data 6.587% of CG as short-term gains</span>
+        <span class="n">records1</span><span class="o">.</span><span class="n">p22250</span> <span class="o">=</span> <span class="mf">0.06587</span> <span class="o">*</span> <span class="n">records1</span><span class="o">.</span><span class="n">e01100</span>
+        <span class="n">records1</span><span class="o">.</span><span class="n">p23250</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.06587</span><span class="p">)</span> <span class="o">*</span> <span class="n">records1</span><span class="o">.</span><span class="n">e01100</span>
+        <span class="c1"># set total capital gains to zero</span>
+        <span class="n">records1</span><span class="o">.</span><span class="n">e01100</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">records1</span><span class="o">.</span><span class="n">e01100</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="n">records1</span> <span class="o">=</span> <span class="n">Records</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">gfactors</span><span class="o">=</span><span class="n">gfactors</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span>
+            <span class="n">start_year</span><span class="o">=</span><span class="n">records_start_year</span><span class="p">)</span>  <span class="c1"># pragma: no cover</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">records1</span> <span class="o">=</span> <span class="n">Records</span><span class="p">()</span>  <span class="c1"># pragma: no cover</span>
+
+    <span class="k">if</span> <span class="n">baseline</span><span class="p">:</span>
+        <span class="c1"># Should not be a reform if baseline is True</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">reform</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">baseline</span><span class="p">:</span>
+        <span class="n">policy1</span><span class="o">.</span><span class="n">implement_reform</span><span class="p">(</span><span class="n">reform</span><span class="p">)</span>
+
+    <span class="c1"># the default set up increments year to 2013</span>
+    <span class="n">calc1</span> <span class="o">=</span> <span class="n">Calculator</span><span class="p">(</span><span class="n">records</span><span class="o">=</span><span class="n">records1</span><span class="p">,</span> <span class="n">policy</span><span class="o">=</span><span class="n">policy1</span><span class="p">)</span>
+
+    <span class="c1"># this increment_year function extrapolates all PUF variables to</span>
+    <span class="c1"># the next year so this step takes the calculator to the start_year</span>
+    <span class="k">if</span> <span class="n">calculator_start_year</span> <span class="o">&gt;</span> <span class="n">TC_LAST_YEAR</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Start year is beyond data extrapolation.&quot;</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">calc1</span><span class="o">.</span><span class="n">current_year</span> <span class="o">&lt;</span> <span class="n">calculator_start_year</span><span class="p">:</span>
+        <span class="n">calc1</span><span class="o">.</span><span class="n">increment_year</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">calc1</span></div>
+
+
+<div class="viewcode-block" id="get_rates"><a class="viewcode-back" href="../../get_taxcalc_rates.html#ccc.get_taxcalc_rates.get_rates">[docs]</a><span class="k">def</span> <span class="nf">get_rates</span><span class="p">(</span><span class="n">baseline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">start_year</span><span class="o">=</span><span class="n">DEFAULT_START_YEAR</span><span class="p">,</span> <span class="n">reform</span><span class="o">=</span><span class="p">{},</span>
+              <span class="n">data</span><span class="o">=</span><span class="s1">&#39;cps&#39;</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This function computes weighted average marginal tax rates using</span>
+<span class="sd">    micro data from the tax calculator</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        baseline (bool): `True` if baseline tax policy, `False` if reform</span>
+<span class="sd">        start_year (integer): first year of budget window</span>
+<span class="sd">        reform (dict): reform parameters</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        individual_rates (dict): individual income (IIT+payroll)</span>
+<span class="sd">            marginal tax rates</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">calc1</span> <span class="o">=</span> <span class="n">get_calculator</span><span class="p">(</span><span class="n">baseline</span><span class="o">=</span><span class="n">baseline</span><span class="p">,</span>
+                           <span class="n">calculator_start_year</span><span class="o">=</span><span class="n">start_year</span><span class="p">,</span>
+                           <span class="n">reform</span><span class="o">=</span><span class="n">reform</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="c1"># running all the functions and calculates taxes</span>
+    <span class="n">calc1</span><span class="o">.</span><span class="n">calc_all</span><span class="p">()</span>
+
+    <span class="c1"># Loop over years in window of calculations</span>
+    <span class="n">end_year</span> <span class="o">=</span> <span class="n">start_year</span>
+    <span class="n">array_size</span> <span class="o">=</span> <span class="n">end_year</span> <span class="o">-</span> <span class="n">start_year</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">rates_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tau_div&#39;</span><span class="p">:</span> <span class="s1">&#39;e00650&#39;</span><span class="p">,</span> <span class="s1">&#39;tau_int&#39;</span><span class="p">:</span> <span class="s1">&#39;e00300&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;tau_scg&#39;</span><span class="p">:</span> <span class="s1">&#39;p22250&#39;</span><span class="p">,</span> <span class="s1">&#39;tau_lcg&#39;</span><span class="p">:</span> <span class="s1">&#39;p23250&#39;</span><span class="p">}</span>
+    <span class="n">individual_rates</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;tau_nc&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">array_size</span><span class="p">),</span> <span class="s1">&#39;tau_div&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">array_size</span><span class="p">),</span>
+        <span class="s1">&#39;tau_int&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">array_size</span><span class="p">),</span> <span class="s1">&#39;tau_scg&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">array_size</span><span class="p">),</span>
+        <span class="s1">&#39;tau_lcg&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">array_size</span><span class="p">),</span> <span class="s1">&#39;tau_td&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">array_size</span><span class="p">),</span>
+        <span class="s1">&#39;tau_h&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">array_size</span><span class="p">)}</span>
+    <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_year</span><span class="p">,</span> <span class="n">end_year</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">calc1</span><span class="o">.</span><span class="n">advance_to_year</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;year: &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">calc1</span><span class="o">.</span><span class="n">current_year</span><span class="p">))</span>
+        <span class="c1"># Compute mtrs</span>
+        <span class="c1"># Sch C</span>
+        <span class="p">[</span><span class="n">mtr_fica_schC</span><span class="p">,</span> <span class="n">mtr_iit_schC</span><span class="p">,</span> <span class="n">mtr_combined_schC</span><span class="p">]</span> <span class="o">=</span>\
+            <span class="n">calc1</span><span class="o">.</span><span class="n">mtr</span><span class="p">(</span><span class="s1">&#39;e00900p&#39;</span><span class="p">)</span>
+        <span class="c1"># Sch E  - includes partnership and s corp income</span>
+        <span class="p">[</span><span class="n">mtr_fica_schE</span><span class="p">,</span> <span class="n">mtr_iit_schE</span><span class="p">,</span> <span class="n">mtr_combined_schE</span><span class="p">]</span> <span class="o">=</span>\
+            <span class="n">calc1</span><span class="o">.</span><span class="n">mtr</span><span class="p">(</span><span class="s1">&#39;e02000&#39;</span><span class="p">)</span>
+        <span class="c1"># Partnership and s corp income</span>
+        <span class="p">[</span><span class="n">mtr_fica_PT</span><span class="p">,</span> <span class="n">mtr_iit_PT</span><span class="p">,</span> <span class="n">mtr_combined_PT</span><span class="p">]</span> <span class="o">=</span> <span class="n">calc1</span><span class="o">.</span><span class="n">mtr</span><span class="p">(</span><span class="s1">&#39;e26270&#39;</span><span class="p">)</span>
+        <span class="c1"># pension distributions</span>
+        <span class="c1"># does PUF have e01500?  Do we want IRA distributions here?</span>
+        <span class="c1"># Weird - I see e01500 in PUF, but error when try to call it</span>
+        <span class="p">[</span><span class="n">mtr_fica_pension</span><span class="p">,</span> <span class="n">mtr_iit_pension</span><span class="p">,</span> <span class="n">mtr_combined_pension</span><span class="p">]</span> <span class="o">=</span>\
+            <span class="n">calc1</span><span class="o">.</span><span class="n">mtr</span><span class="p">(</span><span class="s1">&#39;e01700&#39;</span><span class="p">)</span>
+        <span class="c1"># mortgage interest and property tax deductions</span>
+        <span class="c1"># do we also want mtg ins premiums here?</span>
+        <span class="c1"># mtg interest</span>
+        <span class="p">[</span><span class="n">mtr_fica_mtg</span><span class="p">,</span> <span class="n">mtr_iit_mtg</span><span class="p">,</span> <span class="n">mtr_combined_mtg</span><span class="p">]</span> <span class="o">=</span>\
+            <span class="n">calc1</span><span class="o">.</span><span class="n">mtr</span><span class="p">(</span><span class="s1">&#39;e19200&#39;</span><span class="p">)</span>
+        <span class="c1"># prop tax</span>
+        <span class="p">[</span><span class="n">mtr_fica_prop</span><span class="p">,</span> <span class="n">mtr_iit_prop</span><span class="p">,</span> <span class="n">mtr_combined_prop</span><span class="p">]</span> <span class="o">=</span>\
+            <span class="n">calc1</span><span class="o">.</span><span class="n">mtr</span><span class="p">(</span><span class="s1">&#39;e18500&#39;</span><span class="p">)</span>
+        <span class="n">pos_ti</span> <span class="o">=</span> <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;c04800&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="n">individual_rates</span><span class="p">[</span><span class="s1">&#39;tau_nc&#39;</span><span class="p">][</span><span class="n">year</span> <span class="o">-</span> <span class="n">start_year</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(((</span><span class="n">mtr_iit_schC</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;e00900p&quot;</span><span class="p">)))</span> <span class="o">+</span>
+              <span class="p">(</span><span class="n">mtr_iit_schE</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;e02000&quot;</span><span class="p">)</span> <span class="o">-</span>
+                                     <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;e26270&quot;</span><span class="p">)))</span> <span class="o">+</span>
+              <span class="p">(</span><span class="n">mtr_iit_PT</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;e26270&quot;</span><span class="p">))))</span> <span class="o">*</span>
+             <span class="n">pos_ti</span> <span class="o">*</span> <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;s006&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span>
+            <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;e00900p&quot;</span><span class="p">))</span> <span class="o">+</span>
+              <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;e02000&quot;</span><span class="p">)</span> <span class="o">-</span> <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;e26270&quot;</span><span class="p">))</span> <span class="o">+</span>
+              <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;e26270&quot;</span><span class="p">)))</span> <span class="o">*</span>
+             <span class="n">pos_ti</span> <span class="o">*</span> <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;s006&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+        <span class="n">individual_rates</span><span class="p">[</span><span class="s1">&#39;tau_td&#39;</span><span class="p">][</span><span class="n">year</span> <span class="o">-</span> <span class="n">start_year</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">mtr_iit_pension</span> <span class="o">*</span> <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;e01500&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="n">pos_ti</span> <span class="o">*</span>
+             <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;s006&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span>
+            <span class="p">(</span><span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;e01500&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="n">pos_ti</span> <span class="o">*</span>
+             <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;s006&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+        <span class="n">individual_rates</span><span class="p">[</span><span class="s1">&#39;tau_h&#39;</span><span class="p">][</span><span class="n">year</span> <span class="o">-</span> <span class="n">start_year</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="p">(</span>
+            <span class="p">((</span><span class="n">mtr_iit_mtg</span> <span class="o">*</span> <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;e19200&quot;</span><span class="p">))</span> <span class="o">+</span>
+             <span class="p">(</span><span class="n">mtr_iit_prop</span> <span class="o">*</span> <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;e18500&quot;</span><span class="p">))</span> <span class="o">*</span> <span class="n">pos_ti</span> <span class="o">*</span>
+             <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;s006&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span>
+                 <span class="p">(</span><span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;e19200&quot;</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span><span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;e18500&quot;</span><span class="p">))</span> <span class="o">*</span>
+                 <span class="n">pos_ti</span> <span class="o">*</span> <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;s006&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+        <span class="c1"># Loop over MTRs that have only one income source</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">rates_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="p">[</span><span class="n">mtr_fica</span><span class="p">,</span> <span class="n">mtr_iit</span><span class="p">,</span> <span class="n">mtr_combined</span><span class="p">]</span> <span class="o">=</span> <span class="n">calc1</span><span class="o">.</span><span class="n">mtr</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="n">individual_rates</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">year</span> <span class="o">-</span> <span class="n">start_year</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="p">(</span><span class="n">mtr_iit</span> <span class="o">*</span> <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">*</span> <span class="n">pos_ti</span> <span class="o">*</span>
+                 <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;s006&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span>
+                <span class="p">(</span><span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">*</span> <span class="n">pos_ti</span> <span class="o">*</span> <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;s006&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">individual_rates</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">individual_rates</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Cost of Capital Calculator</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributor_guide.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../public_api.html">Cost-of-Capital-Calclator API</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Jason DeBacker.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

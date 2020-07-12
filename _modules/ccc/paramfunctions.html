@@ -1,0 +1,451 @@
+
+<!DOCTYPE html>
+
+<html lang="Python">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ccc.paramfunctions &#8212; Cost of Capital Calculator 1.0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for ccc.paramfunctions</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="calc_sprime_c_td"><a class="viewcode-back" href="../../paramfunctions.html#ccc.paramfunctions.calc_sprime_c_td">[docs]</a><span class="k">def</span> <span class="nf">calc_sprime_c_td</span><span class="p">(</span><span class="n">Y_td</span><span class="p">,</span> <span class="n">tau_td</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">pi</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Compute after-tax rate of return on savings invested in</span>
+<span class="sd">    tax-deferred accounts.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        s^{&#39;}_{c,td} = \frac{1}{Y_{td}}log((1-\tau_{td})*e^{i*Y_{td}}+</span>
+<span class="sd">            \tau_{td}) - \pi</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        Y_td (scalar): number of years savings held in tax-deferred</span>
+<span class="sd">            retirement account</span>
+<span class="sd">        tau_td (scalar): effective marginal tax rate on investment</span>
+<span class="sd">            income from tax-deferred accounts</span>
+<span class="sd">        i (scalar): the nominal interest rate</span>
+<span class="sd">        pi (scalar): the inflation rate</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        sprime_c_td (scalar): the after-tax return on corporate</span>
+<span class="sd">            investments made through tax-deferred accounts</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">sprime_c_td</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">Y_td</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">tau_td</span><span class="p">)</span> <span class="o">*</span>
+                             <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">Y_td</span><span class="p">))</span> <span class="o">+</span> <span class="n">tau_td</span><span class="p">)</span> <span class="o">-</span> <span class="n">pi</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">sprime_c_td</span></div>
+
+
+<div class="viewcode-block" id="calc_s_c_d_td"><a class="viewcode-back" href="../../paramfunctions.html#ccc.paramfunctions.calc_s_c_d_td">[docs]</a><span class="k">def</span> <span class="nf">calc_s_c_d_td</span><span class="p">(</span><span class="n">sprime_c_td</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">pi</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Compute the after-tax return on corprate debt investments made</span>
+<span class="sd">    through tax-deferred accounts.</span>
+
+<span class="sd">    ..math::</span>
+<span class="sd">        s_{c,d,td} = \gamma(i-\pi) + (1-\gamma)s^{&#39;}_{c,td}</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sprime_c_td (scalar): the after-tax return on corporate</span>
+<span class="sd">            investments made through tax-deferred accounts</span>
+<span class="sd">        gamma (scalar): Fraction of debt owned through whole-life</span>
+<span class="sd">            insurance policies</span>
+<span class="sd">        i (scalar): the nominal interest rate</span>
+<span class="sd">        pi (scalar): the inflation rate</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        s_c_d_td (scalar): the after-tax return on corprate debt</span>
+<span class="sd">            investments made through tax-deferred accounts</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">s_c_d_td</span> <span class="o">=</span> <span class="n">gamma</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">pi</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">gamma</span><span class="p">)</span> <span class="o">*</span> <span class="n">sprime_c_td</span>
+
+    <span class="k">return</span> <span class="n">s_c_d_td</span></div>
+
+
+<div class="viewcode-block" id="calc_s__d"><a class="viewcode-back" href="../../paramfunctions.html#ccc.paramfunctions.calc_s__d">[docs]</a><span class="k">def</span> <span class="nf">calc_s__d</span><span class="p">(</span><span class="n">s_d_td</span><span class="p">,</span> <span class="n">alpha_d_ft</span><span class="p">,</span> <span class="n">alpha_d_td</span><span class="p">,</span> <span class="n">alpha_d_nt</span><span class="p">,</span> <span class="n">tau_int</span><span class="p">,</span>
+              <span class="n">tau_w</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">pi</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Compute the after-tax return to debt investments.</span>
+
+<span class="sd">    ..math::</span>
+<span class="sd">        s_{j,d} = \alpha_{j,d,ft}((1-\tau_{int})i - \pi) +</span>
+<span class="sd">            \alpha_{j,d,td}s_{j,d,td} + \alpha_{j,d,nt}(i-\pi) - \tau_{w}</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        s_d_td (scalar): after-tax return on debt investments made</span>
+<span class="sd">            through tax-deferred acounts</span>
+<span class="sd">        alpha_d_ft (scalar): fraction of debt investments held in</span>
+<span class="sd">            full-tax accounts</span>
+<span class="sd">        alpha_d_td (scalar): fraction of debt investments held in</span>
+<span class="sd">            tax-deferred acounts</span>
+<span class="sd">        alpha_d_nt (scalar): fraction of debt investments held in</span>
+<span class="sd">            tax-free accounts</span>
+<span class="sd">        tau_int (scalar): marginal tax rate on interest income</span>
+<span class="sd">        tau_w (scalar): marginal tax rate on wealth</span>
+<span class="sd">        i (scalar): nominal interest rate</span>
+<span class="sd">        pi (scalar): inflation rate</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        s__d (scalar): after-tax return on debt investments</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">s__d</span> <span class="o">=</span> <span class="p">(</span><span class="n">alpha_d_ft</span> <span class="o">*</span> <span class="p">(((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">tau_int</span><span class="p">)</span> <span class="o">*</span> <span class="n">i</span><span class="p">)</span> <span class="o">-</span> <span class="n">pi</span><span class="p">)</span> <span class="o">+</span> <span class="n">alpha_d_td</span> <span class="o">*</span>
+            <span class="n">s_d_td</span> <span class="o">+</span> <span class="n">alpha_d_nt</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">pi</span><span class="p">)</span> <span class="o">-</span> <span class="n">tau_w</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">s__d</span></div>
+
+
+<div class="viewcode-block" id="calc_g__g"><a class="viewcode-back" href="../../paramfunctions.html#ccc.paramfunctions.calc_g__g">[docs]</a><span class="k">def</span> <span class="nf">calc_g__g</span><span class="p">(</span><span class="n">Y_g</span><span class="p">,</span> <span class="n">tau_cg</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">E_c</span><span class="p">,</span> <span class="n">pi</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Calculate the real, after-tax annualized return on short or long-</span>
+<span class="sd">    term capital gains</span>
+
+<span class="sd">    ..math::</span>
+<span class="sd">        g_{icg} = \frac{1}{Y_{icg}}\ln\biggl[(1-\tau_{icg})e^{(\pi+mE)</span>
+<span class="sd">            Y_{icg}}+\tau_{icg}\biggr] + \pi</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        Y_g (scalar): number of years asset held before gains realized</span>
+<span class="sd">        tau_cg (scalar): tax rate on capital gains income</span>
+<span class="sd">        m (scalar): dividend payout rate</span>
+<span class="sd">        E_c (scalar): expected, after-tax return on corporate equity</span>
+<span class="sd">        pi (scalar): inflation rate</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        g__g (scalar): real, after-tax annualized return on capital</span>
+<span class="sd">            gains</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">g__g</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">Y_g</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">tau_cg</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">pi</span> <span class="o">+</span> <span class="n">m</span> <span class="o">*</span> <span class="n">E_c</span><span class="p">)</span> <span class="o">*</span>
+                                                  <span class="n">Y_g</span><span class="p">))</span> <span class="o">+</span> <span class="n">tau_cg</span><span class="p">)</span> <span class="o">-</span> <span class="n">pi</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">g__g</span></div>
+
+
+<div class="viewcode-block" id="calc_g"><a class="viewcode-back" href="../../paramfunctions.html#ccc.paramfunctions.calc_g">[docs]</a><span class="k">def</span> <span class="nf">calc_g</span><span class="p">(</span><span class="n">g_scg</span><span class="p">,</span> <span class="n">g_lcg</span><span class="p">,</span> <span class="n">omega_scg</span><span class="p">,</span> <span class="n">omega_lcg</span><span class="p">,</span> <span class="n">omega_xcg</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">E_c</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Calculate the after-tax, annualized, real rate of return on all</span>
+<span class="sd">    capital gains</span>
+
+<span class="sd">    ..math::</span>
+<span class="sd">        g = \omega_{scg}\times g_{scg} + \omega_{lcg}\times g_{lcg} +</span>
+<span class="sd">            \omega_{xcg}\times mE</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        g_scg (scalar): the real, after-tax annualized return on short-</span>
+<span class="sd">            term capital gains</span>
+<span class="sd">        g_lcg (scalar): the real, after-tax annualized return on long-</span>
+<span class="sd">            term capital gains</span>
+<span class="sd">        omega_scg (scalar): the fraction of capital gains that are</span>
+<span class="sd">            short-term</span>
+<span class="sd">        omega_lcg (scalar): the fraction of capital gains that are</span>
+<span class="sd">            long-term</span>
+<span class="sd">        m (scalar): dividend payout rate</span>
+<span class="sd">        E_c (scalar): expected, after-tax return on corporate equity</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        g (scalar): the after-tax, annualized, real rate of return on</span>
+<span class="sd">            all capital gains</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">omega_scg</span> <span class="o">*</span> <span class="n">g_scg</span> <span class="o">+</span> <span class="n">omega_lcg</span> <span class="o">*</span> <span class="n">g_lcg</span> <span class="o">+</span> <span class="n">omega_xcg</span> <span class="o">*</span> <span class="n">m</span> <span class="o">*</span> <span class="n">E_c</span>
+
+    <span class="k">return</span> <span class="n">g</span></div>
+
+
+<div class="viewcode-block" id="calc_s_c_e_td"><a class="viewcode-back" href="../../paramfunctions.html#ccc.paramfunctions.calc_s_c_e_td">[docs]</a><span class="k">def</span> <span class="nf">calc_s_c_e_td</span><span class="p">(</span><span class="n">Y_td</span><span class="p">,</span> <span class="n">tau_td</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">E_c</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Calculate the after-tax return on investmentes in corporate equity</span>
+<span class="sd">    in tax-deferred accounts.</span>
+
+<span class="sd">    ..math::</span>
+<span class="sd">        s_{c,e,td} = \frac{1}{Y_{td}}\ln((1-\tau_{td})e^{(\pi+E)Y_{td}}</span>
+<span class="sd">            +\tau_{td}) - \pi</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        Y_td (scalar): years investments are held in tax-deferred</span>
+<span class="sd">            accounts</span>
+<span class="sd">        tau_td (scalar): marginal tax rate on investments in</span>
+<span class="sd">            tax-deferred accounts</span>
+<span class="sd">        i (scalar): nominal interest rate</span>
+<span class="sd">        pi (scalar): inflation rate</span>
+<span class="sd">        E_c (scalar): expected, after-tax return on corporate equity</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        s_c_e_td (scalar): the after-tax return on investmentes in</span>
+<span class="sd">            corporate equity in tax-deferred accounts.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">s_c_e_td</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">Y_td</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">tau_td</span><span class="p">)</span> <span class="o">*</span>
+                             <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">pi</span> <span class="o">+</span> <span class="n">E_c</span><span class="p">)</span> <span class="o">*</span> <span class="n">Y_td</span><span class="p">))</span> <span class="o">+</span> <span class="n">tau_td</span><span class="p">)</span> <span class="o">-</span> <span class="n">pi</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">s_c_e_td</span></div>
+
+
+<div class="viewcode-block" id="calc_s_c_e"><a class="viewcode-back" href="../../paramfunctions.html#ccc.paramfunctions.calc_s_c_e">[docs]</a><span class="k">def</span> <span class="nf">calc_s_c_e</span><span class="p">(</span><span class="n">s_c_e_ft</span><span class="p">,</span> <span class="n">s_c_e_td</span><span class="p">,</span> <span class="n">alpha_c_e_ft</span><span class="p">,</span> <span class="n">alpha_c_e_td</span><span class="p">,</span>
+               <span class="n">alpha_c_e_nt</span><span class="p">,</span> <span class="n">tau_w</span><span class="p">,</span> <span class="n">E_c</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Calculate the after-tax return on investments in corporate equity</span>
+
+<span class="sd">    ..math::</span>
+<span class="sd">        s_{c,e} = \alpha_{c,e,ft}\times s_{c,e,ft} + \alpha_{c,e,td}</span>
+<span class="sd">            \times s_{c,e,td} + \alpha_{c,e,nt}\times E - \tau_{w}</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        s_c_e_ft (scalar): after-tax return on investments in corporate</span>
+<span class="sd">            equity in fully-taxable accounts</span>
+<span class="sd">        s_c_e_td (scalar): after-tax return on investments in corporate</span>
+<span class="sd">            equity in tax-deferred accounts</span>
+<span class="sd">        alpha_c_e_ft (scalar): fraction of corporate equity investments</span>
+<span class="sd">            made through full-taxable accounts</span>
+<span class="sd">        alpha_c_e_td (scalar): fraction of corporate equity investments</span>
+<span class="sd">            made through tax-deferred accounts</span>
+<span class="sd">        alpha_c_e_nt (scalar): fraction of corporate equity investments</span>
+<span class="sd">            made through tax-exempt accounts</span>
+<span class="sd">        tau_w (scalar): marginal tax rate on wealth</span>
+<span class="sd">        E_c (scalar): expected, after-tax return on corporate equity</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        s_c_e (scalar): the after-tax return on investments in</span>
+<span class="sd">            corporate equity</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">s_c_e</span> <span class="o">=</span> <span class="p">(</span><span class="n">alpha_c_e_ft</span> <span class="o">*</span> <span class="n">s_c_e_ft</span> <span class="o">+</span> <span class="n">alpha_c_e_td</span> <span class="o">*</span> <span class="n">s_c_e_td</span> <span class="o">+</span>
+             <span class="n">alpha_c_e_nt</span> <span class="o">*</span> <span class="n">E_c</span> <span class="o">-</span> <span class="n">tau_w</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">s_c_e</span></div>
+
+
+<div class="viewcode-block" id="calc_s"><a class="viewcode-back" href="../../paramfunctions.html#ccc.paramfunctions.calc_s">[docs]</a><span class="k">def</span> <span class="nf">calc_s</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Compute the after-tax rate of return to savers, s.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        s = ...</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        p (CCC Specification Object): model parameters</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (tuple): return to savers and required return to pass-through</span>
+<span class="sd">            entities:</span>
+
+<span class="sd">            * s_dict (dict): dictionary of s for investments in</span>
+<span class="sd">                corporate and pass-through businesses and by type of</span>
+<span class="sd">                financing</span>
+<span class="sd">            * E_nc (scalar): required pre-tax return on pass-through</span>
+<span class="sd">                investments</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># Compute after-tax rate of return on savings invested in</span>
+    <span class="c1"># tax-deferred accounts</span>
+    <span class="n">sprime_c_td</span> <span class="o">=</span> <span class="n">calc_sprime_c_td</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">Y_td</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_td</span><span class="p">,</span>
+                                   <span class="n">p</span><span class="o">.</span><span class="n">nominal_interest_rate</span><span class="p">,</span>
+                                   <span class="n">p</span><span class="o">.</span><span class="n">inflation_rate</span><span class="p">)</span>
+    <span class="c1"># The after-tax return on corprate debt investments made through</span>
+    <span class="c1"># tax-deferred accounts</span>
+    <span class="n">s_c_d_td</span> <span class="o">=</span> <span class="n">calc_s_c_d_td</span><span class="p">(</span><span class="n">sprime_c_td</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">gamma</span><span class="p">,</span>
+                             <span class="n">p</span><span class="o">.</span><span class="n">nominal_interest_rate</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">inflation_rate</span><span class="p">)</span>
+    <span class="c1"># The after-tax return on corporate debt investments</span>
+    <span class="n">s_c_d</span> <span class="o">=</span> <span class="n">calc_s__d</span><span class="p">(</span><span class="n">s_c_d_td</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">alpha_c_d_ft</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">alpha_c_d_td</span><span class="p">,</span>
+                      <span class="n">p</span><span class="o">.</span><span class="n">alpha_c_d_nt</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_int</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_w</span><span class="p">,</span>
+                      <span class="n">p</span><span class="o">.</span><span class="n">nominal_interest_rate</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">inflation_rate</span><span class="p">)</span>
+    <span class="c1"># The after-tax return on non-corporate debt investments made</span>
+    <span class="c1"># through tax deferred accounts</span>
+    <span class="n">s_nc_d_td</span> <span class="o">=</span> <span class="n">s_c_d_td</span>
+    <span class="c1"># The after-tax return on non-corporate debt investments</span>
+    <span class="n">s_nc_d</span> <span class="o">=</span> <span class="n">calc_s__d</span><span class="p">(</span><span class="n">s_nc_d_td</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">alpha_nc_d_ft</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">alpha_nc_d_td</span><span class="p">,</span>
+                       <span class="n">p</span><span class="o">.</span><span class="n">alpha_nc_d_nt</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_int</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_w</span><span class="p">,</span>
+                       <span class="n">p</span><span class="o">.</span><span class="n">nominal_interest_rate</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">inflation_rate</span><span class="p">)</span>
+    <span class="c1"># The after-tax real, annualized return on short-term capital gains</span>
+    <span class="n">g_scg</span> <span class="o">=</span> <span class="n">calc_g__g</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">Y_scg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_scg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">m</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">E_c</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">inflation_rate</span><span class="p">)</span>
+    <span class="c1"># The after-tax real, annualized return on long-term capital gains</span>
+    <span class="n">g_lcg</span> <span class="o">=</span> <span class="n">calc_g__g</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">Y_lcg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_lcg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">m</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">E_c</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">inflation_rate</span><span class="p">)</span>
+    <span class="c1"># The after-tax real, annualized return on all capital gains</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">calc_g</span><span class="p">(</span>
+        <span class="n">g_scg</span><span class="p">,</span> <span class="n">g_lcg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">omega_scg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">omega_lcg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">omega_xcg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">m</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">E_c</span><span class="p">)</span>
+    <span class="c1"># The after-tax return on corporate equity investments made in fully</span>
+    <span class="c1"># taxable accounts</span>
+    <span class="n">s_c_e_ft</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">E_c</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_div</span><span class="p">)</span> <span class="o">+</span> <span class="n">g</span>
+    <span class="c1"># The after-tax return on corporate equity investments made in</span>
+    <span class="c1"># tax-deferred acounts</span>
+    <span class="n">s_c_e_td</span> <span class="o">=</span> <span class="n">calc_s_c_e_td</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">Y_td</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_td</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">nominal_interest_rate</span><span class="p">,</span>
+                             <span class="n">p</span><span class="o">.</span><span class="n">inflation_rate</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">E_c</span><span class="p">)</span>
+    <span class="c1"># The after-tax return on corporate equity investments</span>
+    <span class="n">s_c_e</span> <span class="o">=</span> <span class="n">calc_s_c_e</span><span class="p">(</span><span class="n">s_c_e_ft</span><span class="p">,</span> <span class="n">s_c_e_td</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">alpha_c_e_ft</span><span class="p">,</span>
+                       <span class="n">p</span><span class="o">.</span><span class="n">alpha_c_e_td</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">alpha_c_e_nt</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_w</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">E_c</span><span class="p">)</span>
+    <span class="c1"># The after-tax return on corporate investments (all - debt and</span>
+    <span class="c1"># equity combined)</span>
+    <span class="n">s_c</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">f_c</span> <span class="o">*</span> <span class="n">s_c_d</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">f_c</span><span class="p">)</span> <span class="o">*</span> <span class="n">s_c_e</span>
+    <span class="c1"># The required rate of return on non-corporate investments</span>
+    <span class="n">E_nc</span> <span class="o">=</span> <span class="n">s_c_e</span>
+    <span class="c1"># The after-tax rate of return on non-corporate equity investments</span>
+    <span class="n">s_nc_e</span> <span class="o">=</span> <span class="n">E_nc</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_w</span>
+    <span class="c1"># The after-tax return on non-corporate investments (all - debt and</span>
+    <span class="c1"># equity combined)</span>
+    <span class="n">s_nc</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">f_nc</span> <span class="o">*</span> <span class="n">s_nc_d</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">f_nc</span><span class="p">)</span> <span class="o">*</span> <span class="n">s_nc_e</span>
+    <span class="c1"># Return the after-tax rates of return on all types of investments</span>
+    <span class="n">s_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;mix&#39;</span><span class="p">:</span> <span class="n">s_c</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="n">s_c_d</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">:</span> <span class="n">s_c_e</span><span class="p">},</span>
+              <span class="s1">&#39;nc&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;mix&#39;</span><span class="p">:</span> <span class="n">s_nc</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="n">s_nc_d</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">:</span> <span class="n">s_nc_e</span><span class="p">}}</span>
+
+    <span class="k">return</span> <span class="n">s_dict</span><span class="p">,</span> <span class="n">E_nc</span></div>
+
+
+<span class="k">def</span> <span class="nf">calc_r</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">f_dict</span><span class="p">,</span> <span class="n">int_haircut_dict</span><span class="p">,</span> <span class="n">E_dict</span><span class="p">,</span> <span class="n">ace_dict</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Compute firm nominal discount rates</span>
+
+<span class="sd">    ..math::</span>
+<span class="sd">        r_{m,j} = f_{m,j}\[i(1-u_{j}) - \pi\] + (1-f_{m,j})E_{j} + \pi</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        p (CCC Specification Object): model parameters</span>
+<span class="sd">        f_dict (dict): dictionary of fraction of investments financed</span>
+<span class="sd">            with debt by entity type and financing method</span>
+<span class="sd">        int_haircut_dict (dict): dictionary of haircut to interest paid</span>
+<span class="sd">            deduction by entity type</span>
+<span class="sd">        E_dict (dict): dictionary of pre-tax required rate of return by</span>
+<span class="sd">            entity type</span>
+<span class="sd">        ace_dict (dict): dictionary of allowance for corporate equity</span>
+<span class="sd">            indicators by entity type</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        r (dict): nominal, discount rate by entity type and financing</span>
+<span class="sd">            method</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">entity_list</span><span class="p">:</span>
+        <span class="n">r</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">financing_list</span><span class="p">:</span>
+            <span class="n">r</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">f_dict</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">f</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">nominal_interest_rate</span> <span class="o">*</span>
+                                <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">int_haircut_dict</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="o">*</span>
+                                 <span class="n">p</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">t</span><span class="p">]))</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">f_dict</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">f</span><span class="p">])</span> <span class="o">*</span>
+                <span class="p">(</span><span class="n">E_dict</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">inflation_rate</span> <span class="o">-</span> <span class="n">E_dict</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span>
+                 <span class="n">p</span><span class="o">.</span><span class="n">ace_int_rate</span> <span class="o">*</span> <span class="n">ace_dict</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">r</span>
+
+
+<span class="k">def</span> <span class="nf">calc_r_prime</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">f_dict</span><span class="p">,</span> <span class="n">E_dict</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Compute firm nominal, after-tax rates of return</span>
+
+<span class="sd">    ..math::</span>
+<span class="sd">        r^{&#39;}_{m,j} = f_{m,j}(i-\pi) + (1-f_{m,j})E_{j} + \pi</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        p (CCC Specification Object): model parameters</span>
+<span class="sd">        f_dict (dict): dictionary of fraction of investments financed</span>
+<span class="sd">            with debt by entity type and financing method</span>
+<span class="sd">        E_dict (dict): dictionary of pre-tax required rate of return by</span>
+<span class="sd">            entity type</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        r_prime (dict): nominal, after-tax rate of return by entity type</span>
+<span class="sd">            and financing method</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">r_prime</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">entity_list</span><span class="p">:</span>
+        <span class="n">r_prime</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">financing_list</span><span class="p">:</span>
+            <span class="n">r_prime</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">f_dict</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">f</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">nominal_interest_rate</span> <span class="o">+</span>
+                <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">f_dict</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">f</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">E_dict</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">inflation_rate</span><span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">r_prime</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Cost of Capital Calculator</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributor_guide.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../public_api.html">Cost-of-Capital-Calclator API</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Jason DeBacker.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

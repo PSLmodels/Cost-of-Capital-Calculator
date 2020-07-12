@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+
+<html lang="Python">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ccc.calcfunctions &#8212; Cost of Capital Calculator 1.0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for ccc.calcfunctions</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">ccc.constants</span> <span class="kn">import</span> <span class="n">TAX_METHODS</span>
+<span class="kn">from</span> <span class="nn">ccc.utils</span> <span class="kn">import</span> <span class="n">str_modified</span>
+
+
+<div class="viewcode-block" id="update_depr_methods"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.update_depr_methods">[docs]</a><span class="k">def</span> <span class="nf">update_depr_methods</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">dp</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Updates depreciation methods per changes from defaults that are</span>
+<span class="sd">    specified by user.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (Pandas DataFrame): assets by type and tax treatment</span>
+<span class="sd">        p (CCC Specifications object): CCC parameters</span>
+<span class="sd">        dp (CCC DepreciationParams object): asset-specific depreciation</span>
+<span class="sd">            parameters</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        df (Pandas DataFrame): assets by type and tax treatment with</span>
+<span class="sd">            updated tax depreciation methods</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># update tax_deprec_rates based on user defined parameters</span>
+    <span class="c1"># create dataframe with depreciation policy parameters</span>
+    <span class="n">deprec_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dp</span><span class="o">.</span><span class="n">asset</span><span class="p">)</span>
+    <span class="c1"># split out value into two columns</span>
+    <span class="n">deprec_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">deprec_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;value&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                           <span class="n">deprec_df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># drop information duplicated in asset dataframe</span>
+    <span class="n">deprec_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;asset_name&#39;</span><span class="p">,</span> <span class="s1">&#39;minor_asset_group&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;major_asset_group&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># merge depreciation policy parameters to asset dataframe</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">deprec_df</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">deprec_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;bea_asset_code&#39;</span><span class="p">,</span>
+                  <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;BEA_code&#39;</span><span class="p">)</span>
+    <span class="c1"># add bonus depreciation to tax deprec parameters dataframe</span>
+    <span class="c1"># ** UPDATE THIS  - maybe including bonus in new asset deprec JSON**</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;bonus&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;GDS_life&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">str_modified</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;bonus&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">bonus_deprec</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Compute b</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">TAX_METHODS</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ADS&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ADS&#39;</span><span class="p">,</span>
+                                                <span class="s1">&#39;ADS_life&#39;</span><span class="p">]</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;GDS&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;GDS&#39;</span><span class="p">,</span>
+                                                <span class="s1">&#39;GDS_life&#39;</span><span class="p">]</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;check_of_merge.csv&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="dbsl"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.dbsl">[docs]</a><span class="k">def</span> <span class="nf">dbsl</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">bonus</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Makes the calculation for the declining balance with a switch to</span>
+<span class="sd">    straight line (DBSL) method of depreciation.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        z = \frac{\beta}{\beta+r}\left[1-e^{-(\beta+r)Y^{*}}\right]+</span>
+<span class="sd">            \frac{e^{-\beta Y^{*}}}{(Y-Y^{*})r}</span>
+<span class="sd">            \left[e^{-rY^{*}}-e^{-rY}\right]</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        Y (array_like): asset life in years</span>
+<span class="sd">        b (array_like): scale of declining balance (e.g., b=2 means</span>
+<span class="sd">            double declining balance)</span>
+<span class="sd">        bonus (array_like): rate of bonus depreciation</span>
+<span class="sd">        r (scalar): discount rate</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        z (array_like): net present value of depreciation deductions for</span>
+<span class="sd">            $1 of investment</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">b</span> <span class="o">/</span> <span class="n">Y</span>
+    <span class="n">Y_star</span> <span class="o">=</span> <span class="n">Y</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">b</span><span class="p">))</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">bonus</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">bonus</span><span class="p">)</span> <span class="o">*</span> <span class="p">(((</span><span class="n">beta</span> <span class="o">/</span> <span class="p">(</span><span class="n">beta</span> <span class="o">+</span> <span class="n">r</span><span class="p">))</span> <span class="o">*</span>
+                                 <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">beta</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">Y_star</span><span class="p">)))</span> <span class="o">+</span>
+                                <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">Y_star</span><span class="p">)</span> <span class="o">/</span>
+                                  <span class="p">((</span><span class="n">Y</span> <span class="o">-</span> <span class="n">Y_star</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span><span class="p">))</span> <span class="o">*</span>
+                                 <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">Y_star</span><span class="p">)</span> <span class="o">-</span>
+                                  <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">Y</span><span class="p">))))))</span>
+    <span class="k">return</span> <span class="n">z</span></div>
+
+
+<div class="viewcode-block" id="sl"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.sl">[docs]</a><span class="k">def</span> <span class="nf">sl</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">bonus</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Makes the calculation for straight line (SL) method of depreciation.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        z = \frac{1 - e^{-rY}}{Yr}</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        Y (array_like): asset life in years</span>
+<span class="sd">        bonus (array_like): rate of bonus depreciation</span>
+<span class="sd">        r (scalar): discount rate</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        z (array_like): net present value of depreciation deductions for</span>
+<span class="sd">            $1 of investment</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">bonus</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">bonus</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">Y</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">Y</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">z</span></div>
+
+
+<div class="viewcode-block" id="econ"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.econ">[docs]</a><span class="k">def</span> <span class="nf">econ</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">bonus</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">pi</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Makes the calculation for the NPV of depreciation deductions using</span>
+<span class="sd">    economic depreciation rates.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        z = \frac{\delta}{(\delta + r - \pi)}</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        delta (array_like): rate of economic depreciation</span>
+<span class="sd">        bonus (array_like): rate of bonus depreciation</span>
+<span class="sd">        r (scalar): discount rate</span>
+<span class="sd">        pi (scalar): inflation rate</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        z (array_like): net present value of depreciation deductions for</span>
+<span class="sd">            $1 of investment</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">bonus</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">bonus</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">delta</span> <span class="o">/</span> <span class="p">(</span><span class="n">delta</span> <span class="o">+</span> <span class="n">r</span> <span class="o">-</span> <span class="n">pi</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">z</span></div>
+
+
+<div class="viewcode-block" id="npv_tax_depr"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.npv_tax_depr">[docs]</a><span class="k">def</span> <span class="nf">npv_tax_depr</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">land_expensing</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Depending on the method of depreciation, makes calls to either</span>
+<span class="sd">    the straight line or declining balance calculations.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (Pandas DataFrame): assets by type and tax treatment</span>
+<span class="sd">        r (scalar): discount rate</span>
+<span class="sd">        pi (scalar): inflation rate</span>
+<span class="sd">        land_expensing (scalar): rate of expensing on land</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        z (Pandas series): NPV of depreciation deductions for all asset</span>
+<span class="sd">                types and tax treatments</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;DB 200%&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;DB 150%&#39;</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dbsl</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span>
+                            <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;bonus&#39;</span><span class="p">],</span> <span class="n">r</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;SL&#39;</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sl</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;bonus&#39;</span><span class="p">],</span> <span class="n">r</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Economic&#39;</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">econ</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;delta&#39;</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;bonus&#39;</span><span class="p">],</span>
+                            <span class="n">r</span><span class="p">,</span> <span class="n">pi</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Expensing&#39;</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;asset_name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Land&#39;</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">land_expensing</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;asset_name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Inventories&#39;</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>  <span class="c1"># not sure why I have to do this with changes</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">z</span></div>
+
+
+<div class="viewcode-block" id="eq_coc"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.eq_coc">[docs]</a><span class="k">def</span> <span class="nf">eq_coc</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">inv_tax_credit</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Compute the cost of capital</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \rho = \frac{(r-\pi+\delta)}{1-u}(1-uz)+w-\delta</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        delta (array_like): rate of economic depreciation</span>
+<span class="sd">        z (array_like): net present value of depreciation deductions for</span>
+<span class="sd">            $1 of investment</span>
+<span class="sd">        w (scalar): property tax rate</span>
+<span class="sd">        u (scalar): statutory marginal tax rate for the first layer of</span>
+<span class="sd">            income taxes</span>
+<span class="sd">        inv_tax_credit (scalar): investment tax credit rate</span>
+<span class="sd">        pi (scalar): inflation rate</span>
+<span class="sd">        r (scalar): discount rate</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        rho (array_like): the cost of capital</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">rho</span> <span class="o">=</span> <span class="p">(((</span><span class="n">r</span> <span class="o">-</span> <span class="n">pi</span> <span class="o">+</span> <span class="n">delta</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">u</span><span class="p">))</span> <span class="o">*</span>
+           <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">inv_tax_credit</span> <span class="o">-</span> <span class="n">u</span> <span class="o">*</span> <span class="n">z</span><span class="p">)</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="n">delta</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rho</span></div>
+
+
+<div class="viewcode-block" id="eq_coc_inventory"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.eq_coc_inventory">[docs]</a><span class="k">def</span> <span class="nf">eq_coc_inventory</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">Y_v</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Compute the cost of capital for inventories</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \rho = \phi \rho_{FIFO} + (1-\phi)\rho_{LIFO}</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        u (scalar): statutory marginal tax rate for the first layer of</span>
+<span class="sd">            income taxes</span>
+<span class="sd">        phi (scalar): fraction of inventories that use FIFO accounting</span>
+<span class="sd">        Y_v (scalar): average number of year inventories are held</span>
+<span class="sd">        pi (scalar): inflation rate</span>
+<span class="sd">        r (scalar): discount rate</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        rho (scalar): cost of capital for inventories</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">rho_FIFO</span> <span class="o">=</span> <span class="p">(((</span><span class="mi">1</span> <span class="o">/</span> <span class="n">Y_v</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">Y_v</span><span class="p">)</span> <span class="o">-</span> <span class="n">u</span><span class="p">)</span> <span class="o">/</span>
+                                    <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">u</span><span class="p">)))</span> <span class="o">-</span> <span class="n">pi</span><span class="p">)</span>
+    <span class="n">rho_LIFO</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span> <span class="o">/</span> <span class="n">Y_v</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">r</span> <span class="o">-</span> <span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">Y_v</span><span class="p">)</span> <span class="o">-</span> <span class="n">u</span><span class="p">)</span> <span class="o">/</span>
+                                   <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">u</span><span class="p">)))</span>
+    <span class="n">rho</span> <span class="o">=</span> <span class="n">phi</span> <span class="o">*</span> <span class="n">rho_FIFO</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">rho_LIFO</span>
+    <span class="k">return</span> <span class="n">rho</span></div>
+
+
+<div class="viewcode-block" id="eq_ucc"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.eq_ucc">[docs]</a><span class="k">def</span> <span class="nf">eq_ucc</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Compute the user cost of capital</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        ucc = \rho + \delta</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        rho (array_like): cost of capital</span>
+<span class="sd">        delta (array_like): rate of economic depreciation</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ucc (array_like): the user cost of capital</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">ucc</span> <span class="o">=</span> <span class="n">rho</span> <span class="o">+</span> <span class="n">delta</span>
+    <span class="k">return</span> <span class="n">ucc</span></div>
+
+
+<div class="viewcode-block" id="eq_metr"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.eq_metr">[docs]</a><span class="k">def</span> <span class="nf">eq_metr</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">r_prime</span><span class="p">,</span> <span class="n">pi</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Compute the marginal effective tax rate (METR)</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        metr = \frac{\rho - (r^{&#39;}-\pi)}{\rho}</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        rho (array_like): cost of capital</span>
+<span class="sd">        r_prime (array_like): after-tax rate of return</span>
+<span class="sd">        pi (scalar): inflation rate</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        metr (array_like): METR</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">metr</span> <span class="o">=</span> <span class="p">(</span><span class="n">rho</span> <span class="o">-</span> <span class="p">(</span><span class="n">r_prime</span> <span class="o">-</span> <span class="n">pi</span><span class="p">))</span> <span class="o">/</span> <span class="n">rho</span>
+    <span class="k">return</span> <span class="n">metr</span></div>
+
+
+<div class="viewcode-block" id="eq_mettr"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.eq_mettr">[docs]</a><span class="k">def</span> <span class="nf">eq_mettr</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Compute the marginal effective total tax rate (METTR)</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        mettr = \frac{\rho - s}{\rho}</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        rho (array_like): cost of capital</span>
+<span class="sd">        s (array_like): after-tax return on savings</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        mettr (array_like): METTR</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">mettr</span> <span class="o">=</span> <span class="p">(</span><span class="n">rho</span> <span class="o">-</span> <span class="n">s</span><span class="p">)</span> <span class="o">/</span> <span class="n">rho</span>
+    <span class="k">return</span> <span class="n">mettr</span></div>
+
+
+<div class="viewcode-block" id="eq_tax_wedge"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.eq_tax_wedge">[docs]</a><span class="k">def</span> <span class="nf">eq_tax_wedge</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Compute the tax wedge</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        wedge = \rho - s</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        rho (array_like): cost of capital</span>
+<span class="sd">        s (array_like): after-tax return on savings</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        wedge (array_like): tax wedge</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">wedge</span> <span class="o">=</span> <span class="n">rho</span> <span class="o">-</span> <span class="n">s</span>
+    <span class="k">return</span> <span class="n">wedge</span></div>
+
+
+<div class="viewcode-block" id="eq_eatr"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.eq_eatr">[docs]</a><span class="k">def</span> <span class="nf">eq_eatr</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">metr</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">u</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Compute the effective average tax rate (EATR).</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        eatr = \left(\frac{p - rho}{p}\right)u +</span>
+<span class="sd">            \left(\frac{\rho}{p}\right)metr</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        rho (array_like): cost of capital</span>
+<span class="sd">        metr (array_like): marginal effective tax rate</span>
+<span class="sd">        p (scalar): profit rate</span>
+<span class="sd">        u (scalar): statutory marginal tax rate for the first layer of</span>
+<span class="sd">            income taxes</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        eatr (array_like): EATR</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">eatr</span> <span class="o">=</span> <span class="p">((</span><span class="n">p</span> <span class="o">-</span> <span class="n">rho</span><span class="p">)</span> <span class="o">/</span> <span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span> <span class="o">+</span> <span class="p">(</span><span class="n">rho</span> <span class="o">/</span> <span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="n">metr</span>
+    <span class="k">return</span> <span class="n">eatr</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Cost of Capital Calculator</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributor_guide.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../public_api.html">Cost-of-Capital-Calclator API</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Jason DeBacker.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

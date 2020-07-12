@@ -1,0 +1,437 @@
+
+<!DOCTYPE html>
+
+<html lang="Python">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cost of Capital Calculation Functions &#8212; Cost of Capital Calculator 1.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Cost of Capital Calculator" href="calculator.html" />
+    <link rel="prev" title="Cost-of-Capital-Calclator API" href="public_api.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="cost-of-capital-calculation-functions">
+<span id="calcfunctions"></span><h1>Cost of Capital Calculation Functions<a class="headerlink" href="#cost-of-capital-calculation-functions" title="Permalink to this headline">¶</a></h1>
+<p><strong>calcfunctions</strong></p>
+<div class="section" id="module-ccc.calcfunctions">
+<span id="ccc-calcfunctions"></span><h2>ccc.calcfunctions<a class="headerlink" href="#module-ccc.calcfunctions" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="ccc.calcfunctions.dbsl">
+<code class="sig-prename descclassname">ccc.calcfunctions.</code><code class="sig-name descname">dbsl</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Y</span></em>, <em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">bonus</span></em>, <em class="sig-param"><span class="n">r</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/calcfunctions.html#dbsl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calcfunctions.dbsl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes the calculation for the declining balance with a switch to
+straight line (DBSL) method of depreciation.</p>
+<div class="math notranslate nohighlight">
+\[z = \frac{\beta}{\beta+r}\left[1-e^{-(\beta+r)Y^{*}}\right]+
+    \frac{e^{-\beta Y^{*}}}{(Y-Y^{*})r}
+    \left[e^{-rY^{*}}-e^{-rY}\right]\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Y</strong> (<em>array_like</em>) -- asset life in years</p></li>
+<li><p><strong>b</strong> (<em>array_like</em>) -- scale of declining balance (e.g., b=2 means
+double declining balance)</p></li>
+<li><p><strong>bonus</strong> (<em>array_like</em>) -- rate of bonus depreciation</p></li>
+<li><p><strong>r</strong> (<em>scalar</em>) -- discount rate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>net present value of depreciation deductions for</dt><dd><p>$1 of investment</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>z (array_like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ccc.calcfunctions.econ">
+<code class="sig-prename descclassname">ccc.calcfunctions.</code><code class="sig-name descname">econ</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delta</span></em>, <em class="sig-param"><span class="n">bonus</span></em>, <em class="sig-param"><span class="n">r</span></em>, <em class="sig-param"><span class="n">pi</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/calcfunctions.html#econ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calcfunctions.econ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes the calculation for the NPV of depreciation deductions using
+economic depreciation rates.</p>
+<div class="math notranslate nohighlight">
+\[z = \frac{\delta}{(\delta + r - \pi)}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>delta</strong> (<em>array_like</em>) -- rate of economic depreciation</p></li>
+<li><p><strong>bonus</strong> (<em>array_like</em>) -- rate of bonus depreciation</p></li>
+<li><p><strong>r</strong> (<em>scalar</em>) -- discount rate</p></li>
+<li><p><strong>pi</strong> (<em>scalar</em>) -- inflation rate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>net present value of depreciation deductions for</dt><dd><p>$1 of investment</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>z (array_like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ccc.calcfunctions.eq_coc">
+<code class="sig-prename descclassname">ccc.calcfunctions.</code><code class="sig-name descname">eq_coc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delta</span></em>, <em class="sig-param"><span class="n">z</span></em>, <em class="sig-param"><span class="n">w</span></em>, <em class="sig-param"><span class="n">u</span></em>, <em class="sig-param"><span class="n">inv_tax_credit</span></em>, <em class="sig-param"><span class="n">pi</span></em>, <em class="sig-param"><span class="n">r</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/calcfunctions.html#eq_coc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calcfunctions.eq_coc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the cost of capital</p>
+<div class="math notranslate nohighlight">
+\[\rho = \frac{(r-\pi+\delta)}{1-u}(1-uz)+w-\delta\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>delta</strong> (<em>array_like</em>) -- rate of economic depreciation</p></li>
+<li><p><strong>z</strong> (<em>array_like</em>) -- net present value of depreciation deductions for
+$1 of investment</p></li>
+<li><p><strong>w</strong> (<em>scalar</em>) -- property tax rate</p></li>
+<li><p><strong>u</strong> (<em>scalar</em>) -- statutory marginal tax rate for the first layer of
+income taxes</p></li>
+<li><p><strong>inv_tax_credit</strong> (<em>scalar</em>) -- investment tax credit rate</p></li>
+<li><p><strong>pi</strong> (<em>scalar</em>) -- inflation rate</p></li>
+<li><p><strong>r</strong> (<em>scalar</em>) -- discount rate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the cost of capital</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>rho (array_like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ccc.calcfunctions.eq_coc_inventory">
+<code class="sig-prename descclassname">ccc.calcfunctions.</code><code class="sig-name descname">eq_coc_inventory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">u</span></em>, <em class="sig-param"><span class="n">phi</span></em>, <em class="sig-param"><span class="n">Y_v</span></em>, <em class="sig-param"><span class="n">pi</span></em>, <em class="sig-param"><span class="n">r</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/calcfunctions.html#eq_coc_inventory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calcfunctions.eq_coc_inventory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the cost of capital for inventories</p>
+<div class="math notranslate nohighlight">
+\[\rho = \phi \rho_{FIFO} + (1-\phi)\rho_{LIFO}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> (<em>scalar</em>) -- statutory marginal tax rate for the first layer of
+income taxes</p></li>
+<li><p><strong>phi</strong> (<em>scalar</em>) -- fraction of inventories that use FIFO accounting</p></li>
+<li><p><strong>Y_v</strong> (<em>scalar</em>) -- average number of year inventories are held</p></li>
+<li><p><strong>pi</strong> (<em>scalar</em>) -- inflation rate</p></li>
+<li><p><strong>r</strong> (<em>scalar</em>) -- discount rate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>cost of capital for inventories</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>rho (scalar)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ccc.calcfunctions.eq_eatr">
+<code class="sig-prename descclassname">ccc.calcfunctions.</code><code class="sig-name descname">eq_eatr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rho</span></em>, <em class="sig-param"><span class="n">metr</span></em>, <em class="sig-param"><span class="n">p</span></em>, <em class="sig-param"><span class="n">u</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/calcfunctions.html#eq_eatr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calcfunctions.eq_eatr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the effective average tax rate (EATR).</p>
+<div class="math notranslate nohighlight">
+\[eatr = \left(\frac{p - rho}{p}\right)u +
+    \left(\frac{\rho}{p}\right)metr\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rho</strong> (<em>array_like</em>) -- cost of capital</p></li>
+<li><p><strong>metr</strong> (<em>array_like</em>) -- marginal effective tax rate</p></li>
+<li><p><strong>p</strong> (<em>scalar</em>) -- profit rate</p></li>
+<li><p><strong>u</strong> (<em>scalar</em>) -- statutory marginal tax rate for the first layer of
+income taxes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>EATR</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>eatr (array_like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ccc.calcfunctions.eq_metr">
+<code class="sig-prename descclassname">ccc.calcfunctions.</code><code class="sig-name descname">eq_metr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rho</span></em>, <em class="sig-param"><span class="n">r_prime</span></em>, <em class="sig-param"><span class="n">pi</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/calcfunctions.html#eq_metr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calcfunctions.eq_metr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the marginal effective tax rate (METR)</p>
+<div class="math notranslate nohighlight">
+\[metr = \frac{\rho - (r^{'}-\pi)}{\rho}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rho</strong> (<em>array_like</em>) -- cost of capital</p></li>
+<li><p><strong>r_prime</strong> (<em>array_like</em>) -- after-tax rate of return</p></li>
+<li><p><strong>pi</strong> (<em>scalar</em>) -- inflation rate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>METR</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>metr (array_like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ccc.calcfunctions.eq_mettr">
+<code class="sig-prename descclassname">ccc.calcfunctions.</code><code class="sig-name descname">eq_mettr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rho</span></em>, <em class="sig-param"><span class="n">s</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/calcfunctions.html#eq_mettr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calcfunctions.eq_mettr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the marginal effective total tax rate (METTR)</p>
+<div class="math notranslate nohighlight">
+\[mettr = \frac{\rho - s}{\rho}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rho</strong> (<em>array_like</em>) -- cost of capital</p></li>
+<li><p><strong>s</strong> (<em>array_like</em>) -- after-tax return on savings</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>METTR</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>mettr (array_like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ccc.calcfunctions.eq_tax_wedge">
+<code class="sig-prename descclassname">ccc.calcfunctions.</code><code class="sig-name descname">eq_tax_wedge</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rho</span></em>, <em class="sig-param"><span class="n">s</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/calcfunctions.html#eq_tax_wedge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calcfunctions.eq_tax_wedge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the tax wedge</p>
+<div class="math notranslate nohighlight">
+\[wedge = \rho - s\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rho</strong> (<em>array_like</em>) -- cost of capital</p></li>
+<li><p><strong>s</strong> (<em>array_like</em>) -- after-tax return on savings</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>tax wedge</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>wedge (array_like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ccc.calcfunctions.eq_ucc">
+<code class="sig-prename descclassname">ccc.calcfunctions.</code><code class="sig-name descname">eq_ucc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rho</span></em>, <em class="sig-param"><span class="n">delta</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/calcfunctions.html#eq_ucc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calcfunctions.eq_ucc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the user cost of capital</p>
+<div class="math notranslate nohighlight">
+\[ucc = \rho + \delta\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rho</strong> (<em>array_like</em>) -- cost of capital</p></li>
+<li><p><strong>delta</strong> (<em>array_like</em>) -- rate of economic depreciation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the user cost of capital</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ucc (array_like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ccc.calcfunctions.npv_tax_depr">
+<code class="sig-prename descclassname">ccc.calcfunctions.</code><code class="sig-name descname">npv_tax_depr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span></em>, <em class="sig-param"><span class="n">r</span></em>, <em class="sig-param"><span class="n">pi</span></em>, <em class="sig-param"><span class="n">land_expensing</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/calcfunctions.html#npv_tax_depr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calcfunctions.npv_tax_depr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Depending on the method of depreciation, makes calls to either
+the straight line or declining balance calculations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>Pandas DataFrame</em>) -- assets by type and tax treatment</p></li>
+<li><p><strong>r</strong> (<em>scalar</em>) -- discount rate</p></li>
+<li><p><strong>pi</strong> (<em>scalar</em>) -- inflation rate</p></li>
+<li><p><strong>land_expensing</strong> (<em>scalar</em>) -- rate of expensing on land</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>NPV of depreciation deductions for all asset</dt><dd><p>types and tax treatments</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>z (Pandas series)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ccc.calcfunctions.sl">
+<code class="sig-prename descclassname">ccc.calcfunctions.</code><code class="sig-name descname">sl</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Y</span></em>, <em class="sig-param"><span class="n">bonus</span></em>, <em class="sig-param"><span class="n">r</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/calcfunctions.html#sl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calcfunctions.sl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes the calculation for straight line (SL) method of depreciation.</p>
+<div class="math notranslate nohighlight">
+\[z = \frac{1 - e^{-rY}}{Yr}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Y</strong> (<em>array_like</em>) -- asset life in years</p></li>
+<li><p><strong>bonus</strong> (<em>array_like</em>) -- rate of bonus depreciation</p></li>
+<li><p><strong>r</strong> (<em>scalar</em>) -- discount rate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>net present value of depreciation deductions for</dt><dd><p>$1 of investment</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>z (array_like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ccc.calcfunctions.update_depr_methods">
+<code class="sig-prename descclassname">ccc.calcfunctions.</code><code class="sig-name descname">update_depr_methods</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span></em>, <em class="sig-param"><span class="n">p</span></em>, <em class="sig-param"><span class="n">dp</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/calcfunctions.html#update_depr_methods"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calcfunctions.update_depr_methods" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates depreciation methods per changes from defaults that are
+specified by user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>Pandas DataFrame</em>) -- assets by type and tax treatment</p></li>
+<li><p><strong>p</strong> (<em>CCC Specifications object</em>) -- CCC parameters</p></li>
+<li><p><strong>dp</strong> (<em>CCC DepreciationParams object</em>) -- asset-specific depreciation
+parameters</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>assets by type and tax treatment with</dt><dd><p>updated tax depreciation methods</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>df (Pandas DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Cost of Capital Calculator</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="contributor_guide.html">Contributor Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="public_api.html">Cost-of-Capital-Calclator API</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Cost of Capital Calculation Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calculator.html">Cost of Capital Calculator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get_taxcalc_rates.html">Get marginal tax rates from Tax-Calculator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parameters.html">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="paramfunctions.html">Parameter Calculation Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">CCC utility functions</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="public_api.html">Cost-of-Capital-Calclator API</a><ul>
+      <li>Previous: <a href="public_api.html" title="previous chapter">Cost-of-Capital-Calclator API</a></li>
+      <li>Next: <a href="calculator.html" title="next chapter">Cost of Capital Calculator</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Jason DeBacker.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/calcfunctions.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

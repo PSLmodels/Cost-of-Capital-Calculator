@@ -1,0 +1,356 @@
+
+<!DOCTYPE html>
+
+<html lang="Python">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ccc.utils &#8212; Cost of Capital Calculator 1.0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for ccc.utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pkg_resources</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">numbers</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Default year for model runs</span>
+<span class="n">DEFAULT_START_YEAR</span> <span class="o">=</span> <span class="mi">2021</span>
+
+<span class="c1"># Year of asset data</span>
+<span class="n">ASSET_DATA_CSV_YEAR</span> <span class="o">=</span> <span class="mi">2013</span>
+
+<span class="c1"># Start year for tax data (e.g. year of PUF)</span>
+<span class="n">RECORDS_START_YEAR</span> <span class="o">=</span> <span class="mi">2011</span>
+
+<span class="c1"># Latest year TaxData extrapolates to</span>
+<span class="n">TC_LAST_YEAR</span> <span class="o">=</span> <span class="mi">2030</span>
+
+
+<div class="viewcode-block" id="to_str"><a class="viewcode-back" href="../../utils.html#ccc.utils.to_str">[docs]</a><span class="k">def</span> <span class="nf">to_str</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Function to decode string.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (string): string to decode</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        x (string): decoded string</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;decode&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">x</span></div>
+
+
+<div class="viewcode-block" id="str_modified"><a class="viewcode-back" href="../../utils.html#ccc.utils.str_modified">[docs]</a><span class="k">def</span> <span class="nf">str_modified</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Function to deal with conversion of a decimal number to a string.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        i (scalar): number that will convert to string</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str_i (string): number converted to a string</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mf">27.5</span><span class="p">:</span>
+        <span class="n">str_i</span> <span class="o">=</span> <span class="s1">&#39;27_5&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">str_i</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">str_i</span></div>
+
+
+<div class="viewcode-block" id="diff_two_tables"><a class="viewcode-back" href="../../utils.html#ccc.utils.diff_two_tables">[docs]</a><span class="k">def</span> <span class="nf">diff_two_tables</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Create the difference betweeen two dataframes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df1 (Pandas DataFrame): first DataFrame in difference</span>
+<span class="sd">        df2 (Pandas DataFrame): second DataFrame in difference</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        diff_df (Pandas DataFrame): DataFrame with differences between</span>
+<span class="sd">            two DataFrames</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">assert</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">df1</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="n">diffs</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df1</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">example</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">can_diff</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">can_diff</span><span class="p">:</span>
+                <span class="n">diffs</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">-</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">diffs</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+    <span class="n">diff_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">diffs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">diff_df</span></div>
+
+
+<div class="viewcode-block" id="wavg"><a class="viewcode-back" href="../../utils.html#ccc.utils.wavg">[docs]</a><span class="k">def</span> <span class="nf">wavg</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">avg_name</span><span class="p">,</span> <span class="n">weight_name</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Computes a weighted average.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        group (Pandas DataFrame): data for the particular grouping</span>
+<span class="sd">        avg_name (string): name of variable to compute wgt avg with</span>
+<span class="sd">        weight_name (string): name of weighting variables</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        d (scalar): weighted avg for the group</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="n">avg_name</span><span class="p">]</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="n">weight_name</span><span class="p">]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">d</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">w</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">Warning</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">d</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="read_egg_csv"><a class="viewcode-back" href="../../utils.html#ccc.utils.read_egg_csv">[docs]</a><span class="k">def</span> <span class="nf">read_egg_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Read from egg the file named fname that contains CSV data and</span>
+<span class="sd">    return pandas DataFrame containing the data.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        fname (string): name of csv file</span>
+<span class="sd">        index_col (string): name of column containing index</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        vdf (Pandas DataFrame): data from csv file</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">path_in_egg</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;ccc&#39;</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+        <span class="n">vdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_stream</span><span class="p">(</span>
+                <span class="n">pkg_resources</span><span class="o">.</span><span class="n">Requirement</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;ccc&#39;</span><span class="p">),</span>
+                <span class="n">path_in_egg</span><span class="p">),</span>
+            <span class="n">index_col</span><span class="o">=</span><span class="n">index_col</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;could not read </span><span class="si">{}</span><span class="s1"> data from egg&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+    <span class="c1"># cannot call read_egg_ function in unit tests</span>
+    <span class="k">return</span> <span class="n">vdf</span>  <span class="c1"># pragma: no cover</span></div>
+
+
+<div class="viewcode-block" id="read_egg_json"><a class="viewcode-back" href="../../utils.html#ccc.utils.read_egg_json">[docs]</a><span class="k">def</span> <span class="nf">read_egg_json</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Read from egg the file named fname that contains JSON data and</span>
+<span class="sd">    return dictionary containing the data.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        fname (string): name of JSON file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pdict (dict): data from JSON file</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">path_in_egg</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;ccc&#39;</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+        <span class="n">pdict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span>
+            <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_stream</span><span class="p">(</span>
+                <span class="n">pkg_resources</span><span class="o">.</span><span class="n">Requirement</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;ccc&#39;</span><span class="p">),</span>
+                <span class="n">path_in_egg</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span>
+            <span class="n">object_pairs_hook</span><span class="o">=</span><span class="n">OrderedDict</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;could not read </span><span class="si">{}</span><span class="s1"> data from egg&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+    <span class="c1"># cannot call read_egg_ function in unit tests</span>
+    <span class="k">return</span> <span class="n">pdict</span>  <span class="c1"># pragma: no cover</span></div>
+
+
+<div class="viewcode-block" id="json_to_dict"><a class="viewcode-back" href="../../utils.html#ccc.utils.json_to_dict">[docs]</a><span class="k">def</span> <span class="nf">json_to_dict</span><span class="p">(</span><span class="n">json_text</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Convert specified JSON text into an ordered Python dictionary.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        json_text (string): JSON text</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: if json_text contains a JSON syntax error</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ordered_dict (collections.OrderedDict): JSON data expressed as</span>
+<span class="sd">            an ordered Python dictionary.</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">ordered_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_text</span><span class="p">,</span>
+                                  <span class="n">object_pairs_hook</span><span class="o">=</span><span class="n">OrderedDict</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">valerr</span><span class="p">:</span>
+        <span class="n">text_lines</span> <span class="o">=</span> <span class="n">json_text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Text below contains invalid JSON:</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">valerr</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;Above location of the first error may be approximate.</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;The invalid JSON text is between the lines:</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">bline</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;XXXX----.----1----.----2----.----3----.----4&#39;</span>
+                 <span class="s1">&#39;----.----5----.----6----.----7&#39;</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="n">bline</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">linenum</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">text_lines</span><span class="p">:</span>
+            <span class="n">linenum</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="si">{:04d}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">linenum</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="n">bline</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ordered_dict</span></div>
+
+
+<div class="viewcode-block" id="save_return_table"><a class="viewcode-back" href="../../utils.html#ccc.utils.save_return_table">[docs]</a><span class="k">def</span> <span class="nf">save_return_table</span><span class="p">(</span><span class="n">table_df</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">precision</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Function to save or return a table of data.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        table_df (Pandas DataFrame): table</span>
+<span class="sd">        output_type (string): specifies the type of file to save</span>
+<span class="sd">            table to: &#39;csv&#39;, &#39;tex&#39;, &#39;excel&#39;, &#39;json&#39;</span>
+<span class="sd">        path (string): specifies path to save file with table to</span>
+<span class="sd">        precision (integer): number of significant digits to print.</span>
+<span class="sd">            Defaults to 0.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        table_df (Pandas DataFrame): table</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s1">&#39;tex&#39;</span><span class="p">:</span>
+            <span class="n">tab_str</span> <span class="o">=</span> <span class="n">table_df</span><span class="o">.</span><span class="n">to_latex</span><span class="p">(</span>
+                <span class="n">buf</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">na_rep</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                <span class="n">float_format</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;%.&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">precision</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;0f&#39;</span> <span class="o">%</span> <span class="n">x</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">tab_str</span>
+        <span class="k">elif</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s1">&#39;json&#39;</span><span class="p">:</span>
+            <span class="n">tab_str</span> <span class="o">=</span> <span class="n">table_df</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span>
+                <span class="n">path_or_buf</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">double_precision</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">tab_str</span>
+        <span class="k">elif</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s1">&#39;html&#39;</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.precision&#39;</span><span class="p">,</span> <span class="n">precision</span><span class="p">):</span>
+                <span class="n">tab_html</span> <span class="o">=</span> <span class="n">table_df</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span>
+                        <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">float_format</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">%10.0f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">x</span><span class="p">,</span>
+                        <span class="n">classes</span><span class="o">=</span><span class="s2">&quot;table table-striped table-hover&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">tab_html</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">table_df</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">condition</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">output_type</span><span class="p">)</span> <span class="ow">or</span>
+            <span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;xlsx&#39;</span> <span class="ow">and</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s1">&#39;excel&#39;</span><span class="p">)</span> <span class="ow">or</span>
+            <span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;xls&#39;</span> <span class="ow">and</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s1">&#39;excel&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">condition</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s1">&#39;tex&#39;</span><span class="p">:</span>
+                <span class="n">table_df</span><span class="o">.</span><span class="n">to_latex</span><span class="p">(</span><span class="n">buf</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">na_rep</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                                  <span class="n">float_format</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;%.&#39;</span> <span class="o">+</span>
+                                  <span class="nb">str</span><span class="p">(</span><span class="n">precision</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;0f&#39;</span> <span class="o">%</span> <span class="n">x</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s1">&#39;csv&#39;</span><span class="p">:</span>
+                <span class="n">table_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path_or_buf</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                <span class="n">na_rep</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">float_format</span><span class="o">=</span><span class="s1">&#39;%.&#39;</span> <span class="o">+</span>
+                                <span class="nb">str</span><span class="p">(</span><span class="n">precision</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;0f&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s1">&#39;json&#39;</span><span class="p">:</span>
+                <span class="n">table_df</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">path_or_buf</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+                                 <span class="n">double_precision</span><span class="o">=</span><span class="n">precision</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s1">&#39;excel&#39;</span><span class="p">:</span>
+                <span class="n">table_df</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">excel_writer</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                  <span class="n">na_rep</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">float_format</span><span class="o">=</span><span class="s1">&#39;%.&#39;</span> <span class="o">+</span>
+                                  <span class="nb">str</span><span class="p">(</span><span class="n">precision</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;0f&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Please enter a valid output format&#39;</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Cost of Capital Calculator</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributor_guide.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../public_api.html">Cost-of-Capital-Calclator API</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Jason DeBacker.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
