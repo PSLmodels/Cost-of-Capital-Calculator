@@ -17,7 +17,7 @@ Setup Python
 -------------
 
 CCC is written in the Python programming language.
-Download and install the free Anaconda distribution of Python 3.6 from
+Download and install the free Anaconda distribution of Python 3.7 from
 `Anaconda`_.  You must do this even if you already have
 Python installed on your computer because the Anaconda distribution
 contains additional Python packages that are used by CCC (many of
@@ -58,7 +58,7 @@ Setup Git
    others' work to your local machine by entering at the command line::
 
       $ cd Cost-of-Capital-Calculator
-      Cost-of-Capital-Calculator$ git remote add upstream https://github.com/open-source-economics/Cost-of-Capital-Calculator.git
+      Cost-of-Capital-Calculator$ git remote add upstream https://github.com/PSLmodels/Cost-of-Capital-Calculator.git
 
 9. Create a conda environment with all of the necessary packages to
    execute the source code::
@@ -68,11 +68,7 @@ Setup Git
 10. The prior command will create a conda environment called "ccc-dev".
     Activate this environment as follows::
 
-      Cost-of-Capital-Calculator$ source activate ccc-dev
-
-    If you are working on Windows, use the following from the command line::
-
-      Cost-of-Capital-Calculatorr$ activate ccc-dev
+      Cost-of-Capital-Calculator$ conda activate ccc-dev
 
 
 If you've made it this far, you've successfully made a remote copy (a
