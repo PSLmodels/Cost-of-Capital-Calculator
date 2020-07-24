@@ -1662,11 +1662,11 @@
         }
     },
     "omega_xcg": {
-        "title": "Fraction of capital gains that are untaxed",
-        "description": "Fraction of capital gains that are untaxed.",
+        "title": "Fraction of capital gains that are held until death",
+        "description": "Fraction of capital gains that are held until death",
         "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
-        "notes": "Fraction of capital gains that are untaxed.  This could be because of a step-up in basis at death or that they are gains accruing to a non-taxable entity.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "notes": "Fraction of capital gains that are held until death.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
             {

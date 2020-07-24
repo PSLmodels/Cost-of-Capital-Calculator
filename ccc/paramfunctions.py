@@ -132,6 +132,8 @@ def calc_g(g_scg, g_lcg, omega_scg, omega_lcg, omega_xcg, m, E_c):
             short-term
         omega_lcg (scalar): the fraction of capital gains that are
             long-term
+        omega_xcg (scalar): the fraction of capital gains that are held
+            until death
         m (scalar): share of equity return retained by the firm and reinvested
         E_c (scalar): expected, after-tax return on corporate equity
 

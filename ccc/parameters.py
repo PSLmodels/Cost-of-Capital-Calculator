@@ -53,7 +53,6 @@ class Specification(paramtools.Parameters):
             self.tau_int = indiv_rates['tau_int']
             self.tau_scg = indiv_rates['tau_scg']
             self.tau_lcg = indiv_rates['tau_lcg']
-            self.tau_xcg = 0.00  # tax rate on capital gains held to death
             self.tau_td = indiv_rates['tau_td']
             self.tau_h = indiv_rates['tau_h']
         # does cheap calculations to find parameter values
