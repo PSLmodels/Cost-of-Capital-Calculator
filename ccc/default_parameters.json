@@ -1981,6 +1981,26 @@
             }
         }
     },
+    "Y_xcg": {
+        "title": "Number of years assets held before death",
+        "description": "Number of years assets held before death.",
+        "section_1": "Individual Level Taxes",
+        "section_2": "Household Savings Behavior",
+        "notes": "Number of years assets held before death.  Default value set to be the same as long-term capital gains realizations.",
+        "type": "float",
+        "value": [
+            {
+                "year": 2015,
+                "value": 8
+            }
+        ],
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 100.0
+            }
+        }
+    },
     "Y_v": {
         "title": "Number of years inventories are held",
         "description": "Number of years inventories are held.",

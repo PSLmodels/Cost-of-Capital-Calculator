@@ -50,13 +50,14 @@ def test_calc_g__g():
 
 def test_calc_g():
     '''
-    Test of the paramfunctions.calc_s__d function
+    Test of the paramfunctions.calc_g function
     '''
     g_scg, g_lcg = 0.017105186, 0.030329578
     omega_scg, omega_lcg, omega_xcg = 0.7, 0.1, 0.2
     m, E_c = 0.4, 0.09
+    g_xcg = m * E_c
     test_value = pf.calc_g(
-        g_scg, g_lcg, omega_scg, omega_lcg, omega_xcg, m, E_c)
+        g_scg, g_lcg, g_xcg, omega_scg, omega_lcg, omega_xcg, m, E_c)
 
     assert(np.allclose(test_value, 0.022206588))
 
