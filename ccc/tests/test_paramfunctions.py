@@ -40,7 +40,7 @@ def test_calc_s__d():
 
 def test_calc_g__g():
     '''
-    Test of the paramfunctions.calc_s__d function
+    Test of the paramfunctions.calc_g__g function
     '''
     Y_g, tau_cg, m, E_c, pi = 2.0, 0.35, 0.4, 0.09, 0.02
     test_value = pf.calc_g__g(Y_g, tau_cg, m, E_c, pi)
@@ -64,7 +64,7 @@ def test_calc_g():
 
 def test_calc_s_c_e_td():
     '''
-    Test of the paramfunctions.calc_s__d function
+    Test of the paramfunctions.calc_s_c_e_td function
     '''
     Y_td, tau_td, i, pi, E_c = 8, 0.2, 0.08, 0.02, 0.09
     test_value = pf.calc_s_c_e_td(Y_td, tau_td, i, pi, E_c)
@@ -74,7 +74,7 @@ def test_calc_s_c_e_td():
 
 def test_calc_s_c_e():
     '''
-    Test of the paramfunctions.calc_s__d function
+    Test of the paramfunctions.calc_s_c_e function
     '''
     s_c_e_ft, s_c_e_td = 0.062706588, 0.074440094
     alpha_c_e_ft, alpha_c_e_td, alpha_c_e_nt = 0.6, 0.3, 0.1
