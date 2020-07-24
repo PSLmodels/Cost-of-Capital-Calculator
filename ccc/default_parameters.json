@@ -2021,10 +2021,10 @@
         }
     },
     "m": {
-        "title": "Dividend payout rate",
-        "description": "Dividend payout rate.",
+        "title": "Share of equity return retained by the firm and reinvested",
+        "description": "The share of the real equity return retained by the firm and reinvested",
         "section_1": "Accounting and Financial Policy",
-        "notes": "Dividend payout rate.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "notes": "The share of the real equity return retained by the firm and reinvested.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
             {

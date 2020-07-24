@@ -99,7 +99,7 @@ def calc_g__g(Y_g, tau_cg, m, E_c, pi):
     Args:
         Y_g (scalar): number of years asset held before gains realized
         tau_cg (scalar): tax rate on capital gains income
-        m (scalar): dividend payout rate
+        m (scalar): share of equity return retained by the firm and reinvested
         E_c (scalar): expected, after-tax return on corporate equity
         pi (scalar): inflation rate
 
@@ -132,7 +132,7 @@ def calc_g(g_scg, g_lcg, omega_scg, omega_lcg, omega_xcg, m, E_c):
             short-term
         omega_lcg (scalar): the fraction of capital gains that are
             long-term
-        m (scalar): dividend payout rate
+        m (scalar): share of equity return retained by the firm and reinvested
         E_c (scalar): expected, after-tax return on corporate equity
 
     Returns:

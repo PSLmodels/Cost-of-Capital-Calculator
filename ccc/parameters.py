@@ -1,7 +1,6 @@
 import os
 import paramtools
 import marshmallow as ma
-import pandas as pd
 
 # import ccc
 from ccc.get_taxcalc_rates import get_rates
