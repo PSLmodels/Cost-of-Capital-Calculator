@@ -36,7 +36,6 @@
 <span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">paramtools</span>
 <span class="kn">import</span> <span class="nn">marshmallow</span> <span class="k">as</span> <span class="nn">ma</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="c1"># import ccc</span>
 <span class="kn">from</span> <span class="nn">ccc.get_taxcalc_rates</span> <span class="kn">import</span> <span class="n">get_rates</span>
@@ -89,7 +88,6 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">tau_int</span> <span class="o">=</span> <span class="n">indiv_rates</span><span class="p">[</span><span class="s1">&#39;tau_int&#39;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tau_scg</span> <span class="o">=</span> <span class="n">indiv_rates</span><span class="p">[</span><span class="s1">&#39;tau_scg&#39;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tau_lcg</span> <span class="o">=</span> <span class="n">indiv_rates</span><span class="p">[</span><span class="s1">&#39;tau_lcg&#39;</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tau_xcg</span> <span class="o">=</span> <span class="mf">0.00</span>  <span class="c1"># tax rate on capital gains held to death</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tau_td</span> <span class="o">=</span> <span class="n">indiv_rates</span><span class="p">[</span><span class="s1">&#39;tau_td&#39;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tau_h</span> <span class="o">=</span> <span class="n">indiv_rates</span><span class="p">[</span><span class="s1">&#39;tau_h&#39;</span><span class="p">]</span>
         <span class="c1"># does cheap calculations to find parameter values</span>

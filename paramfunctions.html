@@ -41,7 +41,7 @@
 <span id="ccc-paramfunctions"></span><h2>ccc.paramfunctions<a class="headerlink" href="#module-ccc.paramfunctions" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt id="ccc.paramfunctions.calc_g">
-<code class="sig-prename descclassname">ccc.paramfunctions.</code><code class="sig-name descname">calc_g</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g_scg</span></em>, <em class="sig-param"><span class="n">g_lcg</span></em>, <em class="sig-param"><span class="n">omega_scg</span></em>, <em class="sig-param"><span class="n">omega_lcg</span></em>, <em class="sig-param"><span class="n">omega_xcg</span></em>, <em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">E_c</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/paramfunctions.html#calc_g"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.paramfunctions.calc_g" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ccc.paramfunctions.</code><code class="sig-name descname">calc_g</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g_scg</span></em>, <em class="sig-param"><span class="n">g_lcg</span></em>, <em class="sig-param"><span class="n">g_xcg</span></em>, <em class="sig-param"><span class="n">omega_scg</span></em>, <em class="sig-param"><span class="n">omega_lcg</span></em>, <em class="sig-param"><span class="n">omega_xcg</span></em>, <em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">E_c</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ccc/paramfunctions.html#calc_g"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.paramfunctions.calc_g" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the after-tax, annualized, real rate of return on all
 capital gains</p>
 <dl class="simple">
@@ -58,11 +58,15 @@ capital gains</p>
 term capital gains</p></li>
 <li><p><strong>g_lcg</strong> (<em>scalar</em>) -- the real, after-tax annualized return on long-
 term capital gains</p></li>
+<li><p><strong>g_xcg</strong> (<em>scalar</em>) -- the real, after-tax annualized return on
+capital gains held until death</p></li>
 <li><p><strong>omega_scg</strong> (<em>scalar</em>) -- the fraction of capital gains that are
 short-term</p></li>
 <li><p><strong>omega_lcg</strong> (<em>scalar</em>) -- the fraction of capital gains that are
 long-term</p></li>
-<li><p><strong>m</strong> (<em>scalar</em>) -- dividend payout rate</p></li>
+<li><p><strong>omega_xcg</strong> (<em>scalar</em>) -- the fraction of capital gains that are held
+until death</p></li>
+<li><p><strong>m</strong> (<em>scalar</em>) -- share of equity return retained by the firm and reinvested</p></li>
 <li><p><strong>E_c</strong> (<em>scalar</em>) -- expected, after-tax return on corporate equity</p></li>
 </ul>
 </dd>
@@ -96,7 +100,7 @@ term capital gains</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>Y_g</strong> (<em>scalar</em>) -- number of years asset held before gains realized</p></li>
 <li><p><strong>tau_cg</strong> (<em>scalar</em>) -- tax rate on capital gains income</p></li>
-<li><p><strong>m</strong> (<em>scalar</em>) -- dividend payout rate</p></li>
+<li><p><strong>m</strong> (<em>scalar</em>) -- share of equity return retained by the firm and reinvested</p></li>
 <li><p><strong>E_c</strong> (<em>scalar</em>) -- expected, after-tax return on corporate equity</p></li>
 <li><p><strong>pi</strong> (<em>scalar</em>) -- inflation rate</p></li>
 </ul>

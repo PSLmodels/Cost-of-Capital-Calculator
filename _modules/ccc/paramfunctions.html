@@ -134,7 +134,7 @@
 <span class="sd">    Args:</span>
 <span class="sd">        Y_g (scalar): number of years asset held before gains realized</span>
 <span class="sd">        tau_cg (scalar): tax rate on capital gains income</span>
-<span class="sd">        m (scalar): dividend payout rate</span>
+<span class="sd">        m (scalar): share of equity return retained by the firm and reinvested</span>
 <span class="sd">        E_c (scalar): expected, after-tax return on corporate equity</span>
 <span class="sd">        pi (scalar): inflation rate</span>
 
@@ -149,7 +149,7 @@
     <span class="k">return</span> <span class="n">g__g</span></div>
 
 
-<div class="viewcode-block" id="calc_g"><a class="viewcode-back" href="../../paramfunctions.html#ccc.paramfunctions.calc_g">[docs]</a><span class="k">def</span> <span class="nf">calc_g</span><span class="p">(</span><span class="n">g_scg</span><span class="p">,</span> <span class="n">g_lcg</span><span class="p">,</span> <span class="n">omega_scg</span><span class="p">,</span> <span class="n">omega_lcg</span><span class="p">,</span> <span class="n">omega_xcg</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">E_c</span><span class="p">):</span>
+<div class="viewcode-block" id="calc_g"><a class="viewcode-back" href="../../paramfunctions.html#ccc.paramfunctions.calc_g">[docs]</a><span class="k">def</span> <span class="nf">calc_g</span><span class="p">(</span><span class="n">g_scg</span><span class="p">,</span> <span class="n">g_lcg</span><span class="p">,</span> <span class="n">g_xcg</span><span class="p">,</span> <span class="n">omega_scg</span><span class="p">,</span> <span class="n">omega_lcg</span><span class="p">,</span> <span class="n">omega_xcg</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">E_c</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Calculate the after-tax, annualized, real rate of return on all</span>
 <span class="sd">    capital gains</span>
@@ -163,18 +163,22 @@
 <span class="sd">            term capital gains</span>
 <span class="sd">        g_lcg (scalar): the real, after-tax annualized return on long-</span>
 <span class="sd">            term capital gains</span>
+<span class="sd">        g_xcg (scalar): the real, after-tax annualized return on</span>
+<span class="sd">            capital gains held until death</span>
 <span class="sd">        omega_scg (scalar): the fraction of capital gains that are</span>
 <span class="sd">            short-term</span>
 <span class="sd">        omega_lcg (scalar): the fraction of capital gains that are</span>
 <span class="sd">            long-term</span>
-<span class="sd">        m (scalar): dividend payout rate</span>
+<span class="sd">        omega_xcg (scalar): the fraction of capital gains that are held</span>
+<span class="sd">            until death</span>
+<span class="sd">        m (scalar): share of equity return retained by the firm and reinvested</span>
 <span class="sd">        E_c (scalar): expected, after-tax return on corporate equity</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        g (scalar): the after-tax, annualized, real rate of return on</span>
 <span class="sd">            all capital gains</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">g</span> <span class="o">=</span> <span class="n">omega_scg</span> <span class="o">*</span> <span class="n">g_scg</span> <span class="o">+</span> <span class="n">omega_lcg</span> <span class="o">*</span> <span class="n">g_lcg</span> <span class="o">+</span> <span class="n">omega_xcg</span> <span class="o">*</span> <span class="n">m</span> <span class="o">*</span> <span class="n">E_c</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">omega_scg</span> <span class="o">*</span> <span class="n">g_scg</span> <span class="o">+</span> <span class="n">omega_lcg</span> <span class="o">*</span> <span class="n">g_lcg</span> <span class="o">+</span> <span class="n">omega_xcg</span> <span class="o">*</span> <span class="n">g_xcg</span>
 
     <span class="k">return</span> <span class="n">g</span></div>
 
@@ -286,9 +290,13 @@
     <span class="n">g_scg</span> <span class="o">=</span> <span class="n">calc_g__g</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">Y_scg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_scg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">m</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">E_c</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">inflation_rate</span><span class="p">)</span>
     <span class="c1"># The after-tax real, annualized return on long-term capital gains</span>
     <span class="n">g_lcg</span> <span class="o">=</span> <span class="n">calc_g__g</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">Y_lcg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_lcg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">m</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">E_c</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">inflation_rate</span><span class="p">)</span>
+    <span class="c1"># The after-tax real, annualized return on capital gains held until</span>
+    <span class="c1"># death</span>
+    <span class="n">g_xcg</span> <span class="o">=</span> <span class="n">calc_g__g</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">Y_xcg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_xcg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">m</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">E_c</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">inflation_rate</span><span class="p">)</span>
     <span class="c1"># The after-tax real, annualized return on all capital gains</span>
     <span class="n">g</span> <span class="o">=</span> <span class="n">calc_g</span><span class="p">(</span>
-        <span class="n">g_scg</span><span class="p">,</span> <span class="n">g_lcg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">omega_scg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">omega_lcg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">omega_xcg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">m</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">E_c</span><span class="p">)</span>
+        <span class="n">g_scg</span><span class="p">,</span> <span class="n">g_lcg</span><span class="p">,</span> <span class="n">g_xcg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">omega_scg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">omega_lcg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">omega_xcg</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">m</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">E_c</span><span class="p">)</span>
     <span class="c1"># The after-tax return on corporate equity investments made in fully</span>
     <span class="c1"># taxable accounts</span>
     <span class="n">s_c_e_ft</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">E_c</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_div</span><span class="p">)</span> <span class="o">+</span> <span class="n">g</span>
