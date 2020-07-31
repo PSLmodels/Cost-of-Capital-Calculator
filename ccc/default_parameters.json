@@ -1662,11 +1662,11 @@
         }
     },
     "omega_xcg": {
-        "title": "Fraction of capital gains that are untaxed",
-        "description": "Fraction of capital gains that are untaxed.",
+        "title": "Fraction of capital gains that are held until death",
+        "description": "Fraction of capital gains that are held until death",
         "section_1": "Individual Level Taxes",
         "section_2": "Household Savings Behavior",
-        "notes": "Fraction of capital gains that are untaxed.  This could be because of a step-up in basis at death or that they are gains accruing to a non-taxable entity.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "notes": "Fraction of capital gains that are held until death.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
             {
@@ -1981,6 +1981,26 @@
             }
         }
     },
+    "Y_xcg": {
+        "title": "Number of years assets held before death",
+        "description": "Number of years assets held before death.",
+        "section_1": "Individual Level Taxes",
+        "section_2": "Household Savings Behavior",
+        "notes": "Number of years assets held before death.  Default value set to be the same as long-term capital gains realizations.",
+        "type": "float",
+        "value": [
+            {
+                "year": 2015,
+                "value": 8
+            }
+        ],
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 100.0
+            }
+        }
+    },
     "Y_v": {
         "title": "Number of years inventories are held",
         "description": "Number of years inventories are held.",
@@ -2021,15 +2041,15 @@
         }
     },
     "m": {
-        "title": "Dividend payout rate",
-        "description": "Dividend payout rate.",
+        "title": "Share of equity return retained by the firm and reinvested",
+        "description": "The share of the real equity return retained by the firm and reinvested",
         "section_1": "Accounting and Financial Policy",
-        "notes": "Dividend payout rate.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "notes": "The share of the real equity return retained by the firm and reinvested.  Default value taken from 1 - dividend payout rate reported in CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
         "type": "float",
         "value": [
             {
                 "year": 2015,
-                "value": 0.44
+                "value": 0.56
             }
         ],
         "validators": {

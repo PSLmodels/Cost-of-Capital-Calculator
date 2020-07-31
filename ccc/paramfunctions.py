@@ -99,7 +99,7 @@ def calc_g__g(Y_g, tau_cg, m, E_c, pi):
     Args:
         Y_g (scalar): number of years asset held before gains realized
         tau_cg (scalar): tax rate on capital gains income
-        m (scalar): dividend payout rate
+        m (scalar): share of equity return retained by the firm and reinvested
         E_c (scalar): expected, after-tax return on corporate equity
         pi (scalar): inflation rate
 
@@ -114,7 +114,7 @@ def calc_g__g(Y_g, tau_cg, m, E_c, pi):
     return g__g
 
 
-def calc_g(g_scg, g_lcg, omega_scg, omega_lcg, omega_xcg, m, E_c):
+def calc_g(g_scg, g_lcg, g_xcg, omega_scg, omega_lcg, omega_xcg, m, E_c):
     r'''
     Calculate the after-tax, annualized, real rate of return on all
     capital gains
@@ -128,18 +128,22 @@ def calc_g(g_scg, g_lcg, omega_scg, omega_lcg, omega_xcg, m, E_c):
             term capital gains
         g_lcg (scalar): the real, after-tax annualized return on long-
             term capital gains
+        g_xcg (scalar): the real, after-tax annualized return on
+            capital gains held until death
         omega_scg (scalar): the fraction of capital gains that are
             short-term
         omega_lcg (scalar): the fraction of capital gains that are
             long-term
-        m (scalar): dividend payout rate
+        omega_xcg (scalar): the fraction of capital gains that are held
+            until death
+        m (scalar): share of equity return retained by the firm and reinvested
         E_c (scalar): expected, after-tax return on corporate equity
 
     Returns:
         g (scalar): the after-tax, annualized, real rate of return on
             all capital gains
     '''
-    g = omega_scg * g_scg + omega_lcg * g_lcg + omega_xcg * m * E_c
+    g = omega_scg * g_scg + omega_lcg * g_lcg + omega_xcg * g_xcg
 
     return g
 
@@ -251,9 +255,13 @@ def calc_s(p):
     g_scg = calc_g__g(p.Y_scg, p.tau_scg, p.m, p.E_c, p.inflation_rate)
     # The after-tax real, annualized return on long-term capital gains
     g_lcg = calc_g__g(p.Y_lcg, p.tau_lcg, p.m, p.E_c, p.inflation_rate)
+    # The after-tax real, annualized return on capital gains held until
+    # death
+    g_xcg = calc_g__g(p.Y_xcg, p.tau_xcg, p.m, p.E_c, p.inflation_rate)
     # The after-tax real, annualized return on all capital gains
     g = calc_g(
-        g_scg, g_lcg, p.omega_scg, p.omega_lcg, p.omega_xcg, p.m, p.E_c)
+        g_scg, g_lcg, g_xcg, p.omega_scg, p.omega_lcg, p.omega_xcg,
+        p.m, p.E_c)
     # The after-tax return on corporate equity investments made in fully
     # taxable accounts
     s_c_e_ft = (1 - p.m) * p.E_c * (1 - p.tau_div) + g
