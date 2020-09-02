@@ -153,7 +153,7 @@ def npv_tax_depr(df, r, pi, land_expensing):
     idx = df['method'] == 'Expensing'
     df.loc[idx, 'z'] = 1.0
     idx = df['asset_name'] == 'Land'
-    df.loc[idx, 'z'] = land_expensing
+    df.loc[idx, 'z'] = np.squeeze(land_expensing)
     idx = df['asset_name'] == 'Inventories'
     df.loc[idx, 'z'] = 0.0  # not sure why I have to do this with changes
     z = df['z']
@@ -211,6 +211,7 @@ def eq_coc_inventory(u, phi, Y_v, pi, r):
     rho_LIFO = ((1 / Y_v) * np.log((np.exp((r - pi) * Y_v) - u) /
                                    (1 - u)))
     rho = phi * rho_FIFO + (1 - phi) * rho_LIFO
+
     return rho
 
 

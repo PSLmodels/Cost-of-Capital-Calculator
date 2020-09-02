@@ -9,6 +9,7 @@ Cost-of-Capital-Calculator Calculator class.
 
 import copy
 import pandas as pd
+import numpy as np
 from ccc.calcfunctions import (update_depr_methods, npv_tax_depr,
                                eq_coc, eq_coc_inventory, eq_ucc,
                                eq_metr, eq_mettr, eq_tax_wedge, eq_eatr)
@@ -151,9 +152,10 @@ class Calculator():
                     self.__p.inflation_rate, self.__p.r[t][f])
                 if not self.__p.inventory_expensing:
                     idx = dfs[t]['asset_name'] == 'Inventories'
-                    dfs[t].loc[idx, 'rho_' + str(f)] = eq_coc_inventory(
+                    dfs[t].loc[idx, 'rho_' + str(f)] = np.squeeze(
+                        eq_coc_inventory(
                         self.__p.u[t], self.__p.phi, self.__p.Y_v,
-                        self.__p.inflation_rate, self.__p.r[t][f])
+                        self.__p.inflation_rate, self.__p.r[t][f]))
         self.__assets.df = pd.concat(dfs, ignore_index=True, copy=True,
                                      sort=True)
 
