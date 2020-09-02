@@ -304,7 +304,7 @@ def test_p_param_return_value():
     dp = DepreciationParams()
     calc1 = Calculator(p, dp, assets)
     obj = calc1.p_param('tau_int')
-    assert np.allclose(obj, np.array([0.31592543]))
+    assert np.allclose(obj, np.array([0.31774924]))
 
 
 def test_p_param_set_value():
