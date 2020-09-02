@@ -12,9 +12,8 @@ dependencies:
 - xlrd
 - openpyxl
 - pytest
-- pytest-pep8
 - pytest-xdist
-- pycodestyle
+- pytest-pycodestyle
 - pylint
 - coverage
 - pip:
