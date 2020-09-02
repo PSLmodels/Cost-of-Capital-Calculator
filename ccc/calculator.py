@@ -154,8 +154,8 @@ class Calculator():
                     idx = dfs[t]['asset_name'] == 'Inventories'
                     dfs[t].loc[idx, 'rho_' + str(f)] = np.squeeze(
                         eq_coc_inventory(
-                        self.__p.u[t], self.__p.phi, self.__p.Y_v,
-                        self.__p.inflation_rate, self.__p.r[t][f]))
+                            self.__p.u[t], self.__p.phi, self.__p.Y_v,
+                            self.__p.inflation_rate, self.__p.r[t][f]))
         self.__assets.df = pd.concat(dfs, ignore_index=True, copy=True,
                                      sort=True)
 
