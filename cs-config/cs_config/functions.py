@@ -1,5 +1,5 @@
 import ccc
-from ccc.parameters import Specification
+from ccc.parameters import Specification, DepreciationParams
 from ccc.data import Assets
 from ccc.calculator import Calculator
 from ccc.utils import TC_LAST_YEAR, DEFAULT_START_YEAR
@@ -10,7 +10,8 @@ import inspect
 import paramtools
 from taxcalc import Policy
 from collections import OrderedDict
-from .helpers import retrieve_puf, convert_adj, convert_defaults
+from .helpers import retrieve_puf
+from .inputs import convert_policy_adjustment
 
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
@@ -20,7 +21,7 @@ TCPATH = inspect.getfile(Policy)
 TCDIR = os.path.dirname(TCPATH)
 with open(os.path.join(TCDIR, "policy_current_law.json"), "r") as f:
     pcl = json.loads(f.read())
-RES = convert_defaults(pcl)
+RES = convert_policy_adjustment(pcl)
 
 
 class TCParams(paramtools.Parameters):
@@ -122,9 +123,8 @@ def run_model(meta_param_dict, adjustment):
     else:
         data = "cps"
     # Get TC params adjustments
-    iit_mods = convert_adj(adjustment[
-        "Individual and Payroll Tax Parameters"],
-                           meta_params.year.tolist())
+    iit_mods = convert_policy_adjustment(adjustment[
+        "Individual and Payroll Tax Parameters"])
     filtered_ccc_params = {}
     # filter out CCC params that will not change between baeline and
     # reform runs (These are the Household Savings Behavior and
@@ -145,12 +145,13 @@ def run_model(meta_param_dict, adjustment):
                            iit_reform={}, data=data)
     params.update_specification(filtered_ccc_params)
     assets = Assets()
-    calc1 = Calculator(params, assets)
+    dp = DepreciationParams()
+    calc1 = Calculator(params, dp, assets)
     # Reform CCC calculator - includes TC adjustments
     params2 = Specification(year=meta_params.year, call_tc=True,
                             iit_reform=iit_mods, data=data)
     params2.update_specification(adjustment["Business Tax Parameters"])
-    calc2 = Calculator(params2, assets)
+    calc2 = Calculator(params2, dp, assets)
     comp_dict = comp_output(calc1, calc2)
 
     return comp_dict
