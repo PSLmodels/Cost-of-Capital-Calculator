@@ -161,8 +161,10 @@ def comp_output(calc1, calc2, out_var='mettr'):
     '''
     Function to create output for the COMP platform
     '''
-    out_table = calc1.summary_table(calc2, output_variable=out_var,
-                                    output_type='csv')
+    baseln_assets_df = calc1.calc_by_asset()
+    reform_assets_df = calc2.calc_by_asset()
+    baseln_industry_df = calc1.calc_by_industry()
+    reform_industry_df = calc2.calc_by_industry()
     html_table = calc1.summary_table(calc2, output_variable=out_var,
                                      output_type='html')
     plt1 = calc1.grouped_bar(calc2, output_variable=out_var,
@@ -201,8 +203,23 @@ def comp_output(calc1, calc2, out_var='mettr'):
         "downloadable": [
             {
               "media_type": "CSV",
-              "title": out_var.upper() + " Summary Table",
-              "data": out_table.to_csv()
+              "title": "Baseline Results by Asset",
+              "data": baseln_assets_df.to_csv(float_format='%.5f')
+            },
+            {
+              "media_type": "CSV",
+              "title": "Reform Results by Asset",
+              "data": reform_assets_df.to_csv(float_format='%.5f')
+            },
+            {
+              "media_type": "CSV",
+              "title": "Baseline Results by Industry",
+              "data": baseln_industry_df.to_csv(float_format='%.5f')
+            },
+            {
+              "media_type": "CSV",
+              "title": "Reform Results by Industry",
+              "data": reform_industry_df.to_csv(float_format='%.5f')
             }
           ]
         }
