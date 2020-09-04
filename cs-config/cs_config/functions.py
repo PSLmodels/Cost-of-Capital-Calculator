@@ -165,21 +165,38 @@ def comp_output(calc1, calc2, out_var='mettr'):
                                     output_type='csv')
     html_table = calc1.summary_table(calc2, output_variable=out_var,
                                      output_type='html')
-    plt = calc1.grouped_bar(calc2, output_variable=out_var,
+    plt1 = calc1.grouped_bar(calc2, output_variable=out_var,
+                             include_title=True)
+    plot_data1 = json_item(plt1)
+    plt2 = calc1.grouped_bar(calc2, output_variable=out_var,
+                             group_by_asset=False,
+                             include_title=True)
+    plot_data2 = json_item(plt2)
+    plt3 = calc1.range_plot(calc2, output_variable='metr',
                             include_title=True)
-    plot_data = json_item(plt)
+    plot_data3 = json_item(plt3)
     comp_dict = {
         "renderable": [
-            {
-              "media_type": "bokeh",
-              "title": plt.title._property_values['text'],
-              "data": plot_data
-            },
             {
               "media_type": "table",
               "title":  out_var.upper() + " Summary Table",
               "data": html_table
             },
+            {
+              "media_type": "bokeh",
+              "title": plt1.title._property_values['text'],
+              "data": plot_data1
+            },
+            {
+              "media_type": "bokeh",
+              "title": plt2.title._property_values['text'],
+              "data": plot_data2
+            },
+            {
+              "media_type": "bokeh",
+              "title": plt3.title._property_values['text'],
+              "data": plot_data3
+            }
           ],
         "downloadable": [
             {
