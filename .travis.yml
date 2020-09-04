@@ -16,11 +16,12 @@ install:
   - source activate ccc-dev
   - conda env update -f environment.yml
   - pip install codecov
+  - pip install pytest-pycodestyle
   - pip install .
 
 # command to run tests
 script:
-  - python -c "import ccc"; coverage run -m pytest -v -m 'not needs_puf' --pep8
+  - python -c "import ccc"; coverage run -m pytest -v -m 'not needs_puf' --pycodestyle
 
 after_success:
   - codecov

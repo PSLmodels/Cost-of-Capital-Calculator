@@ -4,15 +4,14 @@ channels:
 - conda-forge
 dependencies:
 - python
-- "taxcalc>=2.4.2"
-- "paramtools>=0.10.1"
+- "taxcalc>=3.0.0"
+- "paramtools>=0.14.2"
 - "bokeh>=1.4.0"
 - setuptools
 - pip
 - xlrd
 - openpyxl
 - pytest
-- pytest-pep8
 - pytest-xdist
 - pycodestyle
 - pylint
