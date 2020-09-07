@@ -89,7 +89,7 @@
     <span class="n">VAR_INFO_FILENAME</span> <span class="o">=</span> <span class="s1">&#39;records_variables.json&#39;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">data</span><span class="o">=</span><span class="s1">&#39;ccc_asset_data.csv&#39;</span><span class="p">,</span>
+                 <span class="n">data</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CUR_PATH</span><span class="p">,</span> <span class="s1">&#39;ccc_asset_data.csv&#39;</span><span class="p">),</span>
                  <span class="n">start_year</span><span class="o">=</span><span class="n">ASSET_DATA_CSV_YEAR</span><span class="p">):</span>
         <span class="c1"># pylint: disable=too-many-arguments,too-many-locals</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__data_year</span> <span class="o">=</span> <span class="n">start_year</span>
