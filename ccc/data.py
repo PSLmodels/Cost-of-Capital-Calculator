@@ -54,7 +54,7 @@ class Assets():
     VAR_INFO_FILENAME = 'records_variables.json'
 
     def __init__(self,
-                 data='ccc_asset_data.csv',
+                 data=os.path.join(CUR_PATH, 'ccc_asset_data.csv'),
                  start_year=ASSET_DATA_CSV_YEAR):
         # pylint: disable=too-many-arguments,too-many-locals
         self.__data_year = start_year
