@@ -174,7 +174,7 @@ def comp_output(calc1, calc2, out_var='mettr'):
                              group_by_asset=False,
                              include_title=True)
     plot_data2 = json_item(plt2)
-    plt3 = calc1.range_plot(calc2, output_variable='metr',
+    plt3 = calc1.range_plot(calc2, output_variable='mettr',
                             include_title=True)
     plot_data3 = json_item(plt3)
     comp_dict = {
@@ -196,7 +196,7 @@ def comp_output(calc1, calc2, out_var='mettr'):
             },
             {
               "media_type": "bokeh",
-              "title": plt3.title._property_values['text'],
+              "title": "Marginal Effective Total Tax Rates by Method of Financing",
               "data": plot_data3
             }
           ],
