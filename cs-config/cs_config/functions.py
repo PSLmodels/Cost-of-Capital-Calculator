@@ -161,31 +161,65 @@ def comp_output(calc1, calc2, out_var='mettr'):
     '''
     Function to create output for the COMP platform
     '''
-    out_table = calc1.summary_table(calc2, output_variable=out_var,
-                                    output_type='csv')
+    baseln_assets_df = calc1.calc_by_asset()
+    reform_assets_df = calc2.calc_by_asset()
+    baseln_industry_df = calc1.calc_by_industry()
+    reform_industry_df = calc2.calc_by_industry()
     html_table = calc1.summary_table(calc2, output_variable=out_var,
                                      output_type='html')
-    plt = calc1.grouped_bar(calc2, output_variable=out_var,
+    plt1 = calc1.grouped_bar(calc2, output_variable=out_var,
+                             include_title=True)
+    plot_data1 = json_item(plt1)
+    plt2 = calc1.grouped_bar(calc2, output_variable=out_var,
+                             group_by_asset=False,
+                             include_title=True)
+    plot_data2 = json_item(plt2)
+    plt3 = calc1.range_plot(calc2, output_variable='mettr',
                             include_title=True)
-    plot_data = json_item(plt)
+    plot_data3 = json_item(plt3)
     comp_dict = {
         "renderable": [
-            {
-              "media_type": "bokeh",
-              "title": plt.title._property_values['text'],
-              "data": plot_data
-            },
             {
               "media_type": "table",
               "title":  out_var.upper() + " Summary Table",
               "data": html_table
             },
+            {
+              "media_type": "bokeh",
+              "title": plt1.title._property_values['text'],
+              "data": plot_data1
+            },
+            {
+              "media_type": "bokeh",
+              "title": plt2.title._property_values['text'],
+              "data": plot_data2
+            },
+            {
+              "media_type": "bokeh",
+              "title": "Marginal Effective Total Tax Rates by Method of Financing",
+              "data": plot_data3
+            }
           ],
         "downloadable": [
             {
               "media_type": "CSV",
-              "title": out_var.upper() + " Summary Table",
-              "data": out_table.to_csv()
+              "title": "Baseline Results by Asset",
+              "data": baseln_assets_df.to_csv(float_format='%.5f')
+            },
+            {
+              "media_type": "CSV",
+              "title": "Reform Results by Asset",
+              "data": reform_assets_df.to_csv(float_format='%.5f')
+            },
+            {
+              "media_type": "CSV",
+              "title": "Baseline Results by Industry",
+              "data": baseln_industry_df.to_csv(float_format='%.5f')
+            },
+            {
+              "media_type": "CSV",
+              "title": "Reform Results by Industry",
+              "data": reform_industry_df.to_csv(float_format='%.5f')
             }
           ]
         }

@@ -1,5 +1,6 @@
 from cs_kit import CoreTestFunctions
 import pandas as pd
+import numpy as np
 import io
 from cs_config import functions
 
@@ -19,5 +20,6 @@ def test_param_effect():
     adjustment = {"Business Tax Parameters": {"CIT_rate": 0.35},
                   "Individual and Payroll Tax Parameters": {}}
     comp_dict = functions.run_model({}, adjustment)
-    df = pd.read_csv(io.StringIO(comp_dict['downloadable'][0]['data']))
-    assert df.loc[0, 'Change from Baseline (pp)'] != 0
+    df1 = pd.read_csv(io.StringIO(comp_dict['downloadable'][0]['data']))
+    df2 = pd.read_csv(io.StringIO(comp_dict['downloadable'][1]['data']))
+    assert max(np.absolute(df1['rho_mix']-df2['rho_mix'])) > 0
