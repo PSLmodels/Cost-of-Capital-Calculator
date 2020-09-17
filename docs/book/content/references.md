@@ -1,4 +1,4 @@
 # References
 
-```{bibliography} ../../CCC_references.bib
+```{bibliography} ../CCC_references.bib
 ```

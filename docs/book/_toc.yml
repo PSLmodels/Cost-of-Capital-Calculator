@@ -1,4 +1,4 @@
-- file: content/intro/
+- file: content/intro
   numbered: false
 
 - part: Contributing to CCC
@@ -19,7 +19,7 @@
 
 - part: CCC Guide
   chapters:
-  - file: content/CCC_Guide
+  - file: content/CCC_guide
 
 - part: References
   chapters:

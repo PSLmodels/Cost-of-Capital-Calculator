@@ -3,7 +3,7 @@
 title                    : Cost-of-Capital-Calculator
 author                   : Jason DeBacker
 copyright                : '2020'
-logo                     : 'https://www.ospc.org/images/ccc.png'
+logo                     : '../ccc.png'
 
 ####################################################
 # Execution settings
