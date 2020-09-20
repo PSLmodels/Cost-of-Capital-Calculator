@@ -1,6 +1,10 @@
 - file: content/intro
   numbered: false
 
+- part: CCC Example
+  chapters:
+  - file: content/examples/PSL_demo
+
 - part: Contributing to CCC
   chapters:
   - file: content/contributing/contributor_guide

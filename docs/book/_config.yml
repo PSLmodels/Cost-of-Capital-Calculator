@@ -9,6 +9,7 @@ logo                     : '../ccc.png'
 # Execution settings
 execute:
   execute_notebooks      : cache
+  timeout                : 300
 
 ####################################################
 # HTML-specific settings
