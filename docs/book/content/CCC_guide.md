@@ -1,5 +1,5 @@
 (overview)=
-## Overview and Assumptions
+# Overview and Assumptions
 
 The `Cost of Capital Calculator` model produces estimates of the marginal effective tax rates on new investment under the baseline tax policy and user-specified tax reforms.  These effective rate calculations take two forms.  The *marginal effective tax rate* (METR) provides the tax wedge on new investment at the level of the business entity.  The *marginal effective total tax rate* (METTR) includes individual level taxes in the measure of the tax wedge on new investment.  One can think of the former as indicating the effect of taxes on incentives to invest from the perspective of the firm and the latter as representing effect of taxes on incentives to invest from the perspective of the saver.
 
@@ -13,7 +13,7 @@ One should note that these METR and METTR calculations include only federal tax 
 This guide is organized as follows.  Section {ref}`sec:METR` and Section {ref}`sec:METTR` describe how the cost of capital and effective tax rates are computed.  Next, we describe how we measure fixed assets by asset type, industry, and tax treatment in Section {ref}`sec:assets`.  The methodology to allocate land and inventories across industry and tax treatment is described in Sections {ref}`sec:land` and {ref}`sec:inventories`.  Finally, we discuss how the values of the model parameters are determined in Section {ref}`sec:params`.
 
 (sec:METR)=
-## Marginal Effective Tax Rates
+# Marginal Effective Tax Rates
 
 The marginal effective tax rate is calculated as the expected pre-tax rate of return on a marginal investment minus the real after-tax rate of return to the business entity, divided by the pre-tax rate of return on the marginal investment.  That is: 
 
@@ -73,7 +73,7 @@ METR_{m,j} =  \frac{\rho_{m,j} - (r^{'}_{m,j}-\pi)}{\rho_{m,j}},
 %To be completed... -->
 
 (sec:METTR)=
-## Marginal Effective Total Tax Rates
+# Marginal Effective Total Tax Rates
 
 $METTR$s include taxation at all levels, at the business entity and the individual to whom the returns from investment ultimately accrue.  The $METTR$ is computed as:
 
@@ -131,7 +131,7 @@ s_{e,td,j} = \frac{1}{Y_{td,j}}ln \left[(1-\tau_{td})e^{(\pi+E_{j})Y_{td,j}}+\ta
 ```
  
 
-### Computing After-Tax Capital Gains
+## Computing After-Tax Capital Gains
 
 Capital gains are not taxed until those gains are realized through the sale of stock.  The ability to defer the tax liability from gains complicates the calculation of the after-tax gains that accrue to investors. Further complicating this calculation is that, under current law, short and long term gains are taxed at differential rates and the basis for capital gains is "stepped-up" on equity passed along to decedents upon death.  Note, we'll omit the tax entity type subscript here since this calculation only applies to those entity types that can retain earnings, namely C-corporations under current tax law. 
 
@@ -152,12 +152,12 @@ g_{lcg} = \frac{1}{Y_{lcg}}\times ln\left[(1-\tau_{lcg})e^{(\pi+mE)Y_{lcg}}+\tau
 ```
 
 (sec:assets)=
-## Computing Fixed Assets by Industry and Entity Type
+# Computing Fixed Assets by Industry and Entity Type
 
 In the computation of $\rho_{m,j}$, we need to have a measure of fixed assets by industry and tax treatment for each asset type, $\widetilde{FA}_{i,m,j}$.  To make this calculation, we work with two different sources of data.  The first is the BEA's \href{http://www.bea.gov/national/FA2004/Details/Index.html}{Detailed Data for Fixed Assets and Consumer Durable Goods}.  These data allow us to identify the stock of fixed assets by industry for each asset type.  Call this variable $FA_{i,m}$.  The second source of data we draw upon are the IRS Statistics of Income (SOI) data from business entity tax returns.  From these data, we use information on depreciable assets and accumulated depreciation, aggregated by industry and tax entity type to compute a measure of the total stock of fixed assets by industry and tax treatment, $FA^{\tau}_{m,j}$.  The superscript $\tau$ is used to denote that these asset values come from tax data.  Measuring assets from tax returns is not ideal for two reason.  First, there are reporting issues.  These line items do not affect tax liability and so are often not reported with as much accuracy as items related to income.  Relatedly, balance sheet reporting is often limited to businesses above a certain size.  The second reason is that, for the previously cited and other reasons, measures of asset from tax returns may not line up with BEA totals.  We thus use the asset totals computed from tax returns only to help apportion the BEA asset totals across tax treatment.  Namely, we compute the variable $\widetilde{FA}_{i,m,j}$ as follows:
 
 ```{math}
-\label{eqn:asset_bridge}
+:label: eqn:asset_bridge
 \widetilde{FA}_{i,m,j} = FA_{i,m}\times \frac{FA^{\tau}_{m,j}}{\sum_{j=1}^{J} FA^{\tau}_{m,j}}
 ```
 
@@ -185,7 +185,7 @@ Investments by C-corporations and corporate partners face the corporate income t
 } -->
 
 
-### Handling Varying Industry Specificity Between BEA and SOI Data
+## Handling Varying Industry Specificity Between BEA and SOI Data
 
 The BEA data in the detailed fixed asset tables are the only source of data on asset types by industry.  The level of industry detail in the BEA data differs from that in the SOI data.  To account for this, and to identify cost of capital as the finest levels of industry detail, we make the assumption that the mix of fixed assets remains the same across the children of any parent industry.  The total amount of BEA assets by asset type can then be allocated across tax treatment and SOI minor industry using Equation {eq}`eqn:asset_bridge`.
 
@@ -200,19 +200,19 @@ The BEA data in the detailed fixed asset tables are the only source of data on a
 %
 %Here, $m3$ represents the less specific industry code from the SOI data. -->
 
-### SOI Data by Entity Type
+## SOI Data by Entity Type
 
 We use IRS Statistics of Income (SOI) data on corporations, partnerships, and sole proprietorships.  These data come with varying levels of specificity.  Data on corporations are available at what the SOI call "minor industry" level.  This encompass 196 industry classifications.\footnote{Pages 2-6 of the \href{https://www.irs.gov/pub/irs-soi/13cosbsec1.pdf}{Corporation Source Book} outline these industry classifications.}  Data on partnerships and sole proprietorships are generally available at the "major" industry level.  These approximate the 3-digit NAICS codes and encompass 81 industry classifications.  Data on S-corporations are available at the "sector" level, with 21 sector classifications.  We note our methodologies below to attribute these data to the minor industry level for each entity type.  Once data for each entity type is allocated across minor industry, we utilize cross-walks to related the SOI industry codes to BEA and NAICS codes, allowing one to group industries at varying levels of detail across different classification systems.
 
 (sec:CandS)=
-#### C and S Corporation Data
+### C and S Corporation Data
 
 Tax data on subchapter C corporations come from the data files for the [SOI Tax Stats - Corporation Source Book](http://www.irs.gov/uac/SOI-Tax-Stats-Corporation-Source-Book:-Data-File) for 2011.  The link to those files is [here](http://www.irs.gov/uac/SOI-Tax-Stats-Corporation-Source-Book:-Data-File).  Specifically, we use the `2011sb1.csv` and `2011sb3.csv` files to find the aggregate amounts by industry for the following variables from Form 1120 and associated schedules: depreciable assets and accumulated depreciation.  Note that the `2011sb1.csv` file contains data from all Form 1120 returns (which includes both C and S corporations).  Thus, in calculating aggregates for subchapter C corporations only, we net out the totals by industry and line item for S corporations using the 2011sb3.csv data.
 
 Note that the level of industry detail in `2011sb1.csv` and `2011sb3.csv` differ, with the former reporting variables as fine as the 6-digit NAICS level and the latter reporting variables at the 2-digit level.  In order to infer S corporation data at a finer level of industry detail, we make the assumption that the each variable is distributed across minor industries within a major industry in the same way for all corporations as it they are for S corporations.  Letting $x_{m1}$ be a variable of interest reported for all corporations in detailed industry $m1$ (e.g., these may correspond to a 6-digit NAICS code) from 2011sb1.csv and $x_{m2}$ be the same variable reported for all corporations at the less detailed industry level (e.g., 2-digit NAICS).  We thus assume that the variable $x$ (which could be depreciable assets or accumulated depreciation) for S corporations can be allocated across detailed industry categories $m1$ as:
 
 ```{math}
-\label{eqn:attrib_minor}
+:label: eqn:attrib_minor
 x_{m1,s}=\frac{x_{m1}}{x_{m2}}\times x_{m2,s},
 ```
 
@@ -220,7 +220,7 @@ x_{m1,s}=\frac{x_{m1}}{x_{m2}}\times x_{m2,s},
 
 Using these data, we calculate the stock of fixed assets for C corporations in industry $m$ as reported on tax returns, ${FA}^{\tau}_{m,c}$, as the difference between the aggregate amounts of depreciable assets and accumulated depreciation for that industry.  We then calculate the stock of fixed assets for S-corporations in industry $m$ as reported on tax returns, ${FA}^{\tau}_{m,s}$, as the difference between the aggregate amounts of depreciable assets and accumulated depreciation for that industry for S-corporations. 
 
-#### Partnership Data
+### Partnership Data
 
 For partnerships, we draw upon the [SOI Tax Stats - Partnership Statistics by Sector or Industry](http://www.irs.gov/uac/SOI-Tax-Stats-Partnership-Statistics-by-Sector-or-Industry).  There are three files we use to get measures of partnership assets in 2012.  From the 12pa01.xls file, we pull aggregate depreciation deductions by industry.  From 12pa03.xls, we collect aggregate values for depreciable assets and accumulated depreciation.  Finally, we use `12pa05.xls` to help us allocate the total partnership capital stock between corporate, individual, and tax exempt partners (we discuss this further below).
 
@@ -241,7 +241,7 @@ When allocating capital across tax treatment, we will attribute the capital owne
 Finally, since partnership data do not identify depreciable assets for each minor industry, we use data from S-corporation assets at the minor industry level to attribute assets from the major industry reported in the partnership data to the corresponding minor industries that are its children.  The attribution takes the form described in Equation {eq}`eqn:attrib_minor`.  This imputation is only done for minor industries for which the partnership data do not report depreciable asset totals.  
 
 
-#### Sole Proprietorships
+### Sole Proprietorships
 
 We divide sole proprietorships into two groups: non-farm sole proprietors, who file a Schedule C of Form 1040, and farm sole proprietorships, who file Schedule F of Form 1040.  
 
@@ -279,29 +279,31 @@ Lastly, since sole proprietorship data do not allow us to directly identify depr
 %To be completed...
 %
 % Describe data for private residential structures.  Talk about split for owner-occupied and across industry.
-%
-%\section{Land}
-%\label{sec:land}
-%
-%To be completed...
-%
-% Get Land from Fin Accounts, Inventories from BEA.  Attribute over industry/tax treatment using SOI data - much like do for fixed assets.
-%
-%\section{Inventories}
-%\label{sec:inventories}
-%
-%To be completed...
-%
-% Get Land from Fin Accounts, Inventories from BEA.  Attribute over industry/tax treatment using SOI data - much like do for fixed assets.
-% -->
+%-->
 
-## Parameterization
+(sec:land)=
+# Land
+
+
+To be completed...
+
+Get Land from Fin Accounts, Inventories from BEA.  Attribute over industry/tax treatment using SOI data - much like do for fixed assets.
+ 
+(sec:inventories)=
+# Inventories
+
+To be completed...
+
+ Get Land from Fin Accounts, Inventories from BEA.  Attribute over industry/tax treatment using SOI data - much like do for fixed assets.
+
+
+# Parameterization
 
 <!-- %In order to calculate $METR$s, we need to assign values to each of the parameters described in Table {numref}`tab:param_list`.  This section describes the determination of the value of each of these parameters. -->
 
 
 
-### Nominal Discount Rates
+## Nominal Discount Rates
 
 The nominal discount rate, $r_{m,j}$, used by the business represents the cost of funds to the business.  These funds may come from equity, either through retained earnings or new equity issues, or from debt.  The cost of equity is given by $E_{j}$ (and varies by tax treatment), the cost of debt is given by the nominal interest rate $i$ (and is the same for all businesses).  The variable $E_{j}$ represents the expected real rate of return that investors can expect if they invest in any business of entity type $j$.  In general, interest payment deductions may be deductible.  In the case of deductibility, the cost of debt is  $i(1-u_{j})$, where $u_{j}$ is the statutory tax rate on business income at the first level.  We assume that the cost of funds for the marginal investment is a weighted average of the cost of funds from these two sources, debt and equity.  In particular:
 
@@ -312,7 +314,7 @@ r_{m,j}-\pi = f_{m,j}\left[i(1-u_{j})-\pi\right] + (1-f_{m,j})E_{j},
  where $f_{m,j}$ represents the fraction of the marginal investment financed with debt by firms in industry $m$ and of tax entity type $j$.  Changes to interest deductibility are reflected by changes in the cost of funds and thus the discount rate.  Likewise, systems like an allowance for corporate equity will affect the cost of funds and the discount rate.
 
 (sec:step3)=
-#### Measuring Debt by Industry and Tax Treatment
+### Measuring Debt by Industry and Tax Treatment
 
 We measure total debt from the [Financial Accounts of the United States](http://www.federalreserve.gov/apps/fof/FOFTables.aspx).  In particular, we use the following tables to capture debt, which we measure separately for corporate financial and nonfinancial businesss, noncorporate business, and household mortgage debt:
 
@@ -374,7 +376,7 @@ Where $PCA_{p,m}$ are the "partnership capital accounts" for partnerships in ind
 We then calculate the fraction of investment financed with debt by industry $m$ and entity type $j$ as: $f_{m,j} = \frac{debt_{m,j}}{equity_{m,j}+debt_{m,j}}$.  Due to the data limitations stemming from data on sole proprietors, we calculate the ratio for partnerships and sole proprietorships as being: $f_{m,p} = f_{m,sp} = \frac{debt_{m,p}+debt_{m,sp}}{equity_{m,p+sp}}$  The exception here are financial, noncorporate businesses (see issue above with debt for these businesses).  Because of this limitation, we let $f_{finance,j}=f_{finance,s}, \forall j\in\{p,sp\}$ (i.e., we take the financial policy of S-corp financial businesses and apply it to all non-corporate financial businesses).
 
 
-### NPV of Depreciation Deductions
+## NPV of Depreciation Deductions
 
 The net present value of depreciation deductions is solved for using the discount rate derived above.  Specifically, we have: 
 
@@ -465,7 +467,8 @@ z_{dbsl}=\frac{\beta}{\beta+r}\left[1-e^{-(\beta+r)Y^{*}}\right]+\frac{e^{-\beta
 
 % From BEA estimates... -->
 
-## User Inputs
+(sec:params)=
+# User Inputs
 
 Users may enter tax policies and evaluate those policy changes' effects on the cost of capital and effective tax rates.  In addition, users may specific changes in the underlying macroeconomic assumptions.  Table {numref}`tab:user_params` summarizes these parameters that the user might adjust to evaluate a tax reform option of interest.  We discuss these parameters and how they are computed or entered into the model below.
 
@@ -499,10 +502,10 @@ Users may enter tax policies and evaluate those policy changes' effects on the c
     \hline
     \hline
     \end{tabular}%
-  \label{tab:user_params}%
+  :label: tab:user_params%
 \end{table}%
 
-### Economic Parameters
+## Economic Parameters
 
 <!-- %To be completed... -->
 
@@ -510,7 +513,7 @@ One may alter the macroeconomic assumptions regarding rates of interest and infl
 
 % Note interest rate from BBB corp bond and inflation rate.  Note may allow for series in future, but currently just one value
 
-### Tax Policy Parameters
+## Tax Policy Parameters
 
 *Business Taxation*: Users to adjust the statutory marginal tax rates at the entity level, tax depreciation schedules, allowances for deductibility of interest or equity, and property tax rates.  
 
@@ -552,7 +555,7 @@ One may alter the macroeconomic assumptions regarding rates of interest and infl
 %    \hline
 %    \hline
 %    \end{tabular}%
-%  \label{tab:org_form}%
+%  :label: tab:org_form%
 %\end{table}%
 
 
