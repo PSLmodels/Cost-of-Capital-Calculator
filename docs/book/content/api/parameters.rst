@@ -15,6 +15,6 @@ ccc.parameters
 
 .. autoclass:: Specification
   :members: ccc_initialize, compute_default_params, default_parameters,
-    update_specification, read_json_revision
+    update_specification, _read_json_revision
 
 .. autoclass:: DepreciationParams
