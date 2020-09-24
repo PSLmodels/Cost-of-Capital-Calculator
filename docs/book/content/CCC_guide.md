@@ -12,6 +12,31 @@ One should note that these METR and METTR calculations include only federal tax 
 
 This guide is organized as follows.  Section {ref}`sec:METR` and Section {ref}`sec:METTR` describe how the cost of capital and effective tax rates are computed.  Next, we describe how we measure fixed assets by asset type, industry, and tax treatment in Section {ref}`sec:assets`.  The methodology to allocate land and inventories across industry and tax treatment is described in Sections {ref}`sec:land` and {ref}`sec:inventories`.  Finally, we discuss how the values of the model parameters are determined in Section {ref}`sec:params`.
 
+(sec:CoC)=
+# The Cost of Capital
+
+ By definition, the marginal investment is the investment whose before tax return is equivalent to the cost of capital, $\rho_{i,m,j}$. The cost of capital is given by:
+
+```{math}
+\rho_{i,m,j} = \frac{(r_{m,j}-\pi+\delta_{i})}{1-u_{j}}(1-u_{j}z_{i})+w_{i,m,j}-\delta_{i},
+``` 
+
+ where $\delta_{i}$ is the rate of economic depreciation, $u_{j}$ is the statutory income tax rate at the first level of taxation (e.g., at the business entity level for C-corporations and at the individual level for pass-through business entities), $z_{i}$ is the net present value of deprecation deductions from a dollar of new investment, and $w_{i,m,j}$ is the property tax rate.  
+
+
+The `Cost-of-Capital-Calculator` calculates the cost of capital, $\rho_{i,m,j}$, separately for each type of asset, production industry, and tax treatment (corporate or non-corporate).  
+The after-tax rate of return is given by:
+
+```{math}
+r^{'}_{m,j}-\pi = f_{m,j}\left[i-\pi\right] + (1-f_{m,j})E_{j},
+```
+
+ where $f_{m,j}$ represents the fraction of the marginal investment financed with debt by firms in industry $m$ and of tax entity type $j$.
+
+In addition to the cost of capital, the `Cost-of-Capital-Calculator` reports two related measures:
+* The user cost of capital (ucc): $ucc_{i,m,j} = \rho_{i,m,j} + delta_{i}$
+* The tax wedge, which is the difference between the before tax rate of return (which is equilvalent to the cost of capital for marginal investments) and the after-tax return top savings. The tax wedge = $\rho_{i,m,j}-s_{m,j$
+
 (sec:METR)=
 # Marginal Effective Tax Rates
 
@@ -21,24 +46,7 @@ The marginal effective tax rate is calculated as the expected pre-tax rate of re
 METR_{i,m,j} = \frac{\rho_{i,m,j} - (r^{'}_{m,j}-\pi)}{\rho_{i,m,j}},
 ```
 
- where the subscripts $i$, $m$, and $j$ refer to the type of asset, the production industry, and the tax entity type (e.g., C-corporation, partnership, S-corporation).  The parameter $\rho_{i,m,j}$ is the pre-tax rate of return on the marginal investment, $r^{'}_{m,j}$ is the business entity's nominal after-tax rate of return and $\pi$ is the rate of inflation (so that $r_{m,j}-\pi$ is the real after-tax rate of return).  It is assumed that the business entity discounts future cash flow by the rate $r_{m,j}$ (the prime in $r^{'}_{m,j}$ differentiates the after-tax rate of return from the firm's discount rate).  By definition, the marginal investment is the investment whose before tax return is equivalent to the cost of capital, $\rho_{i,m,j}$.  The cost of capital is given by:
-
-```{math}
-\rho_{i,m,j} = \frac{(r_{m,j}-\pi+\delta_{i})}{1-u_{j}}(1-u_{j}z_{i})+w_{i,m,j}-\delta_{i},
-``` 
-
- where $\delta_{i}$ is the rate of economic depreciation, $u_{j}$ is the statutory income tax rate at the first level of taxation (e.g., at the business entity level for C-corporations and at the individual level for pass-through business entities), $z_{i}$ is the net present value of deprecation deductions from a dollar of new investment, and $w_{i,m,j}$ is the property tax rate.  
-
-
-We calculate the cost of capital, $\rho_{i,m,j}$, separately for each type of asset, production industry, and tax treatment (corporate or non-corporate).  
-The after-tax rate of return is given by:
-
-```{math}
-r^{'}_{m,j}-\pi = f_{m,j}\left[i-\pi\right] + (1-f_{m,j})E_{j},
-```
-
- where $f_{m,j}$ represents the fraction of the marginal investment financed with debt by firms in industry $m$ and of tax entity type $j$.
-
+ where the subscripts $i$, $m$, and $j$ refer to the type of asset, the production industry, and the tax entity type (e.g., C-corporation, partnership, S-corporation).  The variable $\rho_{i,m,j}$ is the pre-tax rate of return on the marginal investment, $r^{'}_{m,j}$ is the business entity's nominal after-tax rate of return and $\pi$ is the rate of inflation (so that $r_{m,j}-\pi$ is the real after-tax rate of return).  It is assumed that the business entity discounts future cash flow by the rate $r_{m,j}$ (the prime in $r^{'}_{m,j}$ differentiates the after-tax rate of return from the firm's discount rate).
 
 At times users may be interested in the variation in $METR$s across asset types, in which case we can use the $METR$ calculation outlined above. At other times users may wish to view the variation in $METR$s across industry.  In this case, we compute a weighted average cost of capital for each production industry and tax treatment as follows:
 
@@ -130,6 +138,17 @@ s_{e,ft,j} = (1-m_{j})E(1-\tau_{div}) + g_{j},
 s_{e,td,j} = \frac{1}{Y_{td,j}}ln \left[(1-\tau_{td})e^{(\pi+E_{j})Y_{td,j}}+\tau_{td}\right]-\pi
 ```
  
+(sec:EATR)=
+# Effective Average Tax Rates
+
+Some investment decisions are discrete: build the new plant or not, pursue this R&D effort or another, and so on.  For discrete investment decisions, firms will compare the after tax rates of returns each of the possible choices.  In such cases, the relevant measure of the impact of the tax system on their investment choices will be measured by the effective average tax rate ($EATR$).  {cite}`DG2003` propose a forward  measure of the EATR, which the `Cost-of-Capital-Calculator` also produces estimates.  The $EATR$ is computed as:
+
+ ```{math}
+EATR = \left(\frac{p_{i,m,j} - rho_{i,m,j}}{p_{i,m,j}}\right)u_{j} + \left(\frac{\rho_{i,m,j}}{p_{i,m,j}}\right)METR_{i,m,j}
+```
+
+where $p_{i,m,j}$ is the rate of profit on the project.  Note that the $EATR$ is equal to the $METR$ for marginal projects - those who's rate of profit is equal to the cost of capital.
+
 
 ## Computing After-Tax Capital Gains
 
