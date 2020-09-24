@@ -62,23 +62,39 @@ With the cost of capital for all fixed assets in an industry-tax treatment group
 METR_{m,j} =  \frac{\rho_{m,j} - (r^{'}_{m,j}-\pi)}{\rho_{m,j}},
 ```
 
-<!-- %\subsection{Modifications to the METR Calculations for Certain Assets}
-%
-%Two classes of assets, inventories and land, necessitate slightly modifications from the above methodology when computing $METR$s.  In addition, owner occupied housing faces some different tax treatment and thus deserves its own discussion.  This section discusses the modifications to the METR calculations described above for these asset categories.
-%
-%\subsubsection{Inventories}
-%
-%To be completed...
-%
-%
-%\subsubsection{Land}
-%
-%To be completed...
-%
-%
-%\subsubsection{Owner-Occupied Housing}
-%
-%To be completed... -->
+## Modifications to the METR Calculations for Certain Assets
+
+Two classes of assets, inventories and land, necessitate slightly modifications from the above methodology when computing $METR$s.  In addition, owner occupied housing faces some different tax treatment and thus deserves its own discussion.  This section discusses the modifications to the $METR$ calculations described above for these asset categories.
+
+### Inventories
+
+In calculating the $METR$ for inventory investments, the cost of capital is defined as follows:
+
+$$
+  \rho = \phi \rho_{FIFO} + (1-\phi)\rho_{LIFO}
+$$
+
+where $phi$ are teh fraction of inventories that use FIFO accounting and $\rho_{FIFO}$ and $\rho_{LIFO}$ are given as:
+
+$$
+  \rho_{FIFO} = \frac{1}{Y_v} log(\frac{e^{(Y_v} - u_{j}}{(1 - u_{j})} - \pi
+$$
+
+$$
+  \rho_{LIFO} = \frac{1}{Y_v} log(\frac{e^{(r_{m,j}-\pi)Y_v} - u_{j}}{(1 - u_{j})} - \pi
+$$
+
+where $Y_{v}$ is the average number of years that inventories are held.
+
+
+### Land
+
+To be completed...
+
+
+### Owner-Occupied Housing
+
+To be completed...
 
 (sec:METTR)=
 # Marginal Effective Total Tax Rates
@@ -417,10 +433,10 @@ The net present value of straight-line depreciation can thus be found as:
 z_{sl}=\int_{Y}^{0}\frac{1-e^{-ry}}{Y}dy
 ```
 
- which, when integrated, yields:
+ which, when integrated and with bonus depreciation rate equal to $bonus$ , yields:
 
 ```{math}
-z_{sl}=\frac{e^{-rY}}{Yr}
+z_{sl}=bonus + (1 - bonus)\frac{e^{-rY}}{Yr}
 ```
 
  where $Y$ is the recovery period of the asset.  With a declining balance method of deprecation, the remaining depreciable value of \$1 invested at any time $y$ is given by:
@@ -461,10 +477,10 @@ We can now find the present value of depreciation deductions under a declining b
 z_{dbsl}=\int_{0}^{Y^{*}}\beta e^{-(\beta+r)y}dy+\int_{Y^{*}}^{Y}\frac{e^{-\beta Y^{*}}}{Y^{*}-Y}e^{-ry}dy
 ```
 
- which, when integrated, yields:
+ which, when integrated and with bonus depreciation, yields:
 
 ```{math}
-z_{dbsl}=\frac{\beta}{\beta+r}\left[1-e^{-(\beta+r)Y^{*}}\right]+\frac{e^{-\beta Y^{*}}}{(Y-Y^{*})r}\left[e^{-rY^{*}}-e^{-rY}\right]
+z_{dbsl}=bonus + (1 - bonus)\frac{\beta}{\beta+r}\left[1-e^{-(\beta+r)Y^{*}}\right]+\frac{e^{-\beta Y^{*}}}{(Y-Y^{*})r}\left[e^{-rY^{*}}-e^{-rY}\right]
 ```
 
 <!-- %\subsubsection{Current Law Tax Depreciation Rules}
