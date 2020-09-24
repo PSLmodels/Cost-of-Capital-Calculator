@@ -122,7 +122,7 @@ The return on fully taxable accounts is given by:
 s_{e,ft,j} = (1-m_{j})E(1-\tau_{div}) + g_{j},
 ```
 
- where $m_{j}$ are the fraction of earnings that are retained by entity of type j, $\tau_{div}$ is the dividend tax rate on the marginal equity investor, and $g_{j}$ is the real return paid on retained earnings after the capital gains tax on the marginal equity investor.\footnote{If one subscribes to the "new view", that dividend taxes do not affect investment incentives, then the first term in this equation would be zero.  We use the subscript $j$ by the parameters $m$ and $g$, but note that these parameters only apply to business entities who can retain earnings (typically, these are those with an entity level tax).}
+ where $m_{j}$ are the fraction of earnings that are retained by entity of type j, $\tau_{div}$ is the dividend tax rate on the marginal equity investor, and $g_{j}$ is the real return paid on retained earnings after the capital gains tax on the marginal equity investor.[^new_view_note]
  
  The return on tax deferred accounts is:
  
@@ -202,7 +202,7 @@ The BEA data in the detailed fixed asset tables are the only source of data on a
 
 ## SOI Data by Entity Type
 
-We use IRS Statistics of Income (SOI) data on corporations, partnerships, and sole proprietorships.  These data come with varying levels of specificity.  Data on corporations are available at what the SOI call "minor industry" level.  This encompass 196 industry classifications.\footnote{Pages 2-6 of the \href{https://www.irs.gov/pub/irs-soi/13cosbsec1.pdf}{Corporation Source Book} outline these industry classifications.}  Data on partnerships and sole proprietorships are generally available at the "major" industry level.  These approximate the 3-digit NAICS codes and encompass 81 industry classifications.  Data on S-corporations are available at the "sector" level, with 21 sector classifications.  We note our methodologies below to attribute these data to the minor industry level for each entity type.  Once data for each entity type is allocated across minor industry, we utilize cross-walks to related the SOI industry codes to BEA and NAICS codes, allowing one to group industries at varying levels of detail across different classification systems.
+We use IRS Statistics of Income (SOI) data on corporations, partnerships, and sole proprietorships.  These data come with varying levels of specificity.  Data on corporations are available at what the SOI call "minor industry" level.  This encompass 196 industry classifications.[^ind_class_note]  Data on partnerships and sole proprietorships are generally available at the "major" industry level.  These approximate the 3-digit NAICS codes and encompass 81 industry classifications.  Data on S-corporations are available at the "sector" level, with 21 sector classifications.  We note our methodologies below to attribute these data to the minor industry level for each entity type.  Once data for each entity type is allocated across minor industry, we utilize cross-walks to related the SOI industry codes to BEA and NAICS codes, allowing one to group industries at varying levels of detail across different classification systems.
 
 (sec:CandS)=
 ### C and S Corporation Data
@@ -502,7 +502,7 @@ Users may enter tax policies and evaluate those policy changes' effects on the c
 
 <!-- %To be completed... -->
 
-One may alter the macroeconomic assumptions regarding rates of interest and inflation.\footnote{The default values are the taken from the CBO baseline forecast.}  
+One may alter the macroeconomic assumptions regarding rates of interest and inflation.[^cbo_note]
 
 % Note interest rate from BBB corp bond and inflation rate.  Note may allow for series in future, but currently just one value
 
@@ -555,3 +555,9 @@ One may alter the macroeconomic assumptions regarding rates of interest and infl
 %% Might be good if can tie these sections to the code (e.g. NPV of deprec handled in calc_z, econ depr read in in calc_z.get_econ_depr(), etc).
 %% Or perhaps this is a separate guide - follows the same sections here and points out where in the code the calculations are done.
  -->
+
+[^new_view_note]: If one subscribes to the "new view", that dividend taxes do not affect investment incentives, then the first term in this equation would be zero.  We use the subscript $j$ by the parameters $m$ and $g$, but note that these parameters only apply to business entities who can retain earnings (typically, these are those with an entity level tax).
+
+[^ind_class_note]: Pages 2-6 of the \href{https://www.irs.gov/pub/irs-soi/13cosbsec1.pdf}{Corporation Source Book} outline these industry classifications.
+
+[^cbo_note]: The default values are the taken from the CBO baseline forecast.
