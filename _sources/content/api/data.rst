@@ -10,8 +10,5 @@ ccc.data
 
 .. currentmodule:: ccc.data
 
-.. automodule:: ccc.data
-  :members:
-
 .. autoclass:: Assets
   :members: data_year, array_length, read_var_info, _read_data

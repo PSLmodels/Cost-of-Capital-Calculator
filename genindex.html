@@ -1,37 +1,253 @@
 
+
 <!DOCTYPE html>
 
-<html lang="Python">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index &#8212; Cost of Capital Calculator 1.0.1 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <title>Index &#8212; Cost-of-Capital-Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head><body>
-  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">Cost-of-Capital-Calculator</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="content/intro.html">
+   Cost-of-Capital-Calculator
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Contributing to CCC
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="content/contributing/contributor_guide.html">
+   Contributor Guide
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  CCC API
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="content/api/public_api.html">
+   Cost-of-Capital-Calclator API
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  CCC Guide
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="content/CCC_guide.html">
+   Overview and Assumptions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="content/CCC_guide.html#marginal-effective-tax-rates">
+   Marginal Effective Tax Rates
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="content/CCC_guide.html#marginal-effective-total-tax-rates">
+   Marginal Effective Total Tax Rates
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="content/CCC_guide.html#computing-fixed-assets-by-industry-and-entity-type">
+   Computing Fixed Assets by Industry and Entity Type
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="content/CCC_guide.html#land">
+   Land
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="content/CCC_guide.html#inventories">
+   Inventories
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="content/CCC_guide.html#parameterization">
+   Parameterization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="content/CCC_guide.html#user-inputs">
+   User Inputs
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="content/references.html">
+   References
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Citations of CCC
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="content/citations.html">
+   Citations and use cases of CCC
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
           
 
-          <div class="body" role="main">
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+</div>
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/PSLmodels/Cost-of-Capital-Calculator"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/PSLmodels/Cost-of-Capital-Calculator/issues/new?title=Issue%20on%20page%20%2Fgenindex.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <nav id="bd-toc-nav">
             
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
 
 <h1 id="index">Index</h1>
 
@@ -58,7 +274,11 @@
 <h2 id="_">_</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="data.html#ccc.data.Assets._read_data">_read_data() (ccc.data.Assets method)</a>
+      <li><a href="content/api/data.html#ccc.data.Assets._read_data">_read_data() (ccc.data.Assets method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="content/api/parameters.html#ccc.parameters.Specification._read_json_revision">_read_json_revision() (ccc.parameters.Specification static method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -66,17 +286,17 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="data.html#ccc.data.Assets.array_length">array_length() (ccc.data.Assets property)</a>, <a href="data.html#id2">[1]</a>
+      <li><a href="content/api/data.html#ccc.data.Assets.array_length">array_length() (ccc.data.Assets property)</a>
 </li>
-      <li><a href="calculator.html#ccc.calculator.Calculator.asset_bubble">asset_bubble() (ccc.calculator.Calculator method)</a>, <a href="calculator.html#id1">[1]</a>
+      <li><a href="content/api/calculator.html#ccc.calculator.Calculator.asset_bubble">asset_bubble() (ccc.calculator.Calculator method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="calculator.html#ccc.calculator.Calculator.asset_share_table">asset_share_table() (ccc.calculator.Calculator method)</a>, <a href="calculator.html#id2">[1]</a>
+      <li><a href="content/api/calculator.html#ccc.calculator.Calculator.asset_share_table">asset_share_table() (ccc.calculator.Calculator method)</a>
 </li>
-      <li><a href="calculator.html#ccc.calculator.Calculator.asset_summary_table">asset_summary_table() (ccc.calculator.Calculator method)</a>, <a href="calculator.html#id3">[1]</a>
+      <li><a href="content/api/calculator.html#ccc.calculator.Calculator.asset_summary_table">asset_summary_table() (ccc.calculator.Calculator method)</a>
 </li>
-      <li><a href="data.html#ccc.data.Assets">Assets (class in ccc.data)</a>, <a href="data.html#id0">[1]</a>
+      <li><a href="content/api/data.html#ccc.data.Assets">Assets (class in ccc.data)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -84,7 +304,7 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="calculator.html#ccc.calculator.Calculator.bubble_widget">bubble_widget() (ccc.calculator.Calculator method)</a>, <a href="calculator.html#id4">[1]</a>
+      <li><a href="content/api/calculator.html#ccc.calculator.Calculator.bubble_widget">bubble_widget() (ccc.calculator.Calculator method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -92,90 +312,76 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="calculator.html#ccc.calculator.Calculator.calc_all">calc_all() (ccc.calculator.Calculator method)</a>, <a href="calculator.html#id5">[1]</a>
+      <li><a href="content/api/calculator.html#ccc.calculator.Calculator.calc_all">calc_all() (ccc.calculator.Calculator method)</a>
 </li>
-      <li><a href="calculator.html#ccc.calculator.Calculator.calc_base">calc_base() (ccc.calculator.Calculator method)</a>, <a href="calculator.html#id6">[1]</a>
+      <li><a href="content/api/calculator.html#ccc.calculator.Calculator.calc_base">calc_base() (ccc.calculator.Calculator method)</a>
 </li>
-      <li><a href="calculator.html#ccc.calculator.Calculator.calc_by_asset">calc_by_asset() (ccc.calculator.Calculator method)</a>, <a href="calculator.html#id7">[1]</a>
+      <li><a href="content/api/calculator.html#ccc.calculator.Calculator.calc_by_asset">calc_by_asset() (ccc.calculator.Calculator method)</a>
 </li>
-      <li><a href="calculator.html#ccc.calculator.Calculator.calc_by_industry">calc_by_industry() (ccc.calculator.Calculator method)</a>, <a href="calculator.html#id8">[1]</a>
+      <li><a href="content/api/calculator.html#ccc.calculator.Calculator.calc_by_industry">calc_by_industry() (ccc.calculator.Calculator method)</a>
 </li>
-      <li><a href="paramfunctions.html#ccc.paramfunctions.calc_g">calc_g() (in module ccc.paramfunctions)</a>
+      <li><a href="content/api/paramfunctions.html#ccc.paramfunctions.calc_g">calc_g() (in module ccc.paramfunctions)</a>
 </li>
-      <li><a href="paramfunctions.html#ccc.paramfunctions.calc_g__g">calc_g__g() (in module ccc.paramfunctions)</a>
+      <li><a href="content/api/paramfunctions.html#ccc.paramfunctions.calc_g__g">calc_g__g() (in module ccc.paramfunctions)</a>
 </li>
-      <li><a href="calculator.html#ccc.calculator.Calculator.calc_other">calc_other() (ccc.calculator.Calculator method)</a>, <a href="calculator.html#id9">[1]</a>
+      <li><a href="content/api/calculator.html#ccc.calculator.Calculator.calc_other">calc_other() (ccc.calculator.Calculator method)</a>
 </li>
-      <li><a href="paramfunctions.html#ccc.paramfunctions.calc_s">calc_s() (in module ccc.paramfunctions)</a>
+      <li><a href="content/api/paramfunctions.html#ccc.paramfunctions.calc_s">calc_s() (in module ccc.paramfunctions)</a>
 </li>
-      <li><a href="paramfunctions.html#ccc.paramfunctions.calc_s__d">calc_s__d() (in module ccc.paramfunctions)</a>
+      <li><a href="content/api/paramfunctions.html#ccc.paramfunctions.calc_s__d">calc_s__d() (in module ccc.paramfunctions)</a>
 </li>
-      <li><a href="paramfunctions.html#ccc.paramfunctions.calc_s_c_d_td">calc_s_c_d_td() (in module ccc.paramfunctions)</a>
+      <li><a href="content/api/paramfunctions.html#ccc.paramfunctions.calc_s_c_d_td">calc_s_c_d_td() (in module ccc.paramfunctions)</a>
 </li>
-      <li><a href="paramfunctions.html#ccc.paramfunctions.calc_s_c_e">calc_s_c_e() (in module ccc.paramfunctions)</a>
+      <li><a href="content/api/paramfunctions.html#ccc.paramfunctions.calc_s_c_e">calc_s_c_e() (in module ccc.paramfunctions)</a>
 </li>
-      <li><a href="paramfunctions.html#ccc.paramfunctions.calc_s_c_e_td">calc_s_c_e_td() (in module ccc.paramfunctions)</a>
+      <li><a href="content/api/paramfunctions.html#ccc.paramfunctions.calc_s_c_e_td">calc_s_c_e_td() (in module ccc.paramfunctions)</a>
 </li>
-      <li><a href="paramfunctions.html#ccc.paramfunctions.calc_sprime_c_td">calc_sprime_c_td() (in module ccc.paramfunctions)</a>
+      <li><a href="content/api/paramfunctions.html#ccc.paramfunctions.calc_sprime_c_td">calc_sprime_c_td() (in module ccc.paramfunctions)</a>
 </li>
-      <li><a href="calculator.html#ccc.calculator.Calculator">Calculator (class in ccc.calculator)</a>, <a href="calculator.html#id0">[1]</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="content/api/calculator.html#ccc.calculator.Calculator">Calculator (class in ccc.calculator)</a>
 </li>
       <li>
     ccc.calcfunctions
 
       <ul>
-        <li><a href="calcfunctions.html#module-ccc.calcfunctions">module</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    ccc.calculator
-
-      <ul>
-        <li><a href="calculator.html#module-ccc.calculator">module</a>
-</li>
-      </ul></li>
-      <li>
-    ccc.data
-
-      <ul>
-        <li><a href="data.html#module-ccc.data">module</a>
+        <li><a href="content/api/calcfunctions.html#module-ccc.calcfunctions">module</a>
 </li>
       </ul></li>
       <li>
     ccc.get_taxcalc_rates
 
       <ul>
-        <li><a href="get_taxcalc_rates.html#module-ccc.get_taxcalc_rates">module</a>
+        <li><a href="content/api/get_taxcalc_rates.html#module-ccc.get_taxcalc_rates">module</a>
 </li>
       </ul></li>
       <li>
     ccc.parameters
 
       <ul>
-        <li><a href="parameters.html#module-ccc.parameters">module</a>
+        <li><a href="content/api/parameters.html#module-ccc.parameters">module</a>
 </li>
       </ul></li>
       <li>
     ccc.paramfunctions
 
       <ul>
-        <li><a href="paramfunctions.html#module-ccc.paramfunctions">module</a>
+        <li><a href="content/api/paramfunctions.html#module-ccc.paramfunctions">module</a>
 </li>
       </ul></li>
       <li>
     ccc.utils
 
       <ul>
-        <li><a href="utils.html#module-ccc.utils">module</a>
+        <li><a href="content/api/utils.html#module-ccc.utils">module</a>
 </li>
       </ul></li>
-      <li><a href="parameters.html#ccc.parameters.Specification.ccc_initialize">ccc_initialize() (ccc.parameters.Specification method)</a>
+      <li><a href="content/api/parameters.html#ccc.parameters.Specification.ccc_initialize">ccc_initialize() (ccc.parameters.Specification method)</a>
 </li>
-      <li><a href="parameters.html#ccc.parameters.Specification.compute_default_params">compute_default_params() (ccc.parameters.Specification method)</a>
+      <li><a href="content/api/parameters.html#ccc.parameters.Specification.compute_default_params">compute_default_params() (ccc.parameters.Specification method)</a>
 </li>
-      <li><a href="calculator.html#ccc.calculator.Calculator.current_year">current_year() (ccc.calculator.Calculator property)</a>, <a href="calculator.html#id10">[1]</a>
+      <li><a href="content/api/calculator.html#ccc.calculator.Calculator.current_year">current_year() (ccc.calculator.Calculator property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -183,21 +389,21 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="calculator.html#ccc.calculator.Calculator.data_year">data_year() (ccc.calculator.Calculator property)</a>, <a href="calculator.html#id11">[1]</a>
+      <li><a href="content/api/calculator.html#ccc.calculator.Calculator.data_year">data_year() (ccc.calculator.Calculator property)</a>
 
       <ul>
-        <li><a href="data.html#ccc.data.Assets.data_year">(ccc.data.Assets property)</a>, <a href="data.html#id3">[1]</a>
+        <li><a href="content/api/data.html#ccc.data.Assets.data_year">(ccc.data.Assets property)</a>
 </li>
       </ul></li>
-      <li><a href="calcfunctions.html#ccc.calcfunctions.dbsl">dbsl() (in module ccc.calcfunctions)</a>
+      <li><a href="content/api/calcfunctions.html#ccc.calcfunctions.dbsl">dbsl() (in module ccc.calcfunctions)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="parameters.html#ccc.parameters.Specification.default_parameters">default_parameters() (ccc.parameters.Specification method)</a>
+      <li><a href="content/api/parameters.html#ccc.parameters.Specification.default_parameters">default_parameters() (ccc.parameters.Specification method)</a>
 </li>
-      <li><a href="parameters.html#ccc.parameters.DepreciationParams">DepreciationParams (class in ccc.parameters)</a>
+      <li><a href="content/api/parameters.html#ccc.parameters.DepreciationParams">DepreciationParams (class in ccc.parameters)</a>
 </li>
-      <li><a href="utils.html#ccc.utils.diff_two_tables">diff_two_tables() (in module ccc.utils)</a>
+      <li><a href="content/api/utils.html#ccc.utils.diff_two_tables">diff_two_tables() (in module ccc.utils)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -205,23 +411,23 @@
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="calcfunctions.html#ccc.calcfunctions.econ">econ() (in module ccc.calcfunctions)</a>
+      <li><a href="content/api/calcfunctions.html#ccc.calcfunctions.econ">econ() (in module ccc.calcfunctions)</a>
 </li>
-      <li><a href="calcfunctions.html#ccc.calcfunctions.eq_coc">eq_coc() (in module ccc.calcfunctions)</a>
+      <li><a href="content/api/calcfunctions.html#ccc.calcfunctions.eq_coc">eq_coc() (in module ccc.calcfunctions)</a>
 </li>
-      <li><a href="calcfunctions.html#ccc.calcfunctions.eq_coc_inventory">eq_coc_inventory() (in module ccc.calcfunctions)</a>
+      <li><a href="content/api/calcfunctions.html#ccc.calcfunctions.eq_coc_inventory">eq_coc_inventory() (in module ccc.calcfunctions)</a>
 </li>
-      <li><a href="calcfunctions.html#ccc.calcfunctions.eq_eatr">eq_eatr() (in module ccc.calcfunctions)</a>
+      <li><a href="content/api/calcfunctions.html#ccc.calcfunctions.eq_eatr">eq_eatr() (in module ccc.calcfunctions)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="calcfunctions.html#ccc.calcfunctions.eq_metr">eq_metr() (in module ccc.calcfunctions)</a>
+      <li><a href="content/api/calcfunctions.html#ccc.calcfunctions.eq_metr">eq_metr() (in module ccc.calcfunctions)</a>
 </li>
-      <li><a href="calcfunctions.html#ccc.calcfunctions.eq_mettr">eq_mettr() (in module ccc.calcfunctions)</a>
+      <li><a href="content/api/calcfunctions.html#ccc.calcfunctions.eq_mettr">eq_mettr() (in module ccc.calcfunctions)</a>
 </li>
-      <li><a href="calcfunctions.html#ccc.calcfunctions.eq_tax_wedge">eq_tax_wedge() (in module ccc.calcfunctions)</a>
+      <li><a href="content/api/calcfunctions.html#ccc.calcfunctions.eq_tax_wedge">eq_tax_wedge() (in module ccc.calcfunctions)</a>
 </li>
-      <li><a href="calcfunctions.html#ccc.calcfunctions.eq_ucc">eq_ucc() (in module ccc.calcfunctions)</a>
+      <li><a href="content/api/calcfunctions.html#ccc.calcfunctions.eq_ucc">eq_ucc() (in module ccc.calcfunctions)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -229,13 +435,13 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="get_taxcalc_rates.html#ccc.get_taxcalc_rates.get_calculator">get_calculator() (in module ccc.get_taxcalc_rates)</a>
+      <li><a href="content/api/get_taxcalc_rates.html#ccc.get_taxcalc_rates.get_calculator">get_calculator() (in module ccc.get_taxcalc_rates)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="get_taxcalc_rates.html#ccc.get_taxcalc_rates.get_rates">get_rates() (in module ccc.get_taxcalc_rates)</a>
+      <li><a href="content/api/get_taxcalc_rates.html#ccc.get_taxcalc_rates.get_rates">get_rates() (in module ccc.get_taxcalc_rates)</a>
 </li>
-      <li><a href="calculator.html#ccc.calculator.Calculator.grouped_bar">grouped_bar() (ccc.calculator.Calculator method)</a>, <a href="calculator.html#id12">[1]</a>
+      <li><a href="content/api/calculator.html#ccc.calculator.Calculator.grouped_bar">grouped_bar() (ccc.calculator.Calculator method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -243,7 +449,7 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="calculator.html#ccc.calculator.Calculator.industry_summary_table">industry_summary_table() (ccc.calculator.Calculator method)</a>, <a href="calculator.html#id13">[1]</a>
+      <li><a href="content/api/calculator.html#ccc.calculator.Calculator.industry_summary_table">industry_summary_table() (ccc.calculator.Calculator method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -251,7 +457,7 @@
 <h2 id="J">J</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="utils.html#ccc.utils.json_to_dict">json_to_dict() (in module ccc.utils)</a>
+      <li><a href="content/api/utils.html#ccc.utils.json_to_dict">json_to_dict() (in module ccc.utils)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -263,19 +469,15 @@
     module
 
       <ul>
-        <li><a href="calcfunctions.html#module-ccc.calcfunctions">ccc.calcfunctions</a>
+        <li><a href="content/api/calcfunctions.html#module-ccc.calcfunctions">ccc.calcfunctions</a>
 </li>
-        <li><a href="calculator.html#module-ccc.calculator">ccc.calculator</a>
+        <li><a href="content/api/get_taxcalc_rates.html#module-ccc.get_taxcalc_rates">ccc.get_taxcalc_rates</a>
 </li>
-        <li><a href="data.html#module-ccc.data">ccc.data</a>
+        <li><a href="content/api/parameters.html#module-ccc.parameters">ccc.parameters</a>
 </li>
-        <li><a href="get_taxcalc_rates.html#module-ccc.get_taxcalc_rates">ccc.get_taxcalc_rates</a>
+        <li><a href="content/api/paramfunctions.html#module-ccc.paramfunctions">ccc.paramfunctions</a>
 </li>
-        <li><a href="parameters.html#module-ccc.parameters">ccc.parameters</a>
-</li>
-        <li><a href="paramfunctions.html#module-ccc.paramfunctions">ccc.paramfunctions</a>
-</li>
-        <li><a href="utils.html#module-ccc.utils">ccc.utils</a>
+        <li><a href="content/api/utils.html#module-ccc.utils">ccc.utils</a>
 </li>
       </ul></li>
   </ul></td>
@@ -284,7 +486,7 @@
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="calcfunctions.html#ccc.calcfunctions.npv_tax_depr">npv_tax_depr() (in module ccc.calcfunctions)</a>
+      <li><a href="content/api/calcfunctions.html#ccc.calcfunctions.npv_tax_depr">npv_tax_depr() (in module ccc.calcfunctions)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -292,7 +494,7 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="calculator.html#ccc.calculator.Calculator.p_param">p_param() (ccc.calculator.Calculator method)</a>, <a href="calculator.html#id14">[1]</a>
+      <li><a href="content/api/calculator.html#ccc.calculator.Calculator.p_param">p_param() (ccc.calculator.Calculator method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -300,19 +502,19 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="calculator.html#ccc.calculator.Calculator.range_plot">range_plot() (ccc.calculator.Calculator method)</a>, <a href="calculator.html#id15">[1]</a>
+      <li><a href="content/api/calculator.html#ccc.calculator.Calculator.range_plot">range_plot() (ccc.calculator.Calculator method)</a>
 </li>
-      <li><a href="utils.html#ccc.utils.read_egg_csv">read_egg_csv() (in module ccc.utils)</a>
+      <li><a href="content/api/utils.html#ccc.utils.read_egg_csv">read_egg_csv() (in module ccc.utils)</a>
 </li>
-      <li><a href="utils.html#ccc.utils.read_egg_json">read_egg_json() (in module ccc.utils)</a>
+      <li><a href="content/api/utils.html#ccc.utils.read_egg_json">read_egg_json() (in module ccc.utils)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="data.html#ccc.data.Assets.read_var_info">read_var_info() (ccc.data.Assets static method)</a>, <a href="data.html#id4">[1]</a>
+      <li><a href="content/api/data.html#ccc.data.Assets.read_var_info">read_var_info() (ccc.data.Assets static method)</a>
 </li>
-      <li><a href="calculator.html#ccc.calculator.Calculator.restore_assets">restore_assets() (ccc.calculator.Calculator method)</a>, <a href="calculator.html#id16">[1]</a>
+      <li><a href="content/api/calculator.html#ccc.calculator.Calculator.restore_assets">restore_assets() (ccc.calculator.Calculator method)</a>
 </li>
-      <li><a href="parameters.html#ccc.parameters.revision_warnings_errors">revision_warnings_errors() (in module ccc.parameters)</a>
+      <li><a href="content/api/parameters.html#ccc.parameters.revision_warnings_errors">revision_warnings_errors() (in module ccc.parameters)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -320,19 +522,19 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="utils.html#ccc.utils.save_return_table">save_return_table() (in module ccc.utils)</a>
+      <li><a href="content/api/utils.html#ccc.utils.save_return_table">save_return_table() (in module ccc.utils)</a>
 </li>
-      <li><a href="calcfunctions.html#ccc.calcfunctions.sl">sl() (in module ccc.calcfunctions)</a>
+      <li><a href="content/api/calcfunctions.html#ccc.calcfunctions.sl">sl() (in module ccc.calcfunctions)</a>
 </li>
-      <li><a href="parameters.html#ccc.parameters.Specification">Specification (class in ccc.parameters)</a>
+      <li><a href="content/api/parameters.html#ccc.parameters.Specification">Specification (class in ccc.parameters)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="calculator.html#ccc.calculator.Calculator.store_assets">store_assets() (ccc.calculator.Calculator method)</a>, <a href="calculator.html#id17">[1]</a>
+      <li><a href="content/api/calculator.html#ccc.calculator.Calculator.store_assets">store_assets() (ccc.calculator.Calculator method)</a>
 </li>
-      <li><a href="utils.html#ccc.utils.str_modified">str_modified() (in module ccc.utils)</a>
+      <li><a href="content/api/utils.html#ccc.utils.str_modified">str_modified() (in module ccc.utils)</a>
 </li>
-      <li><a href="calculator.html#ccc.calculator.Calculator.summary_table">summary_table() (ccc.calculator.Calculator method)</a>, <a href="calculator.html#id18">[1]</a>
+      <li><a href="content/api/calculator.html#ccc.calculator.Calculator.summary_table">summary_table() (ccc.calculator.Calculator method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -340,7 +542,7 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="utils.html#ccc.utils.to_str">to_str() (in module ccc.utils)</a>
+      <li><a href="content/api/utils.html#ccc.utils.to_str">to_str() (in module ccc.utils)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -348,11 +550,11 @@
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="calcfunctions.html#ccc.calcfunctions.update_depr_methods">update_depr_methods() (in module ccc.calcfunctions)</a>
+      <li><a href="content/api/calcfunctions.html#ccc.calcfunctions.update_depr_methods">update_depr_methods() (in module ccc.calcfunctions)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="parameters.html#ccc.parameters.Specification.update_specification">update_specification() (ccc.parameters.Specification method)</a>
+      <li><a href="content/api/parameters.html#ccc.parameters.Specification.update_specification">update_specification() (ccc.parameters.Specification method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -360,74 +562,40 @@
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="utils.html#ccc.utils.wavg">wavg() (in module ccc.utils)</a>
+      <li><a href="content/api/utils.html#ccc.utils.wavg">wavg() (in module ccc.utils)</a>
 </li>
   </ul></td>
 </tr></table>
 
 
 
-          </div>
-          
+              </div>
+              
         </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">Cost of Capital Calculator</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="contributor_guide.html">Contributor Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="public_api.html">Cost-of-Capital-Calclator API</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
     </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2019, Jason DeBacker.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-    </div>
-
     
+    
+    <div class='prev-next-bottom'>
+        
 
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Jason DeBacker<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="_static/js/index.js"></script>
     
   </body>
 </html>

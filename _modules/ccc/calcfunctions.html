@@ -1,37 +1,253 @@
 
+
 <!DOCTYPE html>
 
-<html lang="Python">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ccc.calcfunctions &#8212; Cost of Capital Calculator 1.0.1 documentation</title>
-    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <title>ccc.calcfunctions &#8212; Cost-of-Capital-Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-   
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head><body>
-  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">Cost-of-Capital-Calculator</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/intro.html">
+   Cost-of-Capital-Calculator
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Contributing to CCC
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/contributing/contributor_guide.html">
+   Contributor Guide
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  CCC API
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/api/public_api.html">
+   Cost-of-Capital-Calclator API
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  CCC Guide
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/CCC_guide.html">
+   Overview and Assumptions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/CCC_guide.html#marginal-effective-tax-rates">
+   Marginal Effective Tax Rates
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/CCC_guide.html#marginal-effective-total-tax-rates">
+   Marginal Effective Total Tax Rates
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/CCC_guide.html#computing-fixed-assets-by-industry-and-entity-type">
+   Computing Fixed Assets by Industry and Entity Type
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/CCC_guide.html#land">
+   Land
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/CCC_guide.html#inventories">
+   Inventories
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/CCC_guide.html#parameterization">
+   Parameterization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/CCC_guide.html#user-inputs">
+   User Inputs
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/references.html">
+   References
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Citations of CCC
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/citations.html">
+   Citations and use cases of CCC
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
           
 
-          <div class="body" role="main">
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+</div>
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/PSLmodels/Cost-of-Capital-Calculator"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/PSLmodels/Cost-of-Capital-Calculator/issues/new?title=Issue%20on%20page%20%2F_modules/ccc/calcfunctions.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <nav id="bd-toc-nav">
             
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
   <h1>Source code for ccc.calcfunctions</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -39,7 +255,7 @@
 <span class="kn">from</span> <span class="nn">ccc.utils</span> <span class="kn">import</span> <span class="n">str_modified</span>
 
 
-<div class="viewcode-block" id="update_depr_methods"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.update_depr_methods">[docs]</a><span class="k">def</span> <span class="nf">update_depr_methods</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">dp</span><span class="p">):</span>
+<div class="viewcode-block" id="update_depr_methods"><a class="viewcode-back" href="../../content/api/calcfunctions.html#ccc.calcfunctions.update_depr_methods">[docs]</a><span class="k">def</span> <span class="nf">update_depr_methods</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">dp</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Updates depreciation methods per changes from defaults that are</span>
 <span class="sd">    specified by user.</span>
@@ -83,7 +299,7 @@
     <span class="k">return</span> <span class="n">df</span></div>
 
 
-<div class="viewcode-block" id="dbsl"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.dbsl">[docs]</a><span class="k">def</span> <span class="nf">dbsl</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">bonus</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+<div class="viewcode-block" id="dbsl"><a class="viewcode-back" href="../../content/api/calcfunctions.html#ccc.calcfunctions.dbsl">[docs]</a><span class="k">def</span> <span class="nf">dbsl</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">bonus</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Makes the calculation for the declining balance with a switch to</span>
 <span class="sd">    straight line (DBSL) method of depreciation.</span>
@@ -117,7 +333,7 @@
     <span class="k">return</span> <span class="n">z</span></div>
 
 
-<div class="viewcode-block" id="sl"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.sl">[docs]</a><span class="k">def</span> <span class="nf">sl</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">bonus</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+<div class="viewcode-block" id="sl"><a class="viewcode-back" href="../../content/api/calcfunctions.html#ccc.calcfunctions.sl">[docs]</a><span class="k">def</span> <span class="nf">sl</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">bonus</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Makes the calculation for straight line (SL) method of depreciation.</span>
 
@@ -138,7 +354,7 @@
     <span class="k">return</span> <span class="n">z</span></div>
 
 
-<div class="viewcode-block" id="econ"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.econ">[docs]</a><span class="k">def</span> <span class="nf">econ</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">bonus</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">pi</span><span class="p">):</span>
+<div class="viewcode-block" id="econ"><a class="viewcode-back" href="../../content/api/calcfunctions.html#ccc.calcfunctions.econ">[docs]</a><span class="k">def</span> <span class="nf">econ</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">bonus</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">pi</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Makes the calculation for the NPV of depreciation deductions using</span>
 <span class="sd">    economic depreciation rates.</span>
@@ -161,7 +377,7 @@
     <span class="k">return</span> <span class="n">z</span></div>
 
 
-<div class="viewcode-block" id="npv_tax_depr"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.npv_tax_depr">[docs]</a><span class="k">def</span> <span class="nf">npv_tax_depr</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">land_expensing</span><span class="p">):</span>
+<div class="viewcode-block" id="npv_tax_depr"><a class="viewcode-back" href="../../content/api/calcfunctions.html#ccc.calcfunctions.npv_tax_depr">[docs]</a><span class="k">def</span> <span class="nf">npv_tax_depr</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">land_expensing</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Depending on the method of depreciation, makes calls to either</span>
 <span class="sd">    the straight line or declining balance calculations.</span>
@@ -195,7 +411,7 @@
     <span class="k">return</span> <span class="n">z</span></div>
 
 
-<div class="viewcode-block" id="eq_coc"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.eq_coc">[docs]</a><span class="k">def</span> <span class="nf">eq_coc</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">inv_tax_credit</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+<div class="viewcode-block" id="eq_coc"><a class="viewcode-back" href="../../content/api/calcfunctions.html#ccc.calcfunctions.eq_coc">[docs]</a><span class="k">def</span> <span class="nf">eq_coc</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">inv_tax_credit</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Compute the cost of capital</span>
 
@@ -222,7 +438,7 @@
     <span class="k">return</span> <span class="n">rho</span></div>
 
 
-<div class="viewcode-block" id="eq_coc_inventory"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.eq_coc_inventory">[docs]</a><span class="k">def</span> <span class="nf">eq_coc_inventory</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">Y_v</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+<div class="viewcode-block" id="eq_coc_inventory"><a class="viewcode-back" href="../../content/api/calcfunctions.html#ccc.calcfunctions.eq_coc_inventory">[docs]</a><span class="k">def</span> <span class="nf">eq_coc_inventory</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">Y_v</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Compute the cost of capital for inventories</span>
 
@@ -250,7 +466,7 @@
     <span class="k">return</span> <span class="n">rho</span></div>
 
 
-<div class="viewcode-block" id="eq_ucc"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.eq_ucc">[docs]</a><span class="k">def</span> <span class="nf">eq_ucc</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
+<div class="viewcode-block" id="eq_ucc"><a class="viewcode-back" href="../../content/api/calcfunctions.html#ccc.calcfunctions.eq_ucc">[docs]</a><span class="k">def</span> <span class="nf">eq_ucc</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Compute the user cost of capital</span>
 
@@ -269,7 +485,7 @@
     <span class="k">return</span> <span class="n">ucc</span></div>
 
 
-<div class="viewcode-block" id="eq_metr"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.eq_metr">[docs]</a><span class="k">def</span> <span class="nf">eq_metr</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">r_prime</span><span class="p">,</span> <span class="n">pi</span><span class="p">):</span>
+<div class="viewcode-block" id="eq_metr"><a class="viewcode-back" href="../../content/api/calcfunctions.html#ccc.calcfunctions.eq_metr">[docs]</a><span class="k">def</span> <span class="nf">eq_metr</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">r_prime</span><span class="p">,</span> <span class="n">pi</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Compute the marginal effective tax rate (METR)</span>
 
@@ -289,7 +505,7 @@
     <span class="k">return</span> <span class="n">metr</span></div>
 
 
-<div class="viewcode-block" id="eq_mettr"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.eq_mettr">[docs]</a><span class="k">def</span> <span class="nf">eq_mettr</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+<div class="viewcode-block" id="eq_mettr"><a class="viewcode-back" href="../../content/api/calcfunctions.html#ccc.calcfunctions.eq_mettr">[docs]</a><span class="k">def</span> <span class="nf">eq_mettr</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Compute the marginal effective total tax rate (METTR)</span>
 
@@ -308,7 +524,7 @@
     <span class="k">return</span> <span class="n">mettr</span></div>
 
 
-<div class="viewcode-block" id="eq_tax_wedge"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.eq_tax_wedge">[docs]</a><span class="k">def</span> <span class="nf">eq_tax_wedge</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+<div class="viewcode-block" id="eq_tax_wedge"><a class="viewcode-back" href="../../content/api/calcfunctions.html#ccc.calcfunctions.eq_tax_wedge">[docs]</a><span class="k">def</span> <span class="nf">eq_tax_wedge</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Compute the tax wedge</span>
 
@@ -327,7 +543,7 @@
     <span class="k">return</span> <span class="n">wedge</span></div>
 
 
-<div class="viewcode-block" id="eq_eatr"><a class="viewcode-back" href="../../calcfunctions.html#ccc.calcfunctions.eq_eatr">[docs]</a><span class="k">def</span> <span class="nf">eq_eatr</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">metr</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">u</span><span class="p">):</span>
+<div class="viewcode-block" id="eq_eatr"><a class="viewcode-back" href="../../content/api/calcfunctions.html#ccc.calcfunctions.eq_eatr">[docs]</a><span class="k">def</span> <span class="nf">eq_eatr</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">metr</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">u</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Compute the effective average tax rate (EATR).</span>
 
@@ -350,69 +566,33 @@
     <span class="k">return</span> <span class="n">eatr</span></div>
 </pre></div>
 
-          </div>
-          
+              </div>
+              
         </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../../index.html">Cost of Capital Calculator</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../contributor_guide.html">Contributor Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../public_api.html">Cost-of-Capital-Calclator API</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../index.html">Documentation overview</a><ul>
-  <li><a href="../index.html">Module code</a><ul>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
     </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2019, Jason DeBacker.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-    </div>
-
     
+    
+    <div class='prev-next-bottom'>
+        
 
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Jason DeBacker<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../../_static/js/index.js"></script>
     
   </body>
 </html>

@@ -1,37 +1,253 @@
 
+
 <!DOCTYPE html>
 
-<html lang="Python">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ccc.calculator &#8212; Cost of Capital Calculator 1.0.1 documentation</title>
-    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <title>ccc.calculator &#8212; Cost-of-Capital-Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-   
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head><body>
-  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">Cost-of-Capital-Calculator</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/intro.html">
+   Cost-of-Capital-Calculator
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Contributing to CCC
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/contributing/contributor_guide.html">
+   Contributor Guide
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  CCC API
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/api/public_api.html">
+   Cost-of-Capital-Calclator API
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  CCC Guide
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/CCC_guide.html">
+   Overview and Assumptions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/CCC_guide.html#marginal-effective-tax-rates">
+   Marginal Effective Tax Rates
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/CCC_guide.html#marginal-effective-total-tax-rates">
+   Marginal Effective Total Tax Rates
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/CCC_guide.html#computing-fixed-assets-by-industry-and-entity-type">
+   Computing Fixed Assets by Industry and Entity Type
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/CCC_guide.html#land">
+   Land
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/CCC_guide.html#inventories">
+   Inventories
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/CCC_guide.html#parameterization">
+   Parameterization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/CCC_guide.html#user-inputs">
+   User Inputs
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/references.html">
+   References
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Citations of CCC
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/citations.html">
+   Citations and use cases of CCC
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
           
 
-          <div class="body" role="main">
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+</div>
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/PSLmodels/Cost-of-Capital-Calculator"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/PSLmodels/Cost-of-Capital-Calculator/issues/new?title=Issue%20on%20page%20%2F_modules/ccc/calculator.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <nav id="bd-toc-nav">
             
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
   <h1>Source code for ccc.calculator</h1><div class="highlight"><pre>
 <span></span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">Cost-of-Capital-Calculator Calculator class.</span>
@@ -70,7 +286,7 @@
 <span class="kn">from</span> <span class="nn">ccc.controls_callback_script</span> <span class="kn">import</span> <span class="n">CONTROLS_CALLBACK_SCRIPT</span>
 
 
-<div class="viewcode-block" id="Calculator"><a class="viewcode-back" href="../../calculator.html#ccc.calculator.Calculator">[docs]</a><span class="k">class</span> <span class="nc">Calculator</span><span class="p">():</span>
+<div class="viewcode-block" id="Calculator"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator">[docs]</a><span class="k">class</span> <span class="nc">Calculator</span><span class="p">():</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Constructor for the Calculator class.</span>
 
@@ -124,7 +340,7 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;must specify assets as a Assets object&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__stored_assets</span> <span class="o">=</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="Calculator.calc_other"><a class="viewcode-back" href="../../calculator.html#ccc.calculator.Calculator.calc_other">[docs]</a>    <span class="k">def</span> <span class="nf">calc_other</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+<div class="viewcode-block" id="Calculator.calc_other"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.calc_other">[docs]</a>    <span class="k">def</span> <span class="nf">calc_other</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Calculates variables that depend on z and rho such as metr, ucc</span>
 
@@ -158,7 +374,7 @@
 
         <span class="k">return</span> <span class="n">df</span></div>
 
-<div class="viewcode-block" id="Calculator.calc_base"><a class="viewcode-back" href="../../calculator.html#ccc.calculator.Calculator.calc_base">[docs]</a>    <span class="k">def</span> <span class="nf">calc_base</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Calculator.calc_base"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.calc_base">[docs]</a>    <span class="k">def</span> <span class="nf">calc_base</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Call functions for the current_year.  This involves</span>
 <span class="sd">        updating depreciation methods, computing the npv of depreciation</span>
@@ -194,7 +410,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__assets</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                      <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Calculator.calc_all"><a class="viewcode-back" href="../../calculator.html#ccc.calculator.Calculator.calc_all">[docs]</a>    <span class="k">def</span> <span class="nf">calc_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Calculator.calc_all"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.calc_all">[docs]</a>    <span class="k">def</span> <span class="nf">calc_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Calculates all CCC variables for some CCC Assets object.</span>
 
@@ -202,7 +418,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">calc_base</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__assets</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_other</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__assets</span><span class="o">.</span><span class="n">df</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Calculator.calc_by_asset"><a class="viewcode-back" href="../../calculator.html#ccc.calculator.Calculator.calc_by_asset">[docs]</a>    <span class="k">def</span> <span class="nf">calc_by_asset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_inventories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<div class="viewcode-block" id="Calculator.calc_by_asset"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.calc_by_asset">[docs]</a>    <span class="k">def</span> <span class="nf">calc_by_asset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_inventories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                       <span class="n">include_land</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Calculates all variables by asset, including overall, and by</span>
@@ -256,7 +472,7 @@
 
         <span class="k">return</span> <span class="n">df</span></div>
 
-<div class="viewcode-block" id="Calculator.calc_by_industry"><a class="viewcode-back" href="../../calculator.html#ccc.calculator.Calculator.calc_by_industry">[docs]</a>    <span class="k">def</span> <span class="nf">calc_by_industry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_inventories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<div class="viewcode-block" id="Calculator.calc_by_industry"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.calc_by_industry">[docs]</a>    <span class="k">def</span> <span class="nf">calc_by_industry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_inventories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                          <span class="n">include_land</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Calculates all variables by industry, including overall, and by</span>
@@ -304,7 +520,7 @@
 
         <span class="k">return</span> <span class="n">df</span></div>
 
-<div class="viewcode-block" id="Calculator.summary_table"><a class="viewcode-back" href="../../calculator.html#ccc.calculator.Calculator.summary_table">[docs]</a>    <span class="k">def</span> <span class="nf">summary_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;mettr&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="Calculator.summary_table"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.summary_table">[docs]</a>    <span class="k">def</span> <span class="nf">summary_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;mettr&#39;</span><span class="p">,</span>
                       <span class="n">include_land</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_inventories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                       <span class="n">output_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -451,7 +667,7 @@
 
         <span class="k">return</span> <span class="n">table</span></div>
 
-<div class="viewcode-block" id="Calculator.asset_share_table"><a class="viewcode-back" href="../../calculator.html#ccc.calculator.Calculator.asset_share_table">[docs]</a>    <span class="k">def</span> <span class="nf">asset_share_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_land</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<div class="viewcode-block" id="Calculator.asset_share_table"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.asset_share_table">[docs]</a>    <span class="k">def</span> <span class="nf">asset_share_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_land</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                           <span class="n">include_inventories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                           <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -509,7 +725,7 @@
 
         <span class="k">return</span> <span class="n">table</span></div>
 
-<div class="viewcode-block" id="Calculator.asset_summary_table"><a class="viewcode-back" href="../../calculator.html#ccc.calculator.Calculator.asset_summary_table">[docs]</a>    <span class="k">def</span> <span class="nf">asset_summary_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;mettr&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="Calculator.asset_summary_table"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.asset_summary_table">[docs]</a>    <span class="k">def</span> <span class="nf">asset_summary_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;mettr&#39;</span><span class="p">,</span>
                             <span class="n">financing</span><span class="o">=</span><span class="s1">&#39;mix&#39;</span><span class="p">,</span> <span class="n">include_land</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                             <span class="n">include_inventories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                             <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -677,7 +893,7 @@
 
         <span class="k">return</span> <span class="n">table</span></div>
 
-<div class="viewcode-block" id="Calculator.industry_summary_table"><a class="viewcode-back" href="../../calculator.html#ccc.calculator.Calculator.industry_summary_table">[docs]</a>    <span class="k">def</span> <span class="nf">industry_summary_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;mettr&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="Calculator.industry_summary_table"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.industry_summary_table">[docs]</a>    <span class="k">def</span> <span class="nf">industry_summary_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;mettr&#39;</span><span class="p">,</span>
                                <span class="n">financing</span><span class="o">=</span><span class="s1">&#39;mix&#39;</span><span class="p">,</span> <span class="n">include_land</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                <span class="n">include_inventories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                <span class="n">output_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -835,7 +1051,7 @@
 
         <span class="k">return</span> <span class="n">table</span></div>
 
-<div class="viewcode-block" id="Calculator.grouped_bar"><a class="viewcode-back" href="../../calculator.html#ccc.calculator.Calculator.grouped_bar">[docs]</a>    <span class="k">def</span> <span class="nf">grouped_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;mettr&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="Calculator.grouped_bar"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.grouped_bar">[docs]</a>    <span class="k">def</span> <span class="nf">grouped_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;mettr&#39;</span><span class="p">,</span>
                     <span class="n">financing</span><span class="o">=</span><span class="s1">&#39;mix&#39;</span><span class="p">,</span> <span class="n">group_by_asset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">corporate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_land</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">include_inventories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_title</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -963,7 +1179,7 @@
 
         <span class="k">return</span> <span class="n">p</span></div>
 
-<div class="viewcode-block" id="Calculator.range_plot"><a class="viewcode-back" href="../../calculator.html#ccc.calculator.Calculator.range_plot">[docs]</a>    <span class="k">def</span> <span class="nf">range_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;mettr&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="Calculator.range_plot"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.range_plot">[docs]</a>    <span class="k">def</span> <span class="nf">range_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;mettr&#39;</span><span class="p">,</span>
                    <span class="n">corporate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_land</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                    <span class="n">include_inventories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_title</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -1144,7 +1360,7 @@
 
         <span class="k">return</span> <span class="n">p</span></div>
 
-<div class="viewcode-block" id="Calculator.bubble_widget"><a class="viewcode-back" href="../../calculator.html#ccc.calculator.Calculator.bubble_widget">[docs]</a>    <span class="k">def</span> <span class="nf">bubble_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;mettr&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="Calculator.bubble_widget"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.bubble_widget">[docs]</a>    <span class="k">def</span> <span class="nf">bubble_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;mettr&#39;</span><span class="p">,</span>
                       <span class="n">include_land</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">include_inventories</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                       <span class="n">include_IP</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -1460,7 +1676,7 @@
 
         <span class="k">return</span> <span class="n">layout</span></div>
 
-<div class="viewcode-block" id="Calculator.asset_bubble"><a class="viewcode-back" href="../../calculator.html#ccc.calculator.Calculator.asset_bubble">[docs]</a>    <span class="k">def</span> <span class="nf">asset_bubble</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;mettr_mix&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="Calculator.asset_bubble"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.asset_bubble">[docs]</a>    <span class="k">def</span> <span class="nf">asset_bubble</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;mettr_mix&#39;</span><span class="p">,</span>
                      <span class="n">include_inventories</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">include_land</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                      <span class="n">include_IP</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">include_title</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -1725,7 +1941,7 @@
 
         <span class="k">return</span> <span class="n">tabs</span></div>
 
-<div class="viewcode-block" id="Calculator.store_assets"><a class="viewcode-back" href="../../calculator.html#ccc.calculator.Calculator.store_assets">[docs]</a>    <span class="k">def</span> <span class="nf">store_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Calculator.store_assets"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.store_assets">[docs]</a>    <span class="k">def</span> <span class="nf">store_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Make internal copy of embedded Assets object that can then be</span>
 <span class="sd">        restored after interim calculations that make temporary changes</span>
@@ -1735,7 +1951,7 @@
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stored_assets</span> <span class="ow">is</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__stored_assets</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__assets</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Calculator.restore_assets"><a class="viewcode-back" href="../../calculator.html#ccc.calculator.Calculator.restore_assets">[docs]</a>    <span class="k">def</span> <span class="nf">restore_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Calculator.restore_assets"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.restore_assets">[docs]</a>    <span class="k">def</span> <span class="nf">restore_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Set the embedded Assets object to the stored Assets object</span>
 <span class="sd">        that was saved in the last call to the store_assets() method.</span>
@@ -1746,7 +1962,7 @@
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stored_assets</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__stored_assets</span> <span class="o">=</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="Calculator.p_param"><a class="viewcode-back" href="../../calculator.html#ccc.calculator.Calculator.p_param">[docs]</a>    <span class="k">def</span> <span class="nf">p_param</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">param_value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Calculator.p_param"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.p_param">[docs]</a>    <span class="k">def</span> <span class="nf">p_param</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">param_value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        If param_value is None, return named parameter in</span>
 <span class="sd">         embedded Specification object.</span>
@@ -1808,69 +2024,33 @@
                                    <span class="s1">&#39;rho_e&#39;</span><span class="p">,</span> <span class="s1">&#39;z_mix&#39;</span><span class="p">,</span> <span class="s1">&#39;z_d&#39;</span><span class="p">,</span> <span class="s1">&#39;z_e&#39;</span><span class="p">])</span></div>
 </pre></div>
 
-          </div>
-          
+              </div>
+              
         </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../../index.html">Cost of Capital Calculator</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../contributor_guide.html">Contributor Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../public_api.html">Cost-of-Capital-Calclator API</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../index.html">Documentation overview</a><ul>
-  <li><a href="../index.html">Module code</a><ul>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
     </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2019, Jason DeBacker.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-    </div>
-
     
+    
+    <div class='prev-next-bottom'>
+        
 
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Jason DeBacker<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../../_static/js/index.js"></script>
     
   </body>
 </html>

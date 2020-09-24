@@ -10,9 +10,6 @@ ccc.calculator
 
 .. currentmodule:: ccc.calculator
 
-.. automodule:: ccc.calculator
-  :members:
-
 .. autoclass:: Calculator
   :members: calc_other, calc_base, calc_all, calc_by_asset, calc_by_industry,
     summary_table, asset_share_table, asset_summary_table,
