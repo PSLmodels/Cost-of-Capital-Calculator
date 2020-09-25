@@ -18,3 +18,4 @@ dependencies:
 - coverage
 - pip:
   - cs-kit
+  - cs2tc
