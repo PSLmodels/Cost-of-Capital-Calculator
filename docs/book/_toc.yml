@@ -5,6 +5,10 @@
   chapters:
   - file: content/examples/PSL_demo
 
+- part: Web Application
+  chapters:
+  - file: content/webapp
+
 - part: Contributing to CCC
   chapters:
   - file: content/contributing/contributor_guide
