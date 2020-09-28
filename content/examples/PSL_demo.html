@@ -1,0 +1,1903 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo of CCC for PSL Meetup &#8212; Cost-of-Capital-Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Web Application" href="../webapp.html" />
+    <link rel="prev" title="Cost-of-Capital-Calculator" href="../intro.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">Cost-of-Capital-Calculator</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Cost-of-Capital-Calculator
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  CCC Example
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Demo of CCC for PSL Meetup
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Web Application
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../webapp.html">
+   Web Application
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Contributing to CCC
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../contributing/contributor_guide.html">
+   Contributor Guide
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  CCC API
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/public_api.html">
+   Cost-of-Capital-Calclator API
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  CCC Guide
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../CCC_guide.html">
+   Overview and Assumptions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../CCC_guide.html#the-cost-of-capital">
+   The Cost of Capital
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../CCC_guide.html#marginal-effective-tax-rates">
+   Marginal Effective Tax Rates
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../CCC_guide.html#marginal-effective-total-tax-rates">
+   Marginal Effective Total Tax Rates
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../CCC_guide.html#effective-average-tax-rates">
+   Effective Average Tax Rates
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../CCC_guide.html#computing-fixed-assets-by-industry-and-entity-type">
+   Computing Fixed Assets by Industry and Entity Type
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../CCC_guide.html#sec-land">
+   Land
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../CCC_guide.html#sec-inventories">
+   Inventories
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../CCC_guide.html#parameterization">
+   Parameterization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../CCC_guide.html#user-inputs">
+   User Inputs
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../references.html">
+   References
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Citations of CCC
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../citations.html">
+   Citations and use cases of CCC
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/content/examples/PSL_demo.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/PSLmodels/Cost-of-Capital-Calculator"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/PSLmodels/Cost-of-Capital-Calculator/issues/new?title=Issue%20on%20page%20%2Fcontent/examples/PSL_demo.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/PSLmodels/Cost-of-Capital-Calculator/master?urlpath=tree/book/content/examples/PSL_demo.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/PSLmodels/Cost-of-Capital-Calculator/blob/master/book/content/examples/PSL_demo.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#first-things-first-import-necessary-packages">
+   First things first, import necessary packages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#create-an-instance-of-the-assets-class">
+   Create an instance of the Assets class
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#create-instances-of-the-two-parameters-classes">
+   Create instances of the two parameters classes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#create-an-instance-of-the-calculator-class">
+   Create an instance of the Calculator class
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#specifying-a-reform-policy">
+   Specifying a reform policy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tabular-output">
+   Tabular output
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#visualizations">
+   Visualizations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="demo-of-ccc-for-psl-meetup">
+<h1>Demo of CCC for PSL Meetup<a class="headerlink" href="#demo-of-ccc-for-psl-meetup" title="Permalink to this headline">¶</a></h1>
+<p>This notebook provides a demonstration of the Cost-of-Capital-Calculator (CCC) for the PSL Meetup on April 29, 2019.</p>
+<p>To run this notebook, you will need to follow the instructions to install CCC as described in the CCC README <a class="reference external" href="https://github.com/PSLmodels/Cost-of-Capital-Calculator">here</a>.  In particular, you need to:</p>
+<ul class="simple">
+<li><p>Install the <a class="reference external" href="https://www.anaconda.com/distribution/">Anaconda distribution</a> of Python</p></li>
+<li><p>Install the CCC package by typing <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-c</span> <span class="pre">pslmodels</span> <span class="pre">ccc</span></code> in the command prompt.</p></li>
+</ul>
+<p>Once you follow the above, you will be ready to work with this Jupyter Notebook.</p>
+<div class="section" id="first-things-first-import-necessary-packages">
+<h2>First things first, import necessary packages<a class="headerlink" href="#first-things-first-import-necessary-packages" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import packages</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">figure</span><span class="p">,</span> <span class="n">show</span>
+<span class="kn">from</span> <span class="nn">bokeh.io</span> <span class="kn">import</span> <span class="n">output_notebook</span>
+<span class="c1"># import CCC classes that we&#39;ll work with</span>
+<span class="kn">from</span> <span class="nn">ccc.data</span> <span class="kn">import</span> <span class="n">Assets</span>
+<span class="kn">from</span> <span class="nn">ccc.parameters</span> <span class="kn">import</span> <span class="n">Specification</span><span class="p">,</span> <span class="n">DepreciationParams</span>
+<span class="kn">from</span> <span class="nn">ccc.calculator</span> <span class="kn">import</span> <span class="n">Calculator</span>
+<span class="c1"># to print bokeh plots inline</span>
+<span class="n">output_notebook</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div class="bk-root">
+    <a href="https://bokeh.org" target="_blank" class="bk-logo bk-logo-small bk-logo-notebook"></a>
+    <span id="1001">Loading BokehJS ...</span>
+</div></div><script type="application/javascript">
+(function(root) {
+  function now() {
+    return new Date();
+  }
+
+  var force = true;
+
+  if (typeof root._bokeh_onload_callbacks === "undefined" || force === true) {
+    root._bokeh_onload_callbacks = [];
+    root._bokeh_is_loading = undefined;
+  }
+
+  var JS_MIME_TYPE = 'application/javascript';
+  var HTML_MIME_TYPE = 'text/html';
+  var EXEC_MIME_TYPE = 'application/vnd.bokehjs_exec.v0+json';
+  var CLASS_NAME = 'output_bokeh rendered_html';
+
+  /**
+   * Render data to the DOM node
+   */
+  function render(props, node) {
+    var script = document.createElement("script");
+    node.appendChild(script);
+  }
+
+  /**
+   * Handle when an output is cleared or removed
+   */
+  function handleClearOutput(event, handle) {
+    var cell = handle.cell;
+
+    var id = cell.output_area._bokeh_element_id;
+    var server_id = cell.output_area._bokeh_server_id;
+    // Clean up Bokeh references
+    if (id != null && id in Bokeh.index) {
+      Bokeh.index[id].model.document.clear();
+      delete Bokeh.index[id];
+    }
+
+    if (server_id !== undefined) {
+      // Clean up Bokeh references
+      var cmd = "from bokeh.io.state import curstate; print(curstate().uuid_to_server['" + server_id + "'].get_sessions()[0].document.roots[0]._id)";
+      cell.notebook.kernel.execute(cmd, {
+        iopub: {
+          output: function(msg) {
+            var id = msg.content.text.trim();
+            if (id in Bokeh.index) {
+              Bokeh.index[id].model.document.clear();
+              delete Bokeh.index[id];
+            }
+          }
+        }
+      });
+      // Destroy server and session
+      var cmd = "import bokeh.io.notebook as ion; ion.destroy_server('" + server_id + "')";
+      cell.notebook.kernel.execute(cmd);
+    }
+  }
+
+  /**
+   * Handle when a new output is added
+   */
+  function handleAddOutput(event, handle) {
+    var output_area = handle.output_area;
+    var output = handle.output;
+
+    // limit handleAddOutput to display_data with EXEC_MIME_TYPE content only
+    if ((output.output_type != "display_data") || (!output.data.hasOwnProperty(EXEC_MIME_TYPE))) {
+      return
+    }
+
+    var toinsert = output_area.element.find("." + CLASS_NAME.split(' ')[0]);
+
+    if (output.metadata[EXEC_MIME_TYPE]["id"] !== undefined) {
+      toinsert[toinsert.length - 1].firstChild.textContent = output.data[JS_MIME_TYPE];
+      // store reference to embed id on output_area
+      output_area._bokeh_element_id = output.metadata[EXEC_MIME_TYPE]["id"];
+    }
+    if (output.metadata[EXEC_MIME_TYPE]["server_id"] !== undefined) {
+      var bk_div = document.createElement("div");
+      bk_div.innerHTML = output.data[HTML_MIME_TYPE];
+      var script_attrs = bk_div.children[0].attributes;
+      for (var i = 0; i < script_attrs.length; i++) {
+        toinsert[toinsert.length - 1].firstChild.setAttribute(script_attrs[i].name, script_attrs[i].value);
+        toinsert[toinsert.length - 1].firstChild.textContent = bk_div.children[0].textContent
+      }
+      // store reference to server id on output_area
+      output_area._bokeh_server_id = output.metadata[EXEC_MIME_TYPE]["server_id"];
+    }
+  }
+
+  function register_renderer(events, OutputArea) {
+
+    function append_mime(data, metadata, element) {
+      // create a DOM node to render to
+      var toinsert = this.create_output_subarea(
+        metadata,
+        CLASS_NAME,
+        EXEC_MIME_TYPE
+      );
+      this.keyboard_manager.register_events(toinsert);
+      // Render to node
+      var props = {data: data, metadata: metadata[EXEC_MIME_TYPE]};
+      render(props, toinsert[toinsert.length - 1]);
+      element.append(toinsert);
+      return toinsert
+    }
+
+    /* Handle when an output is cleared or removed */
+    events.on('clear_output.CodeCell', handleClearOutput);
+    events.on('delete.Cell', handleClearOutput);
+
+    /* Handle when a new output is added */
+    events.on('output_added.OutputArea', handleAddOutput);
+
+    /**
+     * Register the mime type and append_mime function with output_area
+     */
+    OutputArea.prototype.register_mime_type(EXEC_MIME_TYPE, append_mime, {
+      /* Is output safe? */
+      safe: true,
+      /* Index of renderer in `output_area.display_order` */
+      index: 0
+    });
+  }
+
+  // register the mime type if in Jupyter Notebook environment and previously unregistered
+  if (root.Jupyter !== undefined) {
+    var events = require('base/js/events');
+    var OutputArea = require('notebook/js/outputarea').OutputArea;
+
+    if (OutputArea.prototype.mime_types().indexOf(EXEC_MIME_TYPE) == -1) {
+      register_renderer(events, OutputArea);
+    }
+  }
+
+  
+  if (typeof (root._bokeh_timeout) === "undefined" || force === true) {
+    root._bokeh_timeout = Date.now() + 5000;
+    root._bokeh_failed_load = false;
+  }
+
+  var NB_LOAD_WARNING = {'data': {'text/html':
+     "<div style='background-color: #fdd'>\n"+
+     "<p>\n"+
+     "BokehJS does not appear to have successfully loaded. If loading BokehJS from CDN, this \n"+
+     "may be due to a slow or bad network connection. Possible fixes:\n"+
+     "</p>\n"+
+     "<ul>\n"+
+     "<li>re-rerun `output_notebook()` to attempt to load from CDN again, or</li>\n"+
+     "<li>use INLINE resources instead, as so:</li>\n"+
+     "</ul>\n"+
+     "<code>\n"+
+     "from bokeh.resources import INLINE\n"+
+     "output_notebook(resources=INLINE)\n"+
+     "</code>\n"+
+     "</div>"}};
+
+  function display_loaded() {
+    var el = document.getElementById("1001");
+    if (el != null) {
+      el.textContent = "BokehJS is loading...";
+    }
+    if (root.Bokeh !== undefined) {
+      if (el != null) {
+        el.textContent = "BokehJS " + root.Bokeh.version + " successfully loaded.";
+      }
+    } else if (Date.now() < root._bokeh_timeout) {
+      setTimeout(display_loaded, 100)
+    }
+  }
+
+
+  function run_callbacks() {
+    try {
+      root._bokeh_onload_callbacks.forEach(function(callback) {
+        if (callback != null)
+          callback();
+      });
+    } finally {
+      delete root._bokeh_onload_callbacks
+    }
+    console.debug("Bokeh: all callbacks have finished");
+  }
+
+  function load_libs(css_urls, js_urls, callback) {
+    if (css_urls == null) css_urls = [];
+    if (js_urls == null) js_urls = [];
+
+    root._bokeh_onload_callbacks.push(callback);
+    if (root._bokeh_is_loading > 0) {
+      console.debug("Bokeh: BokehJS is being loaded, scheduling callback at", now());
+      return null;
+    }
+    if (js_urls == null || js_urls.length === 0) {
+      run_callbacks();
+      return null;
+    }
+    console.debug("Bokeh: BokehJS not loaded, scheduling load and callback at", now());
+    root._bokeh_is_loading = css_urls.length + js_urls.length;
+
+    function on_load() {
+      root._bokeh_is_loading--;
+      if (root._bokeh_is_loading === 0) {
+        console.debug("Bokeh: all BokehJS libraries/stylesheets loaded");
+        run_callbacks()
+      }
+    }
+
+    function on_error() {
+      console.error("failed to load " + url);
+    }
+
+    for (var i = 0; i < css_urls.length; i++) {
+      var url = css_urls[i];
+      const element = document.createElement("link");
+      element.onload = on_load;
+      element.onerror = on_error;
+      element.rel = "stylesheet";
+      element.type = "text/css";
+      element.href = url;
+      console.debug("Bokeh: injecting link tag for BokehJS stylesheet: ", url);
+      document.body.appendChild(element);
+    }
+
+    const hashes = {"https://cdn.bokeh.org/bokeh/release/bokeh-2.1.1.min.js": "kLr4fYcqcSpbuI95brIH3vnnYCquzzSxHPU6XGQCIkQRGJwhg0StNbj1eegrHs12", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.1.1.min.js": "xIGPmVtaOm+z0BqfSOMn4lOR6ciex448GIKG4eE61LsAvmGj48XcMQZtKcE/UXZe", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.1.1.min.js": "Dc9u1wF/0zApGIWoBbH77iWEHtdmkuYWG839Uzmv8y8yBLXebjO9ZnERsde5Ln/P", "https://cdn.bokeh.org/bokeh/release/bokeh-gl-2.1.1.min.js": "cT9JaBz7GiRXdENrJLZNSC6eMNF3nh3fa5fTF51Svp+ukxPdwcU5kGXGPBgDCa2j"};
+
+    for (var i = 0; i < js_urls.length; i++) {
+      var url = js_urls[i];
+      var element = document.createElement('script');
+      element.onload = on_load;
+      element.onerror = on_error;
+      element.async = false;
+      element.src = url;
+      if (url in hashes) {
+        element.crossOrigin = "anonymous";
+        element.integrity = "sha384-" + hashes[url];
+      }
+      console.debug("Bokeh: injecting script tag for BokehJS library: ", url);
+      document.head.appendChild(element);
+    }
+  };
+
+  function inject_raw_css(css) {
+    const element = document.createElement("style");
+    element.appendChild(document.createTextNode(css));
+    document.body.appendChild(element);
+  }
+
+  
+  var js_urls = ["https://cdn.bokeh.org/bokeh/release/bokeh-2.1.1.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.1.1.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.1.1.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-gl-2.1.1.min.js"];
+  var css_urls = [];
+  
+
+  var inline_js = [
+    function(Bokeh) {
+      Bokeh.set_log_level("info");
+    },
+    function(Bokeh) {
+    
+    
+    }
+  ];
+
+  function run_inline_js() {
+    
+    if (root.Bokeh !== undefined || force === true) {
+      
+    for (var i = 0; i < inline_js.length; i++) {
+      inline_js[i].call(root, root.Bokeh);
+    }
+    if (force === true) {
+        display_loaded();
+      }} else if (Date.now() < root._bokeh_timeout) {
+      setTimeout(run_inline_js, 100);
+    } else if (!root._bokeh_failed_load) {
+      console.log("Bokeh: BokehJS failed to load within specified timeout.");
+      root._bokeh_failed_load = true;
+    } else if (force !== true) {
+      var cell = $(document.getElementById("1001")).parents('.cell').data().cell;
+      cell.output_area.append_execute_result(NB_LOAD_WARNING)
+    }
+
+  }
+
+  if (root._bokeh_is_loading === 0) {
+    console.debug("Bokeh: BokehJS loaded, going straight to plotting");
+    run_inline_js();
+  } else {
+    load_libs(css_urls, js_urls, function() {
+      console.debug("Bokeh: BokehJS plotting callback run at", now());
+      run_inline_js();
+    });
+  }
+}(window));</script></div>
+</div>
+</div>
+<div class="section" id="create-an-instance-of-the-assets-class">
+<h2>Create an instance of the Assets class<a class="headerlink" href="#create-an-instance-of-the-assets-class" title="Permalink to this headline">¶</a></h2>
+<p>This is the class that contains the data that underlie CCC.  The basic object is a Pandas DataFrame where each row represents a combination of a specific type of asset, industry (approximately 6-digit NAICS) and tax treatment.  The columns represent names and codes for the asset and industry classifications, the tax depreciation rules used for that asset, and the rate of economic depreciation (<code class="docutils literal notranslate"><span class="pre">delta</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">assets</span> <span class="o">=</span> <span class="n">Assets</span><span class="p">()</span>
+<span class="n">assets</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>tax_treat</th>
+      <th>assets</th>
+      <th>bea_asset_code</th>
+      <th>bea_ind_code</th>
+      <th>Industry</th>
+      <th>minor_code_alt</th>
+      <th>major_asset_group</th>
+      <th>minor_asset_group</th>
+      <th>major_industry</th>
+      <th>asset_name</th>
+      <th>delta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>corporate</td>
+      <td>0.0</td>
+      <td>RD32</td>
+      <td>110C</td>
+      <td>Farms</td>
+      <td>111</td>
+      <td>Intellectual Property</td>
+      <td>Intellectual Property</td>
+      <td>Agriculture, forestry, fishing, and hunting</td>
+      <td>Aerospace products and parts manufacturing</td>
+      <td>0.22</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>corporate</td>
+      <td>0.0</td>
+      <td>RD32</td>
+      <td>113F</td>
+      <td>Forestry, fishing, and related activities</td>
+      <td>113</td>
+      <td>Intellectual Property</td>
+      <td>Intellectual Property</td>
+      <td>Agriculture, forestry, fishing, and hunting</td>
+      <td>Aerospace products and parts manufacturing</td>
+      <td>0.22</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>corporate</td>
+      <td>0.0</td>
+      <td>RD32</td>
+      <td>113F</td>
+      <td>Forestry, fishing, and related activities</td>
+      <td>114</td>
+      <td>Intellectual Property</td>
+      <td>Intellectual Property</td>
+      <td>Agriculture, forestry, fishing, and hunting</td>
+      <td>Aerospace products and parts manufacturing</td>
+      <td>0.22</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>corporate</td>
+      <td>0.0</td>
+      <td>RD32</td>
+      <td>2110</td>
+      <td>Oil and gas extraction</td>
+      <td>211110</td>
+      <td>Intellectual Property</td>
+      <td>Intellectual Property</td>
+      <td>Mining</td>
+      <td>Aerospace products and parts manufacturing</td>
+      <td>0.22</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>corporate</td>
+      <td>0.0</td>
+      <td>RD32</td>
+      <td>2120</td>
+      <td>Mining, except oil and gas</td>
+      <td>212110</td>
+      <td>Intellectual Property</td>
+      <td>Intellectual Property</td>
+      <td>Mining</td>
+      <td>Aerospace products and parts manufacturing</td>
+      <td>0.22</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="create-instances-of-the-two-parameters-classes">
+<h2>Create instances of the two parameters classes<a class="headerlink" href="#create-instances-of-the-two-parameters-classes" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Specification</span></code> class contains many of the model parameters, although depreciation system parameters are contained in the <code class="docutils literal notranslate"><span class="pre">DepreciationParams</span></code> class.  Both are required arguments for the <code class="docutils literal notranslate"><span class="pre">Calculator</span></code> object.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">Specification</span></code> object has methods that load the data from a file that contains the default parameter values (<code class="docutils literal notranslate"><span class="pre">default_parameters.json</span></code>) and then stores them as attributes of the <code class="docutils literal notranslate"><span class="pre">Specification</span></code> class object.</p>
+<p><code class="docutils literal notranslate"><span class="pre">p.u</span></code> looks into the instance of this class named <code class="docutils literal notranslate"><span class="pre">p</span></code> and executing the cell below will show you that <code class="docutils literal notranslate"><span class="pre">p.u</span></code> is dictionary containtin marginal tax rates on corporate and pass-through income.</p>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">Specification</span></code> class has some arguments, such as <code class="docutils literal notranslate"><span class="pre">call_tc</span></code>, which defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>, but if set to <code class="docutils literal notranslate"><span class="pre">True</span></code> will call the Tax-Calculator to estimate marginal tax rates on individual filers’ income.</p>
+<p>Similar to <code class="docutils literal notranslate"><span class="pre">Specification</span></code>, <code class="docutils literal notranslate"><span class="pre">DepreciationParams</span></code> loads default parameters from a JSON file, in this case the file <code class="docutils literal notranslate"><span class="pre">tax_depreciation_rules.json</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an instance of the Specification class</span>
+<span class="c1"># p = Specification()</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">Specification</span><span class="p">(</span><span class="n">call_tc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># Look at attributes</span>
+<span class="n">p</span><span class="o">.</span><span class="n">u</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>year:  2021
+{&#39;tau_nc&#39;: array([0.20438931]), &#39;tau_div&#39;: array([0.19096831]), &#39;tau_int&#39;: array([0.31592543]), &#39;tau_scg&#39;: array([0.29377908]), &#39;tau_lcg&#39;: array([0.19048691]), &#39;tau_td&#39;: array([0.2206423]), &#39;tau_h&#39;: array([0.04257578])}
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;c&#39;: array([0.21]), &#39;nc&#39;: array([0.20438931])}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an instance of the DepreciationParams class</span>
+<span class="n">dp</span> <span class="o">=</span> <span class="n">DepreciationParams</span><span class="p">()</span>
+<span class="c1"># Look at an attribute of the dp object</span>
+<span class="n">dp</span><span class="o">.</span><span class="n">asset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;value&#39;: {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;},
+ &#39;system&#39;: &#39;GDS&#39;,
+ &#39;GDS_life&#39;: 5.0,
+ &#39;BEA_code&#39;: &#39;EP1A&#39;,
+ &#39;year&#39;: 2020,
+ &#39;major_asset_group&#39;: &#39;Equipment&#39;,
+ &#39;asset_name&#39;: &#39;Mainframes&#39;,
+ &#39;ADS_life&#39;: 5.0,
+ &#39;minor_asset_group&#39;: &#39;Computers and Software&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="create-an-instance-of-the-calculator-class">
+<h2>Create an instance of the Calculator class<a class="headerlink" href="#create-an-instance-of-the-calculator-class" title="Permalink to this headline">¶</a></h2>
+<p>This class does the calculations on the data.  It takes as arguments the data object (named <code class="docutils literal notranslate"><span class="pre">assets</span></code> here) and the parameters object (named <code class="docutils literal notranslate"><span class="pre">p</span></code> here).</p>
+<p>Excuting the cell below creates an instance of the calculator class with these data and parameters, but does not yet excecute any calculations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an instance of the Calculator class</span>
+<span class="n">calc1</span> <span class="o">=</span> <span class="n">Calculator</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dp</span><span class="p">,</span> <span class="n">assets</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With an instance of the <code class="docutils literal notranslate"><span class="pre">Calculator</span></code> class created, we can start doing some calculations with these data.</p>
+<p>For instance, we can compute a table of the share of corporate vs non-corporate assets across each industry.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Look at shares of assets across industry</span>
+<span class="n">calc1</span><span class="o">.</span><span class="n">asset_share_table</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Industry</th>
+      <th>Corporate</th>
+      <th>Pass-Through</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Agriculture, forestry, fishing, and hunting</td>
+      <td>0.309688</td>
+      <td>0.690312</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Mining</td>
+      <td>0.826839</td>
+      <td>0.173161</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Utilities</td>
+      <td>0.948540</td>
+      <td>0.051460</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Construction</td>
+      <td>0.286840</td>
+      <td>0.713160</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Manufacturing</td>
+      <td>0.859014</td>
+      <td>0.140986</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Wholesale trade</td>
+      <td>0.715166</td>
+      <td>0.284834</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Retail trade</td>
+      <td>0.728628</td>
+      <td>0.271372</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Transportation and warehousing</td>
+      <td>0.789652</td>
+      <td>0.210348</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Information</td>
+      <td>0.918722</td>
+      <td>0.081278</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Finance and insurance</td>
+      <td>0.786056</td>
+      <td>0.213944</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Real estate and rental and leasing</td>
+      <td>0.212052</td>
+      <td>0.787948</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Professional, scientific, and technical services</td>
+      <td>0.501699</td>
+      <td>0.498301</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Management of companies and enterprises</td>
+      <td>0.824397</td>
+      <td>0.175603</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Administrative and waste management services</td>
+      <td>0.569110</td>
+      <td>0.430890</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Educational services</td>
+      <td>0.590168</td>
+      <td>0.409832</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Health care and social assistance</td>
+      <td>0.510425</td>
+      <td>0.489575</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Arts, entertainment, and recreation</td>
+      <td>0.490811</td>
+      <td>0.509189</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Accommodation and food services</td>
+      <td>0.482236</td>
+      <td>0.517764</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Other services, except government</td>
+      <td>0.343467</td>
+      <td>0.656533</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="specifying-a-reform-policy">
+<h2>Specifying a reform policy<a class="headerlink" href="#specifying-a-reform-policy" title="Permalink to this headline">¶</a></h2>
+<p>To see some more interesting results, we will want to create another <code class="docutils literal notranslate"><span class="pre">Calculator</span></code> object with a change in policy or economic assumptions.  We can do this in a way analogous to our original instantiation of the <code class="docutils literal notranslate"><span class="pre">Calculator</span></code> object above.  In particular, we’ll need to create a new <code class="docutils literal notranslate"><span class="pre">Specification</span></code> object (we can use the same underlying data, which was in the object we named <code class="docutils literal notranslate"><span class="pre">assets</span></code>).</p>
+<p>In the code below, we’ll specify our “reform” as current law tax policy for 2026 (the baseline parameters above came from the default model year, 2019).  In addition, we’ll increase the corporate income tax rate from 21 to 25%.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create another policy</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">Specification</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2026</span><span class="p">)</span>
+<span class="n">p2</span><span class="o">.</span><span class="n">update_specification</span><span class="p">({</span><span class="s1">&#39;CIT_rate&#39;</span><span class="p">:</span> <span class="mf">0.35</span><span class="p">})</span>
+<span class="n">calc2</span> <span class="o">=</span> <span class="n">Calculator</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="n">dp</span><span class="p">,</span> <span class="n">assets</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="tabular-output">
+<h2>Tabular output<a class="headerlink" href="#tabular-output" title="Permalink to this headline">¶</a></h2>
+<p>Now with two <code class="docutils literal notranslate"><span class="pre">Calculator</span></code> objects named <code class="docutils literal notranslate"><span class="pre">calc1</span></code> and <code class="docutils literal notranslate"><span class="pre">calc2</span></code> (representing the baseline and reform policies), we are ready to compute some of the changes in effective tax rates, cost of capital, or other variables measured in this model.</p>
+<p>We start with an overall summary table showing the marginal effective total tax rates (METTRs) for all investments, corporate investments, and pass-through investments under varying financing assumptions.  This is done through the <code class="docutils literal notranslate"><span class="pre">summary_table</span></code> function.  It takes a calculator object as an argument.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Look at differences in METTRs between the two policies</span>
+<span class="n">calc1</span><span class="o">.</span><span class="n">summary_table</span><span class="p">(</span><span class="n">calc2</span><span class="p">)</span> <span class="c1"># calc1 is the baseline, calc2 the reform</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>Marginal Effective Total Tax Rate Under Baseline Policy</th>
+      <th>Marginal Effective Total Tax Rate Under Reform Policy</th>
+      <th>Change from Baseline (pp)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Overall</td>
+      <td>17.838061</td>
+      <td>25.889141</td>
+      <td>8.051080</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Corporations</td>
+      <td>18.086152</td>
+      <td>28.608370</td>
+      <td>10.522218</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Equity Financed</td>
+      <td>20.966035</td>
+      <td>34.826792</td>
+      <td>13.860757</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Debt Financed</td>
+      <td>7.363326</td>
+      <td>-1.557646</td>
+      <td>-8.920972</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Pass-Through Entities</td>
+      <td>19.059130</td>
+      <td>23.794240</td>
+      <td>4.735110</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Equity Financed</td>
+      <td>17.309186</td>
+      <td>23.311960</td>
+      <td>6.002774</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Debt Financed</td>
+      <td>25.822556</td>
+      <td>25.916064</td>
+      <td>0.093508</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>the <code class="docutils literal notranslate"><span class="pre">Calculator.summary_table()</span></code> method defaults to showing the results for the METTR, but there is a keyword argument that would allow you to view the output for other variables computed in CCC.  We can use this to see changes in the cost of capital (denoted by <span class="math notranslate nohighlight">\(\rho\)</span> in the model):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Look at how the cost of capital changed</span>
+<span class="n">calc1</span><span class="o">.</span><span class="n">summary_table</span><span class="p">(</span><span class="n">calc2</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;rho&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>Cost of Capital Under Baseline Policy</th>
+      <th>Cost of Capital Under Reform Policy</th>
+      <th>Change from Baseline (pp)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Overall</td>
+      <td>5.641909</td>
+      <td>6.254822</td>
+      <td>0.612912</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Corporations</td>
+      <td>5.658997</td>
+      <td>6.493061</td>
+      <td>0.834064</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Equity Financed</td>
+      <td>6.571207</td>
+      <td>7.968742</td>
+      <td>1.397536</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Debt Financed</td>
+      <td>3.723999</td>
+      <td>3.396877</td>
+      <td>-0.327121</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Pass-Through Entities</td>
+      <td>5.621541</td>
+      <td>5.970840</td>
+      <td>0.349299</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Equity Financed</td>
+      <td>6.280607</td>
+      <td>6.772223</td>
+      <td>0.491616</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Debt Financed</td>
+      <td>4.010653</td>
+      <td>4.015715</td>
+      <td>0.005062</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>One can also save results to disk by specifying an output type (‘excel’, ‘json’, ‘csv’, ‘tex’) and a file path:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save these results to disk</span>
+<span class="n">calc1</span><span class="o">.</span><span class="n">summary_table</span><span class="p">(</span><span class="n">calc2</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;rho&#39;</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;excel&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;cc_table.xlsx&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are also <code class="docutils literal notranslate"><span class="pre">Calculator</span></code> methods to compute summary tables by asset type or industry.  These are computed in the next two cells.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Summary by asset type</span>
+<span class="n">calc1</span><span class="o">.</span><span class="n">asset_summary_table</span><span class="p">(</span><span class="n">calc2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Category</th>
+      <th>Marginal Effective Total Tax Rate Under Baseline Policy</th>
+      <th>Marginal Effective Total Tax Rate Under Reform Policy</th>
+      <th>Change from Baseline (pp)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Overall</td>
+      <td>17.838061</td>
+      <td>25.889141</td>
+      <td>8.051080</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Corporate</td>
+      <td>18.086152</td>
+      <td>28.608370</td>
+      <td>10.522218</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Equipment</td>
+      <td>7.123522</td>
+      <td>22.817600</td>
+      <td>15.694078</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Structures</td>
+      <td>18.731994</td>
+      <td>28.161547</td>
+      <td>9.429553</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Intellectual Property</td>
+      <td>7.123522</td>
+      <td>11.623928</td>
+      <td>4.500406</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Inventories</td>
+      <td>29.509116</td>
+      <td>40.199841</td>
+      <td>10.690725</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Land</td>
+      <td>26.627583</td>
+      <td>36.141989</td>
+      <td>9.514406</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Pass-through</td>
+      <td>19.059130</td>
+      <td>23.794240</td>
+      <td>4.735110</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Equipment</td>
+      <td>2.091408</td>
+      <td>15.524570</td>
+      <td>13.433162</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Structures</td>
+      <td>17.679298</td>
+      <td>21.949609</td>
+      <td>4.270310</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Intellectual Property</td>
+      <td>2.091408</td>
+      <td>6.999775</td>
+      <td>4.908367</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Inventories</td>
+      <td>25.322848</td>
+      <td>29.614264</td>
+      <td>4.291416</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Land</td>
+      <td>22.102878</td>
+      <td>26.010898</td>
+      <td>3.908020</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Summary by industry</span>
+<span class="n">calc1</span><span class="o">.</span><span class="n">industry_summary_table</span><span class="p">(</span><span class="n">calc2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Category</th>
+      <th>Marginal Effective Total Tax Rate Under Baseline Policy</th>
+      <th>Marginal Effective Total Tax Rate Under Reform Policy</th>
+      <th>Change from Baseline (pp)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Overall</td>
+      <td>17.838061</td>
+      <td>25.889141</td>
+      <td>8.051080</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Corporate</td>
+      <td>18.086152</td>
+      <td>28.608370</td>
+      <td>10.522218</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Agriculture, forestry, fishing, and hunting</td>
+      <td>18.949104</td>
+      <td>31.173914</td>
+      <td>12.224810</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Mining</td>
+      <td>10.077496</td>
+      <td>18.301737</td>
+      <td>8.224241</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Utilities</td>
+      <td>8.140900</td>
+      <td>20.437212</td>
+      <td>12.296312</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Construction</td>
+      <td>19.484711</td>
+      <td>30.903652</td>
+      <td>11.418941</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Manufacturing</td>
+      <td>18.380489</td>
+      <td>27.413170</td>
+      <td>9.032681</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Wholesale trade</td>
+      <td>23.799871</td>
+      <td>34.797015</td>
+      <td>10.997144</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Retail trade</td>
+      <td>24.783022</td>
+      <td>35.209893</td>
+      <td>10.426871</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Transportation and warehousing</td>
+      <td>11.350593</td>
+      <td>21.027130</td>
+      <td>9.676538</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Information</td>
+      <td>10.750357</td>
+      <td>25.140247</td>
+      <td>14.389890</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Finance and insurance</td>
+      <td>19.023345</td>
+      <td>30.819961</td>
+      <td>11.796616</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Real estate and rental and leasing</td>
+      <td>24.691341</td>
+      <td>34.249088</td>
+      <td>9.557747</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Professional, scientific, and technical ser...</td>
+      <td>14.949022</td>
+      <td>25.996955</td>
+      <td>11.047933</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Management of companies and enterprises</td>
+      <td>22.796610</td>
+      <td>32.787799</td>
+      <td>9.991188</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Administrative and waste management services</td>
+      <td>14.654499</td>
+      <td>27.100218</td>
+      <td>12.445719</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Educational services</td>
+      <td>22.798712</td>
+      <td>32.158154</td>
+      <td>9.359442</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Health care and social assistance</td>
+      <td>20.951746</td>
+      <td>31.383214</td>
+      <td>10.431469</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Arts, entertainment, and recreation</td>
+      <td>15.888476</td>
+      <td>26.912907</td>
+      <td>11.024432</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Accommodation and food services</td>
+      <td>24.373160</td>
+      <td>34.619776</td>
+      <td>10.246616</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Other services, except government</td>
+      <td>21.155011</td>
+      <td>30.358173</td>
+      <td>9.203162</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Pass-through</td>
+      <td>19.059130</td>
+      <td>23.794240</td>
+      <td>4.735110</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Agriculture, forestry, fishing, and hunting</td>
+      <td>16.113357</td>
+      <td>22.940856</td>
+      <td>6.827499</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Mining</td>
+      <td>5.442890</td>
+      <td>12.394067</td>
+      <td>6.951177</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Utilities</td>
+      <td>3.438871</td>
+      <td>13.854648</td>
+      <td>10.415777</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Construction</td>
+      <td>16.319826</td>
+      <td>22.534447</td>
+      <td>6.214620</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Manufacturing</td>
+      <td>14.439914</td>
+      <td>19.671878</td>
+      <td>5.231965</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Wholesale trade</td>
+      <td>21.318753</td>
+      <td>26.480926</td>
+      <td>5.162173</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Retail trade</td>
+      <td>21.543746</td>
+      <td>26.377016</td>
+      <td>4.833270</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>Transportation and warehousing</td>
+      <td>6.999739</td>
+      <td>14.783500</td>
+      <td>7.783761</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>Information</td>
+      <td>6.159199</td>
+      <td>17.619482</td>
+      <td>11.460283</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>Finance and insurance</td>
+      <td>18.495390</td>
+      <td>24.007596</td>
+      <td>5.512206</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>Real estate and rental and leasing</td>
+      <td>21.125052</td>
+      <td>25.089904</td>
+      <td>3.964853</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>Professional, scientific, and technical ser...</td>
+      <td>10.174200</td>
+      <td>17.858743</td>
+      <td>7.684543</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>Management of companies and enterprises</td>
+      <td>18.158655</td>
+      <td>23.266574</td>
+      <td>5.107919</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>Administrative and waste management services</td>
+      <td>9.803918</td>
+      <td>18.737411</td>
+      <td>8.933493</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>Educational services</td>
+      <td>18.134432</td>
+      <td>22.723416</td>
+      <td>4.588984</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>Health care and social assistance</td>
+      <td>16.269364</td>
+      <td>22.110994</td>
+      <td>5.841630</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>Arts, entertainment, and recreation</td>
+      <td>10.853275</td>
+      <td>18.501878</td>
+      <td>7.648603</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>Accommodation and food services</td>
+      <td>19.979412</td>
+      <td>24.881471</td>
+      <td>4.902060</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>Other services, except government</td>
+      <td>16.216501</td>
+      <td>21.082199</td>
+      <td>4.865698</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="visualizations">
+<h2>Visualizations<a class="headerlink" href="#visualizations" title="Permalink to this headline">¶</a></h2>
+<p>If one wants to visualize the effects of changes in tax policy, the <code class="docutils literal notranslate"><span class="pre">Calculator</span></code> class has a few methods for this.</p>
+<p>We can use the <code class="docutils literal notranslate"><span class="pre">grouped_bar</span></code> method to show differential effects across assets (the default):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualizing changes by asset</span>
+<span class="n">aplot</span> <span class="o">=</span> <span class="n">calc1</span><span class="o">.</span><span class="n">grouped_bar</span><span class="p">(</span><span class="n">calc2</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">aplot</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+
+
+
+
+
+<div class="bk-root" id="3a5b606c-b2f2-4c7f-9023-36c0e6730cf8" data-root-id="1003"></div>
+</div><script type="application/javascript">(function(root) {
+  function embed_document(root) {
+    
+  var docs_json = {"cd85c81b-6c04-40d1-ba20-1bfe9a1fd8ca":{"roots":{"references":[{"attributes":{"below":[{"id":"1013"}],"center":[{"id":"1015"},{"id":"1019"},{"id":"1034"}],"left":[{"id":"1016"}],"plot_height":350,"renderers":[{"id":"1025"},{"id":"1040"},{"id":"1050"},{"id":"1051"}],"title":null,"toolbar":{"id":"1020"},"toolbar_location":null,"x_range":{"id":"1005"},"x_scale":{"id":"1009"},"y_range":{"id":"1007"},"y_scale":{"id":"1011"}},"id":"1003","subtype":"Figure","type":"Plot"},{"attributes":{"axis":{"id":"1016"},"dimension":1,"ticker":null},"id":"1019","type":"Grid"},{"attributes":{"line_alpha":0.2,"line_color":"#e84d60","line_dash":[6],"line_width":2,"location":0.28555212187629414},"id":"1051","type":"Span"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"top":{"field":"Reform"},"width":{"value":0.2},"x":{"field":"major_asset_group","transform":{"id":"1036"}}},"id":"1038","type":"VBar"},{"attributes":{},"id":"1032","type":"UnionRenderers"},{"attributes":{"factors":["Equipment","Intellectual Property","Inventories","Land","Structures"],"range_padding":0.1},"id":"1005","type":"FactorRange"},{"attributes":{},"id":"1029","type":"BasicTickFormatter"},{"attributes":{},"id":"1009","type":"CategoricalScale"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto"},"id":"1020","type":"Toolbar"},{"attributes":{"label":{"value":"Baseline"},"renderers":[{"id":"1025"}]},"id":"1035","type":"LegendItem"},{"attributes":{"source":{"id":"1002"}},"id":"1026","type":"CDSView"},{"attributes":{"range":{"id":"1005"}},"id":"1021","type":"Dodge"},{"attributes":{},"id":"1007","type":"DataRange1d"},{"attributes":{"line_alpha":0.2,"line_color":"#718dbf","line_dash":[6],"line_width":2,"location":0.18086151585629975},"id":"1050","type":"Span"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"top":{"field":"Baseline"},"width":{"value":0.2},"x":{"field":"major_asset_group","transform":{"id":"1021"}}},"id":"1023","type":"VBar"},{"attributes":{"data":{"Baseline":{"__ndarray__":"PcbCsng8sj89xsKyeDyyP0LhlwjG4tI/yncGwqkK0T/AKc6HGfrHPw==","dtype":"float64","order":"little","shape":[5]},"Reform":{"__ndarray__":"G5stGwoizT8qH89Zu5a9P//Dye0Ls9k/9jjwjrYZ1z+IDfNXOf3RPw==","dtype":"float64","order":"little","shape":[5]},"index":[0,1,2,3,4],"major_asset_group":["Equipment","Intellectual Property","Inventories","Land","Structures"]},"selected":{"id":"1033"},"selection_policy":{"id":"1032"}},"id":"1002","type":"ColumnDataSource"},{"attributes":{},"id":"1033","type":"Selection"},{"attributes":{"formatter":{"id":"1029"},"ticker":{"id":"1017"}},"id":"1016","type":"LinearAxis"},{"attributes":{"formatter":{"id":"1031"},"ticker":{"id":"1014"}},"id":"1013","type":"CategoricalAxis"},{"attributes":{"axis":{"id":"1013"},"grid_line_color":null,"ticker":null},"id":"1015","type":"Grid"},{"attributes":{},"id":"1014","type":"CategoricalTicker"},{"attributes":{},"id":"1031","type":"CategoricalTickFormatter"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"top":{"field":"Baseline"},"width":{"value":0.2},"x":{"field":"major_asset_group","transform":{"id":"1021"}}},"id":"1024","type":"VBar"},{"attributes":{"source":{"id":"1002"}},"id":"1041","type":"CDSView"},{"attributes":{"items":[{"id":"1035"},{"id":"1049"}],"location":"top_left","orientation":"horizontal"},"id":"1034","type":"Legend"},{"attributes":{},"id":"1017","type":"BasicTicker"},{"attributes":{"data_source":{"id":"1002"},"glyph":{"id":"1038"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1039"},"selection_glyph":null,"view":{"id":"1041"}},"id":"1040","type":"GlyphRenderer"},{"attributes":{"label":{"value":"Reform"},"renderers":[{"id":"1040"}]},"id":"1049","type":"LegendItem"},{"attributes":{"data_source":{"id":"1002"},"glyph":{"id":"1023"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1024"},"selection_glyph":null,"view":{"id":"1026"}},"id":"1025","type":"GlyphRenderer"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"top":{"field":"Reform"},"width":{"value":0.2},"x":{"field":"major_asset_group","transform":{"id":"1036"}}},"id":"1039","type":"VBar"},{"attributes":{"range":{"id":"1005"},"value":0.25},"id":"1036","type":"Dodge"},{"attributes":{},"id":"1011","type":"LinearScale"}],"root_ids":["1003"]},"title":"Bokeh Application","version":"2.1.1"}};
+  var render_items = [{"docid":"cd85c81b-6c04-40d1-ba20-1bfe9a1fd8ca","root_ids":["1003"],"roots":{"1003":"3a5b606c-b2f2-4c7f-9023-36c0e6730cf8"}}];
+  root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
+
+  }
+  if (root.Bokeh !== undefined) {
+    embed_document(root);
+  } else {
+    var attempts = 0;
+    var timer = setInterval(function(root) {
+      if (root.Bokeh !== undefined) {
+        clearInterval(timer);
+        embed_document(root);
+      } else {
+        attempts++;
+        if (attempts > 100) {
+          clearInterval(timer);
+          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+        }
+      }
+    }, 10, root)
+  }
+})(window);</script></div>
+</div>
+<p>or we can change from the default asset category split to a split by industry by changing the value of the <code class="docutils literal notranslate"><span class="pre">group_by_asset</span></code> keyword argument:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualizing changes by industry</span>
+<span class="n">iplot</span> <span class="o">=</span> <span class="n">calc1</span><span class="o">.</span><span class="n">grouped_bar</span><span class="p">(</span><span class="n">calc2</span><span class="p">,</span> <span class="n">group_by_asset</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">iplot</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+
+
+
+
+
+<div class="bk-root" id="2af964db-ebc5-4a0c-a95d-14232ba2e2c6" data-root-id="1102"></div>
+</div><script type="application/javascript">(function(root) {
+  function embed_document(root) {
+    
+  var docs_json = {"1e45493a-1756-46c3-b7c9-5aa2ff7e461c":{"roots":{"references":[{"attributes":{"below":[{"id":"1112"}],"center":[{"id":"1114"},{"id":"1118"},{"id":"1133"}],"left":[{"id":"1115"}],"plot_height":800,"plot_width":800,"renderers":[{"id":"1124"},{"id":"1139"},{"id":"1149"},{"id":"1150"}],"title":null,"toolbar":{"id":"1119"},"toolbar_location":null,"x_range":{"id":"1104"},"x_scale":{"id":"1108"},"y_range":{"id":"1106"},"y_scale":{"id":"1110"}},"id":"1102","subtype":"Figure","type":"Plot"},{"attributes":{"data_source":{"id":"1101"},"glyph":{"id":"1137"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1138"},"selection_glyph":null,"view":{"id":"1140"}},"id":"1139","type":"GlyphRenderer"},{"attributes":{"line_alpha":0.2,"line_color":"#e84d60","line_dash":[6],"line_width":2,"location":0.28555212187629414},"id":"1150","type":"Span"},{"attributes":{"source":{"id":"1101"}},"id":"1140","type":"CDSView"},{"attributes":{"range":{"id":"1104"}},"id":"1120","type":"Dodge"},{"attributes":{"formatter":{"id":"1128"},"ticker":{"id":"1116"}},"id":"1115","type":"LinearAxis"},{"attributes":{},"id":"1131","type":"UnionRenderers"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"top":{"field":"Baseline"},"width":{"value":0.2},"x":{"field":"major_industry","transform":{"id":"1120"}}},"id":"1123","type":"VBar"},{"attributes":{"axis":{"id":"1115"},"dimension":1,"ticker":null},"id":"1118","type":"Grid"},{"attributes":{"data":{"Baseline":{"__ndarray__":"Re6c4pgyzz8Zv8ty/MHCP2+V3AU+Qcg/6aMi7lVWxD84AzYMwPDIP2yoYZeuLs0/9seM1pFZyD+E7XLNd9HKP6UVLK1ahbs/6kqKSv4tzT8POn0q64bHP3qklUFjzLk/AGqj/BIUyz/iIa7QfiLDP+5aSdLbms8//TP/iOa4zz/K7/NzuQ69P9x1tGo417Q/92wQ3712zj8=","dtype":"float64","order":"little","shape":[19]},"Reform":{"__ndarray__":"cTCHyiAg1j9OSOHONE/RP+cdoDsj69M/2nVSln4w0T+OXZ4x077TPz0J9gOEjNQ/bpooVxqx0z8CJud5dA3UP6zlbXrYDdA/v9ga48Dz1D+SnoTAhILRP2g26/wtWcc/zXr5HGNl0z+uz5AqUJrQPy+hUHNZ49U/t3iVg+KA1j9t3VrO5tbKP9t9WAN0Fco/h94RRDA91j8=","dtype":"float64","order":"little","shape":[19]},"index":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],"major_industry":["Accommodation and food services","Administrative and waste management services","Agriculture, forestry, fishing, and hunting","Arts, entertainment, and recreation","Construction","Educational services","Finance and insurance","Health care and social assistance","Information","Management of companies and enterprises","Manufacturing","Mining","Other services, except government","Professional, scientific, and technical services","Real estate and rental and leasing","Retail trade","Transportation and warehousing","Utilities","Wholesale trade"]},"selected":{"id":"1132"},"selection_policy":{"id":"1131"}},"id":"1101","type":"ColumnDataSource"},{"attributes":{},"id":"1132","type":"Selection"},{"attributes":{"items":[{"id":"1134"},{"id":"1148"}],"location":"top_left","orientation":"horizontal"},"id":"1133","type":"Legend"},{"attributes":{},"id":"1113","type":"CategoricalTicker"},{"attributes":{},"id":"1108","type":"CategoricalScale"},{"attributes":{"line_alpha":0.2,"line_color":"#718dbf","line_dash":[6],"line_width":2,"location":0.18086151585629975},"id":"1149","type":"Span"},{"attributes":{"factors":["Accommodation and food services","Administrative and waste management services","Agriculture, forestry, fishing, and hunting","Arts, entertainment, and recreation","Construction","Educational services","Finance and insurance","Health care and social assistance","Information","Management of companies and enterprises","Manufacturing","Mining","Other services, except government","Professional, scientific, and technical services","Real estate and rental and leasing","Retail trade","Transportation and warehousing","Utilities","Wholesale trade"],"range_padding":0.1},"id":"1104","type":"FactorRange"},{"attributes":{"data_source":{"id":"1101"},"glyph":{"id":"1122"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1123"},"selection_glyph":null,"view":{"id":"1125"}},"id":"1124","type":"GlyphRenderer"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto"},"id":"1119","type":"Toolbar"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"top":{"field":"Reform"},"width":{"value":0.2},"x":{"field":"major_industry","transform":{"id":"1135"}}},"id":"1138","type":"VBar"},{"attributes":{},"id":"1128","type":"BasicTickFormatter"},{"attributes":{},"id":"1116","type":"BasicTicker"},{"attributes":{"source":{"id":"1101"}},"id":"1125","type":"CDSView"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"top":{"field":"Reform"},"width":{"value":0.2},"x":{"field":"major_industry","transform":{"id":"1135"}}},"id":"1137","type":"VBar"},{"attributes":{"range":{"id":"1104"},"value":0.25},"id":"1135","type":"Dodge"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"top":{"field":"Baseline"},"width":{"value":0.2},"x":{"field":"major_industry","transform":{"id":"1120"}}},"id":"1122","type":"VBar"},{"attributes":{},"id":"1110","type":"LinearScale"},{"attributes":{"formatter":{"id":"1130"},"major_label_orientation":45,"ticker":{"id":"1113"}},"id":"1112","type":"CategoricalAxis"},{"attributes":{},"id":"1130","type":"CategoricalTickFormatter"},{"attributes":{},"id":"1106","type":"DataRange1d"},{"attributes":{"label":{"value":"Baseline"},"renderers":[{"id":"1124"}]},"id":"1134","type":"LegendItem"},{"attributes":{"label":{"value":"Reform"},"renderers":[{"id":"1139"}]},"id":"1148","type":"LegendItem"},{"attributes":{"axis":{"id":"1112"},"grid_line_color":null,"ticker":null},"id":"1114","type":"Grid"}],"root_ids":["1102"]},"title":"Bokeh Application","version":"2.1.1"}};
+  var render_items = [{"docid":"1e45493a-1756-46c3-b7c9-5aa2ff7e461c","root_ids":["1102"],"roots":{"1102":"2af964db-ebc5-4a0c-a95d-14232ba2e2c6"}}];
+  root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
+
+  }
+  if (root.Bokeh !== undefined) {
+    embed_document(root);
+  } else {
+    var attempts = 0;
+    var timer = setInterval(function(root) {
+      if (root.Bokeh !== undefined) {
+        clearInterval(timer);
+        embed_document(root);
+      } else {
+        attempts++;
+        if (attempts > 100) {
+          clearInterval(timer);
+          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+        }
+      }
+    }, 10, root)
+  }
+})(window);</script></div>
+</div>
+<p>There’s also a plot that illustrates the range of the effects of taxes on investments across asset types, by showing the min, max, and mean values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot to show variation in METTRs across assets</span>
+<span class="n">rplot</span> <span class="o">=</span> <span class="n">calc1</span><span class="o">.</span><span class="n">range_plot</span><span class="p">(</span><span class="n">calc2</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;metr&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">rplot</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+
+
+
+
+
+<div class="bk-root" id="186b663b-1c8e-4a03-82cd-fb87482bfebd" data-root-id="1209"></div>
+</div><script type="application/javascript">(function(root) {
+  function embed_document(root) {
+    
+  var docs_json = {"67b611eb-041c-41ff-bca7-cb7c86f38533":{"roots":{"references":[{"attributes":{"below":[{"id":"1218"}],"center":[{"id":"1221"},{"id":"1225"},{"id":"1235"},{"id":"1236"},{"id":"1237"},{"id":"1253"}],"left":[{"id":"1222"}],"plot_height":500,"plot_width":500,"renderers":[{"id":"1234"},{"id":"1241"},{"id":"1246"},{"id":"1258"},{"id":"1268"},{"id":"1278"},{"id":"1283"},{"id":"1296"},{"id":"1308"}],"title":{"id":"1227"},"toolbar":{"id":"1226"},"toolbar_location":null,"x_range":{"id":"1210"},"x_scale":{"id":"1214"},"y_range":{"id":"1212"},"y_scale":{"id":"1216"}},"id":"1209","subtype":"Figure","type":"Plot"},{"attributes":{},"id":"1216","type":"LinearScale"},{"attributes":{"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1277","type":"Segment"},{"attributes":{"source":{"id":"1208"}},"id":"1309","type":"CDSView"},{"attributes":{},"id":"1290","type":"UnionRenderers"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"size":{"units":"screen","value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1256","type":"Circle"},{"attributes":{"line_color":{"value":"#e84d60"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1276","type":"Segment"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"size":{"units":"screen","value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1281","type":"Circle"},{"attributes":{},"id":"1251","type":"UnionRenderers"},{"attributes":{"fill_alpha":0.2,"fill_color":"white","right":0.5},"id":"1235","type":"BoxAnnotation"},{"attributes":{"fill_alpha":0.1,"fill_color":"white","left":0.5,"right":1.5},"id":"1236","type":"BoxAnnotation"},{"attributes":{"data_source":{"id":"1208"},"glyph":{"id":"1294"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1295"},"selection_glyph":null,"view":{"id":"1297"}},"id":"1296","type":"GlyphRenderer"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"size":{"units":"screen","value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1267","type":"Circle"},{"attributes":{},"id":"1212","type":"DataRange1d"},{"attributes":{"data_source":{"id":"1207"},"glyph":{"id":"1239"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1240"},"selection_glyph":null,"view":{"id":"1242"}},"id":"1241","type":"GlyphRenderer"},{"attributes":{"data_source":{"id":"1208"},"glyph":{"id":"1281"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1282"},"selection_glyph":null,"view":{"id":"1284"}},"id":"1283","type":"GlyphRenderer"},{"attributes":{"axis_label":"Method of Financing","formatter":{"id":"1230"},"ticker":{"id":"1228"}},"id":"1218","type":"LinearAxis"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"size":{"units":"screen","value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1282","type":"Circle"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"size":{"units":"screen","value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1307","type":"Circle"},{"attributes":{},"id":"1214","type":"LinearScale"},{"attributes":{"source":{"id":"1207"}},"id":"1247","type":"CDSView"},{"attributes":{},"id":"1291","type":"Selection"},{"attributes":{"data_source":{"id":"1207"},"glyph":{"id":"1256"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1257"},"selection_glyph":null,"view":{"id":"1259"}},"id":"1258","type":"GlyphRenderer"},{"attributes":{"source":{"id":"1208"}},"id":"1279","type":"CDSView"},{"attributes":{},"id":"1252","type":"Selection"},{"attributes":{"data_source":{"id":"1207"},"glyph":{"id":"1266"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1267"},"selection_glyph":null,"view":{"id":"1269"}},"id":"1268","type":"GlyphRenderer"},{"attributes":{"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1240","type":"Segment"},{"attributes":{"format":"0%"},"id":"1232","type":"NumeralTickFormatter"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"size":{"units":"screen","value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1266","type":"Circle"},{"attributes":{"line_color":{"value":"#718dbf"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1239","type":"Segment"},{"attributes":{"source":{"id":"1207"}},"id":"1242","type":"CDSView"},{"attributes":{"ticks":[0,1,2]},"id":"1228","type":"FixedTicker"},{"attributes":{"label":{"value":"Reform"},"renderers":[{"id":"1283"},{"id":"1296"},{"id":"1308"}]},"id":"1292","type":"LegendItem"},{"attributes":{"source":{"id":"1207"}},"id":"1269","type":"CDSView"},{"attributes":{"data":{"max_asset":["Inventories","Inventories","Inventories"],"maxes":[0.2930542097668927,-0.13096339112672467,0.3828060809571457],"mean_asset":["Overall","Overall","Overall"],"means":[0.1560221115131041,-0.41306259807735984,0.27215617091603245],"min_asset":["Intellectual Property","Intellectual Property","Intellectual Property"],"mins":[-0.04476464189059846,-0.7815749655421983,0.10026430338666585],"positions":[0.1,1.1,2.1],"types":["Typically Financed","Debt Financed","Equity Financed"]},"selected":{"id":"1291"},"selection_policy":{"id":"1290"}},"id":"1208","type":"ColumnDataSource"},{"attributes":{"data_source":{"id":"1208"},"glyph":{"id":"1306"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1307"},"selection_glyph":null,"view":{"id":"1309"}},"id":"1308","type":"GlyphRenderer"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"size":{"units":"screen","value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1294","type":"Circle"},{"attributes":{"line_alpha":0.2,"line_dash":[6],"line_width":2,"location":0},"id":"1234","type":"Span"},{"attributes":{"data":{"max_asset":["Inventories","Inventories","Inventories"],"maxes":[0.17153671237143198,-0.06578788226151004,0.23626733773084305],"mean_asset":["Overall","Overall","Overall"],"means":[0.03728521579640505,-0.262084258806486,0.11736148787988565],"min_asset":["Intellectual Property","Intellectual Property","Equipment"],"mins":[-0.09155606847470654,-0.4364303178484108,0.0],"positions":[-0.1,0.9,1.9],"types":["Typically Financed","Debt Financed","Equity Financed"]},"selected":{"id":"1252"},"selection_policy":{"id":"1251"}},"id":"1207","type":"ColumnDataSource"},{"attributes":{"axis_label":"Marginal Effective Tax Rate","formatter":{"id":"1232"},"ticker":{"id":"1223"}},"id":"1222","type":"LinearAxis"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"size":{"units":"screen","value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1244","type":"Circle"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"size":{"units":"screen","value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1295","type":"Circle"},{"attributes":{"fill_alpha":0.2,"fill_color":"white","left":1.5},"id":"1237","type":"BoxAnnotation"},{"attributes":{"source":{"id":"1208"}},"id":"1284","type":"CDSView"},{"attributes":{"source":{"id":"1207"}},"id":"1259","type":"CDSView"},{"attributes":{"code":"\n        var types = [\"Typically Financed\", \"Debt Financed\", \"Equity Financed\"]\n        return types[tick]\n        "},"id":"1230","type":"FuncTickFormatter"},{"attributes":{},"id":"1223","type":"BasicTicker"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"size":{"units":"screen","value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1306","type":"Circle"},{"attributes":{"items":[{"id":"1254"},{"id":"1292"}],"location":"bottom_right"},"id":"1253","type":"Legend"},{"attributes":{"end":2.5,"start":-0.5},"id":"1210","type":"Range1d"},{"attributes":{"data_source":{"id":"1208"},"glyph":{"id":"1276"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1277"},"selection_glyph":null,"view":{"id":"1279"}},"id":"1278","type":"GlyphRenderer"},{"attributes":{"text":"","text_font":"Helvetica"},"id":"1227","type":"Title"},{"attributes":{"axis":{"id":"1222"},"dimension":1,"grid_line_color":null,"ticker":null},"id":"1225","type":"Grid"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto"},"id":"1226","type":"Toolbar"},{"attributes":{"label":{"value":"Baseline"},"renderers":[{"id":"1246"},{"id":"1258"},{"id":"1268"}]},"id":"1254","type":"LegendItem"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"size":{"units":"screen","value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1245","type":"Circle"},{"attributes":{"source":{"id":"1208"}},"id":"1297","type":"CDSView"},{"attributes":{"axis":{"id":"1218"},"grid_line_color":null,"ticker":null},"id":"1221","type":"Grid"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"size":{"units":"screen","value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1257","type":"Circle"},{"attributes":{"data_source":{"id":"1207"},"glyph":{"id":"1244"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1245"},"selection_glyph":null,"view":{"id":"1247"}},"id":"1246","type":"GlyphRenderer"}],"root_ids":["1209"]},"title":"Bokeh Application","version":"2.1.1"}};
+  var render_items = [{"docid":"67b611eb-041c-41ff-bca7-cb7c86f38533","root_ids":["1209"],"roots":{"1209":"186b663b-1c8e-4a03-82cd-fb87482bfebd"}}];
+  root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
+
+  }
+  if (root.Bokeh !== undefined) {
+    embed_document(root);
+  } else {
+    var attempts = 0;
+    var timer = setInterval(function(root) {
+      if (root.Bokeh !== undefined) {
+        clearInterval(timer);
+        embed_document(root);
+      } else {
+        attempts++;
+        if (attempts > 100) {
+          clearInterval(timer);
+          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+        }
+      }
+    }, 10, root)
+  }
+})(window);</script></div>
+</div>
+<p>changing to show the effects on pass-through businesses and for a different output variable:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot to show variation in METTRs across assets</span>
+<span class="n">rplot2</span> <span class="o">=</span> <span class="n">calc1</span><span class="o">.</span><span class="n">range_plot</span><span class="p">(</span><span class="n">calc2</span><span class="p">,</span> <span class="n">corporate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;mettr&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">rplot2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>There’s a bubble plot too, though it doesn’t yet allow for many options (currently only plots METTRs for corporate entities):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bplot</span> <span class="o">=</span> <span class="n">calc1</span><span class="o">.</span><span class="n">asset_bubble</span><span class="p">(</span><span class="n">calc2</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">bplot</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>This notebook provides a brief example of how one would work with CCC.  Please explore the source code to see additional flexiblity in the functions.  And please leave any questions or suggestions in the CCC repo at <a class="reference external" href="https://github.com/PSLmodels/Cost-of-Capital-Calculator/issues">https://github.com/PSLmodels/Cost-of-Capital-Calculator/issues</a>.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "ccc-dev"
+        },
+        kernelOptions: {
+            kernelName: "ccc-dev",
+            path: "./content/examples"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'ccc-dev'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="../intro.html" title="previous page">Cost-of-Capital-Calculator</a>
+    <a class='right-next' id="next-link" href="../webapp.html" title="next page">Web Application</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Jason DeBacker<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../../_static/js/index.js"></script>
+    
+  </body>
+</html>

@@ -79,6 +79,30 @@
 </ul>
 <p class="caption">
  <span class="caption-text">
+  CCC Example
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="examples/PSL_demo.html">
+   Demo of CCC for PSL Meetup
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Web Application
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="webapp.html">
+   Web Application
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
   Contributing to CCC
  </span>
 </p>
@@ -113,6 +137,11 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="#the-cost-of-capital">
+   The Cost of Capital
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="#marginal-effective-tax-rates">
    Marginal Effective Tax Rates
   </a>
@@ -123,17 +152,22 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="#effective-average-tax-rates">
+   Effective Average Tax Rates
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="#computing-fixed-assets-by-industry-and-entity-type">
    Computing Fixed Assets by Industry and Entity Type
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="#land">
+  <a class="reference internal" href="#sec-land">
    Land
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="#inventories">
+  <a class="reference internal" href="#sec-inventories">
    Inventories
   </a>
  </li>
@@ -273,20 +307,29 @@
 <p>One should note that these METR and METTR calculations include only federal tax policy (current law or the user specified proposal) and therefore exclude the effects of state and local tax policy on investment incentives.  Integrating such policies is a worthwhile project, but the results here are generally sufficient for comparing alternative federal tax proposals.</p>
 <p>This guide is organized as follows.  Section <a class="reference internal" href="#sec-metr"><span class="std std-ref">Marginal Effective Tax Rates</span></a> and Section <a class="reference internal" href="#sec-mettr"><span class="std std-ref">Marginal Effective Total Tax Rates</span></a> describe how the cost of capital and effective tax rates are computed.  Next, we describe how we measure fixed assets by asset type, industry, and tax treatment in Section <a class="reference internal" href="#sec-assets"><span class="std std-ref">Computing Fixed Assets by Industry and Entity Type</span></a>.  The methodology to allocate land and inventories across industry and tax treatment is described in Sections <a class="reference internal" href="#sec-land"><span class="std std-ref">Land</span></a> and <a class="reference internal" href="#sec-inventories"><span class="std std-ref">Inventories</span></a>.  Finally, we discuss how the values of the model parameters are determined in Section <a class="reference internal" href="#sec-params"><span class="std std-ref">User Inputs</span></a>.</p>
 </div>
+<div class="section" id="the-cost-of-capital">
+<span id="sec-coc"></span><h1>The Cost of Capital<a class="headerlink" href="#the-cost-of-capital" title="Permalink to this headline">¶</a></h1>
+<p>By definition, the marginal investment is the investment whose before tax return is equivalent to the cost of capital, <span class="math notranslate nohighlight">\(\rho_{i,m,j}\)</span>. The cost of capital is given by:</p>
+<div class="math notranslate nohighlight">
+\[\rho_{i,m,j} = \frac{(r_{m,j}-\pi+\delta_{i})}{1-u_{j}}(1-u_{j}z_{i})+w_{i,m,j}-\delta_{i},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\delta_{i}\)</span> is the rate of economic depreciation, <span class="math notranslate nohighlight">\(u_{j}\)</span> is the statutory income tax rate at the first level of taxation (e.g., at the business entity level for C-corporations and at the individual level for pass-through business entities), <span class="math notranslate nohighlight">\(z_{i}\)</span> is the net present value of deprecation deductions from a dollar of new investment, and <span class="math notranslate nohighlight">\(w_{i,m,j}\)</span> is the property tax rate.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Cost-of-Capital-Calculator</span></code> calculates the cost of capital, <span class="math notranslate nohighlight">\(\rho_{i,m,j}\)</span>, separately for each type of asset, production industry, and tax treatment (corporate or non-corporate).<br />
+The after-tax rate of return is given by:</p>
+<div class="math notranslate nohighlight">
+\[r^{'}_{m,j}-\pi = f_{m,j}\left[i-\pi\right] + (1-f_{m,j})E_{j},\]</div>
+<p>where <span class="math notranslate nohighlight">\(f_{m,j}\)</span> represents the fraction of the marginal investment financed with debt by firms in industry <span class="math notranslate nohighlight">\(m\)</span> and of tax entity type <span class="math notranslate nohighlight">\(j\)</span>.</p>
+<p>In addition to the cost of capital, the <code class="docutils literal notranslate"><span class="pre">Cost-of-Capital-Calculator</span></code> reports two related measures:</p>
+<ul class="simple">
+<li><p>The user cost of capital (ucc): <span class="math notranslate nohighlight">\(ucc_{i,m,j} = \rho_{i,m,j} + delta_{i}\)</span></p></li>
+<li><p>The tax wedge, which is the difference between the before tax rate of return (which is equilvalent to the cost of capital for marginal investments) and the after-tax return top savings. The tax wedge = <span class="math notranslate nohighlight">\(\rho_{i,m,j}-s_{m,j\)</span></p></li>
+</ul>
+</div>
 <div class="section" id="marginal-effective-tax-rates">
 <span id="sec-metr"></span><h1>Marginal Effective Tax Rates<a class="headerlink" href="#marginal-effective-tax-rates" title="Permalink to this headline">¶</a></h1>
 <p>The marginal effective tax rate is calculated as the expected pre-tax rate of return on a marginal investment minus the real after-tax rate of return to the business entity, divided by the pre-tax rate of return on the marginal investment.  That is:</p>
 <div class="math notranslate nohighlight">
 \[METR_{i,m,j} = \frac{\rho_{i,m,j} - (r^{'}_{m,j}-\pi)}{\rho_{i,m,j}},\]</div>
-<p>where the subscripts <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(m\)</span>, and <span class="math notranslate nohighlight">\(j\)</span> refer to the type of asset, the production industry, and the tax entity type (e.g., C-corporation, partnership, S-corporation).  The parameter <span class="math notranslate nohighlight">\(\rho_{i,m,j}\)</span> is the pre-tax rate of return on the marginal investment, <span class="math notranslate nohighlight">\(r^{'}_{m,j}\)</span> is the business entity’s nominal after-tax rate of return and <span class="math notranslate nohighlight">\(\pi\)</span> is the rate of inflation (so that <span class="math notranslate nohighlight">\(r_{m,j}-\pi\)</span> is the real after-tax rate of return).  It is assumed that the business entity discounts future cash flow by the rate <span class="math notranslate nohighlight">\(r_{m,j}\)</span> (the prime in <span class="math notranslate nohighlight">\(r^{'}_{m,j}\)</span> differentiates the after-tax rate of return from the firm’s discount rate).  By definition, the marginal investment is the investment whose before tax return is equivalent to the cost of capital, <span class="math notranslate nohighlight">\(\rho_{i,m,j}\)</span>.  The cost of capital is given by:</p>
-<div class="math notranslate nohighlight">
-\[\rho_{i,m,j} = \frac{(r_{m,j}-\pi+\delta_{i})}{1-u_{j}}(1-u_{j}z_{i})+w_{i,m,j}-\delta_{i},\]</div>
-<p>where <span class="math notranslate nohighlight">\(\delta_{i}\)</span> is the rate of economic depreciation, <span class="math notranslate nohighlight">\(u_{j}\)</span> is the statutory income tax rate at the first level of taxation (e.g., at the business entity level for C-corporations and at the individual level for pass-through business entities), <span class="math notranslate nohighlight">\(z_{i}\)</span> is the net present value of deprecation deductions from a dollar of new investment, and <span class="math notranslate nohighlight">\(w_{i,m,j}\)</span> is the property tax rate.</p>
-<p>We calculate the cost of capital, <span class="math notranslate nohighlight">\(\rho_{i,m,j}\)</span>, separately for each type of asset, production industry, and tax treatment (corporate or non-corporate).<br />
-The after-tax rate of return is given by:</p>
-<div class="math notranslate nohighlight">
-\[r^{'}_{m,j}-\pi = f_{m,j}\left[i-\pi\right] + (1-f_{m,j})E_{j},\]</div>
-<p>where <span class="math notranslate nohighlight">\(f_{m,j}\)</span> represents the fraction of the marginal investment financed with debt by firms in industry <span class="math notranslate nohighlight">\(m\)</span> and of tax entity type <span class="math notranslate nohighlight">\(j\)</span>.</p>
+<p>where the subscripts <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(m\)</span>, and <span class="math notranslate nohighlight">\(j\)</span> refer to the type of asset, the production industry, and the tax entity type (e.g., C-corporation, partnership, S-corporation).  The variable <span class="math notranslate nohighlight">\(\rho_{i,m,j}\)</span> is the pre-tax rate of return on the marginal investment, <span class="math notranslate nohighlight">\(r^{'}_{m,j}\)</span> is the business entity’s nominal after-tax rate of return and <span class="math notranslate nohighlight">\(\pi\)</span> is the rate of inflation (so that <span class="math notranslate nohighlight">\(r_{m,j}-\pi\)</span> is the real after-tax rate of return).  It is assumed that the business entity discounts future cash flow by the rate <span class="math notranslate nohighlight">\(r_{m,j}\)</span> (the prime in <span class="math notranslate nohighlight">\(r^{'}_{m,j}\)</span> differentiates the after-tax rate of return from the firm’s discount rate).</p>
 <p>At times users may be interested in the variation in <span class="math notranslate nohighlight">\(METR\)</span>s across asset types, in which case we can use the <span class="math notranslate nohighlight">\(METR\)</span> calculation outlined above. At other times users may wish to view the variation in <span class="math notranslate nohighlight">\(METR\)</span>s across industry.  In this case, we compute a weighted average cost of capital for each production industry and tax treatment as follows:</p>
 <div class="math notranslate nohighlight">
 \[\rho_{m,j} = \frac{\sum_{i=1}^{I}\widetilde{FA}_{i,m,j}\rho_{i,j}}{\sum_{i=1}^{I}\widetilde{FA}_{i,m,j}} ,\]</div>
@@ -294,23 +337,36 @@ The after-tax rate of return is given by:</p>
 <p>With the cost of capital for all fixed assets in an industry-tax treatment grouping, we then compute the <span class="math notranslate nohighlight">\(METR\)</span> of the industry and tax treatment as:</p>
 <div class="math notranslate nohighlight">
 \[METR_{m,j} =  \frac{\rho_{m,j} - (r^{'}_{m,j}-\pi)}{\rho_{m,j}},\]</div>
-<!-- %\subsection{Modifications to the METR Calculations for Certain Assets}
-%
-%Two classes of assets, inventories and land, necessitate slightly modifications from the above methodology when computing $METR$s.  In addition, owner occupied housing faces some different tax treatment and thus deserves its own discussion.  This section discusses the modifications to the METR calculations described above for these asset categories.
-%
-%\subsubsection{Inventories}
-%
-%To be completed...
-%
-%
-%\subsubsection{Land}
-%
-%To be completed...
-%
-%
-%\subsubsection{Owner-Occupied Housing}
-%
-%To be completed... -->
+<div class="section" id="modifications-to-the-metr-calculations-for-certain-assets">
+<h2>Modifications to the METR Calculations for Certain Assets<a class="headerlink" href="#modifications-to-the-metr-calculations-for-certain-assets" title="Permalink to this headline">¶</a></h2>
+<p>Two classes of assets, inventories and land, necessitate slightly modifications from the above methodology when computing <span class="math notranslate nohighlight">\(METR\)</span>s.  In addition, owner occupied housing faces some different tax treatment and thus deserves its own discussion.  This section discusses the modifications to the <span class="math notranslate nohighlight">\(METR\)</span> calculations described above for these asset categories.</p>
+<div class="section" id="inventories">
+<h3>Inventories<a class="headerlink" href="#inventories" title="Permalink to this headline">¶</a></h3>
+<p>In calculating the <span class="math notranslate nohighlight">\(METR\)</span> for inventory investments, the cost of capital is defined as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+  \rho = \phi \rho_{FIFO} + (1-\phi)\rho_{LIFO}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(phi\)</span> are teh fraction of inventories that use FIFO accounting and <span class="math notranslate nohighlight">\(\rho_{FIFO}\)</span> and <span class="math notranslate nohighlight">\(\rho_{LIFO}\)</span> are given as:</p>
+<div class="math notranslate nohighlight">
+\[
+  \rho_{FIFO} = \frac{1}{Y_v} log(\frac{e^{(Y_v} - u_{j}}{(1 - u_{j})} - \pi
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+  \rho_{LIFO} = \frac{1}{Y_v} log(\frac{e^{(r_{m,j}-\pi)Y_v} - u_{j}}{(1 - u_{j})} - \pi
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(Y_{v}\)</span> is the average number of years that inventories are held.</p>
+</div>
+<div class="section" id="land">
+<h3>Land<a class="headerlink" href="#land" title="Permalink to this headline">¶</a></h3>
+<p>To be completed…</p>
+</div>
+<div class="section" id="owner-occupied-housing">
+<h3>Owner-Occupied Housing<a class="headerlink" href="#owner-occupied-housing" title="Permalink to this headline">¶</a></h3>
+<p>To be completed…</p>
+</div>
+</div>
 </div>
 <div class="section" id="marginal-effective-total-tax-rates">
 <span id="sec-mettr"></span><h1>Marginal Effective Total Tax Rates<a class="headerlink" href="#marginal-effective-total-tax-rates" title="Permalink to this headline">¶</a></h1>
@@ -334,10 +390,17 @@ The after-tax rate of return is given by:</p>
 <p>The return on fully taxable accounts is given by:</p>
 <div class="math notranslate nohighlight">
 \[s_{e,ft,j} = (1-m_{j})E(1-\tau_{div}) + g_{j},\]</div>
-<p>where <span class="math notranslate nohighlight">\(m_{j}\)</span> are the fraction of earnings that are retained by entity of type j, <span class="math notranslate nohighlight">\(\tau_{div}\)</span> is the dividend tax rate on the marginal equity investor, and <span class="math notranslate nohighlight">\(g_{j}\)</span> is the real return paid on retained earnings after the capital gains tax on the marginal equity investor.\footnote{If one subscribes to the “new view”, that dividend taxes do not affect investment incentives, then the first term in this equation would be zero.  We use the subscript <span class="math notranslate nohighlight">\(j\)</span> by the parameters <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(g\)</span>, but note that these parameters only apply to business entities who can retain earnings (typically, these are those with an entity level tax).}</p>
+<p>where <span class="math notranslate nohighlight">\(m_{j}\)</span> are the fraction of earnings that are retained by entity of type j, <span class="math notranslate nohighlight">\(\tau_{div}\)</span> is the dividend tax rate on the marginal equity investor, and <span class="math notranslate nohighlight">\(g_{j}\)</span> is the real return paid on retained earnings after the capital gains tax on the marginal equity investor.<a class="footnote-reference brackets" href="#new-view-note" id="id3">1</a></p>
 <p>The return on tax deferred accounts is:</p>
 <div class="math notranslate nohighlight">
 \[s_{e,td,j} = \frac{1}{Y_{td,j}}ln \left[(1-\tau_{td})e^{(\pi+E_{j})Y_{td,j}}+\tau_{td}\right]-\pi\]</div>
+</div>
+<div class="section" id="effective-average-tax-rates">
+<span id="sec-eatr"></span><h1>Effective Average Tax Rates<a class="headerlink" href="#effective-average-tax-rates" title="Permalink to this headline">¶</a></h1>
+<p>Some investment decisions are discrete: build the new plant or not, pursue this R&amp;D effort or another, and so on.  For discrete investment decisions, firms will compare the after tax rates of returns each of the possible choices.  In such cases, the relevant measure of the impact of the tax system on their investment choices will be measured by the effective average tax rate (<span class="math notranslate nohighlight">\(EATR\)</span>).  <a class="bibtex reference internal" href="references.html#dg2003" id="id4">[DG03]</a> propose a forward  measure of the EATR, which the <code class="docutils literal notranslate"><span class="pre">Cost-of-Capital-Calculator</span></code> also produces estimates.  The <span class="math notranslate nohighlight">\(EATR\)</span> is computed as:</p>
+<div class="math notranslate nohighlight">
+\[EATR = \left(\frac{p_{i,m,j} - rho_{i,m,j}}{p_{i,m,j}}\right)u_{j} + \left(\frac{\rho_{i,m,j}}{p_{i,m,j}}\right)METR_{i,m,j}\]</div>
+<p>where <span class="math notranslate nohighlight">\(p_{i,m,j}\)</span> is the rate of profit on the project.  Note that the <span class="math notranslate nohighlight">\(EATR\)</span> is equal to the <span class="math notranslate nohighlight">\(METR\)</span> for marginal projects - those who’s rate of profit is equal to the cost of capital.</p>
 <div class="section" id="computing-after-tax-capital-gains">
 <h2>Computing After-Tax Capital Gains<a class="headerlink" href="#computing-after-tax-capital-gains" title="Permalink to this headline">¶</a></h2>
 <p>Capital gains are not taxed until those gains are realized through the sale of stock.  The ability to defer the tax liability from gains complicates the calculation of the after-tax gains that accrue to investors. Further complicating this calculation is that, under current law, short and long term gains are taxed at differential rates and the basis for capital gains is “stepped-up” on equity passed along to decedents upon death.  Note, we’ll omit the tax entity type subscript here since this calculation only applies to those entity types that can retain earnings, namely C-corporations under current tax law.</p>
@@ -391,7 +454,7 @@ The after-tax rate of return is given by:</p>
 </div>
 <div class="section" id="soi-data-by-entity-type">
 <h2>SOI Data by Entity Type<a class="headerlink" href="#soi-data-by-entity-type" title="Permalink to this headline">¶</a></h2>
-<p>We use IRS Statistics of Income (SOI) data on corporations, partnerships, and sole proprietorships.  These data come with varying levels of specificity.  Data on corporations are available at what the SOI call “minor industry” level.  This encompass 196 industry classifications.\footnote{Pages 2-6 of the \href{https://www.irs.gov/pub/irs-soi/13cosbsec1.pdf}{Corporation Source Book} outline these industry classifications.}  Data on partnerships and sole proprietorships are generally available at the “major” industry level.  These approximate the 3-digit NAICS codes and encompass 81 industry classifications.  Data on S-corporations are available at the “sector” level, with 21 sector classifications.  We note our methodologies below to attribute these data to the minor industry level for each entity type.  Once data for each entity type is allocated across minor industry, we utilize cross-walks to related the SOI industry codes to BEA and NAICS codes, allowing one to group industries at varying levels of detail across different classification systems.</p>
+<p>We use IRS Statistics of Income (SOI) data on corporations, partnerships, and sole proprietorships.  These data come with varying levels of specificity.  Data on corporations are available at what the SOI call “minor industry” level.  This encompass 196 industry classifications.<a class="footnote-reference brackets" href="#ind-class-note" id="id5">2</a>  Data on partnerships and sole proprietorships are generally available at the “major” industry level.  These approximate the 3-digit NAICS codes and encompass 81 industry classifications.  Data on S-corporations are available at the “sector” level, with 21 sector classifications.  We note our methodologies below to attribute these data to the minor industry level for each entity type.  Once data for each entity type is allocated across minor industry, we utilize cross-walks to related the SOI industry codes to BEA and NAICS codes, allowing one to group industries at varying levels of detail across different classification systems.</p>
 <div class="section" id="c-and-s-corporation-data">
 <span id="sec-cands"></span><h3>C and S Corporation Data<a class="headerlink" href="#c-and-s-corporation-data" title="Permalink to this headline">¶</a></h3>
 <p>Tax data on subchapter C corporations come from the data files for the <a class="reference external" href="http://www.irs.gov/uac/SOI-Tax-Stats-Corporation-Source-Book:-Data-File">SOI Tax Stats - Corporation Source Book</a> for 2011.  The link to those files is <a class="reference external" href="http://www.irs.gov/uac/SOI-Tax-Stats-Corporation-Source-Book:-Data-File">here</a>.  Specifically, we use the <code class="docutils literal notranslate"><span class="pre">2011sb1.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">2011sb3.csv</span></code> files to find the aggregate amounts by industry for the following variables from Form 1120 and associated schedules: depreciable assets and accumulated depreciation.  Note that the <code class="docutils literal notranslate"><span class="pre">2011sb1.csv</span></code> file contains data from all Form 1120 returns (which includes both C and S corporations).  Thus, in calculating aggregates for subchapter C corporations only, we net out the totals by industry and line item for S corporations using the 2011sb3.csv data.</p>
@@ -439,13 +502,13 @@ The after-tax rate of return is given by:</p>
 </div>
 </div>
 </div>
-<div class="section" id="land">
-<span id="sec-land"></span><h1>Land<a class="headerlink" href="#land" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="sec-land">
+<span id="id6"></span><h1>Land<a class="headerlink" href="#sec-land" title="Permalink to this headline">¶</a></h1>
 <p>To be completed…</p>
 <p>Get Land from Fin Accounts, Inventories from BEA.  Attribute over industry/tax treatment using SOI data - much like do for fixed assets.</p>
 </div>
-<div class="section" id="inventories">
-<span id="sec-inventories"></span><h1>Inventories<a class="headerlink" href="#inventories" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="sec-inventories">
+<span id="id7"></span><h1>Inventories<a class="headerlink" href="#sec-inventories" title="Permalink to this headline">¶</a></h1>
 <p>To be completed…</p>
 <p>Get Land from Fin Accounts, Inventories from BEA.  Attribute over industry/tax treatment using SOI data - much like do for fixed assets.</p>
 </div>
@@ -509,9 +572,9 @@ The after-tax rate of return is given by:</p>
 <p>The net present value of straight-line depreciation can thus be found as:</p>
 <div class="math notranslate nohighlight">
 \[z_{sl}=\int_{Y}^{0}\frac{1-e^{-ry}}{Y}dy\]</div>
-<p>which, when integrated, yields:</p>
+<p>which, when integrated and with bonus depreciation rate equal to <span class="math notranslate nohighlight">\(bonus\)</span> , yields:</p>
 <div class="math notranslate nohighlight">
-\[z_{sl}=\frac{e^{-rY}}{Yr}\]</div>
+\[z_{sl}=bonus + (1 - bonus)\frac{e^{-rY}}{Yr}\]</div>
 <p>where <span class="math notranslate nohighlight">\(Y\)</span> is the recovery period of the asset.  With a declining balance method of deprecation, the remaining depreciable value of $1 invested at any time <span class="math notranslate nohighlight">\(y\)</span> is given by:</p>
 <div class="math notranslate nohighlight">
 \[V(y) =  e^{-\beta y}, \]</div>
@@ -533,9 +596,9 @@ The after-tax rate of return is given by:</p>
 <p>We can now find the present value of depreciation deductions under a declining balance with switch to straight line depreciation method.  To do this, we find the integrals over the two methods for their respective portions of the recovery life.  We find the present value of deprecation deductions, <span class="math notranslate nohighlight">\(z_{dbsl}\)</span>, to be:</p>
 <div class="math notranslate nohighlight">
 \[z_{dbsl}=\int_{0}^{Y^{*}}\beta e^{-(\beta+r)y}dy+\int_{Y^{*}}^{Y}\frac{e^{-\beta Y^{*}}}{Y^{*}-Y}e^{-ry}dy\]</div>
-<p>which, when integrated, yields:</p>
+<p>which, when integrated and with bonus depreciation, yields:</p>
 <div class="math notranslate nohighlight">
-\[z_{dbsl}=\frac{\beta}{\beta+r}\left[1-e^{-(\beta+r)Y^{*}}\right]+\frac{e^{-\beta Y^{*}}}{(Y-Y^{*})r}\left[e^{-rY^{*}}-e^{-rY}\right]\]</div>
+\[z_{dbsl}=bonus + (1 - bonus)\frac{\beta}{\beta+r}\left[1-e^{-(\beta+r)Y^{*}}\right]+\frac{e^{-\beta Y^{*}}}{(Y-Y^{*})r}\left[e^{-rY^{*}}-e^{-rY}\right]\]</div>
 <!-- %\subsubsection{Current Law Tax Depreciation Rules}
 %
 %To be completed...
@@ -702,7 +765,7 @@ The after-tax rate of return is given by:</p>
 <div class="section" id="economic-parameters">
 <h2>Economic Parameters<a class="headerlink" href="#economic-parameters" title="Permalink to this headline">¶</a></h2>
 <!-- %To be completed... -->
-<p>One may alter the macroeconomic assumptions regarding rates of interest and inflation.\footnote{The default values are the taken from the CBO baseline forecast.}</p>
+<p>One may alter the macroeconomic assumptions regarding rates of interest and inflation.<a class="footnote-reference brackets" href="#cbo-note" id="id8">3</a></p>
 </div>
 <div class="section" id="tax-policy-parameters">
 <h2>Tax Policy Parameters<a class="headerlink" href="#tax-policy-parameters" title="Permalink to this headline">¶</a></h2>
@@ -751,6 +814,18 @@ The after-tax rate of return is given by:</p>
 %% Might be good if can tie these sections to the code (e.g. NPV of deprec handled in calc_z, econ depr read in in calc_z.get_econ_depr(), etc).
 %% Or perhaps this is a separate guide - follows the same sections here and points out where in the code the calculations are done.
  -->
+<hr class="docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="new-view-note"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
+<dd><p>If one subscribes to the “new view”, that dividend taxes do not affect investment incentives, then the first term in this equation would be zero.  We use the subscript <span class="math notranslate nohighlight">\(j\)</span> by the parameters <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(g\)</span>, but note that these parameters only apply to business entities who can retain earnings (typically, these are those with an entity level tax).</p>
+</dd>
+<dt class="label" id="ind-class-note"><span class="brackets"><a class="fn-backref" href="#id5">2</a></span></dt>
+<dd><p>Pages 2-6 of the \href{https://www.irs.gov/pub/irs-soi/13cosbsec1.pdf}{Corporation Source Book} outline these industry classifications.</p>
+</dd>
+<dt class="label" id="cbo-note"><span class="brackets"><a class="fn-backref" href="#id8">3</a></span></dt>
+<dd><p>The default values are the taken from the CBO baseline forecast.</p>
+</dd>
+</dl>
 </div>
 </div>
 
