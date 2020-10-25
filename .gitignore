@@ -27,3 +27,15 @@ htmlcov/*
 *.m~
 *.sublime*
 .DS_Store
+*puf.csv
+*.ipynb_checkpoints*
+*/__pycache__/*
+*.cache*
+docs/book/_build/*
+example.html
+baseline_byindustry.csv
+reform_byindustry.csv
+baseline_byasset.csv
+reform_byasset.csv
+changed_byindustry.csv
+changed_byasset.csv
