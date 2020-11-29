@@ -226,7 +226,7 @@ class DepreciationParams(paramtools.Parameters):
     Inherits ParamTools Parameters abstract base class.
     '''
     defaults = os.path.join(
-        CURRENT_PATH, "..", "data", "depreciation_rates",
+        CURRENT_PATH, "depreciation_rates",
         "tax_depreciation_rules.json")
 
 
