@@ -5,27 +5,14 @@ from ccc.calculator import Calculator
 from ccc.utils import TC_LAST_YEAR, DEFAULT_START_YEAR
 from bokeh.embed import json_item
 import os
-import json
-import inspect
 import paramtools
 from taxcalc import Policy
 from collections import OrderedDict
 from .helpers import retrieve_puf
-from cs2tc import convert_policy_adjustment
+import cs2tc
 
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
-
-# Get Tax-Calculator default parameters
-TCPATH = inspect.getfile(Policy)
-TCDIR = os.path.dirname(TCPATH)
-with open(os.path.join(TCDIR, "policy_current_law.json"), "r") as f:
-    pcl = json.loads(f.read())
-RES = convert_policy_adjustment(pcl)
-
-
-class TCParams(paramtools.Parameters):
-    defaults = RES
 
 
 class MetaParams(paramtools.Parameters):
@@ -62,12 +49,10 @@ def get_inputs(meta_params_dict):
     # Set default CCC params
     ccc_params = Specification(year=meta_params.year)
     # Set default TC params
-    iit_params = TCParams()
+    iit_params = Policy()
     iit_params.set_state(year=meta_params.year.tolist())
-    filtered_iit_params = OrderedDict()
-    for k, v in iit_params.dump().items():
-        if k == "schema" or v.get("section_1", False):
-            filtered_iit_params[k] = v
+
+    filtered_iit_params = cs2tc.convert_policy_defaults(meta_params, iit_params)
 
     default_params = {
         "Business Tax Parameters": ccc_params.dump(),
@@ -91,14 +76,11 @@ def validate_inputs(meta_param_dict, adjustment, errors_warnings):
     errors_warnings["Business Tax Parameters"]["errors"].update(
         params.errors)
     # Validate TC parameter inputs
-    pol_params = {}
-    # drop checkbox parameters.
-    for param, data in list(adjustment[
-        "Individual and Payroll Tax Parameters"].items()):
-        if not param.endswith("checkbox"):
-            pol_params[param] = data
-    iit_params = TCParams()
-    iit_params.adjust(pol_params, raise_errors=False)
+    iit_adj = cs2tc.convert_policy_adjustment(
+        adjustment["Individual and Payroll Tax Parameters"])
+
+    iit_params = Policy()
+    iit_params.adjust(iit_adj, raise_errors=False, ignore_warnings=True)
     errors_warnings["Individual and Payroll Tax Parameters"][
         "errors"].update(iit_params.errors)
 
@@ -123,7 +105,7 @@ def run_model(meta_param_dict, adjustment):
     else:
         data = "cps"
     # Get TC params adjustments
-    iit_mods = convert_policy_adjustment(adjustment[
+    iit_mods = cs2tc.convert_policy_adjustment(adjustment[
         "Individual and Payroll Tax Parameters"])
     filtered_ccc_params = {}
     # filter out CCC params that will not change between baeline and
