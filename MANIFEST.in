@@ -1,3 +1,4 @@
 include ccc/ccc_asset_data.csv
 include ccc/default_parameters.json
 include ccc/records_variables.json
+include ccc/tax_depreciation_rules.json

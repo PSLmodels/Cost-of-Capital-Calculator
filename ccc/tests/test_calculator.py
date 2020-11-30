@@ -7,8 +7,7 @@ from ccc.calculator import Calculator
 import os
 CURRENT_PATH = os.path.abspath(os.path.dirname(__file__))
 setattr(DepreciationParams, "defaults", os.path.join(
-        CURRENT_PATH, "..", "..", "data", "depreciation_rates",
-        "tax_depreciation_rules.json"))
+        CURRENT_PATH, "..", "tax_depreciation_rules.json"))
 
 
 def test_Calculator_exception1():
