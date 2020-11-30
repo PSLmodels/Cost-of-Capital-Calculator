@@ -9,8 +9,7 @@ import paramtools
 from taxcalc import Policy
 from collections import OrderedDict
 from .helpers import retrieve_puf
-from . import inputs
-from cs2tc import convert_policy_adjustment
+import cs2tc
 
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
@@ -52,9 +51,8 @@ def get_inputs(meta_params_dict):
     # Set default TC params
     iit_params = Policy()
     iit_params.set_state(year=meta_params.year.tolist())
-    iit_params.array_first = False
-    filtered_iit_params = inputs.convert_policy_defaults(
-        meta_params, iit_params)
+
+    filtered_iit_params = cs2tc.convert_policy_defaults(meta_params, iit_params)
 
     default_params = {
         "Business Tax Parameters": ccc_params.dump(),
@@ -78,7 +76,7 @@ def validate_inputs(meta_param_dict, adjustment, errors_warnings):
     errors_warnings["Business Tax Parameters"]["errors"].update(
         params.errors)
     # Validate TC parameter inputs
-    iit_adj = inputs.convert_policy_adjustment(
+    iit_adj = cs2tc.convert_policy_adjustment(
         adjustment["Individual and Payroll Tax Parameters"])
 
     iit_params = Policy()
@@ -107,7 +105,7 @@ def run_model(meta_param_dict, adjustment):
     else:
         data = "cps"
     # Get TC params adjustments
-    iit_mods = convert_policy_adjustment(adjustment[
+    iit_mods = cs2tc.convert_policy_adjustment(adjustment[
         "Individual and Payroll Tax Parameters"])
     filtered_ccc_params = {}
     # filter out CCC params that will not change between baeline and
