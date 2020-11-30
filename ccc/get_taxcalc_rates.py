@@ -47,7 +47,7 @@ def get_calculator(baseline, calculator_start_year, reform=None,
         assert not reform
 
     if not baseline:
-        policy1.implement_reform(reform)
+        update_policy(policy1, reform)
 
     # the default set up increments year to 2013
     calc1 = Calculator(records=records1, policy=policy1)
@@ -152,3 +152,35 @@ def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={},
 
     print(individual_rates)
     return individual_rates
+
+
+def update_policy(policy_obj, reform, **kwargs):
+    """
+    Convenience method that updates the Policy object with the reform
+    dict using the appropriate method, given the reform format.
+    """
+    if is_paramtools_format(reform):
+        policy_obj.adjust(reform, **kwargs)
+    else:
+        policy_obj.implement_reform(reform, **kwargs)
+
+
+def is_paramtools_format(reform):
+    """
+    Check first item in reform to determine if it is using the ParamTools
+    adjustment or the Tax-Calculator reform format.
+    If first item is a dict, then it is likely be a Tax-Calculator reform:
+    {
+        param: {2020: 1000}
+    }
+    Otherwise, it is likely to be a ParamTools format.
+    Returns:
+        format (bool): True if reform is likely to be in PT format.
+    """
+    for _, data in reform.items():
+        if isinstance(data, dict):
+            return False # taxcalc reform
+        else:
+            # Not doing a specific check to see if the value is a list
+            # since it could be a list or just a scalar value.
+            return True
