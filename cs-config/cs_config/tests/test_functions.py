@@ -10,8 +10,24 @@ class TestFunctions1(CoreTestFunctions):
     get_inputs = functions.get_inputs
     validate_inputs = functions.validate_inputs
     run_model = functions.run_model
-    ok_adjustment = {"Business Tax Parameters": {"CIT_rate": 0.21},
-                     "Individual and Payroll Tax Parameters": {}}
+    ok_adjustment = {
+        "Business Tax Parameters": {
+            "CIT_rate": [
+                {
+                    "year": 2021,
+                    "value": 0.25
+                }
+            ]
+        },
+        "Individual and Payroll Tax Parameters": {
+            "FICA_ss_trt": [
+                {
+                    "year": 2021,
+                    "value": 0.14
+                }
+            ]
+        }
+    }
     bad_adjustment = {"Business Tax Parameters": {"CIT_rate": -0.1},
                       "Individual and Payroll Tax Parameters": {"STD": -1}}
 
