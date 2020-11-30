@@ -386,7 +386,7 @@
         <span class="k">assert</span> <span class="ow">not</span> <span class="n">reform</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">baseline</span><span class="p">:</span>
-        <span class="n">policy1</span><span class="o">.</span><span class="n">implement_reform</span><span class="p">(</span><span class="n">reform</span><span class="p">)</span>
+        <span class="n">update_policy</span><span class="p">(</span><span class="n">policy1</span><span class="p">,</span> <span class="n">reform</span><span class="p">)</span>
 
     <span class="c1"># the default set up increments year to 2013</span>
     <span class="n">calc1</span> <span class="o">=</span> <span class="n">Calculator</span><span class="p">(</span><span class="n">records</span><span class="o">=</span><span class="n">records1</span><span class="p">,</span> <span class="n">policy</span><span class="o">=</span><span class="n">policy1</span><span class="p">)</span>
@@ -491,6 +491,38 @@
 
     <span class="nb">print</span><span class="p">(</span><span class="n">individual_rates</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">individual_rates</span></div>
+
+
+<span class="k">def</span> <span class="nf">update_policy</span><span class="p">(</span><span class="n">policy_obj</span><span class="p">,</span> <span class="n">reform</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convenience method that updates the Policy object with the reform</span>
+<span class="sd">    dict using the appropriate method, given the reform format.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">is_paramtools_format</span><span class="p">(</span><span class="n">reform</span><span class="p">):</span>
+        <span class="n">policy_obj</span><span class="o">.</span><span class="n">adjust</span><span class="p">(</span><span class="n">reform</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">policy_obj</span><span class="o">.</span><span class="n">implement_reform</span><span class="p">(</span><span class="n">reform</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">is_paramtools_format</span><span class="p">(</span><span class="n">reform</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check first item in reform to determine if it is using the ParamTools</span>
+<span class="sd">    adjustment or the Tax-Calculator reform format.</span>
+<span class="sd">    If first item is a dict, then it is likely be a Tax-Calculator reform:</span>
+<span class="sd">    {</span>
+<span class="sd">        param: {2020: 1000}</span>
+<span class="sd">    }</span>
+<span class="sd">    Otherwise, it is likely to be a ParamTools format.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        format (bool): True if reform is likely to be in PT format.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">reform</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span> <span class="c1"># taxcalc reform</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Not doing a specific check to see if the value is a list</span>
+            <span class="c1"># since it could be a list or just a scalar value.</span>
+            <span class="k">return</span> <span class="kc">True</span>
 </pre></div>
 
               </div>
