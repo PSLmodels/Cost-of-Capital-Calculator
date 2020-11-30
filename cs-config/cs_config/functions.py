@@ -55,10 +55,6 @@ def get_inputs(meta_params_dict):
     iit_params.array_first = False
     filtered_iit_params = inputs.convert_policy_defaults(
         meta_params, iit_params)
-    # filtered_iit_params = OrderedDict()
-    # for k, v in iit_params.dump().items():
-    #     if k == "schema" or v.get("section_1", False):
-    #         filtered_iit_params[k] = v
 
     default_params = {
         "Business Tax Parameters": ccc_params.dump(),
@@ -82,21 +78,13 @@ def validate_inputs(meta_param_dict, adjustment, errors_warnings):
     errors_warnings["Business Tax Parameters"]["errors"].update(
         params.errors)
     # Validate TC parameter inputs
-    # pol_params = {}
-    # # drop checkbox parameters.
-    # for param, data in list(adjustment[
-    #     "Individual and Payroll Tax Parameters"].items()):
-    #     if not param.endswith("checkbox"):
-    #         pol_params[param] = data
-    # iit_params = Policy()
-    # iit_params.adjust(pol_params, raise_errors=False)
-    # errors_warnings["Individual and Payroll Tax Parameters"][
-    #     "errors"].update(iit_params.errors)
-    iit_adj = inputs.convert_policy_adjustment(adjustment["Individual and Payroll Tax Parameters"])
+    iit_adj = inputs.convert_policy_adjustment(
+        adjustment["Individual and Payroll Tax Parameters"])
 
     iit_params = Policy()
     iit_params.adjust(iit_adj, raise_errors=False, ignore_warnings=True)
-    errors_warnings["Individual and Payroll Tax Parameters"]["errors"].update(iit_params.errors)
+    errors_warnings["Individual and Payroll Tax Parameters"][
+        "errors"].update(iit_params.errors)
 
     return {"errors_warnings": errors_warnings}
 
