@@ -718,7 +718,7 @@
     "inv_tax_credit": {
         "title": "Investment tax credit",
         "description": "Investment tax credit rate.",
-        "section_1": "Investment Tax Credits and Propoerty Tax",
+        "section_1": "Investment Tax Credits and Property Tax",
         "notes": "The investment tax credit rate gives the rate at which the cost of new investments are credited against the firm's tax liability.",
         "type": "float",
         "value": [
@@ -737,7 +737,7 @@
     "property_tax": {
         "title": "Property tax rate",
         "description": "Property tax rate.",
-        "section_1": "Investment Tax Credits and Propoerty Tax",
+        "section_1": "Investment Tax Credits and Property Tax",
         "notes": "Tax rate on business property.",
         "type": "float",
         "value": [
