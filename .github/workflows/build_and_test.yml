@@ -31,14 +31,17 @@ jobs:
           pip install pytest-pycodestyle
       - name: Test
         shell: bash -l {0}
-        run: python -c "import ccc"; coverage run -m pytest -v -m 'not needs_puf' --pycodestyle --cov=./ --cov-report=xml
+        run: |
+          python -c "import ccc"; coverage run -m pytest -v -m 'not needs_puf' --pycodestyle
+          coverage xlm
+
 
       - name: Code Coverage Report
         uses: actions/checkout@master
       - uses: codecov/codecov-action@v1
         with:
           file: ./coverage.xml # optional
-          files: ./coverage1.xml,./coverage2.xml # optional
+          # files: ./coverage1.xml,./coverage2.xml # optional
           flags: unittests # optional
           name: codecov-umbrella # optional
           fail_ci_if_error: true # optional (default = false)
