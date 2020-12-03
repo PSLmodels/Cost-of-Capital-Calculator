@@ -1,0 +1,44 @@
+name: Build Package and Test Source Code [Python 3.6, 3.7, 3.8]
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Setup Miniconda using Python ${{ matrix.python-version }}
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: ccc-dev
+          environment-file: environment.yml
+          python-version: ${{ matrix.python-version }}
+          auto-activate-base: false
+
+      - name: Build
+        shell: bash -l {0}
+        run: |
+          pip install -e .
+          pip install codecov
+      - name: Test
+        shell: bash -l {0}
+        run: python -c "import ccc"; coverage run -m pytest -v -m 'not needs_puf' --pycodestyle 
+
+      - name: Code Coverage Report
+        uses: actions/checkout@master
+      - uses: codecov/codecov-action@v1
+        with:
+          file: ./coverage.xml # optional
+          files: ./coverage1.xml,./coverage2.xml # optional
+          flags: unittests # optional
+          name: codecov-umbrella # optional
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
