@@ -28,6 +28,7 @@ jobs:
         run: |
           pip install -e .
           pip install codecov
+          pip install pytest-pycodestyle
       - name: Test
         shell: bash -l {0}
         run: python -c "import ccc"; coverage run -m pytest -v -m 'not needs_puf' --pycodestyle 
