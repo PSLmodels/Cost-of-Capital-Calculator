@@ -33,7 +33,7 @@ jobs:
         shell: bash -l {0}
         run: |
           python -c "import ccc"; coverage run -m pytest -v -m 'not needs_puf' --pycodestyle
-          coverage xlm
+          coverage xml
 
 
       - name: Code Coverage Report
