@@ -179,7 +179,7 @@ def is_paramtools_format(reform):
     """
     for _, data in reform.items():
         if isinstance(data, dict):
-            return False # taxcalc reform
+            return False  # taxcalc reform
         else:
             # Not doing a specific check to see if the value is a list
             # since it could be a list or just a scalar value.
