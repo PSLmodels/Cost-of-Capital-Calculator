@@ -36,13 +36,13 @@ jobs:
           coverage xml
 
 
-      - name: Code Coverage Report
-        uses: actions/checkout@master
-      - uses: codecov/codecov-action@v1
-        with:
-          file: ./coverage.xml # optional
-          # files: ./coverage1.xml,./coverage2.xml # optional
-          flags: unittests # optional
-          name: codecov-umbrella # optional
-          fail_ci_if_error: true # optional (default = false)
-          verbose: true # optional (default = false)
+      # - name: Code Coverage Report
+      #   uses: actions/checkout@master
+      # - uses: codecov/codecov-action@v1
+      #   with:
+      #     # file: ./coverage.xml # optional
+      #     # files: ./coverage1.xml,./coverage2.xml # optional
+      #     flags: unittests # optional
+      #     name: codecov-umbrella # optional
+      #     fail_ci_if_error: true # optional (default = false)
+      #     verbose: true # optional (default = false)
