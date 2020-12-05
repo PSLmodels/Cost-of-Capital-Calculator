@@ -28,6 +28,7 @@ jobs:
         run: |
           pip install -e .
           pip install codecov
+          pip install pytest-cov
           pip install pytest-pycodestyle
       - name: Test
         shell: bash -l {0}
