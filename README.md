@@ -1,3 +1,8 @@
+[![PSL cataloged](https://img.shields.io/badge/PSL-cataloged-a0a0a0.svg)](https://www.PSLmodels.org)
+[![Python 3.6+](https://img.shields.io/badge/python-3.6%2B-blue.svg)](https://www.python.org/downloads/release/python-360/)
+[![Build Status](https://travis-ci.org/PSLmodels/Cost-of-Capital-Calculator.svg?branch=master)](https://travis-ci.org/PSLmodels/Cost-of-Capital-Calculator)
+[![codecov](https://codecov.io/gh/PSLmodels/Cost-of-Capital-Calculator/branch/master/graph/badge.svg?token=vOrtCdGu1c)](https://codecov.io/gh/PSLmodels/Cost-of-Capital-Calculator)
+
 # Cost-of-Capital-Calculator
 Cost-of-Capital-Calculator is a model that can be used to evaluate the effect of US federal taxes on the investment incentives of corporate and non-corporate businesses.  Specifically, Cost-of-Capital-Calculator uses data on the business assets and financial policy, as well as microdata on individual tax filers, to compute marginal effective tax rates on new investments.  In modeling the effects of changes to the individual income tax code, Cost-of-Capital-Calculator works with [Tax-Calculator](https://github.com/PSLmodels/tax-calculator), another open source model of US federal tax policy.  Cost-of-Capital-Calculator is written in Python, an interpreted language that can execute on Windows, Mac, or Linux.
 
