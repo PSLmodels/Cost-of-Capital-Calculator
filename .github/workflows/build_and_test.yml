@@ -39,8 +39,6 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./ccc/tests/coverage.xml
-          #files: ./coverage1.xml,./coverage2.xml
-          directory: ./coverage/reports/
           flags: unittests
           name: codecov-umbrella
           fail_ci_if_error: true
