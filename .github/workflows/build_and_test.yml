@@ -29,13 +29,11 @@ jobs:
           pip install -e .
           pip install pytest-cov
           pip install pytest-pycodestyle
-
       - name: Test
         shell: bash -l {0}
         working-directory: ./
         run: |
           pytest -m 'not needs_puf' --pycodestyle --cov=./ --cov-report=xml
-
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
