@@ -46,7 +46,7 @@ def test_get_rates():
 
 @pytest.mark.parametrize('reform,expected',
                          [({'key1': {'key2': 1.0}}, False),
-                         ({'key1': 'string'}, True)],
+                          ({'key1': 'string'}, True)],
                          ids=['assert False', 'assert True'])
 def test_is_paramtools_format(reform, expected):
     '''
