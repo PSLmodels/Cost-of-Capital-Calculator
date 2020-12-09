@@ -19,3 +19,6 @@ comment:
   behavior: default
   require_changes: false
 
+ignore:
+  - "setup.py"
+  - "example.py"
