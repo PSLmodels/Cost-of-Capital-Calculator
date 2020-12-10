@@ -518,7 +518,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">reform</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="k">return</span> <span class="kc">False</span> <span class="c1"># taxcalc reform</span>
+            <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># taxcalc reform</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Not doing a specific check to see if the value is a list</span>
             <span class="c1"># since it could be a list or just a scalar value.</span>
