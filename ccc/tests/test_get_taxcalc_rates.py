@@ -42,3 +42,16 @@ def test_get_rates():
     for k, v in test_dict.items():
         print('Tax rate = ', k)
         assert(np.allclose(v, p.__dict__[k]))
+
+
+@pytest.mark.parametrize('reform,expected',
+                         [({'key1': {'key2': 1.0}}, False),
+                          ({'key1': 'string'}, True)],
+                         ids=['assert False', 'assert True'])
+def test_is_paramtools_format(reform, expected):
+    '''
+    Test get_taxcalc_rates.is_parametools_format function.
+    '''
+    returned_value = tc.is_paramtools_format(reform)
+
+    assert (expected == returned_value)
