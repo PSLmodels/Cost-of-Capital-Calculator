@@ -48,14 +48,29 @@ def get_inputs(meta_params_dict):
     meta_params.adjust(meta_params_dict)
     # Set default CCC params
     ccc_params = Specification(year=meta_params.year)
+    filtered_ccc_params = OrderedDict()
+    # filter out parameters that can be changed with Tax-Calc params or
+    # that users unlikely to use (so reduce clutter on screen)
+    filter_list = [
+        'tau_div', 'tau_nc', 'tau_int', 'tau_scg', 'tau_lcg', 'tau_td',
+        'tau_h', 'alpha_c_e_ft', 'alpha_c_e_td', 'alpha_c_e_nt',
+        'alpha_c_d_ft', 'alpha_c_d_td', 'alpha_c_d_nt', 'alpha_nc_d_ft',
+        'alpha_nc_d_td', 'alpha_nc_d_nt', 'alpha_h_d_ft', 'alpha_h_d_td',
+        'alpha_h_d_nt', 'Y_td', 'Y_scg', 'Y_lcg', 'Y_xcg', 'Y_v', 'gamma',
+        'phi']
+    for k, v in ccc_params.dump().items():
+        if k not in filter_list:
+            filtered_ccc_params[k] = v
+
     # Set default TC params
     iit_params = Policy()
     iit_params.set_state(year=meta_params.year.tolist())
 
-    filtered_iit_params = cs2tc.convert_policy_defaults(meta_params, iit_params)
+    filtered_iit_params = cs2tc.convert_policy_defaults(
+      meta_params, iit_params)
 
     default_params = {
-        "Business Tax Parameters": ccc_params.dump(),
+        "Business Tax Parameters": filtered_ccc_params,
         "Individual and Payroll Tax Parameters": filtered_iit_params
     }
 
