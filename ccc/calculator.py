@@ -1321,12 +1321,12 @@ class Calculator():
              'x': [0, .15, .35, .6]})
         p_legend = figure(height=150, width=380, x_range=(-0.075, 75),
                           title='Asset Amount', tools='')
-        p_legend.circle(y=None, x='x', size='size', source=legend_cds,
-                        color=BLUE, fill_alpha=.4, alpha=.4,
-                        line_color="#333333")
-        l1 = LabelSet(y=None, x='x', text='label', x_offset=-20,
-                      y_offset=-50, source=legend_cds)
-        p_legend.add_layout(l1)
+        # p_legend.circle(y=None, x='x', size='size', source=legend_cds,
+        #                 color=BLUE, fill_alpha=.4, alpha=.4,
+        #                 line_color="#333333")
+        # l1 = LabelSet(y=None, x='x', text='label', x_offset=-20,
+        #               y_offset=-50, source=legend_cds)
+        # p_legend.add_layout(l1)
         p_legend.axis.visible = False
         p_legend.grid.grid_line_color = None
         p_legend.toolbar.active_drag = None
@@ -1366,12 +1366,12 @@ class Calculator():
         # Define and add a legend
         p2_legend = figure(height=150, width=380, x_range=(-0.075, .75),
                            title='Asset Amount', tools='')
-        p2_legend.circle(y=None, x='x', size='size', source=legend_cds,
-                         color=RED, fill_alpha=.4, alpha=.4,
-                         line_color="#333333")
-        l2 = LabelSet(y=None, x='x', text='label', x_offset=-20,
-                      y_offset=-50, source=legend_cds)
-        p2_legend.add_layout(l2)
+        # p2_legend.circle(y=None, x='x', size='size', source=legend_cds,
+        #                  color=RED, fill_alpha=.4, alpha=.4,
+        #                  line_color="#333333")
+        # l2 = LabelSet(y=None, x='x', text='label', x_offset=-20,
+        #               y_offset=-50, source=legend_cds)
+        # p2_legend.add_layout(l2)
         p2_legend.axis.visible = False
         p2_legend.grid.grid_line_color = None
         p2_legend.toolbar.active_drag = None
@@ -1611,12 +1611,12 @@ class Calculator():
              'x': [0, .15, .35, .6]})
         p_legend = figure(height=150, width=380, x_range=(-0.075, 75),
                           title='Asset Amount', tools='')
-        p_legend.circle(y=None, x='x', size='size', source=legend_cds,
-                        color=BLUE, fill_alpha=.4, alpha=.4,
-                        line_color="#333333")
-        l1 = LabelSet(y=None, x='x', text='label', x_offset=-20,
-                      y_offset=-50, source=legend_cds)
-        p_legend.add_layout(l1)
+        # p_legend.circle(y=None, x='x', size='size', source=legend_cds,
+        #                 color=BLUE, fill_alpha=.4, alpha=.4,
+        #                 line_color="#333333")
+        # l1 = LabelSet(y=None, x='x', text='label', x_offset=-20,
+        #               y_offset=-50, source=legend_cds)
+        # p_legend.add_layout(l1)
         p_legend.axis.visible = False
         p_legend.grid.grid_line_color = None
         p_legend.toolbar.active_drag = None
@@ -1673,12 +1673,12 @@ class Calculator():
         # Define and add a legend
         p2_legend = figure(height=150, width=380, x_range=(-0.075, .75),
                            title='Asset Amount', tools='')
-        p2_legend.circle(y=None, x='x', size='size', source=legend_cds,
-                         color=RED, fill_alpha=.4, alpha=.4,
-                         line_color="#333333")
-        l2 = LabelSet(y=None, x='x', text='label', x_offset=-20,
-                      y_offset=-50, source=legend_cds)
-        p2_legend.add_layout(l2)
+        # p2_legend.circle(y=None, x='x', size='size', source=legend_cds,
+        #                  color=RED, fill_alpha=.4, alpha=.4,
+        #                  line_color="#333333")
+        # l2 = LabelSet(y=None, x='x', text='label', x_offset=-20,
+        #               y_offset=-50, source=legend_cds)
+        # p2_legend.add_layout(l2)
         p2_legend.axis.visible = False
         p2_legend.grid.grid_line_color = None
         p2_legend.toolbar.active_drag = None

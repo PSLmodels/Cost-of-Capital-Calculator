@@ -1,10 +1,9 @@
 name: ccc-dev
 channels:
-- PSLmodels
 - conda-forge
 dependencies:
 - python
-- "taxcalc>=3.0.0"
+- "taxcalc>=3.1.0"
 - "paramtools>=0.14.2"
 - "bokeh>=1.4.0"
 - setuptools
