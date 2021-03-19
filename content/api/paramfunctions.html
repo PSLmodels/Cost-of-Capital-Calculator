@@ -26,7 +26,7 @@
 
     
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
@@ -44,9 +44,7 @@
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -54,6 +52,8 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="CCC utility functions" href="utils.html" />
@@ -283,21 +283,21 @@
           
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
             class="fas fa-download"></i></button>
@@ -315,7 +315,7 @@
     </div>
 </div>
 
-        <!-- Source interaction buttons -->
+            <!-- Source interaction buttons -->
 
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
@@ -334,21 +334,22 @@
 </div>
 
 
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
 
-        <!-- Launch buttons -->
+            <!-- Launch buttons -->
 
-    </div>
+        </div>
 
-    <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
         <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
+            <i class="fas fa-list"></i>
+            Contents
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
@@ -361,6 +362,7 @@
 
         </nav>
         
+        </div>
     </div>
 </div>
     <div id="main-content" class="row">
@@ -375,7 +377,7 @@
 <span id="ccc-paramfunctions"></span><h2>ccc.paramfunctions<a class="headerlink" href="#module-ccc.paramfunctions" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt id="ccc.paramfunctions.calc_g">
-<code class="sig-prename descclassname">ccc.paramfunctions.</code><code class="sig-name descname">calc_g</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g_scg</span></em>, <em class="sig-param"><span class="n">g_lcg</span></em>, <em class="sig-param"><span class="n">g_xcg</span></em>, <em class="sig-param"><span class="n">omega_scg</span></em>, <em class="sig-param"><span class="n">omega_lcg</span></em>, <em class="sig-param"><span class="n">omega_xcg</span></em>, <em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">E_c</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/paramfunctions.html#calc_g"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.paramfunctions.calc_g" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">ccc.paramfunctions.</span></code><code class="sig-name descname"><span class="pre">calc_g</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g_scg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g_lcg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g_xcg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omega_scg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omega_lcg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omega_xcg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_c</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/paramfunctions.html#calc_g"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.paramfunctions.calc_g" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the after-tax, annualized, real rate of return on all
 capital gains</p>
 <dl class="simple">
@@ -419,7 +421,7 @@ until death</p></li>
 
 <dl class="py function">
 <dt id="ccc.paramfunctions.calc_g__g">
-<code class="sig-prename descclassname">ccc.paramfunctions.</code><code class="sig-name descname">calc_g__g</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Y_g</span></em>, <em class="sig-param"><span class="n">tau_cg</span></em>, <em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">E_c</span></em>, <em class="sig-param"><span class="n">pi</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/paramfunctions.html#calc_g__g"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.paramfunctions.calc_g__g" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">ccc.paramfunctions.</span></code><code class="sig-name descname"><span class="pre">calc_g__g</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Y_g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau_cg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/paramfunctions.html#calc_g__g"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.paramfunctions.calc_g__g" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the real, after-tax annualized return on short or long-
 term capital gains</p>
 <dl class="simple">
@@ -454,7 +456,7 @@ term capital gains</p>
 
 <dl class="py function">
 <dt id="ccc.paramfunctions.calc_s">
-<code class="sig-prename descclassname">ccc.paramfunctions.</code><code class="sig-name descname">calc_s</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">p</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/paramfunctions.html#calc_s"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.paramfunctions.calc_s" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">ccc.paramfunctions.</span></code><code class="sig-name descname"><span class="pre">calc_s</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/paramfunctions.html#calc_s"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.paramfunctions.calc_s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the after-tax rate of return to savers, s.</p>
 <div class="math notranslate nohighlight">
 \[s = ...\]</div>
@@ -490,7 +492,7 @@ financing</p>
 
 <dl class="py function">
 <dt id="ccc.paramfunctions.calc_s__d">
-<code class="sig-prename descclassname">ccc.paramfunctions.</code><code class="sig-name descname">calc_s__d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s_d_td</span></em>, <em class="sig-param"><span class="n">alpha_d_ft</span></em>, <em class="sig-param"><span class="n">alpha_d_td</span></em>, <em class="sig-param"><span class="n">alpha_d_nt</span></em>, <em class="sig-param"><span class="n">tau_int</span></em>, <em class="sig-param"><span class="n">tau_w</span></em>, <em class="sig-param"><span class="n">i</span></em>, <em class="sig-param"><span class="n">pi</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/paramfunctions.html#calc_s__d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.paramfunctions.calc_s__d" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">ccc.paramfunctions.</span></code><code class="sig-name descname"><span class="pre">calc_s__d</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s_d_td</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_d_ft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_d_td</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_d_nt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau_int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/paramfunctions.html#calc_s__d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.paramfunctions.calc_s__d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the after-tax return to debt investments.</p>
 <dl class="simple">
 <dt>..math::</dt><dd><dl class="simple">
@@ -527,7 +529,7 @@ tax-free accounts</p></li>
 
 <dl class="py function">
 <dt id="ccc.paramfunctions.calc_s_c_d_td">
-<code class="sig-prename descclassname">ccc.paramfunctions.</code><code class="sig-name descname">calc_s_c_d_td</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sprime_c_td</span></em>, <em class="sig-param"><span class="n">gamma</span></em>, <em class="sig-param"><span class="n">i</span></em>, <em class="sig-param"><span class="n">pi</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/paramfunctions.html#calc_s_c_d_td"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.paramfunctions.calc_s_c_d_td" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">ccc.paramfunctions.</span></code><code class="sig-name descname"><span class="pre">calc_s_c_d_td</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sprime_c_td</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/paramfunctions.html#calc_s_c_d_td"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.paramfunctions.calc_s_c_d_td" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the after-tax return on corprate debt investments made
 through tax-deferred accounts.</p>
 <dl class="simple">
@@ -560,7 +562,7 @@ insurance policies</p></li>
 
 <dl class="py function">
 <dt id="ccc.paramfunctions.calc_s_c_e">
-<code class="sig-prename descclassname">ccc.paramfunctions.</code><code class="sig-name descname">calc_s_c_e</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s_c_e_ft</span></em>, <em class="sig-param"><span class="n">s_c_e_td</span></em>, <em class="sig-param"><span class="n">alpha_c_e_ft</span></em>, <em class="sig-param"><span class="n">alpha_c_e_td</span></em>, <em class="sig-param"><span class="n">alpha_c_e_nt</span></em>, <em class="sig-param"><span class="n">tau_w</span></em>, <em class="sig-param"><span class="n">E_c</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/paramfunctions.html#calc_s_c_e"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.paramfunctions.calc_s_c_e" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">ccc.paramfunctions.</span></code><code class="sig-name descname"><span class="pre">calc_s_c_e</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s_c_e_ft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s_c_e_td</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_c_e_ft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_c_e_td</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_c_e_nt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_c</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/paramfunctions.html#calc_s_c_e"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.paramfunctions.calc_s_c_e" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the after-tax return on investments in corporate equity</p>
 <dl class="simple">
 <dt>..math::</dt><dd><dl class="simple">
@@ -601,7 +603,7 @@ made through tax-exempt accounts</p></li>
 
 <dl class="py function">
 <dt id="ccc.paramfunctions.calc_s_c_e_td">
-<code class="sig-prename descclassname">ccc.paramfunctions.</code><code class="sig-name descname">calc_s_c_e_td</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Y_td</span></em>, <em class="sig-param"><span class="n">tau_td</span></em>, <em class="sig-param"><span class="n">i</span></em>, <em class="sig-param"><span class="n">pi</span></em>, <em class="sig-param"><span class="n">E_c</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/paramfunctions.html#calc_s_c_e_td"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.paramfunctions.calc_s_c_e_td" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">ccc.paramfunctions.</span></code><code class="sig-name descname"><span class="pre">calc_s_c_e_td</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Y_td</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau_td</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_c</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/paramfunctions.html#calc_s_c_e_td"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.paramfunctions.calc_s_c_e_td" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the after-tax return on investmentes in corporate equity
 in tax-deferred accounts.</p>
 <dl class="simple">
@@ -638,7 +640,7 @@ tax-deferred accounts</p></li>
 
 <dl class="py function">
 <dt id="ccc.paramfunctions.calc_sprime_c_td">
-<code class="sig-prename descclassname">ccc.paramfunctions.</code><code class="sig-name descname">calc_sprime_c_td</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Y_td</span></em>, <em class="sig-param"><span class="n">tau_td</span></em>, <em class="sig-param"><span class="n">i</span></em>, <em class="sig-param"><span class="n">pi</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/paramfunctions.html#calc_sprime_c_td"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.paramfunctions.calc_sprime_c_td" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">ccc.paramfunctions.</span></code><code class="sig-name descname"><span class="pre">calc_sprime_c_td</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Y_td</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau_td</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/paramfunctions.html#calc_sprime_c_td"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.paramfunctions.calc_sprime_c_td" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute after-tax rate of return on savings invested in
 tax-deferred accounts.</p>
 <div class="math notranslate nohighlight">
@@ -693,15 +695,15 @@ income from tax-deferred accounts</p></li>
 
               </div>
               
-        </div>
-    </div>
-    
-    
-    <div class='prev-next-bottom'>
         
+        <div class='prev-next-bottom'>
+            
     <a class='left-prev' id="prev-link" href="parameters.html" title="previous page">Parameters</a>
     <a class='right-next' id="next-link" href="utils.html" title="next page">CCC utility functions</a>
 
+        </div>
+        
+        </div>
     </div>
     <footer class="footer mt-5 mt-md-0">
     <div class="container">

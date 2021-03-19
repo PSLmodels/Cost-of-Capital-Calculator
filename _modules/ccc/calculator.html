@@ -26,7 +26,7 @@
 
     
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
@@ -44,9 +44,7 @@
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -281,22 +279,22 @@
           
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        
-        <!-- Source interaction buttons -->
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+            <!-- Source interaction buttons -->
 
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
@@ -315,19 +313,20 @@
 </div>
 
 
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
 
-        <!-- Launch buttons -->
+            <!-- Launch buttons -->
 
-    </div>
+        </div>
 
-    <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
     </div>
 </div>
     <div id="main-content" class="row">
@@ -1659,12 +1658,12 @@
              <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">15</span><span class="p">,</span> <span class="o">.</span><span class="mi">35</span><span class="p">,</span> <span class="o">.</span><span class="mi">6</span><span class="p">]})</span>
         <span class="n">p_legend</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">380</span><span class="p">,</span> <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.075</span><span class="p">,</span> <span class="mi">75</span><span class="p">),</span>
                           <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Asset Amount&#39;</span><span class="p">,</span> <span class="n">tools</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-        <span class="n">p_legend</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">legend_cds</span><span class="p">,</span>
-                        <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">fill_alpha</span><span class="o">=.</span><span class="mi">4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">4</span><span class="p">,</span>
-                        <span class="n">line_color</span><span class="o">=</span><span class="s2">&quot;#333333&quot;</span><span class="p">)</span>
-        <span class="n">l1</span> <span class="o">=</span> <span class="n">LabelSet</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="n">x_offset</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span>
-                      <span class="n">y_offset</span><span class="o">=-</span><span class="mi">50</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">legend_cds</span><span class="p">)</span>
-        <span class="n">p_legend</span><span class="o">.</span><span class="n">add_layout</span><span class="p">(</span><span class="n">l1</span><span class="p">)</span>
+        <span class="c1"># p_legend.circle(y=None, x=&#39;x&#39;, size=&#39;size&#39;, source=legend_cds,</span>
+        <span class="c1">#                 color=BLUE, fill_alpha=.4, alpha=.4,</span>
+        <span class="c1">#                 line_color=&quot;#333333&quot;)</span>
+        <span class="c1"># l1 = LabelSet(y=None, x=&#39;x&#39;, text=&#39;label&#39;, x_offset=-20,</span>
+        <span class="c1">#               y_offset=-50, source=legend_cds)</span>
+        <span class="c1"># p_legend.add_layout(l1)</span>
         <span class="n">p_legend</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">p_legend</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">grid_line_color</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">p_legend</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">active_drag</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1704,12 +1703,12 @@
         <span class="c1"># Define and add a legend</span>
         <span class="n">p2_legend</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">380</span><span class="p">,</span> <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.075</span><span class="p">,</span> <span class="o">.</span><span class="mi">75</span><span class="p">),</span>
                            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Asset Amount&#39;</span><span class="p">,</span> <span class="n">tools</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-        <span class="n">p2_legend</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">legend_cds</span><span class="p">,</span>
-                         <span class="n">color</span><span class="o">=</span><span class="n">RED</span><span class="p">,</span> <span class="n">fill_alpha</span><span class="o">=.</span><span class="mi">4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">4</span><span class="p">,</span>
-                         <span class="n">line_color</span><span class="o">=</span><span class="s2">&quot;#333333&quot;</span><span class="p">)</span>
-        <span class="n">l2</span> <span class="o">=</span> <span class="n">LabelSet</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="n">x_offset</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span>
-                      <span class="n">y_offset</span><span class="o">=-</span><span class="mi">50</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">legend_cds</span><span class="p">)</span>
-        <span class="n">p2_legend</span><span class="o">.</span><span class="n">add_layout</span><span class="p">(</span><span class="n">l2</span><span class="p">)</span>
+        <span class="c1"># p2_legend.circle(y=None, x=&#39;x&#39;, size=&#39;size&#39;, source=legend_cds,</span>
+        <span class="c1">#                  color=RED, fill_alpha=.4, alpha=.4,</span>
+        <span class="c1">#                  line_color=&quot;#333333&quot;)</span>
+        <span class="c1"># l2 = LabelSet(y=None, x=&#39;x&#39;, text=&#39;label&#39;, x_offset=-20,</span>
+        <span class="c1">#               y_offset=-50, source=legend_cds)</span>
+        <span class="c1"># p2_legend.add_layout(l2)</span>
         <span class="n">p2_legend</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">p2_legend</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">grid_line_color</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">p2_legend</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">active_drag</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1949,12 +1948,12 @@
              <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">15</span><span class="p">,</span> <span class="o">.</span><span class="mi">35</span><span class="p">,</span> <span class="o">.</span><span class="mi">6</span><span class="p">]})</span>
         <span class="n">p_legend</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">380</span><span class="p">,</span> <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.075</span><span class="p">,</span> <span class="mi">75</span><span class="p">),</span>
                           <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Asset Amount&#39;</span><span class="p">,</span> <span class="n">tools</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-        <span class="n">p_legend</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">legend_cds</span><span class="p">,</span>
-                        <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">fill_alpha</span><span class="o">=.</span><span class="mi">4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">4</span><span class="p">,</span>
-                        <span class="n">line_color</span><span class="o">=</span><span class="s2">&quot;#333333&quot;</span><span class="p">)</span>
-        <span class="n">l1</span> <span class="o">=</span> <span class="n">LabelSet</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="n">x_offset</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span>
-                      <span class="n">y_offset</span><span class="o">=-</span><span class="mi">50</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">legend_cds</span><span class="p">)</span>
-        <span class="n">p_legend</span><span class="o">.</span><span class="n">add_layout</span><span class="p">(</span><span class="n">l1</span><span class="p">)</span>
+        <span class="c1"># p_legend.circle(y=None, x=&#39;x&#39;, size=&#39;size&#39;, source=legend_cds,</span>
+        <span class="c1">#                 color=BLUE, fill_alpha=.4, alpha=.4,</span>
+        <span class="c1">#                 line_color=&quot;#333333&quot;)</span>
+        <span class="c1"># l1 = LabelSet(y=None, x=&#39;x&#39;, text=&#39;label&#39;, x_offset=-20,</span>
+        <span class="c1">#               y_offset=-50, source=legend_cds)</span>
+        <span class="c1"># p_legend.add_layout(l1)</span>
         <span class="n">p_legend</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">p_legend</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">grid_line_color</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">p_legend</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">active_drag</span> <span class="o">=</span> <span class="kc">None</span>
@@ -2011,12 +2010,12 @@
         <span class="c1"># Define and add a legend</span>
         <span class="n">p2_legend</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">380</span><span class="p">,</span> <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.075</span><span class="p">,</span> <span class="o">.</span><span class="mi">75</span><span class="p">),</span>
                            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Asset Amount&#39;</span><span class="p">,</span> <span class="n">tools</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-        <span class="n">p2_legend</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">legend_cds</span><span class="p">,</span>
-                         <span class="n">color</span><span class="o">=</span><span class="n">RED</span><span class="p">,</span> <span class="n">fill_alpha</span><span class="o">=.</span><span class="mi">4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">4</span><span class="p">,</span>
-                         <span class="n">line_color</span><span class="o">=</span><span class="s2">&quot;#333333&quot;</span><span class="p">)</span>
-        <span class="n">l2</span> <span class="o">=</span> <span class="n">LabelSet</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="n">x_offset</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span>
-                      <span class="n">y_offset</span><span class="o">=-</span><span class="mi">50</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">legend_cds</span><span class="p">)</span>
-        <span class="n">p2_legend</span><span class="o">.</span><span class="n">add_layout</span><span class="p">(</span><span class="n">l2</span><span class="p">)</span>
+        <span class="c1"># p2_legend.circle(y=None, x=&#39;x&#39;, size=&#39;size&#39;, source=legend_cds,</span>
+        <span class="c1">#                  color=RED, fill_alpha=.4, alpha=.4,</span>
+        <span class="c1">#                  line_color=&quot;#333333&quot;)</span>
+        <span class="c1"># l2 = LabelSet(y=None, x=&#39;x&#39;, text=&#39;label&#39;, x_offset=-20,</span>
+        <span class="c1">#               y_offset=-50, source=legend_cds)</span>
+        <span class="c1"># p2_legend.add_layout(l2)</span>
         <span class="n">p2_legend</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">p2_legend</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">grid_line_color</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">p2_legend</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">active_drag</span> <span class="o">=</span> <span class="kc">None</span>
@@ -2113,13 +2112,13 @@
 
               </div>
               
-        </div>
-    </div>
-    
-    
-    <div class='prev-next-bottom'>
         
+        <div class='prev-next-bottom'>
+            
 
+        </div>
+        
+        </div>
     </div>
     <footer class="footer mt-5 mt-md-0">
     <div class="container">

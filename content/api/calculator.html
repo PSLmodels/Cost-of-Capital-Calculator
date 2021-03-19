@@ -26,7 +26,7 @@
 
     
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
@@ -44,9 +44,7 @@
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -283,21 +281,21 @@
           
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
             class="fas fa-download"></i></button>
@@ -315,7 +313,7 @@
     </div>
 </div>
 
-        <!-- Source interaction buttons -->
+            <!-- Source interaction buttons -->
 
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
@@ -334,21 +332,22 @@
 </div>
 
 
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
 
-        <!-- Launch buttons -->
+            <!-- Launch buttons -->
 
-    </div>
+        </div>
 
-    <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
         <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
+            <i class="fas fa-list"></i>
+            Contents
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
@@ -361,6 +360,7 @@
 
         </nav>
         
+        </div>
     </div>
 </div>
     <div id="main-content" class="row">
@@ -375,7 +375,7 @@
 <h2>ccc.calculator<a class="headerlink" href="#ccc-calculator" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="ccc.calculator.Calculator">
-<em class="property">class </em><code class="sig-prename descclassname">ccc.calculator.</code><code class="sig-name descname">Calculator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">p</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dp</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">assets</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calculator.Calculator" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ccc.calculator.</span></code><code class="sig-name descname"><span class="pre">Calculator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calculator.Calculator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor for the Calculator class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -421,7 +421,7 @@ Calculator constructors.</p>
 </dl>
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.asset_bubble">
-<code class="sig-name descname">asset_bubble</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">calc</span></em>, <em class="sig-param"><span class="n">output_variable</span><span class="o">=</span><span class="default_value">'mettr_mix'</span></em>, <em class="sig-param"><span class="n">include_inventories</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">include_land</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">include_IP</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">include_title</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">path</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.asset_bubble"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calculator.Calculator.asset_bubble" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">asset_bubble</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_variable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mettr_mix'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_inventories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_land</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_IP</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.asset_bubble"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calculator.Calculator.asset_bubble" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a bubble plot.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -452,7 +452,7 @@ property in calculations.  Defaults to <cite>False</cite></p></li>
 
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.asset_share_table">
-<code class="sig-name descname">asset_share_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">include_land</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">include_inventories</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">output_type</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.asset_share_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calculator.Calculator.asset_share_table" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">asset_share_table</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_land</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_inventories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.asset_share_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calculator.Calculator.asset_share_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create table summarizing the output_variable under the baseline
 and reform policies.</p>
 <dl class="field-list simple">
@@ -481,7 +481,7 @@ depending on <cite>output_type</cite>. Default is <cite>None</cite>.</p></li>
 
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.asset_summary_table">
-<code class="sig-name descname">asset_summary_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">calc</span></em>, <em class="sig-param"><span class="n">output_variable</span><span class="o">=</span><span class="default_value">'mettr'</span></em>, <em class="sig-param"><span class="n">financing</span><span class="o">=</span><span class="default_value">'mix'</span></em>, <em class="sig-param"><span class="n">include_land</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">include_inventories</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">output_type</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.asset_summary_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calculator.Calculator.asset_summary_table" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">asset_summary_table</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_variable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mettr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">financing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mix'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_land</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_inventories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.asset_summary_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calculator.Calculator.asset_summary_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create table summarizing the output_variable under the baseline
 and reform policies by major asset grouping.</p>
 <dl class="field-list simple">
@@ -518,7 +518,7 @@ depending on <cite>output_type</cite>. Default is <cite>None</cite>.</p></li>
 
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.bubble_widget">
-<code class="sig-name descname">bubble_widget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">calc</span></em>, <em class="sig-param"><span class="n">output_variable</span><span class="o">=</span><span class="default_value">'mettr'</span></em>, <em class="sig-param"><span class="n">include_land</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">include_inventories</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">include_IP</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.bubble_widget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calculator.Calculator.bubble_widget" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">bubble_widget</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_variable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mettr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_land</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_inventories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_IP</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.bubble_widget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calculator.Calculator.bubble_widget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a bubble plot widget.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -547,13 +547,13 @@ property in calculations.  Defaults to <cite>False</cite></p></li>
 
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.calc_all">
-<code class="sig-name descname">calc_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.calc_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calculator.Calculator.calc_all" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">calc_all</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.calc_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calculator.Calculator.calc_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates all CCC variables for some CCC Assets object.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.calc_base">
-<code class="sig-name descname">calc_base</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.calc_base"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calculator.Calculator.calc_base" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">calc_base</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.calc_base"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calculator.Calculator.calc_base" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call functions for the current_year.  This involves
 updating depreciation methods, computing the npv of depreciation
 (z), and computing the cost of capital (rho) and then calling
@@ -563,7 +563,7 @@ z.</p>
 
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.calc_by_asset">
-<code class="sig-name descname">calc_by_asset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">include_inventories</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">include_land</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.calc_by_asset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calculator.Calculator.calc_by_asset" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">calc_by_asset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_inventories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_land</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.calc_by_asset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calculator.Calculator.calc_by_asset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates all variables by asset, including overall, and by
 major asset categories.</p>
 <dl class="field-list simple">
@@ -590,7 +590,7 @@ calculations.  Defaults to <cite>True</cite>.</p></li>
 
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.calc_by_industry">
-<code class="sig-name descname">calc_by_industry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">include_inventories</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">include_land</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.calc_by_industry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calculator.Calculator.calc_by_industry" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">calc_by_industry</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_inventories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_land</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.calc_by_industry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calculator.Calculator.calc_by_industry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates all variables by industry, including overall, and by
 major asset categories.</p>
 <dl class="field-list simple">
@@ -617,7 +617,7 @@ calculations.  Defaults to <cite>True</cite>.</p></li>
 
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.calc_other">
-<code class="sig-name descname">calc_other</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.calc_other"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calculator.Calculator.calc_other" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">calc_other</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.calc_other"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calculator.Calculator.calc_other" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates variables that depend on z and rho such as metr, ucc</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -639,19 +639,19 @@ with depreciation rates, cost of capital, etc.</p>
 
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.current_year">
-<em class="property">property </em><code class="sig-name descname">current_year</code><a class="headerlink" href="#ccc.calculator.Calculator.current_year" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">current_year</span></code><a class="headerlink" href="#ccc.calculator.Calculator.current_year" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculator class current calendar year property.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.data_year">
-<em class="property">property </em><code class="sig-name descname">data_year</code><a class="headerlink" href="#ccc.calculator.Calculator.data_year" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">data_year</span></code><a class="headerlink" href="#ccc.calculator.Calculator.data_year" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculator class initial (i.e., first) assets data year property.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.grouped_bar">
-<code class="sig-name descname">grouped_bar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">calc</span></em>, <em class="sig-param"><span class="n">output_variable</span><span class="o">=</span><span class="default_value">'mettr'</span></em>, <em class="sig-param"><span class="n">financing</span><span class="o">=</span><span class="default_value">'mix'</span></em>, <em class="sig-param"><span class="n">group_by_asset</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">corporate</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">include_land</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">include_inventories</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">include_title</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.grouped_bar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calculator.Calculator.grouped_bar" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">grouped_bar</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_variable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mettr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">financing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mix'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_asset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">corporate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_land</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_inventories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.grouped_bar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calculator.Calculator.grouped_bar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a grouped bar plot (grouped by major industry or major
 asset group).</p>
 <dl class="field-list simple">
@@ -689,7 +689,7 @@ calculations.  Defaults to <cite>True</cite>.</p></li>
 
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.industry_summary_table">
-<code class="sig-name descname">industry_summary_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">calc</span></em>, <em class="sig-param"><span class="n">output_variable</span><span class="o">=</span><span class="default_value">'mettr'</span></em>, <em class="sig-param"><span class="n">financing</span><span class="o">=</span><span class="default_value">'mix'</span></em>, <em class="sig-param"><span class="n">include_land</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">include_inventories</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">output_type</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.industry_summary_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calculator.Calculator.industry_summary_table" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">industry_summary_table</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_variable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mettr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">financing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mix'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_land</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_inventories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.industry_summary_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calculator.Calculator.industry_summary_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create table summarizing the output_variable under the baseline
 and reform policies by major asset grouping.</p>
 <dl class="field-list simple">
@@ -726,7 +726,7 @@ depending on <cite>output_type</cite>. Default is <cite>None</cite>.</p></li>
 
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.p_param">
-<code class="sig-name descname">p_param</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param_name</span></em>, <em class="sig-param"><span class="n">param_value</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.p_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calculator.Calculator.p_param" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">p_param</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.p_param"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calculator.Calculator.p_param" title="Permalink to this definition">¶</a></dt>
 <dd><dl>
 <dt>If param_value is None, return named parameter in</dt><dd><p>embedded Specification object.</p>
 </dd>
@@ -745,7 +745,7 @@ param_value (python object): value to set parameter to</p>
 
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.range_plot">
-<code class="sig-name descname">range_plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">calc</span></em>, <em class="sig-param"><span class="n">output_variable</span><span class="o">=</span><span class="default_value">'mettr'</span></em>, <em class="sig-param"><span class="n">corporate</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">include_land</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">include_inventories</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">include_title</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.range_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calculator.Calculator.range_plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">range_plot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_variable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mettr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">corporate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_land</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_inventories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.range_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calculator.Calculator.range_plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a range plot.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -776,14 +776,14 @@ calculations.  Defaults to <cite>True</cite></p></li>
 
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.restore_assets">
-<code class="sig-name descname">restore_assets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.restore_assets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calculator.Calculator.restore_assets" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">restore_assets</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.restore_assets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calculator.Calculator.restore_assets" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the embedded Assets object to the stored Assets object
 that was saved in the last call to the store_assets() method.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.store_assets">
-<code class="sig-name descname">store_assets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.store_assets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calculator.Calculator.store_assets" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">store_assets</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.store_assets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calculator.Calculator.store_assets" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make internal copy of embedded Assets object that can then be
 restored after interim calculations that make temporary changes
 to the embedded Assets object.</p>
@@ -791,7 +791,7 @@ to the embedded Assets object.</p>
 
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.summary_table">
-<code class="sig-name descname">summary_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">calc</span></em>, <em class="sig-param"><span class="n">output_variable</span><span class="o">=</span><span class="default_value">'mettr'</span></em>, <em class="sig-param"><span class="n">include_land</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">include_inventories</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">output_type</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.summary_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ccc.calculator.Calculator.summary_table" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">summary_table</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_variable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mettr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_land</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_inventories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.summary_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calculator.Calculator.summary_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create table summarizing the output_variable under the baseline
 and reform policies.</p>
 <dl class="field-list simple">
@@ -850,15 +850,15 @@ depending on <cite>output_type</cite>. Default is <cite>None</cite>.</p></li>
 
               </div>
               
-        </div>
-    </div>
-    
-    
-    <div class='prev-next-bottom'>
         
+        <div class='prev-next-bottom'>
+            
     <a class='left-prev' id="prev-link" href="calcfunctions.html" title="previous page">Cost of Capital Calculation Functions</a>
     <a class='right-next' id="next-link" href="data.html" title="next page">Data</a>
 
+        </div>
+        
+        </div>
     </div>
     <footer class="footer mt-5 mt-md-0">
     <div class="container">
