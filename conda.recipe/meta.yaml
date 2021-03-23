@@ -8,21 +8,18 @@ source:
 requirements:
   build:
     - python
-    - "taxcalc>=2.4.2"
-    - "bokeh>=1.4.0"
-    - "paramtools>=0.7.1"
+    - pip
     - setuptools
-    - xlrd
 
   run:
-    - python
-    - "taxcalc>=2.4.0"
-    - setuptools
-    - "paramtools>=0.7.1"
-    - xlrd
+    - python >=3.6
+    - taxcalc >=3.1.0
+    - bokeh >=1.4.0
+    - paramtools >=0.7.1
+    - cs2tc
 
 about:
-  home: https://github.com/open-source-economics/Cost-of-Capital-Calculator/
+  home: https://github.com/PSLmodels/Cost-of-Capital-Calculator/
 
 test:
   imports:

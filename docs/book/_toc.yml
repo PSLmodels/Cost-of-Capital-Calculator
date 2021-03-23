@@ -29,6 +29,10 @@
   chapters:
   - file: content/CCC_guide
 
+- part: About
+  chapters:
+  - file: content/license
+
 - part: References
   chapters:
   - file: content/references
