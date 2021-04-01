@@ -812,10 +812,10 @@
         }
     },
     "phi": {
-        "title": "Fration of inventories that are accounted for using LIFO",
-        "description": "Fration of inventories that are accounted for using LIFO.",
+        "title": "Fraction of inventories that are accounted for using LIFO",
+        "description": "Fraction of inventories that are accounted for using LIFO.",
         "section_1": "Accounting and Financial Policy",
-        "notes": "Fration of inventories that are accounted for using LIFO.",
+        "notes": "Fraction of inventories that are accounted for using LIFO.",
         "type": "float",
         "value": [
             {
