@@ -6,6 +6,8 @@
                 "validators": {
                     "choice": {
                         "choices": [
+                            2013,
+                            2014,
                             2015,
                             2016,
                             2017,
@@ -39,6 +41,14 @@
         "type": "float",
         "value": [
             {
+                "year": 2013,
+                "value": 0.35
+            },
+            {
+                "year": 2014,
+                "value": 0.35
+            },
+            {
                 "year": 2015,
                 "value": 0.35
             },
@@ -70,7 +80,7 @@
         "type": "bool",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": false
             }
         ],
@@ -83,7 +93,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.0
             }
         ],
@@ -101,6 +111,14 @@
         "section_2": "Bonus Depreciation",
         "type": "float",
         "value": [
+            {
+                "year": 2013,
+                "value": 0.5
+            },
+            {
+                "year": 2014,
+                "value": 0.5
+            },
             {
                 "year": 2015,
                 "value": 0.5
@@ -177,6 +195,14 @@
         "type": "float",
         "value": [
             {
+                "year": 2013,
+                "value": 0.5
+            },
+            {
+                "year": 2014,
+                "value": 0.5
+            },
+            {
                 "year": 2015,
                 "value": 0.5
             },
@@ -251,6 +277,14 @@
         "section_2": "Bonus Depreciation",
         "type": "float",
         "value": [
+            {
+                "year": 2013,
+                "value": 0.5
+            },
+            {
+                "year": 2014,
+                "value": 0.5
+            },
             {
                 "year": 2015,
                 "value": 0.5
@@ -327,6 +361,14 @@
         "type": "float",
         "value": [
             {
+                "year": 2013,
+                "value": 0.5
+            },
+            {
+                "year": 2014,
+                "value": 0.5
+            },
+            {
                 "year": 2015,
                 "value": 0.5
             },
@@ -401,6 +443,14 @@
         "section_2": "Bonus Depreciation",
         "type": "float",
         "value": [
+            {
+                "year": 2013,
+                "value": 0.5
+            },
+            {
+                "year": 2014,
+                "value": 0.5
+            },
             {
                 "year": 2015,
                 "value": 0.5
@@ -477,6 +527,14 @@
         "type": "float",
         "value": [
             {
+                "year": 2013,
+                "value": 0.5
+            },
+            {
+                "year": 2014,
+                "value": 0.5
+            },
+            {
                 "year": 2015,
                 "value": 0.5
             },
@@ -552,7 +610,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.0
             }
         ],
@@ -571,7 +629,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.0
             }
         ],
@@ -590,7 +648,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.0
             }
         ],
@@ -609,7 +667,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.0
             }
         ],
@@ -628,7 +686,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.0
             }
         ],
@@ -647,7 +705,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.0
             }
         ],
@@ -666,7 +724,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.068
             }
         ],
@@ -685,7 +743,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.0
             }
         ],
@@ -704,7 +762,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.0
             }
         ],
@@ -723,7 +781,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.0
             }
         ],
@@ -742,7 +800,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.0
             }
         ],
@@ -761,7 +819,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.5
             }
         ],
@@ -781,7 +839,7 @@
         "type": "bool",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": false
             }
         ],
@@ -796,7 +854,15 @@
         "type": "float",
         "value": [
             {
-            "year": 2015 ,
+                "year": 2013,
+                "value": 0.2548341698618564
+            },
+            {
+                "year": 2014,
+                "value": 0.2548341698618564
+            },
+            {
+            "year": 2015,
             "value": 0.2548341698618564
             },
             {
@@ -875,6 +941,14 @@
         "notes": "Effective marginal tax rate on dividends.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
         "type": "float",
         "value": [
+            {
+                "year": 2013 ,
+                "value": 0.1826392977480127
+            },
+            {
+                "year": 2014 ,
+                "value": 0.1826392977480127
+            },
             {
             "year": 2015 ,
             "value": 0.1826392977480127
@@ -956,6 +1030,14 @@
         "type": "float",
         "value": [
             {
+            "year": 2013 ,
+            "value": 0.34774779605673567
+            },
+            {
+            "year": 2014 ,
+            "value": 0.34774779605673567
+            },
+            {
             "year": 2015 ,
             "value": 0.34774779605673567
             },
@@ -1035,6 +1117,14 @@
         "notes": "Effective marginal tax rate on short-term capital gains.  Computed from Tax-Calculator vX.X.X using the 2009 PUF.",
         "type": "float",
         "value": [
+            {
+            "year": 2013 ,
+            "value": 0.31175417200609673
+            },
+            {
+            "year": 2014 ,
+            "value": 0.31175417200609673
+            },
             {
             "year": 2015 ,
             "value": 0.31175417200609673
@@ -1116,6 +1206,14 @@
         "type": "float",
         "value": [
             {
+            "year": 2013 ,
+            "value": 0.18167106746264436
+            },
+            {
+            "year": 2014 ,
+            "value": 0.18167106746264436
+            },
+            {
             "year": 2015 ,
             "value": 0.18167106746264436
             },
@@ -1196,7 +1294,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.0
             }
         ],
@@ -1215,6 +1313,14 @@
         "notes": "Effective marginal tax rate on assets held in tax-deferred accounts.  Default value from CBO (2014)",
         "type": "float",
         "value": [
+            {
+            "year": 2013 ,
+            "value": 0.2241245206327006
+            },
+            {
+            "year": 2014 ,
+            "value": 0.2241245206327006
+            },
             {
             "year": 2015 ,
             "value": 0.2241245206327006
@@ -1296,6 +1402,14 @@
         "type": "float",
         "value": [
             {
+            "year": 2013 ,
+            "value": 0.14304639378703857
+            },
+            {
+            "year": 2014 ,
+            "value": 0.14304639378703857
+            },
+            {
             "year": 2015 ,
             "value": 0.14304639378703857
             },
@@ -1376,67 +1490,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
-                "value": 0.0
-            },
-            {
-                "year": 2016,
-                "value": 0.0
-            },
-            {
-                "year": 2017,
-                "value": 0.0
-            },
-            {
-                "year": 2018,
-                "value": 0.0
-            },
-            {
-                "year": 2019,
-                "value": 0.0
-            },
-            {
-                "year": 2020,
-                "value": 0.0
-            },
-            {
-                "year": 2021,
-                "value": 0.0
-            },
-            {
-                "year": 2022,
-                "value": 0.0
-            },
-            {
-                "year": 2023,
-                "value": 0.0
-            },
-            {
-                "year": 2024,
-                "value": 0.0
-            },
-            {
-                "year": 2025,
-                "value": 0.0
-            },
-            {
-                "year": 2026,
-                "value": 0.0
-            },
-            {
-                "year": 2027,
-                "value": 0.0
-            },
-            {
-                "year": 2028,
-                "value": 0.0
-            },
-            {
-                "year": 2029,
-                "value": 0.0
-            },
-            {
-                "year": 2030,
+                "year": 2013,
                 "value": 0.0
             }
         ],
@@ -1454,6 +1508,14 @@
         "notes": "The default inflation rate is determined by the forecast of the Congressional Budget Office (CBO) for the PCE price index.",
         "type": "float",
         "value": [
+            {
+                "year": 2013,
+                "value": 0.012
+            },
+            {
+                "year": 2014,
+                "value": 0.013
+            },
             {
                 "year": 2015,
                 "value": 0.011
@@ -1531,6 +1593,14 @@
         "type": "float",
         "value": [
             {
+                "year": 2013,
+                "value": 0.068
+            },
+            {
+                "year": 2014,
+                "value": 0.068
+            },
+            {
                 "year": 2015,
                 "value": 0.068
             },
@@ -1572,7 +1642,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.058
             }
         ],
@@ -1591,7 +1661,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.32
             }
         ],
@@ -1610,7 +1680,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.29
             }
         ],
@@ -1630,7 +1700,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.035
             }
         ],
@@ -1650,7 +1720,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.496
             }
         ],
@@ -1670,7 +1740,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.469
             }
         ],
@@ -1690,7 +1760,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.572
             }
         ],
@@ -1710,7 +1780,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.039
             }
         ],
@@ -1730,7 +1800,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.389
             }
         ],
@@ -1750,7 +1820,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.523
             }
         ],
@@ -1770,7 +1840,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.149
             }
         ],
@@ -1790,7 +1860,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.328
             }
         ],
@@ -1810,7 +1880,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.763
             }
         ],
@@ -1830,7 +1900,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.101
             }
         ],
@@ -1850,7 +1920,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.136
             }
         ],
@@ -1870,7 +1940,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.779
             }
         ],
@@ -1890,7 +1960,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.037
             }
         ],
@@ -1910,7 +1980,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.183
             }
         ],
@@ -1930,7 +2000,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 8
             }
         ],
@@ -1950,7 +2020,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.3333
             }
         ],
@@ -1970,7 +2040,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 8
             }
         ],
@@ -1990,7 +2060,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 8
             }
         ],
@@ -2009,7 +2079,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.3333
             }
         ],
@@ -2029,7 +2099,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.3
             }
         ],
@@ -2048,7 +2118,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.56
             }
         ],
@@ -2067,7 +2137,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": 0.2
             }
         ],
@@ -2086,7 +2156,7 @@
         "type": "bool",
         "value": [
             {
-                "year": 2015,
+                "year": 2013,
                 "value": false
             }
         ],
