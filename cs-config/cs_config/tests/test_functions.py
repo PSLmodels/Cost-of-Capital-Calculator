@@ -15,14 +15,16 @@ def test_start_year_with_data_source():
     assert data["meta_parameters"]["year"]["validators"]["choice"]["choices"][0] == 2014
 
     ew = {
-        "policy": {"errors": {}, "warnings": {}},
-        "behavior": {"errors": {}, "warnings": {}},
+        # "meta_parameters": {"errors": {}, "warnings": {}},
+        "Business Tax Parameters": {"errors": {}, "warnings": {}},
+        "Individual and Payroll Tax Parameters": {"errors": {}, "warnings": {}}
     }
     res = functions.validate_inputs(
         {"data_source": "CPS", "year": 2013},
-        {"policy": {}, "behavior": {}}, ew
+        {"Business Tax Parameters": {},
+         "Individual and Payroll Tax Parameters": {}}, ew
     )
-    assert res["errors_warnings"]["policy"]["errors"].get("year")
+    assert res["errors_warnings"]["Business Tax Parameters"]["errors"].get("year")
 
 
 class TestFunctions1(CoreTestFunctions):

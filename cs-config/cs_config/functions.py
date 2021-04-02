@@ -113,9 +113,9 @@ def validate_inputs(meta_param_dict, adjustment, errors_warnings):
     Validates user inputs for parameters
     '''
     # Validate meta parameter inputs
-    meta_params = MetaParameters()
-    meta_params.adjust(meta_params_dict, raise_errors=False)
-    errors_warnings["policy"]["errors"].update(meta_params.errors)
+    meta_params = MetaParams()
+    meta_params.adjust(meta_param_dict, raise_errors=False)
+    errors_warnings["Business Tax Parameters"]["errors"].update(meta_params.errors)
     # Validate CCC parameter inputs
     params = Specification()
     params.adjust(adjustment["Business Tax Parameters"],
