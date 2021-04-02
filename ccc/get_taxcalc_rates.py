@@ -51,6 +51,7 @@ def get_calculator(baseline, calculator_start_year, reform=None,
 
     # the default set up increments year to 2013
     calc1 = Calculator(records=records1, policy=policy1)
+    print('Calculator initial year = ', calc1.current_year)
 
     # this increment_year function extrapolates all PUF variables to
     # the next year so this step takes the calculator to the start_year
@@ -96,6 +97,7 @@ def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={},
         'tau_lcg': np.zeros(array_size), 'tau_td': np.zeros(array_size),
         'tau_h': np.zeros(array_size)}
     for year in range(start_year, end_year + 1):
+        print('Calculator year = ', calc1.current_year)
         calc1.advance_to_year(year)
         print('year: ', str(calc1.current_year))
         # Compute mtrs
