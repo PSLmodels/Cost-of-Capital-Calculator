@@ -45,6 +45,27 @@ class MetaParams(paramtools.Parameters):
         }
     }
 
+    def dump(self, *args, **kwargs):
+        """
+        This method extends the default ParamTools dump method by
+        swapping the when validator for a choice validator. This is
+        required because C/S does not yet implement the when validator.
+        """
+        data = super().dump(*args, **kwargs)
+        if self.data_source == "CPS":
+            data["year"]["validators"] = {
+                "choice": {
+                    "choices": list(range(2014, TC_LAST_YEAR))
+                }
+            }
+        else:
+            data["year"]["validators"] = {
+                "choice": {
+                    "choices": list(range(2013, TC_LAST_YEAR))
+                }
+            }
+        return data
+
 
 def get_inputs(meta_params_dict):
     '''
@@ -91,7 +112,11 @@ def validate_inputs(meta_param_dict, adjustment, errors_warnings):
     '''
     Validates user inputs for parameters
     '''
-    # ccc doesn't look at meta_param_dict for validating inputs.
+    # Validate meta parameter inputs
+    meta_params = MetaParameters()
+    meta_params.adjust(meta_params_dict, raise_errors=False)
+    errors_warnings["policy"]["errors"].update(meta_params.errors)
+    # Validate CCC parameter inputs
     params = Specification()
     params.adjust(adjustment["Business Tax Parameters"],
                   raise_errors=False)
