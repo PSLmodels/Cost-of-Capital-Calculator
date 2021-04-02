@@ -8,8 +8,6 @@ except ImportError:
 import gzip
 import pandas as pd
 from ccc.utils import TC_LAST_YEAR
-from taxcalc import Policy
-from collections import defaultdict
 
 
 POLICY_SCHEMA = {
