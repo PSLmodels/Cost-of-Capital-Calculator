@@ -27,7 +27,14 @@ class MetaParams(paramtools.Parameters):
             "description": "Year for parameters.",
             "type": "int",
             "value": DEFAULT_START_YEAR,
-            "validators": {"range": {"min": 2015, "max": TC_LAST_YEAR}}
+            "validators": {
+              "when": {
+                  "param": "data_source",
+                  "is": "CPS",
+                  "then": {"range": {"min": 2014, "max": TC_LAST_YEAR}},
+                  "otherwise": {"range": {"min": 2013, "max": TC_LAST_YEAR}}
+                  }
+              },
         },
         "data_source": {
             "title": "Data source",
