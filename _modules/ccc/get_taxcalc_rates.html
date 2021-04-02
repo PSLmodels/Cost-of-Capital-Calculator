@@ -400,6 +400,7 @@
 
     <span class="c1"># the default set up increments year to 2013</span>
     <span class="n">calc1</span> <span class="o">=</span> <span class="n">Calculator</span><span class="p">(</span><span class="n">records</span><span class="o">=</span><span class="n">records1</span><span class="p">,</span> <span class="n">policy</span><span class="o">=</span><span class="n">policy1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Calculator initial year = &#39;</span><span class="p">,</span> <span class="n">calc1</span><span class="o">.</span><span class="n">current_year</span><span class="p">)</span>
 
     <span class="c1"># this increment_year function extrapolates all PUF variables to</span>
     <span class="c1"># the next year so this step takes the calculator to the start_year</span>
@@ -445,6 +446,7 @@
         <span class="s1">&#39;tau_lcg&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">array_size</span><span class="p">),</span> <span class="s1">&#39;tau_td&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">array_size</span><span class="p">),</span>
         <span class="s1">&#39;tau_h&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">array_size</span><span class="p">)}</span>
     <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_year</span><span class="p">,</span> <span class="n">end_year</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Calculator year = &#39;</span><span class="p">,</span> <span class="n">calc1</span><span class="o">.</span><span class="n">current_year</span><span class="p">)</span>
         <span class="n">calc1</span><span class="o">.</span><span class="n">advance_to_year</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;year: &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">calc1</span><span class="o">.</span><span class="n">current_year</span><span class="p">))</span>
         <span class="c1"># Compute mtrs</span>
