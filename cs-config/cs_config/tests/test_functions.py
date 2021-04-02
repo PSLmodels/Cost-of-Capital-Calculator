@@ -5,6 +5,26 @@ import io
 from cs_config import functions
 
 
+def test_start_year_with_data_source():
+    """
+    Test interaction between PUF and CPS data sources and the start year.
+    """
+    data = functions.get_inputs({"data_source": "PUF"})
+    assert data["meta_parameters"]["year"]["validators"]["choice"]["choices"][0] == 2013
+    data = functions.get_inputs({"data_source": "CPS"})
+    assert data["meta_parameters"]["year"]["validators"]["choice"]["choices"][0] == 2014
+
+    ew = {
+        "policy": {"errors": {}, "warnings": {}},
+        "behavior": {"errors": {}, "warnings": {}},
+    }
+    res = functions.validate_inputs(
+        {"data_source": "CPS", "year": 2013},
+        {"policy": {}, "behavior": {}}, ew
+    )
+    assert res["errors_warnings"]["policy"]["errors"].get("year")
+
+
 class TestFunctions1(CoreTestFunctions):
     get_version = functions.get_version
     get_inputs = functions.get_inputs
