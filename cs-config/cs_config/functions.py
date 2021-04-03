@@ -73,7 +73,12 @@ def get_inputs(meta_params_dict):
     '''
     # Get meta-params from web app
     meta_params = MetaParams()
-    meta_params.adjust(meta_params_dict)
+    with meta_params.transaction(defer_validation=True):
+        meta_params.adjust(meta_params_dict)
+        # Year must be at least 2014 when using the CPS. This rule is
+        # validated in the validate_inputs function below.
+        if meta_params.data_source == "CPS" and meta_params.year < 2014:
+            meta_params.adjust({"year": 2014})
     # Set default CCC params
     ccc_params = Specification(year=meta_params.year)
     filtered_ccc_params = OrderedDict()
@@ -115,7 +120,8 @@ def validate_inputs(meta_param_dict, adjustment, errors_warnings):
     # Validate meta parameter inputs
     meta_params = MetaParams()
     meta_params.adjust(meta_param_dict, raise_errors=False)
-    errors_warnings["Business Tax Parameters"]["errors"].update(meta_params.errors)
+    errors_warnings["Business Tax Parameters"]["errors"].update(
+      meta_params.errors)
     # Validate CCC parameter inputs
     params = Specification()
     params.adjust(adjustment["Business Tax Parameters"],
