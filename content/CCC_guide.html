@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
     <title>Overview and Assumptions &#8212; Cost-of-Capital-Calculator</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -94,7 +95,7 @@
   </a>
  </li>
 </ul>
-<p class="caption collapsible-parent">
+<p>
  <span class="caption-text">
   CCC Example
  </span>
@@ -106,7 +107,7 @@
   </a>
  </li>
 </ul>
-<p class="caption collapsible-parent">
+<p>
  <span class="caption-text">
   Web Application
  </span>
@@ -118,7 +119,7 @@
   </a>
  </li>
 </ul>
-<p class="caption collapsible-parent">
+<p>
  <span class="caption-text">
   Contributing to CCC
  </span>
@@ -130,7 +131,7 @@
   </a>
  </li>
 </ul>
-<p class="caption collapsible-parent">
+<p>
  <span class="caption-text">
   CCC API
  </span>
@@ -186,7 +187,7 @@
   </i>
  </li>
 </ul>
-<p class="caption collapsible-parent">
+<p>
  <span class="caption-text">
   CCC Guide
  </span>
@@ -243,7 +244,7 @@
   </a>
  </li>
 </ul>
-<p class="caption collapsible-parent">
+<p>
  <span class="caption-text">
   About
  </span>
@@ -255,7 +256,7 @@
   </a>
  </li>
 </ul>
-<p class="caption collapsible-parent">
+<p>
  <span class="caption-text">
   References
  </span>
@@ -267,7 +268,7 @@
   </a>
  </li>
 </ul>
-<p class="caption collapsible-parent">
+<p>
  <span class="caption-text">
   Citations of CCC
  </span>
@@ -518,15 +519,15 @@
         
               <div>
                 
-  <div class="section" id="overview-and-assumptions">
+  <section id="overview-and-assumptions">
 <span id="overview"></span><h1>Overview and Assumptions<a class="headerlink" href="#overview-and-assumptions" title="Permalink to this headline">¶</a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">Cost</span> <span class="pre">of</span> <span class="pre">Capital</span> <span class="pre">Calculator</span></code> model produces estimates of the marginal effective tax rates on new investment under the baseline tax policy and user-specified tax reforms.  These effective rate calculations take two forms.  The <em>marginal effective tax rate</em> (METR) provides the tax wedge on new investment at the level of the business entity.  The <em>marginal effective total tax rate</em> (METTR) includes individual level taxes in the measure of the tax wedge on new investment.  One can think of the former as indicating the effect of taxes on incentives to invest from the perspective of the firm and the latter as representing effect of taxes on incentives to invest from the perspective of the saver.</p>
 <p>As <a href="#id1"><span class="problematic" id="id2">:cite:`FullertonMETR`</span></a> notes, calculations of METRs depend on several assumptions.  These include those relating to equilibrium in capital markets. discount rates, inflation rates, investor expectations, churning, how investments are financed, how risk is treated, and whether one believes the “old view” or “new view” of dividend taxes better represents investment incentives.  <code class="docutils literal notranslate"><span class="pre">Cost</span> <span class="pre">of</span> <span class="pre">Capital</span> <span class="pre">Calculator</span></code>’s equilibrium assumptions include the assumption that the marginal investment earns an after-tax rate of return equal to the market rate of return, returns across asset types are equalized, investors’ risk-adjusted returns from debt and equity are equalized.  Real discount rates and inflation rates are taken from the Congressional Budget Offices forecasts of nominal interest rates and inflation.  <code class="docutils literal notranslate"><span class="pre">Cost</span> <span class="pre">of</span> <span class="pre">Capital</span> <span class="pre">Calculator</span></code> assumes no uncertainty in investment returns.  We use historical data on the time equities are held and how investment is financed to inform effective tax rates on capital gains and financial policy decisions, respectively.  <code class="docutils literal notranslate"><span class="pre">Cost</span> <span class="pre">of</span> <span class="pre">Capital</span> <span class="pre">Calculator</span></code> assumes the “old view” of dividend taxation in our calculations of the METTRs, implying that dividend taxes affect investment incentives.</p>
 <p>The methodology to calculate METRs and METTRs follows closely <a href="#id3"><span class="problematic" id="id4">:cite:`CBO_ETRs`</span></a>.</p>
 <p>One should note that these METR and METTR calculations include only federal tax policy (current law or the user specified proposal) and therefore exclude the effects of state and local tax policy on investment incentives.  Integrating such policies is a worthwhile project, but the results here are generally sufficient for comparing alternative federal tax proposals.</p>
 <p>This guide is organized as follows.  Section <a class="reference internal" href="#sec-metr"><span class="std std-ref">Marginal Effective Tax Rates</span></a> and Section <a class="reference internal" href="#sec-mettr"><span class="std std-ref">Marginal Effective Total Tax Rates</span></a> describe how the cost of capital and effective tax rates are computed.  Next, we describe how we measure fixed assets by asset type, industry, and tax treatment in Section <a class="reference internal" href="#sec-assets"><span class="std std-ref">Computing Fixed Assets by Industry and Entity Type</span></a>.  The methodology to allocate land and inventories across industry and tax treatment is described in Sections <a class="reference internal" href="#sec-land"><span class="std std-ref">Land</span></a> and <a class="reference internal" href="#sec-inventories"><span class="std std-ref">Inventories</span></a>.  Finally, we discuss how the values of the model parameters are determined in Section <a class="reference internal" href="#sec-params"><span class="std std-ref">User Inputs</span></a>.</p>
-</div>
-<div class="section" id="the-cost-of-capital">
+</section>
+<section id="the-cost-of-capital">
 <span id="sec-coc"></span><h1>The Cost of Capital<a class="headerlink" href="#the-cost-of-capital" title="Permalink to this headline">¶</a></h1>
 <p>By definition, the marginal investment is the investment whose before tax return is equivalent to the cost of capital, <span class="math notranslate nohighlight">\(\rho_{i,m,j}\)</span>. The cost of capital is given by:</p>
 <div class="math notranslate nohighlight">
@@ -542,8 +543,8 @@ The after-tax rate of return is given by:</p>
 <li><p>The user cost of capital (ucc): <span class="math notranslate nohighlight">\(ucc_{i,m,j} = \rho_{i,m,j} + delta_{i}\)</span></p></li>
 <li><p>The tax wedge, which is the difference between the before tax rate of return (which is equilvalent to the cost of capital for marginal investments) and the after-tax return top savings. The tax wedge = <span class="math notranslate nohighlight">\(\rho_{i,m,j}-s_{m,j\)</span></p></li>
 </ul>
-</div>
-<div class="section" id="marginal-effective-tax-rates">
+</section>
+<section id="marginal-effective-tax-rates">
 <span id="sec-metr"></span><h1>Marginal Effective Tax Rates<a class="headerlink" href="#marginal-effective-tax-rates" title="Permalink to this headline">¶</a></h1>
 <p>The marginal effective tax rate is calculated as the expected pre-tax rate of return on a marginal investment minus the real after-tax rate of return to the business entity, divided by the pre-tax rate of return on the marginal investment.  That is:</p>
 <div class="math notranslate nohighlight">
@@ -556,10 +557,10 @@ The after-tax rate of return is given by:</p>
 <p>With the cost of capital for all fixed assets in an industry-tax treatment grouping, we then compute the <span class="math notranslate nohighlight">\(METR\)</span> of the industry and tax treatment as:</p>
 <div class="math notranslate nohighlight">
 \[METR_{m,j} =  \frac{\rho_{m,j} - (r^{'}_{m,j}-\pi)}{\rho_{m,j}},\]</div>
-<div class="section" id="modifications-to-the-metr-calculations-for-certain-assets">
+<section id="modifications-to-the-metr-calculations-for-certain-assets">
 <h2>Modifications to the METR Calculations for Certain Assets<a class="headerlink" href="#modifications-to-the-metr-calculations-for-certain-assets" title="Permalink to this headline">¶</a></h2>
 <p>Two classes of assets, inventories and land, necessitate slightly modifications from the above methodology when computing <span class="math notranslate nohighlight">\(METR\)</span>s.  In addition, owner occupied housing faces some different tax treatment and thus deserves its own discussion.  This section discusses the modifications to the <span class="math notranslate nohighlight">\(METR\)</span> calculations described above for these asset categories.</p>
-<div class="section" id="inventories">
+<section id="inventories">
 <h3>Inventories<a class="headerlink" href="#inventories" title="Permalink to this headline">¶</a></h3>
 <p>In calculating the <span class="math notranslate nohighlight">\(METR\)</span> for inventory investments, the cost of capital is defined as follows:</p>
 <div class="math notranslate nohighlight">
@@ -576,18 +577,18 @@ The after-tax rate of return is given by:</p>
   \rho_{LIFO} = \frac{1}{Y_v} log(\frac{e^{(r_{m,j}-\pi)Y_v} - u_{j}}{(1 - u_{j})} - \pi
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(Y_{v}\)</span> is the average number of years that inventories are held.</p>
-</div>
-<div class="section" id="land">
+</section>
+<section id="land">
 <h3>Land<a class="headerlink" href="#land" title="Permalink to this headline">¶</a></h3>
 <p>To be completed…</p>
-</div>
-<div class="section" id="owner-occupied-housing">
+</section>
+<section id="owner-occupied-housing">
 <h3>Owner-Occupied Housing<a class="headerlink" href="#owner-occupied-housing" title="Permalink to this headline">¶</a></h3>
 <p>To be completed…</p>
-</div>
-</div>
-</div>
-<div class="section" id="marginal-effective-total-tax-rates">
+</section>
+</section>
+</section>
+<section id="marginal-effective-total-tax-rates">
 <span id="sec-mettr"></span><h1>Marginal Effective Total Tax Rates<a class="headerlink" href="#marginal-effective-total-tax-rates" title="Permalink to this headline">¶</a></h1>
 <p><span class="math notranslate nohighlight">\(METTR\)</span>s include taxation at all levels, at the business entity and the individual to whom the returns from investment ultimately accrue.  The <span class="math notranslate nohighlight">\(METTR\)</span> is computed as:</p>
 <div class="math notranslate nohighlight">
@@ -613,14 +614,14 @@ The after-tax rate of return is given by:</p>
 <p>The return on tax deferred accounts is:</p>
 <div class="math notranslate nohighlight">
 \[s_{e,td,j} = \frac{1}{Y_{td,j}}ln \left[(1-\tau_{td})e^{(\pi+E_{j})Y_{td,j}}+\tau_{td}\right]-\pi\]</div>
-</div>
-<div class="section" id="effective-average-tax-rates">
+</section>
+<section id="effective-average-tax-rates">
 <span id="sec-eatr"></span><h1>Effective Average Tax Rates<a class="headerlink" href="#effective-average-tax-rates" title="Permalink to this headline">¶</a></h1>
 <p>Some investment decisions are discrete: build the new plant or not, pursue this R&amp;D effort or another, and so on.  For discrete investment decisions, firms will compare the after tax rates of returns each of the possible choices.  In such cases, the relevant measure of the impact of the tax system on their investment choices will be measured by the effective average tax rate (<span class="math notranslate nohighlight">\(EATR\)</span>).  <a href="#id6"><span class="problematic" id="id7">:cite:`DG2003`</span></a> propose a forward  measure of the EATR, which the <code class="docutils literal notranslate"><span class="pre">Cost-of-Capital-Calculator</span></code> also produces estimates.  The <span class="math notranslate nohighlight">\(EATR\)</span> is computed as:</p>
 <div class="math notranslate nohighlight">
 \[EATR = \left(\frac{p_{i,m,j} - rho_{i,m,j}}{p_{i,m,j}}\right)u_{j} + \left(\frac{\rho_{i,m,j}}{p_{i,m,j}}\right)METR_{i,m,j}\]</div>
 <p>where <span class="math notranslate nohighlight">\(p_{i,m,j}\)</span> is the rate of profit on the project.  Note that the <span class="math notranslate nohighlight">\(EATR\)</span> is equal to the <span class="math notranslate nohighlight">\(METR\)</span> for marginal projects - those who’s rate of profit is equal to the cost of capital.</p>
-<div class="section" id="computing-after-tax-capital-gains">
+<section id="computing-after-tax-capital-gains">
 <h2>Computing After-Tax Capital Gains<a class="headerlink" href="#computing-after-tax-capital-gains" title="Permalink to this headline">¶</a></h2>
 <p>Capital gains are not taxed until those gains are realized through the sale of stock.  The ability to defer the tax liability from gains complicates the calculation of the after-tax gains that accrue to investors. Further complicating this calculation is that, under current law, short and long term gains are taxed at differential rates and the basis for capital gains is “stepped-up” on equity passed along to decedents upon death.  Note, we’ll omit the tax entity type subscript here since this calculation only applies to those entity types that can retain earnings, namely C-corporations under current tax law.</p>
 <div class="math notranslate nohighlight">
@@ -631,9 +632,9 @@ The after-tax rate of return is given by:</p>
 <p>and</p>
 <div class="math notranslate nohighlight">
 \[g_{lcg} = \frac{1}{Y_{lcg}}\times ln\left[(1-\tau_{lcg})e^{(\pi+mE)Y_{lcg}}+\tau_{lcg}\right]+\pi\]</div>
-</div>
-</div>
-<div class="section" id="computing-fixed-assets-by-industry-and-entity-type">
+</section>
+</section>
+<section id="computing-fixed-assets-by-industry-and-entity-type">
 <span id="sec-assets"></span><h1>Computing Fixed Assets by Industry and Entity Type<a class="headerlink" href="#computing-fixed-assets-by-industry-and-entity-type" title="Permalink to this headline">¶</a></h1>
 <p>In the computation of <span class="math notranslate nohighlight">\(\rho_{m,j}\)</span>, we need to have a measure of fixed assets by industry and tax treatment for each asset type, <span class="math notranslate nohighlight">\(\widetilde{FA}_{i,m,j}\)</span>.  To make this calculation, we work with two different sources of data.  The first is the BEA’s \href{<a class="reference external" href="http://www.bea.gov/national/FA2004/Details/Index.html">http://www.bea.gov/national/FA2004/Details/Index.html</a>}{Detailed Data for Fixed Assets and Consumer Durable Goods}.  These data allow us to identify the stock of fixed assets by industry for each asset type.  Call this variable <span class="math notranslate nohighlight">\(FA_{i,m}\)</span>.  The second source of data we draw upon are the IRS Statistics of Income (SOI) data from business entity tax returns.  From these data, we use information on depreciable assets and accumulated depreciation, aggregated by industry and tax entity type to compute a measure of the total stock of fixed assets by industry and tax treatment, <span class="math notranslate nohighlight">\(FA^{\tau}_{m,j}\)</span>.  The superscript <span class="math notranslate nohighlight">\(\tau\)</span> is used to denote that these asset values come from tax data.  Measuring assets from tax returns is not ideal for two reason.  First, there are reporting issues.  These line items do not affect tax liability and so are often not reported with as much accuracy as items related to income.  Relatedly, balance sheet reporting is often limited to businesses above a certain size.  The second reason is that, for the previously cited and other reasons, measures of asset from tax returns may not line up with BEA totals.  We thus use the asset totals computed from tax returns only to help apportion the BEA asset totals across tax treatment.  Namely, we compute the variable <span class="math notranslate nohighlight">\(\widetilde{FA}_{i,m,j}\)</span> as follows:</p>
 <div class="math notranslate nohighlight" id="equation-eqn-asset-bridge">
@@ -658,7 +659,7 @@ The after-tax rate of return is given by:</p>
 2. Depreciable assets, minus accumulated tax depreciation by industry, were tabulated from SOI data and compared with the corresponding BEA values to find the ratio of the two: $Ratio_{m}=\frac{\sum_{j=1}^{J}FA^{\tau}_{m,j}}{\sum_{i=1}^{I}FA_{i,m}}$.  A high ratio would indicate a large presence of nonprofits in that industry because nonprofits don't file tax returns.\footnote{Nonprofits may be partners in partnerships.  We detail how we account for nonprofit partners below.}
 3. We identify industries with a ratio of XX or higher to have a significant nonprofit presence.  For these industries, the ratio of SOI assets to BEA assets was normalized to the average for industries without a significant nonprofit component (excluding banking and real estate). To estimate the value of assets held by nonprofit organizations, one minus the normalized ratio was applied to the BEA value of all types of assets.
 } -->
-<div class="section" id="handling-varying-industry-specificity-between-bea-and-soi-data">
+<section id="handling-varying-industry-specificity-between-bea-and-soi-data">
 <h2>Handling Varying Industry Specificity Between BEA and SOI Data<a class="headerlink" href="#handling-varying-industry-specificity-between-bea-and-soi-data" title="Permalink to this headline">¶</a></h2>
 <p>The BEA data in the detailed fixed asset tables are the only source of data on asset types by industry.  The level of industry detail in the BEA data differs from that in the SOI data.  To account for this, and to identify cost of capital as the finest levels of industry detail, we make the assumption that the mix of fixed assets remains the same across the children of any parent industry.  The total amount of BEA assets by asset type can then be allocated across tax treatment and SOI minor industry using Equation <a class="reference internal" href="#equation-eqn-asset-bridge">(1)</a>.</p>
 <!-- ### SOI Data with Less Industry Specificity than BEA Data
@@ -670,11 +671,11 @@ The after-tax rate of return is given by:</p>
 %```
 %
 %Here, $m3$ represents the less specific industry code from the SOI data. -->
-</div>
-<div class="section" id="soi-data-by-entity-type">
+</section>
+<section id="soi-data-by-entity-type">
 <h2>SOI Data by Entity Type<a class="headerlink" href="#soi-data-by-entity-type" title="Permalink to this headline">¶</a></h2>
 <p>We use IRS Statistics of Income (SOI) data on corporations, partnerships, and sole proprietorships.  These data come with varying levels of specificity.  Data on corporations are available at what the SOI call “minor industry” level.  This encompass 196 industry classifications.<a class="footnote-reference brackets" href="#ind-class-note" id="id8">2</a>  Data on partnerships and sole proprietorships are generally available at the “major” industry level.  These approximate the 3-digit NAICS codes and encompass 81 industry classifications.  Data on S-corporations are available at the “sector” level, with 21 sector classifications.  We note our methodologies below to attribute these data to the minor industry level for each entity type.  Once data for each entity type is allocated across minor industry, we utilize cross-walks to related the SOI industry codes to BEA and NAICS codes, allowing one to group industries at varying levels of detail across different classification systems.</p>
-<div class="section" id="c-and-s-corporation-data">
+<section id="c-and-s-corporation-data">
 <span id="sec-cands"></span><h3>C and S Corporation Data<a class="headerlink" href="#c-and-s-corporation-data" title="Permalink to this headline">¶</a></h3>
 <p>Tax data on subchapter C corporations come from the data files for the <a class="reference external" href="http://www.irs.gov/uac/SOI-Tax-Stats-Corporation-Source-Book:-Data-File">SOI Tax Stats - Corporation Source Book</a> for 2011.  The link to those files is <a class="reference external" href="http://www.irs.gov/uac/SOI-Tax-Stats-Corporation-Source-Book:-Data-File">here</a>.  Specifically, we use the <code class="docutils literal notranslate"><span class="pre">2011sb1.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">2011sb3.csv</span></code> files to find the aggregate amounts by industry for the following variables from Form 1120 and associated schedules: depreciable assets and accumulated depreciation.  Note that the <code class="docutils literal notranslate"><span class="pre">2011sb1.csv</span></code> file contains data from all Form 1120 returns (which includes both C and S corporations).  Thus, in calculating aggregates for subchapter C corporations only, we net out the totals by industry and line item for S corporations using the 2011sb3.csv data.</p>
 <p>Note that the level of industry detail in <code class="docutils literal notranslate"><span class="pre">2011sb1.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">2011sb3.csv</span></code> differ, with the former reporting variables as fine as the 6-digit NAICS level and the latter reporting variables at the 2-digit level.  In order to infer S corporation data at a finer level of industry detail, we make the assumption that the each variable is distributed across minor industries within a major industry in the same way for all corporations as it they are for S corporations.  Letting <span class="math notranslate nohighlight">\(x_{m1}\)</span> be a variable of interest reported for all corporations in detailed industry <span class="math notranslate nohighlight">\(m1\)</span> (e.g., these may correspond to a 6-digit NAICS code) from 2011sb1.csv and <span class="math notranslate nohighlight">\(x_{m2}\)</span> be the same variable reported for all corporations at the less detailed industry level (e.g., 2-digit NAICS).  We thus assume that the variable <span class="math notranslate nohighlight">\(x\)</span> (which could be depreciable assets or accumulated depreciation) for S corporations can be allocated across detailed industry categories <span class="math notranslate nohighlight">\(m1\)</span> as:</p>
@@ -682,8 +683,8 @@ The after-tax rate of return is given by:</p>
 <span class="eqno">(2)<a class="headerlink" href="#equation-eqn-attrib-minor" title="Permalink to this equation">¶</a></span>\[x_{m1,s}=\frac{x_{m1}}{x_{m2}}\times x_{m2,s},\]</div>
 <p>where <span class="math notranslate nohighlight">\(m1\in m2\)</span>.  Variables allocated in this way are then used when differencing out data from 2011sb1.csv and 2011sb3.csv to find the amounts for C corporations.</p>
 <p>Using these data, we calculate the stock of fixed assets for C corporations in industry <span class="math notranslate nohighlight">\(m\)</span> as reported on tax returns, <span class="math notranslate nohighlight">\({FA}^{\tau}_{m,c}\)</span>, as the difference between the aggregate amounts of depreciable assets and accumulated depreciation for that industry.  We then calculate the stock of fixed assets for S-corporations in industry <span class="math notranslate nohighlight">\(m\)</span> as reported on tax returns, <span class="math notranslate nohighlight">\({FA}^{\tau}_{m,s}\)</span>, as the difference between the aggregate amounts of depreciable assets and accumulated depreciation for that industry for S-corporations.</p>
-</div>
-<div class="section" id="partnership-data">
+</section>
+<section id="partnership-data">
 <h3>Partnership Data<a class="headerlink" href="#partnership-data" title="Permalink to this headline">¶</a></h3>
 <p>For partnerships, we draw upon the <a class="reference external" href="http://www.irs.gov/uac/SOI-Tax-Stats-Partnership-Statistics-by-Sector-or-Industry">SOI Tax Stats - Partnership Statistics by Sector or Industry</a>.  There are three files we use to get measures of partnership assets in 2012.  From the 12pa01.xls file, we pull aggregate depreciation deductions by industry.  From 12pa03.xls, we collect aggregate values for depreciable assets and accumulated depreciation.  Finally, we use <code class="docutils literal notranslate"><span class="pre">12pa05.xls</span></code> to help us allocate the total partnership capital stock between corporate, individual, and tax exempt partners (we discuss this further below).</p>
 <p>Using these data, we calculate the stock of fixed assets for partnerships in industry <span class="math notranslate nohighlight">\(m\)</span> as reported on tax returns, <span class="math notranslate nohighlight">\({FA}^{\tau}_{m,p}\)</span>, as the difference between the aggregate amounts of depreciable assets and accumulated depreciation for that industry.</p>
@@ -694,8 +695,8 @@ The after-tax rate of return is given by:</p>
 <p>where <span class="math notranslate nohighlight">\(m1\in m2\)</span> and <span class="math notranslate nohighlight">\(t\)</span> denotes partner type (individual, corporate, partnership, tax-exempt, other).  An implicit assumption here is that that share of net gains or losses attributed to each partner type is the same across each sub-industry within a major industry (i.e., the attribution across all <span class="math notranslate nohighlight">\(m_{1}\in m_{2}\)</span> is identical).</p>
 <p>When allocating capital across tax treatment, we will attribute the capital owned by corporate partners to the corporate sector, we will exclude assets held by tax-exempts, and the remainder will be attributed to the non-corporate sector.  One can also break out assets by entity type, rather than the more coarse, corporate/non-corporate groupings.</p>
 <p>Finally, since partnership data do not identify depreciable assets for each minor industry, we use data from S-corporation assets at the minor industry level to attribute assets from the major industry reported in the partnership data to the corresponding minor industries that are its children.  The attribution takes the form described in Equation <a class="reference internal" href="#equation-eqn-attrib-minor">(2)</a>.  This imputation is only done for minor industries for which the partnership data do not report depreciable asset totals.</p>
-</div>
-<div class="section" id="sole-proprietorships">
+</section>
+<section id="sole-proprietorships">
 <h3>Sole Proprietorships<a class="headerlink" href="#sole-proprietorships" title="Permalink to this headline">¶</a></h3>
 <p>We divide sole proprietorships into two groups: non-farm sole proprietors, who file a Schedule C of Form 1040, and farm sole proprietorships, who file Schedule F of Form 1040.</p>
 <p><strong>Non-farm Sole Proprietorships</strong>:  Our data for non-farm sole proprietorships come from the \href{<a class="reference external" href="http://www.irs.gov/uac/SOI-Tax-Stats-Nonfarm-Sole-Proprietorship-Statistics">http://www.irs.gov/uac/SOI-Tax-Stats-Nonfarm-Sole-Proprietorship-Statistics</a>}{SOI Tax Stats - Non-farm Sole Proprietorship Statistics} for 2011.  Specifically, we use the file 11sp01br.xls.  These data do not record the value of depreciable assets for sole proprietorships, but they do contain depreciation deductions for sole proprietors.  Thus we impute the value of depreciable assets and land using the assumption that the ratio of depreciable assets to depreciation deductions is the same within a particular industry for sole proprietorships and partnerships.  Specifically, we find the stock of fixed assets for sole proprietors to be:</p>
@@ -718,29 +719,29 @@ The after-tax rate of return is given by:</p>
 %
 % Describe data for private residential structures.  Talk about split for owner-occupied and across industry.
 %-->
-</div>
-</div>
-</div>
-<div class="section" id="sec-land">
+</section>
+</section>
+</section>
+<section id="sec-land">
 <span id="id9"></span><h1>Land<a class="headerlink" href="#sec-land" title="Permalink to this headline">¶</a></h1>
 <p>To be completed…</p>
 <p>Get Land from Fin Accounts, Inventories from BEA.  Attribute over industry/tax treatment using SOI data - much like do for fixed assets.</p>
-</div>
-<div class="section" id="sec-inventories">
+</section>
+<section id="sec-inventories">
 <span id="id10"></span><h1>Inventories<a class="headerlink" href="#sec-inventories" title="Permalink to this headline">¶</a></h1>
 <p>To be completed…</p>
 <p>Get Land from Fin Accounts, Inventories from BEA.  Attribute over industry/tax treatment using SOI data - much like do for fixed assets.</p>
-</div>
-<div class="section" id="parameterization">
+</section>
+<section id="parameterization">
 <h1>Parameterization<a class="headerlink" href="#parameterization" title="Permalink to this headline">¶</a></h1>
 <!-- %In order to calculate $METR$s, we need to assign values to each of the parameters described in Table {numref}`tab:param_list`.  This section describes the determination of the value of each of these parameters. -->
-<div class="section" id="nominal-discount-rates">
+<section id="nominal-discount-rates">
 <h2>Nominal Discount Rates<a class="headerlink" href="#nominal-discount-rates" title="Permalink to this headline">¶</a></h2>
 <p>The nominal discount rate, <span class="math notranslate nohighlight">\(r_{m,j}\)</span>, used by the business represents the cost of funds to the business.  These funds may come from equity, either through retained earnings or new equity issues, or from debt.  The cost of equity is given by <span class="math notranslate nohighlight">\(E_{j}\)</span> (and varies by tax treatment), the cost of debt is given by the nominal interest rate <span class="math notranslate nohighlight">\(i\)</span> (and is the same for all businesses).  The variable <span class="math notranslate nohighlight">\(E_{j}\)</span> represents the expected real rate of return that investors can expect if they invest in any business of entity type <span class="math notranslate nohighlight">\(j\)</span>.  In general, interest payment deductions may be deductible.  In the case of deductibility, the cost of debt is  <span class="math notranslate nohighlight">\(i(1-u_{j})\)</span>, where <span class="math notranslate nohighlight">\(u_{j}\)</span> is the statutory tax rate on business income at the first level.  We assume that the cost of funds for the marginal investment is a weighted average of the cost of funds from these two sources, debt and equity.  In particular:</p>
 <div class="math notranslate nohighlight">
 \[r_{m,j}-\pi = f_{m,j}\left[i(1-u_{j})-\pi\right] + (1-f_{m,j})E_{j},\]</div>
 <p>where <span class="math notranslate nohighlight">\(f_{m,j}\)</span> represents the fraction of the marginal investment financed with debt by firms in industry <span class="math notranslate nohighlight">\(m\)</span> and of tax entity type <span class="math notranslate nohighlight">\(j\)</span>.  Changes to interest deductibility are reflected by changes in the cost of funds and thus the discount rate.  Likewise, systems like an allowance for corporate equity will affect the cost of funds and the discount rate.</p>
-<div class="section" id="measuring-debt-by-industry-and-tax-treatment">
+<section id="measuring-debt-by-industry-and-tax-treatment">
 <span id="sec-step3"></span><h3>Measuring Debt by Industry and Tax Treatment<a class="headerlink" href="#measuring-debt-by-industry-and-tax-treatment" title="Permalink to this headline">¶</a></h3>
 <p>We measure total debt from the <a class="reference external" href="http://www.federalreserve.gov/apps/fof/FOFTables.aspx">Financial Accounts of the United States</a>.  In particular, we use the following tables to capture debt, which we measure separately for corporate financial and nonfinancial businesss, noncorporate business, and household mortgage debt:</p>
 <ul class="simple">
@@ -777,9 +778,9 @@ The after-tax rate of return is given by:</p>
 \[equity_{m,p+sp} = equity_{noncorp}\frac{PCA_{m,p}}{sum_{m=1}^{M}PCA_{m,p}}\]</div>
 <p>Where <span class="math notranslate nohighlight">\(PCA_{p,m}\)</span> are the “partnership capital accounts” for partnerships in industry <span class="math notranslate nohighlight">\(m\)</span>.  <span class="math notranslate nohighlight">\(equity_{m,p+sp}\)</span> denotes the total amount of equity for partnerships and sole proprietorships in industry <span class="math notranslate nohighlight">\(m\)</span>.  We then find total non-corp equity for industry <span class="math notranslate nohighlight">\(m\)</span> as <span class="math notranslate nohighlight">\(equity_{NC,m} = equity_{p+sp,m} + equity{s,m}\)</span>.</p>
 <p>We then calculate the fraction of investment financed with debt by industry <span class="math notranslate nohighlight">\(m\)</span> and entity type <span class="math notranslate nohighlight">\(j\)</span> as: <span class="math notranslate nohighlight">\(f_{m,j} = \frac{debt_{m,j}}{equity_{m,j}+debt_{m,j}}\)</span>.  Due to the data limitations stemming from data on sole proprietors, we calculate the ratio for partnerships and sole proprietorships as being: <span class="math notranslate nohighlight">\(f_{m,p} = f_{m,sp} = \frac{debt_{m,p}+debt_{m,sp}}{equity_{m,p+sp}}\)</span>  The exception here are financial, noncorporate businesses (see issue above with debt for these businesses).  Because of this limitation, we let <span class="math notranslate nohighlight">\(f_{finance,j}=f_{finance,s}, \forall j\in\{p,sp\}\)</span> (i.e., we take the financial policy of S-corp financial businesses and apply it to all non-corporate financial businesses).</p>
-</div>
-</div>
-<div class="section" id="npv-of-depreciation-deductions">
+</section>
+</section>
+<section id="npv-of-depreciation-deductions">
 <h2>NPV of Depreciation Deductions<a class="headerlink" href="#npv-of-depreciation-deductions" title="Permalink to this headline">¶</a></h2>
 <p>The net present value of depreciation deductions is solved for using the discount rate derived above.  Specifically, we have:</p>
 <div class="math notranslate nohighlight">
@@ -836,9 +837,9 @@ The after-tax rate of return is given by:</p>
 
 
 % From BEA estimates... -->
-</div>
-</div>
-<div class="section" id="user-inputs">
+</section>
+</section>
+<section id="user-inputs">
 <span id="sec-params"></span><h1>User Inputs<a class="headerlink" href="#user-inputs" title="Permalink to this headline">¶</a></h1>
 <p>Users may enter tax policies and evaluate those policy changes’ effects on the cost of capital and effective tax rates.  In addition, users may specific changes in the underlying macroeconomic assumptions.  Table <a class="reference internal" href="#tab-user-params"><span class="std std-numref">Table 1</span></a> summarizes these parameters that the user might adjust to evaluate a tax reform option of interest.  We discuss these parameters and how they are computed or entered into the model below.</p>
 <table class="colwidths-auto table" id="tab-user-params">
@@ -981,12 +982,12 @@ The after-tax rate of return is given by:</p>
 </tr>
 </tbody>
 </table>
-<div class="section" id="economic-parameters">
+<section id="economic-parameters">
 <h2>Economic Parameters<a class="headerlink" href="#economic-parameters" title="Permalink to this headline">¶</a></h2>
 <!-- %To be completed... -->
 <p>One may alter the macroeconomic assumptions regarding rates of interest and inflation.<a class="footnote-reference brackets" href="#cbo-note" id="id11">3</a></p>
-</div>
-<div class="section" id="tax-policy-parameters">
+</section>
+<section id="tax-policy-parameters">
 <h2>Tax Policy Parameters<a class="headerlink" href="#tax-policy-parameters" title="Permalink to this headline">¶</a></h2>
 <p><em>Business Taxation</em>: Users to adjust the statutory marginal tax rates at the entity level, tax depreciation schedules, allowances for deductibility of interest or equity, and property tax rates.</p>
 <p><em>Individual Income Taxation</em>: B-Tax has the ability to allow for changes in individual income tax rates on pass-through business income, interest, dividends, and capital gains.  In addition, policies affecting the deductibility of property taxes or mortgage interest affect the after-tax costs of owner-occupied housing.  To find the effect of such policy changes on the marginal investor, B-Tax interacts with OSPC’s <code class="docutils literal notranslate"><span class="pre">Tax-Calculator</span></code>. Once the reform policies are specified, the <code class="docutils literal notranslate"><span class="pre">Tax-Calculator</span></code> computes the marginal tax rates on non-corporate business income, dividend income, interest income, capital gains income, and tax-deferred retirement account income.  The rates we apply to the “marginal investor” in the model are then computed as:</p>
@@ -1045,8 +1046,8 @@ The after-tax rate of return is given by:</p>
 <dd><p>The default values are the taken from the CBO baseline forecast.</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
