@@ -4,7 +4,7 @@ channels:
 dependencies:
 - python
 - "taxcalc>=3.1.0"
-- "paramtools>=0.14.2"
+- "paramtools>=0.18.0"
 - "bokeh>=1.4.0"
 - setuptools
 - pip

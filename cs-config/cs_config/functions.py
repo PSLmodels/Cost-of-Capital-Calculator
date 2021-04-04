@@ -45,6 +45,27 @@ class MetaParams(paramtools.Parameters):
         }
     }
 
+    def dump(self, *args, **kwargs):
+        """
+        This method extends the default ParamTools dump method by
+        swapping the when validator for a choice validator. This is
+        required because C/S does not yet implement the when validator.
+        """
+        data = super().dump(*args, **kwargs)
+        if self.data_source == "CPS":
+            data["year"]["validators"] = {
+                "choice": {
+                    "choices": list(range(2014, TC_LAST_YEAR))
+                }
+            }
+        else:
+            data["year"]["validators"] = {
+                "choice": {
+                    "choices": list(range(2013, TC_LAST_YEAR))
+                }
+            }
+        return data
+
 
 def get_inputs(meta_params_dict):
     '''
@@ -52,7 +73,12 @@ def get_inputs(meta_params_dict):
     '''
     # Get meta-params from web app
     meta_params = MetaParams()
-    meta_params.adjust(meta_params_dict)
+    with meta_params.transaction(defer_validation=True):
+        meta_params.adjust(meta_params_dict)
+        # Year must be at least 2014 when using the CPS. This rule is
+        # validated in the validate_inputs function below.
+        if meta_params.data_source == "CPS" and meta_params.year < 2014:
+            meta_params.adjust({"year": 2014})
     # Set default CCC params
     ccc_params = Specification(year=meta_params.year)
     filtered_ccc_params = OrderedDict()
@@ -91,7 +117,12 @@ def validate_inputs(meta_param_dict, adjustment, errors_warnings):
     '''
     Validates user inputs for parameters
     '''
-    # ccc doesn't look at meta_param_dict for validating inputs.
+    # Validate meta parameter inputs
+    meta_params = MetaParams()
+    meta_params.adjust(meta_param_dict, raise_errors=False)
+    errors_warnings["Business Tax Parameters"]["errors"].update(
+      meta_params.errors)
+    # Validate CCC parameter inputs
     params = Specification()
     params.adjust(adjustment["Business Tax Parameters"],
                   raise_errors=False)
