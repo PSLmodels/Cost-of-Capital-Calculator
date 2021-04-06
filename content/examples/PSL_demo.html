@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Demo of CCC for PSL Meetup &#8212; Cost-of-Capital-Calculator</title>
     
   <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -95,7 +94,7 @@
   </a>
  </li>
 </ul>
-<p>
+<p class="caption collapsible-parent">
  <span class="caption-text">
   CCC Example
  </span>
@@ -107,7 +106,7 @@
   </a>
  </li>
 </ul>
-<p>
+<p class="caption collapsible-parent">
  <span class="caption-text">
   Web Application
  </span>
@@ -119,7 +118,7 @@
   </a>
  </li>
 </ul>
-<p>
+<p class="caption collapsible-parent">
  <span class="caption-text">
   Contributing to CCC
  </span>
@@ -131,7 +130,7 @@
   </a>
  </li>
 </ul>
-<p>
+<p class="caption collapsible-parent">
  <span class="caption-text">
   CCC API
  </span>
@@ -187,7 +186,7 @@
   </i>
  </li>
 </ul>
-<p>
+<p class="caption collapsible-parent">
  <span class="caption-text">
   CCC Guide
  </span>
@@ -244,7 +243,7 @@
   </a>
  </li>
 </ul>
-<p>
+<p class="caption collapsible-parent">
  <span class="caption-text">
   About
  </span>
@@ -256,7 +255,7 @@
   </a>
  </li>
 </ul>
-<p>
+<p class="caption collapsible-parent">
  <span class="caption-text">
   References
  </span>
@@ -268,7 +267,7 @@
   </a>
  </li>
 </ul>
-<p>
+<p class="caption collapsible-parent">
  <span class="caption-text">
   Citations of CCC
  </span>
@@ -435,7 +434,7 @@
         
               <div>
                 
-  <section id="demo-of-ccc-for-psl-meetup">
+  <div class="section" id="demo-of-ccc-for-psl-meetup">
 <h1>Demo of CCC for PSL Meetup<a class="headerlink" href="#demo-of-ccc-for-psl-meetup" title="Permalink to this headline">¶</a></h1>
 <p>This notebook provides a demonstration of the Cost-of-Capital-Calculator (CCC) for the PSL Meetup on April 29, 2019.</p>
 <p>To run this notebook, you will need to follow the instructions to install CCC as described in the CCC README <a class="reference external" href="https://github.com/PSLmodels/Cost-of-Capital-Calculator">here</a>.  In particular, you need to:</p>
@@ -444,7 +443,7 @@
 <li><p>Install the CCC package by typing <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-c</span> <span class="pre">conda-forge</span> <span class="pre">ccc</span></code> in the command prompt.</p></li>
 </ul>
 <p>Once you follow the above, you will be ready to work with this Jupyter Notebook.</p>
-<section id="first-things-first-import-necessary-packages">
+<div class="section" id="first-things-first-import-necessary-packages">
 <h2>First things first, import necessary packages<a class="headerlink" href="#first-things-first-import-necessary-packages" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -764,8 +763,8 @@
   }
 }(window));</script></div>
 </div>
-</section>
-<section id="create-an-instance-of-the-assets-class">
+</div>
+<div class="section" id="create-an-instance-of-the-assets-class">
 <h2>Create an instance of the Assets class<a class="headerlink" href="#create-an-instance-of-the-assets-class" title="Permalink to this headline">¶</a></h2>
 <p>This is the class that contains the data that underlie CCC.  The basic object is a Pandas DataFrame where each row represents a combination of a specific type of asset, industry (approximately 6-digit NAICS) and tax treatment.  The columns represent names and codes for the asset and industry classifications, the tax depreciation rules used for that asset, and the rate of economic depreciation (<code class="docutils literal notranslate"><span class="pre">delta</span></code>).</p>
 <div class="cell docutils container">
@@ -888,8 +887,8 @@
 </table>
 </div></div></div>
 </div>
-</section>
-<section id="create-instances-of-the-two-parameters-classes">
+</div>
+<div class="section" id="create-instances-of-the-two-parameters-classes">
 <h2>Create instances of the two parameters classes<a class="headerlink" href="#create-instances-of-the-two-parameters-classes" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">Specification</span></code> class contains many of the model parameters, although depreciation system parameters are contained in the <code class="docutils literal notranslate"><span class="pre">DepreciationParams</span></code> class.  Both are required arguments for the <code class="docutils literal notranslate"><span class="pre">Calculator</span></code> object.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">Specification</span></code> object has methods that load the data from a file that contains the default parameter values (<code class="docutils literal notranslate"><span class="pre">default_parameters.json</span></code>) and then stores them as attributes of the <code class="docutils literal notranslate"><span class="pre">Specification</span></code> class object.</p>
@@ -939,8 +938,8 @@
 </div>
 </div>
 </div>
-</section>
-<section id="create-an-instance-of-the-calculator-class">
+</div>
+<div class="section" id="create-an-instance-of-the-calculator-class">
 <h2>Create an instance of the Calculator class<a class="headerlink" href="#create-an-instance-of-the-calculator-class" title="Permalink to this headline">¶</a></h2>
 <p>This class does the calculations on the data.  It takes as arguments the data object (named <code class="docutils literal notranslate"><span class="pre">assets</span></code> here) and the parameters object (named <code class="docutils literal notranslate"><span class="pre">p</span></code> here).</p>
 <p>Excuting the cell below creates an instance of the calculator class with these data and parameters, but does not yet excecute any calculations.</p>
@@ -1104,8 +1103,8 @@
 </table>
 </div></div></div>
 </div>
-</section>
-<section id="specifying-a-reform-policy">
+</div>
+<div class="section" id="specifying-a-reform-policy">
 <h2>Specifying a reform policy<a class="headerlink" href="#specifying-a-reform-policy" title="Permalink to this headline">¶</a></h2>
 <p>To see some more interesting results, we will want to create another <code class="docutils literal notranslate"><span class="pre">Calculator</span></code> object with a change in policy or economic assumptions.  We can do this in a way analogous to our original instantiation of the <code class="docutils literal notranslate"><span class="pre">Calculator</span></code> object above.  In particular, we’ll need to create a new <code class="docutils literal notranslate"><span class="pre">Specification</span></code> object (we can use the same underlying data, which was in the object we named <code class="docutils literal notranslate"><span class="pre">assets</span></code>).</p>
 <p>In the code below, we’ll specify our “reform” as current law tax policy for 2026 (the baseline parameters above came from the default model year, 2019).  In addition, we’ll increase the corporate income tax rate from 21 to 25%.</p>
@@ -1119,8 +1118,8 @@
 </div>
 </div>
 </div>
-</section>
-<section id="tabular-output">
+</div>
+<div class="section" id="tabular-output">
 <h2>Tabular output<a class="headerlink" href="#tabular-output" title="Permalink to this headline">¶</a></h2>
 <p>Now with two <code class="docutils literal notranslate"><span class="pre">Calculator</span></code> objects named <code class="docutils literal notranslate"><span class="pre">calc1</span></code> and <code class="docutils literal notranslate"><span class="pre">calc2</span></code> (representing the baseline and reform policies), we are ready to compute some of the changes in effective tax rates, cost of capital, or other variables measured in this model.</p>
 <p>We start with an overall summary table showing the marginal effective total tax rates (METTRs) for all investments, corporate investments, and pass-through investments under varying financing assumptions.  This is done through the <code class="docutils literal notranslate"><span class="pre">summary_table</span></code> function.  It takes a calculator object as an argument.</p>
@@ -1759,8 +1758,8 @@
 </table>
 </div></div></div>
 </div>
-</section>
-<section id="visualizations">
+</div>
+<div class="section" id="visualizations">
 <h2>Visualizations<a class="headerlink" href="#visualizations" title="Permalink to this headline">¶</a></h2>
 <p>If one wants to visualize the effects of changes in tax policy, the <code class="docutils literal notranslate"><span class="pre">Calculator</span></code> class has a few methods for this.</p>
 <p>We can use the <code class="docutils literal notranslate"><span class="pre">grouped_bar</span></code> method to show differential effects across assets (the default):</p>
@@ -1914,12 +1913,12 @@
 </div>
 </div>
 </div>
-</section>
-<section id="summary">
+</div>
+<div class="section" id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <p>This notebook provides a brief example of how one would work with CCC.  Please explore the source code to see additional flexiblity in the functions.  And please leave any questions or suggestions in the CCC repo at <a class="reference external" href="https://github.com/PSLmodels/Cost-of-Capital-Calculator/issues">https://github.com/PSLmodels/Cost-of-Capital-Calculator/issues</a>.</p>
-</section>
-</section>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {
