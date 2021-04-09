@@ -1,4 +1,4 @@
-Cost-of-Capital-Calclator API
+Cost-of-Capital-Calculator API
 ==============================
 
 The source code for Cost-of-Capital-Calculator (CCC) is located in the
