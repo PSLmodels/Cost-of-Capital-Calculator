@@ -30,14 +30,14 @@
     "license": {
         "start_header": null,
         "end_header": null,
-        "source": "https://github.com/PSLmodels/Cost-of-Capital-Calculator/blob/master/LICENSE.md",
+        "source": "https://github.com/PSLmodels/Cost-of-Capital-Calculator/blob/master/docs/book/content/license.md",
         "data": "<p>CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</p>",
         "type": "html"
     },
     "user_documentation": {
         "start_header": null,
         "end_header": null,
-        "data": "<a href=\"https://pslmodels.github.io/Cost-of-Capital-Calculator/\">https://pslmodels.github.io/Cost-of-Capital-Calculator/</a>",
+        "data": "<a href=\"http://ccc.pslmodels.org/\">http://ccc.pslmodels.org/content/intro.html/</a>",
         "source": null,
         "type": "html"
     },
@@ -95,7 +95,7 @@
         "end_header": "Citing the Cost-of-Capital-Calculator Model",
         "source": "README.md",
         "type": "github_file",
-        "data": "<a href=\"https://PSLmodels.github.io/Cost-of-Capital-Calculator\">https://PSLmodels.github.io/Cost-of-Capital-Calculator</a>"
+        "data": "<a href=\"http://ccc.pslmodels.org/content/contributing/contributor_guide.html\">http://ccc.pslmodels.org/content/contributing/contributor_guide.html</a>"
     },
     "governance_overview": {
         "start_header": null,
