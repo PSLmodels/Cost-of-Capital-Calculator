@@ -272,6 +272,14 @@ def test_eq_coc(delta, z, w, u, inv_tax_credit, pi, r, expected_val):
     assert(np.allclose(test_val, expected_val))
 
 
+def test_eq_coc_exception1():
+    '''
+    Raise exception for non-positive cost of capital
+    '''
+    with pytest.raises(RuntimeError):
+        assert cf.eq_coc(0.05, 1.0, 0.0, 0.28, 1.0, 0.02, 0.04)
+
+
 u = np.array([0.3, 0, 0.3, 0, 0.3, 0])
 phi = np.array([0.33, 0.33, 0.33, 0.33, 0.33, 0.33])
 Y_v = np.array([8, 8, 8, 8, 8, 8])
