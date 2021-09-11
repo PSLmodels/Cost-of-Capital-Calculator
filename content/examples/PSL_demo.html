@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
@@ -42,15 +42,15 @@
     <script src="../../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Web Application" href="../webapp.html" />
@@ -82,7 +82,7 @@
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
@@ -176,11 +176,6 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../api/utils.html">
      CCC utility functions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../api/calcfunctions.html">
-     Cost of Capital Calculation Functions
     </a>
    </li>
   </ul>
@@ -335,7 +330,7 @@
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
             </div>
-            <nav id="bd-toc-nav">
+            <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#first-things-first-import-necessary-packages">
@@ -646,7 +641,7 @@
       document.body.appendChild(element);
     }
 
-    const hashes = {"https://cdn.bokeh.org/bokeh/release/bokeh-2.3.0.min.js": "HjagQp6T0/7bxYTAXbLotF1MLAGWmhkY5siA1Gc/pcEgvgRPtMsRn0gQtMwGKiw1", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.3.0.min.js": "ZEPPTjL+mdyqgIq+/pl9KTwzji8Kow2NnI3zWY8+sFinWP/SYJ80BnfeJsa45iYj", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.3.0.min.js": "exLqv2ACDRIaV7ZK1iL8aGzGYQvKVuT3U2CT7FsQREBxRah6JrkVCoFy0koY1YqV"};
+    const hashes = {"https://cdn.bokeh.org/bokeh/release/bokeh-2.3.3.min.js": "dM3QQsP+wXdHg42wTqW85BjZQdLNNIXqlPw/BgKoExPmTG7ZLML4EGqLMfqHT6ON", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.3.3.min.js": "8x57I4YuIfu8XyZfFo0XVr2WAT8EK4rh/uDe3wF7YuW2FNUSNEpJbsPaB1nJ2fz2", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.3.3.min.js": "3QTqdz9LyAm2i0sG5XTePsHec3UHWwVsrOL68SYRoAXsafvfAyqtQ+h440+qIBhS"};
 
     for (let i = 0; i < js_urls.length; i++) {
       const url = js_urls[i];
@@ -671,7 +666,7 @@
   }
 
   
-  var js_urls = ["https://cdn.bokeh.org/bokeh/release/bokeh-2.3.0.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.3.0.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.3.0.min.js"];
+  var js_urls = ["https://cdn.bokeh.org/bokeh/release/bokeh-2.3.3.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.3.3.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.3.3.min.js"];
   var css_urls = [];
   
 
@@ -861,12 +856,16 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Calculator initial year =  2014
-Calculator year =  2021
-year:  2021
-{&#39;tau_nc&#39;: array([0.19853692]), &#39;tau_div&#39;: array([0.16934824]), &#39;tau_int&#39;: array([0.31774926]), &#39;tau_scg&#39;: array([0.27926113]), &#39;tau_lcg&#39;: array([0.17928035]), &#39;tau_td&#39;: array([0.19828216]), &#39;tau_h&#39;: array([0.04672513])}
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;c&#39;: array([0.21]), &#39;nc&#39;: array([0.19853692])}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Calculator year =  2022
+year:  2022
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;tau_nc&#39;: array([0.20291415]), &#39;tau_div&#39;: array([0.17179479]), &#39;tau_int&#39;: array([0.31126241]), &#39;tau_scg&#39;: array([0.2836037]), &#39;tau_lcg&#39;: array([0.18346882]), &#39;tau_td&#39;: array([0.20469421]), &#39;tau_h&#39;: array([0.03877468])}
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;c&#39;: array([0.21]), &#39;nc&#39;: array([0.20291415])}
 </pre></div>
 </div>
 </div>
@@ -1115,51 +1114,51 @@ year:  2021
     <tr>
       <th>0</th>
       <td>Overall</td>
-      <td>17.317933</td>
-      <td>25.271478</td>
-      <td>7.953545</td>
+      <td>17.385422</td>
+      <td>25.403326</td>
+      <td>8.017904</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Corporations</td>
-      <td>17.403456</td>
-      <td>28.013370</td>
-      <td>10.609914</td>
+      <td>17.428895</td>
+      <td>28.035541</td>
+      <td>10.606646</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Equity Financed</td>
-      <td>20.151026</td>
-      <td>34.154716</td>
-      <td>14.003691</td>
+      <td>20.321015</td>
+      <td>34.294894</td>
+      <td>13.973878</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Debt Financed</td>
-      <td>7.177398</td>
-      <td>-1.761479</td>
-      <td>-8.938877</td>
+      <td>6.660793</td>
+      <td>-2.327833</td>
+      <td>-8.988626</td>
     </tr>
     <tr>
       <th>4</th>
       <td>Pass-Through Entities</td>
-      <td>18.740597</td>
-      <td>23.159209</td>
-      <td>4.418612</td>
+      <td>18.812173</td>
+      <td>23.397810</td>
+      <td>4.585637</td>
     </tr>
     <tr>
       <th>5</th>
       <td>Equity Financed</td>
-      <td>16.793315</td>
-      <td>22.521142</td>
-      <td>5.727826</td>
+      <td>17.178244</td>
+      <td>23.098247</td>
+      <td>5.920003</td>
     </tr>
     <tr>
       <th>6</th>
       <td>Debt Financed</td>
-      <td>26.246776</td>
-      <td>25.925342</td>
-      <td>-0.321433</td>
+      <td>25.163912</td>
+      <td>24.787343</td>
+      <td>-0.376569</td>
     </tr>
   </tbody>
 </table>
@@ -1202,9 +1201,9 @@ year:  2021
     <tr>
       <th>0</th>
       <td>Overall</td>
-      <td>5.653144</td>
-      <td>6.254822</td>
-      <td>0.601678</td>
+      <td>5.656019</td>
+      <td>6.263947</td>
+      <td>0.607928</td>
     </tr>
     <tr>
       <th>1</th>
@@ -1230,23 +1229,23 @@ year:  2021
     <tr>
       <th>4</th>
       <td>Pass-Through Entities</td>
-      <td>5.646166</td>
-      <td>5.970840</td>
-      <td>0.324674</td>
+      <td>5.652469</td>
+      <td>5.990843</td>
+      <td>0.338374</td>
     </tr>
     <tr>
       <th>5</th>
       <td>Equity Financed</td>
-      <td>6.306033</td>
-      <td>6.772223</td>
-      <td>0.466190</td>
+      <td>6.321854</td>
+      <td>6.808519</td>
+      <td>0.486665</td>
     </tr>
     <tr>
       <th>6</th>
       <td>Debt Financed</td>
-      <td>4.033216</td>
-      <td>4.015715</td>
-      <td>-0.017501</td>
+      <td>4.016359</td>
+      <td>3.996250</td>
+      <td>-0.020109</td>
     </tr>
   </tbody>
 </table>
@@ -1298,93 +1297,93 @@ year:  2021
     <tr>
       <th>0</th>
       <td>Overall</td>
-      <td>17.317933</td>
-      <td>25.271478</td>
-      <td>7.953545</td>
+      <td>17.385422</td>
+      <td>25.403326</td>
+      <td>8.017904</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Corporate</td>
-      <td>17.403456</td>
-      <td>28.013370</td>
-      <td>10.609914</td>
+      <td>17.428895</td>
+      <td>28.035541</td>
+      <td>10.606646</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Equipment</td>
-      <td>6.349461</td>
-      <td>22.174338</td>
-      <td>15.824877</td>
+      <td>6.378304</td>
+      <td>22.198307</td>
+      <td>15.820003</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Structures</td>
-      <td>18.054681</td>
-      <td>27.562823</td>
-      <td>9.508142</td>
+      <td>18.079919</td>
+      <td>27.585133</td>
+      <td>9.505214</td>
     </tr>
     <tr>
       <th>4</th>
       <td>Intellectual Property</td>
-      <td>6.349461</td>
-      <td>10.887374</td>
-      <td>4.537913</td>
+      <td>6.378304</td>
+      <td>10.914820</td>
+      <td>4.536516</td>
     </tr>
     <tr>
       <th>5</th>
       <td>Inventories</td>
-      <td>28.921623</td>
-      <td>39.701447</td>
-      <td>10.779824</td>
+      <td>28.943514</td>
+      <td>39.720019</td>
+      <td>10.776504</td>
     </tr>
     <tr>
       <th>6</th>
       <td>Land</td>
-      <td>26.016074</td>
-      <td>35.609776</td>
-      <td>9.593702</td>
+      <td>26.038860</td>
+      <td>35.629608</td>
+      <td>9.590748</td>
     </tr>
     <tr>
       <th>7</th>
       <td>Pass-through</td>
-      <td>18.740597</td>
-      <td>23.159209</td>
-      <td>4.418612</td>
+      <td>18.812173</td>
+      <td>23.397810</td>
+      <td>4.585637</td>
     </tr>
     <tr>
       <th>8</th>
       <td>Equipment</td>
-      <td>2.317353</td>
-      <td>14.820627</td>
-      <td>12.503275</td>
+      <td>1.948677</td>
+      <td>14.897821</td>
+      <td>12.949144</td>
     </tr>
     <tr>
       <th>9</th>
       <td>Structures</td>
-      <td>17.399032</td>
-      <td>21.299206</td>
-      <td>3.900174</td>
+      <td>17.439967</td>
+      <td>21.502642</td>
+      <td>4.062675</td>
     </tr>
     <tr>
       <th>10</th>
       <td>Intellectual Property</td>
-      <td>2.317353</td>
-      <td>6.224794</td>
-      <td>3.907441</td>
+      <td>1.948677</td>
+      <td>6.085711</td>
+      <td>4.137034</td>
     </tr>
     <tr>
       <th>11</th>
       <td>Inventories</td>
-      <td>24.824284</td>
-      <td>29.027732</td>
-      <td>4.203447</td>
+      <td>25.029232</td>
+      <td>29.369039</td>
+      <td>4.339807</td>
     </tr>
     <tr>
       <th>12</th>
       <td>Land</td>
-      <td>21.710965</td>
-      <td>25.394339</td>
-      <td>3.683374</td>
+      <td>21.844677</td>
+      <td>25.670063</td>
+      <td>3.825386</td>
     </tr>
   </tbody>
 </table>
@@ -1426,289 +1425,289 @@ year:  2021
     <tr>
       <th>0</th>
       <td>Overall</td>
-      <td>17.317933</td>
-      <td>25.271478</td>
-      <td>7.953545</td>
+      <td>17.385422</td>
+      <td>25.403326</td>
+      <td>8.017904</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Corporate</td>
-      <td>17.403456</td>
-      <td>28.013370</td>
-      <td>10.609914</td>
+      <td>17.428895</td>
+      <td>28.035541</td>
+      <td>10.606646</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Agriculture, forestry, fishing, and hunting</td>
-      <td>18.273600</td>
-      <td>30.600296</td>
-      <td>12.326695</td>
+      <td>18.298771</td>
+      <td>30.621670</td>
+      <td>12.322899</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Mining</td>
-      <td>9.328054</td>
-      <td>17.620838</td>
-      <td>8.292784</td>
+      <td>9.355980</td>
+      <td>17.646210</td>
+      <td>8.290230</td>
     </tr>
     <tr>
       <th>4</th>
       <td>Utilities</td>
-      <td>7.375318</td>
-      <td>19.774111</td>
-      <td>12.398793</td>
+      <td>7.403845</td>
+      <td>19.798819</td>
+      <td>12.394974</td>
     </tr>
     <tr>
       <th>5</th>
       <td>Construction</td>
-      <td>18.813672</td>
-      <td>30.327782</td>
-      <td>11.514110</td>
+      <td>18.838676</td>
+      <td>30.349240</td>
+      <td>11.510564</td>
     </tr>
     <tr>
       <th>6</th>
       <td>Manufacturing</td>
-      <td>17.700247</td>
-      <td>26.808209</td>
-      <td>9.107962</td>
+      <td>17.725594</td>
+      <td>26.830751</td>
+      <td>9.105157</td>
     </tr>
     <tr>
       <th>7</th>
       <td>Wholesale trade</td>
-      <td>23.164795</td>
-      <td>34.253593</td>
-      <td>11.088798</td>
+      <td>23.188460</td>
+      <td>34.273842</td>
+      <td>11.085383</td>
     </tr>
     <tr>
       <th>8</th>
       <td>Retail trade</td>
-      <td>24.156140</td>
-      <td>34.669912</td>
-      <td>10.513772</td>
+      <td>24.179499</td>
+      <td>34.690033</td>
+      <td>10.510534</td>
     </tr>
     <tr>
       <th>9</th>
       <td>Transportation and warehousing</td>
-      <td>10.611761</td>
-      <td>20.368946</td>
-      <td>9.757185</td>
+      <td>10.639291</td>
+      <td>20.393471</td>
+      <td>9.754180</td>
     </tr>
     <tr>
       <th>10</th>
       <td>Information</td>
-      <td>10.006523</td>
-      <td>24.516343</td>
-      <td>14.509820</td>
+      <td>10.034240</td>
+      <td>24.539591</td>
+      <td>14.505351</td>
     </tr>
     <tr>
       <th>11</th>
       <td>Finance and insurance</td>
-      <td>18.348460</td>
-      <td>30.243393</td>
-      <td>11.894933</td>
+      <td>18.373608</td>
+      <td>30.264878</td>
+      <td>11.891270</td>
     </tr>
     <tr>
       <th>12</th>
       <td>Real estate and rental and leasing</td>
-      <td>24.063695</td>
-      <td>33.701100</td>
-      <td>9.637405</td>
+      <td>24.087083</td>
+      <td>33.721519</td>
+      <td>9.634436</td>
     </tr>
     <tr>
       <th>13</th>
       <td>Professional, scientific, and technical ser...</td>
-      <td>14.240180</td>
-      <td>25.380191</td>
-      <td>11.140010</td>
+      <td>14.266593</td>
+      <td>25.403173</td>
+      <td>11.136579</td>
     </tr>
     <tr>
       <th>14</th>
       <td>Management of companies and enterprises</td>
-      <td>22.153173</td>
-      <td>32.227632</td>
-      <td>10.074458</td>
+      <td>22.177149</td>
+      <td>32.248505</td>
+      <td>10.071355</td>
     </tr>
     <tr>
       <th>15</th>
       <td>Administrative and waste management services</td>
-      <td>13.943203</td>
-      <td>26.492648</td>
-      <td>12.549445</td>
+      <td>13.969707</td>
+      <td>26.515287</td>
+      <td>12.545580</td>
     </tr>
     <tr>
       <th>16</th>
       <td>Educational services</td>
-      <td>22.155293</td>
-      <td>31.592739</td>
-      <td>9.437447</td>
+      <td>22.179268</td>
+      <td>31.613808</td>
+      <td>9.434540</td>
     </tr>
     <tr>
       <th>17</th>
       <td>Health care and social assistance</td>
-      <td>20.292933</td>
-      <td>30.811341</td>
-      <td>10.518408</td>
+      <td>20.317482</td>
+      <td>30.832650</td>
+      <td>10.515168</td>
     </tr>
     <tr>
       <th>18</th>
       <td>Arts, entertainment, and recreation</td>
-      <td>15.187464</td>
-      <td>26.303776</td>
-      <td>11.116313</td>
+      <td>15.213585</td>
+      <td>26.326474</td>
+      <td>11.112889</td>
     </tr>
     <tr>
       <th>19</th>
       <td>Accommodation and food services</td>
-      <td>23.742863</td>
-      <td>34.074877</td>
-      <td>10.332014</td>
+      <td>23.766349</td>
+      <td>34.095181</td>
+      <td>10.328832</td>
     </tr>
     <tr>
       <th>20</th>
       <td>Other services, except government</td>
-      <td>20.497893</td>
-      <td>29.777756</td>
-      <td>9.279864</td>
+      <td>20.522378</td>
+      <td>29.799384</td>
+      <td>9.277005</td>
     </tr>
     <tr>
       <th>21</th>
       <td>Pass-through</td>
-      <td>18.740597</td>
-      <td>23.159209</td>
-      <td>4.418612</td>
+      <td>18.812173</td>
+      <td>23.397810</td>
+      <td>4.585637</td>
     </tr>
     <tr>
       <th>22</th>
       <td>Agriculture, forestry, fishing, and hunting</td>
-      <td>15.868232</td>
-      <td>22.298714</td>
-      <td>6.430482</td>
+      <td>15.876157</td>
+      <td>22.523466</td>
+      <td>6.647308</td>
     </tr>
     <tr>
       <th>23</th>
       <td>Mining</td>
-      <td>5.543429</td>
-      <td>11.664037</td>
-      <td>6.120608</td>
+      <td>5.274190</td>
+      <td>11.663757</td>
+      <td>6.389567</td>
     </tr>
     <tr>
       <th>24</th>
       <td>Utilities</td>
-      <td>3.613537</td>
-      <td>13.136790</td>
-      <td>9.523253</td>
+      <td>3.285505</td>
+      <td>13.167828</td>
+      <td>9.882323</td>
     </tr>
     <tr>
       <th>25</th>
       <td>Construction</td>
-      <td>16.073045</td>
-      <td>21.888918</td>
-      <td>5.815873</td>
+      <td>16.084501</td>
+      <td>22.106145</td>
+      <td>6.021644</td>
     </tr>
     <tr>
       <th>26</th>
       <td>Manufacturing</td>
-      <td>14.237288</td>
-      <td>19.002495</td>
-      <td>4.765207</td>
+      <td>14.207660</td>
+      <td>19.167293</td>
+      <td>4.959633</td>
     </tr>
     <tr>
       <th>27</th>
       <td>Wholesale trade</td>
-      <td>20.922119</td>
-      <td>25.868283</td>
-      <td>4.946165</td>
+      <td>21.047185</td>
+      <td>26.159069</td>
+      <td>5.111883</td>
     </tr>
     <tr>
       <th>28</th>
       <td>Retail trade</td>
-      <td>21.147135</td>
-      <td>25.763507</td>
-      <td>4.616372</td>
+      <td>21.275141</td>
+      <td>26.050928</td>
+      <td>4.775787</td>
     </tr>
     <tr>
       <th>29</th>
       <td>Transportation and warehousing</td>
-      <td>7.045808</td>
-      <td>14.073382</td>
-      <td>7.027574</td>
+      <td>6.820432</td>
+      <td>14.128465</td>
+      <td>7.308033</td>
     </tr>
     <tr>
       <th>30</th>
       <td>Information</td>
-      <td>6.234017</td>
-      <td>16.932997</td>
-      <td>10.698980</td>
+      <td>5.985239</td>
+      <td>17.050742</td>
+      <td>11.065503</td>
     </tr>
     <tr>
       <th>31</th>
       <td>Finance and insurance</td>
-      <td>18.187951</td>
-      <td>23.374343</td>
-      <td>5.186392</td>
+      <td>18.248503</td>
+      <td>23.618762</td>
+      <td>5.370259</td>
     </tr>
     <tr>
       <th>32</th>
       <td>Real estate and rental and leasing</td>
-      <td>20.757475</td>
-      <td>24.465670</td>
-      <td>3.708195</td>
+      <td>20.871296</td>
+      <td>24.725673</td>
+      <td>3.854377</td>
     </tr>
     <tr>
       <th>33</th>
       <td>Professional, scientific, and technical ser...</td>
-      <td>10.111995</td>
-      <td>17.174251</td>
-      <td>7.062256</td>
+      <td>9.972917</td>
+      <td>17.301080</td>
+      <td>7.328162</td>
     </tr>
     <tr>
       <th>34</th>
       <td>Management of companies and enterprises</td>
-      <td>17.859794</td>
-      <td>22.627146</td>
-      <td>4.767353</td>
+      <td>17.913126</td>
+      <td>22.858351</td>
+      <td>4.945225</td>
     </tr>
     <tr>
       <th>35</th>
       <td>Administrative and waste management services</td>
-      <td>9.754901</td>
-      <td>18.060241</td>
-      <td>8.305340</td>
+      <td>9.605741</td>
+      <td>18.203833</td>
+      <td>8.598093</td>
     </tr>
     <tr>
       <th>36</th>
       <td>Educational services</td>
-      <td>17.843417</td>
-      <td>22.079462</td>
-      <td>4.236045</td>
+      <td>17.893937</td>
+      <td>22.297889</td>
+      <td>4.403953</td>
     </tr>
     <tr>
       <th>37</th>
       <td>Health care and social assistance</td>
-      <td>16.027848</td>
-      <td>21.461936</td>
-      <td>5.434088</td>
+      <td>16.036972</td>
+      <td>21.670206</td>
+      <td>5.633234</td>
     </tr>
     <tr>
       <th>38</th>
       <td>Arts, entertainment, and recreation</td>
-      <td>10.771540</td>
-      <td>17.822745</td>
-      <td>7.051205</td>
+      <td>10.649402</td>
+      <td>17.958885</td>
+      <td>7.309483</td>
     </tr>
     <tr>
       <th>39</th>
       <td>Accommodation and food services</td>
-      <td>19.631932</td>
-      <td>24.255500</td>
-      <td>4.623568</td>
+      <td>19.724755</td>
+      <td>24.515138</td>
+      <td>4.790384</td>
     </tr>
     <tr>
       <th>40</th>
       <td>Other services, except government</td>
-      <td>15.977472</td>
-      <td>20.424568</td>
-      <td>4.447096</td>
+      <td>15.985057</td>
+      <td>20.612279</td>
+      <td>4.627222</td>
     </tr>
   </tbody>
 </table>
@@ -1734,12 +1733,12 @@ year:  2021
 
 
 
-<div class="bk-root" id="ada2b2da-4ba9-43d9-a8bf-a978d218a3bf" data-root-id="1004"></div>
+<div class="bk-root" id="c8a874b4-97b2-4390-9143-8182d4699a2b" data-root-id="1004"></div>
 </div><script type="application/javascript">(function(root) {
   function embed_document(root) {
     
-  var docs_json = {"bc82f556-5eef-4e16-b220-8a741b7ac72c":{"defs":[{"extends":null,"module":null,"name":"DataModel","overrides":[],"properties":[]}],"roots":{"references":[{"attributes":{"below":[{"id":"1014"}],"center":[{"id":"1016"},{"id":"1020"},{"id":"1037"}],"height":350,"left":[{"id":"1017"}],"renderers":[{"id":"1026"},{"id":"1043"},{"id":"1055"},{"id":"1056"}],"title":null,"toolbar":{"id":"1021"},"toolbar_location":null,"x_range":{"id":"1006"},"x_scale":{"id":"1010"},"y_range":{"id":"1008"},"y_scale":{"id":"1012"}},"id":"1004","subtype":"Figure","type":"Plot"},{"attributes":{"axis":{"id":"1017"},"dimension":1,"ticker":null},"id":"1020","type":"Grid"},{"attributes":{"formatter":{"id":"1032"},"major_label_policy":{"id":"1033"},"ticker":{"id":"1018"}},"id":"1017","type":"LinearAxis"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"top":{"field":"Baseline"},"width":{"value":0.2},"x":{"field":"major_asset_group","transform":{"id":"1022"}}},"id":"1024","type":"VBar"},{"attributes":{},"id":"1029","type":"CategoricalTickFormatter"},{"attributes":{"data_source":{"id":"1003"},"glyph":{"id":"1024"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1025"},"view":{"id":"1027"}},"id":"1026","type":"GlyphRenderer"},{"attributes":{},"id":"1030","type":"AllLabels"},{"attributes":{},"id":"1012","type":"LinearScale"},{"attributes":{},"id":"1033","type":"AllLabels"},{"attributes":{"line_alpha":0.2,"line_color":"#718dbf","line_dash":[6],"line_width":2,"location":0.17403456113148386},"id":"1055","type":"Span"},{"attributes":{"range":{"id":"1006"},"value":0.25},"id":"1039","type":"Dodge"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"top":{"field":"Reform"},"width":{"value":0.2},"x":{"field":"major_asset_group","transform":{"id":"1039"}}},"id":"1042","type":"VBar"},{"attributes":{"factors":["Equipment","Intellectual Property","Inventories","Land","Structures"],"range_padding":0.1},"id":"1006","type":"FactorRange"},{"attributes":{"active_multi":null},"id":"1021","type":"Toolbar"},{"attributes":{"items":[{"id":"1038"},{"id":"1054"}],"location":"top_left","orientation":"horizontal"},"id":"1037","type":"Legend"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"top":{"field":"Reform"},"width":{"value":0.2},"x":{"field":"major_asset_group","transform":{"id":"1039"}}},"id":"1041","type":"VBar"},{"attributes":{"range":{"id":"1006"}},"id":"1022","type":"Dodge"},{"attributes":{"source":{"id":"1003"}},"id":"1044","type":"CDSView"},{"attributes":{},"id":"1018","type":"BasicTicker"},{"attributes":{"label":{"value":"Reform"},"renderers":[{"id":"1043"}]},"id":"1054","type":"LegendItem"},{"attributes":{},"id":"1015","type":"CategoricalTicker"},{"attributes":{"label":{"value":"Baseline"},"renderers":[{"id":"1026"}]},"id":"1038","type":"LegendItem"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"top":{"field":"Baseline"},"width":{"value":0.2},"x":{"field":"major_asset_group","transform":{"id":"1022"}}},"id":"1025","type":"VBar"},{"attributes":{"data_source":{"id":"1003"},"glyph":{"id":"1041"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1042"},"view":{"id":"1044"}},"id":"1043","type":"GlyphRenderer"},{"attributes":{},"id":"1036","type":"Selection"},{"attributes":{},"id":"1008","type":"DataRange1d"},{"attributes":{"line_alpha":0.2,"line_color":"#e84d60","line_dash":[6],"line_width":2,"location":0.2855521351560459},"id":"1056","type":"Span"},{"attributes":{},"id":"1032","type":"BasicTickFormatter"},{"attributes":{},"id":"1010","type":"CategoricalScale"},{"attributes":{"formatter":{"id":"1029"},"major_label_policy":{"id":"1030"},"ticker":{"id":"1015"}},"id":"1014","type":"CategoricalAxis"},{"attributes":{"data":{"Baseline":{"__ndarray__":"8l1XvS5BsD/yXVe9LkGwP42XOMuEgtI/rKcnO3mm0D/2/7BpKBzHPw==","dtype":"float64","order":"little","shape":[5]},"Reform":{"__ndarray__":"X2YCOgoizT8iE2qgu5a9Pxplu/kLs9k/P1Wxm7YZ1z+pNUxmOf3RPw==","dtype":"float64","order":"little","shape":[5]},"index":[0,1,2,3,4],"major_asset_group":["Equipment","Intellectual Property","Inventories","Land","Structures"]},"selected":{"id":"1036"},"selection_policy":{"id":"1035"}},"id":"1003","type":"ColumnDataSource"},{"attributes":{"axis":{"id":"1014"},"grid_line_color":null,"ticker":null},"id":"1016","type":"Grid"},{"attributes":{"source":{"id":"1003"}},"id":"1027","type":"CDSView"},{"attributes":{},"id":"1035","type":"UnionRenderers"}],"root_ids":["1004"]},"title":"Bokeh Application","version":"2.3.0"}};
-  var render_items = [{"docid":"bc82f556-5eef-4e16-b220-8a741b7ac72c","root_ids":["1004"],"roots":{"1004":"ada2b2da-4ba9-43d9-a8bf-a978d218a3bf"}}];
+  var docs_json = {"9f53b489-3eb0-4816-8fd2-8346b5e273eb":{"defs":[],"roots":{"references":[{"attributes":{"below":[{"id":"1014"}],"center":[{"id":"1016"},{"id":"1020"},{"id":"1037"}],"height":350,"left":[{"id":"1017"}],"renderers":[{"id":"1026"},{"id":"1043"},{"id":"1055"},{"id":"1056"}],"title":null,"toolbar":{"id":"1021"},"toolbar_location":null,"x_range":{"id":"1006"},"x_scale":{"id":"1010"},"y_range":{"id":"1008"},"y_scale":{"id":"1012"}},"id":"1004","subtype":"Figure","type":"Plot"},{"attributes":{"axis":{"id":"1017"},"dimension":1,"ticker":null},"id":"1020","type":"Grid"},{"attributes":{},"id":"1008","type":"DataRange1d"},{"attributes":{"source":{"id":"1003"}},"id":"1044","type":"CDSView"},{"attributes":{},"id":"1031","type":"BasicTickFormatter"},{"attributes":{},"id":"1015","type":"CategoricalTicker"},{"attributes":{"line_alpha":0.2,"line_color":"#e84d60","line_dash":[6],"line_width":2,"location":0.28507294391464827},"id":"1056","type":"Span"},{"attributes":{"line_alpha":0.2,"line_color":"#718dbf","line_dash":[6],"line_width":2,"location":0.17428894800227376},"id":"1055","type":"Span"},{"attributes":{"formatter":{"id":"1034"},"major_label_policy":{"id":"1033"},"ticker":{"id":"1015"}},"id":"1014","type":"CategoricalAxis"},{"attributes":{},"id":"1010","type":"CategoricalScale"},{"attributes":{"range":{"id":"1006"}},"id":"1022","type":"Dodge"},{"attributes":{"formatter":{"id":"1031"},"major_label_policy":{"id":"1030"},"ticker":{"id":"1018"}},"id":"1017","type":"LinearAxis"},{"attributes":{"source":{"id":"1003"}},"id":"1027","type":"CDSView"},{"attributes":{"label":{"value":"Baseline"},"renderers":[{"id":"1026"}]},"id":"1038","type":"LegendItem"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"top":{"field":"Reform"},"width":{"value":0.2},"x":{"field":"major_asset_group","transform":{"id":"1039"}}},"id":"1041","type":"VBar"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"top":{"field":"Reform"},"width":{"value":0.2},"x":{"field":"major_asset_group","transform":{"id":"1039"}}},"id":"1042","type":"VBar"},{"attributes":{"active_multi":null},"id":"1021","type":"Toolbar"},{"attributes":{"data_source":{"id":"1003"},"glyph":{"id":"1041"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1042"},"view":{"id":"1044"}},"id":"1043","type":"GlyphRenderer"},{"attributes":{"range":{"id":"1006"},"value":0.25},"id":"1039","type":"Dodge"},{"attributes":{},"id":"1018","type":"BasicTicker"},{"attributes":{},"id":"1034","type":"CategoricalTickFormatter"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"top":{"field":"Baseline"},"width":{"value":0.2},"x":{"field":"major_asset_group","transform":{"id":"1022"}}},"id":"1024","type":"VBar"},{"attributes":{"label":{"value":"Reform"},"renderers":[{"id":"1043"}]},"id":"1054","type":"LegendItem"},{"attributes":{},"id":"1035","type":"UnionRenderers"},{"attributes":{},"id":"1012","type":"LinearScale"},{"attributes":{"axis":{"id":"1014"},"grid_line_color":null,"ticker":null},"id":"1016","type":"Grid"},{"attributes":{"factors":["Equipment","Intellectual Property","Inventories","Land","Structures"],"range_padding":0.1},"id":"1006","type":"FactorRange"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"top":{"field":"Baseline"},"width":{"value":0.2},"x":{"field":"major_asset_group","transform":{"id":"1022"}}},"id":"1025","type":"VBar"},{"attributes":{"data":{"Baseline":{"__ndarray__":"Qx1g0hVUsD9DHWDSFVSwPywFmfoahtI/vS4m8zSq0D/bfyaKbSTHPw==","dtype":"float64","order":"little","shape":[5]},"Reform":{"__ndarray__":"JqUpbRARzT9vHGd+22+9P2I/HW94rNk/urSr07AS1z/mA1HyUvXRPw==","dtype":"float64","order":"little","shape":[5]},"index":[0,1,2,3,4],"major_asset_group":["Equipment","Intellectual Property","Inventories","Land","Structures"]},"selected":{"id":"1036"},"selection_policy":{"id":"1035"}},"id":"1003","type":"ColumnDataSource"},{"attributes":{"data_source":{"id":"1003"},"glyph":{"id":"1024"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1025"},"view":{"id":"1027"}},"id":"1026","type":"GlyphRenderer"},{"attributes":{"items":[{"id":"1038"},{"id":"1054"}],"location":"top_left","orientation":"horizontal"},"id":"1037","type":"Legend"},{"attributes":{},"id":"1030","type":"AllLabels"},{"attributes":{},"id":"1033","type":"AllLabels"},{"attributes":{},"id":"1036","type":"Selection"}],"root_ids":["1004"]},"title":"Bokeh Application","version":"2.3.3"}};
+  var render_items = [{"docid":"9f53b489-3eb0-4816-8fd2-8346b5e273eb","root_ids":["1004"],"roots":{"1004":"c8a874b4-97b2-4390-9143-8182d4699a2b"}}];
   root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
 
   }
@@ -1778,12 +1777,12 @@ year:  2021
 
 
 
-<div class="bk-root" id="3bb686cd-e969-4594-aefc-8e68bef4ca4c" data-root-id="1112"></div>
+<div class="bk-root" id="51193a3f-354f-40a9-a817-3f7e772c8adb" data-root-id="1112"></div>
 </div><script type="application/javascript">(function(root) {
   function embed_document(root) {
     
-  var docs_json = {"a69c1ae9-73bd-49ec-aade-4d323e50cfa5":{"defs":[{"extends":null,"module":null,"name":"DataModel","overrides":[],"properties":[]}],"roots":{"references":[{"attributes":{"below":[{"id":"1122"}],"center":[{"id":"1124"},{"id":"1128"},{"id":"1145"}],"height":800,"left":[{"id":"1125"}],"renderers":[{"id":"1134"},{"id":"1151"},{"id":"1163"},{"id":"1164"}],"title":null,"toolbar":{"id":"1129"},"toolbar_location":null,"width":800,"x_range":{"id":"1114"},"x_scale":{"id":"1118"},"y_range":{"id":"1116"},"y_scale":{"id":"1120"}},"id":"1112","subtype":"Figure","type":"Plot"},{"attributes":{"source":{"id":"1111"}},"id":"1152","type":"CDSView"},{"attributes":{"label":{"value":"Baseline"},"renderers":[{"id":"1134"}]},"id":"1146","type":"LegendItem"},{"attributes":{"formatter":{"id":"1137"},"major_label_orientation":45,"major_label_policy":{"id":"1138"},"ticker":{"id":"1123"}},"id":"1122","type":"CategoricalAxis"},{"attributes":{},"id":"1143","type":"UnionRenderers"},{"attributes":{},"id":"1126","type":"BasicTicker"},{"attributes":{"data_source":{"id":"1111"},"glyph":{"id":"1132"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1133"},"view":{"id":"1135"}},"id":"1134","type":"GlyphRenderer"},{"attributes":{"active_multi":null},"id":"1129","type":"Toolbar"},{"attributes":{},"id":"1123","type":"CategoricalTicker"},{"attributes":{"axis":{"id":"1125"},"dimension":1,"ticker":null},"id":"1128","type":"Grid"},{"attributes":{"label":{"value":"Reform"},"renderers":[{"id":"1151"}]},"id":"1162","type":"LegendItem"},{"attributes":{"range":{"id":"1114"}},"id":"1130","type":"Dodge"},{"attributes":{},"id":"1141","type":"AllLabels"},{"attributes":{},"id":"1137","type":"CategoricalTickFormatter"},{"attributes":{"items":[{"id":"1146"},{"id":"1162"}],"location":"top_left","orientation":"horizontal"},"id":"1145","type":"Legend"},{"attributes":{},"id":"1118","type":"CategoricalScale"},{"attributes":{"range":{"id":"1114"},"value":0.25},"id":"1147","type":"Dodge"},{"attributes":{"source":{"id":"1111"}},"id":"1135","type":"CDSView"},{"attributes":{"line_alpha":0.2,"line_color":"#718dbf","line_dash":[6],"line_width":2,"location":0.17403456113148386},"id":"1163","type":"Span"},{"attributes":{"formatter":{"id":"1140"},"major_label_policy":{"id":"1141"},"ticker":{"id":"1126"}},"id":"1125","type":"LinearAxis"},{"attributes":{},"id":"1116","type":"DataRange1d"},{"attributes":{"line_alpha":0.2,"line_color":"#e84d60","line_dash":[6],"line_width":2,"location":0.2855521351560459},"id":"1164","type":"Span"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"top":{"field":"Reform"},"width":{"value":0.2},"x":{"field":"major_industry","transform":{"id":"1147"}}},"id":"1149","type":"VBar"},{"attributes":{},"id":"1138","type":"AllLabels"},{"attributes":{"factors":["Accommodation and food services","Administrative and waste management services","Agriculture, forestry, fishing, and hunting","Arts, entertainment, and recreation","Construction","Educational services","Finance and insurance","Health care and social assistance","Information","Management of companies and enterprises","Manufacturing","Mining","Other services, except government","Professional, scientific, and technical services","Real estate and rental and leasing","Retail trade","Transportation and warehousing","Utilities","Wholesale trade"],"range_padding":0.1},"id":"1114","type":"FactorRange"},{"attributes":{"data_source":{"id":"1111"},"glyph":{"id":"1149"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1150"},"view":{"id":"1152"}},"id":"1151","type":"GlyphRenderer"},{"attributes":{"data":{"Baseline":{"__ndarray__":"6AMBsQ9kzj8BWOqe6NjBP9pMn7HkY8c/Dyzr0KBwwz/rKO8t3RTIP7qyOqbYW8w/gOvfaWx8xz8qL/qVlvnJP2AQ5/7fnbk/9qQ84SZbzD/7n8BMBKjGP/Ttkbw74bc/ehtL4b88yj8Y1+XlODrCP3A7BRQxzc4/4tyC43vrzj8c8HgPhiq7P6D+ywV94bI/EBhC36OmzT8=","dtype":"float64","order":"little","shape":[19]},"Reform":{"__ndarray__":"tCGW1yAg1j+wtHDdNE/RP7c/X0kj69M/CHbrpH4w0T/0UGs/077TP9rXghGEjNQ/S9X5ZBqx0z8vlJuHdA3UPw6JYYnYDdA/pHWH8MDz1D+SCgTPhILRP0rOjR0uWcc/PFLiKmNl0z8zpVg5UJrQP42GcoBZ49U/pz2GkOKA1j9Twebt5tbKPza1ICN0Fco/0r8XUTA91j8=","dtype":"float64","order":"little","shape":[19]},"index":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],"major_industry":["Accommodation and food services","Administrative and waste management services","Agriculture, forestry, fishing, and hunting","Arts, entertainment, and recreation","Construction","Educational services","Finance and insurance","Health care and social assistance","Information","Management of companies and enterprises","Manufacturing","Mining","Other services, except government","Professional, scientific, and technical services","Real estate and rental and leasing","Retail trade","Transportation and warehousing","Utilities","Wholesale trade"]},"selected":{"id":"1144"},"selection_policy":{"id":"1143"}},"id":"1111","type":"ColumnDataSource"},{"attributes":{},"id":"1144","type":"Selection"},{"attributes":{},"id":"1140","type":"BasicTickFormatter"},{"attributes":{"axis":{"id":"1122"},"grid_line_color":null,"ticker":null},"id":"1124","type":"Grid"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"top":{"field":"Reform"},"width":{"value":0.2},"x":{"field":"major_industry","transform":{"id":"1147"}}},"id":"1150","type":"VBar"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"top":{"field":"Baseline"},"width":{"value":0.2},"x":{"field":"major_industry","transform":{"id":"1130"}}},"id":"1132","type":"VBar"},{"attributes":{},"id":"1120","type":"LinearScale"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"top":{"field":"Baseline"},"width":{"value":0.2},"x":{"field":"major_industry","transform":{"id":"1130"}}},"id":"1133","type":"VBar"}],"root_ids":["1112"]},"title":"Bokeh Application","version":"2.3.0"}};
-  var render_items = [{"docid":"a69c1ae9-73bd-49ec-aade-4d323e50cfa5","root_ids":["1112"],"roots":{"1112":"3bb686cd-e969-4594-aefc-8e68bef4ca4c"}}];
+  var docs_json = {"b971c3d1-3025-4730-92a7-d63bf1b3967d":{"defs":[],"roots":{"references":[{"attributes":{"below":[{"id":"1122"}],"center":[{"id":"1124"},{"id":"1128"},{"id":"1145"}],"height":800,"left":[{"id":"1125"}],"renderers":[{"id":"1134"},{"id":"1151"},{"id":"1163"},{"id":"1164"}],"title":null,"toolbar":{"id":"1129"},"toolbar_location":null,"width":800,"x_range":{"id":"1114"},"x_scale":{"id":"1118"},"y_range":{"id":"1116"},"y_scale":{"id":"1120"}},"id":"1112","subtype":"Figure","type":"Plot"},{"attributes":{},"id":"1138","type":"AllLabels"},{"attributes":{},"id":"1123","type":"CategoricalTicker"},{"attributes":{},"id":"1144","type":"Selection"},{"attributes":{"formatter":{"id":"1139"},"major_label_policy":{"id":"1138"},"ticker":{"id":"1126"}},"id":"1125","type":"LinearAxis"},{"attributes":{"data_source":{"id":"1111"},"glyph":{"id":"1132"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1133"},"view":{"id":"1135"}},"id":"1134","type":"GlyphRenderer"},{"attributes":{},"id":"1116","type":"DataRange1d"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"top":{"field":"Reform"},"width":{"value":0.2},"x":{"field":"major_industry","transform":{"id":"1147"}}},"id":"1149","type":"VBar"},{"attributes":{"factors":["Accommodation and food services","Administrative and waste management services","Agriculture, forestry, fishing, and hunting","Arts, entertainment, and recreation","Construction","Educational services","Finance and insurance","Health care and social assistance","Information","Management of companies and enterprises","Manufacturing","Mining","Other services, except government","Professional, scientific, and technical services","Real estate and rental and leasing","Retail trade","Transportation and warehousing","Utilities","Wholesale trade"],"range_padding":0.1},"id":"1114","type":"FactorRange"},{"attributes":{},"id":"1142","type":"CategoricalTickFormatter"},{"attributes":{},"id":"1118","type":"CategoricalScale"},{"attributes":{"axis":{"id":"1122"},"grid_line_color":null,"ticker":null},"id":"1124","type":"Grid"},{"attributes":{"axis":{"id":"1125"},"dimension":1,"ticker":null},"id":"1128","type":"Grid"},{"attributes":{"label":{"value":"Reform"},"renderers":[{"id":"1151"}]},"id":"1162","type":"LegendItem"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"top":{"field":"Baseline"},"width":{"value":0.2},"x":{"field":"major_industry","transform":{"id":"1130"}}},"id":"1133","type":"VBar"},{"attributes":{"label":{"value":"Baseline"},"renderers":[{"id":"1134"}]},"id":"1146","type":"LegendItem"},{"attributes":{},"id":"1141","type":"AllLabels"},{"attributes":{},"id":"1120","type":"LinearScale"},{"attributes":{"line_alpha":0.2,"line_color":"#718dbf","line_dash":[6],"line_width":2,"location":0.17428894800227376},"id":"1163","type":"Span"},{"attributes":{"range":{"id":"1114"},"value":0.25},"id":"1147","type":"Dodge"},{"attributes":{"active_multi":null},"id":"1129","type":"Toolbar"},{"attributes":{"formatter":{"id":"1142"},"major_label_orientation":45,"major_label_policy":{"id":"1141"},"ticker":{"id":"1123"}},"id":"1122","type":"CategoricalAxis"},{"attributes":{"data_source":{"id":"1111"},"glyph":{"id":"1149"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1150"},"view":{"id":"1152"}},"id":"1151","type":"GlyphRenderer"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"top":{"field":"Baseline"},"width":{"value":0.2},"x":{"field":"major_industry","transform":{"id":"1130"}}},"id":"1132","type":"VBar"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"top":{"field":"Reform"},"width":{"value":0.2},"x":{"field":"major_industry","transform":{"id":"1147"}}},"id":"1150","type":"VBar"},{"attributes":{"source":{"id":"1111"}},"id":"1135","type":"CDSView"},{"attributes":{},"id":"1139","type":"BasicTickFormatter"},{"attributes":{"source":{"id":"1111"}},"id":"1152","type":"CDSView"},{"attributes":{"items":[{"id":"1146"},{"id":"1162"}],"location":"top_left","orientation":"horizontal"},"id":"1145","type":"Legend"},{"attributes":{},"id":"1126","type":"BasicTicker"},{"attributes":{},"id":"1143","type":"UnionRenderers"},{"attributes":{"range":{"id":"1114"}},"id":"1130","type":"Dodge"},{"attributes":{"data":{"Baseline":{"__ndarray__":"K23128Frzj932Jj4l+HBP/RyJyokbMc/jdAVBTB5wz/U93GyDh3IP4BEVtWzY8w/5phI86mExz+xobDioQHKP0a/exwKsLk/5VtcHgJjzD+KtW6VUrDGPyhZ6eiI87c/crNn4sVEyj+UjmCT4ELCP5Tz/vTa1M4/KYAPYSPzzj9tlP7mkDy7P1+11hgv9LI/WM6J+WSuzT8=","dtype":"float64","order":"little","shape":[19]},"Reform":{"__ndarray__":"FYPNNPAY1j+QslWIMEfRPx/a3KOR49M/xJnYCXUo0T/ZPBr+ObfTP5d6iSEOhdQ/1719yH6p0z+LaY3G6AXUP98YiwadBdA/Os95ulzs1D+8smRJiXrRP03uBAw2R8c/1+s8jrpd0z/SkebULJLQPwlkE24e3NU/78bHisJ51j/e/9BQiMXKP+ig0k70A8o/f7+wqwQ21j8=","dtype":"float64","order":"little","shape":[19]},"index":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],"major_industry":["Accommodation and food services","Administrative and waste management services","Agriculture, forestry, fishing, and hunting","Arts, entertainment, and recreation","Construction","Educational services","Finance and insurance","Health care and social assistance","Information","Management of companies and enterprises","Manufacturing","Mining","Other services, except government","Professional, scientific, and technical services","Real estate and rental and leasing","Retail trade","Transportation and warehousing","Utilities","Wholesale trade"]},"selected":{"id":"1144"},"selection_policy":{"id":"1143"}},"id":"1111","type":"ColumnDataSource"},{"attributes":{"line_alpha":0.2,"line_color":"#e84d60","line_dash":[6],"line_width":2,"location":0.28507294391464827},"id":"1164","type":"Span"}],"root_ids":["1112"]},"title":"Bokeh Application","version":"2.3.3"}};
+  var render_items = [{"docid":"b971c3d1-3025-4730-92a7-d63bf1b3967d","root_ids":["1112"],"roots":{"1112":"51193a3f-354f-40a9-a817-3f7e772c8adb"}}];
   root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
 
   }
@@ -1822,12 +1821,12 @@ year:  2021
 
 
 
-<div class="bk-root" id="868bcaec-f5f5-46e8-b1a0-f6a091bb5ed3" data-root-id="1230"></div>
+<div class="bk-root" id="e16691a9-3adf-43d8-86aa-2bc6d2a195a0" data-root-id="1230"></div>
 </div><script type="application/javascript">(function(root) {
   function embed_document(root) {
     
-  var docs_json = {"600c1f68-0175-4a2f-ac88-b256a19d9fae":{"defs":[{"extends":null,"module":null,"name":"DataModel","overrides":[],"properties":[]}],"roots":{"references":[{"attributes":{"below":[{"id":"1239"}],"center":[{"id":"1242"},{"id":"1246"},{"id":"1256"},{"id":"1257"},{"id":"1258"},{"id":"1276"}],"height":500,"left":[{"id":"1243"}],"renderers":[{"id":"1255"},{"id":"1262"},{"id":"1267"},{"id":"1281"},{"id":"1293"},{"id":"1305"},{"id":"1310"},{"id":"1325"},{"id":"1339"}],"title":{"id":"1248"},"toolbar":{"id":"1247"},"toolbar_location":null,"width":500,"x_range":{"id":"1231"},"x_scale":{"id":"1235"},"y_range":{"id":"1233"},"y_scale":{"id":"1237"}},"id":"1230","subtype":"Figure","type":"Plot"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1291","type":"Circle"},{"attributes":{},"id":"1233","type":"DataRange1d"},{"attributes":{"source":{"id":"1228"}},"id":"1268","type":"CDSView"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1266","type":"Circle"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1292","type":"Circle"},{"attributes":{"source":{"id":"1228"}},"id":"1263","type":"CDSView"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1338","type":"Circle"},{"attributes":{"label":{"value":"Baseline"},"renderers":[{"id":"1267"},{"id":"1281"},{"id":"1293"}]},"id":"1277","type":"LegendItem"},{"attributes":{"label":{"value":"Reform"},"renderers":[{"id":"1310"},{"id":"1325"},{"id":"1339"}]},"id":"1321","type":"LegendItem"},{"attributes":{"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1261","type":"Segment"},{"attributes":{"data_source":{"id":"1228"},"glyph":{"id":"1260"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1261"},"view":{"id":"1263"}},"id":"1262","type":"GlyphRenderer"},{"attributes":{"text_font":"Helvetica"},"id":"1248","type":"Title"},{"attributes":{"line_color":{"value":"#e84d60"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1303","type":"Segment"},{"attributes":{"data_source":{"id":"1228"},"glyph":{"id":"1279"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1280"},"view":{"id":"1282"}},"id":"1281","type":"GlyphRenderer"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1323","type":"Circle"},{"attributes":{},"id":"1274","type":"UnionRenderers"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1308","type":"Circle"},{"attributes":{"source":{"id":"1229"}},"id":"1311","type":"CDSView"},{"attributes":{"ticks":[0,1,2]},"id":"1249","type":"FixedTicker"},{"attributes":{"fill_alpha":0.1,"fill_color":"white","left":0.5,"right":1.5},"id":"1257","type":"BoxAnnotation"},{"attributes":{"data":{"max_asset":["Inventories","Inventories","Inventories"],"maxes":[0.17153671237143198,-0.06578788226151004,0.23626733773084305],"mean_asset":["Overall","Overall","Overall"],"means":[0.03728521579640505,-0.262084258806486,0.11736148787988565],"min_asset":["Intellectual Property","Intellectual Property","Intellectual Property"],"mins":[-0.09155606847470654,-0.4364303178484108,-1.1963610179150395e-16],"positions":[-0.1,0.9,1.9],"types":["Typically Financed","Debt Financed","Equity Financed"]},"selected":{"id":"1275"},"selection_policy":{"id":"1274"}},"id":"1228","type":"ColumnDataSource"},{"attributes":{"data_source":{"id":"1228"},"glyph":{"id":"1265"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1266"},"view":{"id":"1268"}},"id":"1267","type":"GlyphRenderer"},{"attributes":{"source":{"id":"1228"}},"id":"1294","type":"CDSView"},{"attributes":{},"id":"1319","type":"UnionRenderers"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1279","type":"Circle"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1324","type":"Circle"},{"attributes":{"code":"\n        var types = [\"Typically Financed\", \"Debt Financed\", \"Equity Financed\"]\n        return types[tick]\n        "},"id":"1251","type":"FuncTickFormatter"},{"attributes":{},"id":"1244","type":"BasicTicker"},{"attributes":{"data_source":{"id":"1228"},"glyph":{"id":"1291"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1292"},"view":{"id":"1294"}},"id":"1293","type":"GlyphRenderer"},{"attributes":{"axis":{"id":"1239"},"grid_line_color":null,"ticker":null},"id":"1242","type":"Grid"},{"attributes":{"fill_alpha":0.2,"fill_color":"white","left":1.5},"id":"1258","type":"BoxAnnotation"},{"attributes":{"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1304","type":"Segment"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1265","type":"Circle"},{"attributes":{"source":{"id":"1229"}},"id":"1306","type":"CDSView"},{"attributes":{"line_alpha":0.2,"line_dash":[6],"line_width":2,"location":0},"id":"1255","type":"Span"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1309","type":"Circle"},{"attributes":{"source":{"id":"1229"}},"id":"1326","type":"CDSView"},{"attributes":{"items":[{"id":"1277"},{"id":"1321"}],"location":"bottom_right"},"id":"1276","type":"Legend"},{"attributes":{"fill_alpha":0.2,"fill_color":"white","right":0.5},"id":"1256","type":"BoxAnnotation"},{"attributes":{"data_source":{"id":"1229"},"glyph":{"id":"1303"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1304"},"view":{"id":"1306"}},"id":"1305","type":"GlyphRenderer"},{"attributes":{"data":{"max_asset":["Inventories","Inventories","Inventories"],"maxes":[0.2930542097668927,-0.13096339112672467,0.3828060809571457],"mean_asset":["Overall","Overall","Overall"],"means":[0.1560221115131041,-0.41306259807735984,0.27215617091603245],"min_asset":["Intellectual Property","Intellectual Property","Intellectual Property"],"mins":[-0.044764641890598596,-0.7815749655421983,0.10026430338666585],"positions":[0.1,1.1,2.1],"types":["Typically Financed","Debt Financed","Equity Financed"]},"selected":{"id":"1320"},"selection_policy":{"id":"1319"}},"id":"1229","type":"ColumnDataSource"},{"attributes":{},"id":"1237","type":"LinearScale"},{"attributes":{"axis_label":"Method of Financing","formatter":{"id":"1251"},"major_label_policy":{"id":"1271"},"ticker":{"id":"1249"}},"id":"1239","type":"LinearAxis"},{"attributes":{"source":{"id":"1229"}},"id":"1340","type":"CDSView"},{"attributes":{},"id":"1272","type":"AllLabels"},{"attributes":{"axis_label":"Marginal Effective Tax Rate","formatter":{"id":"1253"},"major_label_policy":{"id":"1272"},"ticker":{"id":"1244"}},"id":"1243","type":"LinearAxis"},{"attributes":{"axis":{"id":"1243"},"dimension":1,"grid_line_color":null,"ticker":null},"id":"1246","type":"Grid"},{"attributes":{},"id":"1235","type":"LinearScale"},{"attributes":{"active_multi":null},"id":"1247","type":"Toolbar"},{"attributes":{"format":"0%"},"id":"1253","type":"NumeralTickFormatter"},{"attributes":{"line_color":{"value":"#718dbf"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1260","type":"Segment"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1280","type":"Circle"},{"attributes":{"end":2.5,"start":-0.5},"id":"1231","type":"Range1d"},{"attributes":{},"id":"1275","type":"Selection"},{"attributes":{"data_source":{"id":"1229"},"glyph":{"id":"1308"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1309"},"view":{"id":"1311"}},"id":"1310","type":"GlyphRenderer"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1337","type":"Circle"},{"attributes":{},"id":"1320","type":"Selection"},{"attributes":{"source":{"id":"1228"}},"id":"1282","type":"CDSView"},{"attributes":{},"id":"1271","type":"AllLabels"},{"attributes":{"data_source":{"id":"1229"},"glyph":{"id":"1323"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1324"},"view":{"id":"1326"}},"id":"1325","type":"GlyphRenderer"},{"attributes":{"data_source":{"id":"1229"},"glyph":{"id":"1337"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1338"},"view":{"id":"1340"}},"id":"1339","type":"GlyphRenderer"}],"root_ids":["1230"]},"title":"Bokeh Application","version":"2.3.0"}};
-  var render_items = [{"docid":"600c1f68-0175-4a2f-ac88-b256a19d9fae","root_ids":["1230"],"roots":{"1230":"868bcaec-f5f5-46e8-b1a0-f6a091bb5ed3"}}];
+  var docs_json = {"480a0603-534b-4ae0-8bf8-17b7f127b668":{"defs":[],"roots":{"references":[{"attributes":{"below":[{"id":"1239"}],"center":[{"id":"1242"},{"id":"1246"},{"id":"1256"},{"id":"1257"},{"id":"1258"},{"id":"1276"}],"height":500,"left":[{"id":"1243"}],"renderers":[{"id":"1255"},{"id":"1262"},{"id":"1267"},{"id":"1281"},{"id":"1293"},{"id":"1305"},{"id":"1310"},{"id":"1325"},{"id":"1339"}],"title":{"id":"1248"},"toolbar":{"id":"1247"},"toolbar_location":null,"width":500,"x_range":{"id":"1231"},"x_scale":{"id":"1235"},"y_range":{"id":"1233"},"y_scale":{"id":"1237"}},"id":"1230","subtype":"Figure","type":"Plot"},{"attributes":{"source":{"id":"1229"}},"id":"1326","type":"CDSView"},{"attributes":{"ticks":[0,1,2]},"id":"1249","type":"FixedTicker"},{"attributes":{},"id":"1233","type":"DataRange1d"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1279","type":"Circle"},{"attributes":{"fill_alpha":0.2,"fill_color":"white","left":1.5},"id":"1258","type":"BoxAnnotation"},{"attributes":{"items":[{"id":"1277"},{"id":"1321"}],"location":"bottom_right"},"id":"1276","type":"Legend"},{"attributes":{"source":{"id":"1229"}},"id":"1340","type":"CDSView"},{"attributes":{},"id":"1235","type":"LinearScale"},{"attributes":{"line_color":{"value":"#718dbf"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1260","type":"Segment"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1308","type":"Circle"},{"attributes":{"active_multi":null},"id":"1247","type":"Toolbar"},{"attributes":{},"id":"1272","type":"AllLabels"},{"attributes":{},"id":"1275","type":"Selection"},{"attributes":{"axis":{"id":"1239"},"grid_line_color":null,"ticker":null},"id":"1242","type":"Grid"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1266","type":"Circle"},{"attributes":{"label":{"value":"Reform"},"renderers":[{"id":"1310"},{"id":"1325"},{"id":"1339"}]},"id":"1321","type":"LegendItem"},{"attributes":{"data_source":{"id":"1229"},"glyph":{"id":"1303"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1304"},"view":{"id":"1306"}},"id":"1305","type":"GlyphRenderer"},{"attributes":{"data_source":{"id":"1228"},"glyph":{"id":"1291"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1292"},"view":{"id":"1294"}},"id":"1293","type":"GlyphRenderer"},{"attributes":{"axis_label":"Marginal Effective Tax Rate","formatter":{"id":"1253"},"major_label_policy":{"id":"1272"},"ticker":{"id":"1244"}},"id":"1243","type":"LinearAxis"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1292","type":"Circle"},{"attributes":{"data_source":{"id":"1228"},"glyph":{"id":"1279"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1280"},"view":{"id":"1282"}},"id":"1281","type":"GlyphRenderer"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1324","type":"Circle"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1338","type":"Circle"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1309","type":"Circle"},{"attributes":{"source":{"id":"1228"}},"id":"1294","type":"CDSView"},{"attributes":{"end":2.5,"start":-0.5},"id":"1231","type":"Range1d"},{"attributes":{},"id":"1319","type":"UnionRenderers"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1280","type":"Circle"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1323","type":"Circle"},{"attributes":{"code":"\n        var types = [\"Typically Financed\", \"Debt Financed\", \"Equity Financed\"]\n        return types[tick]\n        "},"id":"1251","type":"FuncTickFormatter"},{"attributes":{},"id":"1244","type":"BasicTicker"},{"attributes":{"data_source":{"id":"1229"},"glyph":{"id":"1308"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1309"},"view":{"id":"1311"}},"id":"1310","type":"GlyphRenderer"},{"attributes":{"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1261","type":"Segment"},{"attributes":{"data":{"max_asset":["Inventories","Inventories","Inventories"],"maxes":[0.17153671237143198,-0.06578788226151004,0.23626733773084305],"mean_asset":["Overall","Overall","Overall"],"means":[0.03728521579640505,-0.262084258806486,0.11736148787988565],"min_asset":["Intellectual Property","Intellectual Property","Intellectual Property"],"mins":[-0.09155606847470654,-0.4364303178484108,-1.1963610179150395e-16],"positions":[-0.1,0.9,1.9],"types":["Typically Financed","Debt Financed","Equity Financed"]},"selected":{"id":"1275"},"selection_policy":{"id":"1274"}},"id":"1228","type":"ColumnDataSource"},{"attributes":{"source":{"id":"1229"}},"id":"1311","type":"CDSView"},{"attributes":{"data_source":{"id":"1228"},"glyph":{"id":"1260"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1261"},"view":{"id":"1263"}},"id":"1262","type":"GlyphRenderer"},{"attributes":{"source":{"id":"1228"}},"id":"1282","type":"CDSView"},{"attributes":{},"id":"1320","type":"Selection"},{"attributes":{"fill_alpha":0.2,"fill_color":"white","right":0.5},"id":"1256","type":"BoxAnnotation"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1291","type":"Circle"},{"attributes":{"data_source":{"id":"1229"},"glyph":{"id":"1323"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1324"},"view":{"id":"1326"}},"id":"1325","type":"GlyphRenderer"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1337","type":"Circle"},{"attributes":{},"id":"1274","type":"UnionRenderers"},{"attributes":{"source":{"id":"1229"}},"id":"1306","type":"CDSView"},{"attributes":{"axis_label":"Method of Financing","formatter":{"id":"1251"},"major_label_policy":{"id":"1273"},"ticker":{"id":"1249"}},"id":"1239","type":"LinearAxis"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1265","type":"Circle"},{"attributes":{"line_alpha":0.2,"line_dash":[6],"line_width":2,"location":0},"id":"1255","type":"Span"},{"attributes":{"data_source":{"id":"1229"},"glyph":{"id":"1337"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1338"},"view":{"id":"1340"}},"id":"1339","type":"GlyphRenderer"},{"attributes":{"fill_alpha":0.1,"fill_color":"white","left":0.5,"right":1.5},"id":"1257","type":"BoxAnnotation"},{"attributes":{"text_font":"Helvetica"},"id":"1248","type":"Title"},{"attributes":{"label":{"value":"Baseline"},"renderers":[{"id":"1267"},{"id":"1281"},{"id":"1293"}]},"id":"1277","type":"LegendItem"},{"attributes":{"format":"0%"},"id":"1253","type":"NumeralTickFormatter"},{"attributes":{},"id":"1273","type":"AllLabels"},{"attributes":{"data":{"max_asset":["Inventories","Inventories","Inventories"],"maxes":[0.2930542097668927,-0.13096339112672467,0.3828060809571457],"mean_asset":["Overall","Overall","Overall"],"means":[0.1560221115131041,-0.41306259807735984,0.27215617091603245],"min_asset":["Intellectual Property","Intellectual Property","Intellectual Property"],"mins":[-0.044764641890598596,-0.7815749655421983,0.10026430338666585],"positions":[0.1,1.1,2.1],"types":["Typically Financed","Debt Financed","Equity Financed"]},"selected":{"id":"1320"},"selection_policy":{"id":"1319"}},"id":"1229","type":"ColumnDataSource"},{"attributes":{"line_color":{"value":"#e84d60"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1303","type":"Segment"},{"attributes":{"axis":{"id":"1243"},"dimension":1,"grid_line_color":null,"ticker":null},"id":"1246","type":"Grid"},{"attributes":{"source":{"id":"1228"}},"id":"1263","type":"CDSView"},{"attributes":{"source":{"id":"1228"}},"id":"1268","type":"CDSView"},{"attributes":{"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1304","type":"Segment"},{"attributes":{},"id":"1237","type":"LinearScale"},{"attributes":{"data_source":{"id":"1228"},"glyph":{"id":"1265"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1266"},"view":{"id":"1268"}},"id":"1267","type":"GlyphRenderer"}],"root_ids":["1230"]},"title":"Bokeh Application","version":"2.3.3"}};
+  var render_items = [{"docid":"480a0603-534b-4ae0-8bf8-17b7f127b668","root_ids":["1230"],"roots":{"1230":"e16691a9-3adf-43d8-86aa-2bc6d2a195a0"}}];
   root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
 
   }
@@ -1866,12 +1865,12 @@ year:  2021
 
 
 
-<div class="bk-root" id="453d0f98-5049-435b-826a-dfefde8c0335" data-root-id="1424"></div>
+<div class="bk-root" id="9484a65b-cc2f-408e-b683-84dc765ccf46" data-root-id="1424"></div>
 </div><script type="application/javascript">(function(root) {
   function embed_document(root) {
     
-  var docs_json = {"25cf65f3-985a-4c61-b8ca-d325e7b3291a":{"defs":[{"extends":null,"module":null,"name":"DataModel","overrides":[],"properties":[]}],"roots":{"references":[{"attributes":{"below":[{"id":"1433"}],"center":[{"id":"1436"},{"id":"1440"},{"id":"1450"},{"id":"1451"},{"id":"1452"},{"id":"1470"}],"height":500,"left":[{"id":"1437"}],"renderers":[{"id":"1449"},{"id":"1456"},{"id":"1461"},{"id":"1475"},{"id":"1487"},{"id":"1499"},{"id":"1504"},{"id":"1519"},{"id":"1533"}],"title":{"id":"1442"},"toolbar":{"id":"1441"},"toolbar_location":null,"width":500,"x_range":{"id":"1425"},"x_scale":{"id":"1429"},"y_range":{"id":"1427"},"y_scale":{"id":"1431"}},"id":"1424","subtype":"Figure","type":"Plot"},{"attributes":{},"id":"1429","type":"LinearScale"},{"attributes":{"data_source":{"id":"1423"},"glyph":{"id":"1497"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1498"},"view":{"id":"1500"}},"id":"1499","type":"GlyphRenderer"},{"attributes":{"data_source":{"id":"1422"},"glyph":{"id":"1459"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1460"},"view":{"id":"1462"}},"id":"1461","type":"GlyphRenderer"},{"attributes":{"data_source":{"id":"1423"},"glyph":{"id":"1517"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1518"},"view":{"id":"1520"}},"id":"1519","type":"GlyphRenderer"},{"attributes":{},"id":"1468","type":"UnionRenderers"},{"attributes":{},"id":"1514","type":"Selection"},{"attributes":{"active_multi":null},"id":"1441","type":"Toolbar"},{"attributes":{"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1455","type":"Segment"},{"attributes":{"source":{"id":"1422"}},"id":"1488","type":"CDSView"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1532","type":"Circle"},{"attributes":{"source":{"id":"1422"}},"id":"1476","type":"CDSView"},{"attributes":{"text_font":"Helvetica"},"id":"1442","type":"Title"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1503","type":"Circle"},{"attributes":{},"id":"1427","type":"DataRange1d"},{"attributes":{"data_source":{"id":"1422"},"glyph":{"id":"1485"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1486"},"view":{"id":"1488"}},"id":"1487","type":"GlyphRenderer"},{"attributes":{"label":{"value":"Reform"},"renderers":[{"id":"1504"},{"id":"1519"},{"id":"1533"}]},"id":"1515","type":"LegendItem"},{"attributes":{"source":{"id":"1423"}},"id":"1505","type":"CDSView"},{"attributes":{"data":{"max_asset":["Inventories","Inventories","Inventories"],"maxes":[0.24824284279640685,0.32844190080292057,0.22680363311462168],"mean_asset":["Overall","Overall","Overall"],"means":[0.18740597389183455,0.26246775583500737,0.16793315489874178],"min_asset":["Intellectual Property","Intellectual Property","Intellectual Property"],"mins":[0.023173527299937772,0.11203812313001099,0.0],"positions":[-0.1,0.9,1.9],"types":["Typically Financed","Debt Financed","Equity Financed"]},"selected":{"id":"1469"},"selection_policy":{"id":"1468"}},"id":"1422","type":"ColumnDataSource"},{"attributes":{"fill_alpha":0.1,"fill_color":"white","left":0.5,"right":1.5},"id":"1451","type":"BoxAnnotation"},{"attributes":{},"id":"1466","type":"AllLabels"},{"attributes":{"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1498","type":"Segment"},{"attributes":{"axis_label":"Method of Financing","formatter":{"id":"1445"},"major_label_policy":{"id":"1465"},"ticker":{"id":"1443"}},"id":"1433","type":"LinearAxis"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1517","type":"Circle"},{"attributes":{"data_source":{"id":"1423"},"glyph":{"id":"1502"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1503"},"view":{"id":"1505"}},"id":"1504","type":"GlyphRenderer"},{"attributes":{},"id":"1431","type":"LinearScale"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1459","type":"Circle"},{"attributes":{"line_color":{"value":"#e84d60"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1497","type":"Segment"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1474","type":"Circle"},{"attributes":{"source":{"id":"1422"}},"id":"1462","type":"CDSView"},{"attributes":{"items":[{"id":"1471"},{"id":"1515"}],"location":"bottom_right"},"id":"1470","type":"Legend"},{"attributes":{"end":2.5,"start":-0.5},"id":"1425","type":"Range1d"},{"attributes":{"line_color":{"value":"#718dbf"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1454","type":"Segment"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1485","type":"Circle"},{"attributes":{},"id":"1438","type":"BasicTicker"},{"attributes":{"label":{"value":"Baseline"},"renderers":[{"id":"1461"},{"id":"1475"},{"id":"1487"}]},"id":"1471","type":"LegendItem"},{"attributes":{},"id":"1465","type":"AllLabels"},{"attributes":{"data":{"max_asset":["Inventories","Inventories","Inventories"],"maxes":[0.2976343732054076,0.348451233421935,0.284872540175248],"mean_asset":["Overall","Overall","Overall"],"means":[0.23955748421941164,0.278346830005811,0.23047831719877007],"min_asset":["Intellectual Property","Intellectual Property","Intellectual Property"],"mins":[0.07196877192579776,0.11763654471625484,0.061021901422433265],"positions":[0.1,1.1,2.1],"types":["Typically Financed","Debt Financed","Equity Financed"]},"selected":{"id":"1514"},"selection_policy":{"id":"1513"}},"id":"1423","type":"ColumnDataSource"},{"attributes":{"source":{"id":"1423"}},"id":"1520","type":"CDSView"},{"attributes":{"axis":{"id":"1437"},"dimension":1,"grid_line_color":null,"ticker":null},"id":"1440","type":"Grid"},{"attributes":{"line_alpha":0.2,"line_dash":[6],"line_width":2,"location":0},"id":"1449","type":"Span"},{"attributes":{"axis_label":"Marginal Effective Total Tax Rate","formatter":{"id":"1447"},"major_label_policy":{"id":"1466"},"ticker":{"id":"1438"}},"id":"1437","type":"LinearAxis"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1460","type":"Circle"},{"attributes":{"data_source":{"id":"1422"},"glyph":{"id":"1454"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1455"},"view":{"id":"1457"}},"id":"1456","type":"GlyphRenderer"},{"attributes":{"source":{"id":"1422"}},"id":"1457","type":"CDSView"},{"attributes":{"data_source":{"id":"1422"},"glyph":{"id":"1473"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1474"},"view":{"id":"1476"}},"id":"1475","type":"GlyphRenderer"},{"attributes":{},"id":"1469","type":"Selection"},{"attributes":{"source":{"id":"1423"}},"id":"1534","type":"CDSView"},{"attributes":{"ticks":[0,1,2]},"id":"1443","type":"FixedTicker"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1518","type":"Circle"},{"attributes":{"axis":{"id":"1433"},"grid_line_color":null,"ticker":null},"id":"1436","type":"Grid"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1531","type":"Circle"},{"attributes":{"data_source":{"id":"1423"},"glyph":{"id":"1531"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1532"},"view":{"id":"1534"}},"id":"1533","type":"GlyphRenderer"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1473","type":"Circle"},{"attributes":{"fill_alpha":0.2,"fill_color":"white","right":0.5},"id":"1450","type":"BoxAnnotation"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1486","type":"Circle"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1502","type":"Circle"},{"attributes":{"format":"0%"},"id":"1447","type":"NumeralTickFormatter"},{"attributes":{"code":"\n        var types = [\"Typically Financed\", \"Debt Financed\", \"Equity Financed\"]\n        return types[tick]\n        "},"id":"1445","type":"FuncTickFormatter"},{"attributes":{},"id":"1513","type":"UnionRenderers"},{"attributes":{"source":{"id":"1423"}},"id":"1500","type":"CDSView"},{"attributes":{"fill_alpha":0.2,"fill_color":"white","left":1.5},"id":"1452","type":"BoxAnnotation"}],"root_ids":["1424"]},"title":"Bokeh Application","version":"2.3.0"}};
-  var render_items = [{"docid":"25cf65f3-985a-4c61-b8ca-d325e7b3291a","root_ids":["1424"],"roots":{"1424":"453d0f98-5049-435b-826a-dfefde8c0335"}}];
+  var docs_json = {"8525887e-e3d5-45bc-b7fe-c74b1ffb9dc9":{"defs":[],"roots":{"references":[{"attributes":{"below":[{"id":"1433"}],"center":[{"id":"1436"},{"id":"1440"},{"id":"1450"},{"id":"1451"},{"id":"1452"},{"id":"1470"}],"height":500,"left":[{"id":"1437"}],"renderers":[{"id":"1449"},{"id":"1456"},{"id":"1461"},{"id":"1475"},{"id":"1487"},{"id":"1499"},{"id":"1504"},{"id":"1519"},{"id":"1533"}],"title":{"id":"1442"},"toolbar":{"id":"1441"},"toolbar_location":null,"width":500,"x_range":{"id":"1425"},"x_scale":{"id":"1429"},"y_range":{"id":"1427"},"y_scale":{"id":"1431"}},"id":"1424","subtype":"Figure","type":"Plot"},{"attributes":{"source":{"id":"1422"}},"id":"1488","type":"CDSView"},{"attributes":{"source":{"id":"1423"}},"id":"1505","type":"CDSView"},{"attributes":{},"id":"1467","type":"AllLabels"},{"attributes":{},"id":"1429","type":"LinearScale"},{"attributes":{"ticks":[0,1,2]},"id":"1443","type":"FixedTicker"},{"attributes":{"data_source":{"id":"1422"},"glyph":{"id":"1454"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1455"},"view":{"id":"1457"}},"id":"1456","type":"GlyphRenderer"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1518","type":"Circle"},{"attributes":{"code":"\n        var types = [\"Typically Financed\", \"Debt Financed\", \"Equity Financed\"]\n        return types[tick]\n        "},"id":"1445","type":"FuncTickFormatter"},{"attributes":{"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1498","type":"Segment"},{"attributes":{},"id":"1469","type":"Selection"},{"attributes":{"line_color":{"value":"#718dbf"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1454","type":"Segment"},{"attributes":{"source":{"id":"1423"}},"id":"1534","type":"CDSView"},{"attributes":{"source":{"id":"1422"}},"id":"1462","type":"CDSView"},{"attributes":{},"id":"1513","type":"UnionRenderers"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1474","type":"Circle"},{"attributes":{"axis_label":"Method of Financing","formatter":{"id":"1445"},"major_label_policy":{"id":"1467"},"ticker":{"id":"1443"}},"id":"1433","type":"LinearAxis"},{"attributes":{"fill_alpha":0.1,"fill_color":"white","left":0.5,"right":1.5},"id":"1451","type":"BoxAnnotation"},{"attributes":{},"id":"1431","type":"LinearScale"},{"attributes":{"source":{"id":"1422"}},"id":"1476","type":"CDSView"},{"attributes":{"line_color":{"value":"#e84d60"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1497","type":"Segment"},{"attributes":{"data_source":{"id":"1422"},"glyph":{"id":"1459"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1460"},"view":{"id":"1462"}},"id":"1461","type":"GlyphRenderer"},{"attributes":{},"id":"1468","type":"UnionRenderers"},{"attributes":{"data_source":{"id":"1423"},"glyph":{"id":"1517"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1518"},"view":{"id":"1520"}},"id":"1519","type":"GlyphRenderer"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1460","type":"Circle"},{"attributes":{"source":{"id":"1423"}},"id":"1500","type":"CDSView"},{"attributes":{"line_alpha":0.2,"line_dash":[6],"line_width":2,"location":0},"id":"1449","type":"Span"},{"attributes":{"axis":{"id":"1437"},"dimension":1,"grid_line_color":null,"ticker":null},"id":"1440","type":"Grid"},{"attributes":{},"id":"1427","type":"DataRange1d"},{"attributes":{},"id":"1438","type":"BasicTicker"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1473","type":"Circle"},{"attributes":{"format":"0%"},"id":"1447","type":"NumeralTickFormatter"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1503","type":"Circle"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1459","type":"Circle"},{"attributes":{"data_source":{"id":"1422"},"glyph":{"id":"1485"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1486"},"view":{"id":"1488"}},"id":"1487","type":"GlyphRenderer"},{"attributes":{"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1455","type":"Segment"},{"attributes":{"label":{"value":"Baseline"},"renderers":[{"id":"1461"},{"id":"1475"},{"id":"1487"}]},"id":"1471","type":"LegendItem"},{"attributes":{"label":{"value":"Reform"},"renderers":[{"id":"1504"},{"id":"1519"},{"id":"1533"}]},"id":"1515","type":"LegendItem"},{"attributes":{"source":{"id":"1422"}},"id":"1457","type":"CDSView"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1502","type":"Circle"},{"attributes":{"axis":{"id":"1433"},"grid_line_color":null,"ticker":null},"id":"1436","type":"Grid"},{"attributes":{"fill_alpha":0.2,"fill_color":"white","right":0.5},"id":"1450","type":"BoxAnnotation"},{"attributes":{"fill_alpha":0.2,"fill_color":"white","left":1.5},"id":"1452","type":"BoxAnnotation"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1517","type":"Circle"},{"attributes":{"data":{"max_asset":["Inventories","Inventories","Inventories"],"maxes":[0.2502923192288251,0.32029367053061153,0.23167832477832076],"mean_asset":["Overall","Overall","Overall"],"means":[0.18812172630448454,0.2516391154145279,0.17178243858950462],"min_asset":["Intellectual Property","Intellectual Property","Intellectual Property"],"mins":[0.01948676552853397,0.09472297278288717,1.3252607508799013e-16],"positions":[-0.1,0.9,1.9],"types":["Typically Financed","Debt Financed","Equity Financed"]},"selected":{"id":"1469"},"selection_policy":{"id":"1468"}},"id":"1422","type":"ColumnDataSource"},{"attributes":{"active_multi":null},"id":"1441","type":"Toolbar"},{"attributes":{"items":[{"id":"1471"},{"id":"1515"}],"location":"bottom_right"},"id":"1470","type":"Legend"},{"attributes":{"text_font":"Helvetica"},"id":"1442","type":"Title"},{"attributes":{"source":{"id":"1423"}},"id":"1520","type":"CDSView"},{"attributes":{"fill_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1485","type":"Circle"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1532","type":"Circle"},{"attributes":{},"id":"1466","type":"AllLabels"},{"attributes":{"data_source":{"id":"1423"},"glyph":{"id":"1497"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1498"},"view":{"id":"1500"}},"id":"1499","type":"GlyphRenderer"},{"attributes":{"data":{"max_asset":["Inventories","Inventories","Inventories"],"maxes":[0.3003228606006294,0.34017757491653744,0.29037756698487416],"mean_asset":["Overall","Overall","Overall"],"means":[0.24117129099551948,0.2671827958565365,0.23526778223660208],"min_asset":["Intellectual Property","Intellectual Property","Intellectual Property"],"mins":[0.06967596188444479,0.09975235885954378,0.0625777043037751],"positions":[0.1,1.1,2.1],"types":["Typically Financed","Debt Financed","Equity Financed"]},"selected":{"id":"1514"},"selection_policy":{"id":"1513"}},"id":"1423","type":"ColumnDataSource"},{"attributes":{"fill_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1531","type":"Circle"},{"attributes":{"end":2.5,"start":-0.5},"id":"1425","type":"Range1d"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1486","type":"Circle"},{"attributes":{"data_source":{"id":"1422"},"glyph":{"id":"1473"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1474"},"view":{"id":"1476"}},"id":"1475","type":"GlyphRenderer"},{"attributes":{"axis_label":"Marginal Effective Total Tax Rate","formatter":{"id":"1447"},"major_label_policy":{"id":"1466"},"ticker":{"id":"1438"}},"id":"1437","type":"LinearAxis"},{"attributes":{},"id":"1514","type":"Selection"},{"attributes":{"data_source":{"id":"1423"},"glyph":{"id":"1531"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1532"},"view":{"id":"1534"}},"id":"1533","type":"GlyphRenderer"},{"attributes":{"data_source":{"id":"1423"},"glyph":{"id":"1502"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1503"},"view":{"id":"1505"}},"id":"1504","type":"GlyphRenderer"}],"root_ids":["1424"]},"title":"Bokeh Application","version":"2.3.3"}};
+  var render_items = [{"docid":"8525887e-e3d5-45bc-b7fe-c74b1ffb9dc9","root_ids":["1424"],"roots":{"1424":"9484a65b-cc2f-408e-b683-84dc765ccf46"}}];
   root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
 
   }
@@ -1904,7 +1903,9 @@ year:  2021
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:bokeh.core.validation.check:W-1000 (MISSING_RENDERERS): Plot has no renderers: Figure(id=&#39;1663&#39;, ...)
-WARNING:bokeh.core.validation.check:W-1000 (MISSING_RENDERERS): Plot has no renderers: Figure(id=&#39;1720&#39;, ...)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:bokeh.core.validation.check:W-1000 (MISSING_RENDERERS): Plot has no renderers: Figure(id=&#39;1720&#39;, ...)
 </pre></div>
 </div>
 <div class="output text_html">
@@ -1913,12 +1914,12 @@ WARNING:bokeh.core.validation.check:W-1000 (MISSING_RENDERERS): Plot has no rend
 
 
 
-<div class="bk-root" id="b14d0153-ba19-40be-806b-717cc9bede1c" data-root-id="1745"></div>
+<div class="bk-root" id="157d2195-381a-4945-bcb4-734cfa62c949" data-root-id="1745"></div>
 </div><script type="application/javascript">(function(root) {
   function embed_document(root) {
     
-  var docs_json = {"35de045d-674c-4605-a076-0549d197ca27":{"defs":[{"extends":null,"module":null,"name":"DataModel","overrides":[],"properties":[]}],"roots":{"references":[{"attributes":{"tabs":[{"id":"1742"},{"id":"1744"}]},"id":"1745","type":"Tabs"},{"attributes":{"factors":["Other","Other Industrial","Industrial Machinery","Transportation","Office and Residential","Instruments and Communications","Computers and Software"]},"id":"1630","type":"FactorRange"},{"attributes":{},"id":"1634","type":"CategoricalScale"},{"attributes":{"data":{"asset_name":["Prepackaged software","Custom software","Mainframes","PCs","DASDs","Printers","Terminals","Tape drives","Storage devices","System integrators","Special industrial machinery","General industrial equipment","Office and accounting equipment","Communications","Photocopy and related equipment","Nonelectro medical instruments","Electro medical instruments","Nonmedical instruments","Household furniture","Other furniture","Household appliances","Service industry machinery","Other electrical","Other","Nuclear fuel","Other fabricated metals","Metalworking machinery","Electric transmission and distribution","Farm tractors","Construction tractors","Other agricultural machinery","Other construction machinery","Mining and oilfield machinery","Steam engines","Internal combustion engines","Light trucks (including utility vehicles)","Other trucks, buses and truck trailers","Autos","Aircraft","Ships and boats","Railroad equipment","Computers and Software","Industrial Machinery","Instruments and Communications Equipment","Office and Residential Equipment","Other Equipment","Other Industrial Equipment","Transportation Equipment"],"assets":{"__ndarray__":"guiTRJDTMELUVaUIN/ZGQh+VzBinNxBCqeCRDsHvKEIAAAAAAAAAAFNzOHSIPwFCsBvVAVkXB0IAAAAAAAAAADUokQduzP1BeWM0iaxdGkIJ/Fm/uylQQqBKFSw0u1tCugfwReMT+0EDAkHtxwFdQiG4dVx1TRdCKpXJY/oEP0K8yX5/UXkxQqw/XGX+OjlCI5M5K0SUAEIHwQQ+J3hHQgIRiof0juRB9Dhz5OZvN0Jh54bUKFUPQnIrSU8wkElC4ljVPToM+EF4baBsU147Qvrg35pve0lCuZZFXPKlWELZEUQaZeAWQg5fNzePbgJC/EhZQAzFJULNGx/XE8Y8QpXTvLf6wTNCZi6+73dWNULjDFXOJQcHQrt8k/J2g0NCIy4brJ/VO0J1opjchrg/QoQzxAY9905CcwcfBRFDLUJ6zQEMnmM5QsKhOLU1MVdCVaO39XfyZUKkoiSxoKhoQn2C1lKn00hCMZtlJ7ueU0KCjHryx7tuQkmqbzYCGGxC","dtype":"float64","order":"little","shape":[48]},"baseline":{"__ndarray__":"Kl5XvS5BsD/WXVe9LkGwP99dV70uQbA/1l1XvS5BsD/NXVe9LkGwP8NdV70uQbA/1l1XvS5BsD/NXVe9LkGwP8NdV70uQbA/1l1XvS5BsD/8XVe9LkGwP9ZdV70uQbA/w11XvS5BsD/yXVe9LkGwP/xdV70uQbA//F1XvS5BsD/pXVe9LkGwP/JdV70uQbA/6V1XvS5BsD/fXVe9LkGwP99dV70uQbA//F1XvS5BsD/pXVe9LkGwP/JdV70uQbA/IV5XvS5BsD/8XVe9LkGwP/xdV70uQbA/311XvS5BsD/pXVe9LkGwP/xdV70uQbA/8l1XvS5BsD8FXle9LkGwP+ldV70uQbA/BV5XvS5BsD/8XVe9LkGwP/JdV70uQbA/6V1XvS5BsD/WXVe9LkGwP/JdV70uQbA/BV5XvS5BsD/yXVe9LkGwP99dV70uQbA/311XvS5BsD/yXVe9LkGwP99dV70uQbA//F1XvS5BsD/yXVe9LkGwP/JdV70uQbA/","dtype":"float64","order":"little","shape":[48]},"hover":["6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%"],"index":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,198,199,200,206,207,208,211],"short_category":["Computers and Software","Computers and Software","Computers and Software","Computers and Software","Computers and Software","Computers and Software","Computers and Software","Computers and Software","Computers and Software","Computers and Software","Industrial Machinery","Industrial Machinery","Instruments and Communications","Instruments and Communications","Instruments and Communications","Instruments and Communications","Instruments and Communications","Instruments and Communications","Office and Residential","Office and Residential","Office and Residential","Other","Other","Other","Other Industrial","Other Industrial","Other Industrial","Other Industrial","Other Industrial","Other Industrial","Other Industrial","Other Industrial","Other Industrial","Transportation","Transportation","Transportation","Transportation","Transportation","Transportation","Transportation","Transportation","Computers and Software","Industrial Machinery","Instruments and Communications","Office and Residential","Other","Other Industrial","Transportation"],"size":[35,50,20,35,20,20,20,20,20,35,50,65,20,65,20,50,35,35,20,50,20,35,20,50,20,35,50,65,20,20,35,50,35,35,20,50,35,50,50,35,35,65,65,65,50,50,65,65]},"selected":{"id":"1811"},"selection_policy":{"id":"1810"}},"id":"1656","type":"ColumnDataSource"},{"attributes":{},"id":"1808","type":"AllLabels"},{"attributes":{},"id":"1736","type":"BasicTicker"},{"attributes":{"child":{"id":"1741"},"title":"Equipment"},"id":"1742","type":"Panel"},{"attributes":{"axis_label":"Marginal Effective Tax Rate","formatter":{"id":"1654"},"major_label_policy":{"id":"1649"},"major_tick_line_color":"firebrick","major_tick_line_width":3,"minor_tick_line_color":"orange","ticker":{"id":"1637"}},"id":"1636","type":"LinearAxis"},{"attributes":{"axis":{"id":"1735"},"dimension":1,"grid_line_color":null,"ticker":null},"id":"1738","type":"Grid"},{"attributes":{"background_fill_alpha":0,"below":[{"id":"1636"}],"border_fill_alpha":0,"center":[{"id":"1639"},{"id":"1642"}],"height":540,"left":[{"id":"1640"}],"min_border_bottom":0,"min_border_left":0,"min_border_right":5,"min_border_top":5,"outline_line_color":"black","outline_line_width":1,"renderers":[{"id":"1660"}],"title":{"id":"1647"},"toolbar":{"id":"1644"},"toolbar_location":null,"width":990,"x_range":{"id":"1628"},"x_scale":{"id":"1632"},"y_range":{"id":"1630"},"y_scale":{"id":"1634"}},"id":"1627","subtype":"Figure","type":"Plot"},{"attributes":{},"id":"1637","type":"BasicTicker"},{"attributes":{"end":0.51,"start":-0.05},"id":"1628","type":"Range1d"},{"attributes":{},"id":"1632","type":"LinearScale"},{"attributes":{"axis":{"id":"1636"},"ticker":null},"id":"1639","type":"Grid"},{"attributes":{"active_drag":null,"active_multi":null},"id":"1739","type":"Toolbar"},{"attributes":{"formatter":{"id":"1807"},"major_label_policy":{"id":"1808"},"ticker":{"id":"1736"},"visible":false},"id":"1735","type":"LinearAxis"},{"attributes":{},"id":"1810","type":"UnionRenderers"},{"attributes":{},"id":"1805","type":"AllLabels"},{"attributes":{},"id":"1679","type":"BasicTicker"},{"attributes":{"active_drag":null,"active_multi":null},"id":"1682","type":"Toolbar"},{"attributes":{},"id":"1670","type":"LinearScale"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#333333"},"size":{"field":"size"},"x":{"field":"baseline"},"y":{"field":"short_category"}},"id":"1717","type":"Circle"},{"attributes":{},"id":"1709","type":"CategoricalTickFormatter"},{"attributes":{"axis":{"id":"1674"},"grid_line_color":null,"ticker":null},"id":"1677","type":"Grid"},{"attributes":{},"id":"1641","type":"CategoricalTicker"},{"attributes":{"child":{"id":"1743"},"title":"Structures"},"id":"1744","type":"Panel"},{"attributes":{"formatter":{"id":"1709"},"major_label_policy":{"id":"1710"},"ticker":{"id":"1698"}},"id":"1697","type":"CategoricalAxis"},{"attributes":{},"id":"1725","type":"DataRange1d"},{"attributes":{"align":"center","text":"Marginal Effective Tax Rates on Corporate Investments in Structures","text_color":"#6B6B73","text_font":"Helvetica","text_font_size":"9pt"},"id":"1703","type":"Title"},{"attributes":{"end":75,"start":-0.075},"id":"1666","type":"Range1d"},{"attributes":{},"id":"1675","type":"BasicTicker"},{"attributes":{"formatter":{"id":"1793"},"major_label_policy":{"id":"1794"},"ticker":{"id":"1675"},"visible":false},"id":"1674","type":"LinearAxis"},{"attributes":{"fill_alpha":{"value":0.4},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.4},"line_color":{"value":"#333333"},"size":{"field":"size"},"x":{"field":"baseline"},"y":{"field":"short_category"}},"id":"1716","type":"Circle"},{"attributes":{},"id":"1672","type":"LinearScale"},{"attributes":{"format":"0.1%"},"id":"1654","type":"NumeralTickFormatter"},{"attributes":{},"id":"1732","type":"BasicTicker"},{"attributes":{"text":"Asset Amount"},"id":"1664","type":"Title"},{"attributes":{},"id":"1691","type":"CategoricalScale"},{"attributes":{"data_source":{"id":"1656"},"glyph":{"id":"1658"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1659"},"view":{"id":"1661"}},"id":"1660","type":"GlyphRenderer"},{"attributes":{"formatter":{"id":"1651"},"major_label_policy":{"id":"1652"},"ticker":{"id":"1641"}},"id":"1640","type":"CategoricalAxis"},{"attributes":{"source":{"id":"1656"}},"id":"1661","type":"CDSView"},{"attributes":{},"id":"1813","type":"Selection"},{"attributes":{"fill_alpha":{"value":0.4},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#333333"},"size":{"field":"size"},"x":{"field":"baseline"},"y":{"field":"short_category"}},"id":"1658","type":"Circle"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#333333"},"size":{"field":"size"},"x":{"field":"baseline"},"y":{"field":"short_category"}},"id":"1659","type":"Circle"},{"attributes":{},"id":"1804","type":"BasicTickFormatter"},{"attributes":{},"id":"1807","type":"BasicTickFormatter"},{"attributes":{},"id":"1668","type":"DataRange1d"},{"attributes":{"axis":{"id":"1693"},"ticker":null},"id":"1696","type":"Grid"},{"attributes":{"text":"Asset Amount"},"id":"1721","type":"Title"},{"attributes":{},"id":"1793","type":"BasicTickFormatter"},{"attributes":{},"id":"1651","type":"CategoricalTickFormatter"},{"attributes":{"data":{"asset_name":["Petroleum and natural gas","Mining","Communication","Gas","Petroleum pipelines","Religious","Educational and vocational","Hospitals","Special care","Lodging","Air transportation","Other transportation","Warehouses","Other commercial","Multimerchandise shopping","Food and beverage establishments","Manufacturing","Public safety","Office","Medical buildings","Amusement and recreation","Local transit structures","Other land transportation","Farm","Water supply","Sewage and waste disposal","Highway and conservation and development","Mobile structures","Other railroad","Track replacement","Electric","Wind and solar","Residential","Mining and Drilling Structures","Nonresidential Buildings","Other Structures","Residential Buildings","Structures"],"assets":{"__ndarray__":"CutnFoQQbkIn2/YTB08zQmsOf4v/12BCfauIB/JGVUICaE2K2zg6Qk6mU7+xazdCQFAJgQd1UELL3wr5NbZSQuSjwho4UzBCbQ/IMFIAREI5PljRFdgYQr7TSpuZbOpBQLCdyW9hUEIrC9WI/fVTQm1dNBnYtFhCHnzs81WwREK1mcrM+/VvQv0QKJNU2QxCXSWGDU5gcEJ2TVJnIE45QiF+yETx/kJCtoo7oTY8AUJRGk1QREH6QY43N1HrfzlClBEs+aI5I0LOPwst3IghQlFkGCc/VBVCBWWY6mqK8UE2nye97J4/Qr7Hx03mYENCXZBtIAehbkJKsbxg2MY7QgCAUcSobVNCzOu5fHyef0J4LdDolo6QQh0CxpuCNHtCAIBRxKhtU0J4oJqdGD2gQg==","dtype":"float64","order":"little","shape":[38]},"baseline":{"__ndarray__":"8l1XvS5BsD/pXVe9LkGwP/JdV70uQbA/8l1XvS5BsD/pXVe9LkGwP8IG/Iaqycw/bSKW2wR7zz9qIpbbBHvPP2QiltsEe88/k4f9Ken60D+blxvXzGbQP5uXG9fMZtA/zr0EisU90D9hbMjgZbvQP2FsyOBlu9A/XmzI4GW70D8pCUL6pmfRP5uXG9fMZtA/NsVk5MeI0D80xWTkx4jQP99dV70uQbA/m5cb18xm0D/8XVe9LkGwPwVeV70uQbA/311XvS5BsD/fXVe9LkGwP/JdV70uQbA/BV5XvS5BsD/yXVe9LkGwP/xdV70uQbA//F1XvS5BsD/yXVe9LkGwPzLB1Kw/58s//F1XvS5BsD+tdyUZQ6DQP/hEflXSj7A/MsHUrD/nyz/2/7BpKBzHPw==","dtype":"float64","order":"little","shape":[38]},"hover":["6.3%","6.3%","6.3%","6.3%","6.3%","22.5%","24.6%","24.6%","24.6%","26.5%","25.6%","25.6%","25.4%","26.1%","26.1%","26.1%","27.2%","25.6%","25.8%","25.8%","6.3%","25.6%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","6.3%","21.8%","6.3%","26.0%","6.5%","21.8%","18.1%"],"index":[66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,204,205,209,210,230],"short_category":["Mining and Drilling","Mining and Drilling","Mining and Drilling","Mining and Drilling","Mining and Drilling","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Other","Other","Other","Other","Other","Other","Other","Other","Other","Other","Other","Other","                          Residential Bldgs","Mining and Drilling","Nonresidential Bldgs","Other","                          Residential Bldgs","Structures"],"size":[65,35,65,65,35,35,50,50,35,50,20,20,50,65,65,50,65,20,65,35,50,20,20,35,35,35,20,20,50,50,65,35,50,65,65,65,50,65]},"selected":{"id":"1813"},"selection_policy":{"id":"1812"}},"id":"1714","type":"ColumnDataSource"},{"attributes":{},"id":"1694","type":"BasicTicker"},{"attributes":{"formatter":{"id":"1796"},"major_label_policy":{"id":"1797"},"ticker":{"id":"1679"},"visible":false},"id":"1678","type":"LinearAxis"},{"attributes":{},"id":"1705","type":"Title"},{"attributes":{"axis":{"id":"1731"},"grid_line_color":null,"ticker":null},"id":"1734","type":"Grid"},{"attributes":{"axis":{"id":"1697"},"dimension":1,"ticker":null},"id":"1699","type":"Grid"},{"attributes":{},"id":"1794","type":"AllLabels"},{"attributes":{"children":[{"id":"1627"},{"id":"1663"}]},"id":"1741","type":"Column"},{"attributes":{"below":[{"id":"1731"}],"center":[{"id":"1734"},{"id":"1738"}],"height":150,"left":[{"id":"1735"}],"title":{"id":"1721"},"toolbar":{"id":"1739"},"width":380,"x_range":{"id":"1723"},"x_scale":{"id":"1727"},"y_range":{"id":"1725"},"y_scale":{"id":"1729"}},"id":"1720","subtype":"Figure","type":"Plot"},{"attributes":{},"id":"1797","type":"AllLabels"},{"attributes":{},"id":"1689","type":"LinearScale"},{"attributes":{"below":[{"id":"1674"}],"center":[{"id":"1677"},{"id":"1681"}],"height":150,"left":[{"id":"1678"}],"title":{"id":"1664"},"toolbar":{"id":"1682"},"width":380,"x_range":{"id":"1666"},"x_scale":{"id":"1670"},"y_range":{"id":"1668"},"y_scale":{"id":"1672"}},"id":"1663","subtype":"Figure","type":"Plot"},{"attributes":{"above":[{"id":"1703"}],"background_fill_alpha":0,"below":[{"id":"1693"}],"border_fill_alpha":0,"center":[{"id":"1696"},{"id":"1699"}],"height":540,"left":[{"id":"1697"}],"min_border_bottom":0,"min_border_left":0,"min_border_right":5,"min_border_top":5,"outline_line_color":"black","outline_line_width":1,"renderers":[{"id":"1718"}],"title":{"id":"1705"},"toolbar":{"id":"1701"},"toolbar_location":null,"width":990,"x_range":{"id":"1685"},"x_scale":{"id":"1689"},"y_range":{"id":"1687"},"y_scale":{"id":"1691"}},"id":"1684","subtype":"Figure","type":"Plot"},{"attributes":{},"id":"1710","type":"AllLabels"},{"attributes":{"active_multi":null,"tools":[{"id":"1643"}]},"id":"1644","type":"Toolbar"},{"attributes":{"factors":["Other","Mining and Drilling","Nonresidential Bldgs","Residential Bldgs"]},"id":"1687","type":"FactorRange"},{"attributes":{"callback":null,"tooltips":[["Asset"," @asset_name (@hover)"]]},"id":"1700","type":"HoverTool"},{"attributes":{},"id":"1796","type":"BasicTickFormatter"},{"attributes":{},"id":"1698","type":"CategoricalTicker"},{"attributes":{"children":[{"id":"1684"},{"id":"1720"}]},"id":"1743","type":"Column"},{"attributes":{},"id":"1652","type":"AllLabels"},{"attributes":{"source":{"id":"1714"}},"id":"1719","type":"CDSView"},{"attributes":{},"id":"1727","type":"LinearScale"},{"attributes":{"data_source":{"id":"1714"},"glyph":{"id":"1716"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1717"},"view":{"id":"1719"}},"id":"1718","type":"GlyphRenderer"},{"attributes":{},"id":"1649","type":"AllLabels"},{"attributes":{"callback":null,"tooltips":[["Asset"," @asset_name (@hover)"]]},"id":"1643","type":"HoverTool"},{"attributes":{},"id":"1812","type":"UnionRenderers"},{"attributes":{},"id":"1647","type":"Title"},{"attributes":{"formatter":{"id":"1804"},"major_label_policy":{"id":"1805"},"ticker":{"id":"1732"},"visible":false},"id":"1731","type":"LinearAxis"},{"attributes":{"format":"0.1%"},"id":"1712","type":"NumeralTickFormatter"},{"attributes":{},"id":"1811","type":"Selection"},{"attributes":{"axis":{"id":"1678"},"dimension":1,"grid_line_color":null,"ticker":null},"id":"1681","type":"Grid"},{"attributes":{"end":0.51,"start":-0.05},"id":"1685","type":"Range1d"},{"attributes":{},"id":"1729","type":"LinearScale"},{"attributes":{"end":0.75,"start":-0.075},"id":"1723","type":"Range1d"},{"attributes":{},"id":"1707","type":"AllLabels"},{"attributes":{"active_multi":null,"tools":[{"id":"1700"}]},"id":"1701","type":"Toolbar"},{"attributes":{"axis_label":"Marginal Effective Tax Rate","formatter":{"id":"1712"},"major_label_policy":{"id":"1707"},"major_tick_line_color":"firebrick","major_tick_line_width":3,"minor_tick_line_color":"orange","ticker":{"id":"1694"}},"id":"1693","type":"LinearAxis"},{"attributes":{"axis":{"id":"1640"},"dimension":1,"ticker":null},"id":"1642","type":"Grid"}],"root_ids":["1745"]},"title":"Bokeh Application","version":"2.3.0"}};
-  var render_items = [{"docid":"35de045d-674c-4605-a076-0549d197ca27","root_ids":["1745"],"roots":{"1745":"b14d0153-ba19-40be-806b-717cc9bede1c"}}];
+  var docs_json = {"185b112e-3847-43e1-beff-0524b728d6c9":{"defs":[],"roots":{"references":[{"attributes":{"tabs":[{"id":"1742"},{"id":"1744"}]},"id":"1745","type":"Tabs"},{"attributes":{},"id":"1725","type":"DataRange1d"},{"attributes":{},"id":"1812","type":"UnionRenderers"},{"attributes":{"axis":{"id":"1697"},"dimension":1,"ticker":null},"id":"1699","type":"Grid"},{"attributes":{"axis":{"id":"1693"},"ticker":null},"id":"1696","type":"Grid"},{"attributes":{"factors":["Other","Mining and Drilling","Nonresidential Bldgs","Residential Bldgs"]},"id":"1687","type":"FactorRange"},{"attributes":{},"id":"1810","type":"UnionRenderers"},{"attributes":{},"id":"1795","type":"BasicTickFormatter"},{"attributes":{"factors":["Other","Other Industrial","Industrial Machinery","Transportation","Office and Residential","Instruments and Communications","Computers and Software"]},"id":"1630","type":"FactorRange"},{"attributes":{"data_source":{"id":"1656"},"glyph":{"id":"1658"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1659"},"view":{"id":"1661"}},"id":"1660","type":"GlyphRenderer"},{"attributes":{"end":0.75,"start":-0.075},"id":"1723","type":"Range1d"},{"attributes":{},"id":"1637","type":"BasicTicker"},{"attributes":{},"id":"1698","type":"CategoricalTicker"},{"attributes":{"active_multi":null,"tools":[{"id":"1700"}]},"id":"1701","type":"Toolbar"},{"attributes":{},"id":"1813","type":"Selection"},{"attributes":{"callback":null,"tooltips":[["Asset"," @asset_name (@hover)"]]},"id":"1700","type":"HoverTool"},{"attributes":{},"id":"1805","type":"AllLabels"},{"attributes":{"axis_label":"Marginal Effective Tax Rate","formatter":{"id":"1654"},"major_label_policy":{"id":"1652"},"major_tick_line_color":"firebrick","major_tick_line_width":3,"minor_tick_line_color":"orange","ticker":{"id":"1637"}},"id":"1636","type":"LinearAxis"},{"attributes":{},"id":"1632","type":"LinearScale"},{"attributes":{"fill_alpha":{"value":0.4},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.4},"line_color":{"value":"#333333"},"size":{"field":"size"},"x":{"field":"baseline"},"y":{"field":"short_category"}},"id":"1716","type":"Circle"},{"attributes":{"children":[{"id":"1627"},{"id":"1663"}]},"id":"1741","type":"Column"},{"attributes":{},"id":"1808","type":"AllLabels"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#333333"},"size":{"field":"size"},"x":{"field":"baseline"},"y":{"field":"short_category"}},"id":"1659","type":"Circle"},{"attributes":{"data":{"asset_name":["Petroleum and natural gas","Mining","Communication","Gas","Petroleum pipelines","Religious","Educational and vocational","Hospitals","Special care","Lodging","Air transportation","Other transportation","Warehouses","Other commercial","Multimerchandise shopping","Food and beverage establishments","Manufacturing","Public safety","Office","Medical buildings","Amusement and recreation","Local transit structures","Other land transportation","Farm","Water supply","Sewage and waste disposal","Highway and conservation and development","Mobile structures","Other railroad","Track replacement","Electric","Wind and solar","Residential","Mining and Drilling Structures","Nonresidential Buildings","Other Structures","Residential Buildings","Structures"],"assets":{"__ndarray__":"CutnFoQQbkIn2/YTB08zQmsOf4v/12BCfauIB/JGVUICaE2K2zg6Qk6mU7+xazdCQFAJgQd1UELL3wr5NbZSQuSjwho4UzBCbQ/IMFIAREI5PljRFdgYQr7TSpuZbOpBQLCdyW9hUEIrC9WI/fVTQm1dNBnYtFhCHnzs81WwREK1mcrM+/VvQv0QKJNU2QxCXSWGDU5gcEJ2TVJnIE45QiF+yETx/kJCtoo7oTY8AUJRGk1QREH6QY43N1HrfzlClBEs+aI5I0LOPwst3IghQlFkGCc/VBVCBWWY6mqK8UE2nye97J4/Qr7Hx03mYENCXZBtIAehbkJKsbxg2MY7QgCAUcSobVNCzOu5fHyef0J4LdDolo6QQh0CxpuCNHtCAIBRxKhtU0J4oJqdGD2gQg==","dtype":"float64","order":"little","shape":[38]},"baseline":{"__ndarray__":"Qx1g0hVUsD86HWDSFVSwP0MdYNIVVLA/Qx1g0hVUsD86HWDSFVSwP/7hdQ190cw/7uf8B6GCzz/r5/wHoYLPP+Xn/Aehgs8/voeuOZ7+0D/7YU2UjWrQP/thTZSNatA/IdpXg4lB0D8rBG/yH7/QPysEb/Ifv9A/KARv8h+/0D9gehV3U2vRP/thTZSNatA/Xqu284WM0D9bq7bzhYzQPzEdYNIVVLA/+2FNlI1q0D9NHWDSFVSwP1YdYNIVVLA/MR1g0hVUsD8xHWDSFVSwP0MdYNIVVLA/Vh1g0hVUsD9DHWDSFVSwP00dYNIVVLA/TR1g0hVUsD9DHWDSFVSwPx2qXw0k78s/TR1g0hVUsD/KpINO/6PQP6rCQTezorA/HapfDSTvyz/bfyaKbSTHPw==","dtype":"float64","order":"little","shape":[38]},"hover":["6.4%","6.4%","6.4%","6.4%","6.4%","22.5%","24.6%","24.6%","24.6%","26.6%","25.7%","25.7%","25.4%","26.2%","26.2%","26.2%","27.2%","25.7%","25.9%","25.9%","6.4%","25.7%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","21.8%","6.4%","26.0%","6.5%","21.8%","18.1%"],"index":[66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,204,205,209,210,230],"short_category":["Mining and Drilling","Mining and Drilling","Mining and Drilling","Mining and Drilling","Mining and Drilling","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Other","Other","Other","Other","Other","Other","Other","Other","Other","Other","Other","Other","                          Residential Bldgs","Mining and Drilling","Nonresidential Bldgs","Other","                          Residential Bldgs","Structures"],"size":[65,35,65,65,35,35,50,50,35,50,20,20,50,65,65,50,65,20,65,35,50,20,20,35,35,35,20,20,50,50,65,35,50,65,65,65,50,65]},"selected":{"id":"1813"},"selection_policy":{"id":"1812"}},"id":"1714","type":"ColumnDataSource"},{"attributes":{"end":0.51,"start":-0.05},"id":"1628","type":"Range1d"},{"attributes":{"text":"Asset Amount"},"id":"1721","type":"Title"},{"attributes":{"fill_alpha":{"value":0.4},"fill_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#333333"},"size":{"field":"size"},"x":{"field":"baseline"},"y":{"field":"short_category"}},"id":"1658","type":"Circle"},{"attributes":{"child":{"id":"1743"},"title":"Structures"},"id":"1744","type":"Panel"},{"attributes":{"formatter":{"id":"1708"},"major_label_policy":{"id":"1707"},"ticker":{"id":"1698"}},"id":"1697","type":"CategoricalAxis"},{"attributes":{},"id":"1694","type":"BasicTicker"},{"attributes":{},"id":"1811","type":"Selection"},{"attributes":{},"id":"1727","type":"LinearScale"},{"attributes":{},"id":"1798","type":"BasicTickFormatter"},{"attributes":{},"id":"1729","type":"LinearScale"},{"attributes":{},"id":"1809","type":"BasicTickFormatter"},{"attributes":{"data":{"asset_name":["Prepackaged software","Custom software","Mainframes","PCs","DASDs","Printers","Terminals","Tape drives","Storage devices","System integrators","Special industrial machinery","General industrial equipment","Office and accounting equipment","Communications","Photocopy and related equipment","Nonelectro medical instruments","Electro medical instruments","Nonmedical instruments","Household furniture","Other furniture","Household appliances","Service industry machinery","Other electrical","Other","Nuclear fuel","Other fabricated metals","Metalworking machinery","Electric transmission and distribution","Farm tractors","Construction tractors","Other agricultural machinery","Other construction machinery","Mining and oilfield machinery","Steam engines","Internal combustion engines","Light trucks (including utility vehicles)","Other trucks, buses and truck trailers","Autos","Aircraft","Ships and boats","Railroad equipment","Computers and Software","Industrial Machinery","Instruments and Communications Equipment","Office and Residential Equipment","Other Equipment","Other Industrial Equipment","Transportation Equipment"],"assets":{"__ndarray__":"guiTRJDTMELUVaUIN/ZGQh+VzBinNxBCqeCRDsHvKEIAAAAAAAAAAFNzOHSIPwFCsBvVAVkXB0IAAAAAAAAAADUokQduzP1BeWM0iaxdGkIJ/Fm/uylQQqBKFSw0u1tCugfwReMT+0EDAkHtxwFdQiG4dVx1TRdCKpXJY/oEP0K8yX5/UXkxQqw/XGX+OjlCI5M5K0SUAEIHwQQ+J3hHQgIRiof0juRB9Dhz5OZvN0Jh54bUKFUPQnIrSU8wkElC4ljVPToM+EF4baBsU147Qvrg35pve0lCuZZFXPKlWELZEUQaZeAWQg5fNzePbgJC/EhZQAzFJULNGx/XE8Y8QpXTvLf6wTNCZi6+73dWNULjDFXOJQcHQrt8k/J2g0NCIy4brJ/VO0J1opjchrg/QoQzxAY9905CcwcfBRFDLUJ6zQEMnmM5QsKhOLU1MVdCVaO39XfyZUKkoiSxoKhoQn2C1lKn00hCMZtlJ7ueU0KCjHryx7tuQkmqbzYCGGxC","dtype":"float64","order":"little","shape":[48]},"baseline":{"__ndarray__":"fB1g0hVUsD8nHWDSFVSwPzEdYNIVVLA/Jx1g0hVUsD8eHWDSFVSwPxQdYNIVVLA/Jx1g0hVUsD8eHWDSFVSwPxQdYNIVVLA/Jx1g0hVUsD9NHWDSFVSwPycdYNIVVLA/FB1g0hVUsD9DHWDSFVSwP00dYNIVVLA/TR1g0hVUsD86HWDSFVSwP0MdYNIVVLA/Oh1g0hVUsD8xHWDSFVSwPzEdYNIVVLA/TR1g0hVUsD86HWDSFVSwP0MdYNIVVLA/ch1g0hVUsD9NHWDSFVSwP00dYNIVVLA/MR1g0hVUsD86HWDSFVSwP00dYNIVVLA/Qx1g0hVUsD9WHWDSFVSwPzodYNIVVLA/Vh1g0hVUsD9NHWDSFVSwP0MdYNIVVLA/Oh1g0hVUsD8nHWDSFVSwP0MdYNIVVLA/Vh1g0hVUsD9DHWDSFVSwPzEdYNIVVLA/MR1g0hVUsD9DHWDSFVSwPzEdYNIVVLA/TR1g0hVUsD9DHWDSFVSwP0MdYNIVVLA/","dtype":"float64","order":"little","shape":[48]},"hover":["6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%","6.4%"],"index":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,198,199,200,206,207,208,211],"short_category":["Computers and Software","Computers and Software","Computers and Software","Computers and Software","Computers and Software","Computers and Software","Computers and Software","Computers and Software","Computers and Software","Computers and Software","Industrial Machinery","Industrial Machinery","Instruments and Communications","Instruments and Communications","Instruments and Communications","Instruments and Communications","Instruments and Communications","Instruments and Communications","Office and Residential","Office and Residential","Office and Residential","Other","Other","Other","Other Industrial","Other Industrial","Other Industrial","Other Industrial","Other Industrial","Other Industrial","Other Industrial","Other Industrial","Other Industrial","Transportation","Transportation","Transportation","Transportation","Transportation","Transportation","Transportation","Transportation","Computers and Software","Industrial Machinery","Instruments and Communications","Office and Residential","Other","Other Industrial","Transportation"],"size":[35,50,20,35,20,20,20,20,20,35,50,65,20,65,20,50,35,35,20,50,20,35,20,50,20,35,50,65,20,20,35,50,35,35,20,50,35,50,50,35,35,65,65,65,50,50,65,65]},"selected":{"id":"1811"},"selection_policy":{"id":"1810"}},"id":"1656","type":"ColumnDataSource"},{"attributes":{},"id":"1634","type":"CategoricalScale"},{"attributes":{"background_fill_alpha":0,"below":[{"id":"1636"}],"border_fill_alpha":0,"center":[{"id":"1639"},{"id":"1642"}],"height":540,"left":[{"id":"1640"}],"min_border_bottom":0,"min_border_left":0,"min_border_right":5,"min_border_top":5,"outline_line_color":"black","outline_line_width":1,"renderers":[{"id":"1660"}],"title":{"id":"1647"},"toolbar":{"id":"1644"},"toolbar_location":null,"width":990,"x_range":{"id":"1628"},"x_scale":{"id":"1632"},"y_range":{"id":"1630"},"y_scale":{"id":"1634"}},"id":"1627","subtype":"Figure","type":"Plot"},{"attributes":{"below":[{"id":"1731"}],"center":[{"id":"1734"},{"id":"1738"}],"height":150,"left":[{"id":"1735"}],"title":{"id":"1721"},"toolbar":{"id":"1739"},"width":380,"x_range":{"id":"1723"},"x_scale":{"id":"1727"},"y_range":{"id":"1725"},"y_scale":{"id":"1729"}},"id":"1720","subtype":"Figure","type":"Plot"},{"attributes":{"children":[{"id":"1684"},{"id":"1720"}]},"id":"1743","type":"Column"},{"attributes":{},"id":"1794","type":"AllLabels"},{"attributes":{},"id":"1806","type":"BasicTickFormatter"},{"attributes":{"format":"0.1%"},"id":"1712","type":"NumeralTickFormatter"},{"attributes":{"format":"0.1%"},"id":"1654","type":"NumeralTickFormatter"},{"attributes":{"formatter":{"id":"1806"},"major_label_policy":{"id":"1805"},"ticker":{"id":"1736"},"visible":false},"id":"1735","type":"LinearAxis"},{"attributes":{"active_drag":null,"active_multi":null},"id":"1739","type":"Toolbar"},{"attributes":{"end":75,"start":-0.075},"id":"1666","type":"Range1d"},{"attributes":{"formatter":{"id":"1809"},"major_label_policy":{"id":"1808"},"ticker":{"id":"1732"},"visible":false},"id":"1731","type":"LinearAxis"},{"attributes":{"source":{"id":"1714"}},"id":"1719","type":"CDSView"},{"attributes":{"formatter":{"id":"1798"},"major_label_policy":{"id":"1797"},"ticker":{"id":"1675"},"visible":false},"id":"1674","type":"LinearAxis"},{"attributes":{"text":"Asset Amount"},"id":"1664","type":"Title"},{"attributes":{},"id":"1641","type":"CategoricalTicker"},{"attributes":{"child":{"id":"1741"},"title":"Equipment"},"id":"1742","type":"Panel"},{"attributes":{"axis":{"id":"1674"},"grid_line_color":null,"ticker":null},"id":"1677","type":"Grid"},{"attributes":{},"id":"1689","type":"LinearScale"},{"attributes":{},"id":"1707","type":"AllLabels"},{"attributes":{"callback":null,"tooltips":[["Asset"," @asset_name (@hover)"]]},"id":"1643","type":"HoverTool"},{"attributes":{"below":[{"id":"1674"}],"center":[{"id":"1677"},{"id":"1681"}],"height":150,"left":[{"id":"1678"}],"title":{"id":"1664"},"toolbar":{"id":"1682"},"width":380,"x_range":{"id":"1666"},"x_scale":{"id":"1670"},"y_range":{"id":"1668"},"y_scale":{"id":"1672"}},"id":"1663","subtype":"Figure","type":"Plot"},{"attributes":{"end":0.51,"start":-0.05},"id":"1685","type":"Range1d"},{"attributes":{},"id":"1691","type":"CategoricalScale"},{"attributes":{},"id":"1797","type":"AllLabels"},{"attributes":{"source":{"id":"1656"}},"id":"1661","type":"CDSView"},{"attributes":{},"id":"1668","type":"DataRange1d"},{"attributes":{"axis":{"id":"1636"},"ticker":null},"id":"1639","type":"Grid"},{"attributes":{"align":"center","text":"Marginal Effective Tax Rates on Corporate Investments in Structures","text_color":"#6B6B73","text_font":"Helvetica","text_font_size":"9pt"},"id":"1703","type":"Title"},{"attributes":{"axis":{"id":"1640"},"dimension":1,"ticker":null},"id":"1642","type":"Grid"},{"attributes":{},"id":"1736","type":"BasicTicker"},{"attributes":{"axis":{"id":"1735"},"dimension":1,"grid_line_color":null,"ticker":null},"id":"1738","type":"Grid"},{"attributes":{"axis_label":"Marginal Effective Tax Rate","formatter":{"id":"1712"},"major_label_policy":{"id":"1710"},"major_tick_line_color":"firebrick","major_tick_line_width":3,"minor_tick_line_color":"orange","ticker":{"id":"1694"}},"id":"1693","type":"LinearAxis"},{"attributes":{},"id":"1647","type":"Title"},{"attributes":{},"id":"1732","type":"BasicTicker"},{"attributes":{"formatter":{"id":"1650"},"major_label_policy":{"id":"1649"},"ticker":{"id":"1641"}},"id":"1640","type":"CategoricalAxis"},{"attributes":{},"id":"1679","type":"BasicTicker"},{"attributes":{},"id":"1649","type":"AllLabels"},{"attributes":{},"id":"1652","type":"AllLabels"},{"attributes":{},"id":"1705","type":"Title"},{"attributes":{},"id":"1670","type":"LinearScale"},{"attributes":{"active_drag":null,"active_multi":null},"id":"1682","type":"Toolbar"},{"attributes":{},"id":"1672","type":"LinearScale"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#333333"},"size":{"field":"size"},"x":{"field":"baseline"},"y":{"field":"short_category"}},"id":"1717","type":"Circle"},{"attributes":{"axis":{"id":"1678"},"dimension":1,"grid_line_color":null,"ticker":null},"id":"1681","type":"Grid"},{"attributes":{"axis":{"id":"1731"},"grid_line_color":null,"ticker":null},"id":"1734","type":"Grid"},{"attributes":{},"id":"1708","type":"CategoricalTickFormatter"},{"attributes":{"active_multi":null,"tools":[{"id":"1643"}]},"id":"1644","type":"Toolbar"},{"attributes":{"above":[{"id":"1703"}],"background_fill_alpha":0,"below":[{"id":"1693"}],"border_fill_alpha":0,"center":[{"id":"1696"},{"id":"1699"}],"height":540,"left":[{"id":"1697"}],"min_border_bottom":0,"min_border_left":0,"min_border_right":5,"min_border_top":5,"outline_line_color":"black","outline_line_width":1,"renderers":[{"id":"1718"}],"title":{"id":"1705"},"toolbar":{"id":"1701"},"toolbar_location":null,"width":990,"x_range":{"id":"1685"},"x_scale":{"id":"1689"},"y_range":{"id":"1687"},"y_scale":{"id":"1691"}},"id":"1684","subtype":"Figure","type":"Plot"},{"attributes":{},"id":"1710","type":"AllLabels"},{"attributes":{"formatter":{"id":"1795"},"major_label_policy":{"id":"1794"},"ticker":{"id":"1679"},"visible":false},"id":"1678","type":"LinearAxis"},{"attributes":{},"id":"1675","type":"BasicTicker"},{"attributes":{},"id":"1650","type":"CategoricalTickFormatter"},{"attributes":{"data_source":{"id":"1714"},"glyph":{"id":"1716"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1717"},"view":{"id":"1719"}},"id":"1718","type":"GlyphRenderer"}],"root_ids":["1745"]},"title":"Bokeh Application","version":"2.3.3"}};
+  var render_items = [{"docid":"185b112e-3847-43e1-beff-0524b728d6c9","root_ids":["1745"],"roots":{"1745":"157d2195-381a-4945-bcb4-734cfa62c949"}}];
   root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
 
   }
@@ -1971,12 +1972,32 @@ WARNING:bokeh.core.validation.check:W-1000 (MISSING_RENDERERS): Plot has no rend
               </div>
               
         
-        <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="../intro.html" title="previous page">Cost-of-Capital-Calculator</a>
-    <a class='right-next' id="next-link" href="../webapp.html" title="next page">Web Application</a>
 
-        </div>
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="../intro.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Cost-of-Capital-Calculator</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="../webapp.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Web Application</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
         
         </div>
     </div>
@@ -1995,10 +2016,9 @@ WARNING:bokeh.core.validation.check:W-1000 (MISSING_RENDERERS): Plot has no rend
 
       </div>
     </div>
-    
+  
   <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-
-    
+  
   </body>
 </html>

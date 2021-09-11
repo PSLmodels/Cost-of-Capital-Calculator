@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
@@ -42,13 +42,6 @@
     <script src="../../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -78,7 +71,7 @@
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
@@ -172,11 +165,6 @@
    <li class="toctree-l2">
     <a class="reference internal" href="../../content/api/utils.html">
      CCC utility functions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../content/api/calcfunctions.html">
-     Cost of Capital Calculation Functions
     </a>
    </li>
   </ul>
@@ -1617,13 +1605,13 @@
         <span class="n">p</span><span class="o">.</span><span class="n">outline_line_color</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span>
 
         <span class="n">p</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;rate&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;short_category&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s1">&#39;size&#39;</span><span class="p">,</span>
-                 <span class="n">line_color</span><span class="o">=</span><span class="s2">&quot;#333333&quot;</span><span class="p">,</span> <span class="n">fill_alpha</span><span class="o">=.</span><span class="mi">4</span><span class="p">,</span>
-                 <span class="n">source</span><span class="o">=</span><span class="n">data_sources</span><span class="p">[</span><span class="s1">&#39;equip_source&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">4</span><span class="p">)</span>
+                 <span class="n">line_color</span><span class="o">=</span><span class="s2">&quot;#333333&quot;</span><span class="p">,</span> <span class="n">fill_alpha</span><span class="o">=</span><span class="mf">.4</span><span class="p">,</span>
+                 <span class="n">source</span><span class="o">=</span><span class="n">data_sources</span><span class="p">[</span><span class="s1">&#39;equip_source&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.4</span><span class="p">)</span>
 
         <span class="c1"># Define and add a legend</span>
         <span class="n">legend_cds</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span>
             <span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="n">SIZES</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;&lt;$20B&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;$1T&#39;</span><span class="p">],</span>
-             <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">15</span><span class="p">,</span> <span class="o">.</span><span class="mi">35</span><span class="p">,</span> <span class="o">.</span><span class="mi">6</span><span class="p">]})</span>
+             <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">.15</span><span class="p">,</span> <span class="mf">.35</span><span class="p">,</span> <span class="mf">.6</span><span class="p">]})</span>
         <span class="n">p_legend</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">380</span><span class="p">,</span> <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.075</span><span class="p">,</span> <span class="mi">75</span><span class="p">),</span>
                           <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Asset Amount&#39;</span><span class="p">,</span> <span class="n">tools</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="c1"># p_legend.circle(y=None, x=&#39;x&#39;, size=&#39;size&#39;, source=legend_cds,</span>
@@ -1661,15 +1649,15 @@
         <span class="n">p2</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">minor_tick_line_color</span> <span class="o">=</span> <span class="s2">&quot;orange&quot;</span>
 
         <span class="n">p2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;rate&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;short_category&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">RED</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s1">&#39;size&#39;</span><span class="p">,</span>
-                  <span class="n">line_color</span><span class="o">=</span><span class="s2">&quot;#333333&quot;</span><span class="p">,</span> <span class="n">fill_alpha</span><span class="o">=.</span><span class="mi">4</span><span class="p">,</span>
-                  <span class="n">source</span><span class="o">=</span><span class="n">data_sources</span><span class="p">[</span><span class="s1">&#39;struc_source&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">4</span><span class="p">)</span>
+                  <span class="n">line_color</span><span class="o">=</span><span class="s2">&quot;#333333&quot;</span><span class="p">,</span> <span class="n">fill_alpha</span><span class="o">=</span><span class="mf">.4</span><span class="p">,</span>
+                  <span class="n">source</span><span class="o">=</span><span class="n">data_sources</span><span class="p">[</span><span class="s1">&#39;struc_source&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.4</span><span class="p">)</span>
 
         <span class="n">p2</span><span class="o">.</span><span class="n">outline_line_width</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">p2</span><span class="o">.</span><span class="n">outline_line_alpha</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">p2</span><span class="o">.</span><span class="n">outline_line_color</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span>
 
         <span class="c1"># Define and add a legend</span>
-        <span class="n">p2_legend</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">380</span><span class="p">,</span> <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.075</span><span class="p">,</span> <span class="o">.</span><span class="mi">75</span><span class="p">),</span>
+        <span class="n">p2_legend</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">380</span><span class="p">,</span> <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.075</span><span class="p">,</span> <span class="mf">.75</span><span class="p">),</span>
                            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Asset Amount&#39;</span><span class="p">,</span> <span class="n">tools</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="c1"># p2_legend.circle(y=None, x=&#39;x&#39;, size=&#39;size&#39;, source=legend_cds,</span>
         <span class="c1">#                  color=RED, fill_alpha=.4, alpha=.4,</span>
@@ -1865,7 +1853,7 @@
         <span class="c1"># Equipment plot</span>
         <span class="n">p</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">plot_height</span><span class="o">=</span><span class="mi">540</span><span class="p">,</span>
                    <span class="n">plot_width</span><span class="o">=</span><span class="mi">990</span><span class="p">,</span>
-                   <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="o">-.</span><span class="mi">05</span><span class="p">,</span> <span class="o">.</span><span class="mi">51</span><span class="p">),</span>
+                   <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">.05</span><span class="p">,</span> <span class="mf">.51</span><span class="p">),</span>
                    <span class="n">y_range</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">equipment_assets</span><span class="p">)),</span>
                    <span class="c1"># x_axis_location=&quot;above&quot;,</span>
                    <span class="c1"># toolbar_location=None,</span>
@@ -1904,16 +1892,16 @@
                  <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span>
                  <span class="n">size</span><span class="o">=</span><span class="s1">&#39;size&#39;</span><span class="p">,</span>
                  <span class="n">line_color</span><span class="o">=</span><span class="s2">&quot;#333333&quot;</span><span class="p">,</span>
-                 <span class="n">line_alpha</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span>
+                 <span class="n">line_alpha</span><span class="o">=</span><span class="mf">.1</span><span class="p">,</span>
                  <span class="n">fill_alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
                  <span class="n">source</span><span class="o">=</span><span class="n">ColumnDataSource</span><span class="p">(</span>
                      <span class="n">data_sources</span><span class="p">[</span><span class="s1">&#39;equipment_&#39;</span> <span class="o">+</span> <span class="n">output_variable</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
-                 <span class="n">alpha</span><span class="o">=.</span><span class="mi">4</span><span class="p">)</span>
+                 <span class="n">alpha</span><span class="o">=</span><span class="mf">.4</span><span class="p">)</span>
 
         <span class="c1"># Define and add a legend</span>
         <span class="n">legend_cds</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span>
             <span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="n">SIZES</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;&lt;$20B&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;$1T&#39;</span><span class="p">],</span>
-             <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">15</span><span class="p">,</span> <span class="o">.</span><span class="mi">35</span><span class="p">,</span> <span class="o">.</span><span class="mi">6</span><span class="p">]})</span>
+             <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">.15</span><span class="p">,</span> <span class="mf">.35</span><span class="p">,</span> <span class="mf">.6</span><span class="p">]})</span>
         <span class="n">p_legend</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">380</span><span class="p">,</span> <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.075</span><span class="p">,</span> <span class="mi">75</span><span class="p">),</span>
                           <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Asset Amount&#39;</span><span class="p">,</span> <span class="n">tools</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="c1"># p_legend.circle(y=None, x=&#39;x&#39;, size=&#39;size&#39;, source=legend_cds,</span>
@@ -1934,7 +1922,7 @@
         <span class="c1"># Structures plot</span>
         <span class="n">p2</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">plot_height</span><span class="o">=</span><span class="mi">540</span><span class="p">,</span>
                     <span class="n">plot_width</span><span class="o">=</span><span class="mi">990</span><span class="p">,</span>
-                    <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="o">-.</span><span class="mi">05</span><span class="p">,</span> <span class="o">.</span><span class="mi">51</span><span class="p">),</span>
+                    <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">.05</span><span class="p">,</span> <span class="mf">.51</span><span class="p">),</span>
                     <span class="n">y_range</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">structure_assets</span><span class="p">)),</span>
                     <span class="c1"># toolbar_location=None,</span>
                     <span class="n">tools</span><span class="o">=</span><span class="s1">&#39;hover&#39;</span><span class="p">,</span>
@@ -1969,14 +1957,14 @@
                   <span class="n">fill_alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
                   <span class="n">source</span><span class="o">=</span><span class="n">ColumnDataSource</span><span class="p">(</span>
                       <span class="n">data_sources</span><span class="p">[</span><span class="s1">&#39;structure_&#39;</span> <span class="o">+</span> <span class="n">output_variable</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
-                  <span class="n">alpha</span><span class="o">=.</span><span class="mi">4</span><span class="p">)</span>
+                  <span class="n">alpha</span><span class="o">=</span><span class="mf">.4</span><span class="p">)</span>
 
         <span class="n">p2</span><span class="o">.</span><span class="n">outline_line_width</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">p2</span><span class="o">.</span><span class="n">outline_line_alpha</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">p2</span><span class="o">.</span><span class="n">outline_line_color</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span>
 
         <span class="c1"># Define and add a legend</span>
-        <span class="n">p2_legend</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">380</span><span class="p">,</span> <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.075</span><span class="p">,</span> <span class="o">.</span><span class="mi">75</span><span class="p">),</span>
+        <span class="n">p2_legend</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">380</span><span class="p">,</span> <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.075</span><span class="p">,</span> <span class="mf">.75</span><span class="p">),</span>
                            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Asset Amount&#39;</span><span class="p">,</span> <span class="n">tools</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="c1"># p2_legend.circle(y=None, x=&#39;x&#39;, size=&#39;size&#39;, source=legend_cds,</span>
         <span class="c1">#                  color=RED, fill_alpha=.4, alpha=.4,</span>
@@ -2081,10 +2069,14 @@
               </div>
               
         
-        <div class='prev-next-bottom'>
             
 
-        </div>
+
+
+<div class='prev-next-bottom'>
+    
+
+</div>
         
         </div>
     </div>
@@ -2103,10 +2095,9 @@
 
       </div>
     </div>
-    
+  
   <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-
-    
+  
   </body>
 </html>

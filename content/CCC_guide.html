@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -42,15 +42,15 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="License" href="license.html" />
@@ -82,7 +82,7 @@
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
@@ -176,11 +176,6 @@
    <li class="toctree-l2">
     <a class="reference internal" href="api/utils.html">
      CCC utility functions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="api/calcfunctions.html">
-     Cost of Capital Calculation Functions
     </a>
    </li>
   </ul>
@@ -318,7 +313,7 @@
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
             </div>
-            <nav id="bd-toc-nav">
+            <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
@@ -475,8 +470,8 @@
   <div class="section" id="overview-and-assumptions">
 <span id="overview"></span><h1>Overview and Assumptions<a class="headerlink" href="#overview-and-assumptions" title="Permalink to this headline">¶</a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">Cost</span> <span class="pre">of</span> <span class="pre">Capital</span> <span class="pre">Calculator</span></code> model produces estimates of the marginal effective tax rates on new investment under the baseline tax policy and user-specified tax reforms.  These effective rate calculations take two forms.  The <em>marginal effective tax rate</em> (METR) provides the tax wedge on new investment at the level of the business entity.  The <em>marginal effective total tax rate</em> (METTR) includes individual level taxes in the measure of the tax wedge on new investment.  One can think of the former as indicating the effect of taxes on incentives to invest from the perspective of the firm and the latter as representing effect of taxes on incentives to invest from the perspective of the saver.</p>
-<p>As <span id="id1">[<a class="reference internal" href="references.html#id4"><span>Ful99</span></a>]</span> notes, calculations of METRs depend on several assumptions.  These include those relating to equilibrium in capital markets. discount rates, inflation rates, investor expectations, churning, how investments are financed, how risk is treated, and whether one believes the “old view” or “new view” of dividend taxes better represents investment incentives.  <code class="docutils literal notranslate"><span class="pre">Cost</span> <span class="pre">of</span> <span class="pre">Capital</span> <span class="pre">Calculator</span></code>’s equilibrium assumptions include the assumption that the marginal investment earns an after-tax rate of return equal to the market rate of return, returns across asset types are equalized, investors’ risk-adjusted returns from debt and equity are equalized.  Real discount rates and inflation rates are taken from the Congressional Budget Offices forecasts of nominal interest rates and inflation.  <code class="docutils literal notranslate"><span class="pre">Cost</span> <span class="pre">of</span> <span class="pre">Capital</span> <span class="pre">Calculator</span></code> assumes no uncertainty in investment returns.  We use historical data on the time equities are held and how investment is financed to inform effective tax rates on capital gains and financial policy decisions, respectively.  <code class="docutils literal notranslate"><span class="pre">Cost</span> <span class="pre">of</span> <span class="pre">Capital</span> <span class="pre">Calculator</span></code> assumes the “old view” of dividend taxation in our calculations of the METTRs, implying that dividend taxes affect investment incentives.</p>
-<p>The methodology to calculate METRs and METTRs follows closely <span id="id2">[<a class="reference internal" href="references.html#id5"><span>OB06</span></a>]</span>.</p>
+<p>As <span id="id1">[<a class="reference internal" href="references.html#id4">Ful99</a>]</span> notes, calculations of METRs depend on several assumptions.  These include those relating to equilibrium in capital markets. discount rates, inflation rates, investor expectations, churning, how investments are financed, how risk is treated, and whether one believes the “old view” or “new view” of dividend taxes better represents investment incentives.  <code class="docutils literal notranslate"><span class="pre">Cost</span> <span class="pre">of</span> <span class="pre">Capital</span> <span class="pre">Calculator</span></code>’s equilibrium assumptions include the assumption that the marginal investment earns an after-tax rate of return equal to the market rate of return, returns across asset types are equalized, investors’ risk-adjusted returns from debt and equity are equalized.  Real discount rates and inflation rates are taken from the Congressional Budget Offices forecasts of nominal interest rates and inflation.  <code class="docutils literal notranslate"><span class="pre">Cost</span> <span class="pre">of</span> <span class="pre">Capital</span> <span class="pre">Calculator</span></code> assumes no uncertainty in investment returns.  We use historical data on the time equities are held and how investment is financed to inform effective tax rates on capital gains and financial policy decisions, respectively.  <code class="docutils literal notranslate"><span class="pre">Cost</span> <span class="pre">of</span> <span class="pre">Capital</span> <span class="pre">Calculator</span></code> assumes the “old view” of dividend taxation in our calculations of the METTRs, implying that dividend taxes affect investment incentives.</p>
+<p>The methodology to calculate METRs and METTRs follows closely <span id="id2">[<a class="reference internal" href="references.html#id5">OB06</a>]</span>.</p>
 <p>One should note that these METR and METTR calculations include only federal tax policy (current law or the user specified proposal) and therefore exclude the effects of state and local tax policy on investment incentives.  Integrating such policies is a worthwhile project, but the results here are generally sufficient for comparing alternative federal tax proposals.</p>
 <p>This guide is organized as follows.  Section <a class="reference internal" href="#sec-metr"><span class="std std-ref">Marginal Effective Tax Rates</span></a> and Section <a class="reference internal" href="#sec-mettr"><span class="std std-ref">Marginal Effective Total Tax Rates</span></a> describe how the cost of capital and effective tax rates are computed.  Next, we describe how we measure fixed assets by asset type, industry, and tax treatment in Section <a class="reference internal" href="#sec-assets"><span class="std std-ref">Computing Fixed Assets by Industry and Entity Type</span></a>.  The methodology to allocate land and inventories across industry and tax treatment is described in Sections <a class="reference internal" href="#sec-land"><span class="std std-ref">Land</span></a> and <a class="reference internal" href="#sec-inventories"><span class="std std-ref">Inventories</span></a>.  Finally, we discuss how the values of the model parameters are determined in Section <a class="reference internal" href="#sec-params"><span class="std std-ref">User Inputs</span></a>.</p>
 </div>
@@ -570,7 +565,7 @@ The after-tax rate of return is given by:</p>
 </div>
 <div class="section" id="effective-average-tax-rates">
 <span id="sec-eatr"></span><h1>Effective Average Tax Rates<a class="headerlink" href="#effective-average-tax-rates" title="Permalink to this headline">¶</a></h1>
-<p>Some investment decisions are discrete: build the new plant or not, pursue this R&amp;D effort or another, and so on.  For discrete investment decisions, firms will compare the after tax rates of returns each of the possible choices.  In such cases, the relevant measure of the impact of the tax system on their investment choices will be measured by the effective average tax rate (<span class="math notranslate nohighlight">\(EATR\)</span>).  <span id="id4">[<a class="reference internal" href="references.html#id3"><span>DG03</span></a>]</span> propose a forward  measure of the EATR, which the <code class="docutils literal notranslate"><span class="pre">Cost-of-Capital-Calculator</span></code> also produces estimates.  The <span class="math notranslate nohighlight">\(EATR\)</span> is computed as:</p>
+<p>Some investment decisions are discrete: build the new plant or not, pursue this R&amp;D effort or another, and so on.  For discrete investment decisions, firms will compare the after tax rates of returns each of the possible choices.  In such cases, the relevant measure of the impact of the tax system on their investment choices will be measured by the effective average tax rate (<span class="math notranslate nohighlight">\(EATR\)</span>).  <span id="id4">[<a class="reference internal" href="references.html#id3">DG03</a>]</span> propose a forward  measure of the EATR, which the <code class="docutils literal notranslate"><span class="pre">Cost-of-Capital-Calculator</span></code> also produces estimates.  The <span class="math notranslate nohighlight">\(EATR\)</span> is computed as:</p>
 <div class="math notranslate nohighlight">
 \[EATR = \left(\frac{p_{i,m,j} - rho_{i,m,j}}{p_{i,m,j}}\right)u_{j} + \left(\frac{\rho_{i,m,j}}{p_{i,m,j}}\right)METR_{i,m,j}\]</div>
 <p>where <span class="math notranslate nohighlight">\(p_{i,m,j}\)</span> is the rate of profit on the project.  Note that the <span class="math notranslate nohighlight">\(EATR\)</span> is equal to the <span class="math notranslate nohighlight">\(METR\)</span> for marginal projects - those who’s rate of profit is equal to the cost of capital.</p>
@@ -1025,12 +1020,32 @@ The after-tax rate of return is given by:</p>
               </div>
               
         
-        <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="api/utils.html" title="previous page">CCC utility functions</a>
-    <a class='right-next' id="next-link" href="license.html" title="next page">License</a>
 
-        </div>
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="api/utils.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">CCC utility functions</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="license.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">License</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
         
         </div>
     </div>
@@ -1049,10 +1064,9 @@ The after-tax rate of return is given by:</p>
 
       </div>
     </div>
-    
+  
   <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-
-    
+  
   </body>
 </html>
