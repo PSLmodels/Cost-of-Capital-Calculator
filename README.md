@@ -49,4 +49,4 @@ entites and different forms of financing.  The web application is limited in tha
 Of course, you can get started with Cost-of-Capital-Calculator both ways.
 
 ## Citing the Cost-of-Capital-Calculator Model
-Cost-of-Capital-Calculator (Version 1.2.6)[Source code], https://github.com/PSLmodels/Cost-of-Capital-Calculator
+Cost-of-Capital-Calculator (Version 1.2.8)[Source code], https://github.com/PSLmodels/Cost-of-Capital-Calculator
