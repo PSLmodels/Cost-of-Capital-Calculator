@@ -7,7 +7,7 @@ import json
 import pandas as pd
 
 # Default year for model runs
-DEFAULT_START_YEAR = 2021
+DEFAULT_START_YEAR = 2022
 
 # Year of asset data
 ASSET_DATA_CSV_YEAR = 2013
@@ -16,7 +16,7 @@ ASSET_DATA_CSV_YEAR = 2013
 RECORDS_START_YEAR = 2011
 
 # Latest year TaxData extrapolates to
-TC_LAST_YEAR = 2030
+TC_LAST_YEAR = 2031
 
 
 def to_str(x):

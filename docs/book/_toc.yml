@@ -1,42 +1,27 @@
-- file: content/intro
-  numbered: false
-
-- part: CCC Example
+format: jb-book
+root: content/intro
+parts:
+- caption: CCC Example
   chapters:
   - file: content/examples/PSL_demo
-
-- part: Web Application
+- caption: Web Application
   chapters:
   - file: content/webapp
-
-- part: Contributing to CCC
+- caption: Contributing to CCC
   chapters:
   - file: content/contributing/contributor_guide
-
-- part: CCC API
+- caption: CCC API
   chapters:
   - file: content/api/public_api
-    sections:
-      - file: content/api/calcfunctions
-      - file: content/api/calculator
-      - file: content/api/data
-      - file: content/api/get_taxcalc_rates
-      - file: content/api/parameters
-      - file: content/api/paramfunctions
-      - file: content/api/utils
-
-- part: CCC Guide
+- caption: CCC Guide
   chapters:
   - file: content/CCC_guide
-
-- part: About
+- caption: About
   chapters:
   - file: content/license
-
-- part: References
+- caption: References
   chapters:
   - file: content/references
-
-- part: Citations of CCC
+- caption: Citations of CCC
   chapters:
   - file: content/citations

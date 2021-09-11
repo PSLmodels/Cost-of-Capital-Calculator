@@ -42,7 +42,7 @@ class TestFunctions1(CoreTestFunctions):
         "Business Tax Parameters": {
             "CIT_rate": [
                 {
-                    "year": 2021,
+                    "year": 2022,
                     "value": 0.25
                 }
             ]
@@ -50,7 +50,7 @@ class TestFunctions1(CoreTestFunctions):
         "Individual and Payroll Tax Parameters": {
             "FICA_ss_trt": [
                 {
-                    "year": 2021,
+                    "year": 2022,
                     "value": 0.14
                 }
             ]
