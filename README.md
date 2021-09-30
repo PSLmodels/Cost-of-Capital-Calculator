@@ -4,7 +4,7 @@
 [![codecov](https://codecov.io/gh/PSLmodels/Cost-of-Capital-Calculator/branch/master/graph/badge.svg?token=vOrtCdGu1c)](https://codecov.io/gh/PSLmodels/Cost-of-Capital-Calculator)
 
 # Cost-of-Capital-Calculator
-Cost-of-Capital-Calculator is a model that can be used to evaluate the effect of US federal taxes on the investment incentives of corporate and non-corporate businesses.  Specifically, Cost-of-Capital-Calculator uses data on the business assets and financial policy, as well as microdata on individual tax filers, to compute marginal effective tax rates on new investments.  In modeling the effects of changes to the individual income tax code, Cost-of-Capital-Calculator works with [Tax-Calculator](https://github.com/PSLmodels/tax-calculator), another open source model of US federal tax policy.  Cost-of-Capital-Calculator is written in Python, an interpreted language that can execute on Windows, Mac, or Linux.
+Cost-of-Capital-Calculator is a model that can be used to evaluate the effect of US federal taxes on the investment incentives of corporate and non-corporate businesses.  Specifically, Cost-of-Capital-Calculator uses data on the business assets and financial policy, as well as microdata on individual tax filers, to compute marginal effective tax rates on new investments.  In modeling the effects of changes to the individual income tax code, Cost-of-Capital-Calculator works with [Tax-Calculator](https://github.com/PSLmodels/tax-calculator), another open-source model of US federal tax policy.  Cost-of-Capital-Calculator is written in Python, an interpreted language that can execute on Windows, Mac, or Linux.
 
 ## Disclaimer
 Results will change as the underlying models improve. A fundamental reason for adopting open source methods in this project is so that people from all backgrounds can contribute to the models that our society uses to assess economic policy; when community-contributed improvements are incorporated, the model will produce different results.
@@ -23,15 +23,15 @@ The **first way** to use Cost-of-Capital-Calculator is to download the source co
 * You can adjust the `example.py` by adjusting the individual income tax reform (using a dictionary or JSON file in a format that is consistent with [Tax Calculator](https://github.com/PSLmodels/Tax-Calculator)) or other model parameters specified in the `business_tax_adjustments` dictionary.
 * Model outputs will be saved in the following files:
   * `./baseline_byasset.csv`
-    * Cost of capital, marginal effective tax rates, effective average tax rates, and other model output for the baseline policy, organized by asset.
+    * Cost of capital, marginal effective tax rates, effective average tax rates, and other model output for the baseline policy, organized by an asset.
   * `./baseline_byindustry.csv`
     * Cost of capital, marginal effective tax rates, effective average tax rates, and other model output for the baseline policy, organized by production industry.
   * `./reform_byasset.csv`
-    * Cost of capital, marginal effective tax rates, effective average tax rates, and other model output for the reform policy, organized by asset.
+    * Cost of capital, marginal effective tax rates, effective average tax rates, and other model output for the reform policy, organized by an asset.
   * `./reform_byindustry.csv`
     * Cost of capital, marginal effective tax rates, effective average tax rates, and other model output for the refrom policy, organized by production industry.
   * `./changed_byasset.csv`
-    * Differences in cost of capital, marginal effective tax rates, effective average tax rates, and other model output between the baseline and reform reform policies, organized by asset.
+    * Differences in cost of capital, marginal effective tax rates, effective average tax rates, and other model output between the baseline and reform reform policies, organized by an asset.
   * `./changed_byindustry.csv`
     * Differences in cost of capital, marginal effective tax rates, effective average tax rates, and other model output between the baseline and reform reform policies, organized by production industry.
 
@@ -44,7 +44,7 @@ The **second way** to use Cost-of-Capital-Calculator is through a web
 application, [Cost of Capital Calculator](https://compute.studio/PSLmodels/Cost-of-Capital-Calculator/).  This way
 allows you to generate estimates of marginal effective tax rates and the cost of capital
 across production industries, type of asset, and separately for corporate and non-corporate
-entites and different forms of financing.  The web application is limited in that you cannot consider policy reforms to the individual income tax code.
+entities and different forms of financing.  The web application is limited in that you cannot consider policy reforms to the individual income tax code.
 
 Of course, you can get started with Cost-of-Capital-Calculator both ways.
 
