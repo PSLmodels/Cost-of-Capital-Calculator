@@ -17,5 +17,5 @@ dependencies:
 - coverage
 - pip:
   - jupyter-book>=0.9.1
-  - cs-kit
+  - "cs-kit>=1.16.8"
   - cs2tc
