@@ -14,6 +14,8 @@ from ccc.utils import TC_LAST_YEAR
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 
+PUF_S3_FILE_NAME = "puf.20210720.csv.gz"
+
 POLICY_SCHEMA = {
     "labels": {
         "year": {
@@ -71,7 +73,7 @@ def retrieve_puf(
         print("Reading puf from S3 bucket.")
         fs = S3FileSystem(key=AWS_ACCESS_KEY_ID,
                           secret=AWS_SECRET_ACCESS_KEY,)
-        with fs.open("s3://ospc-data-files/puf.csv.gz") as f:
+        with fs.open(f"s3://ospc-data-files/{PUF_S3_FILE_NAME}") as f:
             # Skips over header from top of file.
             puf_df = pd.read_csv(f, compression="gzip")
         return puf_df
