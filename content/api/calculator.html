@@ -387,7 +387,9 @@ Calculator constructors.</p>
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.asset_bubble">
 <code class="sig-name descname"><span class="pre">asset_bubble</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_variable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mettr_mix'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_inventories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_land</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_IP</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.asset_bubble"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calculator.Calculator.asset_bubble" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a bubble plot.</p>
+<dd><p>Create a bubble plot showing the value of the output variable
+along the x-axis, asset type groupings on the y-axis, and
+bubbles whose size represent the total assets of a specific type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -484,7 +486,14 @@ depending on <cite>output_type</cite>. Default is <cite>None</cite>.</p></li>
 <dl class="py method">
 <dt id="ccc.calculator.Calculator.bubble_widget">
 <code class="sig-name descname"><span class="pre">bubble_widget</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_variable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mettr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_land</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_inventories</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_IP</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calculator.html#Calculator.bubble_widget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calculator.Calculator.bubble_widget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a bubble plot widget.</p>
+<dd><p>Create a bubble plot widget.  The x-axis shows the value of the
+output variable, the y are groups (e.g., asset type or industry).
+The widget allows for one to click buttons to view the values for
+different output variables, choose to look at the baseline
+policy values, the reform policy values, or the difference,
+switch between values for the corporate and non-corporate
+sector.  The bubbles’ size represent the total assets of a
+specific type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

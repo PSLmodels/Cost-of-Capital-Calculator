@@ -1410,7 +1410,14 @@
                       <span class="n">include_land</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">include_inventories</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                       <span class="n">include_IP</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Create a bubble plot widget.</span>
+<span class="sd">        Create a bubble plot widget.  The x-axis shows the value of the</span>
+<span class="sd">        output variable, the y are groups (e.g., asset type or industry).</span>
+<span class="sd">        The widget allows for one to click buttons to view the values for</span>
+<span class="sd">        different output variables, choose to look at the baseline</span>
+<span class="sd">        policy values, the reform policy values, or the difference,</span>
+<span class="sd">        switch between values for the corporate and non-corporate</span>
+<span class="sd">        sector.  The bubbles&#39; size represent the total assets of a</span>
+<span class="sd">        specific type.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            calc (CCC Calculator object): calc represents the reform</span>
@@ -1726,7 +1733,9 @@
                      <span class="n">include_inventories</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">include_land</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                      <span class="n">include_IP</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">include_title</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Create a bubble plot.</span>
+<span class="sd">        Create a bubble plot showing the value of the output variable</span>
+<span class="sd">        along the x-axis, asset type groupings on the y-axis, and</span>
+<span class="sd">        bubbles whose size represent the total assets of a specific type.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            calc (CCC Calculator object): calc represents the reform</span>
