@@ -1113,7 +1113,14 @@ class Calculator():
                       include_land=False, include_inventories=False,
                       include_IP=False):
         '''
-        Create a bubble plot widget.
+        Create a bubble plot widget.  The x-axis shows the value of the
+        output variable, the y are groups (e.g., asset type or industry).
+        The widget allows for one to click buttons to view the values for
+        different output variables, choose to look at the baseline
+        policy values, the reform policy values, or the difference,
+        switch between values for the corporate and non-corporate
+        sector.  The bubbles' size represent the total assets of a
+        specific type.
 
         Args:
             calc (CCC Calculator object): calc represents the reform
@@ -1429,7 +1436,9 @@ class Calculator():
                      include_inventories=False, include_land=False,
                      include_IP=False, include_title=False, path=''):
         '''
-        Create a bubble plot.
+        Create a bubble plot showing the value of the output variable
+        along the x-axis, asset type groupings on the y-axis, and
+        bubbles whose size represent the total assets of a specific type.
 
         Args:
             calc (CCC Calculator object): calc represents the reform
