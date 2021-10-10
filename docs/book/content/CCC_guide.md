@@ -147,7 +147,7 @@ The return on fully taxable accounts is given by:
 s_{e,ft,j} = (1-m_{j})E(1-\tau_{div}) + g_{j},
 ```
 
- where $m_{j}$ are the fraction of earnings that are retained by entity of type j, $\tau_{div}$ is the dividend tax rate on the marginal equity investor, and $g_{j}$ is the real return paid on retained earnings after the capital gains tax on the marginal equity investor.[^new_view_note]
+ where $m_{j}$ are the fraction of earnings that are retained by entity of type $j$, $\tau_{div}$ is the dividend tax rate on the marginal equity investor, and $g_{j}$ is the real return paid on retained earnings after the capital gains tax on the marginal equity investor.[^new_view_note]
 
  The return on tax deferred accounts is:
 
@@ -190,7 +190,7 @@ g_{lcg} = \frac{1}{Y_{lcg}}\times ln\left[(1-\tau_{lcg})e^{(\pi+mE)Y_{lcg}}+\tau
 (sec:assets)=
 # Computing Fixed Assets by Industry and Entity Type
 
-In the computation of $\rho_{m,j}$, we need to have a measure of fixed assets by industry and tax treatment for each asset type, $\widetilde{FA}_{i,m,j}$. To make this calculation, we work with two different sources of data.  The first is the BEA's [Detailed Data for Fixed Assets and Consumer Durable Goods] (http://www.bea.gov/national/FA2004/Details/Index.html). These data allow us to identify the stock of fixed assets by industry for each asset type.  Call this variable $FA_{i,m}$.  The second source of data we draw upon are the IRS Statistics of Income (SOI) data from business entity tax returns.  From these data, we use information on depreciable assets and accumulated depreciation, aggregated by industry and tax entity type to compute a measure of the total stock of fixed assets by industry and tax treatment, $FA^{\tau}_{m,j}$.  The superscript $\tau$ is used to denote that these asset values come from tax data.  Measuring assets from tax returns is not ideal for two reason.  First, there are reporting issues.  These line items do not affect tax liability and so are often not reported with as much accuracy as items related to income.  Relatedly, balance sheet reporting is often limited to businesses above a certain size.  The second reason is that, for the previously cited and other reasons, measures of asset from tax returns may not line up with BEA totals.  We thus use the asset totals computed from tax returns only to help apportion the BEA asset totals across tax treatment.  Namely, we compute the variable $\widetilde{FA}_{i,m,j}$ as follows:
+In the computation of $\rho_{m,j}$, we need to have a measure of fixed assets by industry and tax treatment for each asset type, $\widetilde{FA}_{i,m,j}$. To make this calculation, we work with two different sources of data. The first is the BEA's [Detailed Data for Fixed Assets and Consumer Durable Goods](http://www.bea.gov/national/FA2004/Details/Index.html). These data allow us to identify the stock of fixed assets by industry for each asset type.  Call this variable $FA_{i,m}$.  The second source of data we draw upon are the IRS Statistics of Income (SOI) data from business entity tax returns.  From these data, we use information on depreciable assets and accumulated depreciation, aggregated by industry and tax entity type to compute a measure of the total stock of fixed assets by industry and tax treatment, $FA^{\tau}_{m,j}$.  The superscript $\tau$ is used to denote that these asset values come from tax data.  Measuring assets from tax returns is not ideal for two reason.  First, there are reporting issues.  These line items do not affect tax liability and so are often not reported with as much accuracy as items related to income.  Relatedly, balance sheet reporting is often limited to businesses above a certain size.  The second reason is that, for the previously cited and other reasons, measures of asset from tax returns may not line up with BEA totals.  We thus use the asset totals computed from tax returns only to help apportion the BEA asset totals across tax treatment.  Namely, we compute the variable $\widetilde{FA}_{i,m,j}$ as follows:
 
 ```{math}
 :label: eqn:asset_bridge
@@ -281,7 +281,7 @@ Finally, since partnership data do not identify depreciable assets for each mino
 
 We divide sole proprietorships into two groups: non-farm sole proprietors, who file a Schedule C of Form 1040, and farm sole proprietorships, who file Schedule F of Form 1040.
 
-**Non-farm Sole Proprietorships**:  Our data for non-farm sole proprietorships come from the [SOI Tax Stats - Non-farm Sole Proprietorship Statistics] (http://www.irs.gov/uac/SOI-Tax-Stats-Nonfarm-Sole-Proprietorship-Statistics) for 2011.  Specifically, we use the file 11sp01br.xls.  These data do not record the value of depreciable assets for sole proprietorships, but they do contain depreciation deductions for sole proprietors.  Thus we impute the value of depreciable assets and land using the assumption that the ratio of depreciable assets to depreciation deductions is the same within a particular industry for sole proprietorships and partnerships.  Specifically, we find the stock of fixed assets for sole proprietors to be:
+**Non-farm Sole Proprietorships**:  Our data for non-farm sole proprietorships come from the [SOI Tax Stats - Non-farm Sole Proprietorship Statistics](http://www.irs.gov/uac/SOI-Tax-Stats-Nonfarm-Sole-Proprietorship-Statistics) for 2011.  Specifically, we use the file 11sp01br.xls.  These data do not record the value of depreciable assets for sole proprietorships, but they do contain depreciation deductions for sole proprietors.  Thus we impute the value of depreciable assets and land using the assumption that the ratio of depreciable assets to depreciation deductions is the same within a particular industry for sole proprietorships and partnerships.  Specifically, we find the stock of fixed assets for sole proprietors to be:
 
 ```{math}
 {FA}^{\tau}_{sp}=\frac{\text{Depreciable Assets}_{m,p}}{\text{Depreciation Deductions}_{m,p}}\times \text{Depreciation Deductions}_{m,sp},
@@ -594,6 +594,6 @@ One may alter the macroeconomic assumptions regarding rates of interest and infl
 
 [^new_view_note]: If one subscribes to the "new view", that dividend taxes do not affect investment incentives, then the first term in this equation would be zero.  We use the subscript $j$ by the parameters $m$ and $g$, but note that these parameters only apply to business entities who can retain earnings (typically, these are those with an entity level tax).
 
-[^ind_class_note]: Pages 2-6 of the [Corporation Source Book] (https://www.irs.gov/pub/irs-soi/13cosbsec1.pdf) outline these industry classifications.
+[^ind_class_note]: Pages 2-6 of the [Corporation Source Book](https://www.irs.gov/pub/irs-soi/13cosbsec1.pdf) outline these industry classifications.
 
 [^cbo_note]: The default values are the taken from the CBO baseline forecast.
