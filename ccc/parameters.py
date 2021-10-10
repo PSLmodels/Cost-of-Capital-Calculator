@@ -1,4 +1,4 @@
-'pt'import os
+import os
 import paramtools
 import marshmallow as ma
 
@@ -77,18 +77,18 @@ class Specification(paramtools.Parameters):
 
         # Set rate of 1st layer of taxation on investment income
         self.u = {'c': self.CIT_rate}
-        if not self.PT_entity_tax_ind.all():
+        if not self.pt_entity_tax_ind.all():
             self.u['pt'] = self.tau_pt
         else:
-            self.u['pt'] = self.PT_entity_tax_rate
+            self.u['pt'] = self.pt_entity_tax_rate
         E_dict = {'c': self.E_c, 'pt': E_pt}
 
         # Allowance for Corporate Equity
         ace_dict = {'c': self.ace_c, 'pt': self.ace_pt}
 
         # Limitation on interest deduction
-        int_haircut_dict = {'c': self.interest_deduct_haircut_corp,
-                            'pt': self.interest_deduct_haircut_PT}
+        int_haircut_dict = {'c': self.interest_deduct_haircut_c,
+                            'pt': self.interest_deduct_haircut_pt}
         # Debt financing ratios
         f_dict = {'c': {'mix': self.f_c, 'd': 1.0, 'e': 0.0},
                   'pt': {'mix': self.f_pt, 'd': 1.0, 'e': 0.0}}
@@ -101,7 +101,7 @@ class Specification(paramtools.Parameters):
 
         # if no entity level taxes on pass-throughs, ensure mettr and metr
         # on non-corp entities the same
-        if not self.PT_entity_tax_ind:
+        if not self.pt_entity_tax_ind:
             for f in self.financing_list:
                 r_prime['pt'][f] = self.s['pt'][f] + self.inflation_rate
         # if entity level tax, assume distribute earnings at same rate corps
