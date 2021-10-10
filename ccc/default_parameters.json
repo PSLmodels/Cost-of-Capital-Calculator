@@ -73,11 +73,11 @@
             }
         }
     },
-    "PT_entity_tax_ind": {
+    "pt_entity_tax_ind": {
         "title": "Pass-through businss entity-level tax indicator",
         "description": "Indicator variable indicating whether or not there is an entity-level tax on pass-through businesses. This tax is levied on entity-level profits.  Owners also pay individual income taxes on the distributions.",
         "section_1": "Business-entity level taxes",
-        "notes": "Note that is this indicator is True, then the METR calculation for pass-through businesses will represent the effects of the entity-level tax and not the indvidiual-level tax.  This is becaue the METR represents the effective tax rate from the first layer of taxation.  The statutory rate on pass-through entities is set with the PT_entity_tax_rate parameter.",
+        "notes": "Note that is this indicator is True, then the METR calculation for pass-through businesses will represent the effects of the entity-level tax and not the indvidiual-level tax.  This is becaue the METR represents the effective tax rate from the first layer of taxation.  The statutory rate on pass-through entities is set with the pt_entity_tax_rate parameter.",
         "type": "bool",
         "value": [
             {
@@ -87,7 +87,7 @@
         ],
         "validators": {}
     },
-    "PT_entity_tax_rate": {
+    "pt_entity_tax_rate": {
         "title": "Statutory income tax rate on pass-through business income levied at the entity level",
         "description": "Statutory income tax rate on pass-through business income levied at the entity level.",
         "section_1": "Business-entity level taxes",
