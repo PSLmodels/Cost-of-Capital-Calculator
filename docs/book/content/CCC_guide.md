@@ -280,7 +280,7 @@ Finally, since partnership data do not identify depreciable assets for each mino
 
 We divide sole proprietorships into two groups: non-farm sole proprietors, who file a Schedule C of Form 1040, and farm sole proprietorships, who file Schedule F of Form 1040.
 
-**Non-farm Sole Proprietorships**:  Our data for non-farm sole proprietorships come from the \href{http://www.irs.gov/uac/SOI-Tax-Stats-Nonfarm-Sole-Proprietorship-Statistics}{SOI Tax Stats - Non-farm Sole Proprietorship Statistics} for 2011.  Specifically, we use the file 11sp01br.xls.  These data do not record the value of depreciable assets for sole proprietorships, but they do contain depreciation deductions for sole proprietors.  Thus we impute the value of depreciable assets and land using the assumption that the ratio of depreciable assets to depreciation deductions is the same within a particular industry for sole proprietorships and partnerships.  Specifically, we find the stock of fixed assets for sole proprietors to be:
+**Non-farm Sole Proprietorships**:  Our data for non-farm sole proprietorships come from the [SOI Tax Stats - Non-farm Sole Proprietorship Statistics] (http://www.irs.gov/uac/SOI-Tax-Stats-Nonfarm-Sole-Proprietorship-Statistics) for 2011.  Specifically, we use the file 11sp01br.xls.  These data do not record the value of depreciable assets for sole proprietorships, but they do contain depreciation deductions for sole proprietors.  Thus we impute the value of depreciable assets and land using the assumption that the ratio of depreciable assets to depreciation deductions is the same within a particular industry for sole proprietorships and partnerships.  Specifically, we find the stock of fixed assets for sole proprietors to be:
 
 ```{math}
 {FA}^{\tau}_{sp}=\frac{\text{Depreciable Assets}_{m,p}}{\text{Depreciation Deductions}_{m,p}}\times \text{Depreciation Deductions}_{m,sp},
@@ -593,6 +593,6 @@ One may alter the macroeconomic assumptions regarding rates of interest and infl
 
 [^new_view_note]: If one subscribes to the "new view", that dividend taxes do not affect investment incentives, then the first term in this equation would be zero.  We use the subscript $j$ by the parameters $m$ and $g$, but note that these parameters only apply to business entities who can retain earnings (typically, these are those with an entity level tax).
 
-[^ind_class_note]: Pages 2-6 of the \href{https://www.irs.gov/pub/irs-soi/13cosbsec1.pdf}{Corporation Source Book} outline these industry classifications.
+[^ind_class_note]: Pages 2-6 of the [Corporation Source Book] (https://www.irs.gov/pub/irs-soi/13cosbsec1.pdf) outline these industry classifications.
 
 [^cbo_note]: The default values are the taken from the CBO baseline forecast.
