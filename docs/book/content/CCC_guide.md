@@ -35,7 +35,7 @@ r^{'}_{m,j}-\pi = f_{m,j}\left[i-\pi\right] + (1-f_{m,j})E_{j},
 
 In addition to the cost of capital, the `Cost-of-Capital-Calculator` reports two related measures:
 * The user cost of capital (ucc): $ucc_{i,m,j} = \rho_{i,m,j} + delta_{i}$
-* The tax wedge, which is the difference between the before tax rate of return (which is equilvalent to the cost of capital for marginal investments) and the after-tax return top savings. The tax wedge = $\rho_{i,m,j}-s_{m,j$
+* The tax wedge, which is the difference between the before tax rate of return (which is equilvalent to the cost of capital for marginal investments) and the after-tax return top savings. The tax wedge = $\rho_{i,m,j}-s_{m,j}$
 
 (sec:METR)=
 # Marginal Effective Tax Rates
@@ -70,19 +70,19 @@ Two classes of assets, inventories and land, necessitate slightly modifications 
 
 In calculating the $METR$ for inventory investments, the cost of capital is defined as follows:
 
-$$
+```{math}
   \rho = \phi \rho_{FIFO} + (1-\phi)\rho_{LIFO}
-$$
+```
 
-where $phi$ are teh fraction of inventories that use FIFO accounting and $\rho_{FIFO}$ and $\rho_{LIFO}$ are given as:
+where $phi$ are the fraction of inventories that use FIFO accounting and $\rho_{FIFO}$ and $\rho_{LIFO}$ are given as:
 
-$$
+```{math}
   \rho_{FIFO} = \frac{1}{Y_v} log(\frac{e^{(Y_v} - u_{j}}{(1 - u_{j})} - \pi
-$$
+```
 
-$$
+```{math}
   \rho_{LIFO} = \frac{1}{Y_v} log(\frac{e^{(r_{m,j}-\pi)Y_v} - u_{j}}{(1 - u_{j})} - \pi
-$$
+```
 
 where $Y_{v}$ is the average number of years that inventories are held.
 
@@ -189,7 +189,7 @@ g_{lcg} = \frac{1}{Y_{lcg}}\times ln\left[(1-\tau_{lcg})e^{(\pi+mE)Y_{lcg}}+\tau
 (sec:assets)=
 # Computing Fixed Assets by Industry and Entity Type
 
-In the computation of $\rho_{m,j}$, we need to have a measure of fixed assets by industry and tax treatment for each asset type, $\widetilde{FA}_{i,m,j}$.  To make this calculation, we work with two different sources of data.  The first is the BEA's \href{http://www.bea.gov/national/FA2004/Details/Index.html}{Detailed Data for Fixed Assets and Consumer Durable Goods}.  These data allow us to identify the stock of fixed assets by industry for each asset type.  Call this variable $FA_{i,m}$.  The second source of data we draw upon are the IRS Statistics of Income (SOI) data from business entity tax returns.  From these data, we use information on depreciable assets and accumulated depreciation, aggregated by industry and tax entity type to compute a measure of the total stock of fixed assets by industry and tax treatment, $FA^{\tau}_{m,j}$.  The superscript $\tau$ is used to denote that these asset values come from tax data.  Measuring assets from tax returns is not ideal for two reason.  First, there are reporting issues.  These line items do not affect tax liability and so are often not reported with as much accuracy as items related to income.  Relatedly, balance sheet reporting is often limited to businesses above a certain size.  The second reason is that, for the previously cited and other reasons, measures of asset from tax returns may not line up with BEA totals.  We thus use the asset totals computed from tax returns only to help apportion the BEA asset totals across tax treatment.  Namely, we compute the variable $\widetilde{FA}_{i,m,j}$ as follows:
+In the computation of $\rho_{m,j}$, we need to have a measure of fixed assets by industry and tax treatment for each asset type, $\widetilde{FA}_{i,m,j}$. To make this calculation, we work with two different sources of data.  The first is the BEA's [Detailed Data for Fixed Assets and Consumer Durable Goods] (http://www.bea.gov/national/FA2004/Details/Index.html). These data allow us to identify the stock of fixed assets by industry for each asset type.  Call this variable $FA_{i,m}$.  The second source of data we draw upon are the IRS Statistics of Income (SOI) data from business entity tax returns.  From these data, we use information on depreciable assets and accumulated depreciation, aggregated by industry and tax entity type to compute a measure of the total stock of fixed assets by industry and tax treatment, $FA^{\tau}_{m,j}$.  The superscript $\tau$ is used to denote that these asset values come from tax data.  Measuring assets from tax returns is not ideal for two reason.  First, there are reporting issues.  These line items do not affect tax liability and so are often not reported with as much accuracy as items related to income.  Relatedly, balance sheet reporting is often limited to businesses above a certain size.  The second reason is that, for the previously cited and other reasons, measures of asset from tax returns may not line up with BEA totals.  We thus use the asset totals computed from tax returns only to help apportion the BEA asset totals across tax treatment.  Namely, we compute the variable $\widetilde{FA}_{i,m,j}$ as follows:
 
 ```{math}
 :label: eqn:asset_bridge
