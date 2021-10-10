@@ -698,7 +698,7 @@
             }
         }
     },
-    "ace_nc": {
+    "ace_pt": {
         "title": "Allowance for non-corporate equity",
         "description": "Allowance for non-corporate equity (fraction of equity deductible).",
         "section_1": "Deductions and Limitations on Financing",
@@ -736,7 +736,7 @@
             }
         }
     },
-    "interest_deduct_haircut_corp": {
+    "interest_deduct_haircut_c": {
         "title": "Haircut on interest deductibility for corporate entities",
         "description": "Haircut on interest deductibility (fraction of interest not deductible) for C corporations.  Default of 0% because current law says limit is 30% of adjusted taxable income and the default assumption is that this is not binding for the marginal investment.",
         "section_1": "Deductions and Limitations on Financing",
@@ -755,7 +755,7 @@
             }
         }
     },
-    "interest_deduct_haircut_PT": {
+    "interest_deduct_haircut_pt": {
         "title": "Haircut on interest deductibility for pass-through entities",
         "description": "Haircut on interest deductibility (fraction of interest not deductible) for pass-through entities.",
         "section_1": "Deductions and Limitations on Financing",
@@ -846,7 +846,7 @@
         ],
         "validators": {}
     },
-    "tau_nc": {
+    "tau_pt": {
         "title": "Effective marginal tax rate on business income to pass-through business owners",
         "description": "Effective marginal tax rate on business income to pass-through business owners.",
         "section_1": "Individual Level Taxes",
@@ -1697,7 +1697,7 @@
             }
         }
     },
-    "f_nc": {
+    "f_pt": {
         "title": "Fraction of non-corporate investment financed by debt",
         "description": "Fraction of non-corporate investment financed by debt.",
         "section_1": "Accounting and Financial Policy",
@@ -1896,7 +1896,7 @@
             }
         }
     },
-    "alpha_nc_d_ft": {
+    "alpha_pt_d_ft": {
         "title": "Fraction of non-corporate debt held in fully-taxable accounts",
         "description": "Fraction of non-corporate debt held in fully-taxable accounts.",
         "section_1": "Individual Level Taxes",
@@ -1916,7 +1916,7 @@
             }
         }
     },
-    "alpha_nc_d_td": {
+    "alpha_pt_d_td": {
         "title": "Fraction of non-corporate debt held in tax-deferred accounts",
         "description": "Fraction of non-corporate debt held in tax-deferred accounts.",
         "section_1": "Individual Level Taxes",
@@ -1936,7 +1936,7 @@
             }
         }
     },
-    "alpha_nc_d_nt": {
+    "alpha_pt_d_nt": {
         "title": "Fraction of non-corporate debt held in non-taxable accounts",
         "description": "Fraction of non-corporate debt held in non-taxable accounts.",
         "section_1": "Individual Level Taxes",
