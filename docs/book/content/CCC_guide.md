@@ -105,10 +105,11 @@ $METTR$s include taxation at all levels, at the business entity and the individu
 %% Note that when there is no entity level tax (as is the case with non-C-corporate entities under current law), then the $METTR$ is equal to the $METR$.
 
 ```{math}
+:label: eqn:metter
 METTR = \frac{\rho_{i,m,j}-s_{m,j}}{\rho_{i,m,j}}
 ```
 
- In equation above, $s_{m,j}$ is the overall after-tax return to savers from an investment in a business entity operating in production industry $m$ and organized as a entity of type $j$ .  We compute this return as:
+ In equation {eq}`eqn:mettr`. above, $s_{m,j}$ is the overall after-tax return to savers from an investment in a business entity operating in production industry $m$ and organized as a entity of type $j$ .  We compute this return as:
 
 ```{math}
 s_{m,j} = f_{m,j}s_{d,m,j} + (1-f_{m,j})s_{e,m,j},
