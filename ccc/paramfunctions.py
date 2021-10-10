@@ -227,7 +227,7 @@ def calc_s(p):
             * s_dict (dict): dictionary of s for investments in
                 corporate and pass-through businesses and by type of
                 financing
-            * E_nc (scalar): required pre-tax return on pass-through
+            * E_pt (scalar): required pre-tax return on pass-through
                 investments
 
     '''
@@ -246,10 +246,10 @@ def calc_s(p):
                       p.nominal_interest_rate, p.inflation_rate)
     # The after-tax return on non-corporate debt investments made
     # through tax deferred accounts
-    s_nc_d_td = s_c_d_td
+    s_pt_d_td = s_c_d_td
     # The after-tax return on non-corporate debt investments
-    s_nc_d = calc_s__d(s_nc_d_td, p.alpha_nc_d_ft, p.alpha_nc_d_td,
-                       p.alpha_nc_d_nt, p.tau_int, p.tau_w,
+    s_pt_d = calc_s__d(s_pt_d_td, p.alpha_pt_d_ft, p.alpha_pt_d_td,
+                       p.alpha_pt_d_nt, p.tau_int, p.tau_w,
                        p.nominal_interest_rate, p.inflation_rate)
     # The after-tax real, annualized return on short-term capital gains
     g_scg = calc_g__g(p.Y_scg, p.tau_scg, p.m, p.E_c, p.inflation_rate)
@@ -276,17 +276,17 @@ def calc_s(p):
     # equity combined)
     s_c = p.f_c * s_c_d + (1 - p.f_c) * s_c_e
     # The required rate of return on non-corporate investments
-    E_nc = s_c_e
+    E_pt = s_c_e
     # The after-tax rate of return on non-corporate equity investments
-    s_nc_e = E_nc - p.tau_w
+    s_pt_e = E_pt - p.tau_w
     # The after-tax return on non-corporate investments (all - debt and
     # equity combined)
-    s_nc = p.f_nc * s_nc_d + (1 - p.f_nc) * s_nc_e
+    s_pt = p.f_pt * s_pt_d + (1 - p.f_pt) * s_pt_e
     # Return the after-tax rates of return on all types of investments
     s_dict = {'c': {'mix': s_c, 'd': s_c_d, 'e': s_c_e},
-              'nc': {'mix': s_nc, 'd': s_nc_d, 'e': s_nc_e}}
+              'nc': {'mix': s_pt, 'd': s_pt_d, 'e': s_pt_e}}
 
-    return s_dict, E_nc
+    return s_dict, E_pt
 
 
 def calc_r(p, f_dict, int_haircut_dict, E_dict, ace_dict):
