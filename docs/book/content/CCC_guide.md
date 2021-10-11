@@ -29,6 +29,7 @@ The `Cost-of-Capital-Calculator` calculates the cost of capital, $\rho_{i,m,j}$,
 The after-tax rate of return is given by:
 
 ```{math}
+:label: eqn:after_tax_rate_return
 r^{'}_{m,j}-\pi = f_{m,j}\left[i-\pi\right] + (1-f_{m,j})E_{j},
 ```
 
@@ -62,7 +63,7 @@ At times users may be interested in the variation in $METR$s across asset types,
 With the cost of capital for all fixed assets in an industry-tax treatment grouping, we then compute the $METR$ of the industry and tax treatment as:
 
 ```{math}
-:label: eqn:metr
+:label: eqn:metr_minor
 METR_{m,j} =  \frac{\rho_{m,j} - (r^{'}_{m,j}-\pi)}{\rho_{m,j}},
 ```
 
@@ -405,7 +406,8 @@ Similarly, for equity, let
 
 ```{math}
 :label: eqn:capital
-X = CAP\_STCK + PD\_CAP\_SRPLS +  RTND\_ERNGS\_APPR+COMP\_RTND\_ERNGS\_UNAPPR - CST\_TRSRY\_STCK
+  X = CAP\_STCK + PD\_CAP\_SRPLS + RTND\_ERNGS\_APPR + \\
+  COMP\_RTND\_ERNGS\_UNAPPR - CST\_TRSRY\_STCK
 ```
 
 and let $equity_{corp}$ be total nonfinancial corporate equity from the Financial Accounts of the United States Table L.223, series LM103164103.  For C-corps, we have:
