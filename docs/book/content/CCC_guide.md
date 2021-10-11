@@ -554,22 +554,17 @@ Users may enter tax policies and evaluate those policy changes' effects on the c
 |:-----------------------------|:---------------------------------------|:---------------|:--------------|:------------|:--------------------|
 | $\pi$                          | Inflation rate                         | CBO/user input | No            | No          | No                  |
 | $i$                          | Nominal interest rate                  | CBO/user input | No            | No          | No                  |
-| $E_c$           | Required real return                   | CBO/user input | No            | No          | N/A - only for corp |
-|                              | on corporate equity                    |                |               |             |                     |
-| $u_j$          | Statutory business entity-             | User input     | No            | No          | Yes                 |
-|                              | level income tax                       |                |               |             |                     |
+| $E_c$           | Required real return on corporate equity                   | CBO/user input | No            | No          | N/A - only for corp |
+| $u_j$          | Statutory business entity-level income tax             | User input     | No            | No          | Yes                 |
 | $w_{i,m,j}$  | Property tax rate                      | User input     | Maybe         | Maybe       | Maybe               |
 | $z_{i}(y)$       | Tax depreciation allowance             | User input     | Yes           | No          | No                  |
 | Notation?                    | Haircut to Interest Deduction          | User Input     | No            | No          | Maybe               |
 | Notation?                    | Allowance for Corporate Equity         | User Input     | No            | No          | Yes                 |
 | $\tau_{div, j}$ | Dividend tax rate on marginal investor | User Input     | No            | No          | Yes                 |
 | $\tau_{int, j}$ | Interest tax rate on marginal investor | User Input     | No            | No          | Yes                 |
-| $\tau_{scg}$      | Short term capital                     | User Input     | No            | No          | N/A - only for corp |
-|                              | gains rate on marginal investor        |                |               |             |                     |
-| $\tau_{lcg}$      | Long term capital                      | User Input     | No            | No          | N/A - only for corp |
-|                              | gains rate on marginal investor        |                |               |             |                     |
-| $\tau_{d, j}$    | Tax on deferred capital                | User Input     | No            | No          | Yes                 |
-|                              | income for marginal investor           |                |               |             |                     |
+| $\tau_{scg}$      | Short term capital gains rate on marginal investor                   | User Input     | No            | No          | N/A - only for corp |
+| $\tau_{lcg}$      | Long term capital gains rate on marginal investor                     | User Input     | No            | No          | N/A - only for corp |
+| $\tau_{d, j}$    | Tax on deferred capital income for marginal investor                 | User Input     | No            | No          | Yes                 |
 ```
 
 ## Economic Parameters
