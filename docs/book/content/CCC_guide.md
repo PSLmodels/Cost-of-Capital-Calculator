@@ -36,7 +36,7 @@ r^{'}_{m,j}-\pi = f_{m,j}\left[i-\pi\right] + (1-f_{m,j})E_{j},
 
 In addition to the cost of capital, the `Cost-of-Capital-Calculator` reports two related measures:
 * The user cost of capital (ucc): $ucc_{i,m,j} = \rho_{i,m,j} + delta_{i}$
-* The tax wedge, which is the difference between the before tax rate of return (which is equilvalent to the cost of capital for marginal investments) and the after-tax return top savings. The tax wedge = $\rho_{i,m,j}-s_{m,j}$
+* The tax wedge, which is the difference between the before tax rate of return (which is equivalent to the cost of capital for marginal investments) and the after-tax return top savings. The tax wedge = $\rho_{i,m,j}-s_{m,j}$
 
 (sec:METR)=
 # Marginal Effective Tax Rates
@@ -48,7 +48,7 @@ The marginal effective tax rate is calculated as the expected pre-tax rate of re
 METR_{i,m,j} = \frac{\rho_{i,m,j} - (r^{'}_{m,j}-\pi)}{\rho_{i,m,j}},
 ```
 
- where the subscripts $i$, $m$, and $j$ refer to the type of asset, the production industry, and the tax entity type (e.g., C-corporation, partnership, S-corporation).  The variable $\rho_{i,m,j}$ is the pre-tax rate of return on the marginal investment, $r^{'}_{m,j}$ is the business entity's nominal after-tax rate of return and $\pi$ is the rate of inflation (so that $r_{m,j}-\pi$ is the real after-tax rate of return).  It is assumed that the business entity discounts future cash flow by the rate $r_{m,j}$ (the prime in $r^{'}_{m,j}$ differentiates the after-tax rate of return from the firm's discount rate).
+where the subscripts $i$, $m$, and $j$ refer to the type of asset, the production industry, and the tax entity type (e.g., C-corporation, partnership, S-corporation).  The variable $\rho_{i,m,j}$ is the pre-tax rate of return on the marginal investment, $r^{'}_{m,j}$ is the business entity's nominal after-tax rate of return and $\pi$ is the rate of inflation (so that $r_{m,j}-\pi$ is the real after-tax rate of return).  It is assumed that the business entity discounts future cash flow by the rate $r_{m,j}$ (the prime in $r^{'}_{m,j}$ differentiates the after-tax rate of return from the firm's discount rate).
 
 At times users may be interested in the variation in $METR$s across asset types, in which case we can use the $METR$ calculation outlined above. At other times users may wish to view the variation in $METR$s across industry.  In this case, we compute a weighted average cost of capital for each production industry and tax treatment as follows:
 
@@ -75,19 +75,22 @@ Two classes of assets, inventories and land, necessitate slightly modifications 
 In calculating the $METR$ for inventory investments, the cost of capital is defined as follows:
 
 ```{math}
-  \rho = \phi \rho_{FIFO} + (1-\phi)\rho_{LIFO},
+:label: eqn:coc_inventory
+\rho = \phi \rho_{FIFO} + (1-\phi)\rho_{LIFO},
 ```
 
 where $phi$ are the fraction of inventories that use FIFO accounting and $\rho_{FIFO}$ and $\rho_{LIFO}$ are given as:
 
 ```{math}
-  \rho_{FIFO} = \frac{1}{Y_v} log(\frac{e^{(Y_v} - u_{j}}{(1 - u_{j})} - \pi,
+:label: eqn:inventory_fifo
+\rho_{FIFO} = \frac{1}{Y_v} log(\frac{e^{(Y_v} - u_{j}}{(1 - u_{j})} - \pi,
 ```
 
 and
 
 ```{math}
-  \rho_{LIFO} = \frac{1}{Y_v} log(\frac{e^{(r_{m,j}-\pi)Y_v} - u_{j}}{(1 - u_{j})} - \pi,
+:label: eqn:inventory_lifo
+\rho_{LIFO} = \frac{1}{Y_v} log(\frac{e^{(r_{m,j}-\pi)Y_v} - u_{j}}{(1 - u_{j})} - \pi,
 ```
 
 where $Y_{v}$ is the average number of years that inventories are held.
@@ -115,50 +118,53 @@ $METTR$s include taxation at all levels, at the business entity and the individu
 METTR = \frac{\rho_{i,m,j}-s_{m,j}}{\rho_{i,m,j}}
 ```
 
- In equation {eq}`eqn:mettr`. above, $s_{m,j}$ is the overall after-tax return to savers from an investment in a business entity operating in production industry $m$ and organized as a entity of type $j$.  We compute this return as:
+In equation {eq}`eqn:mettr`. above, $s_{m,j}$ is the overall after-tax return to savers from an investment in a business entity operating in production industry $m$ and organized as a entity of type $j$.  We compute this return as:
 
 ```{math}
+:label: eqn:returnurn_after_tax
 s_{m,j} = f_{m,j}s_{d,m,j} + (1-f_{m,j})s_{e,m,j},
 ```
 
- where $f_{m,j}$ is the fraction of the investment that is financed with debt (and corresponds to the same fraction used in the calculation of the cost of capital noted above) and $s_{d,m,j}$ and $s_{e,m,j}$ are the after-tax returns to the saver from debt and equity, respectively.  These in turn are found as:
+where $f_{m,j}$ is the fraction of the investment that is financed with debt (and corresponds to the same fraction used in the calculation of the cost of capital noted above) and $s_{d,m,j}$ and $s_{e,m,j}$ are the after-tax returns to the saver from debt and equity, respectively.  These in turn are found as:
 
 ```{math}
+
 s_{d,m,j} = \alpha_{d,ft,j}\times \left[i(1-\tau_{int}-\pi\right] + \alpha_{e,td,j}\times s_{d,td,j} + \alpha_{d,nt,j}\times (i-\pi)
 ```
 
 Here, $\alpha_{d,ft,j}$, $\alpha_{d,td,j}$, and $\alpha_{d,nt,j}$ are the fraction of debt of entities of tax treatment $j$ held in fully taxable, tax deferred, and non-taxable accounts.  The variable $s_{d,td,j}$ are the after-tax returns of tax-deferred debt investors in entities of type $j$.  The tax rate on interest income is $\tau_{int}$ and the nominal interest rate and inflation are given by $i$ and $\pi$.
 
 
- The return on tax deferred accounts is:
+The after-tax return on debt in tax deferred accounts is:
 
 ```{math}
+:label: eqn:return_debt_tax_deferred
 s_{d,td,j} = \frac{1}{Y_{td,j}}ln \left[(1-\tau_{td,j})e^{iY_{td,j}}+\tau_{td,j}\right]-\pi
 ```
 
-
-The after-tax return on equity investments are given by:
+The after-tax return on equity investments is given by:
 
 ```{math}
-s_{e,j} = \alpha_{e,ft,j}\times s_{e,ft,j} + \alpha_{e,td,j}\times s_{e,td,j} + \alpha_{e,nt,j}\times E_{j}
+:label: eqn:return_equity
+s_{e,j} = \alpha_{e,ft,j}\times s_{e,ft,j} + \alpha_{e,td,j}\times s_{e,td,j} + \alpha_{e,nt,j}\times E_{j}.
 ```
-
-
 
 Here, $\alpha_{e,ft,j}$, $\alpha_{e,td,j}$, and $\alpha_{e,nt,j}$ are the fraction of equity held in fully taxable, tax deferred, and non-taxable accounts.  The variables, $s_{e,ft,j}$ and $s_{e,td,j}$ are the after-tax returns of fully taxable and tax-deferred investors, respectively.
 
-The return on fully taxable accounts is given by:
+The return on equity investments in fully taxable accounts is given by:
 
 ```{math}
+:label: eqn:return_equity_taxable
 s_{e,ft,j} = (1-m_{j})E(1-\tau_{div}) + g_{j},
 ```
 
- where $m_{j}$ are the fraction of earnings that are retained by entity of type $j$, $\tau_{div}$ is the dividend tax rate on the marginal equity investor, and $g_{j}$ is the real return paid on retained earnings after the capital gains tax on the marginal equity investor.[^new_view_note]
+where $m_{j}$ are the fraction of earnings that are retained by entity of type $j$, $\tau_{div}$ is the dividend tax rate on the marginal equity investor, and $g_{j}$ is the real return paid on retained earnings after the capital gains tax on the marginal equity investor.[^new_view_note]
 
- The return on tax deferred accounts is:
+The return on equity in tax-deferred accounts is:
 
 ```{math}
-s_{e,td,j} = \frac{1}{Y_{td,j}}ln \left[(1-\tau_{td})e^{(\pi+E_{j})Y_{td,j}}+\tau_{td}\right]-\pi,
+:label: eqn:return_equity_tax_deferred
+s_{e,td,j} = \frac{1}{Y_{td,j}}ln \left[(1-\tau_{td})e^{(\pi+E_{j})Y_{td,j}}+\tau_{td}\right]-\pi.
 ```
 
 (sec:EATR)=
@@ -179,18 +185,21 @@ where $p_{i,m,j}$ is the rate of profit on the project.  Note that the $EATR$ is
 Capital gains are not taxed until those gains are realized through the sale of stock.  The ability to defer the tax liability from gains complicates the calculation of the after-tax gains that accrue to investors. Further complicating this calculation is that, under current law, short and long term gains are taxed at differential rates and the basis for capital gains is "stepped-up" on equity passed along to decedents upon death.  Note, we'll omit the tax entity type subscript here since this calculation only applies to those entity types that can retain earnings, namely C-corporations under current tax law.
 
 ```{math}
+:label: eqn:capital_gains
 g = \omega_{scg}\times g_{scg} + \omega_{lcg}\times g_{lcg} + \omega_{xcg}\times mE,
 ```
 
   where $\omega_{scg}$, $\omega_{lcg}$, and $\omega_{xcg}$ are the fractions of capital gains that are held for less than one year, more than one year but not until the owner's death, and those held until death, respectively.  The variables $g_{scg}$ and $g_{lcg}$ are the after-tax, real, annualized returns to short and long term capital gains.
 
 ```{math}
+:label: eqn:short_term_capital_gains
 g_{scg} = \frac{1}{Y_{scg}}\times ln\left[(1-\tau_{scg})e^{(\pi+mE)Y_{scg}}+\tau_{scg}\right]+\pi,
 ```
 
  and
 
 ```{math}
+:label: eqn:long_term_capital_gains
 g_{lcg} = \frac{1}{Y_{lcg}}\times ln\left[(1-\tau_{lcg})e^{(\pi+mE)Y_{lcg}}+\tau_{lcg}\right]+\pi,
 ```
 
@@ -274,6 +283,7 @@ Using these data, we calculate the stock of fixed assets for partnerships in ind
 File `12pa03.xls` provides data on depreciable assets by industry.  Denote these by $FA^{\tau}_{m,p}$. Using `12pa05.xls`, we gather the aggregate amounts of net income or losses distributed to partners by partner type $t$ and industry $m2$, $\text{Net Income(Loss)}_{m2,t}$. Net income and losses attributed to partners by type from the `12pa05.xls` data do not total to the same values of net income and losses reported in `12pa03.xls` because not all partnerships report their allocations.  Therefore, we make an intermediate calculation to determine the share of all attributable gains/losses accrue to which types of partners.  Note that the data from `12pa05.xls` differ in the level of industry detail from the data in `12pa01.xls` and `12pa03.xls`.  For notational clarity, let $m1$ be the more detailed classifications and $m2$ be the less detailed classifications.  Using these two pieces of information together, we find the total amount of fixed assets by industry and partner type as:
 
 ```{math}
+:label: eqn:fixed_assets
 \text{FA}^{\tau}_{m1,p,t}=  \underbrace{\frac{abs(\text{Net Income})_{m2,t}}{\sum_{t}abs(\text{Net Income}_{m2,t}}}_{\text{From `12pa05.xls`}} \times \underbrace{\text{FA}^{\tau}_{m1,p}}_{\text{From `12pa03.xls`}},
 ```
 
@@ -291,6 +301,7 @@ We divide sole proprietorships into two groups: non-farm sole proprietors, who f
 **Non-farm Sole Proprietorships**:  Our data for non-farm sole proprietorships come from the [SOI Tax Stats - Non-farm Sole Proprietorship Statistics](http://www.irs.gov/uac/SOI-Tax-Stats-Nonfarm-Sole-Proprietorship-Statistics) for 2011.  Specifically, we use the file `11sp01br.xls`.  These data do not record the value of depreciable assets for sole proprietorships, but they do contain depreciation deductions for sole proprietors.  Thus we impute the value of depreciable assets and land using the assumption that the ratio of depreciable assets to depreciation deductions is the same within a particular industry for sole proprietorships and partnerships.  Specifically, we find the stock of fixed assets for sole proprietors to be:
 
 ```{math}
+:label: eqn:fixed_assets_sp
 {FA}^{\tau}_{sp}=\frac{\text{Depreciable Assets}_{m,p}}{\text{Depreciation Deductions}_{m,p}}\times \text{Depreciation Deductions}_{m,sp},
 ```
 
@@ -302,6 +313,7 @@ We divide sole proprietorships into two groups: non-farm sole proprietors, who f
 Let $R_{sp}$ be the value of land and structures held by sole proprietor farms in the *COA* and let $Q_{sp}$ be the value of machinery and equipment held by sole proprietor farms in the *COA*.  Let $R_{p}$ and $Q_{p}$ be the analogous values for farm partnerships in the *COA*.  By an accounting identity, it must be the case that $R_{i}+Q_{i}={FA}_{i}+{LAND}_{i}$ for entity of type $i\in{sp,p}$.  We thus find the ratio of land to capital held by partnerships in the agriculture industry; $\frac{\text{LAND}^{\tau}_{ag,p}}{{\text{LAND}^{\tau}_{ag,p}}+{FA}^{\tau}_{ag,p}}$, where the subscript $ag$ denotes the industry used is agriculture and the subscript $p$ denotes partnership returns. Next, this ratio is multiplied by the value for land and structures, $R_{p}$, and machinery and equipment. $Q_{p}$ for partnerships in the *COA*.  The result is an imputation for the value of land held by farm partnerships:
 
 ```{math}
+:label: eqn:farm_land_value
 \text{LAND}_{p}= \frac{\text{LAND}^{\tau}_{ag,p}}{\text{LAND}^{\tau}_{ag,p}+{FA}^{\tau}_{ag,p}}\times (R_{p}+Q_{p}),
 ```
 
@@ -310,6 +322,7 @@ To then get an imputation for the value of land held by farm sole proprietorship
 We solve for the imputed value of fixed assets held by farm sole proprietorships as:
 
 ```{math}
+:label: eqn:imputed_farm_assets
 {FA}_{sp}=R_{sp}+Q_{sp}-\text{LAND}_{sp}
 ```
 
@@ -351,6 +364,7 @@ To be completed...
 The nominal discount rate, $r_{m,j}$, used by the business represents the cost of funds to the business.  These funds may come from equity, either through retained earnings or new equity issues, or from debt.  The cost of equity is given by $E_{j}$ (and varies by tax treatment), the cost of debt is given by the nominal interest rate $i$ (and is the same for all businesses).  The variable $E_{j}$ represents the expected real rate of return that investors can expect if they invest in any business of entity type $j$.  In general, interest payment deductions may be deductible.  In the case of deductibility, the cost of debt is  $i(1-u_{j})$, where $u_{j}$ is the statutory tax rate on business income at the first level.  We assume that the cost of funds for the marginal investment is a weighted average of the cost of funds from these two sources, debt and equity.  In particular:
 
 ```{math}
+:label: eqn:cof
 r_{m,j}-\pi = f_{m,j}\left[i(1-u_{j})-\pi\right] + (1-f_{m,j})E_{j},
 ```
 
@@ -376,23 +390,28 @@ Specifically, we make the following calculations:
 Let $debt_{corp}$ be the total amount of nonfinancial corporate debt reported in the Financial Accounts of the Untied States Table L.103, variable FL104122005.  We then allocate this total across S-corporations and C-corporations and industry $m$ as follows:
 
 ```{math}
+:label: eqn:debt_ccorp
 debt_{m,c} = debt_{corp}\frac{INTRST\_PD_{m,c}}{\sum_{S\in{c,s}}\sum_{m=1}^{M}INTRST\_PD_{m,S}}
 ```
 
 Note that we exclude finance from the industries above since we have their debt and equity separately.
 
 ```{math}
+:label: eqn:debt_scorp
 debt_{m,s} = debt_{corp}\frac{INTRST\_PD_{m,s}}{\sum_{S\in{s,c}}\sum_{m=1}^{M}INTRST\_PD_{m,S}}
 ```
 
 Similarly, for equity.  Let $X =CAP\_STCK + PD\_CAP\_SRPLS +  RTND\_ERNGS\_APPR+COMP\_RTND\_ERNGS\_UNAPPR - CST\_TRSRY\_STCK$ and $equity_{corp}$ be total nonfinancial corporate equity from the Financial Accounts of the United States Table L.223, series LM103164103.  For C-corps, we have:
 
 ```{math}
+:label: eqn:equity_ccorp
 equity_{m,c} = equity_{corp}\frac{X_{m,c}}{\sum_{S\in{c,s}}\sum_{m=1}^{M}X_{m,S}}
 ```
 
 And for S-corps:
+
 ```{math}
+:label: eqn:equity_scorp
 equity_{m,s} = equity_{corp}\frac{X_{m,s}}{\sum_{S\in{c,s}}\sum_{m=1}^{M}X_{m,S}}
 ```
 
@@ -403,6 +422,7 @@ For the corporate financial services industry, we use Table L.208 series FL79412
 Noncorporate, nonfinancial debt totals come from Table L.104, series FL114123005.  For non-corporate debt, we can divide between partnerships and sole props by industry using
 
 ```{math}
+:label: eqn:debt_pt_minor
 debt_{m,j} = debt_{noncorp}\frac{INTRST\_PD_{m,j}}{\sum_{m=1}^{M}INTRST\_PD_{m,j}}, \text{ where } j\in{p,sp},
 ```
 
@@ -411,6 +431,7 @@ debt_{m,j} = debt_{noncorp}\frac{INTRST\_PD_{m,j}}{\sum_{m=1}^{M}INTRST\_PD_{m,j
 Noncorporate equity total comes from Table L.229, series FL152090205.  We can see partners' capital accounts for partnerships, but for sole props we don't have a good measure of the equity of proprietors.  We thus make the assumption that the equity of sole proprietors is distributed across industries in the same way that the equity of partnerships is.
 
 ```{math}
+:label: eqn:equity_pt_minor
 equity_{m,p+sp} = equity_{noncorp}\frac{PCA_{m,p}}{sum_{m=1}^{M}PCA_{m,p}},
 ```
 
@@ -424,6 +445,7 @@ We then calculate the fraction of investment financed with debt by industry $m$ 
 The net present value of depreciation deductions is solved for using the discount rate derived above.  Specifically, we have:
 
 ```{math}
+:label: eqn:npv_depr_decuctions
 z_{i} = \int_{0}^{Y}z_{i}(y)e^{-r_{m,j}y}dy,
 ```
 
@@ -553,7 +575,7 @@ One may alter the macroeconomic assumptions regarding rates of interest and infl
 
 *Business Taxation*: Users to adjust the statutory marginal tax rates at the entity level, tax depreciation schedules, allowances for deductibility of interest or equity, and property tax rates.
 
-*Individual Income Taxation*: B-Tax has the ability to allow for changes in individual income tax rates on pass-through business income, interest, dividends, and capital gains.  In addition, policies affecting the deductibility of property taxes or mortgage interest affect the after-tax costs of owner-occupied housing.  To find the effect of such policy changes on the marginal investor, B-Tax interacts with OSPC's `Tax-Calculator`. Once the reform policies are specified, the `Tax-Calculator` computes the marginal tax rates on non-corporate business income, dividend income, interest income, capital gains income, and tax-deferred retirement account income.  The rates we apply to the "marginal investor" in the model are then computed as:
+*Individual Income Taxation*: `Cost of Capital Calculator` has the ability to allow for changes in individual income tax rates on pass-through business income, interest, dividends, and capital gains. In addition, policies affecting the deductibility of property taxes or mortgage interest affect the after-tax costs of owner-occupied housing.  To find the effect of such policy changes on the marginal investor, `Cost of Capital Calculator `interacts with OSPC's `Tax-Calculator`. Once the reform policies are specified, the `Tax-Calculator` computes the marginal tax rates on non-corporate business income, dividend income, interest income, capital gains income, and tax-deferred retirement account income.  The rates we apply to the "marginal investor" in the model are then computed as:
 
 * $\tau_{nc}$ = weighted average marginal tax rate on ordinary, non-corporate business income (weighted by amount of non-corp business income)
 * $\tau_{div}$ = weighted average marginal tax rate on dividend income (weighted by amount of dividend income received)
