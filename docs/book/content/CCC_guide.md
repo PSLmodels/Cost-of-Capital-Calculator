@@ -164,7 +164,7 @@ The return on equity in tax-deferred accounts is:
 
 ```{math}
 :label: eqn:return_equity_tax_deferred
-s_{e,td,j} = \frac{1}{Y_{td,j}}ln \left[(1-\tau_{td})e^{(\pi+E_{j})Y_{td,j}}+\tau_{td}\right]-\pi.
+s_{e,td,j} = \frac{1}{Y_{td,j}}ln \left[(1-\tau_{td})e^{(\pi+E_{j})Y_{td,j}}+\tau_{td}\right]-\pi
 ```
 
 (sec:EATR)=
@@ -314,7 +314,7 @@ Let $R_{sp}$ be the value of land and structures held by sole proprietor farms i
 
 ```{math}
 :label: eqn:farm_land_value
-\text{LAND}_{p}= \frac{\text{LAND}^{\tau}_{ag,p}}{\text{LAND}^{\tau}_{ag,p}+{FA}^{\tau}_{ag,p}}\times (R_{p}+Q_{p}),
+\text{LAND}_{p}= \frac{\text{LAND}^{\tau}_{ag,p}}{\text{LAND}^{\tau}_{ag,p}+{FA}^{\tau}_{ag,p}}\times (R_{p}+Q_{p})
 ```
 
 To then get an imputation for the value of land held by farm sole proprietorships, we assume that the distribution in the value of land per acre is the same for farm sole proprietorships as it is for farm partnerships.  That is, $\frac{\text{LAND}_{p}}{A_{p}}=\frac{\text{LAND}_{sp}}{A_{sp}}$, where $A_{p}$ and $A_{sp}$ denote the acreage held by farm partnerships and farm sole proprietorships, as reported in the *COA*.  We use this assumption to solve for ${LAND}_{sp}$, given our imputed value for ${LAND}_{p}$ and data on $A_{p}$ and ${A}_{sp}$.
@@ -401,7 +401,14 @@ Note that we exclude finance from the industries above since we have their debt 
 debt_{m,s} = debt_{corp}\frac{INTRST\_PD_{m,s}}{\sum_{S\in{s,c}}\sum_{m=1}^{M}INTRST\_PD_{m,S}}
 ```
 
-Similarly, for equity.  Let $X =CAP\_STCK + PD\_CAP\_SRPLS +  RTND\_ERNGS\_APPR+COMP\_RTND\_ERNGS\_UNAPPR - CST\_TRSRY\_STCK$ and $equity_{corp}$ be total nonfinancial corporate equity from the Financial Accounts of the United States Table L.223, series LM103164103.  For C-corps, we have:
+Similarly, for equity, let
+
+```{math}
+:label: eqn:capital
+X = CAP\_STCK + PD\_CAP\_SRPLS +  RTND\_ERNGS\_APPR+COMP\_RTND\_ERNGS\_UNAPPR - CST\_TRSRY\_STCK
+```
+
+and let $equity_{corp}$ be total nonfinancial corporate equity from the Financial Accounts of the United States Table L.223, series LM103164103.  For C-corps, we have:
 
 ```{math}
 :label: eqn:equity_ccorp
@@ -435,7 +442,7 @@ Noncorporate equity total comes from Table L.229, series FL152090205.  We can se
 equity_{m,p+sp} = equity_{noncorp}\frac{PCA_{m,p}}{sum_{m=1}^{M}PCA_{m,p}},
 ```
 
-Where $PCA_{p,m}$ are the "partnership capital accounts" for partnerships in industry $m$.  $equity_{m,p+sp}$ denotes the total amount of equity for partnerships and sole proprietorships in industry $m$.  We then find total non-corp equity for industry $m$ as $equity_{NC,m} = equity_{p+sp,m} + equity{s,m}$.
+Where $PCA_{p,m}$ are the "partnership capital accounts" for partnerships in industry $m$.  $equity_{m,p+sp}$ denotes the total amount of equity for partnerships and sole proprietorships in industry $m$.  We then find total non-corporate equity for industry $m$ as $equity_{NC,m} = equity_{p+sp,m} + equity_{s,m}$.
 
 We then calculate the fraction of investment financed with debt by industry $m$ and entity type $j$ as: $f_{m,j} = \frac{debt_{m,j}}{equity_{m,j}+debt_{m,j}}$.  Due to the data limitations stemming from data on sole proprietors, we calculate the ratio for partnerships and sole proprietorships as being: $f_{m,p} = f_{m,sp} = \frac{debt_{m,p}+debt_{m,sp}}{equity_{m,p+sp}}$  The exception here are financial, noncorporate businesses (see issue above with debt for these businesses).  Because of this limitation, we let $f_{finance,j}=f_{finance,s}, \forall j\in\{p,sp\}$ (i.e., we take the financial policy of S-corp financial businesses and apply it to all non-corporate financial businesses).
 
@@ -491,7 +498,7 @@ To determine when it is advantageous for a filer to switch from the declining ba
 
 ```{math}
 :label: eqn:slope_db
-\sigma_{db} = \frac{dV}{dy}=-\beta e^{-\beta y},
+\sigma_{db} = \frac{dV}{dy}=-\beta e^{-\beta y}
 ```
 
  The slope of the straight line function depends upon the depreciable basis remaining at the switch.  Therefore, the slope of the depreciable basis for the straight line method is given by:
