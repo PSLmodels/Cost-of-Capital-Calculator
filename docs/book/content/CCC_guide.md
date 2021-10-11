@@ -18,6 +18,7 @@ This guide is organized as follows.  Section {ref}`sec:METR` and Section {ref}`s
  By definition, the marginal investment is the investment whose before tax return is equivalent to the cost of capital, $\rho_{i,m,j}$. The cost of capital is given by:
 
 ```{math}
+:label: eqn:coc
 \rho_{i,m,j} = \frac{(r_{m,j}-\pi+\delta_{i})}{1-u_{j}}(1-u_{j}z_{i})+w_{i,m,j}-\delta_{i},
 ```
 
@@ -43,6 +44,7 @@ In addition to the cost of capital, the `Cost-of-Capital-Calculator` reports two
 The marginal effective tax rate is calculated as the expected pre-tax rate of return on a marginal investment minus the real after-tax rate of return to the business entity, divided by the pre-tax rate of return on the marginal investment.  That is:
 
 ```{math}
+:label: eqn:metr
 METR_{i,m,j} = \frac{\rho_{i,m,j} - (r^{'}_{m,j}-\pi)}{\rho_{i,m,j}},
 ```
 
@@ -51,6 +53,7 @@ METR_{i,m,j} = \frac{\rho_{i,m,j} - (r^{'}_{m,j}-\pi)}{\rho_{i,m,j}},
 At times users may be interested in the variation in $METR$s across asset types, in which case we can use the $METR$ calculation outlined above. At other times users may wish to view the variation in $METR$s across industry.  In this case, we compute a weighted average cost of capital for each production industry and tax treatment as follows:
 
 ```{math}
+:label: eqn:wacc
 \rho_{m,j} = \frac{\sum_{i=1}^{I}\widetilde{FA}_{i,m,j}\rho_{i,j}}{\sum_{i=1}^{I}\widetilde{FA}_{i,m,j}} ,
 ```
 
@@ -59,6 +62,7 @@ At times users may be interested in the variation in $METR$s across asset types,
 With the cost of capital for all fixed assets in an industry-tax treatment grouping, we then compute the $METR$ of the industry and tax treatment as:
 
 ```{math}
+:label: eqn:metr
 METR_{m,j} =  \frac{\rho_{m,j} - (r^{'}_{m,j}-\pi)}{\rho_{m,j}},
 ```
 
@@ -71,17 +75,19 @@ Two classes of assets, inventories and land, necessitate slightly modifications 
 In calculating the $METR$ for inventory investments, the cost of capital is defined as follows:
 
 ```{math}
-  \rho = \phi \rho_{FIFO} + (1-\phi)\rho_{LIFO}
+  \rho = \phi \rho_{FIFO} + (1-\phi)\rho_{LIFO},
 ```
 
 where $phi$ are the fraction of inventories that use FIFO accounting and $\rho_{FIFO}$ and $\rho_{LIFO}$ are given as:
 
 ```{math}
-  \rho_{FIFO} = \frac{1}{Y_v} log(\frac{e^{(Y_v} - u_{j}}{(1 - u_{j})} - \pi
+  \rho_{FIFO} = \frac{1}{Y_v} log(\frac{e^{(Y_v} - u_{j}}{(1 - u_{j})} - \pi,
 ```
 
+and
+
 ```{math}
-  \rho_{LIFO} = \frac{1}{Y_v} log(\frac{e^{(r_{m,j}-\pi)Y_v} - u_{j}}{(1 - u_{j})} - \pi
+  \rho_{LIFO} = \frac{1}{Y_v} log(\frac{e^{(r_{m,j}-\pi)Y_v} - u_{j}}{(1 - u_{j})} - \pi,
 ```
 
 where $Y_{v}$ is the average number of years that inventories are held.
@@ -105,11 +111,11 @@ $METTR$s include taxation at all levels, at the business entity and the individu
 %% Note that when there is no entity level tax (as is the case with non-C-corporate entities under current law), then the $METTR$ is equal to the $METR$.
 
 ```{math}
-:label: eqn:metter
+:label: eqn:mettr
 METTR = \frac{\rho_{i,m,j}-s_{m,j}}{\rho_{i,m,j}}
 ```
 
- In equation {eq}`eqn:mettr`. above, $s_{m,j}$ is the overall after-tax return to savers from an investment in a business entity operating in production industry $m$ and organized as a entity of type $j$ .  We compute this return as:
+ In equation {eq}`eqn:mettr`. above, $s_{m,j}$ is the overall after-tax return to savers from an investment in a business entity operating in production industry $m$ and organized as a entity of type $j$.  We compute this return as:
 
 ```{math}
 s_{m,j} = f_{m,j}s_{d,m,j} + (1-f_{m,j})s_{e,m,j},
@@ -126,7 +132,7 @@ Here, $\alpha_{d,ft,j}$, $\alpha_{d,td,j}$, and $\alpha_{d,nt,j}$ are the fracti
 
  The return on tax deferred accounts is:
 
- ```{math}
+```{math}
 s_{d,td,j} = \frac{1}{Y_{td,j}}ln \left[(1-\tau_{td,j})e^{iY_{td,j}}+\tau_{td,j}\right]-\pi
 ```
 
@@ -151,8 +157,8 @@ s_{e,ft,j} = (1-m_{j})E(1-\tau_{div}) + g_{j},
 
  The return on tax deferred accounts is:
 
- ```{math}
-s_{e,td,j} = \frac{1}{Y_{td,j}}ln \left[(1-\tau_{td})e^{(\pi+E_{j})Y_{td,j}}+\tau_{td}\right]-\pi
+```{math}
+s_{e,td,j} = \frac{1}{Y_{td,j}}ln \left[(1-\tau_{td})e^{(\pi+E_{j})Y_{td,j}}+\tau_{td}\right]-\pi,
 ```
 
 (sec:EATR)=
@@ -160,8 +166,9 @@ s_{e,td,j} = \frac{1}{Y_{td,j}}ln \left[(1-\tau_{td})e^{(\pi+E_{j})Y_{td,j}}+\ta
 
 Some investment decisions are discrete: build the new plant or not, pursue this R&D effort or another, and so on.  For discrete investment decisions, firms will compare the after tax rates of returns each of the possible choices.  In such cases, the relevant measure of the impact of the tax system on their investment choices will be measured by the effective average tax rate ($EATR$).  {cite}`DG2003` propose a forward  measure of the EATR, which the `Cost-of-Capital-Calculator` also produces estimates.  The $EATR$ is computed as:
 
- ```{math}
-EATR = \left(\frac{p_{i,m,j} - rho_{i,m,j}}{p_{i,m,j}}\right)u_{j} + \left(\frac{\rho_{i,m,j}}{p_{i,m,j}}\right)METR_{i,m,j}
+```{math}
+:label: eqn:eatr
+EATR = \left(\frac{p_{i,m,j} - rho_{i,m,j}}{p_{i,m,j}}\right)u_{j} + \left(\frac{\rho_{i,m,j}}{p_{i,m,j}}\right)METR_{i,m,j},
 ```
 
 where $p_{i,m,j}$ is the rate of profit on the project.  Note that the $EATR$ is equal to the $METR$ for marginal projects - those who's rate of profit is equal to the cost of capital.
@@ -175,22 +182,22 @@ Capital gains are not taxed until those gains are realized through the sale of s
 g = \omega_{scg}\times g_{scg} + \omega_{lcg}\times g_{lcg} + \omega_{xcg}\times mE,
 ```
 
-  wehre $\omega_{scg}$, $\omega_{lcg}$, and $\omega_{xcg}$ are the fractions of capital gains that are held for less than one year, more than one year but not until the owner's death, and those held until death, respectively.  The variables $g_{scg}$ and $g_{lcg}$ are the after-tax, real, annualized returns to short and long term capital gains.
+  where $\omega_{scg}$, $\omega_{lcg}$, and $\omega_{xcg}$ are the fractions of capital gains that are held for less than one year, more than one year but not until the owner's death, and those held until death, respectively.  The variables $g_{scg}$ and $g_{lcg}$ are the after-tax, real, annualized returns to short and long term capital gains.
 
 ```{math}
-g_{scg} = \frac{1}{Y_{scg}}\times ln\left[(1-\tau_{scg})e^{(\pi+mE)Y_{scg}}+\tau_{scg}\right]+\pi
+g_{scg} = \frac{1}{Y_{scg}}\times ln\left[(1-\tau_{scg})e^{(\pi+mE)Y_{scg}}+\tau_{scg}\right]+\pi,
 ```
 
  and
 
 ```{math}
-g_{lcg} = \frac{1}{Y_{lcg}}\times ln\left[(1-\tau_{lcg})e^{(\pi+mE)Y_{lcg}}+\tau_{lcg}\right]+\pi
+g_{lcg} = \frac{1}{Y_{lcg}}\times ln\left[(1-\tau_{lcg})e^{(\pi+mE)Y_{lcg}}+\tau_{lcg}\right]+\pi,
 ```
 
 (sec:assets)=
 # Computing Fixed Assets by Industry and Entity Type
 
-In the computation of $\rho_{m,j}$, we need to have a measure of fixed assets by industry and tax treatment for each asset type, $\widetilde{FA}_{i,m,j}$. To make this calculation, we work with two different sources of data. The first is the BEA's [Detailed Data for Fixed Assets and Consumer Durable Goods](http://www.bea.gov/national/FA2004/Details/Index.html). These data allow us to identify the stock of fixed assets by industry for each asset type.  Call this variable $FA_{i,m}$.  The second source of data we draw upon are the IRS Statistics of Income (SOI) data from business entity tax returns.  From these data, we use information on depreciable assets and accumulated depreciation, aggregated by industry and tax entity type to compute a measure of the total stock of fixed assets by industry and tax treatment, $FA^{\tau}_{m,j}$.  The superscript $\tau$ is used to denote that these asset values come from tax data.  Measuring assets from tax returns is not ideal for two reason.  First, there are reporting issues.  These line items do not affect tax liability and so are often not reported with as much accuracy as items related to income.  Relatedly, balance sheet reporting is often limited to businesses above a certain size.  The second reason is that, for the previously cited and other reasons, measures of asset from tax returns may not line up with BEA totals.  We thus use the asset totals computed from tax returns only to help apportion the BEA asset totals across tax treatment.  Namely, we compute the variable $\widetilde{FA}_{i,m,j}$ as follows:
+In the computation of $\rho_{m,j}$, we need to have a measure of fixed assets by industry and tax treatment for each asset type, $\widetilde{FA}_{i,m,j}$. To make this calculation, we work with two different sources of data. The first is the BEA's [Detailed Data for Fixed Assets and Consumer Durable Goods](http://www.bea.gov/national/FA2004/Details/Index.html). These data allow us to identify the stock of fixed assets by industry for each asset type.  Call this variable $FA_{i,m}$.  The second source of data we draw upon are the IRS Statistics of Income (SOI) data from business entity tax returns.  From these data, we use information on depreciable assets and accumulated depreciation, aggregated by industry and tax entity type to compute a measure of the total stock of fixed assets by industry and tax treatment, $FA^{\tau}_{m,j}$.  The superscript $\tau$ is used to denote that these asset values come from tax data.  Measuring assets from tax returns is not ideal for two reasons.  First, there are reporting issues.  These line items do not affect tax liability and so are often not reported with as much accuracy as items related to income.  Relatedly, balance sheet reporting is often limited to businesses above a certain size.  The second reason is that, for the previously cited and other reasons, measures of asset from tax returns may not line up with BEA totals.  We thus use the asset totals computed from tax returns only to help apportion the BEA asset totals across tax treatment.  Namely, we compute the variable $\widetilde{FA}_{i,m,j}$ as follows:
 
 ```{math}
 :label: eqn:asset_bridge
@@ -243,31 +250,31 @@ We use IRS Statistics of Income (SOI) data on corporations, partnerships, and so
 (sec:CandS)=
 ### C and S Corporation Data
 
-Tax data on subchapter C corporations come from the data files for the [SOI Tax Stats - Corporation Source Book](http://www.irs.gov/uac/SOI-Tax-Stats-Corporation-Source-Book:-Data-File) for 2011.  The link to those files is [here](http://www.irs.gov/uac/SOI-Tax-Stats-Corporation-Source-Book:-Data-File).  Specifically, we use the `2011sb1.csv` and `2011sb3.csv` files to find the aggregate amounts by industry for the following variables from Form 1120 and associated schedules: depreciable assets and accumulated depreciation.  Note that the `2011sb1.csv` file contains data from all Form 1120 returns (which includes both C and S corporations).  Thus, in calculating aggregates for subchapter C corporations only, we net out the totals by industry and line item for S corporations using the 2011sb3.csv data.
+Tax data on subchapter C corporations come from the data files for the [SOI Tax Stats - Corporation Source Book](http://www.irs.gov/uac/SOI-Tax-Stats-Corporation-Source-Book:-Data-File) for 2011.  The link to those files is [here](http://www.irs.gov/uac/SOI-Tax-Stats-Corporation-Source-Book:-Data-File).  Specifically, we use the `2011sb1.csv` and `2011sb3.csv` files to find the aggregate amounts by industry for the following variables from Form 1120 and associated schedules: depreciable assets and accumulated depreciation.  Note that the `2011sb1.csv` file contains data from all Form 1120 returns (which includes both C and S corporations).  Thus, in calculating aggregates for subchapter C corporations only, we net out the totals by industry and line item for S corporations using the `2011sb3.csv` data.
 
-Note that the level of industry detail in `2011sb1.csv` and `2011sb3.csv` differ, with the former reporting variables as fine as the 6-digit NAICS level and the latter reporting variables at the 2-digit level.  In order to infer S corporation data at a finer level of industry detail, we make the assumption that the each variable is distributed across minor industries within a major industry in the same way for all corporations as it they are for S corporations.  Letting $x_{m1}$ be a variable of interest reported for all corporations in detailed industry $m1$ (e.g., these may correspond to a 6-digit NAICS code) from 2011sb1.csv and $x_{m2}$ be the same variable reported for all corporations at the less detailed industry level (e.g., 2-digit NAICS).  We thus assume that the variable $x$ (which could be depreciable assets or accumulated depreciation) for S corporations can be allocated across detailed industry categories $m1$ as:
+Note that the level of industry detail in `2011sb1.csv` and `2011sb3.csv` differ, with the former reporting variables as fine as the 6-digit NAICS level and the latter reporting variables at the 2-digit level.  In order to infer S corporation data at a finer level of industry detail, we make the assumption that the each variable is distributed across minor industries within a major industry in the same way for all corporations as it they are for S corporations.  Letting $x_{m1}$ be a variable of interest reported for all corporations in detailed industry $m1$ (e.g., these may correspond to a 6-digit NAICS code) from `2011sb1.csv` and $x_{m2}$ be the same variable reported for all corporations at the less detailed industry level (e.g., 2-digit NAICS).  We thus assume that the variable $x$ (which could be depreciable assets or accumulated depreciation) for S corporations can be allocated across detailed industry categories $m1$ as:
 
 ```{math}
 :label: eqn:attrib_minor
 x_{m1,s}=\frac{x_{m1}}{x_{m2}}\times x_{m2,s},
 ```
 
- where $m1\in m2$.  Variables allocated in this way are then used when differencing out data from 2011sb1.csv and 2011sb3.csv to find the amounts for C corporations.
+ where $m1\in m2$.  Variables allocated in this way are then used when differencing out data from `2011sb1.csv` and `2011sb3.csv` to find the amounts for C corporations.
 
 Using these data, we calculate the stock of fixed assets for C corporations in industry $m$ as reported on tax returns, ${FA}^{\tau}_{m,c}$, as the difference between the aggregate amounts of depreciable assets and accumulated depreciation for that industry.  We then calculate the stock of fixed assets for S-corporations in industry $m$ as reported on tax returns, ${FA}^{\tau}_{m,s}$, as the difference between the aggregate amounts of depreciable assets and accumulated depreciation for that industry for S-corporations.
 
 ### Partnership Data
 
-For partnerships, we draw upon the [SOI Tax Stats - Partnership Statistics by Sector or Industry](http://www.irs.gov/uac/SOI-Tax-Stats-Partnership-Statistics-by-Sector-or-Industry).  There are three files we use to get measures of partnership assets in 2012.  From the 12pa01.xls file, we pull aggregate depreciation deductions by industry.  From 12pa03.xls, we collect aggregate values for depreciable assets and accumulated depreciation.  Finally, we use `12pa05.xls` to help us allocate the total partnership capital stock between corporate, individual, and tax exempt partners (we discuss this further below).
+For partnerships, we draw upon the [SOI Tax Stats - Partnership Statistics by Sector or Industry](http://www.irs.gov/uac/SOI-Tax-Stats-Partnership-Statistics-by-Sector-or-Industry).  There are three files we use to get measures of partnership assets in 2012.  From the `12pa01.xls` file, we pull aggregate depreciation deductions by industry.  From `12pa03.xls`, we collect aggregate values for depreciable assets and accumulated depreciation.  Finally, we use `12pa05.xls` to help us allocate the total partnership capital stock between corporate, individual, and tax exempt partners (we discuss this further below).
 
 Using these data, we calculate the stock of fixed assets for partnerships in industry $m$ as reported on tax returns, ${FA}^{\tau}_{m,p}$, as the difference between the aggregate amounts of depreciable assets and accumulated depreciation for that industry.
 
 **Allocating Partnership Capital Across Types of Partners**: Partners in partnerships may be corporations, individuals, partnerships, tax-exempts, or other organizations.  Because these partners face different tax treatment, we need to allocate shares of partnership assets to each of these entity types.  We do this by using ratios of depreciable assets to net income/loss by industry.  We then use these ratios to distribute the share of total assets across partner type using the net income/loss going to partners of a given type in each industry.  The assumption is that the ratio of assets to income/loss is the same across types of partners within a given industry.  This certainly misses some of the variation in the ownership structure of partnership assets and in the distribution of partnership income, but is a method that allows us to attribute partnership assets across partner types.
 
-File `12pa03.xls` provides data on depreciable assets by industry.  Denote these by $FA^{\tau}_{m,p}$.  Using 12pa05.xls, we gather the aggregate amounts of net income or losses distributed to partners by partner type $t$ and industry $m2$, $\text{Net Income(Loss)}_{m2,t}$.  Net income and losses attributed to partners by type from the 12pa05.xls data do not total to the same values of net income and losses reported in 12pa03.xls because not all partnerships report their allocations.  Therefore, we make an intermediate calculation to determine the share of all attributable gains/losses accrue to which types of partners.  Note that the data from 12pa05.xls differ in the level of industry detail from the data in 12pa01.xls and 12pa03.xls.  For notational clarity, let $m1$ be the more detailed classifications and $m2$ be the less detailed classifications.  Using these two pieces of information together, we find the total amount of fixed assets by industry and partner type as:
+File `12pa03.xls` provides data on depreciable assets by industry.  Denote these by $FA^{\tau}_{m,p}$. Using `12pa05.xls`, we gather the aggregate amounts of net income or losses distributed to partners by partner type $t$ and industry $m2$, $\text{Net Income(Loss)}_{m2,t}$. Net income and losses attributed to partners by type from the `12pa05.xls` data do not total to the same values of net income and losses reported in `12pa03.xls` because not all partnerships report their allocations.  Therefore, we make an intermediate calculation to determine the share of all attributable gains/losses accrue to which types of partners.  Note that the data from `12pa05.xls` differ in the level of industry detail from the data in `12pa01.xls` and `12pa03.xls`.  For notational clarity, let $m1$ be the more detailed classifications and $m2$ be the less detailed classifications.  Using these two pieces of information together, we find the total amount of fixed assets by industry and partner type as:
 
 ```{math}
-\text{FA}^{\tau}_{m1,p,t}=  \underbrace{\frac{abs(\text{Net Income})_{m2,t}}{\sum_{t}abs(\text{Net Income}_{m2,t}}}_{\text{From 12pa05.xls}} \times \underbrace{\text{FA}^{\tau}_{m1,p}}_{\text{From 12pa03.xls}},
+\text{FA}^{\tau}_{m1,p,t}=  \underbrace{\frac{abs(\text{Net Income})_{m2,t}}{\sum_{t}abs(\text{Net Income}_{m2,t}}}_{\text{From `12pa05.xls`}} \times \underbrace{\text{FA}^{\tau}_{m1,p}}_{\text{From `12pa03.xls`}},
 ```
 
  where $m1\in m2$ and $t$ denotes partner type (individual, corporate, partnership, tax-exempt, other).  An implicit assumption here is that that share of net gains or losses attributed to each partner type is the same across each sub-industry within a major industry (i.e., the attribution across all $m_{1}\in m_{2}$ is identical).
@@ -281,7 +288,7 @@ Finally, since partnership data do not identify depreciable assets for each mino
 
 We divide sole proprietorships into two groups: non-farm sole proprietors, who file a Schedule C of Form 1040, and farm sole proprietorships, who file Schedule F of Form 1040.
 
-**Non-farm Sole Proprietorships**:  Our data for non-farm sole proprietorships come from the [SOI Tax Stats - Non-farm Sole Proprietorship Statistics](http://www.irs.gov/uac/SOI-Tax-Stats-Nonfarm-Sole-Proprietorship-Statistics) for 2011.  Specifically, we use the file 11sp01br.xls.  These data do not record the value of depreciable assets for sole proprietorships, but they do contain depreciation deductions for sole proprietors.  Thus we impute the value of depreciable assets and land using the assumption that the ratio of depreciable assets to depreciation deductions is the same within a particular industry for sole proprietorships and partnerships.  Specifically, we find the stock of fixed assets for sole proprietors to be:
+**Non-farm Sole Proprietorships**:  Our data for non-farm sole proprietorships come from the [SOI Tax Stats - Non-farm Sole Proprietorship Statistics](http://www.irs.gov/uac/SOI-Tax-Stats-Nonfarm-Sole-Proprietorship-Statistics) for 2011.  Specifically, we use the file `11sp01br.xls`.  These data do not record the value of depreciable assets for sole proprietorships, but they do contain depreciation deductions for sole proprietors.  Thus we impute the value of depreciable assets and land using the assumption that the ratio of depreciable assets to depreciation deductions is the same within a particular industry for sole proprietorships and partnerships.  Specifically, we find the stock of fixed assets for sole proprietors to be:
 
 ```{math}
 {FA}^{\tau}_{sp}=\frac{\text{Depreciable Assets}_{m,p}}{\text{Depreciation Deductions}_{m,p}}\times \text{Depreciation Deductions}_{m,sp},
@@ -295,7 +302,7 @@ We divide sole proprietorships into two groups: non-farm sole proprietors, who f
 Let $R_{sp}$ be the value of land and structures held by sole proprietor farms in the *COA* and let $Q_{sp}$ be the value of machinery and equipment held by sole proprietor farms in the *COA*.  Let $R_{p}$ and $Q_{p}$ be the analogous values for farm partnerships in the *COA*.  By an accounting identity, it must be the case that $R_{i}+Q_{i}={FA}_{i}+{LAND}_{i}$ for entity of type $i\in{sp,p}$.  We thus find the ratio of land to capital held by partnerships in the agriculture industry; $\frac{\text{LAND}^{\tau}_{ag,p}}{{\text{LAND}^{\tau}_{ag,p}}+{FA}^{\tau}_{ag,p}}$, where the subscript $ag$ denotes the industry used is agriculture and the subscript $p$ denotes partnership returns. Next, this ratio is multiplied by the value for land and structures, $R_{p}$, and machinery and equipment. $Q_{p}$ for partnerships in the *COA*.  The result is an imputation for the value of land held by farm partnerships:
 
 ```{math}
-\text{LAND}_{p}= \frac{\text{LAND}^{\tau}_{ag,p}}{\text{LAND}^{\tau}_{ag,p}+{FA}^{\tau}_{ag,p}}\times (R_{p}+Q_{p})
+\text{LAND}_{p}= \frac{\text{LAND}^{\tau}_{ag,p}}{\text{LAND}^{\tau}_{ag,p}+{FA}^{\tau}_{ag,p}}\times (R_{p}+Q_{p}),
 ```
 
 To then get an imputation for the value of land held by farm sole proprietorships, we assume that the distribution in the value of land per acre is the same for farm sole proprietorships as it is for farm partnerships.  That is, $\frac{\text{LAND}_{p}}{A_{p}}=\frac{\text{LAND}_{sp}}{A_{sp}}$, where $A_{p}$ and $A_{sp}$ denote the acreage held by farm partnerships and farm sole proprietorships, as reported in the *COA*.  We use this assumption to solve for ${LAND}_{sp}$, given our imputed value for ${LAND}_{p}$ and data on $A_{p}$ and ${A}_{sp}$.
@@ -396,7 +403,7 @@ For the corporate financial services industry, we use Table L.208 series FL79412
 Noncorporate, nonfinancial debt totals come from Table L.104, series FL114123005.  For non-corporate debt, we can divide between partnerships and sole props by industry using
 
 ```{math}
-debt_{m,j} = debt_{noncorp}\frac{INTRST\_PD_{m,j}}{\sum_{m=1}^{M}INTRST\_PD_{m,j}}, \text{ where } j\in{p,sp}
+debt_{m,j} = debt_{noncorp}\frac{INTRST\_PD_{m,j}}{\sum_{m=1}^{M}INTRST\_PD_{m,j}}, \text{ where } j\in{p,sp},
 ```
 
 <!-- %\textcolor{red}{Note that we do have partnerships and sole proprietorships in the tax data that are financial firms.  I don't know where this debt is in the Financial Accounts.  Because of this (and for now), let's exclude the finance industry from the above calculation (thus the sum is over $m\neq finance$).} -->
@@ -404,7 +411,7 @@ debt_{m,j} = debt_{noncorp}\frac{INTRST\_PD_{m,j}}{\sum_{m=1}^{M}INTRST\_PD_{m,j
 Noncorporate equity total comes from Table L.229, series FL152090205.  We can see partners' capital accounts for partnerships, but for sole props we don't have a good measure of the equity of proprietors.  We thus make the assumption that the equity of sole proprietors is distributed across industries in the same way that the equity of partnerships is.
 
 ```{math}
-equity_{m,p+sp} = equity_{noncorp}\frac{PCA_{m,p}}{sum_{m=1}^{M}PCA_{m,p}}
+equity_{m,p+sp} = equity_{noncorp}\frac{PCA_{m,p}}{sum_{m=1}^{M}PCA_{m,p}},
 ```
 
 Where $PCA_{p,m}$ are the "partnership capital accounts" for partnerships in industry $m$.  $equity_{m,p+sp}$ denotes the total amount of equity for partnerships and sole proprietorships in industry $m$.  We then find total non-corp equity for industry $m$ as $equity_{NC,m} = equity_{p+sp,m} + equity{s,m}$.
@@ -431,13 +438,13 @@ V(y) =  1-\frac{y}{Y},
 The net present value of straight-line depreciation can thus be found as:
 
 ```{math}
-z_{sl}=\int_{Y}^{0}\frac{1-e^{-ry}}{Y}dy
+z_{sl}=\int_{Y}^{0}\frac{1-e^{-ry}}{Y}dy,
 ```
 
  which, when integrated and with bonus depreciation rate equal to $bonus$ , yields:
 
 ```{math}
-z_{sl}=bonus + (1 - bonus)\frac{e^{-rY}}{Yr}
+z_{sl}=bonus + (1 - bonus)\frac{e^{-rY}}{Yr},
 ```
 
  where $Y$ is the recovery period of the asset.  With a declining balance method of deprecation, the remaining depreciable value of \$1 invested at any time $y$ is given by:
@@ -457,7 +464,7 @@ To determine when it is advantageous for a filer to switch from the declining ba
 %\ \\ -->
 
 ```{math}
-\sigma_{db} = \frac{dV}{dy}=-\beta e^{-\beta y}
+\sigma_{db} = \frac{dV}{dy}=-\beta e^{-\beta y},
 ```
 
  The slope of the straight line function depends upon the depreciable basis remaining at the switch.  Therefore, the slope of the depreciable basis for the straight line method is given by:
@@ -469,19 +476,19 @@ To determine when it is advantageous for a filer to switch from the declining ba
  where $Y^{*}$ is the optimal time to switch. We can thus solve for $Y^{*}$ as the point in time at which the slope of the two functions are equal.  The $Y^{*}$ that solves this is given by:
 
 ```{math}
-Y^{*}=Y\left(1-\frac{1}{b}\right)
+Y^{*}=Y\left(1-\frac{1}{b}\right),
 ```
 
 We can now find the present value of depreciation deductions under a declining balance with switch to straight line depreciation method.  To do this, we find the integrals over the two methods for their respective portions of the recovery life.  We find the present value of deprecation deductions, $z_{dbsl}$, to be:
 
 ```{math}
-z_{dbsl}=\int_{0}^{Y^{*}}\beta e^{-(\beta+r)y}dy+\int_{Y^{*}}^{Y}\frac{e^{-\beta Y^{*}}}{Y^{*}-Y}e^{-ry}dy
+z_{dbsl}=\int_{0}^{Y^{*}}\beta e^{-(\beta+r)y}dy+\int_{Y^{*}}^{Y}\frac{e^{-\beta Y^{*}}}{Y^{*}-Y}e^{-ry}dy,
 ```
 
  which, when integrated and with bonus depreciation, yields:
 
 ```{math}
-z_{dbsl}=bonus + (1 - bonus)\frac{\beta}{\beta+r}\left[1-e^{-(\beta+r)Y^{*}}\right]+\frac{e^{-\beta Y^{*}}}{(Y-Y^{*})r}\left[e^{-rY^{*}}-e^{-rY}\right]
+z_{dbsl}=bonus + (1 - bonus)\frac{\beta}{\beta+r}\left[1-e^{-(\beta+r)Y^{*}}\right]+\frac{e^{-\beta Y^{*}}}{(Y-Y^{*})r}\left[e^{-rY^{*}}-e^{-rY}\right],
 ```
 
 <!-- %\subsubsection{Current Law Tax Depreciation Rules}
