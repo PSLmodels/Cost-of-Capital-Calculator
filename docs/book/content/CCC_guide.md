@@ -54,7 +54,7 @@ At times users may be interested in the variation in $METR$s across asset types,
 
 ```{math}
 :label: eqn:wacc
-\rho_{m,j} = \frac{\sum_{i=1}^{I}\widetilde{FA}_{i,m,j}\rho_{i,j}}{\sum_{i=1}^{I}\widetilde{FA}_{i,m,j}} ,
+\rho_{m,j} = \frac{\sum_{i=1}^{I}\widetilde{FA}_{i,m,j}\rho_{i,j}}{\sum_{i=1}^{I}\widetilde{FA}_{i,m,j}},
 ```
 
  where the subscripts $i$, $m$, and $j$, refer to the asset type, production industry, and tax entity type.  The calculation of the variable $\widetilde{FA}_{i,m,c}$ is discussed below.
@@ -146,7 +146,7 @@ The after-tax return on equity investments is given by:
 
 ```{math}
 :label: eqn:return_equity
-s_{e,j} = \alpha_{e,ft,j}\times s_{e,ft,j} + \alpha_{e,td,j}\times s_{e,td,j} + \alpha_{e,nt,j}\times E_{j}.
+s_{e,j} = \alpha_{e,ft,j}\times s_{e,ft,j} + \alpha_{e,td,j}\times s_{e,td,j} + \alpha_{e,nt,j}\times E_{j}
 ```
 
 Here, $\alpha_{e,ft,j}$, $\alpha_{e,td,j}$, and $\alpha_{e,nt,j}$ are the fraction of equity held in fully taxable, tax deferred, and non-taxable accounts.  The variables, $s_{e,ft,j}$ and $s_{e,td,j}$ are the after-tax returns of fully taxable and tax-deferred investors, respectively.
@@ -200,7 +200,7 @@ g_{scg} = \frac{1}{Y_{scg}}\times ln\left[(1-\tau_{scg})e^{(\pi+mE)Y_{scg}}+\tau
 
 ```{math}
 :label: eqn:long_term_capital_gains
-g_{lcg} = \frac{1}{Y_{lcg}}\times ln\left[(1-\tau_{lcg})e^{(\pi+mE)Y_{lcg}}+\tau_{lcg}\right]+\pi,
+g_{lcg} = \frac{1}{Y_{lcg}}\times ln\left[(1-\tau_{lcg})e^{(\pi+mE)Y_{lcg}}+\tau_{lcg}\right]+\pi
 ```
 
 (sec:assets)=
@@ -445,7 +445,7 @@ We then calculate the fraction of investment financed with debt by industry $m$ 
 The net present value of depreciation deductions is solved for using the discount rate derived above.  Specifically, we have:
 
 ```{math}
-:label: eqn:npv_depr_decuctions
+:label: eqn:npv_depr_discount
 z_{i} = \int_{0}^{Y}z_{i}(y)e^{-r_{m,j}y}dy,
 ```
 
@@ -454,24 +454,28 @@ z_{i} = \int_{0}^{Y}z_{i}(y)e^{-r_{m,j}y}dy,
 Under straight-line depreciation, the remaining depreciable value of \$1 invested at any time $y$ is given by:
 
 ```{math}
+:label: eqn:rdv_discount
 V(y) =  1-\frac{y}{Y},
 ```
 
 The net present value of straight-line depreciation can thus be found as:
 
 ```{math}
+:label: eqn:npv_depr_sl
 z_{sl}=\int_{Y}^{0}\frac{1-e^{-ry}}{Y}dy,
 ```
 
- which, when integrated and with bonus depreciation rate equal to $bonus$ , yields:
+ which, when integrated and with bonus depreciation rate equal to $bonus$, yields:
 
 ```{math}
+:label: eqn:npv_depr_bonus
 z_{sl}=bonus + (1 - bonus)\frac{e^{-rY}}{Yr},
 ```
 
  where $Y$ is the recovery period of the asset.  With a declining balance method of deprecation, the remaining depreciable value of \$1 invested at any time $y$ is given by:
 
 ```{math}
+:label: eqn:rdv_db
 V(y) =  e^{-\beta y},
 ```
 
@@ -486,31 +490,36 @@ To determine when it is advantageous for a filer to switch from the declining ba
 %\ \\ -->
 
 ```{math}
+:label: eqn:slope_db
 \sigma_{db} = \frac{dV}{dy}=-\beta e^{-\beta y},
 ```
 
  The slope of the straight line function depends upon the depreciable basis remaining at the switch.  Therefore, the slope of the depreciable basis for the straight line method is given by:
 
 ```{math}
+:label: eqn:slope_sl
 \sigma_{sl} =  \frac{dV}{dy}=\frac{e^{-\beta Y^{*}}}{Y^{*}-Y},
 ```
 
  where $Y^{*}$ is the optimal time to switch. We can thus solve for $Y^{*}$ as the point in time at which the slope of the two functions are equal.  The $Y^{*}$ that solves this is given by:
 
 ```{math}
+:label: eqn:opt_switch_time
 Y^{*}=Y\left(1-\frac{1}{b}\right),
 ```
 
 We can now find the present value of depreciation deductions under a declining balance with switch to straight line depreciation method.  To do this, we find the integrals over the two methods for their respective portions of the recovery life.  We find the present value of deprecation deductions, $z_{dbsl}$, to be:
 
 ```{math}
+:label: eqn:npv_depr_dbsl
 z_{dbsl}=\int_{0}^{Y^{*}}\beta e^{-(\beta+r)y}dy+\int_{Y^{*}}^{Y}\frac{e^{-\beta Y^{*}}}{Y^{*}-Y}e^{-ry}dy,
 ```
 
  which, when integrated and with bonus depreciation, yields:
 
 ```{math}
-z_{dbsl}=bonus + (1 - bonus)\frac{\beta}{\beta+r}\left[1-e^{-(\beta+r)Y^{*}}\right]+\frac{e^{-\beta Y^{*}}}{(Y-Y^{*})r}\left[e^{-rY^{*}}-e^{-rY}\right],
+:label: eqn:npv_dbsl_bonus
+z_{dbsl}=bonus + (1 - bonus)\frac{\beta}{\beta+r}\left[1-e^{-(\beta+r)Y^{*}}\right]+\frac{e^{-\beta Y^{*}}}{(Y-Y^{*})r}\left[e^{-rY^{*}}-e^{-rY}\right]
 ```
 
 <!-- %\subsubsection{Current Law Tax Depreciation Rules}
