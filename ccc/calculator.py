@@ -103,7 +103,7 @@ class Calculator():
 
         '''
         dfs = {'c': df[df['tax_treat'] == 'corporate'].copy(),
-               'nc': df[df['tax_treat'] == 'non-corporate'].copy()}
+               'pt': df[df['tax_treat'] == 'non-corporate'].copy()}
         # separate into corp and non-corp dataframe here
         for t in self.__p.entity_list:
             for f in self.__p.financing_list:
@@ -137,7 +137,7 @@ class Calculator():
             self.__assets.df, self.__p, self.__dp)
         dfs = {'c': self.__assets.df[
                self.__assets.df['tax_treat'] == 'corporate'].copy(),
-               'nc': self.__assets.df[
+               'pt': self.__assets.df[
                self.__assets.df['tax_treat'] == 'non-corporate'].copy()}
         # separate into corp and non-corp dataframe here
         for t in self.__p.entity_list:
@@ -1149,7 +1149,7 @@ class Calculator():
 
         data_sources = {}
         for i, df_i in enumerate(list_df):
-            for t in ['c', 'nc']:
+            for t in ['c', 'pt']:
                 if t == 'c':
                     df = df_i.drop(df_i[df_i.tax_treat !=
                                         'corporate'].index)
@@ -1386,10 +1386,10 @@ class Calculator():
         # add buttons
         controls_callback = CustomJS(
             args=data_sources, code=CONTROLS_CALLBACK_SCRIPT)
-        c_nc_buttons = RadioButtonGroup(
+        c_pt_buttons = RadioButtonGroup(
             labels=['Corporate', 'Noncorporate'], active=0)
-        c_nc_buttons.js_on_change('value', controls_callback)
-        controls_callback.args['c_nc_buttons'] = c_nc_buttons
+        c_pt_buttons.js_on_change('value', controls_callback)
+        controls_callback.args['c_pt_buttons'] = c_pt_buttons
         format_buttons = RadioButtonGroup(
             labels=['Baseline', 'Reform', 'Change'], active=0)
         format_buttons.js_on_change('value', controls_callback)
@@ -1411,7 +1411,7 @@ class Calculator():
         tabs = Tabs(tabs=[tab, tab2])
         layout = gridplot(
             children=[[tabs],
-                      [c_nc_buttons, interest_buttons],
+                      [c_pt_buttons, interest_buttons],
                       [format_buttons, type_buttons]]
         )
         # layout = gridplot([p, p2], ncols=2, plot_width=250, plot_height=250)
