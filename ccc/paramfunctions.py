@@ -284,7 +284,7 @@ def calc_s(p):
     s_pt = p.f_pt * s_pt_d + (1 - p.f_pt) * s_pt_e
     # Return the after-tax rates of return on all types of investments
     s_dict = {'c': {'mix': s_c, 'd': s_c_d, 'e': s_c_e},
-              'nc': {'mix': s_pt, 'd': s_pt_d, 'e': s_pt_e}}
+              'pt': {'mix': s_pt, 'd': s_pt_d, 'e': s_pt_e}}
 
     return s_dict, E_pt
 

@@ -702,7 +702,7 @@
         "title": "Allowance for non-corporate equity",
         "description": "Allowance for non-corporate equity (fraction of equity deductible).",
         "section_1": "Deductions and Limitations on Financing",
-        "notes": "This parameter gives the allowance for non-corporate equity (ACE). Only relevant if there is an entity-level tax on pass-through businesses (PT_entity_tax_ind=True).  Under an ACE system, companies can deduct a notional interest on their equity.  The default rate used in Cost-of-Capital-Calculator is the nominal interest rate on corporate debt.  Moving this parameter up from zero allows the corporate to have partial to full deductibility of the notional interest on equity.",
+        "notes": "This parameter gives the allowance for non-corporate equity (ACE). Only relevant if there is an entity-level tax on pass-through businesses (pt_entity_tax_ind=True).  Under an ACE system, companies can deduct a notional interest on their equity.  The default rate used in Cost-of-Capital-Calculator is the nominal interest rate on corporate debt.  Moving this parameter up from zero allows the corporate to have partial to full deductibility of the notional interest on equity.",
         "type": "float",
         "value": [
             {
