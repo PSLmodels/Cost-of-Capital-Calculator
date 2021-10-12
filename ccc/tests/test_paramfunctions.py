@@ -170,7 +170,7 @@ def test_calc_rprime(p, expected_dict):
     Test of the calculation of the after-tax rate of return function
     '''
     f_dict = {'c': {'mix': p.f_c, 'd': 1.0, 'e': 0.0},
-              pt: {'mix': p.f_pt, 'd': 1.0, 'e': 0.0}}
+              'pt': {'mix': p.f_pt, 'd': 1.0, 'e': 0.0}}
     E_dict = {'c': p.E_c, 'pt': 0.07}
     test_dict = pf.calc_r_prime(p, f_dict, E_dict)
 
