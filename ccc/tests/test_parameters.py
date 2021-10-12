@@ -43,16 +43,16 @@ def test_new_view():
     assert spec.m == 1
 
 
-def test_PT_tax():
+def test_pt_tax():
     cyr = 2020
     spec = Specification(year=cyr)
     new_spec_dict = {
-        'PT_entity_tax_ind': True,
-        'PT_entity_tax_rate': 0.44
+        'pt_entity_tax_ind': True,
+        'pt_entity_tax_rate': 0.44
     }
     spec.update_specification(new_spec_dict)
-    assert spec.PT_entity_tax_ind
-    assert spec.u['nc'] == 0.44
+    assert spec.pt_entity_tax_ind
+    assert spec.u['pt'] == 0.44
 
 
 def test_update_specification_with_json():
@@ -100,13 +100,13 @@ def test_update_bad_revsions2():
     # Pick a category for depreciation that is out of bounds
     revs = {
         'profit_rate': 0.5,
-        'PT_entity_tax_rate': 1.2}
+        'pt_entity_tax_rate': 1.2}
     spec.update_specification(revs, raise_errors=False)
     assert len(spec.errors) > 0
-    first_line = spec.errors['PT_entity_tax_rate'][0]
+    first_line = spec.errors['pt_entity_tax_rate'][0]
     print('First line = ', first_line)
     expected_first_line = (
-        'PT_entity_tax_rate 1.2 > max 1.0 '
+        'pt_entity_tax_rate 1.2 > max 1.0 '
     )
     assert first_line == expected_first_line
 
