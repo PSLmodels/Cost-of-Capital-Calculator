@@ -22,8 +22,8 @@
       
 
     
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
@@ -33,17 +33,17 @@
     
   <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/togglebutton.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
+    <script>
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
@@ -93,7 +93,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   CCC Example
  </span>
@@ -105,7 +105,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Web Application
  </span>
@@ -117,7 +117,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Contributing to CCC
  </span>
@@ -129,7 +129,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   CCC API
  </span>
@@ -183,7 +183,7 @@
   </ul>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   CCC Guide
  </span>
@@ -195,7 +195,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   About
  </span>
@@ -207,7 +207,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   References
  </span>
@@ -219,7 +219,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Citations of CCC
  </span>
@@ -339,8 +339,8 @@
 <div class="section" id="module-ccc.utils">
 <span id="ccc-utils"></span><h2>ccc.utils<a class="headerlink" href="#module-ccc.utils" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="ccc.utils.diff_two_tables">
-<code class="sig-prename descclassname"><span class="pre">ccc.utils.</span></code><code class="sig-name descname"><span class="pre">diff_two_tables</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/utils.html#diff_two_tables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.utils.diff_two_tables" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.utils.diff_two_tables">
+<span class="sig-prename descclassname"><span class="pre">ccc.utils.</span></span><span class="sig-name descname"><span class="pre">diff_two_tables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/utils.html#diff_two_tables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.utils.diff_two_tables" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create the difference betweeen two dataframes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -363,8 +363,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="ccc.utils.json_to_dict">
-<code class="sig-prename descclassname"><span class="pre">ccc.utils.</span></code><code class="sig-name descname"><span class="pre">json_to_dict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/utils.html#json_to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.utils.json_to_dict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.utils.json_to_dict">
+<span class="sig-prename descclassname"><span class="pre">ccc.utils.</span></span><span class="sig-name descname"><span class="pre">json_to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/utils.html#json_to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.utils.json_to_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert specified JSON text into an ordered Python dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -387,8 +387,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="ccc.utils.read_egg_csv">
-<code class="sig-prename descclassname"><span class="pre">ccc.utils.</span></code><code class="sig-name descname"><span class="pre">read_egg_csv</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/utils.html#read_egg_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.utils.read_egg_csv" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.utils.read_egg_csv">
+<span class="sig-prename descclassname"><span class="pre">ccc.utils.</span></span><span class="sig-name descname"><span class="pre">read_egg_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/utils.html#read_egg_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.utils.read_egg_csv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read from egg the file named fname that contains CSV data and
 return pandas DataFrame containing the data.</p>
 <dl class="field-list simple">
@@ -408,8 +408,8 @@ return pandas DataFrame containing the data.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ccc.utils.read_egg_json">
-<code class="sig-prename descclassname"><span class="pre">ccc.utils.</span></code><code class="sig-name descname"><span class="pre">read_egg_json</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/utils.html#read_egg_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.utils.read_egg_json" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.utils.read_egg_json">
+<span class="sig-prename descclassname"><span class="pre">ccc.utils.</span></span><span class="sig-name descname"><span class="pre">read_egg_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/utils.html#read_egg_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.utils.read_egg_json" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read from egg the file named fname that contains JSON data and
 return dictionary containing the data.</p>
 <dl class="field-list simple">
@@ -426,8 +426,8 @@ return dictionary containing the data.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ccc.utils.save_return_table">
-<code class="sig-prename descclassname"><span class="pre">ccc.utils.</span></code><code class="sig-name descname"><span class="pre">save_return_table</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/utils.html#save_return_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.utils.save_return_table" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.utils.save_return_table">
+<span class="sig-prename descclassname"><span class="pre">ccc.utils.</span></span><span class="sig-name descname"><span class="pre">save_return_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/utils.html#save_return_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.utils.save_return_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to save or return a table of data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -450,8 +450,8 @@ Defaults to 0.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ccc.utils.str_modified">
-<code class="sig-prename descclassname"><span class="pre">ccc.utils.</span></code><code class="sig-name descname"><span class="pre">str_modified</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/utils.html#str_modified"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.utils.str_modified" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.utils.str_modified">
+<span class="sig-prename descclassname"><span class="pre">ccc.utils.</span></span><span class="sig-name descname"><span class="pre">str_modified</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/utils.html#str_modified"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.utils.str_modified" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to deal with conversion of a decimal number to a string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -467,8 +467,8 @@ Defaults to 0.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ccc.utils.to_str">
-<code class="sig-prename descclassname"><span class="pre">ccc.utils.</span></code><code class="sig-name descname"><span class="pre">to_str</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/utils.html#to_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.utils.to_str" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.utils.to_str">
+<span class="sig-prename descclassname"><span class="pre">ccc.utils.</span></span><span class="sig-name descname"><span class="pre">to_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/utils.html#to_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.utils.to_str" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to decode string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -484,8 +484,8 @@ Defaults to 0.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ccc.utils.wavg">
-<code class="sig-prename descclassname"><span class="pre">ccc.utils.</span></code><code class="sig-name descname"><span class="pre">wavg</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avg_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/utils.html#wavg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.utils.wavg" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.utils.wavg">
+<span class="sig-prename descclassname"><span class="pre">ccc.utils.</span></span><span class="sig-name descname"><span class="pre">wavg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avg_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/utils.html#wavg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.utils.wavg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes a weighted average.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

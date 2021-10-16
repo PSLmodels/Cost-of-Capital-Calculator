@@ -22,8 +22,8 @@
       
 
     
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
@@ -33,19 +33,19 @@
     
   <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/togglebutton.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
+    <script>
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
@@ -95,7 +95,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   CCC Example
  </span>
@@ -107,7 +107,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Web Application
  </span>
@@ -119,7 +119,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Contributing to CCC
  </span>
@@ -131,7 +131,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   CCC API
  </span>
@@ -185,7 +185,7 @@
   </ul>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   CCC Guide
  </span>
@@ -197,7 +197,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   About
  </span>
@@ -209,7 +209,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   References
  </span>
@@ -221,7 +221,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption" role="heading">
  <span class="caption-text">
   Citations of CCC
  </span>
@@ -341,8 +341,8 @@
 <div class="section" id="module-ccc.calcfunctions">
 <span id="ccc-calcfunctions"></span><h2>ccc.calcfunctions<a class="headerlink" href="#module-ccc.calcfunctions" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="ccc.calcfunctions.dbsl">
-<code class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></code><code class="sig-name descname"><span class="pre">dbsl</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#dbsl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.dbsl" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.calcfunctions.dbsl">
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">dbsl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#dbsl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.dbsl" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes the calculation for the declining balance with a switch to
 straight line (DBSL) method of depreciation.</p>
 <div class="math notranslate nohighlight">
@@ -373,8 +373,8 @@ double declining balance)</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ccc.calcfunctions.econ">
-<code class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></code><code class="sig-name descname"><span class="pre">econ</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#econ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.econ" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.calcfunctions.econ">
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">econ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#econ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.econ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes the calculation for the NPV of depreciation deductions using
 economic depreciation rates.</p>
 <div class="math notranslate nohighlight">
@@ -402,8 +402,8 @@ economic depreciation rates.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ccc.calcfunctions.eq_coc">
-<code class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></code><code class="sig-name descname"><span class="pre">eq_coc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_tax_credit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_coc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_coc" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.calcfunctions.eq_coc">
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_coc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_tax_credit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_coc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_coc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the cost of capital</p>
 <div class="math notranslate nohighlight">
 \[\rho = \frac{(r-\pi+\delta)}{1-u}(1-uz)+w-\delta\]</div>
@@ -431,8 +431,8 @@ income taxes</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ccc.calcfunctions.eq_coc_inventory">
-<code class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></code><code class="sig-name descname"><span class="pre">eq_coc_inventory</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y_v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_coc_inventory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_coc_inventory" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.calcfunctions.eq_coc_inventory">
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_coc_inventory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y_v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_coc_inventory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_coc_inventory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the cost of capital for inventories</p>
 <div class="math notranslate nohighlight">
 \[\rho = \phi \rho_{FIFO} + (1-\phi)\rho_{LIFO}\]</div>
@@ -457,8 +457,8 @@ income taxes</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ccc.calcfunctions.eq_eatr">
-<code class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></code><code class="sig-name descname"><span class="pre">eq_eatr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_eatr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_eatr" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.calcfunctions.eq_eatr">
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_eatr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_eatr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_eatr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the effective average tax rate (EATR).</p>
 <div class="math notranslate nohighlight">
 \[eatr = \left(\frac{p - rho}{p}\right)u +
@@ -483,8 +483,8 @@ income taxes</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ccc.calcfunctions.eq_metr">
-<code class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></code><code class="sig-name descname"><span class="pre">eq_metr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_prime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_metr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_metr" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.calcfunctions.eq_metr">
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_metr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_prime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_metr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_metr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the marginal effective tax rate (METR)</p>
 <div class="math notranslate nohighlight">
 \[metr = \frac{\rho - (r^{'}-\pi)}{\rho}\]</div>
@@ -506,8 +506,8 @@ income taxes</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ccc.calcfunctions.eq_mettr">
-<code class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></code><code class="sig-name descname"><span class="pre">eq_mettr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_mettr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_mettr" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.calcfunctions.eq_mettr">
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_mettr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_mettr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_mettr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the marginal effective total tax rate (METTR)</p>
 <div class="math notranslate nohighlight">
 \[mettr = \frac{\rho - s}{\rho}\]</div>
@@ -528,8 +528,8 @@ income taxes</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ccc.calcfunctions.eq_tax_wedge">
-<code class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></code><code class="sig-name descname"><span class="pre">eq_tax_wedge</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_tax_wedge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_tax_wedge" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.calcfunctions.eq_tax_wedge">
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_tax_wedge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_tax_wedge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_tax_wedge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the tax wedge</p>
 <div class="math notranslate nohighlight">
 \[wedge = \rho - s\]</div>
@@ -550,8 +550,8 @@ income taxes</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ccc.calcfunctions.eq_ucc">
-<code class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></code><code class="sig-name descname"><span class="pre">eq_ucc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_ucc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_ucc" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.calcfunctions.eq_ucc">
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_ucc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_ucc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_ucc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the user cost of capital</p>
 <div class="math notranslate nohighlight">
 \[ucc = \rho + \delta\]</div>
@@ -572,8 +572,8 @@ income taxes</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ccc.calcfunctions.npv_tax_depr">
-<code class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></code><code class="sig-name descname"><span class="pre">npv_tax_depr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">land_expensing</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#npv_tax_depr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.npv_tax_depr" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.calcfunctions.npv_tax_depr">
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">npv_tax_depr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">land_expensing</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#npv_tax_depr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.npv_tax_depr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Depending on the method of depreciation, makes calls to either
 the straight line or declining balance calculations.</p>
 <dl class="field-list simple">
@@ -599,8 +599,8 @@ the straight line or declining balance calculations.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ccc.calcfunctions.sl">
-<code class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></code><code class="sig-name descname"><span class="pre">sl</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#sl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.sl" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.calcfunctions.sl">
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">sl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#sl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.sl" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes the calculation for straight line (SL) method of depreciation.</p>
 <div class="math notranslate nohighlight">
 \[z = \frac{1 - e^{-rY}}{Yr}\]</div>
@@ -626,8 +626,8 @@ the straight line or declining balance calculations.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ccc.calcfunctions.update_depr_methods">
-<code class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></code><code class="sig-name descname"><span class="pre">update_depr_methods</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#update_depr_methods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.update_depr_methods" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ccc.calcfunctions.update_depr_methods">
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">update_depr_methods</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#update_depr_methods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.update_depr_methods" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates depreciation methods per changes from defaults that are
 specified by user.</p>
 <dl class="field-list simple">
