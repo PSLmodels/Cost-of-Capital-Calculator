@@ -2,20 +2,20 @@ CONTROLS_CALLBACK_SCRIPT = """
 var equip_data = equip_source.data;
 var struc_data = struc_source.data;
 
-var c_nc_button = c_nc_buttons.active;
+var c_pt_button = c_pt_buttons.active;
 var format_button = format_buttons.active;
 var type_button = type_buttons.active;
 var interest_button = interest_buttons.active;
 
-var n_nc_str, format_str, type_str, interest_button
-var c_nc_title, interest_title
+var n_pt_str, format_str, type_str, interest_button
+var c_pt_title, interest_title
 
-if (c_nc_button == 0) {
-    c_nc_str = '_c';
-    c_nc_title = 'Corporate';
-} else if (c_nc_button == 1) {
-    c_nc_str = '_nc';
-    c_nc_title = 'Noncorporate';
+if (c_pt_button == 0) {
+    c_pt_str = '_c';
+    c_pt_title = 'Corporate';
+} else if (c_pt_button == 1) {
+    c_pt_str = '_pt';
+    c_pt_title = 'Noncorporate';
 }
 
 if (format_button == 0) {
@@ -62,22 +62,22 @@ if (interest_button == 0) {
     interest_title = 'Net Present Value of Depreciation'
 }
 
-equip_plot.title.text = interest_title + ' on ' + c_nc_title +
+equip_plot.title.text = interest_title + ' on ' + c_pt_title +
     ' Investments in Equipment';
-struc_plot.title.text = interest_title + ' on ' + c_nc_title +
+struc_plot.title.text = interest_title + ' on ' + c_pt_title +
     ' Investments in Structures';
 
 var new_equip_data = eval(format_str + 'equipment' + interest_str +
-    type_str + c_nc_str).data
+    type_str + c_pt_str).data
 var new_struc_data = eval(format_str + 'structure' + interest_str +
-    type_str + c_nc_str).data
+    type_str + c_pt_str).data
 
 equip_data['size'] = []
 equip_data['rate'] = []
 equip_data['hover'] = []
 equip_data['short_category'] = []
 for (var i = 0; i < new_equip_data['size'].length; i++) {
-    equip_data['size'].push(new_equip_data['size' + c_nc_str][i]);
+    equip_data['size'].push(new_equip_data['size' + c_pt_str][i]);
     equip_data['rate'].push(new_equip_data['rate'][i]);
     equip_data['hover'].push(new_equip_data['hover'][i]);
     equip_data['short_category'].push(new_equip_data['short_category'][i]);

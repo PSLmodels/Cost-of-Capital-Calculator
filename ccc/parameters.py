@@ -48,7 +48,7 @@ class Specification(paramtools.Parameters):
             # Find individual income tax rates from Tax-Calculator
             indiv_rates = get_rates(self.baseline, self.year,
                                     self.iit_reform, self.data)
-            self.tau_nc = indiv_rates['tau_nc']
+            self.tau_pt = indiv_rates['tau_pt']
             self.tau_div = indiv_rates['tau_div']
             self.tau_int = indiv_rates['tau_int']
             self.tau_scg = indiv_rates['tau_scg']
@@ -64,7 +64,7 @@ class Specification(paramtools.Parameters):
 
         '''
         self.financing_list = ['mix', 'd', 'e']
-        self.entity_list = ['c', 'nc']
+        self.entity_list = ['c', 'pt']
 
         # If new_view, then don't assume don't pay out any dividends
         # This becuase under new view, equity investments are financed
@@ -73,25 +73,25 @@ class Specification(paramtools.Parameters):
             self.m = 1
 
         # Get after-tax return to savers
-        self.s, E_nc = pf.calc_s(self)
+        self.s, E_pt = pf.calc_s(self)
 
         # Set rate of 1st layer of taxation on investment income
         self.u = {'c': self.CIT_rate}
-        if not self.PT_entity_tax_ind.all():
-            self.u['nc'] = self.tau_nc
+        if not self.pt_entity_tax_ind.all():
+            self.u['pt'] = self.tau_pt
         else:
-            self.u['nc'] = self.PT_entity_tax_rate
-        E_dict = {'c': self.E_c, 'nc': E_nc}
+            self.u['pt'] = self.pt_entity_tax_rate
+        E_dict = {'c': self.E_c, 'pt': E_pt}
 
         # Allowance for Corporate Equity
-        ace_dict = {'c': self.ace_c, 'nc': self.ace_nc}
+        ace_dict = {'c': self.ace_c, 'pt': self.ace_pt}
 
         # Limitation on interest deduction
-        int_haircut_dict = {'c': self.interest_deduct_haircut_corp,
-                            'nc': self.interest_deduct_haircut_PT}
+        int_haircut_dict = {'c': self.interest_deduct_haircut_c,
+                            'pt': self.interest_deduct_haircut_pt}
         # Debt financing ratios
         f_dict = {'c': {'mix': self.f_c, 'd': 1.0, 'e': 0.0},
-                  'nc': {'mix': self.f_nc, 'd': 1.0, 'e': 0.0}}
+                  'pt': {'mix': self.f_pt, 'd': 1.0, 'e': 0.0}}
 
         # Compute firm discount factors
         self.r = pf.calc_r(self, f_dict, int_haircut_dict, E_dict, ace_dict)
@@ -101,9 +101,9 @@ class Specification(paramtools.Parameters):
 
         # if no entity level taxes on pass-throughs, ensure mettr and metr
         # on non-corp entities the same
-        if not self.PT_entity_tax_ind:
+        if not self.pt_entity_tax_ind:
             for f in self.financing_list:
-                r_prime['nc'][f] = self.s['nc'][f] + self.inflation_rate
+                r_prime['pt'][f] = self.s['pt'][f] + self.inflation_rate
         # if entity level tax, assume distribute earnings at same rate corps
         # distribute dividends and these are taxed at dividends tax rate
         # (which seems likely).  Also implicitly assumed that if entity
@@ -112,8 +112,8 @@ class Specification(paramtools.Parameters):
         else:
             # keep debt and equity financing ratio the same even though now
             # entity level tax that might now favor debt
-            self.s['nc']['mix'] = (self.f_nc * self.s['nc']['d'] +
-                                   (1 - self.f_nc) * self.s['c']['e'])
+            self.s['pt']['mix'] = (self.f_pt * self.s['pt']['d'] +
+                                   (1 - self.f_pt) * self.s['c']['e'])
         self.r_prime = r_prime
 
         # Map string tax methods into multiple of declining balance

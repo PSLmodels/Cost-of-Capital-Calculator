@@ -92,7 +92,7 @@ def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={},
     rates_dict = {'tau_div': 'e00650', 'tau_int': 'e00300',
                   'tau_scg': 'p22250', 'tau_lcg': 'p23250'}
     individual_rates = {
-        'tau_nc': np.zeros(array_size), 'tau_div': np.zeros(array_size),
+        'tau_pt': np.zeros(array_size), 'tau_div': np.zeros(array_size),
         'tau_int': np.zeros(array_size), 'tau_scg': np.zeros(array_size),
         'tau_lcg': np.zeros(array_size), 'tau_td': np.zeros(array_size),
         'tau_h': np.zeros(array_size)}
@@ -123,7 +123,7 @@ def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={},
         [mtr_fica_prop, mtr_iit_prop, mtr_combined_prop] =\
             calc1.mtr('e18500')
         pos_ti = calc1.array("c04800") > 0
-        individual_rates['tau_nc'][year - start_year] = (
+        individual_rates['tau_pt'][year - start_year] = (
             (((mtr_iit_schC * np.abs(calc1.array("e00900p"))) +
               (mtr_iit_schE * np.abs(calc1.array("e02000") -
                                      calc1.array("e26270"))) +
