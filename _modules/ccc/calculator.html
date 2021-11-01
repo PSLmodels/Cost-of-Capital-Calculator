@@ -400,7 +400,7 @@
 
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">dfs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tax_treat&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;corporate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
-               <span class="s1">&#39;nc&#39;</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tax_treat&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;non-corporate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()}</span>
+               <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tax_treat&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;non-corporate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()}</span>
         <span class="c1"># separate into corp and non-corp dataframe here</span>
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__p</span><span class="o">.</span><span class="n">entity_list</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__p</span><span class="o">.</span><span class="n">financing_list</span><span class="p">:</span>
@@ -434,7 +434,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">__assets</span><span class="o">.</span><span class="n">df</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dp</span><span class="p">)</span>
         <span class="n">dfs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__assets</span><span class="o">.</span><span class="n">df</span><span class="p">[</span>
                <span class="bp">self</span><span class="o">.</span><span class="n">__assets</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tax_treat&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;corporate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
-               <span class="s1">&#39;nc&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__assets</span><span class="o">.</span><span class="n">df</span><span class="p">[</span>
+               <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__assets</span><span class="o">.</span><span class="n">df</span><span class="p">[</span>
                <span class="bp">self</span><span class="o">.</span><span class="n">__assets</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tax_treat&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;non-corporate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()}</span>
         <span class="c1"># separate into corp and non-corp dataframe here</span>
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__p</span><span class="o">.</span><span class="n">entity_list</span><span class="p">:</span>
@@ -1446,7 +1446,7 @@
 
         <span class="n">data_sources</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">df_i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">list_df</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;nc&#39;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;pt&#39;</span><span class="p">]:</span>
                 <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span>
                     <span class="n">df</span> <span class="o">=</span> <span class="n">df_i</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">df_i</span><span class="p">[</span><span class="n">df_i</span><span class="o">.</span><span class="n">tax_treat</span> <span class="o">!=</span>
                                         <span class="s1">&#39;corporate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
@@ -1683,10 +1683,10 @@
         <span class="c1"># add buttons</span>
         <span class="n">controls_callback</span> <span class="o">=</span> <span class="n">CustomJS</span><span class="p">(</span>
             <span class="n">args</span><span class="o">=</span><span class="n">data_sources</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="n">CONTROLS_CALLBACK_SCRIPT</span><span class="p">)</span>
-        <span class="n">c_nc_buttons</span> <span class="o">=</span> <span class="n">RadioButtonGroup</span><span class="p">(</span>
+        <span class="n">c_pt_buttons</span> <span class="o">=</span> <span class="n">RadioButtonGroup</span><span class="p">(</span>
             <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Corporate&#39;</span><span class="p">,</span> <span class="s1">&#39;Noncorporate&#39;</span><span class="p">],</span> <span class="n">active</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">c_nc_buttons</span><span class="o">.</span><span class="n">js_on_change</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">controls_callback</span><span class="p">)</span>
-        <span class="n">controls_callback</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;c_nc_buttons&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_nc_buttons</span>
+        <span class="n">c_pt_buttons</span><span class="o">.</span><span class="n">js_on_change</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">controls_callback</span><span class="p">)</span>
+        <span class="n">controls_callback</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;c_pt_buttons&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_pt_buttons</span>
         <span class="n">format_buttons</span> <span class="o">=</span> <span class="n">RadioButtonGroup</span><span class="p">(</span>
             <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Baseline&#39;</span><span class="p">,</span> <span class="s1">&#39;Reform&#39;</span><span class="p">,</span> <span class="s1">&#39;Change&#39;</span><span class="p">],</span> <span class="n">active</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">format_buttons</span><span class="o">.</span><span class="n">js_on_change</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">controls_callback</span><span class="p">)</span>
@@ -1708,7 +1708,7 @@
         <span class="n">tabs</span> <span class="o">=</span> <span class="n">Tabs</span><span class="p">(</span><span class="n">tabs</span><span class="o">=</span><span class="p">[</span><span class="n">tab</span><span class="p">,</span> <span class="n">tab2</span><span class="p">])</span>
         <span class="n">layout</span> <span class="o">=</span> <span class="n">gridplot</span><span class="p">(</span>
             <span class="n">children</span><span class="o">=</span><span class="p">[[</span><span class="n">tabs</span><span class="p">],</span>
-                      <span class="p">[</span><span class="n">c_nc_buttons</span><span class="p">,</span> <span class="n">interest_buttons</span><span class="p">],</span>
+                      <span class="p">[</span><span class="n">c_pt_buttons</span><span class="p">,</span> <span class="n">interest_buttons</span><span class="p">],</span>
                       <span class="p">[</span><span class="n">format_buttons</span><span class="p">,</span> <span class="n">type_buttons</span><span class="p">]]</span>
         <span class="p">)</span>
         <span class="c1"># layout = gridplot([p, p2], ncols=2, plot_width=250, plot_height=250)</span>

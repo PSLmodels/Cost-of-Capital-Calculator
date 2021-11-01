@@ -590,11 +590,11 @@ One may alter the macroeconomic assumptions regarding rates of interest and infl
 
 *Individual Income Taxation*: `Cost of Capital Calculator` has the ability to allow for changes in individual income tax rates on pass-through business income, interest, dividends, and capital gains. In addition, policies affecting the deductibility of property taxes or mortgage interest affect the after-tax costs of owner-occupied housing.  To find the effect of such policy changes on the marginal investor, `Cost of Capital Calculator `interacts with OSPC's `Tax-Calculator`. Once the reform policies are specified, the `Tax-Calculator` computes the marginal tax rates on non-corporate business income, dividend income, interest income, capital gains income, and tax-deferred retirement account income.  The rates we apply to the "marginal investor" in the model are then computed as:
 
-* $\tau_{nc}$ = weighted average marginal tax rate on ordinary, non-corporate business income (weighted by amount of non-corp business income)
+* $\tau_{pt}$ = weighted average marginal tax rate on ordinary, non-corporate business income (weighted by amount of non-corporate business income)
 * $\tau_{div}$ = weighted average marginal tax rate on dividend income (weighted by amount of dividend income received)
 * $\tau_{int}$ = weighted average of marginal tax rate on interest income (weighted by amount of interest income received)
-* $\tau_{scg}$ = weighted average of marginal tax rate on short term capital gains (weighted by amount of short term capital gains received)
-* $\tau_{lcg}$ = weighted average of marginal tax rate on long term capital gains (weighted by amount of long term capital gains received)
+* $\tau_{scg}$ = weighted average of marginal tax rate on short-term capital gains (weighted by amount of short-term capital gains received)
+* $\tau_{lcg}$ = weighted average of marginal tax rate on long-term capital gains (weighted by amount of long-term capital gains received)
 * $\tau_{xcg}$ = weighted average of marginal tax rate on capital gains held until death (weighted by amount of total capital gains received)
 * $\tau_{td}$ = weighted average of marginal tax rate on pension distributions (weighted by the amount of pension distributions)
 * $\tau_{h}$ = weighted average marginal tax rate on mortgage interest and property taxes (weighted by amounts of these deductions)

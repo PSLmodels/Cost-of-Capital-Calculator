@@ -524,7 +524,7 @@
 <span class="sd">            * s_dict (dict): dictionary of s for investments in</span>
 <span class="sd">                corporate and pass-through businesses and by type of</span>
 <span class="sd">                financing</span>
-<span class="sd">            * E_nc (scalar): required pre-tax return on pass-through</span>
+<span class="sd">            * E_pt (scalar): required pre-tax return on pass-through</span>
 <span class="sd">                investments</span>
 
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -543,10 +543,10 @@
                       <span class="n">p</span><span class="o">.</span><span class="n">nominal_interest_rate</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">inflation_rate</span><span class="p">)</span>
     <span class="c1"># The after-tax return on non-corporate debt investments made</span>
     <span class="c1"># through tax deferred accounts</span>
-    <span class="n">s_nc_d_td</span> <span class="o">=</span> <span class="n">s_c_d_td</span>
+    <span class="n">s_pt_d_td</span> <span class="o">=</span> <span class="n">s_c_d_td</span>
     <span class="c1"># The after-tax return on non-corporate debt investments</span>
-    <span class="n">s_nc_d</span> <span class="o">=</span> <span class="n">calc_s__d</span><span class="p">(</span><span class="n">s_nc_d_td</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">alpha_nc_d_ft</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">alpha_nc_d_td</span><span class="p">,</span>
-                       <span class="n">p</span><span class="o">.</span><span class="n">alpha_nc_d_nt</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_int</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_w</span><span class="p">,</span>
+    <span class="n">s_pt_d</span> <span class="o">=</span> <span class="n">calc_s__d</span><span class="p">(</span><span class="n">s_pt_d_td</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">alpha_pt_d_ft</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">alpha_pt_d_td</span><span class="p">,</span>
+                       <span class="n">p</span><span class="o">.</span><span class="n">alpha_pt_d_nt</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_int</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_w</span><span class="p">,</span>
                        <span class="n">p</span><span class="o">.</span><span class="n">nominal_interest_rate</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">inflation_rate</span><span class="p">)</span>
     <span class="c1"># The after-tax real, annualized return on short-term capital gains</span>
     <span class="n">g_scg</span> <span class="o">=</span> <span class="n">calc_g__g</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">Y_scg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_scg</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">m</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">E_c</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">inflation_rate</span><span class="p">)</span>
@@ -573,17 +573,17 @@
     <span class="c1"># equity combined)</span>
     <span class="n">s_c</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">f_c</span> <span class="o">*</span> <span class="n">s_c_d</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">f_c</span><span class="p">)</span> <span class="o">*</span> <span class="n">s_c_e</span>
     <span class="c1"># The required rate of return on non-corporate investments</span>
-    <span class="n">E_nc</span> <span class="o">=</span> <span class="n">s_c_e</span>
+    <span class="n">E_pt</span> <span class="o">=</span> <span class="n">s_c_e</span>
     <span class="c1"># The after-tax rate of return on non-corporate equity investments</span>
-    <span class="n">s_nc_e</span> <span class="o">=</span> <span class="n">E_nc</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_w</span>
+    <span class="n">s_pt_e</span> <span class="o">=</span> <span class="n">E_pt</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">tau_w</span>
     <span class="c1"># The after-tax return on non-corporate investments (all - debt and</span>
     <span class="c1"># equity combined)</span>
-    <span class="n">s_nc</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">f_nc</span> <span class="o">*</span> <span class="n">s_nc_d</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">f_nc</span><span class="p">)</span> <span class="o">*</span> <span class="n">s_nc_e</span>
+    <span class="n">s_pt</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">f_pt</span> <span class="o">*</span> <span class="n">s_pt_d</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">f_pt</span><span class="p">)</span> <span class="o">*</span> <span class="n">s_pt_e</span>
     <span class="c1"># Return the after-tax rates of return on all types of investments</span>
     <span class="n">s_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;mix&#39;</span><span class="p">:</span> <span class="n">s_c</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="n">s_c_d</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">:</span> <span class="n">s_c_e</span><span class="p">},</span>
-              <span class="s1">&#39;nc&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;mix&#39;</span><span class="p">:</span> <span class="n">s_nc</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="n">s_nc_d</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">:</span> <span class="n">s_nc_e</span><span class="p">}}</span>
+              <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;mix&#39;</span><span class="p">:</span> <span class="n">s_pt</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="n">s_pt_d</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">:</span> <span class="n">s_pt_e</span><span class="p">}}</span>
 
-    <span class="k">return</span> <span class="n">s_dict</span><span class="p">,</span> <span class="n">E_nc</span></div>
+    <span class="k">return</span> <span class="n">s_dict</span><span class="p">,</span> <span class="n">E_pt</span></div>
 
 
 <span class="k">def</span> <span class="nf">calc_r</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">f_dict</span><span class="p">,</span> <span class="n">int_haircut_dict</span><span class="p">,</span> <span class="n">E_dict</span><span class="p">,</span> <span class="n">ace_dict</span><span class="p">):</span>
