@@ -289,7 +289,8 @@ def calc_s(p):
     return s_dict, E_pt
 
 
-def calc_r(p, f_dict, int_haircut_dict, E_dict, ace_dict):
+def calc_r(u, nominal_int_rate, inflation_rate, ace_int_rate, f,
+           int_haircut, E, ace):
     r'''
     Compute firm nominal discount rates
 
@@ -297,36 +298,28 @@ def calc_r(p, f_dict, int_haircut_dict, E_dict, ace_dict):
         r_{m,j} = f_{m,j}\[i(1-u_{j}) - \pi\] + (1-f_{m,j})E_{j} + \pi
 
     Args:
-        p (CCC Specification Object): model parameters
-        f_dict (dict): dictionary of fraction of investments financed
-            with debt by entity type and financing method
-        int_haircut_dict (dict): dictionary of haircut to interest paid
-            deduction by entity type
-        E_dict (dict): dictionary of pre-tax required rate of return by
-            entity type
-        ace_dict (dict): dictionary of allowance for corporate equity
-            indicators by entity type
+        u (array_like): tax rate on business entity income
+        nominal_int_rate (array_like): nominal interest rate
+        inflation_rate (array_like): inflation rate
+        ace_int_rate (array_like): rate of return on equity that can
+            be deductions under allowance for corporate equity
+        f (array_like): fraction of investments financed with debt
+        int_haircut (array_like): haircut to interest paid deduction
+        E (array_like): dictionary of pre-tax required rate of return
+        ace (integer): allowance for corporate equity indicator
 
     Returns:
-        r (dict): nominal, discount rate by entity type and financing
-            method
+        r (array_like): nominal discount rate
     '''
-    r = {}
-    for t in p.entity_list:
-        r[t] = {}
-        for f in p.financing_list:
-            r[t][f] = (
-                f_dict[t][f] * (p.nominal_interest_rate *
-                                (1 - (1 - int_haircut_dict[t]) *
-                                 p.u[t])) + (1 - f_dict[t][f]) *
-                (E_dict[t] + p.inflation_rate - E_dict[t] *
-                 p.ace_int_rate * ace_dict[t])
-            )
+    r = (
+        f * (nominal_int_rate * (1 - (1 - int_haircut) * u)) + (1 - f) *
+        (E + inflation_rate - E * ace_int_rate * ace)
+        )
 
     return r
 
 
-def calc_r_prime(p, f_dict, E_dict):
+def calc_r_prime(nominal_int_rate, inflation_rate, f, E):
     r'''
     Compute firm nominal, after-tax rates of return
 
@@ -334,23 +327,16 @@ def calc_r_prime(p, f_dict, E_dict):
         r^{'}_{m,j} = f_{m,j}(i-\pi) + (1-f_{m,j})E_{j} + \pi
 
     Args:
-        p (CCC Specification Object): model parameters
-        f_dict (dict): dictionary of fraction of investments financed
-            with debt by entity type and financing method
-        E_dict (dict): dictionary of pre-tax required rate of return by
-            entity type
+        nominal_int_rate (array_like): nominal interest rate
+        inflation_rate (array_like): inflation rate
+        f (array_like): fraction of investments financed with debt
+        E (array_like): dictionary of pre-tax required rate of return
 
     Returns:
-        r_prime (dict): nominal, after-tax rate of return by entity type
-            and financing method
+        r_prime (array_like): nominal after-tax rate of return
     '''
-    r_prime = {}
-    for t in p.entity_list:
-        r_prime[t] = {}
-        for f in p.financing_list:
-            r_prime[t][f] = (
-                f_dict[t][f] * p.nominal_interest_rate +
-                (1 - f_dict[t][f]) * (E_dict[t] + p.inflation_rate)
-            )
+    r_prime = (
+        f * nominal_int_rate + (1 - f) * (E + inflation_rate)
+        )
 
     return r_prime

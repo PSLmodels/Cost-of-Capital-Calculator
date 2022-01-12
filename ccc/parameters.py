@@ -67,7 +67,7 @@ class Specification(paramtools.Parameters):
         self.entity_list = ['c', 'pt']
 
         # If new_view, then don't assume don't pay out any dividends
-        # This becuase under new view, equity investments are financed
+        # This because under new view, equity investments are financed
         # with retained earnings
         if self.new_view:
             self.m = 1
@@ -94,10 +94,32 @@ class Specification(paramtools.Parameters):
                   'pt': {'mix': self.f_pt, 'd': 1.0, 'e': 0.0}}
 
         # Compute firm discount factors
-        self.r = pf.calc_r(self, f_dict, int_haircut_dict, E_dict, ace_dict)
+        self.r = {}
+        for t in self.entity_list:
+            self.r[t] = {}
+            for f in self.financing_list:
+                self.r[t][f] = pf.calc_r(
+                    self.u[t],
+                    self.nominal_interest_rate,
+                    self.inflation_rate,
+                    self.ace_int_rate,
+                    f_dict[t][f],
+                    int_haircut_dict[t],
+                    E_dict[t],
+                    ace_dict[t]
+                )
 
         # Compute firm after-tax rates of return
-        r_prime = pf.calc_r_prime(self, f_dict, E_dict)
+        r_prime = {}
+        for t in self.entity_list:
+            r_prime[t] = {}
+            for f in self.financing_list:
+                r_prime[t][f] = pf.calc_r_prime(
+                    self.nominal_interest_rate,
+                    self.inflation_rate,
+                    f_dict[t][f],
+                    E_dict[t]
+                    )
 
         # if no entity level taxes on pass-throughs, ensure mettr and metr
         # on non-corp entities the same
