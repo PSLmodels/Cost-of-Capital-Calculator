@@ -148,7 +148,20 @@ def test_calc_r(p, expected_dict):
     E_dict = {'c': p.E_c, 'pt': 0.07}
     print('E dict = ', E_dict)
     ace_dict = {'c': p.ace_c, 'pt': p.ace_pt}
-    test_dict = pf.calc_r(p, f_dict, int_haircut_dict, E_dict, ace_dict)
+    test_dict = {}
+    for t in p.entity_list:
+        test_dict[t] = {}
+        for f in p.financing_list:
+            test_dict[t][f] = pf.calc_r(
+                p.u[t],
+                p.nominal_interest_rate,
+                p.inflation_rate,
+                p.ace_int_rate,
+                f_dict[t][f],
+                int_haircut_dict[t],
+                E_dict[t],
+                ace_dict[t]
+                )
 
     for k, v in test_dict.items():
         for k2, v2 in v.items():
@@ -172,7 +185,16 @@ def test_calc_rprime(p, expected_dict):
     f_dict = {'c': {'mix': p.f_c, 'd': 1.0, 'e': 0.0},
               'pt': {'mix': p.f_pt, 'd': 1.0, 'e': 0.0}}
     E_dict = {'c': p.E_c, 'pt': 0.07}
-    test_dict = pf.calc_r_prime(p, f_dict, E_dict)
+    test_dict = {}
+    for t in p.entity_list:
+        test_dict[t] = {}
+        for f in p.financing_list:
+            test_dict[t][f] = pf.calc_r_prime(
+                p.nominal_interest_rate,
+                p.inflation_rate,
+                f_dict[t][f],
+                E_dict[t]
+            )
 
     for k, v in test_dict.items():
         for k2, v2 in v.items():
