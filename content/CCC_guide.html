@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Overview and Assumptions &#8212; Cost-of-Capital-Calculator</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -31,32 +31,37 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="License" href="license.html" />
     <link rel="prev" title="CCC utility functions" href="api/utils.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -95,7 +100,7 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   CCC Example
  </span>
@@ -107,7 +112,7 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Web Application
  </span>
@@ -119,7 +124,7 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Contributing to CCC
  </span>
@@ -131,7 +136,7 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   CCC API
  </span>
@@ -185,7 +190,7 @@
   </ul>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   CCC Guide
  </span>
@@ -197,7 +202,7 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   About
  </span>
@@ -209,7 +214,7 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   References
  </span>
@@ -221,7 +226,7 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Citations of CCC
  </span>
@@ -278,7 +283,7 @@
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -312,7 +317,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -468,14 +473,173 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Overview and Assumptions</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Overview and Assumptions
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-cost-of-capital">
+   The Cost of Capital
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#marginal-effective-tax-rates">
+   Marginal Effective Tax Rates
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modifications-to-the-metr-calculations-for-certain-assets">
+     Modifications to the METR Calculations for Certain Assets
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#inventories">
+       Inventories
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#land">
+       Land
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#owner-occupied-housing">
+       Owner-Occupied Housing
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#marginal-effective-total-tax-rates">
+   Marginal Effective Total Tax Rates
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#effective-average-tax-rates">
+   Effective Average Tax Rates
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#computing-after-tax-capital-gains">
+     Computing After-Tax Capital Gains
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#computing-fixed-assets-by-industry-and-entity-type">
+   Computing Fixed Assets by Industry and Entity Type
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#handling-varying-industry-specificity-between-bea-and-soi-data">
+     Handling Varying Industry Specificity Between BEA and SOI Data
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#soi-data-by-entity-type">
+     SOI Data by Entity Type
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#c-and-s-corporation-data">
+       C and S Corporation Data
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#partnership-data">
+       Partnership Data
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#sole-proprietorships">
+       Sole Proprietorships
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sec-land">
+   Land
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sec-inventories">
+   Inventories
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parameterization">
+   Parameterization
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#nominal-discount-rates">
+     Nominal Discount Rates
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#measuring-debt-by-industry-and-tax-treatment">
+       Measuring Debt by Industry and Tax Treatment
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#npv-of-depreciation-deductions">
+     NPV of Depreciation Deductions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#user-inputs">
+   User Inputs
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#economic-parameters">
+     Economic Parameters
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tax-policy-parameters">
+     Tax Policy Parameters
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="overview-and-assumptions">
 <span id="overview"></span><h1>Overview and Assumptions<a class="headerlink" href="#overview-and-assumptions" title="Permalink to this headline">¶</a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">Cost</span> <span class="pre">of</span> <span class="pre">Capital</span> <span class="pre">Calculator</span></code> model produces estimates of the marginal effective tax rates on new investment under the baseline tax policy and user-specified tax reforms.  These effective rate calculations take two forms.  The <em>marginal effective tax rate</em> (METR) provides the tax wedge on new investment at the level of the business entity.  The <em>marginal effective total tax rate</em> (METTR) includes individual level taxes in the measure of the tax wedge on new investment.  One can think of the former as indicating the effect of taxes on incentives to invest from the perspective of the firm and the latter as representing effect of taxes on incentives to invest from the perspective of the saver.</p>
-<p>As <span id="id1">[<a class="reference internal" href="references.html#id4">Ful99</a>]</span> notes, calculations of METRs depend on several assumptions.  These include those relating to equilibrium in capital markets. discount rates, inflation rates, investor expectations, churning, how investments are financed, how risk is treated, and whether one believes the “old view” or “new view” of dividend taxes better represents investment incentives.  <code class="docutils literal notranslate"><span class="pre">Cost</span> <span class="pre">of</span> <span class="pre">Capital</span> <span class="pre">Calculator</span></code>’s equilibrium assumptions include the assumption that the marginal investment earns an after-tax rate of return equal to the market rate of return, returns across asset types are equalized, investors’ risk-adjusted returns from debt and equity are equalized.  Real discount rates and inflation rates are taken from the Congressional Budget Offices forecasts of nominal interest rates and inflation.  <code class="docutils literal notranslate"><span class="pre">Cost</span> <span class="pre">of</span> <span class="pre">Capital</span> <span class="pre">Calculator</span></code> assumes no uncertainty in investment returns.  We use historical data on the time equities are held and how investment is financed to inform effective tax rates on capital gains and financial policy decisions, respectively.  <code class="docutils literal notranslate"><span class="pre">Cost</span> <span class="pre">of</span> <span class="pre">Capital</span> <span class="pre">Calculator</span></code> assumes the “old view” of dividend taxation in our calculations of the METTRs, implying that dividend taxes affect investment incentives.</p>
-<p>The methodology to calculate METRs and METTRs follows closely <span id="id2">[<a class="reference internal" href="references.html#id5">OB06</a>]</span>.</p>
+<p>As <span id="id1">[<a class="reference internal" href="references.html#id4" title="Don Fullerton. Marginal effective tax rate. Technical Report, Urban Institute, October 1999. doi:.">Ful99</a>]</span> notes, calculations of METRs depend on several assumptions.  These include those relating to equilibrium in capital markets. discount rates, inflation rates, investor expectations, churning, how investments are financed, how risk is treated, and whether one believes the “old view” or “new view” of dividend taxes better represents investment incentives.  <code class="docutils literal notranslate"><span class="pre">Cost</span> <span class="pre">of</span> <span class="pre">Capital</span> <span class="pre">Calculator</span></code>’s equilibrium assumptions include the assumption that the marginal investment earns an after-tax rate of return equal to the market rate of return, returns across asset types are equalized, investors’ risk-adjusted returns from debt and equity are equalized.  Real discount rates and inflation rates are taken from the Congressional Budget Offices forecasts of nominal interest rates and inflation.  <code class="docutils literal notranslate"><span class="pre">Cost</span> <span class="pre">of</span> <span class="pre">Capital</span> <span class="pre">Calculator</span></code> assumes no uncertainty in investment returns.  We use historical data on the time equities are held and how investment is financed to inform effective tax rates on capital gains and financial policy decisions, respectively.  <code class="docutils literal notranslate"><span class="pre">Cost</span> <span class="pre">of</span> <span class="pre">Capital</span> <span class="pre">Calculator</span></code> assumes the “old view” of dividend taxation in our calculations of the METTRs, implying that dividend taxes affect investment incentives.</p>
+<p>The methodology to calculate METRs and METTRs follows closely <span id="id2">[<a class="reference internal" href="references.html#id5" title="Larry Ozanne and Paul Burnham. Computing Effective Tax Rates on Capital Income. Technical Report, Congressional Budget Office, December 2006. doi:.">OB06</a>]</span>.</p>
 <p>One should note that these METR and METTR calculations include only federal tax policy (current law or the user specified proposal) and therefore exclude the effects of state and local tax policy on investment incentives.  Integrating such policies is a worthwhile project, but the results here are generally sufficient for comparing alternative federal tax proposals.</p>
 <p>This guide is organized as follows.  Section <a class="reference internal" href="#sec-metr"><span class="std std-ref">Marginal Effective Tax Rates</span></a> and Section <a class="reference internal" href="#sec-mettr"><span class="std std-ref">Marginal Effective Total Tax Rates</span></a> describe how the cost of capital and effective tax rates are computed.  Next, we describe how we measure fixed assets by asset type, industry, and tax treatment in Section <a class="reference internal" href="#sec-assets"><span class="std std-ref">Computing Fixed Assets by Industry and Entity Type</span></a>.  The methodology to allocate land and inventories across industry and tax treatment is described in Sections <a class="reference internal" href="#sec-land"><span class="std std-ref">Land</span></a> and <a class="reference internal" href="#sec-inventories"><span class="std std-ref">Inventories</span></a>.  Finally, we discuss how the values of the model parameters are determined in Section <a class="reference internal" href="#sec-params"><span class="std std-ref">User Inputs</span></a>.</p>
 </div>
@@ -564,7 +728,7 @@ The after-tax rate of return is given by:</p>
 </div>
 <div class="tex2jax_ignore mathjax_ignore section" id="effective-average-tax-rates">
 <span id="sec-eatr"></span><h1>Effective Average Tax Rates<a class="headerlink" href="#effective-average-tax-rates" title="Permalink to this headline">¶</a></h1>
-<p>Some investment decisions are discrete: build the new plant or not, pursue this R&amp;D effort or another, and so on.  For discrete investment decisions, firms will compare the after tax rates of returns each of the possible choices.  In such cases, the relevant measure of the impact of the tax system on their investment choices will be measured by the effective average tax rate (<span class="math notranslate nohighlight">\(EATR\)</span>).  <span id="id4">[<a class="reference internal" href="references.html#id3">DG03</a>]</span> propose a forward  measure of the EATR, which the <code class="docutils literal notranslate"><span class="pre">Cost-of-Capital-Calculator</span></code> also produces estimates.  The <span class="math notranslate nohighlight">\(EATR\)</span> is computed as:</p>
+<p>Some investment decisions are discrete: build the new plant or not, pursue this R&amp;D effort or another, and so on.  For discrete investment decisions, firms will compare the after tax rates of returns each of the possible choices.  In such cases, the relevant measure of the impact of the tax system on their investment choices will be measured by the effective average tax rate (<span class="math notranslate nohighlight">\(EATR\)</span>).  <span id="id4">[<a class="reference internal" href="references.html#id3" title="Michael P Devereux and Rachel Griffith. Evaluating Tax Policy for Location Decisions. International Tax and Public Finance, 10(2):107-126, March 2003. URL: https://ideas.repec.org/a/kap/itaxpf/v10y2003i2p107-26.html, doi:.">DG03</a>]</span> propose a forward  measure of the EATR, which the <code class="docutils literal notranslate"><span class="pre">Cost-of-Capital-Calculator</span></code> also produces estimates.  The <span class="math notranslate nohighlight">\(EATR\)</span> is computed as:</p>
 <div class="math notranslate nohighlight" id="equation-eqn-eatr">
 <span class="eqno">(15)<a class="headerlink" href="#equation-eqn-eatr" title="Permalink to this equation">¶</a></span>\[EATR = \left(\frac{p_{i,m,j} - rho_{i,m,j}}{p_{i,m,j}}\right)u_{j} + \left(\frac{\rho_{i,m,j}}{p_{i,m,j}}\right)METR_{i,m,j},\]</div>
 <p>where <span class="math notranslate nohighlight">\(p_{i,m,j}\)</span> is the rate of profit on the project.  Note that the <span class="math notranslate nohighlight">\(EATR\)</span> is equal to the <span class="math notranslate nohighlight">\(METR\)</span> for marginal projects - those who’s rate of profit is equal to the cost of capital.</p>
@@ -987,54 +1151,42 @@ The after-tax rate of return is given by:</p>
 
               </div>
               
-        
             
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="api/utils.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">CCC utility functions</p>
-            </div>
-        </a>
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="api/utils.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">CCC utility functions</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="license.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">License</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="license.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">License</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Jason DeBacker<br/>
-        
-            &copy; Copyright 2020.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By Jason DeBacker<br/>
+    
+        &copy; Copyright 2020.<br/>
+  </p>
+</footer>
 </main>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>
