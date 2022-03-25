@@ -18,7 +18,7 @@ config = {
     'license': 'CC0 1.0 Universal (CC0 1.0) Public Domain Dedication',
     'packages': ['ccc'],
     'include_package_data': True,
-    'name': 'ccc',
+    'name': 'cost-of-capital-calculator',
     'install_requires': ['taxcalc', 'psutil', 'pandas', 'bokeh', 'numpy',
                          'paramtools'],
     'classifiers': [
