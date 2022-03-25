@@ -43,6 +43,9 @@ class Calculator():
         p (CCC Specifications class object): contains parameters, this
             argument must be specified and object is copied for internal
             use
+        dp (CCC Depreciation Parameters class object): contains parameters
+            descripting depreciation rules for each asset, this argument
+            must be specified and object is copied for internal use
         assets (CCC Assets class object): contains asset data, this
             argument must be specified and object is copied for
             internal use
