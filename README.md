@@ -14,7 +14,7 @@ The `ccc` package can be installed with Anaconda via:
 
 or with PyPI via:
 
-```pip install ccc ```
+```pip install cost-of-capital-calculator ```
 
 ## Disclaimer
 Results will change as the underlying models improve. A fundamental reason for adopting open source methods in this project is so that people from all backgrounds can contribute to the models that our society uses to assess economic policy; when community-contributed improvements are incorporated, the model will produce different results.
