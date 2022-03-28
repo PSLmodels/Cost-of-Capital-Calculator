@@ -6,6 +6,8 @@ import os
 import json
 import pandas as pd
 
+PACKAGE_NAME = 'cost_of_capital_calculator'
+
 # Default year for model runs
 DEFAULT_START_YEAR = 2022
 
@@ -55,7 +57,7 @@ def str_modified(i):
 
 def diff_two_tables(df1, df2):
     '''
-    Create the difference betweeen two dataframes.
+    Create the difference between two dataframes.
 
     Args:
         df1 (Pandas DataFrame): first DataFrame in difference
@@ -117,10 +119,10 @@ def read_egg_csv(fname, index_col=None):
         vdf (Pandas DataFrame): data from csv file
     '''
     try:
-        path_in_egg = os.path.join('ccc', fname)
+        path_in_egg = os.path.join(PACKAGE_NAME, fname)
         vdf = pd.read_csv(
             pkg_resources.resource_stream(
-                pkg_resources.Requirement.parse('ccc'),
+                pkg_resources.Requirement.parse(PACKAGE_NAME),
                 path_in_egg),
             index_col=index_col
         )
@@ -143,10 +145,10 @@ def read_egg_json(fname):
 
     '''
     try:
-        path_in_egg = os.path.join('ccc', fname)
+        path_in_egg = os.path.join(PACKAGE_NAME, fname)
         pdict = json.loads(
             pkg_resources.resource_stream(
-                pkg_resources.Requirement.parse('ccc'),
+                pkg_resources.Requirement.parse(PACKAGE_NAME),
                 path_in_egg).read().decode('utf-8'),
             object_pairs_hook=OrderedDict
         )
