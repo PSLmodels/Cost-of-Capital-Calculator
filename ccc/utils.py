@@ -120,6 +120,7 @@ def read_egg_csv(fname, index_col=None):
     '''
     # try:
     path_in_egg = os.path.join(PACKAGE_NAME, fname)
+    print('PATH IN EGG = ', path_in_egg)
     vdf = pd.read_csv(
         pkg_resources.resource_stream(
             pkg_resources.Requirement.parse(PACKAGE_NAME),
