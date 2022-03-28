@@ -6,7 +6,7 @@ import os
 import json
 import pandas as pd
 
-PACKAGE_NAME = 'cost_of_capital_calculator'
+PACKAGE_NAME = 'ccc'
 
 # Default year for model runs
 DEFAULT_START_YEAR = 2022
@@ -118,16 +118,16 @@ def read_egg_csv(fname, index_col=None):
     Returns:
         vdf (Pandas DataFrame): data from csv file
     '''
-    try:
-        path_in_egg = os.path.join(PACKAGE_NAME, fname)
-        vdf = pd.read_csv(
-            pkg_resources.resource_stream(
-                pkg_resources.Requirement.parse(PACKAGE_NAME),
-                path_in_egg),
-            index_col=index_col
-        )
-    except Exception:
-        raise ValueError('could not read {} data from egg'.format(fname))
+    # try:
+    path_in_egg = os.path.join(PACKAGE_NAME, fname)
+    vdf = pd.read_csv(
+        pkg_resources.resource_stream(
+            pkg_resources.Requirement.parse(PACKAGE_NAME),
+            path_in_egg),
+        index_col=index_col
+    )
+    # except Exception:
+    #     raise ValueError('could not read {} data from egg'.format(fname))
     # cannot call read_egg_ function in unit tests
     return vdf  # pragma: no cover
 
