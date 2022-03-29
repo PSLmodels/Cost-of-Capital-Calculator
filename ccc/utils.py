@@ -6,7 +6,7 @@ import os
 import json
 import pandas as pd
 
-PACKAGE_NAME = 'ccc'
+PACKAGE_NAME = 'cost-of-capital-calculator'
 
 # Default year for model runs
 DEFAULT_START_YEAR = 2022
