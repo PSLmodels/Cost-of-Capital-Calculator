@@ -125,7 +125,7 @@ def read_egg_csv(fname, index_col=None):
     print("DIR CONTENTS = ", os.listdir(os.path.join(PACKAGE_NAME)))
     vdf = pd.read_csv(
         pkg_resources.resource_stream(
-            pkg_resources.Requirement.parse(PACKAGE_NAME),
+            pkg_resources.Requirement.parse('cost-of-capital-calculator'),
             path_in_egg),
         index_col=index_col
     )
