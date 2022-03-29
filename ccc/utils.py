@@ -6,7 +6,7 @@ import os
 import json
 import pandas as pd
 
-PACKAGE_NAME = 'cost-of-capital-calculator'
+PACKAGE_NAME = 'ccc'
 
 # Default year for model runs
 DEFAULT_START_YEAR = 2022
@@ -122,7 +122,7 @@ def read_egg_csv(fname, index_col=None):
     path_in_egg = os.path.join(PACKAGE_NAME, fname)
     print('PATH IN EGG = ', path_in_egg)
     print("DIR CONTENTS = ", os.listdir())
-    print("DIR CONTENTS = ", os.path.join(PACKAGE_NAME))
+    print("DIR CONTENTS = ", os.listdir(os.path.join(PACKAGE_NAME)))
     vdf = pd.read_csv(
         pkg_resources.resource_stream(
             pkg_resources.Requirement.parse(PACKAGE_NAME),
