@@ -7,6 +7,7 @@ import json
 import pandas as pd
 
 PACKAGE_NAME = 'ccc'
+PYPI_PACKAGE_NAME = 'cost-of-capital-calculator'
 
 # Default year for model runs
 DEFAULT_START_YEAR = 2022
@@ -120,17 +121,15 @@ def read_egg_csv(fname, index_col=None):
     '''
     # try:
     path_in_egg = os.path.join(PACKAGE_NAME, fname)
-    print('PATH IN EGG = ', path_in_egg)
-    print("DIR CONTENTS = ", os.listdir())
-    print("DIR CONTENTS = ", os.listdir(os.path.join(PACKAGE_NAME)))
-    vdf = pd.read_csv(
-        pkg_resources.resource_stream(
-            pkg_resources.Requirement.parse('cost-of-capital-calculator'),
-            path_in_egg),
-        index_col=index_col
-    )
-    # except Exception:
-    #     raise ValueError('could not read {} data from egg'.format(fname))
+    try:
+        vdf = pd.read_csv(
+            pkg_resources.resource_stream(
+                pkg_resources.Requirement.parse(PYPI_PACKAGE_NAME),
+                path_in_egg),
+            index_col=index_col
+        )
+    except Exception:
+        raise ValueError('could not read {} data from egg'.format(fname))
     # cannot call read_egg_ function in unit tests
     return vdf  # pragma: no cover
 
@@ -151,7 +150,7 @@ def read_egg_json(fname):
         path_in_egg = os.path.join(PACKAGE_NAME, fname)
         pdict = json.loads(
             pkg_resources.resource_stream(
-                pkg_resources.Requirement.parse(PACKAGE_NAME),
+                pkg_resources.Requirement.parse(PYPI_PACKAGE_NAME),
                 path_in_egg).read().decode('utf-8'),
             object_pairs_hook=OrderedDict
         )
