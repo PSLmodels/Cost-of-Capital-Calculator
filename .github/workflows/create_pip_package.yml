@@ -1,4 +1,5 @@
-  name: Publish package to PyPI
+name: Publish package to PyPI
+
 on:
   push:
     branches:
