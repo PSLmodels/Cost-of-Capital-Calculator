@@ -5,8 +5,8 @@ on:
     branches:
       - master
 
-publish:
-    needs: build
+jobs:
+  deploy:
     name: Publish to PyPI
     if: github.repository == 'PSLmodels/Cost-of-Capital-Calculator'
     runs-on: ubuntu-latest
