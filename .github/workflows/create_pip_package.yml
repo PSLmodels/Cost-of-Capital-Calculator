@@ -5,30 +5,23 @@ on:
     branches:
       - master
 
-jobs:
-  build:
+publish:
+    needs: build
+    name: Publish to PyPI
+    if: github.repository == 'PSLmodels/Cost-of-Capital-Calculator'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.9]
-
-  publish:
-     needs: build
-     name: Publish to PyPI
-     if: github.repository == 'PSLmodels/Cost-of-Capital-Calculator'
-     runs-on: ubuntu-latest
-     steps:
-       - name: Checkout repo
-         uses: actions/checkout@v2
-       - name: Setup Python
-         uses: actions/setup-python@v2
-         with:
-           python-version: 3.9
-       - name: Build package
-         run: make pip-package
-       - name: Publish a Python distribution to PyPI
-         uses: pypa/gh-action-pypi-publish@release/v1
-         with:
-           user: jdebacker
-           password: ${{ secrets.PYPI }}
-           skip_existing: true
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Build package
+        run: make pip-package
+      - name: Publish a Python distribution to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: jdebacker
+          password: ${{ secrets.PYPI }}
+          skip_existing: true
