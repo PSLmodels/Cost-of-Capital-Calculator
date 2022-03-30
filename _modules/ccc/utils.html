@@ -325,6 +325,9 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
+<span class="n">PACKAGE_NAME</span> <span class="o">=</span> <span class="s1">&#39;ccc&#39;</span>
+<span class="n">PYPI_PACKAGE_NAME</span> <span class="o">=</span> <span class="s1">&#39;cost-of-capital-calculator&#39;</span>
+
 <span class="c1"># Default year for model runs</span>
 <span class="n">DEFAULT_START_YEAR</span> <span class="o">=</span> <span class="mi">2022</span>
 
@@ -374,7 +377,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 <div class="viewcode-block" id="diff_two_tables"><a class="viewcode-back" href="../../content/api/utils.html#ccc.utils.diff_two_tables">[docs]</a><span class="k">def</span> <span class="nf">diff_two_tables</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Create the difference betweeen two dataframes.</span>
+<span class="sd">    Create the difference between two dataframes.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        df1 (Pandas DataFrame): first DataFrame in difference</span>
@@ -435,11 +438,12 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">    Returns:</span>
 <span class="sd">        vdf (Pandas DataFrame): data from csv file</span>
 <span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># try:</span>
+    <span class="n">path_in_egg</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PACKAGE_NAME</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">path_in_egg</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;ccc&#39;</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
         <span class="n">vdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
             <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_stream</span><span class="p">(</span>
-                <span class="n">pkg_resources</span><span class="o">.</span><span class="n">Requirement</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;ccc&#39;</span><span class="p">),</span>
+                <span class="n">pkg_resources</span><span class="o">.</span><span class="n">Requirement</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">PYPI_PACKAGE_NAME</span><span class="p">),</span>
                 <span class="n">path_in_egg</span><span class="p">),</span>
             <span class="n">index_col</span><span class="o">=</span><span class="n">index_col</span>
         <span class="p">)</span>
@@ -462,10 +466,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">path_in_egg</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;ccc&#39;</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+        <span class="n">path_in_egg</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PACKAGE_NAME</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
         <span class="n">pdict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span>
             <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_stream</span><span class="p">(</span>
-                <span class="n">pkg_resources</span><span class="o">.</span><span class="n">Requirement</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;ccc&#39;</span><span class="p">),</span>
+                <span class="n">pkg_resources</span><span class="o">.</span><span class="n">Requirement</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">PYPI_PACKAGE_NAME</span><span class="p">),</span>
                 <span class="n">path_in_egg</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span>
             <span class="n">object_pairs_hook</span><span class="o">=</span><span class="n">OrderedDict</span>
         <span class="p">)</span>

@@ -1193,7 +1193,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="c1"># Append dfs together so base policies in one</span>
         <span class="n">base_df</span><span class="p">[</span><span class="s1">&#39;policy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Baseline&#39;</span>
         <span class="n">reform_df</span><span class="p">[</span><span class="s1">&#39;policy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Reform&#39;</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">base_df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">reform_df</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">base_df</span><span class="p">,</span> <span class="n">reform_df</span><span class="p">])</span>
         <span class="c1"># Drop corporate or non-corporate per arguments</span>
         <span class="k">if</span> <span class="n">corporate</span><span class="p">:</span>
             <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">tax_treat</span> <span class="o">==</span> <span class="s1">&#39;non-corporate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
