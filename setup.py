@@ -6,7 +6,7 @@ except ImportError:
 with open('README.md') as f:
     longdesc = f.read()
 
-version = '1.2.9'
+version = '1.2.10'
 
 config = {
     'description': 'CCC: A Cost of Capital Calculator',
@@ -33,6 +33,7 @@ config = {
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Topic :: Software Development :: Libraries :: Python Modules'],
     'tests_require': ['pytest']
 }

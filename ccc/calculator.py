@@ -874,7 +874,7 @@ class Calculator():
         # Append dfs together so base policies in one
         base_df['policy'] = 'Baseline'
         reform_df['policy'] = 'Reform'
-        df = base_df.append(reform_df)
+        df = pd.concat([base_df, reform_df])
         # Drop corporate or non-corporate per arguments
         if corporate:
             df.drop(df[df.tax_treat == 'non-corporate'].index,
