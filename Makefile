@@ -70,5 +70,5 @@ git-pr:
 	@./gitpr $(N)
 
 pip-package:
- 	pip install wheel
- 	python setup.py sdist bdist_wheel
+	pip install wheel
+	python setup.py sdist bdist_wheel
