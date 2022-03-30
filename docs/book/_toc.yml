@@ -1,5 +1,5 @@
 format: jb-book
-root: ../../README
+root: content/intro
 parts:
 - caption: CCC Example
   chapters:
