@@ -46,7 +46,6 @@ def update_depr_methods(df, p, dp):
                                                 'ADS_life']
     df.loc[df['system'] == 'GDS', 'Y'] = df.loc[df['system'] == 'GDS',
                                                 'GDS_life']
-    df.to_csv('check_of_merge.csv')
     return df
 
 
@@ -186,13 +185,6 @@ def eq_coc(delta, z, w, u, inv_tax_credit, pi, r):
     '''
     rho = (((r - pi + delta) / (1 - u)) *
            (1 - inv_tax_credit - u * z) + w - delta)
-
-    if ENFORCE_CHECKS and np.any(rho <= 0):
-        print('Error raised')
-        err = ('The cost of capital is less than or equal to zero in ' +
-               'at least one case. Please try alternative parameter ' +
-               'values to ensure a cost of capital that is positive.')
-        raise RuntimeError(err)
 
     return rho
 
