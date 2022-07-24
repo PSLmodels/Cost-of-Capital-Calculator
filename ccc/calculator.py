@@ -206,8 +206,14 @@ class Calculator():
             major_asset_df['major_asset_group']
         major_asset_df['asset_name'] = major_asset_df['major_asset_group']
         major_asset_df = self.calc_other(major_asset_df)
-        # Can put some if statements here if want to exclude land/inventory/etc
-        overall_df = pd.DataFrame(self.__assets.df.groupby(
+        # Drop land and inventories if conditions met
+        df1 = self.__assets.df
+        if not include_land:
+            df1.drop(df1[df1.asset_name == 'Land'].index, inplace=True)
+        if not include_inventories:
+            df1.drop(df1[df1.asset_name == 'Inventories'].index,
+                     inplace=True)
+        overall_df = pd.DataFrame(df1.groupby(
             ['tax_treat']).apply(self.__f)).reset_index()
         overall_df['major_asset_group'] = 'Overall'
         overall_df['minor_asset_group'] = 'Overall'
