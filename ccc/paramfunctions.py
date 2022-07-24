@@ -295,7 +295,7 @@ def calc_r(u, nominal_int_rate, inflation_rate, ace_int_rate, f,
     Compute firm nominal discount rates
 
     ..math::
-        r_{m,j} = f_{m,j}\[i(1-u_{j}) - \pi\] + (1-f_{m,j})E_{j} + \pi
+        r_{m,j} = f_{m,j}\[i(1-(1-i_{hc})u_{j})] + (1-f_{m,j})(E_{j} + \pi - ACE_{j})
 
     Args:
         u (array_like): tax rate on business entity income
@@ -313,7 +313,7 @@ def calc_r(u, nominal_int_rate, inflation_rate, ace_int_rate, f,
     '''
     r = (
         f * (nominal_int_rate * (1 - (1 - int_haircut) * u)) + (1 - f) *
-        (E + inflation_rate - E * ace_int_rate * ace)
+        (E + inflation_rate - ace_int_rate * ace)
         )
 
     return r
