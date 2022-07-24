@@ -158,6 +158,7 @@ def npv_tax_depr(df, r, pi, land_expensing):
     idx = df['asset_name'] == 'Inventories'
     df.loc[idx, 'z'] = 0.0  # not sure why I have to do this with changes
     z = df['z']
+
     return z
 
 

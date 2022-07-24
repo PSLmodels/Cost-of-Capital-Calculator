@@ -1761,7 +1761,7 @@ class Calculator():
 
     def __f(self, x):
         '''
-        Private method.  A fuction to compute sums and weighted averages
+        Private method.  A function to compute sums and weighted averages
         from a groubpy object.
 
         Args:
@@ -1780,6 +1780,7 @@ class Calculator():
         d['z_mix'] = wavg(x, 'z_mix', 'assets')
         d['z_d'] = wavg(x, 'z_d', 'assets')
         d['z_e'] = wavg(x, 'z_e', 'assets')
+        d['Y'] = wavg(x, 'Y', 'assets')
 
         return pd.Series(d, index=['assets', 'delta', 'rho_mix', 'rho_d',
-                                   'rho_e', 'z_mix', 'z_d', 'z_e'])
+                                   'rho_e', 'z_mix', 'z_d', 'z_e', 'Y'])
