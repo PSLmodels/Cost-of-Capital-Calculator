@@ -206,8 +206,14 @@ class Calculator():
             major_asset_df['major_asset_group']
         major_asset_df['asset_name'] = major_asset_df['major_asset_group']
         major_asset_df = self.calc_other(major_asset_df)
-        # Can put some if statements here if want to exclude land/inventory/etc
-        overall_df = pd.DataFrame(self.__assets.df.groupby(
+        # Drop land and inventories if conditions met
+        df1 = self.__assets.df
+        if not include_land:
+            df1.drop(df1[df1.asset_name == 'Land'].index, inplace=True)
+        if not include_inventories:
+            df1.drop(df1[df1.asset_name == 'Inventories'].index,
+                     inplace=True)
+        overall_df = pd.DataFrame(df1.groupby(
             ['tax_treat']).apply(self.__f)).reset_index()
         overall_df['major_asset_group'] = 'Overall'
         overall_df['minor_asset_group'] = 'Overall'
@@ -1761,7 +1767,7 @@ class Calculator():
 
     def __f(self, x):
         '''
-        Private method.  A fuction to compute sums and weighted averages
+        Private method.  A function to compute sums and weighted averages
         from a groubpy object.
 
         Args:
@@ -1780,6 +1786,7 @@ class Calculator():
         d['z_mix'] = wavg(x, 'z_mix', 'assets')
         d['z_d'] = wavg(x, 'z_d', 'assets')
         d['z_e'] = wavg(x, 'z_e', 'assets')
+        d['Y'] = wavg(x, 'Y', 'assets')
 
         return pd.Series(d, index=['assets', 'delta', 'rho_mix', 'rho_d',
-                                   'rho_e', 'z_mix', 'z_d', 'z_e'])
+                                   'rho_e', 'z_mix', 'z_d', 'z_e', 'Y'])

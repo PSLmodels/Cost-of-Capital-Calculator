@@ -6,7 +6,7 @@ except ImportError:
 with open('README.md') as f:
     longdesc = f.read()
 
-version = '1.2.10'
+version = '1.2.11'
 
 config = {
     'description': 'CCC: A Cost of Capital Calculator',

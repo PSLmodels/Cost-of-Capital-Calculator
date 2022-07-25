@@ -90,7 +90,10 @@ def test_calc_all():
     assert ('eatr_mix' in calc_all_df.keys())
 
 
-def test_calc_by_asset():
+@pytest.mark.parametrize('include_land,include_inventories',
+                         [(False, False), (True, True)],
+                         ids=['No land or inv', 'Both land and inv'])
+def test_calc_by_asset(include_land, include_inventories):
     '''
     Test calc_by_asset method
     '''
@@ -98,7 +101,10 @@ def test_calc_by_asset():
     p = Specification()
     dp = DepreciationParams()
     calc = Calculator(p, dp, assets)
-    asset_df = calc.calc_by_asset()
+    asset_df = calc.calc_by_asset(
+        include_land=include_land,
+        include_inventories=include_inventories
+    )
     assert ('major_asset_group' in asset_df.keys())
 
 
