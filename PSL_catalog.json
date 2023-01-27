@@ -64,7 +64,7 @@
     },
     "disclaimer": {
         "start_header": "Disclaimer",
-        "end_header": "Contributing to Cost-of-Capital-Calculator",
+        "end_header": "Citing the Cost-of-Capital-Calculator Model",
         "source": "README.md",
         "type": "github_file",
         "data": null
@@ -92,7 +92,7 @@
     },
     "contributor_guide": {
         "start_header": "Contributing to Cost-of-Capital-Calculator",
-        "end_header": "Citing the Cost-of-Capital-Calculator Model",
+        "end_header": "Disclaimer",
         "source": "README.md",
         "type": "github_file",
         "data": "<a href=\"http://ccc.pslmodels.org/content/contributing/contributor_guide.html\">http://ccc.pslmodels.org/content/contributing/contributor_guide.html</a>"
