@@ -64,7 +64,7 @@
     },
     "disclaimer": {
         "start_header": "Disclaimer",
-        "end_header": "Using/contributing to Cost-of-Capital-Calculator",
+        "end_header": "Contributing to Cost-of-Capital-Calculator",
         "source": "README.md",
         "type": "github_file",
         "data": null
@@ -91,7 +91,7 @@
         "data": null
     },
     "contributor_guide": {
-        "start_header": "Using/contributing to Cost-of-Capital-Calculator",
+        "start_header": "Contributing to Cost-of-Capital-Calculator",
         "end_header": "Citing the Cost-of-Capital-Calculator Model",
         "source": "README.md",
         "type": "github_file",
