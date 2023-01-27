@@ -419,7 +419,7 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="Calculator"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator">[docs]</a><span class="k">class</span> <span class="nc">Calculator</span><span class="p">():</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Constructor for the Calculator class.</span>
 
 <span class="sd">    Args:</span>
@@ -476,7 +476,7 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">__stored_assets</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="Calculator.calc_other"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.calc_other">[docs]</a>    <span class="k">def</span> <span class="nf">calc_other</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Calculates variables that depend on z and rho such as metr, ucc</span>
 
 <span class="sd">        Args:</span>
@@ -510,7 +510,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="n">df</span></div>
 
 <div class="viewcode-block" id="Calculator.calc_base"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.calc_base">[docs]</a>    <span class="k">def</span> <span class="nf">calc_base</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Call functions for the current_year.  This involves</span>
 <span class="sd">        updating depreciation methods, computing the npv of depreciation</span>
 <span class="sd">        (z), and computing the cost of capital (rho) and then calling</span>
@@ -546,7 +546,7 @@ title="Open an issue"
                                      <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Calculator.calc_all"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.calc_all">[docs]</a>    <span class="k">def</span> <span class="nf">calc_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Calculates all CCC variables for some CCC Assets object.</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -555,7 +555,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="Calculator.calc_by_asset"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.calc_by_asset">[docs]</a>    <span class="k">def</span> <span class="nf">calc_by_asset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_inventories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                       <span class="n">include_land</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Calculates all variables by asset, including overall, and by</span>
 <span class="sd">        major asset categories.</span>
 
@@ -615,7 +615,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="Calculator.calc_by_industry"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.calc_by_industry">[docs]</a>    <span class="k">def</span> <span class="nf">calc_by_industry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_inventories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                          <span class="n">include_land</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Calculates all variables by industry, including overall, and by</span>
 <span class="sd">        major asset categories.</span>
 
@@ -664,7 +664,7 @@ title="Open an issue"
 <div class="viewcode-block" id="Calculator.summary_table"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.summary_table">[docs]</a>    <span class="k">def</span> <span class="nf">summary_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;mettr&#39;</span><span class="p">,</span>
                       <span class="n">include_land</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_inventories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                       <span class="n">output_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Create table summarizing the output_variable under the baseline</span>
 <span class="sd">        and reform policies.</span>
 
@@ -811,7 +811,7 @@ title="Open an issue"
 <div class="viewcode-block" id="Calculator.asset_share_table"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.asset_share_table">[docs]</a>    <span class="k">def</span> <span class="nf">asset_share_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_land</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                           <span class="n">include_inventories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                           <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Create table summarizing the output_variable under the baseline</span>
 <span class="sd">        and reform policies.</span>
 
@@ -870,7 +870,7 @@ title="Open an issue"
                             <span class="n">financing</span><span class="o">=</span><span class="s1">&#39;mix&#39;</span><span class="p">,</span> <span class="n">include_land</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                             <span class="n">include_inventories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                             <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Create table summarizing the output_variable under the baseline</span>
 <span class="sd">        and reform policies by major asset grouping.</span>
 
@@ -1038,7 +1038,7 @@ title="Open an issue"
                                <span class="n">financing</span><span class="o">=</span><span class="s1">&#39;mix&#39;</span><span class="p">,</span> <span class="n">include_land</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                <span class="n">include_inventories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                <span class="n">output_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Create table summarizing the output_variable under the baseline</span>
 <span class="sd">        and reform policies by major asset grouping.</span>
 
@@ -1196,7 +1196,7 @@ title="Open an issue"
                     <span class="n">financing</span><span class="o">=</span><span class="s1">&#39;mix&#39;</span><span class="p">,</span> <span class="n">group_by_asset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">corporate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_land</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">include_inventories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_title</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Create a grouped bar plot (grouped by major industry or major</span>
 <span class="sd">        asset group).</span>
 
@@ -1323,7 +1323,7 @@ title="Open an issue"
 <div class="viewcode-block" id="Calculator.range_plot"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.range_plot">[docs]</a>    <span class="k">def</span> <span class="nf">range_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;mettr&#39;</span><span class="p">,</span>
                    <span class="n">corporate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_land</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                    <span class="n">include_inventories</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_title</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Create a range plot.</span>
 
 <span class="sd">        Args:</span>
@@ -1504,7 +1504,7 @@ title="Open an issue"
 <div class="viewcode-block" id="Calculator.bubble_widget"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.bubble_widget">[docs]</a>    <span class="k">def</span> <span class="nf">bubble_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;mettr&#39;</span><span class="p">,</span>
                       <span class="n">include_land</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">include_inventories</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                       <span class="n">include_IP</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Create a bubble plot widget.  The x-axis shows the value of the</span>
 <span class="sd">        output variable, the y are groups (e.g., asset type or industry).</span>
 <span class="sd">        The widget allows for one to click buttons to view the values for</span>
@@ -1827,7 +1827,7 @@ title="Open an issue"
 <div class="viewcode-block" id="Calculator.asset_bubble"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.asset_bubble">[docs]</a>    <span class="k">def</span> <span class="nf">asset_bubble</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">output_variable</span><span class="o">=</span><span class="s1">&#39;mettr_mix&#39;</span><span class="p">,</span>
                      <span class="n">include_inventories</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">include_land</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                      <span class="n">include_IP</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">include_title</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Create a bubble plot showing the value of the output variable</span>
 <span class="sd">        along the x-axis, asset type groupings on the y-axis, and</span>
 <span class="sd">        bubbles whose size represent the total assets of a specific type.</span>
@@ -2092,7 +2092,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="n">tabs</span></div>
 
 <div class="viewcode-block" id="Calculator.store_assets"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.store_assets">[docs]</a>    <span class="k">def</span> <span class="nf">store_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Make internal copy of embedded Assets object that can then be</span>
 <span class="sd">        restored after interim calculations that make temporary changes</span>
 <span class="sd">        to the embedded Assets object.</span>
@@ -2102,7 +2102,7 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">__stored_assets</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__assets</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Calculator.restore_assets"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.restore_assets">[docs]</a>    <span class="k">def</span> <span class="nf">restore_assets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Set the embedded Assets object to the stored Assets object</span>
 <span class="sd">        that was saved in the last call to the store_assets() method.</span>
 
@@ -2113,7 +2113,7 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">__stored_assets</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="Calculator.p_param"><a class="viewcode-back" href="../../content/api/calculator.html#ccc.calculator.Calculator.p_param">[docs]</a>    <span class="k">def</span> <span class="nf">p_param</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">param_value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        If param_value is None, return named parameter in</span>
 <span class="sd">         embedded Specification object.</span>
 <span class="sd">        If param_value is not None, set named parameter in</span>
@@ -2134,7 +2134,7 @@ title="Open an issue"
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">current_year</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Calculator class current calendar year property.</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -2142,14 +2142,14 @@ title="Open an issue"
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">data_year</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Calculator class initial (i.e., first) assets data year property.</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__assets</span><span class="o">.</span><span class="n">data_year</span>
 
     <span class="k">def</span> <span class="nf">__f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Private method.  A function to compute sums and weighted averages</span>
 <span class="sd">        from a groubpy object.</span>
 

@@ -393,7 +393,7 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="Specification"><a class="viewcode-back" href="../../content/api/parameters.html#ccc.parameters.Specification">[docs]</a><span class="k">class</span> <span class="nc">Specification</span><span class="p">(</span><span class="n">paramtools</span><span class="o">.</span><span class="n">Parameters</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Specification class, contains model parameters.</span>
 <span class="sd">    Inherits ParamTools Parameters abstract base class.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -415,7 +415,7 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">ccc_initialize</span><span class="p">(</span><span class="n">call_tc</span><span class="o">=</span><span class="n">call_tc</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Specification.ccc_initialize"><a class="viewcode-back" href="../../content/api/parameters.html#ccc.parameters.Specification.ccc_initialize">[docs]</a>    <span class="k">def</span> <span class="nf">ccc_initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">call_tc</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        ParametersBase reads JSON file and sets attributes to self</span>
 <span class="sd">        Next call self.compute_default_params for further initialization</span>
 
@@ -442,7 +442,7 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">compute_default_params</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Specification.compute_default_params"><a class="viewcode-back" href="../../content/api/parameters.html#ccc.parameters.Specification.compute_default_params">[docs]</a>    <span class="k">def</span> <span class="nf">compute_default_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Does cheap calculations to return parameter values</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -540,7 +540,7 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">bonus_deprec</span><span class="p">[</span><span class="s1">&#39;100&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span></div>
 
 <div class="viewcode-block" id="Specification.default_parameters"><a class="viewcode-back" href="../../content/api/parameters.html#ccc.parameters.Specification.default_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">default_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Return Specification object same as self except it contains</span>
 <span class="sd">        default values of all the parameters.</span>
 
@@ -553,7 +553,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="n">dps</span></div>
 
 <div class="viewcode-block" id="Specification.update_specification"><a class="viewcode-back" href="../../content/api/parameters.html#ccc.parameters.Specification.update_specification">[docs]</a>    <span class="k">def</span> <span class="nf">update_specification</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">,</span> <span class="n">raise_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Updates parameter specification with values in revision dictionary.</span>
 
 <span class="sd">        Args:</span>
@@ -596,7 +596,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="Specification._read_json_revision"><a class="viewcode-back" href="../../content/api/parameters.html#ccc.parameters.Specification._read_json_revision">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_read_json_revision</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Return a revision dictionary, which is suitable for use with the</span>
 <span class="sd">        update_specification method, that is derived from the specified</span>
 <span class="sd">        JSON object, which can be None or a string containing</span>
@@ -625,7 +625,7 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="DepreciationParams"><a class="viewcode-back" href="../../content/api/parameters.html#ccc.parameters.DepreciationParams">[docs]</a><span class="k">class</span> <span class="nc">DepreciationParams</span><span class="p">(</span><span class="n">paramtools</span><span class="o">.</span><span class="n">Parameters</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Depreciation parameters class, contains model depreciation</span>
 <span class="sd">    parameters.</span>
 <span class="sd">    Inherits ParamTools Parameters abstract base class.</span>
@@ -635,7 +635,7 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="revision_warnings_errors"><a class="viewcode-back" href="../../content/api/parameters.html#ccc.parameters.revision_warnings_errors">[docs]</a><span class="k">def</span> <span class="nf">revision_warnings_errors</span><span class="p">(</span><span class="n">spec_revision</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Return warnings and errors for the specified Cost-of-Capital-Calculator</span>
 <span class="sd">    Specificaton revision in parameter values.</span>
 
