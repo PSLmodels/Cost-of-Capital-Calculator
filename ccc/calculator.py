@@ -25,7 +25,7 @@ from bokeh.transform import dodge
 from bokeh.models import (ColumnDataSource, CustomJS, LabelSet, Title,
                           FuncTickFormatter, BoxAnnotation, HoverTool,
                           NumeralTickFormatter, Span)
-from bokeh.models.widgets import Panel, Tabs, RadioButtonGroup
+from bokeh.models.widgets import TabPanel, Tabs, RadioButtonGroup
 from bokeh.models.tickers import FixedTicker
 from bokeh.layouts import gridplot, column
 
@@ -1415,8 +1415,8 @@ class Calculator():
         controls_callback.args['type_buttons'] = type_buttons
 
         # Create Tabs
-        tab = Panel(child=column([p, p_legend]), title='Equipment')
-        tab2 = Panel(child=column([p2, p2_legend]), title='Structures')
+        tab = TabPanel(child=column([p, p_legend]), title='Equipment')
+        tab2 = TabPanel(child=column([p2, p2_legend]), title='Structures')
         tabs = Tabs(tabs=[tab, tab2])
         layout = gridplot(
             children=[[tabs],
@@ -1702,8 +1702,8 @@ class Calculator():
         p2_legend.toolbar.active_drag = None
 
         # Create Tabs
-        tab = Panel(child=column([p, p_legend]), title='Equipment')
-        tab2 = Panel(child=column([p2, p2_legend]), title='Structures')
+        tab = TabPanel(child=column([p, p_legend]), title='Equipment')
+        tab2 = TabPanel(child=column([p2, p2_legend]), title='Structures')
         tabs = Tabs(tabs=[tab, tab2])
 
         return tabs
