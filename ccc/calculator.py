@@ -24,8 +24,8 @@ from bokeh.plotting import figure
 from bokeh.transform import dodge
 from bokeh.models import (ColumnDataSource, CustomJS, LabelSet, Title,
                           FuncTickFormatter, BoxAnnotation, HoverTool,
-                          NumeralTickFormatter, Span)
-from bokeh.models.widgets import TabPanel, Tabs, RadioButtonGroup
+                          NumeralTickFormatter, Span, TabPanel, Tabs)
+from bokeh.models.widgets import RadioButtonGroup
 from bokeh.models.tickers import FixedTicker
 from bokeh.layouts import gridplot, column
 
