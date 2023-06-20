@@ -5,7 +5,7 @@ dependencies:
 - python
 - "taxcalc>=3.1.0"
 - "paramtools>=0.18.0"
-- "bokeh>=1.4.0"
+- bokeh>=3.1.1
 - setuptools
 - pip
 - xlrd
