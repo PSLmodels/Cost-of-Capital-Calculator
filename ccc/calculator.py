@@ -909,7 +909,7 @@ class Calculator():
 
         if not include_title:
             plot_title = None
-        p = figure(x_range=df2[plot_label], plot_height=350,
+        p = figure(x_range=df2[plot_label], height=350,
                    title=plot_title, toolbar_location=None, tools="")
         p.vbar(x=dodge(plot_label,  0.0,  range=p.x_range),
                top='Baseline', width=0.2, source=source, color=BLUE,
@@ -923,8 +923,8 @@ class Calculator():
         p.legend.orientation = "horizontal"
         if not group_by_asset:
             p.xaxis.major_label_orientation = 45
-            p.plot_height = 800
-            p.plot_width = 800
+            p.height = 800
+            p.width = 800
 
         # Add lines for overall mean for baseline and reform
         bline = Span(location=mean_base, dimension='width',
@@ -1037,7 +1037,7 @@ class Calculator():
         reform_source = ColumnDataSource(data=source_dict['reform'])
 
         # Create figure on which to plot
-        p = figure(plot_width=500, plot_height=500, x_range=(-0.5, 2.5),
+        p = figure(width=500, height=500, x_range=(-0.5, 2.5),
                    toolbar_location=None, tools='')
 
         # Format graph title and features
@@ -1300,7 +1300,7 @@ class Calculator():
             'Mining and Drilling', 'Other']
 
         # Equipment plot
-        p = figure(plot_height=540, plot_width=990,
+        p = figure(height=540, width=990,
                    y_range=list(reversed(equipment_assets)),
                    tools='hover', background_fill_alpha=0,
                    title='Marginal Effective Total Tax Rates on ' +
@@ -1350,7 +1350,7 @@ class Calculator():
         # data_sources['equip_plot'] = p
 
         # Structures plot
-        p2 = figure(plot_height=540, plot_width=990,
+        p2 = figure(height=540, width=990,
                     y_range=list(reversed(structure_assets)),
                     tools='hover', background_fill_alpha=0,
                     title='Marginal Effective Total Tax Rates on ' +
@@ -1423,7 +1423,7 @@ class Calculator():
                       [c_pt_buttons, interest_buttons],
                       [format_buttons, type_buttons]]
         )
-        # layout = gridplot([p, p2], ncols=2, plot_width=250, plot_height=250)
+        # layout = gridplot([p, p2], ncols=2, width=250, height=250)
         # doc = curdoc()
         # doc.add_root(layout)
 
@@ -1576,8 +1576,8 @@ class Calculator():
                             'Other']
 
         # Equipment plot
-        p = figure(plot_height=540,
-                   plot_width=990,
+        p = figure(height=540,
+                   width=990,
                    x_range=(-.05, .51),
                    y_range=list(reversed(equipment_assets)),
                    # x_axis_location="above",
@@ -1645,8 +1645,8 @@ class Calculator():
         # p.toolbar.logo = None
 
         # Structures plot
-        p2 = figure(plot_height=540,
-                    plot_width=990,
+        p2 = figure(height=540,
+                    width=990,
                     x_range=(-.05, .51),
                     y_range=list(reversed(structure_assets)),
                     # toolbar_location=None,
