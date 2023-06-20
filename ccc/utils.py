@@ -19,7 +19,7 @@ ASSET_DATA_CSV_YEAR = 2013
 RECORDS_START_YEAR = 2011
 
 # Latest year TaxData extrapolates to
-TC_LAST_YEAR = 2031
+TC_LAST_YEAR = 2033
 
 
 def to_str(x):
