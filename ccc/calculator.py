@@ -23,7 +23,7 @@ from ccc.constants import (VAR_DICT, MAJOR_IND_ORDERED, OUTPUT_VAR_LIST,
 from bokeh.plotting import figure
 from bokeh.transform import dodge
 from bokeh.models import (ColumnDataSource, CustomJS, LabelSet, Title,
-                          FuncTickFormatter, BoxAnnotation, HoverTool,
+                          CustomJSTickFormatter, BoxAnnotation, HoverTool,
                           NumeralTickFormatter, Span, TabPanel, Tabs)
 from bokeh.models.widgets import RadioButtonGroup
 from bokeh.models.tickers import FixedTicker
@@ -1059,7 +1059,7 @@ class Calculator():
         p.xaxis[0].ticker = FixedTicker(ticks=[0, 1, 2])
         # Done as a custom function instead of a categorical axis because
         # categorical axes do not work well with other features
-        p.xaxis.formatter = FuncTickFormatter(code='''
+        p.xaxis.formatter = CustomJSTickFormatter(code='''
         var types = ["Typically Financed", "Debt Financed", "Equity Financed"]
         return types[tick]
         ''')
