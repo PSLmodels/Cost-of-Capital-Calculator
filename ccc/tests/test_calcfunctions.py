@@ -186,7 +186,7 @@ test_data = [(Y, b, bonus, r, expected_val)]
 def test_dbsl(Y, b, bonus, r, expected_val):
     test_val = cf.dbsl(Y, b, bonus, r)
 
-    assert(np.allclose(test_val, expected_val))
+    assert (np.allclose(test_val, expected_val))
 
 
 Y = np.array([40, 1, 10, 20, 8])
@@ -202,7 +202,7 @@ test_data = [(Y, bonus, r, expected_val)]
 def test_sl(Y, bonus, r, expected_val):
     test_val = cf.sl(Y, bonus, r)
 
-    assert(np.allclose(test_val, expected_val))
+    assert (np.allclose(test_val, expected_val))
 
 
 delta = np.array([0.01, 0.1, 0.1, 0.02, 0.1])
@@ -218,7 +218,7 @@ test_data = [(delta, bonus, r, pi, expected_val)]
 def test_econ(delta, bonus, r, pi, expected_val):
     test_val = cf.econ(delta, bonus, r, pi)
 
-    assert(np.allclose(test_val, expected_val))
+    assert (np.allclose(test_val, expected_val))
 
 
 df = pd.DataFrame.from_dict({
@@ -269,7 +269,7 @@ test_data = [(delta, z, w, u, inv_tax_credit, pi, r, expected_val)]
 def test_eq_coc(delta, z, w, u, inv_tax_credit, pi, r, expected_val):
     test_val = cf.eq_coc(delta, z, w, u, inv_tax_credit, pi, r)
 
-    assert(np.allclose(test_val, expected_val))
+    assert (np.allclose(test_val, expected_val))
 
 
 u = np.array([0.3, 0, 0.3, 0, 0.3, 0])
@@ -288,7 +288,7 @@ test_data = [(u, phi, Y_v, pi, r, expected_val)]
 def test_eq_coc_inventory(u, phi, Y_v, pi, r, expected_val):
     test_val = cf.eq_coc_inventory(u, phi, Y_v, pi, r)
 
-    assert(np.allclose(test_val, expected_val))
+    assert (np.allclose(test_val, expected_val))
 
 
 rho = np.array([0.075285714, 0.0388, 0.042, 0.0112, 0.114475829, 0.094])
@@ -303,7 +303,7 @@ test_data = [(rho, delta, expected_val)]
 def test_eq_ucc(rho, delta, expected_val):
     test_val = cf.eq_ucc(rho, delta)
 
-    assert(np.allclose(test_val, expected_val))
+    assert (np.allclose(test_val, expected_val))
 
 
 rho = np.array([0.075285714, 0.0388, 0.042, 0.0112, 0.114475829, 0.094])
@@ -328,7 +328,7 @@ test_data = [(rho, r_prime, pi, expected_val),
 def test_eq_metr(rho, r_prime, pi, expected_val):
     test_val = cf.eq_metr(rho, r_prime, pi)
 
-    assert(np.allclose(test_val, expected_val))
+    assert (np.allclose(test_val, expected_val))
 
 
 rho = np.array([0.075285714, 0.0388, 0.042, 0.0112, 0.114475829, 0.094])
@@ -343,7 +343,7 @@ test_data = [(rho, s, expected_val)]
 def test_eq_mettr(rho, s, expected_val):
     test_val = cf.eq_mettr(rho, s)
 
-    assert(np.allclose(test_val, expected_val))
+    assert (np.allclose(test_val, expected_val))
 
 
 rho = np.array([0.075285714, 0.0388, 0.042, 0.0112, 0.114475829, 0.094])
@@ -358,7 +358,7 @@ test_data = [(rho, s, expected_val)]
 def test_eq_tax_wedge(rho, s, expected_val):
     test_val = cf.eq_tax_wedge(rho, s)
 
-    assert(np.allclose(test_val, expected_val))
+    assert (np.allclose(test_val, expected_val))
 
 
 rho = np.array([0.075285714, 0.0388, 0.042, 0.0112, 0.114475829, 0.094])
@@ -377,4 +377,4 @@ test_data = [(rho, metr, profit_rate, u, expected_val),
 def test_eq_eatr(rho, metr, profit_rate, u, expected_val):
     test_val = cf.eq_eatr(rho, metr, profit_rate, u)
 
-    assert(np.allclose(test_val, expected_val))
+    assert (np.allclose(test_val, expected_val))
