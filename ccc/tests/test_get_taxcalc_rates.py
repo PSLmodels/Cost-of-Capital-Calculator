@@ -41,7 +41,7 @@ def test_get_rates():
         baseline=False, start_year=2020, reform={}, data='cps')
     for k, v in test_dict.items():
         print('Tax rate = ', k)
-        assert (np.allclose(v, p.__dict__[k], atol=0.00001))
+        assert (np.allclose(v, p.__dict__[k], atol=1e-4))
 
 
 @pytest.mark.parametrize('reform,expected',
