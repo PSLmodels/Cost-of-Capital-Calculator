@@ -28,6 +28,6 @@ def test_params_start_year(year, expected_values):
     as specificed in the default_parameters.json file.
     '''
     p = Specification(year=year)
-    assert(np.allclose(p.u['c'], expected_values[0]))
-    assert(np.allclose(p.bonus_deprec['3'], expected_values[1]))
-    assert(np.allclose(p.phi, expected_values[2]))
+    assert (np.allclose(p.u['c'], expected_values[0]))
+    assert (np.allclose(p.bonus_deprec['3'], expected_values[1]))
+    assert (np.allclose(p.phi, expected_values[2]))

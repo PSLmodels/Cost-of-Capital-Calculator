@@ -11,7 +11,7 @@ def test_calc_sprime_c_td():
     Y_td, tau_td, i, pi = 8, 0.2, 0.08, 0.02
     test_value = pf.calc_sprime_c_td(Y_td, tau_td, i, pi)
 
-    assert(np.allclose(test_value, 0.047585769))
+    assert (np.allclose(test_value, 0.047585769))
 
 
 def test_calc_s_c_d_td():
@@ -22,7 +22,7 @@ def test_calc_s_c_d_td():
     gamma, i, pi = 0.5, 0.08, 0.02
     test_value = pf.calc_s_c_d_td(sprime_c_td, gamma, i, pi)
 
-    assert(np.allclose(test_value, 0.053792884))
+    assert (np.allclose(test_value, 0.053792884))
 
 
 def test_calc_s__d():
@@ -35,7 +35,7 @@ def test_calc_s__d():
     test_value = pf.calc_s__d(s_d_td, alpha_d_ft, alpha_d_td,
                               alpha_d_nt, tau_int, tau_w, i, pi)
 
-    assert(np.allclose(test_value, 0.029696442))
+    assert (np.allclose(test_value, 0.029696442))
 
 
 def test_calc_g__g():
@@ -45,7 +45,7 @@ def test_calc_g__g():
     Y_g, tau_cg, m, E_c, pi = 2.0, 0.35, 0.4, 0.09, 0.02
     test_value = pf.calc_g__g(Y_g, tau_cg, m, E_c, pi)
 
-    assert(np.allclose(test_value, 0.017105186))
+    assert (np.allclose(test_value, 0.017105186))
 
 
 def test_calc_g():
@@ -59,7 +59,7 @@ def test_calc_g():
     test_value = pf.calc_g(
         g_scg, g_lcg, g_xcg, omega_scg, omega_lcg, omega_xcg, m, E_c)
 
-    assert(np.allclose(test_value, 0.022206588))
+    assert (np.allclose(test_value, 0.022206588))
 
 
 def test_calc_s_c_e_td():
@@ -69,7 +69,7 @@ def test_calc_s_c_e_td():
     Y_td, tau_td, i, pi, E_c = 8, 0.2, 0.08, 0.02, 0.09
     test_value = pf.calc_s_c_e_td(Y_td, tau_td, i, pi, E_c)
 
-    assert(np.allclose(test_value, 0.074440094))
+    assert (np.allclose(test_value, 0.074440094))
 
 
 def test_calc_s_c_e():
@@ -83,7 +83,7 @@ def test_calc_s_c_e():
         s_c_e_ft, s_c_e_td, alpha_c_e_ft, alpha_c_e_td, alpha_c_e_nt,
         tau_w, E_c)
 
-    assert(np.allclose(test_value, 0.048955981))
+    assert (np.allclose(test_value, 0.048955981))
 
 
 p = Specification()
@@ -115,9 +115,9 @@ def test_calc_s(entity_type, p, expected_dict):
     test_dict, test_E_pt = pf.calc_s(p)
 
     for k, v in test_dict[entity_type].items():
-        assert(np.allclose(v, expected_dict[entity_type][k]))
+        assert (np.allclose(v, expected_dict[entity_type][k]))
 
-    assert(np.allclose(test_E_pt, 0.048955981))
+    assert (np.allclose(test_E_pt, 0.048955981))
 
 
 p = Specification()
@@ -165,7 +165,7 @@ def test_calc_r(p, expected_dict):
 
     for k, v in test_dict.items():
         for k2, v2 in v.items():
-            assert(np.allclose(v2, expected_dict[k][k2]))
+            assert (np.allclose(v2, expected_dict[k][k2]))
 
 
 expected_rprime_dict = {
@@ -198,4 +198,4 @@ def test_calc_rprime(p, expected_dict):
 
     for k, v in test_dict.items():
         for k2, v2 in v.items():
-            assert(np.allclose(v2, expected_dict[k][k2]))
+            assert (np.allclose(v2, expected_dict[k][k2]))
