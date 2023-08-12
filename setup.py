@@ -19,7 +19,7 @@ config = {
     'packages': ['ccc'],
     'include_package_data': True,
     'name': 'cost-of-capital-calculator',
-    'install_requires': ['taxcalc', 'psutil', 'pandas', 'bokeh', 'numpy',
+    'install_requires': ['taxcalc', 'pandas', 'bokeh', 'numpy',
                          'paramtools'],
     'classifiers': [
         'Development Status :: 4 - Beta',
