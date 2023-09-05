@@ -386,7 +386,7 @@ document.write(`
 <span class="sd">    Compute the after-tax return on corprate debt investments made</span>
 <span class="sd">    through tax-deferred accounts.</span>
 
-<span class="sd">    ..math::</span>
+<span class="sd">    .. math::</span>
 <span class="sd">        s_{c,d,td} = \gamma(i-\pi) + (1-\gamma)s^{&#39;}_{c,td}</span>
 
 <span class="sd">    Args:</span>
@@ -412,7 +412,7 @@ document.write(`
 <span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Compute the after-tax return to debt investments.</span>
 
-<span class="sd">    ..math::</span>
+<span class="sd">    .. math::</span>
 <span class="sd">        s_{j,d} = \alpha_{j,d,ft}((1-\tau_{int})i - \pi) +</span>
 <span class="sd">            \alpha_{j,d,td}s_{j,d,td} + \alpha_{j,d,nt}(i-\pi) - \tau_{w}</span>
 
@@ -444,7 +444,7 @@ document.write(`
 <span class="sd">    Calculate the real, after-tax annualized return on short or long-</span>
 <span class="sd">    term capital gains</span>
 
-<span class="sd">    ..math::</span>
+<span class="sd">    .. math::</span>
 <span class="sd">        g_{icg} = \frac{1}{Y_{icg}}\ln\biggl[(1-\tau_{icg})e^{(\pi+mE)</span>
 <span class="sd">            Y_{icg}}+\tau_{icg}\biggr] + \pi</span>
 
@@ -471,7 +471,7 @@ document.write(`
 <span class="sd">    Calculate the after-tax, annualized, real rate of return on all</span>
 <span class="sd">    capital gains</span>
 
-<span class="sd">    ..math::</span>
+<span class="sd">    .. math::</span>
 <span class="sd">        g = \omega_{scg}\times g_{scg} + \omega_{lcg}\times g_{lcg} +</span>
 <span class="sd">            \omega_{xcg}\times mE</span>
 
@@ -505,7 +505,7 @@ document.write(`
 <span class="sd">    Calculate the after-tax return on investmentes in corporate equity</span>
 <span class="sd">    in tax-deferred accounts.</span>
 
-<span class="sd">    ..math::</span>
+<span class="sd">    .. math::</span>
 <span class="sd">        s_{c,e,td} = \frac{1}{Y_{td}}\ln((1-\tau_{td})e^{(\pi+E)Y_{td}}</span>
 <span class="sd">            +\tau_{td}) - \pi</span>
 
@@ -534,7 +534,7 @@ document.write(`
 <span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Calculate the after-tax return on investments in corporate equity</span>
 
-<span class="sd">    ..math::</span>
+<span class="sd">    .. math::</span>
 <span class="sd">        s_{c,e} = \alpha_{c,e,ft}\times s_{c,e,ft} + \alpha_{c,e,td}</span>
 <span class="sd">            \times s_{c,e,td} + \alpha_{c,e,nt}\times E - \tau_{w}</span>
 
@@ -564,10 +564,8 @@ document.write(`
 
 <div class="viewcode-block" id="calc_s"><a class="viewcode-back" href="../../content/api/paramfunctions.html#ccc.paramfunctions.calc_s">[docs]</a><span class="k">def</span> <span class="nf">calc_s</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Compute the after-tax rate of return to savers, s.</span>
-
-<span class="sd">    .. math::</span>
-<span class="sd">        s = ...</span>
+<span class="sd">    Compute the after-tax rate of return to savers, s. Calls other</span>
+<span class="sd">    `calc_s_x_y` functions to compute various rates of return.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        p (CCC Specification Object): model parameters</span>
@@ -646,7 +644,7 @@ document.write(`
 <span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Compute firm nominal discount rates</span>
 
-<span class="sd">    ..math::</span>
+<span class="sd">    .. math::</span>
 <span class="sd">        r_{m,j} = f_{m,j}\[i(1-(1-i_{hc})u_{j})] + (1-f_{m,j})</span>
 <span class="sd">        (E_{j} + \pi - ACE_{j})</span>
 
@@ -676,7 +674,7 @@ document.write(`
 <span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Compute firm nominal, after-tax rates of return</span>
 
-<span class="sd">    ..math::</span>
+<span class="sd">    .. math::</span>
 <span class="sd">        r^{&#39;}_{m,j} = f_{m,j}(i-\pi) + (1-f_{m,j})E_{j} + \pi</span>
 
 <span class="sd">    Args:</span>
