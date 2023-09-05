@@ -170,7 +170,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../content/api/public_api.html">Cost-of-Capital-Calculator API</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/calcfunctions.html">Cost of Capital Calculation Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/calculator.html">Cost of Capital Calculator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../content/api/data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../content/api/data.html">Cost of Capital Calculator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/get_taxcalc_rates.html">Get marginal tax rates from Tax-Calculator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/parameters.html">Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/paramfunctions.html">Parameter Calculation Functions</a></li>
@@ -377,9 +377,11 @@ document.write(`
     <span class="c1"># update tax_deprec_rates based on user defined parameters</span>
     <span class="c1"># create dataframe with depreciation policy parameters</span>
     <span class="n">deprec_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dp</span><span class="o">.</span><span class="n">asset</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;deprec_df&quot;</span><span class="p">,</span> <span class="n">deprec_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
     <span class="c1"># split out value into two columns</span>
-    <span class="n">deprec_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">deprec_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;value&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
-                           <span class="n">deprec_df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">deprec_df</span> <span class="o">=</span> <span class="n">deprec_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">deprec_df</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;deprec_df 2&quot;</span><span class="p">,</span> <span class="n">deprec_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
     <span class="c1"># drop information duplicated in asset dataframe</span>
     <span class="n">deprec_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;asset_name&#39;</span><span class="p">,</span> <span class="s1">&#39;minor_asset_group&#39;</span><span class="p">,</span>
                             <span class="s1">&#39;major_asset_group&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

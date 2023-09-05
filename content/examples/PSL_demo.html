@@ -175,7 +175,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 has-children"><a class="reference internal" href="../api/public_api.html">Cost-of-Capital-Calculator API</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api/calcfunctions.html">Cost of Capital Calculation Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/calculator.html">Cost of Capital Calculator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/data.html">Cost of Capital Calculator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/get_taxcalc_rates.html">Get marginal tax rates from Tax-Calculator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/parameters.html">Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/paramfunctions.html">Parameter Calculation Functions</a></li>
@@ -433,13 +433,44 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># To install ccc package (if not already):</span>
-<span class="o">%%</span> <span class="n">capture</span>
 <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>cost-of-capital-calculator
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>UsageError: Line magic function `%%` not found.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: cost-of-capital-calculator in /home/runner/work/Cost-of-Capital-Calculator/Cost-of-Capital-Calculator (1.2.11)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: taxcalc in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from cost-of-capital-calculator) (3.4.1)
+Requirement already satisfied: psutil in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from cost-of-capital-calculator) (5.9.5)
+Requirement already satisfied: pandas in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from cost-of-capital-calculator) (2.1.0)
+Requirement already satisfied: bokeh in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from cost-of-capital-calculator) (3.2.2)
+Requirement already satisfied: numpy in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from cost-of-capital-calculator) (1.24.4)
+Requirement already satisfied: paramtools in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from cost-of-capital-calculator) (0.0.0)
+Requirement already satisfied: Jinja2&gt;=2.9 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from bokeh-&gt;cost-of-capital-calculator) (3.1.2)
+Requirement already satisfied: contourpy&gt;=1 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from bokeh-&gt;cost-of-capital-calculator) (1.1.0)
+Requirement already satisfied: packaging&gt;=16.8 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from bokeh-&gt;cost-of-capital-calculator) (23.1)
+Requirement already satisfied: pillow&gt;=7.1.0 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from bokeh-&gt;cost-of-capital-calculator) (10.0.0)
+Requirement already satisfied: PyYAML&gt;=3.10 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from bokeh-&gt;cost-of-capital-calculator) (6.0.1)
+Requirement already satisfied: tornado&gt;=5.1 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from bokeh-&gt;cost-of-capital-calculator) (6.3.3)
+Requirement already satisfied: xyzservices&gt;=2021.09.1 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from bokeh-&gt;cost-of-capital-calculator) (2023.7.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: python-dateutil&gt;=2.8.2 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from pandas-&gt;cost-of-capital-calculator) (2.8.2)
+Requirement already satisfied: pytz&gt;=2020.1 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from pandas-&gt;cost-of-capital-calculator) (2023.3.post1)
+Requirement already satisfied: tzdata&gt;=2022.1 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from pandas-&gt;cost-of-capital-calculator) (2023.3)
+Requirement already satisfied: marshmallow&gt;=3.0.0 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from paramtools-&gt;cost-of-capital-calculator) (3.20.1)
+Requirement already satisfied: fsspec in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from paramtools-&gt;cost-of-capital-calculator) (2023.9.0)
+Requirement already satisfied: sortedcontainers in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from paramtools-&gt;cost-of-capital-calculator) (2.4.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: setuptools in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from taxcalc-&gt;cost-of-capital-calculator) (68.1.2)
+Requirement already satisfied: numba in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from taxcalc-&gt;cost-of-capital-calculator) (0.57.1)
+Requirement already satisfied: MarkupSafe&gt;=2.0 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from Jinja2&gt;=2.9-&gt;bokeh-&gt;cost-of-capital-calculator) (2.1.3)
+Requirement already satisfied: six&gt;=1.5 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas-&gt;cost-of-capital-calculator) (1.16.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: llvmlite&lt;0.41,&gt;=0.40.0dev0 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.9/site-packages (from numba-&gt;taxcalc-&gt;cost-of-capital-calculator) (0.40.1)
 </pre></div>
 </div>
 </div>
@@ -461,12 +492,19 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">
-    <div class="bk-root">
-        <a href="https://bokeh.org" target="_blank" class="bk-logo bk-logo-small bk-logo-notebook"></a>
-        <span id="1002">Loading BokehJS ...</span>
-    </div></div><script type="application/javascript">
-(function(root) {
+<div class="output text_html"><style>
+        .bk-notebook-logo {
+            display: block;
+            width: 20px;
+            height: 20px;
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAOkSURBVDiNjZRtaJVlGMd/1/08zzln5zjP1LWcU9N0NkN8m2CYjpgQYQXqSs0I84OLIC0hkEKoPtiH3gmKoiJDU7QpLgoLjLIQCpEsNJ1vqUOdO7ppbuec5+V+rj4ctwzd8IIbbi6u+8f1539dt3A78eXC7QizUF7gyV1fD1Yqg4JWz84yffhm0qkFqBogB9rM8tZdtwVsPUhWhGcFJngGeWrPzHm5oaMmkfEg1usvLFyc8jLRqDOMru7AyC8saQr7GG7f5fvDeH7Ej8CM66nIF+8yngt6HWaKh7k49Soy9nXurCi1o3qUbS3zWfrYeQDTB/Qj6kX6Ybhw4B+bOYoLKCC9H3Nu/leUTZ1JdRWkkn2ldcCamzrcf47KKXdAJllSlxAOkRgyHsGC/zRday5Qld9DyoM4/q/rUoy/CXh3jzOu3bHUVZeU+DEn8FInkPBFlu3+nW3Nw0mk6vCDiWg8CeJaxEwuHS3+z5RgY+YBR6V1Z1nxSOfoaPa4LASWxxdNp+VWTk7+4vzaou8v8PN+xo+KY2xsw6une2frhw05CTYOmQvsEhjhWjn0bmXPjpE1+kplmmkP3suftwTubK9Vq22qKmrBhpY4jvd5afdRA3wGjFAgcnTK2s4hY0/GPNIb0nErGMCRxWOOX64Z8RAC4oCXdklmEvcL8o0BfkNK4lUg9HTl+oPlQxdNo3Mg4Nv175e/1LDGzZen30MEjRUtmXSfiTVu1kK8W4txyV6BMKlbgk3lMwYCiusNy9fVfvvwMxv8Ynl6vxoByANLTWplvuj/nF9m2+PDtt1eiHPBr1oIfhCChQMBw6Aw0UulqTKZdfVvfG7VcfIqLG9bcldL/+pdWTLxLUy8Qq38heUIjh4XlzZxzQm19lLFlr8vdQ97rjZVOLf8nclzckbcD4wxXMidpX30sFd37Fv/GtwwhzhxGVAprjbg0gCAEeIgwCZyTV2Z1REEW8O4py0wsjeloKoMr6iCY6dP92H6Vw/oTyICIthibxjm/DfN9lVz8IqtqKYLUXfoKVMVQVVJOElGjrnnUt9T9wbgp8AyYKaGlqingHZU/uG2NTZSVqwHQTWkx9hxjkpWDaCg6Ckj5qebgBVbT3V3NNXMSiWSDdGV3hrtzla7J+duwPOToIg42ChPQOQjspnSlp1V+Gjdged7+8UN5CRAV7a5EdFNwCjEaBR27b3W890TE7g24NAP/mMDXRWrGoFPQI9ls/MWO2dWFAar/xcOIImbbpA3zgAAAABJRU5ErkJggg==);
+        }
+    </style>
+    <div>
+        <a href="https://bokeh.org" target="_blank" class="bk-notebook-logo"></a>
+        <span id="a09105c2-5b80-4efe-91db-5db60b0bf51e">Loading BokehJS ...</span>
+    </div>
+</div><script type="application/javascript">(function(root) {
   function now() {
     return new Date();
   }
@@ -478,7 +516,7 @@ document.write(`
     root._bokeh_is_loading = undefined;
   }
 
-  const JS_MIME_TYPE = 'application/javascript';
+const JS_MIME_TYPE = 'application/javascript';
   const HTML_MIME_TYPE = 'text/html';
   const EXEC_MIME_TYPE = 'application/vnd.bokehjs_exec.v0+json';
   const CLASS_NAME = 'output_bokeh rendered_html';
@@ -601,8 +639,6 @@ document.write(`
       register_renderer(events, OutputArea);
     }
   }
-
-  
   if (typeof (root._bokeh_timeout) === "undefined" || force === true) {
     root._bokeh_timeout = Date.now() + 5000;
     root._bokeh_failed_load = false;
@@ -625,7 +661,7 @@ document.write(`
      "</div>"}};
 
   function display_loaded() {
-    const el = document.getElementById("1002");
+    const el = document.getElementById("a09105c2-5b80-4efe-91db-5db60b0bf51e");
     if (el != null) {
       el.textContent = "BokehJS is loading...";
     }
@@ -637,7 +673,6 @@ document.write(`
       setTimeout(display_loaded, 100)
     }
   }
-
 
   function run_callbacks() {
     try {
@@ -709,29 +744,22 @@ document.write(`
     document.body.appendChild(element);
   }
 
-  
-  const js_urls = ["https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-gl-2.4.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-2.4.2.min.js"];
+  const js_urls = ["https://cdn.bokeh.org/bokeh/release/bokeh-3.2.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-gl-3.2.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-3.2.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-3.2.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-3.2.2.min.js"];
   const css_urls = [];
-  
 
-  const inline_js = [
-    function(Bokeh) {
+  const inline_js = [    function(Bokeh) {
       Bokeh.set_log_level("info");
     },
-    function(Bokeh) {
-    
-    
+function(Bokeh) {
     }
   ];
 
   function run_inline_js() {
-    
     if (root.Bokeh !== undefined || force === true) {
-      
-    for (let i = 0; i < inline_js.length; i++) {
+          for (let i = 0; i < inline_js.length; i++) {
       inline_js[i].call(root, root.Bokeh);
     }
-    if (force === true) {
+if (force === true) {
         display_loaded();
       }} else if (Date.now() < root._bokeh_timeout) {
       setTimeout(run_inline_js, 100);
@@ -739,10 +767,9 @@ document.write(`
       console.log("Bokeh: BokehJS failed to load within specified timeout.");
       root._bokeh_failed_load = true;
     } else if (force !== true) {
-      const cell = $(document.getElementById("1002")).parents('.cell').data().cell;
+      const cell = $(document.getElementById("a09105c2-5b80-4efe-91db-5db60b0bf51e")).parents('.cell').data().cell;
       cell.output_area.append_execute_result(NB_LOAD_WARNING)
     }
-
   }
 
   if (root._bokeh_is_loading === 0) {
@@ -900,12 +927,16 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Calculator initial year =  2014
-Calculator year =  2022
-year:  2022
-{&#39;tau_pt&#39;: array([0.20291415]), &#39;tau_div&#39;: array([0.17179479]), &#39;tau_int&#39;: array([0.31126241]), &#39;tau_scg&#39;: array([0.2836037]), &#39;tau_lcg&#39;: array([0.18346882]), &#39;tau_td&#39;: array([0.20469421]), &#39;tau_h&#39;: array([0.03877468])}
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;c&#39;: array([0.21]), &#39;pt&#39;: array([0.20291415])}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Calculator year =  2022
+year:  2022
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;tau_pt&#39;: array([0.20504301]), &#39;tau_div&#39;: array([0.17599343]), &#39;tau_int&#39;: array([0.31391843]), &#39;tau_scg&#39;: array([0.29663216]), &#39;tau_lcg&#39;: array([0.19356956]), &#39;tau_td&#39;: array([0.20818695]), &#39;tau_h&#39;: array([0.04203461])}
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;c&#39;: array([0.21]), &#39;pt&#39;: array([0.20504301])}
 </pre></div>
 </div>
 </div>
@@ -1126,6 +1157,62 @@ year:  2022
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deprec_df                                 value  asset_name BEA_code  \
+0  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}  Mainframes     EP1A   
+1  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}         PCs     EP1B   
+2  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}       DASDs     EP1C   
+3  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}    Printers     EP1D   
+4  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}   Terminals     EP1E   
+
+        minor_asset_group major_asset_group  ADS_life  GDS_life system  year  
+0  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+1  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+2  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+3  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+4  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+deprec_df 2    asset_name BEA_code       minor_asset_group major_asset_group  ADS_life  \
+0  Mainframes     EP1A  Computers and Software         Equipment       5.0   
+1         PCs     EP1B  Computers and Software         Equipment       5.0   
+2       DASDs     EP1C  Computers and Software         Equipment       5.0   
+3    Printers     EP1D  Computers and Software         Equipment       5.0   
+4   Terminals     EP1E  Computers and Software         Equipment       5.0   
+
+   GDS_life system  year  life   method  
+0       5.0    GDS  2020   5.0  DB 200%  
+1       5.0    GDS  2020   5.0  DB 200%  
+2       5.0    GDS  2020   5.0  DB 200%  
+3       5.0    GDS  2020   5.0  DB 200%  
+4       5.0    GDS  2020   5.0  DB 200%  
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deprec_df                                 value  asset_name BEA_code  \
+0  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}  Mainframes     EP1A   
+1  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}         PCs     EP1B   
+2  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}       DASDs     EP1C   
+3  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}    Printers     EP1D   
+4  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}   Terminals     EP1E   
+
+        minor_asset_group major_asset_group  ADS_life  GDS_life system  year  
+0  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+1  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+2  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+3  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+4  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+deprec_df 2    asset_name BEA_code       minor_asset_group major_asset_group  ADS_life  \
+0  Mainframes     EP1A  Computers and Software         Equipment       5.0   
+1         PCs     EP1B  Computers and Software         Equipment       5.0   
+2       DASDs     EP1C  Computers and Software         Equipment       5.0   
+3    Printers     EP1D  Computers and Software         Equipment       5.0   
+4   Terminals     EP1E  Computers and Software         Equipment       5.0   
+
+   GDS_life system  year  life   method  
+0       5.0    GDS  2020   5.0  DB 200%  
+1       5.0    GDS  2020   5.0  DB 200%  
+2       5.0    GDS  2020   5.0  DB 200%  
+3       5.0    GDS  2020   5.0  DB 200%  
+4       5.0    GDS  2020   5.0  DB 200%  
+</pre></div>
+</div>
 <div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1154,51 +1241,51 @@ year:  2022
     <tr>
       <th>0</th>
       <td>Overall</td>
-      <td>17.385422</td>
-      <td>25.403326</td>
-      <td>8.017904</td>
+      <td>17.639885</td>
+      <td>25.524466</td>
+      <td>7.884581</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Corporations</td>
-      <td>17.428895</td>
-      <td>28.035541</td>
-      <td>10.606646</td>
+      <td>17.755445</td>
+      <td>28.320144</td>
+      <td>10.564699</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Equity Financed</td>
-      <td>20.321015</td>
-      <td>34.294894</td>
-      <td>13.973878</td>
+      <td>20.651947</td>
+      <td>34.567787</td>
+      <td>13.915840</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Debt Financed</td>
-      <td>6.660793</td>
-      <td>-2.327833</td>
-      <td>-8.988626</td>
+      <td>6.970612</td>
+      <td>-1.988179</td>
+      <td>-8.958791</td>
     </tr>
     <tr>
       <th>4</th>
       <td>Pass-Through Entities</td>
-      <td>18.812173</td>
-      <td>23.397810</td>
-      <td>4.585637</td>
+      <td>19.007441</td>
+      <td>23.318798</td>
+      <td>4.311357</td>
     </tr>
     <tr>
       <th>5</th>
       <td>Equity Financed</td>
-      <td>17.178244</td>
-      <td>23.098247</td>
-      <td>5.920003</td>
+      <td>17.366140</td>
+      <td>22.788235</td>
+      <td>5.422095</td>
     </tr>
     <tr>
       <th>6</th>
       <td>Debt Financed</td>
-      <td>25.163912</td>
-      <td>24.787343</td>
-      <td>-0.376569</td>
+      <td>25.389258</td>
+      <td>25.628631</td>
+      <td>0.239374</td>
     </tr>
   </tbody>
 </table>
@@ -1213,6 +1300,62 @@ year:  2022
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deprec_df                                 value  asset_name BEA_code  \
+0  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}  Mainframes     EP1A   
+1  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}         PCs     EP1B   
+2  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}       DASDs     EP1C   
+3  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}    Printers     EP1D   
+4  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}   Terminals     EP1E   
+
+        minor_asset_group major_asset_group  ADS_life  GDS_life system  year  
+0  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+1  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+2  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+3  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+4  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+deprec_df 2    asset_name BEA_code       minor_asset_group major_asset_group  ADS_life  \
+0  Mainframes     EP1A  Computers and Software         Equipment       5.0   
+1         PCs     EP1B  Computers and Software         Equipment       5.0   
+2       DASDs     EP1C  Computers and Software         Equipment       5.0   
+3    Printers     EP1D  Computers and Software         Equipment       5.0   
+4   Terminals     EP1E  Computers and Software         Equipment       5.0   
+
+   GDS_life system  year  life   method  
+0       5.0    GDS  2020   5.0  DB 200%  
+1       5.0    GDS  2020   5.0  DB 200%  
+2       5.0    GDS  2020   5.0  DB 200%  
+3       5.0    GDS  2020   5.0  DB 200%  
+4       5.0    GDS  2020   5.0  DB 200%  
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deprec_df                                 value  asset_name BEA_code  \
+0  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}  Mainframes     EP1A   
+1  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}         PCs     EP1B   
+2  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}       DASDs     EP1C   
+3  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}    Printers     EP1D   
+4  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}   Terminals     EP1E   
+
+        minor_asset_group major_asset_group  ADS_life  GDS_life system  year  
+0  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+1  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+2  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+3  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+4  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+deprec_df 2    asset_name BEA_code       minor_asset_group major_asset_group  ADS_life  \
+0  Mainframes     EP1A  Computers and Software         Equipment       5.0   
+1         PCs     EP1B  Computers and Software         Equipment       5.0   
+2       DASDs     EP1C  Computers and Software         Equipment       5.0   
+3    Printers     EP1D  Computers and Software         Equipment       5.0   
+4   Terminals     EP1E  Computers and Software         Equipment       5.0   
+
+   GDS_life system  year  life   method  
+0       5.0    GDS  2020   5.0  DB 200%  
+1       5.0    GDS  2020   5.0  DB 200%  
+2       5.0    GDS  2020   5.0  DB 200%  
+3       5.0    GDS  2020   5.0  DB 200%  
+4       5.0    GDS  2020   5.0  DB 200%  
+</pre></div>
+</div>
 <div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1241,9 +1384,9 @@ year:  2022
     <tr>
       <th>0</th>
       <td>Overall</td>
-      <td>5.656019</td>
-      <td>6.263947</td>
-      <td>0.607928</td>
+      <td>5.651057</td>
+      <td>6.249323</td>
+      <td>0.598266</td>
     </tr>
     <tr>
       <th>1</th>
@@ -1269,23 +1412,23 @@ year:  2022
     <tr>
       <th>4</th>
       <td>Pass-Through Entities</td>
-      <td>5.652469</td>
-      <td>5.990843</td>
-      <td>0.338374</td>
+      <td>5.641592</td>
+      <td>5.958787</td>
+      <td>0.317195</td>
     </tr>
     <tr>
       <th>5</th>
       <td>Equity Financed</td>
-      <td>6.321854</td>
-      <td>6.808519</td>
-      <td>0.486665</td>
+      <td>6.309913</td>
+      <td>6.753018</td>
+      <td>0.443105</td>
     </tr>
     <tr>
       <th>6</th>
       <td>Debt Financed</td>
-      <td>4.016359</td>
-      <td>3.996250</td>
-      <td>-0.020109</td>
+      <td>4.008120</td>
+      <td>4.021020</td>
+      <td>0.012901</td>
     </tr>
   </tbody>
 </table>
@@ -1299,6 +1442,64 @@ year:  2022
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deprec_df                                 value  asset_name BEA_code  \
+0  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}  Mainframes     EP1A   
+1  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}         PCs     EP1B   
+2  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}       DASDs     EP1C   
+3  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}    Printers     EP1D   
+4  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}   Terminals     EP1E   
+
+        minor_asset_group major_asset_group  ADS_life  GDS_life system  year  
+0  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+1  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+2  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+3  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+4  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+deprec_df 2    asset_name BEA_code       minor_asset_group major_asset_group  ADS_life  \
+0  Mainframes     EP1A  Computers and Software         Equipment       5.0   
+1         PCs     EP1B  Computers and Software         Equipment       5.0   
+2       DASDs     EP1C  Computers and Software         Equipment       5.0   
+3    Printers     EP1D  Computers and Software         Equipment       5.0   
+4   Terminals     EP1E  Computers and Software         Equipment       5.0   
+
+   GDS_life system  year  life   method  
+0       5.0    GDS  2020   5.0  DB 200%  
+1       5.0    GDS  2020   5.0  DB 200%  
+2       5.0    GDS  2020   5.0  DB 200%  
+3       5.0    GDS  2020   5.0  DB 200%  
+4       5.0    GDS  2020   5.0  DB 200%  
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deprec_df                                 value  asset_name BEA_code  \
+0  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}  Mainframes     EP1A   
+1  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}         PCs     EP1B   
+2  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}       DASDs     EP1C   
+3  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}    Printers     EP1D   
+4  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}   Terminals     EP1E   
+
+        minor_asset_group major_asset_group  ADS_life  GDS_life system  year  
+0  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+1  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+2  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+3  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+4  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+deprec_df 2    asset_name BEA_code       minor_asset_group major_asset_group  ADS_life  \
+0  Mainframes     EP1A  Computers and Software         Equipment       5.0   
+1         PCs     EP1B  Computers and Software         Equipment       5.0   
+2       DASDs     EP1C  Computers and Software         Equipment       5.0   
+3    Printers     EP1D  Computers and Software         Equipment       5.0   
+4   Terminals     EP1E  Computers and Software         Equipment       5.0   
+
+   GDS_life system  year  life   method  
+0       5.0    GDS  2020   5.0  DB 200%  
+1       5.0    GDS  2020   5.0  DB 200%  
+2       5.0    GDS  2020   5.0  DB 200%  
+3       5.0    GDS  2020   5.0  DB 200%  
+4       5.0    GDS  2020   5.0  DB 200%  
+</pre></div>
+</div>
+</div>
 </div>
 <p>There are also <code class="docutils literal notranslate"><span class="pre">Calculator</span></code> methods to compute summary tables by asset type or industry.  These are computed in the next two cells.</p>
 <div class="cell docutils container">
@@ -1309,6 +1510,62 @@ year:  2022
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deprec_df                                 value  asset_name BEA_code  \
+0  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}  Mainframes     EP1A   
+1  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}         PCs     EP1B   
+2  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}       DASDs     EP1C   
+3  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}    Printers     EP1D   
+4  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}   Terminals     EP1E   
+
+        minor_asset_group major_asset_group  ADS_life  GDS_life system  year  
+0  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+1  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+2  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+3  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+4  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+deprec_df 2    asset_name BEA_code       minor_asset_group major_asset_group  ADS_life  \
+0  Mainframes     EP1A  Computers and Software         Equipment       5.0   
+1         PCs     EP1B  Computers and Software         Equipment       5.0   
+2       DASDs     EP1C  Computers and Software         Equipment       5.0   
+3    Printers     EP1D  Computers and Software         Equipment       5.0   
+4   Terminals     EP1E  Computers and Software         Equipment       5.0   
+
+   GDS_life system  year  life   method  
+0       5.0    GDS  2020   5.0  DB 200%  
+1       5.0    GDS  2020   5.0  DB 200%  
+2       5.0    GDS  2020   5.0  DB 200%  
+3       5.0    GDS  2020   5.0  DB 200%  
+4       5.0    GDS  2020   5.0  DB 200%  
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deprec_df                                 value  asset_name BEA_code  \
+0  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}  Mainframes     EP1A   
+1  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}         PCs     EP1B   
+2  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}       DASDs     EP1C   
+3  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}    Printers     EP1D   
+4  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}   Terminals     EP1E   
+
+        minor_asset_group major_asset_group  ADS_life  GDS_life system  year  
+0  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+1  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+2  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+3  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+4  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+deprec_df 2    asset_name BEA_code       minor_asset_group major_asset_group  ADS_life  \
+0  Mainframes     EP1A  Computers and Software         Equipment       5.0   
+1         PCs     EP1B  Computers and Software         Equipment       5.0   
+2       DASDs     EP1C  Computers and Software         Equipment       5.0   
+3    Printers     EP1D  Computers and Software         Equipment       5.0   
+4   Terminals     EP1E  Computers and Software         Equipment       5.0   
+
+   GDS_life system  year  life   method  
+0       5.0    GDS  2020   5.0  DB 200%  
+1       5.0    GDS  2020   5.0  DB 200%  
+2       5.0    GDS  2020   5.0  DB 200%  
+3       5.0    GDS  2020   5.0  DB 200%  
+4       5.0    GDS  2020   5.0  DB 200%  
+</pre></div>
+</div>
 <div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1337,93 +1594,93 @@ year:  2022
     <tr>
       <th>0</th>
       <td>Overall</td>
-      <td>17.385422</td>
-      <td>25.403326</td>
-      <td>8.017904</td>
+      <td>17.639885</td>
+      <td>25.524466</td>
+      <td>7.884581</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Corporate</td>
-      <td>17.428895</td>
-      <td>28.035541</td>
-      <td>10.606646</td>
+      <td>17.755445</td>
+      <td>28.320144</td>
+      <td>10.564699</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Equipment</td>
-      <td>6.378304</td>
-      <td>22.198307</td>
-      <td>15.820003</td>
+      <td>6.748557</td>
+      <td>22.505995</td>
+      <td>15.757439</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Structures</td>
-      <td>18.079919</td>
-      <td>27.585133</td>
-      <td>9.505214</td>
+      <td>18.403895</td>
+      <td>27.871517</td>
+      <td>9.467623</td>
     </tr>
     <tr>
       <th>4</th>
       <td>Intellectual Property</td>
-      <td>6.378304</td>
-      <td>10.914820</td>
-      <td>4.536516</td>
+      <td>6.748557</td>
+      <td>11.267132</td>
+      <td>4.518575</td>
     </tr>
     <tr>
       <th>5</th>
       <td>Inventories</td>
-      <td>28.943514</td>
-      <td>39.720019</td>
-      <td>10.776504</td>
+      <td>29.224527</td>
+      <td>39.958412</td>
+      <td>10.733886</td>
     </tr>
     <tr>
       <th>6</th>
       <td>Land</td>
-      <td>26.038860</td>
-      <td>35.629608</td>
-      <td>9.590748</td>
+      <td>26.331360</td>
+      <td>35.884178</td>
+      <td>9.552818</td>
     </tr>
     <tr>
       <th>7</th>
       <td>Pass-through</td>
-      <td>18.812173</td>
-      <td>23.397810</td>
-      <td>4.585637</td>
+      <td>19.007441</td>
+      <td>23.318798</td>
+      <td>4.311357</td>
     </tr>
     <tr>
       <th>8</th>
       <td>Equipment</td>
-      <td>1.948677</td>
-      <td>14.897821</td>
-      <td>12.949144</td>
+      <td>1.961381</td>
+      <td>15.050433</td>
+      <td>13.089052</td>
     </tr>
     <tr>
       <th>9</th>
       <td>Structures</td>
-      <td>17.439967</td>
-      <td>21.502642</td>
-      <td>4.062675</td>
+      <td>17.622599</td>
+      <td>21.473278</td>
+      <td>3.850679</td>
     </tr>
     <tr>
       <th>10</th>
       <td>Intellectual Property</td>
-      <td>1.948677</td>
-      <td>6.085711</td>
-      <td>4.137034</td>
+      <td>1.961381</td>
+      <td>6.536701</td>
+      <td>4.575320</td>
     </tr>
     <tr>
       <th>11</th>
       <td>Inventories</td>
-      <td>25.029232</td>
-      <td>29.369039</td>
-      <td>4.339807</td>
+      <td>25.284934</td>
+      <td>29.145909</td>
+      <td>3.860975</td>
     </tr>
     <tr>
       <th>12</th>
       <td>Land</td>
-      <td>21.844677</td>
-      <td>25.670063</td>
-      <td>3.825386</td>
+      <td>22.063514</td>
+      <td>25.536828</td>
+      <td>3.473313</td>
     </tr>
   </tbody>
 </table>
@@ -1437,6 +1694,62 @@ year:  2022
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deprec_df                                 value  asset_name BEA_code  \
+0  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}  Mainframes     EP1A   
+1  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}         PCs     EP1B   
+2  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}       DASDs     EP1C   
+3  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}    Printers     EP1D   
+4  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}   Terminals     EP1E   
+
+        minor_asset_group major_asset_group  ADS_life  GDS_life system  year  
+0  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+1  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+2  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+3  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+4  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+deprec_df 2    asset_name BEA_code       minor_asset_group major_asset_group  ADS_life  \
+0  Mainframes     EP1A  Computers and Software         Equipment       5.0   
+1         PCs     EP1B  Computers and Software         Equipment       5.0   
+2       DASDs     EP1C  Computers and Software         Equipment       5.0   
+3    Printers     EP1D  Computers and Software         Equipment       5.0   
+4   Terminals     EP1E  Computers and Software         Equipment       5.0   
+
+   GDS_life system  year  life   method  
+0       5.0    GDS  2020   5.0  DB 200%  
+1       5.0    GDS  2020   5.0  DB 200%  
+2       5.0    GDS  2020   5.0  DB 200%  
+3       5.0    GDS  2020   5.0  DB 200%  
+4       5.0    GDS  2020   5.0  DB 200%  
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deprec_df                                 value  asset_name BEA_code  \
+0  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}  Mainframes     EP1A   
+1  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}         PCs     EP1B   
+2  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}       DASDs     EP1C   
+3  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}    Printers     EP1D   
+4  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}   Terminals     EP1E   
+
+        minor_asset_group major_asset_group  ADS_life  GDS_life system  year  
+0  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+1  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+2  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+3  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+4  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+deprec_df 2    asset_name BEA_code       minor_asset_group major_asset_group  ADS_life  \
+0  Mainframes     EP1A  Computers and Software         Equipment       5.0   
+1         PCs     EP1B  Computers and Software         Equipment       5.0   
+2       DASDs     EP1C  Computers and Software         Equipment       5.0   
+3    Printers     EP1D  Computers and Software         Equipment       5.0   
+4   Terminals     EP1E  Computers and Software         Equipment       5.0   
+
+   GDS_life system  year  life   method  
+0       5.0    GDS  2020   5.0  DB 200%  
+1       5.0    GDS  2020   5.0  DB 200%  
+2       5.0    GDS  2020   5.0  DB 200%  
+3       5.0    GDS  2020   5.0  DB 200%  
+4       5.0    GDS  2020   5.0  DB 200%  
+</pre></div>
+</div>
 <div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1465,289 +1778,289 @@ year:  2022
     <tr>
       <th>0</th>
       <td>Overall</td>
-      <td>17.385422</td>
-      <td>25.403326</td>
-      <td>8.017904</td>
+      <td>17.639885</td>
+      <td>25.524466</td>
+      <td>7.884581</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Corporate</td>
-      <td>17.428895</td>
-      <td>28.035541</td>
-      <td>10.606646</td>
+      <td>17.755445</td>
+      <td>28.320144</td>
+      <td>10.564699</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Agriculture, forestry, fishing, and hunting</td>
-      <td>18.298771</td>
-      <td>30.621670</td>
-      <td>12.322899</td>
+      <td>18.621881</td>
+      <td>30.896046</td>
+      <td>12.274165</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Mining</td>
-      <td>9.355980</td>
-      <td>17.646210</td>
-      <td>8.290230</td>
+      <td>9.714456</td>
+      <td>17.971900</td>
+      <td>8.257444</td>
     </tr>
     <tr>
       <th>4</th>
       <td>Utilities</td>
-      <td>7.403845</td>
-      <td>19.798819</td>
-      <td>12.394974</td>
+      <td>7.770042</td>
+      <td>20.115997</td>
+      <td>12.345955</td>
     </tr>
     <tr>
       <th>5</th>
       <td>Construction</td>
-      <td>18.838676</td>
-      <td>30.349240</td>
-      <td>11.510564</td>
+      <td>19.159651</td>
+      <td>30.624693</td>
+      <td>11.465042</td>
     </tr>
     <tr>
       <th>6</th>
       <td>Manufacturing</td>
-      <td>17.725594</td>
-      <td>26.830751</td>
-      <td>9.105157</td>
+      <td>18.050971</td>
+      <td>27.120119</td>
+      <td>9.069148</td>
     </tr>
     <tr>
       <th>7</th>
       <td>Wholesale trade</td>
-      <td>23.188460</td>
-      <td>34.273842</td>
-      <td>11.085383</td>
+      <td>23.492232</td>
+      <td>34.533774</td>
+      <td>11.041542</td>
     </tr>
     <tr>
       <th>8</th>
       <td>Retail trade</td>
-      <td>24.179499</td>
-      <td>34.690033</td>
-      <td>10.510534</td>
+      <td>24.479352</td>
+      <td>34.948319</td>
+      <td>10.468967</td>
     </tr>
     <tr>
       <th>9</th>
       <td>Transportation and warehousing</td>
-      <td>10.639291</td>
-      <td>20.393471</td>
-      <td>9.754180</td>
+      <td>10.992693</td>
+      <td>20.708297</td>
+      <td>9.715604</td>
     </tr>
     <tr>
       <th>10</th>
       <td>Information</td>
-      <td>10.034240</td>
-      <td>24.539591</td>
-      <td>14.505351</td>
+      <td>10.390034</td>
+      <td>24.838020</td>
+      <td>14.447985</td>
     </tr>
     <tr>
       <th>11</th>
       <td>Finance and insurance</td>
-      <td>18.373608</td>
-      <td>30.264878</td>
-      <td>11.891270</td>
+      <td>18.696422</td>
+      <td>30.540664</td>
+      <td>11.844242</td>
     </tr>
     <tr>
       <th>12</th>
       <td>Real estate and rental and leasing</td>
-      <td>24.087083</td>
-      <td>33.721519</td>
-      <td>9.634436</td>
+      <td>24.387301</td>
+      <td>33.983636</td>
+      <td>9.596334</td>
     </tr>
     <tr>
       <th>13</th>
       <td>Professional, scientific, and technical ser...</td>
-      <td>14.266593</td>
-      <td>25.403173</td>
-      <td>11.136579</td>
+      <td>14.605649</td>
+      <td>25.698186</td>
+      <td>11.092537</td>
     </tr>
     <tr>
       <th>14</th>
       <td>Management of companies and enterprises</td>
-      <td>22.177149</td>
-      <td>32.248505</td>
-      <td>10.071355</td>
+      <td>22.484921</td>
+      <td>32.516446</td>
+      <td>10.031525</td>
     </tr>
     <tr>
       <th>15</th>
       <td>Administrative and waste management services</td>
-      <td>13.969707</td>
-      <td>26.515287</td>
-      <td>12.545580</td>
+      <td>14.309938</td>
+      <td>26.805903</td>
+      <td>12.495965</td>
     </tr>
     <tr>
       <th>16</th>
       <td>Educational services</td>
-      <td>22.179268</td>
-      <td>31.613808</td>
-      <td>9.434540</td>
+      <td>22.487031</td>
+      <td>31.884260</td>
+      <td>9.397229</td>
     </tr>
     <tr>
       <th>17</th>
       <td>Health care and social assistance</td>
-      <td>20.317482</td>
-      <td>30.832650</td>
-      <td>10.515168</td>
+      <td>20.632608</td>
+      <td>31.106191</td>
+      <td>10.473583</td>
     </tr>
     <tr>
       <th>18</th>
       <td>Arts, entertainment, and recreation</td>
-      <td>15.213585</td>
-      <td>26.326474</td>
-      <td>11.112889</td>
+      <td>15.548896</td>
+      <td>26.617836</td>
+      <td>11.068940</td>
     </tr>
     <tr>
       <th>19</th>
       <td>Accommodation and food services</td>
-      <td>23.766349</td>
-      <td>34.095181</td>
-      <td>10.328832</td>
+      <td>24.067836</td>
+      <td>34.355820</td>
+      <td>10.287984</td>
     </tr>
     <tr>
       <th>20</th>
       <td>Other services, except government</td>
-      <td>20.522378</td>
-      <td>29.799384</td>
-      <td>9.277005</td>
+      <td>20.836695</td>
+      <td>30.077012</td>
+      <td>9.240317</td>
     </tr>
     <tr>
       <th>21</th>
       <td>Pass-through</td>
-      <td>18.812173</td>
-      <td>23.397810</td>
-      <td>4.585637</td>
+      <td>19.007441</td>
+      <td>23.318798</td>
+      <td>4.311357</td>
     </tr>
     <tr>
       <th>22</th>
       <td>Agriculture, forestry, fishing, and hunting</td>
-      <td>15.876157</td>
-      <td>22.523466</td>
-      <td>6.647308</td>
+      <td>16.047848</td>
+      <td>22.465303</td>
+      <td>6.417456</td>
     </tr>
     <tr>
       <th>23</th>
       <td>Mining</td>
-      <td>5.274190</td>
-      <td>11.663757</td>
-      <td>6.389567</td>
+      <td>5.329731</td>
+      <td>11.922444</td>
+      <td>6.592713</td>
     </tr>
     <tr>
       <th>24</th>
       <td>Utilities</td>
-      <td>3.285505</td>
-      <td>13.167828</td>
-      <td>9.882323</td>
+      <td>3.315756</td>
+      <td>13.381097</td>
+      <td>10.065342</td>
     </tr>
     <tr>
       <th>25</th>
       <td>Construction</td>
-      <td>16.084501</td>
-      <td>22.106145</td>
-      <td>6.021644</td>
+      <td>16.256425</td>
+      <td>22.058650</td>
+      <td>5.802225</td>
     </tr>
     <tr>
       <th>26</th>
       <td>Manufacturing</td>
-      <td>14.207660</td>
-      <td>19.167293</td>
-      <td>4.959633</td>
+      <td>14.365716</td>
+      <td>19.196170</td>
+      <td>4.830454</td>
     </tr>
     <tr>
       <th>27</th>
       <td>Wholesale trade</td>
-      <td>21.047185</td>
-      <td>26.159069</td>
-      <td>5.111883</td>
+      <td>21.269469</td>
+      <td>26.008485</td>
+      <td>4.739016</td>
     </tr>
     <tr>
       <th>28</th>
       <td>Retail trade</td>
-      <td>21.275141</td>
-      <td>26.050928</td>
-      <td>4.775787</td>
+      <td>21.496969</td>
+      <td>25.904160</td>
+      <td>4.407191</td>
     </tr>
     <tr>
       <th>29</th>
       <td>Transportation and warehousing</td>
-      <td>6.820432</td>
-      <td>14.128465</td>
-      <td>7.308033</td>
+      <td>6.894412</td>
+      <td>14.309383</td>
+      <td>7.414971</td>
     </tr>
     <tr>
       <th>30</th>
       <td>Information</td>
-      <td>5.985239</td>
-      <td>17.050742</td>
-      <td>11.065503</td>
+      <td>6.049526</td>
+      <td>17.143644</td>
+      <td>11.094117</td>
     </tr>
     <tr>
       <th>31</th>
       <td>Finance and insurance</td>
-      <td>18.248503</td>
-      <td>23.618762</td>
-      <td>5.370259</td>
+      <td>18.440433</td>
+      <td>23.532485</td>
+      <td>5.092051</td>
     </tr>
     <tr>
       <th>32</th>
       <td>Real estate and rental and leasing</td>
-      <td>20.871296</td>
-      <td>24.725673</td>
-      <td>3.854377</td>
+      <td>21.082232</td>
+      <td>24.615095</td>
+      <td>3.532863</td>
     </tr>
     <tr>
       <th>33</th>
       <td>Professional, scientific, and technical ser...</td>
-      <td>9.972917</td>
-      <td>17.301080</td>
-      <td>7.328162</td>
+      <td>10.083509</td>
+      <td>17.383227</td>
+      <td>7.299718</td>
     </tr>
     <tr>
       <th>34</th>
       <td>Management of companies and enterprises</td>
-      <td>17.913126</td>
-      <td>22.858351</td>
-      <td>4.945225</td>
+      <td>18.102279</td>
+      <td>22.791069</td>
+      <td>4.688790</td>
     </tr>
     <tr>
       <th>35</th>
       <td>Administrative and waste management services</td>
-      <td>9.605741</td>
-      <td>18.203833</td>
-      <td>8.598093</td>
+      <td>9.711826</td>
+      <td>18.261459</td>
+      <td>8.549633</td>
     </tr>
     <tr>
       <th>36</th>
       <td>Educational services</td>
-      <td>17.893937</td>
-      <td>22.297889</td>
-      <td>4.403953</td>
+      <td>18.079977</td>
+      <td>22.247380</td>
+      <td>4.167403</td>
     </tr>
     <tr>
       <th>37</th>
       <td>Health care and social assistance</td>
-      <td>16.036972</td>
-      <td>21.670206</td>
-      <td>5.633234</td>
+      <td>16.206875</td>
+      <td>21.634895</td>
+      <td>5.428020</td>
     </tr>
     <tr>
       <th>38</th>
       <td>Arts, entertainment, and recreation</td>
-      <td>10.649402</td>
-      <td>17.958885</td>
-      <td>7.309483</td>
+      <td>10.766382</td>
+      <td>18.025709</td>
+      <td>7.259327</td>
     </tr>
     <tr>
       <th>39</th>
       <td>Accommodation and food services</td>
-      <td>19.724755</td>
-      <td>24.515138</td>
-      <td>4.790384</td>
+      <td>19.929849</td>
+      <td>24.406857</td>
+      <td>4.477008</td>
     </tr>
     <tr>
       <th>40</th>
       <td>Other services, except government</td>
-      <td>15.985057</td>
-      <td>20.612279</td>
-      <td>4.627222</td>
+      <td>16.154067</td>
+      <td>20.605809</td>
+      <td>4.451742</td>
     </tr>
   </tbody>
 </table>
@@ -1767,20 +2080,69 @@ year:  2022
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deprec_df                                 value  asset_name BEA_code  \
+0  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}  Mainframes     EP1A   
+1  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}         PCs     EP1B   
+2  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}       DASDs     EP1C   
+3  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}    Printers     EP1D   
+4  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}   Terminals     EP1E   
+
+        minor_asset_group major_asset_group  ADS_life  GDS_life system  year  
+0  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+1  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+2  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+3  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+4  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+deprec_df 2    asset_name BEA_code       minor_asset_group major_asset_group  ADS_life  \
+0  Mainframes     EP1A  Computers and Software         Equipment       5.0   
+1         PCs     EP1B  Computers and Software         Equipment       5.0   
+2       DASDs     EP1C  Computers and Software         Equipment       5.0   
+3    Printers     EP1D  Computers and Software         Equipment       5.0   
+4   Terminals     EP1E  Computers and Software         Equipment       5.0   
+
+   GDS_life system  year  life   method  
+0       5.0    GDS  2020   5.0  DB 200%  
+1       5.0    GDS  2020   5.0  DB 200%  
+2       5.0    GDS  2020   5.0  DB 200%  
+3       5.0    GDS  2020   5.0  DB 200%  
+4       5.0    GDS  2020   5.0  DB 200%  
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deprec_df                                 value  asset_name BEA_code  \
+0  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}  Mainframes     EP1A   
+1  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}         PCs     EP1B   
+2  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}       DASDs     EP1C   
+3  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}    Printers     EP1D   
+4  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}   Terminals     EP1E   
+
+        minor_asset_group major_asset_group  ADS_life  GDS_life system  year  
+0  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+1  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+2  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+3  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+4  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+deprec_df 2    asset_name BEA_code       minor_asset_group major_asset_group  ADS_life  \
+0  Mainframes     EP1A  Computers and Software         Equipment       5.0   
+1         PCs     EP1B  Computers and Software         Equipment       5.0   
+2       DASDs     EP1C  Computers and Software         Equipment       5.0   
+3    Printers     EP1D  Computers and Software         Equipment       5.0   
+4   Terminals     EP1E  Computers and Software         Equipment       5.0   
+
+   GDS_life system  year  life   method  
+0       5.0    GDS  2020   5.0  DB 200%  
+1       5.0    GDS  2020   5.0  DB 200%  
+2       5.0    GDS  2020   5.0  DB 200%  
+3       5.0    GDS  2020   5.0  DB 200%  
+4       5.0    GDS  2020   5.0  DB 200%  
+</pre></div>
+</div>
 <div class="output text_html">
-
-
-
-
-
-  <div class="bk-root" id="4d022835-4e3c-4fa5-bcc4-84fbf13971fe" data-root-id="1004"></div>
+  <div id="edd92f8e-8146-417d-8917-d8f14620a992" data-root-id="p1004" style="display: contents;"></div>
 </div><script type="application/javascript">(function(root) {
   function embed_document(root) {
-    
-  const docs_json = {"43c72506-edaa-452c-be56-e0d4290da470":{"defs":[],"roots":{"references":[{"attributes":{"below":[{"id":"1014"}],"center":[{"id":"1016"},{"id":"1020"},{"id":"1038"}],"height":350,"left":[{"id":"1017"}],"renderers":[{"id":"1027"},{"id":"1045"},{"id":"1057"},{"id":"1058"}],"title":null,"toolbar":{"id":"1021"},"toolbar_location":null,"x_range":{"id":"1006"},"x_scale":{"id":"1010"},"y_range":{"id":"1008"},"y_scale":{"id":"1012"}},"id":"1004","subtype":"Figure","type":"Plot"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"value":"#e84d60"},"hatch_alpha":{"value":0.2},"hatch_color":{"value":"#e84d60"},"line_alpha":{"value":0.2},"line_color":{"value":"#e84d60"},"top":{"field":"Reform"},"width":{"value":0.2},"x":{"field":"major_asset_group","transform":{"id":"1040"}}},"id":"1044","type":"VBar"},{"attributes":{},"id":"1031","type":"BasicTickFormatter"},{"attributes":{"label":{"value":"Reform"},"renderers":[{"id":"1045"}]},"id":"1056","type":"LegendItem"},{"attributes":{"axis":{"id":"1017"},"coordinates":null,"dimension":1,"group":null,"ticker":null},"id":"1020","type":"Grid"},{"attributes":{},"id":"1010","type":"CategoricalScale"},{"attributes":{},"id":"1032","type":"AllLabels"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"hatch_alpha":{"value":0.1},"hatch_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"top":{"field":"Reform"},"width":{"value":0.2},"x":{"field":"major_asset_group","transform":{"id":"1040"}}},"id":"1043","type":"VBar"},{"attributes":{"coordinates":null,"formatter":{"id":"1034"},"group":null,"major_label_policy":{"id":"1035"},"ticker":{"id":"1015"}},"id":"1014","type":"CategoricalAxis"},{"attributes":{},"id":"1021","type":"Toolbar"},{"attributes":{},"id":"1008","type":"DataRange1d"},{"attributes":{"data":{"Baseline":{"__ndarray__":"Qx1g0hVUsD9DHWDSFVSwP2cFmfoahtI/vS4m8zSq0D/bfyaKbSTHPw==","dtype":"float64","order":"little","shape":[5]},"Reform":{"__ndarray__":"JqUpbRARzT9vHGd+22+9P2I/HW94rNk/urSr07AS1z/mA1HyUvXRPw==","dtype":"float64","order":"little","shape":[5]},"index":[0,1,2,3,4],"major_asset_group":["Equipment","Intellectual Property","Inventories","Land","Structures"]},"selected":{"id":"1037"},"selection_policy":{"id":"1036"}},"id":"1003","type":"ColumnDataSource"},{"attributes":{},"id":"1035","type":"AllLabels"},{"attributes":{"label":{"value":"Baseline"},"renderers":[{"id":"1027"}]},"id":"1039","type":"LegendItem"},{"attributes":{},"id":"1012","type":"LinearScale"},{"attributes":{"coordinates":null,"group":null,"line_alpha":0.2,"line_color":"#718dbf","line_dash":[6],"line_width":2,"location":0.17428894800227407},"id":"1057","type":"Span"},{"attributes":{"coordinates":null,"data_source":{"id":"1003"},"glyph":{"id":"1042"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1044"},"nonselection_glyph":{"id":"1043"},"view":{"id":"1046"}},"id":"1045","type":"GlyphRenderer"},{"attributes":{},"id":"1037","type":"Selection"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"hatch_alpha":{"value":0.1},"hatch_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"top":{"field":"Baseline"},"width":{"value":0.2},"x":{"field":"major_asset_group","transform":{"id":"1022"}}},"id":"1025","type":"VBar"},{"attributes":{"axis":{"id":"1014"},"coordinates":null,"grid_line_color":null,"group":null,"ticker":null},"id":"1016","type":"Grid"},{"attributes":{"coordinates":null,"formatter":{"id":"1031"},"group":null,"major_label_policy":{"id":"1032"},"ticker":{"id":"1018"}},"id":"1017","type":"LinearAxis"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"value":"#718dbf"},"hatch_alpha":{"value":0.2},"hatch_color":{"value":"#718dbf"},"line_alpha":{"value":0.2},"line_color":{"value":"#718dbf"},"top":{"field":"Baseline"},"width":{"value":0.2},"x":{"field":"major_asset_group","transform":{"id":"1022"}}},"id":"1026","type":"VBar"},{"attributes":{"source":{"id":"1003"}},"id":"1046","type":"CDSView"},{"attributes":{"coordinates":null,"group":null,"items":[{"id":"1039"},{"id":"1056"}],"location":"top_left","orientation":"horizontal"},"id":"1038","type":"Legend"},{"attributes":{"range":{"id":"1006"}},"id":"1022","type":"Dodge"},{"attributes":{},"id":"1015","type":"CategoricalTicker"},{"attributes":{"range":{"id":"1006"},"value":0.25},"id":"1040","type":"Dodge"},{"attributes":{"coordinates":null,"data_source":{"id":"1003"},"glyph":{"id":"1024"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1026"},"nonselection_glyph":{"id":"1025"},"view":{"id":"1028"}},"id":"1027","type":"GlyphRenderer"},{"attributes":{"coordinates":null,"group":null,"line_alpha":0.2,"line_color":"#e84d60","line_dash":[6],"line_width":2,"location":0.28507294391464827},"id":"1058","type":"Span"},{"attributes":{},"id":"1018","type":"BasicTicker"},{"attributes":{"fill_color":{"value":"#e84d60"},"hatch_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"top":{"field":"Reform"},"width":{"value":0.2},"x":{"field":"major_asset_group","transform":{"id":"1040"}}},"id":"1042","type":"VBar"},{"attributes":{"source":{"id":"1003"}},"id":"1028","type":"CDSView"},{"attributes":{},"id":"1034","type":"CategoricalTickFormatter"},{"attributes":{},"id":"1036","type":"UnionRenderers"},{"attributes":{"fill_color":{"value":"#718dbf"},"hatch_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"top":{"field":"Baseline"},"width":{"value":0.2},"x":{"field":"major_asset_group","transform":{"id":"1022"}}},"id":"1024","type":"VBar"},{"attributes":{"factors":["Equipment","Intellectual Property","Inventories","Land","Structures"],"range_padding":0.1},"id":"1006","type":"FactorRange"}],"root_ids":["1004"]},"title":"Bokeh Application","version":"2.4.2"}};
-  const render_items = [{"docid":"43c72506-edaa-452c-be56-e0d4290da470","root_ids":["1004"],"roots":{"1004":"4d022835-4e3c-4fa5-bcc4-84fbf13971fe"}}];
+  const docs_json = {"2859dd57-e1fe-4f7d-9e83-e477b9c581fb":{"version":"3.2.2","title":"Bokeh Application","roots":[{"type":"object","name":"Figure","id":"p1004","attributes":{"height":350,"x_range":{"type":"object","name":"FactorRange","id":"p1013","attributes":{"factors":["Equipment","Intellectual Property","Inventories","Land","Structures"],"range_padding":0.1}},"y_range":{"type":"object","name":"DataRange1d","id":"p1006"},"x_scale":{"type":"object","name":"CategoricalScale","id":"p1014"},"y_scale":{"type":"object","name":"LinearScale","id":"p1015"},"title":null,"renderers":[{"type":"object","name":"GlyphRenderer","id":"p1033","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1001","attributes":{"selected":{"type":"object","name":"Selection","id":"p1002","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1003"},"data":{"type":"map","entries":[["index",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAEAAAACAAAAAwAAAAQAAAA="},"shape":[5],"dtype":"int32","order":"little"}],["major_asset_group",{"type":"ndarray","array":["Equipment","Intellectual Property","Inventories","Land","Structures"],"shape":[5],"dtype":"object","order":"little"}],["Baseline",{"type":"ndarray","array":{"type":"bytes","data":"13TT6LtGsT/XdNPou0axPyPMsH0ltNI/PMOpRSHa0D/NcB+Rlo7HPw=="},"shape":[5],"dtype":"float64","order":"little"}],["Reform",{"type":"ndarray","array":{"type":"bytes","data":"ZA548UsFzT/6WdK76FS9P/1zuGnpp9k/d9GIndIN1z+fb3T+2O/RPw=="},"shape":[5],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1034","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1035"}}},"glyph":{"type":"object","name":"VBar","id":"p1030","attributes":{"x":{"type":"field","field":"major_asset_group","transform":{"type":"object","name":"Dodge","id":"p1026","attributes":{"range":{"id":"p1013"}}}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Baseline"},"line_color":{"type":"value","value":"#718dbf"},"fill_color":{"type":"value","value":"#718dbf"},"hatch_color":{"type":"value","value":"#718dbf"}}},"nonselection_glyph":{"type":"object","name":"VBar","id":"p1031","attributes":{"x":{"type":"field","field":"major_asset_group","transform":{"id":"p1026"}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Baseline"},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"VBar","id":"p1032","attributes":{"x":{"type":"field","field":"major_asset_group","transform":{"id":"p1026"}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Baseline"},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1045","attributes":{"data_source":{"id":"p1001"},"view":{"type":"object","name":"CDSView","id":"p1046","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1047"}}},"glyph":{"type":"object","name":"VBar","id":"p1042","attributes":{"x":{"type":"field","field":"major_asset_group","transform":{"type":"object","name":"Dodge","id":"p1038","attributes":{"value":0.25,"range":{"id":"p1013"}}}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Reform"},"line_color":{"type":"value","value":"#e84d60"},"fill_color":{"type":"value","value":"#e84d60"},"hatch_color":{"type":"value","value":"#e84d60"}}},"nonselection_glyph":{"type":"object","name":"VBar","id":"p1043","attributes":{"x":{"type":"field","field":"major_asset_group","transform":{"id":"p1038"}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Reform"},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"VBar","id":"p1044","attributes":{"x":{"type":"field","field":"major_asset_group","transform":{"id":"p1038"}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Reform"},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"Span","id":"p1049","attributes":{"location":0.17755444865113887,"line_color":"#718dbf","line_alpha":0.2,"line_width":2,"line_dash":[6]}},{"type":"object","name":"Span","id":"p1050","attributes":{"location":0.2847407713587508,"line_color":"#e84d60","line_alpha":0.2,"line_width":2,"line_dash":[6]}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1012"},"toolbar_location":null,"left":[{"type":"object","name":"LinearAxis","id":"p1021","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1022","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1023"},"major_label_policy":{"type":"object","name":"AllLabels","id":"p1024"}}}],"below":[{"type":"object","name":"CategoricalAxis","id":"p1016","attributes":{"ticker":{"type":"object","name":"CategoricalTicker","id":"p1017"},"formatter":{"type":"object","name":"CategoricalTickFormatter","id":"p1018"},"major_label_policy":{"type":"object","name":"AllLabels","id":"p1019"}}}],"center":[{"type":"object","name":"Grid","id":"p1020","attributes":{"axis":{"id":"p1016"},"grid_line_color":null}},{"type":"object","name":"Grid","id":"p1025","attributes":{"dimension":1,"axis":{"id":"p1021"}}},{"type":"object","name":"Legend","id":"p1036","attributes":{"location":"top_left","orientation":"horizontal","items":[{"type":"object","name":"LegendItem","id":"p1037","attributes":{"label":{"type":"value","value":"Baseline"},"renderers":[{"id":"p1033"}]}},{"type":"object","name":"LegendItem","id":"p1048","attributes":{"label":{"type":"value","value":"Reform"},"renderers":[{"id":"p1045"}]}}]}}]}}]}};
+  const render_items = [{"docid":"2859dd57-e1fe-4f7d-9e83-e477b9c581fb","roots":{"p1004":"edd92f8e-8146-417d-8917-d8f14620a992"},"root_ids":["p1004"]}];
   root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
-
   }
   if (root.Bokeh !== undefined) {
     embed_document(root);
@@ -1811,20 +2173,69 @@ year:  2022
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deprec_df                                 value  asset_name BEA_code  \
+0  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}  Mainframes     EP1A   
+1  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}         PCs     EP1B   
+2  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}       DASDs     EP1C   
+3  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}    Printers     EP1D   
+4  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}   Terminals     EP1E   
+
+        minor_asset_group major_asset_group  ADS_life  GDS_life system  year  
+0  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+1  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+2  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+3  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+4  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+deprec_df 2    asset_name BEA_code       minor_asset_group major_asset_group  ADS_life  \
+0  Mainframes     EP1A  Computers and Software         Equipment       5.0   
+1         PCs     EP1B  Computers and Software         Equipment       5.0   
+2       DASDs     EP1C  Computers and Software         Equipment       5.0   
+3    Printers     EP1D  Computers and Software         Equipment       5.0   
+4   Terminals     EP1E  Computers and Software         Equipment       5.0   
+
+   GDS_life system  year  life   method  
+0       5.0    GDS  2020   5.0  DB 200%  
+1       5.0    GDS  2020   5.0  DB 200%  
+2       5.0    GDS  2020   5.0  DB 200%  
+3       5.0    GDS  2020   5.0  DB 200%  
+4       5.0    GDS  2020   5.0  DB 200%  
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deprec_df                                 value  asset_name BEA_code  \
+0  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}  Mainframes     EP1A   
+1  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}         PCs     EP1B   
+2  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}       DASDs     EP1C   
+3  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}    Printers     EP1D   
+4  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}   Terminals     EP1E   
+
+        minor_asset_group major_asset_group  ADS_life  GDS_life system  year  
+0  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+1  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+2  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+3  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+4  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+deprec_df 2    asset_name BEA_code       minor_asset_group major_asset_group  ADS_life  \
+0  Mainframes     EP1A  Computers and Software         Equipment       5.0   
+1         PCs     EP1B  Computers and Software         Equipment       5.0   
+2       DASDs     EP1C  Computers and Software         Equipment       5.0   
+3    Printers     EP1D  Computers and Software         Equipment       5.0   
+4   Terminals     EP1E  Computers and Software         Equipment       5.0   
+
+   GDS_life system  year  life   method  
+0       5.0    GDS  2020   5.0  DB 200%  
+1       5.0    GDS  2020   5.0  DB 200%  
+2       5.0    GDS  2020   5.0  DB 200%  
+3       5.0    GDS  2020   5.0  DB 200%  
+4       5.0    GDS  2020   5.0  DB 200%  
+</pre></div>
+</div>
 <div class="output text_html">
-
-
-
-
-
-  <div class="bk-root" id="5eec7313-025a-495d-a923-5e8b78fd5ed4" data-root-id="1114"></div>
+  <div id="c4fea24a-fdde-4b71-a793-facc48bcfa64" data-root-id="p1057" style="display: contents;"></div>
 </div><script type="application/javascript">(function(root) {
   function embed_document(root) {
-    
-  const docs_json = {"43f4ded7-5e97-4608-9ee3-4d1be9a60b7b":{"defs":[],"roots":{"references":[{"attributes":{"below":[{"id":"1124"}],"center":[{"id":"1126"},{"id":"1130"},{"id":"1148"}],"height":800,"left":[{"id":"1127"}],"renderers":[{"id":"1137"},{"id":"1155"},{"id":"1167"},{"id":"1168"}],"title":null,"toolbar":{"id":"1131"},"toolbar_location":null,"width":800,"x_range":{"id":"1116"},"x_scale":{"id":"1120"},"y_range":{"id":"1118"},"y_scale":{"id":"1122"}},"id":"1114","subtype":"Figure","type":"Plot"},{"attributes":{},"id":"1122","type":"LinearScale"},{"attributes":{"coordinates":null,"group":null,"line_alpha":0.2,"line_color":"#e84d60","line_dash":[6],"line_width":2,"location":0.28507294391464827},"id":"1168","type":"Span"},{"attributes":{"range":{"id":"1116"},"value":0.25},"id":"1150","type":"Dodge"},{"attributes":{"range":{"id":"1116"}},"id":"1132","type":"Dodge"},{"attributes":{"coordinates":null,"group":null,"line_alpha":0.2,"line_color":"#718dbf","line_dash":[6],"line_width":2,"location":0.17428894800227407},"id":"1167","type":"Span"},{"attributes":{},"id":"1131","type":"Toolbar"},{"attributes":{},"id":"1125","type":"CategoricalTicker"},{"attributes":{"label":{"value":"Reform"},"renderers":[{"id":"1155"}]},"id":"1166","type":"LegendItem"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"value":"#718dbf"},"hatch_alpha":{"value":0.2},"hatch_color":{"value":"#718dbf"},"line_alpha":{"value":0.2},"line_color":{"value":"#718dbf"},"top":{"field":"Baseline"},"width":{"value":0.2},"x":{"field":"major_industry","transform":{"id":"1132"}}},"id":"1136","type":"VBar"},{"attributes":{"source":{"id":"1113"}},"id":"1156","type":"CDSView"},{"attributes":{},"id":"1120","type":"CategoricalScale"},{"attributes":{"coordinates":null,"formatter":{"id":"1144"},"group":null,"major_label_orientation":45,"major_label_policy":{"id":"1145"},"ticker":{"id":"1125"}},"id":"1124","type":"CategoricalAxis"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"value":"#e84d60"},"hatch_alpha":{"value":0.2},"hatch_color":{"value":"#e84d60"},"line_alpha":{"value":0.2},"line_color":{"value":"#e84d60"},"top":{"field":"Reform"},"width":{"value":0.2},"x":{"field":"major_industry","transform":{"id":"1150"}}},"id":"1154","type":"VBar"},{"attributes":{},"id":"1144","type":"CategoricalTickFormatter"},{"attributes":{},"id":"1142","type":"AllLabels"},{"attributes":{},"id":"1146","type":"UnionRenderers"},{"attributes":{"label":{"value":"Baseline"},"renderers":[{"id":"1137"}]},"id":"1149","type":"LegendItem"},{"attributes":{"coordinates":null,"formatter":{"id":"1141"},"group":null,"major_label_policy":{"id":"1142"},"ticker":{"id":"1128"}},"id":"1127","type":"LinearAxis"},{"attributes":{"factors":["Accommodation and food services","Administrative and waste management services","Agriculture, forestry, fishing, and hunting","Arts, entertainment, and recreation","Construction","Educational services","Finance and insurance","Health care and social assistance","Information","Management of companies and enterprises","Manufacturing","Mining","Other services, except government","Professional, scientific, and technical services","Real estate and rental and leasing","Retail trade","Transportation and warehousing","Utilities","Wholesale trade"],"range_padding":0.1},"id":"1116","type":"FactorRange"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"hatch_alpha":{"value":0.1},"hatch_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"top":{"field":"Reform"},"width":{"value":0.2},"x":{"field":"major_industry","transform":{"id":"1150"}}},"id":"1153","type":"VBar"},{"attributes":{"source":{"id":"1113"}},"id":"1138","type":"CDSView"},{"attributes":{"coordinates":null,"group":null,"items":[{"id":"1149"},{"id":"1166"}],"location":"top_left","orientation":"horizontal"},"id":"1148","type":"Legend"},{"attributes":{},"id":"1128","type":"BasicTicker"},{"attributes":{"axis":{"id":"1124"},"coordinates":null,"grid_line_color":null,"group":null,"ticker":null},"id":"1126","type":"Grid"},{"attributes":{},"id":"1141","type":"BasicTickFormatter"},{"attributes":{"axis":{"id":"1127"},"coordinates":null,"dimension":1,"group":null,"ticker":null},"id":"1130","type":"Grid"},{"attributes":{"fill_color":{"value":"#718dbf"},"hatch_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"top":{"field":"Baseline"},"width":{"value":0.2},"x":{"field":"major_industry","transform":{"id":"1132"}}},"id":"1134","type":"VBar"},{"attributes":{"coordinates":null,"data_source":{"id":"1113"},"glyph":{"id":"1152"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1154"},"nonselection_glyph":{"id":"1153"},"view":{"id":"1156"}},"id":"1155","type":"GlyphRenderer"},{"attributes":{},"id":"1118","type":"DataRange1d"},{"attributes":{"fill_color":{"value":"#e84d60"},"hatch_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"top":{"field":"Reform"},"width":{"value":0.2},"x":{"field":"major_industry","transform":{"id":"1150"}}},"id":"1152","type":"VBar"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"hatch_alpha":{"value":0.1},"hatch_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"top":{"field":"Baseline"},"width":{"value":0.2},"x":{"field":"major_industry","transform":{"id":"1132"}}},"id":"1135","type":"VBar"},{"attributes":{},"id":"1145","type":"AllLabels"},{"attributes":{},"id":"1147","type":"Selection"},{"attributes":{"coordinates":null,"data_source":{"id":"1113"},"glyph":{"id":"1134"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1136"},"nonselection_glyph":{"id":"1135"},"view":{"id":"1138"}},"id":"1137","type":"GlyphRenderer"},{"attributes":{"data":{"Baseline":{"__ndarray__":"K23128Frzj932Jj4l+HBPxhzJyokbMc/jdAVBTB5wz/w93GyDh3IP4BEVtWzY8w/5phI86mExz+xobDioQHKP0a/exwKsLk/5VtcHgJjzD+ntW6VUrDGPyhZ6eiI87c/dbNn4sVEyj+YjmCT4ELCP5Tz/vTa1M4/SIAPYSPzzj9tlP7mkDy7P1+11hgv9LI/lM6J+WSuzT8=","dtype":"float64","order":"little","shape":[19]},"Reform":{"__ndarray__":"FYPNNPAY1j+QslWIMEfRPx/a3KOR49M/xJnYCXUo0T/ZPBr+ObfTP5d6iSEOhdQ/1719yH6p0z+LaY3G6AXUP98YiwadBdA/Os95ulzs1D+8smRJiXrRP03uBAw2R8c/1+s8jrpd0z/SkebULJLQPwlkE24e3NU/78bHisJ51j/e/9BQiMXKP+ig0k70A8o/f7+wqwQ21j8=","dtype":"float64","order":"little","shape":[19]},"index":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],"major_industry":["Accommodation and food services","Administrative and waste management services","Agriculture, forestry, fishing, and hunting","Arts, entertainment, and recreation","Construction","Educational services","Finance and insurance","Health care and social assistance","Information","Management of companies and enterprises","Manufacturing","Mining","Other services, except government","Professional, scientific, and technical services","Real estate and rental and leasing","Retail trade","Transportation and warehousing","Utilities","Wholesale trade"]},"selected":{"id":"1147"},"selection_policy":{"id":"1146"}},"id":"1113","type":"ColumnDataSource"}],"root_ids":["1114"]},"title":"Bokeh Application","version":"2.4.2"}};
-  const render_items = [{"docid":"43f4ded7-5e97-4608-9ee3-4d1be9a60b7b","root_ids":["1114"],"roots":{"1114":"5eec7313-025a-495d-a923-5e8b78fd5ed4"}}];
+  const docs_json = {"d52cc3e8-f8b7-47e0-9b0a-c4cd0c053b33":{"version":"3.2.2","title":"Bokeh Application","roots":[{"type":"object","name":"Figure","id":"p1057","attributes":{"width":800,"height":800,"x_range":{"type":"object","name":"FactorRange","id":"p1066","attributes":{"factors":["Accommodation and food services","Administrative and waste management services","Agriculture, forestry, fishing, and hunting","Arts, entertainment, and recreation","Construction","Educational services","Finance and insurance","Health care and social assistance","Information","Management of companies and enterprises","Manufacturing","Mining","Other services, except government","Professional, scientific, and technical services","Real estate and rental and leasing","Retail trade","Transportation and warehousing","Utilities","Wholesale trade"],"range_padding":0.1}},"y_range":{"type":"object","name":"DataRange1d","id":"p1059"},"x_scale":{"type":"object","name":"CategoricalScale","id":"p1067"},"y_scale":{"type":"object","name":"LinearScale","id":"p1068"},"title":null,"renderers":[{"type":"object","name":"GlyphRenderer","id":"p1086","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1054","attributes":{"selected":{"type":"object","name":"Selection","id":"p1055","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1056"},"data":{"type":"map","entries":[["index",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAEAAAACAAAAAwAAAAQAAAAFAAAABgAAAAcAAAAIAAAACQAAAAoAAAALAAAADAAAAA0AAAAOAAAADwAAABAAAAARAAAAEgAAAA=="},"shape":[19],"dtype":"int32","order":"little"}],["major_industry",{"type":"ndarray","array":["Accommodation and food services","Administrative and waste management services","Agriculture, forestry, fishing, and hunting","Arts, entertainment, and recreation","Construction","Educational services","Finance and insurance","Health care and social assistance","Information","Management of companies and enterprises","Manufacturing","Mining","Other services, except government","Professional, scientific, and technical services","Real estate and rental and leasing","Retail trade","Transportation and warehousing","Utilities","Wholesale trade"],"shape":[19],"dtype":"object","order":"little"}],["Baseline",{"type":"ndarray","array":{"type":"bytes","data":"rq4WaYzOzj8PQCuQFFHCP7efcpYE1sc/vxBu9A/nwz8FqpkBPIbIP04ITuaMyMw/vdPOi3Huxz9oR6yZ5GjKP8HrVXs2mbo/8D5A49vHzD/bh5Uo8RrHP6bAhU533rg/4Yvgn8Sryj8puvms+rHCP34Azxo7N88/cTgm3mRVzz/bihLSKyS8P4DvsLws5LM/lIC9Pe8Rzj8="},"shape":[19],"dtype":"float64","order":"little"}],["Reform",{"type":"ndarray","array":{"type":"bytes","data":"JoTMSfQT1j9BIyXeoUHRP6meknlS3tM/JMzdt+Ii0T8WmZqN9bHTPxqvcSzif9Q/K0vhtTik0z8b9emxrQDUP9BF9TjQ/88/wvsKDz3n1D9p+LC6AHXRP1nRdE7BOsc/JJ+QeGtY0z/WgOOiiIzQP4eMJEcb19U/mWj1I9J01j/x3gDzfbnKP96noOrS98k/o+YoNgwx1j8="},"shape":[19],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1087","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1088"}}},"glyph":{"type":"object","name":"VBar","id":"p1083","attributes":{"x":{"type":"field","field":"major_industry","transform":{"type":"object","name":"Dodge","id":"p1079","attributes":{"range":{"id":"p1066"}}}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Baseline"},"line_color":{"type":"value","value":"#718dbf"},"fill_color":{"type":"value","value":"#718dbf"},"hatch_color":{"type":"value","value":"#718dbf"}}},"nonselection_glyph":{"type":"object","name":"VBar","id":"p1084","attributes":{"x":{"type":"field","field":"major_industry","transform":{"id":"p1079"}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Baseline"},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"VBar","id":"p1085","attributes":{"x":{"type":"field","field":"major_industry","transform":{"id":"p1079"}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Baseline"},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1098","attributes":{"data_source":{"id":"p1054"},"view":{"type":"object","name":"CDSView","id":"p1099","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1100"}}},"glyph":{"type":"object","name":"VBar","id":"p1095","attributes":{"x":{"type":"field","field":"major_industry","transform":{"type":"object","name":"Dodge","id":"p1091","attributes":{"value":0.25,"range":{"id":"p1066"}}}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Reform"},"line_color":{"type":"value","value":"#e84d60"},"fill_color":{"type":"value","value":"#e84d60"},"hatch_color":{"type":"value","value":"#e84d60"}}},"nonselection_glyph":{"type":"object","name":"VBar","id":"p1096","attributes":{"x":{"type":"field","field":"major_industry","transform":{"id":"p1091"}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Reform"},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"VBar","id":"p1097","attributes":{"x":{"type":"field","field":"major_industry","transform":{"id":"p1091"}},"width":{"type":"value","value":0.2},"top":{"type":"field","field":"Reform"},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"Span","id":"p1102","attributes":{"location":0.17755444865113887,"line_color":"#718dbf","line_alpha":0.2,"line_width":2,"line_dash":[6]}},{"type":"object","name":"Span","id":"p1103","attributes":{"location":0.2847407713587508,"line_color":"#e84d60","line_alpha":0.2,"line_width":2,"line_dash":[6]}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1065"},"toolbar_location":null,"left":[{"type":"object","name":"LinearAxis","id":"p1074","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1075","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1076"},"major_label_policy":{"type":"object","name":"AllLabels","id":"p1077"}}}],"below":[{"type":"object","name":"CategoricalAxis","id":"p1069","attributes":{"ticker":{"type":"object","name":"CategoricalTicker","id":"p1070"},"formatter":{"type":"object","name":"CategoricalTickFormatter","id":"p1071"},"major_label_orientation":45,"major_label_policy":{"type":"object","name":"AllLabels","id":"p1072"}}}],"center":[{"type":"object","name":"Grid","id":"p1073","attributes":{"axis":{"id":"p1069"},"grid_line_color":null}},{"type":"object","name":"Grid","id":"p1078","attributes":{"dimension":1,"axis":{"id":"p1074"}}},{"type":"object","name":"Legend","id":"p1089","attributes":{"location":"top_left","orientation":"horizontal","items":[{"type":"object","name":"LegendItem","id":"p1090","attributes":{"label":{"type":"value","value":"Baseline"},"renderers":[{"id":"p1086"}]}},{"type":"object","name":"LegendItem","id":"p1101","attributes":{"label":{"type":"value","value":"Reform"},"renderers":[{"id":"p1098"}]}}]}}]}}]}};
+  const render_items = [{"docid":"d52cc3e8-f8b7-47e0-9b0a-c4cd0c053b33","roots":{"p1057":"c4fea24a-fdde-4b71-a793-facc48bcfa64"},"root_ids":["p1057"]}];
   root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
-
   }
   if (root.Bokeh !== undefined) {
     embed_document(root);
@@ -1855,20 +2266,69 @@ year:  2022
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deprec_df                                 value  asset_name BEA_code  \
+0  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}  Mainframes     EP1A   
+1  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}         PCs     EP1B   
+2  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}       DASDs     EP1C   
+3  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}    Printers     EP1D   
+4  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}   Terminals     EP1E   
+
+        minor_asset_group major_asset_group  ADS_life  GDS_life system  year  
+0  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+1  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+2  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+3  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+4  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+deprec_df 2    asset_name BEA_code       minor_asset_group major_asset_group  ADS_life  \
+0  Mainframes     EP1A  Computers and Software         Equipment       5.0   
+1         PCs     EP1B  Computers and Software         Equipment       5.0   
+2       DASDs     EP1C  Computers and Software         Equipment       5.0   
+3    Printers     EP1D  Computers and Software         Equipment       5.0   
+4   Terminals     EP1E  Computers and Software         Equipment       5.0   
+
+   GDS_life system  year  life   method  
+0       5.0    GDS  2020   5.0  DB 200%  
+1       5.0    GDS  2020   5.0  DB 200%  
+2       5.0    GDS  2020   5.0  DB 200%  
+3       5.0    GDS  2020   5.0  DB 200%  
+4       5.0    GDS  2020   5.0  DB 200%  
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deprec_df                                 value  asset_name BEA_code  \
+0  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}  Mainframes     EP1A   
+1  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}         PCs     EP1B   
+2  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}       DASDs     EP1C   
+3  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}    Printers     EP1D   
+4  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}   Terminals     EP1E   
+
+        minor_asset_group major_asset_group  ADS_life  GDS_life system  year  
+0  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+1  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+2  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+3  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+4  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+deprec_df 2    asset_name BEA_code       minor_asset_group major_asset_group  ADS_life  \
+0  Mainframes     EP1A  Computers and Software         Equipment       5.0   
+1         PCs     EP1B  Computers and Software         Equipment       5.0   
+2       DASDs     EP1C  Computers and Software         Equipment       5.0   
+3    Printers     EP1D  Computers and Software         Equipment       5.0   
+4   Terminals     EP1E  Computers and Software         Equipment       5.0   
+
+   GDS_life system  year  life   method  
+0       5.0    GDS  2020   5.0  DB 200%  
+1       5.0    GDS  2020   5.0  DB 200%  
+2       5.0    GDS  2020   5.0  DB 200%  
+3       5.0    GDS  2020   5.0  DB 200%  
+4       5.0    GDS  2020   5.0  DB 200%  
+</pre></div>
+</div>
 <div class="output text_html">
-
-
-
-
-
-  <div class="bk-root" id="5a925981-37f3-41a3-a8ff-fbee3fb8c6aa" data-root-id="1234"></div>
+  <div id="dc429246-0299-4138-bef1-e2ac9b09140e" data-root-id="p1113" style="display: contents;"></div>
 </div><script type="application/javascript">(function(root) {
   function embed_document(root) {
-    
-  const docs_json = {"f9ffa6b6-e04f-448f-891e-a0b7ba90b2fb":{"defs":[],"roots":{"references":[{"attributes":{"below":[{"id":"1243"}],"center":[{"id":"1246"},{"id":"1250"},{"id":"1260"},{"id":"1261"},{"id":"1262"},{"id":"1282"}],"height":500,"left":[{"id":"1247"}],"renderers":[{"id":"1259"},{"id":"1267"},{"id":"1273"},{"id":"1288"},{"id":"1301"},{"id":"1314"},{"id":"1320"},{"id":"1336"},{"id":"1351"}],"title":{"id":"1252"},"toolbar":{"id":"1251"},"toolbar_location":null,"width":500,"x_range":{"id":"1235"},"x_scale":{"id":"1239"},"y_range":{"id":"1237"},"y_scale":{"id":"1241"}},"id":"1234","subtype":"Figure","type":"Plot"},{"attributes":{"coordinates":null,"data_source":{"id":"1233"},"glyph":{"id":"1317"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1319"},"nonselection_glyph":{"id":"1318"},"view":{"id":"1321"}},"id":"1320","type":"GlyphRenderer"},{"attributes":{"coordinates":null,"fill_alpha":0.2,"fill_color":"white","group":null,"right":0.5},"id":"1260","type":"BoxAnnotation"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"value":"#718dbf"},"hatch_alpha":{"value":0.2},"hatch_color":{"value":"#718dbf"},"line_alpha":{"value":0.2},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1272","type":"Circle"},{"attributes":{"source":{"id":"1233"}},"id":"1321","type":"CDSView"},{"attributes":{"coordinates":null,"fill_alpha":0.1,"fill_color":"white","group":null,"left":0.5,"right":1.5},"id":"1261","type":"BoxAnnotation"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"hatch_alpha":{"value":0.1},"hatch_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1271","type":"Circle"},{"attributes":{"format":"0%"},"id":"1257","type":"NumeralTickFormatter"},{"attributes":{},"id":"1241","type":"LinearScale"},{"attributes":{"source":{"id":"1232"}},"id":"1268","type":"CDSView"},{"attributes":{"coordinates":null,"fill_alpha":0.2,"fill_color":"white","group":null,"left":1.5},"id":"1262","type":"BoxAnnotation"},{"attributes":{"coordinates":null,"group":null,"text_font":"Helvetica"},"id":"1252","type":"Title"},{"attributes":{"coordinates":null,"group":null,"line_alpha":0.2,"line_dash":[6],"line_width":2,"location":0},"id":"1259","type":"Span"},{"attributes":{},"id":"1281","type":"Selection"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"value":"#e84d60"},"hatch_alpha":{"value":0.2},"hatch_color":{"value":"#e84d60"},"line_alpha":{"value":0.2},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1335","type":"Circle"},{"attributes":{},"id":"1237","type":"DataRange1d"},{"attributes":{"data":{"max_asset":["Inventories","Inventories","Inventories"],"maxes":[0.1715367123714358,-0.06578788226151004,0.23626733773084305],"mean_asset":["Overall","Overall","Overall"],"means":[0.0372852157964054,-0.262084258806486,0.11736148787988565],"min_asset":["Intellectual Property","Intellectual Property","Intellectual Property"],"mins":[-0.09155606847470654,-0.4364303178484108,-1.1963610179150395e-16],"positions":[-0.1,0.9,1.9],"types":["Typically Financed","Debt Financed","Equity Financed"]},"selected":{"id":"1281"},"selection_policy":{"id":"1280"}},"id":"1232","type":"ColumnDataSource"},{"attributes":{"label":{"value":"Reform"},"renderers":[{"id":"1320"},{"id":"1336"},{"id":"1351"}]},"id":"1331","type":"LegendItem"},{"attributes":{"coordinates":null,"data_source":{"id":"1232"},"glyph":{"id":"1264"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1266"},"nonselection_glyph":{"id":"1265"},"view":{"id":"1268"}},"id":"1267","type":"GlyphRenderer"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"value":"#718dbf"},"hatch_alpha":{"value":0.2},"hatch_color":{"value":"#718dbf"},"line_alpha":{"value":0.2},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1287","type":"Circle"},{"attributes":{"fill_color":{"value":"#e84d60"},"hatch_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1348","type":"Circle"},{"attributes":{"coordinates":null,"data_source":{"id":"1233"},"glyph":{"id":"1348"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1350"},"nonselection_glyph":{"id":"1349"},"view":{"id":"1352"}},"id":"1351","type":"GlyphRenderer"},{"attributes":{"line_alpha":{"value":0.2},"line_color":{"value":"#718dbf"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1266","type":"Segment"},{"attributes":{},"id":"1248","type":"BasicTicker"},{"attributes":{"fill_color":{"value":"#e84d60"},"hatch_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1333","type":"Circle"},{"attributes":{"fill_color":{"value":"#e84d60"},"hatch_color":{"value":"#e84d60"},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1317","type":"Circle"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"hatch_alpha":{"value":0.1},"hatch_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1318","type":"Circle"},{"attributes":{"code":"\n        var types = [\"Typically Financed\", \"Debt Financed\", \"Equity Financed\"]\n        return types[tick]\n        "},"id":"1255","type":"FuncTickFormatter"},{"attributes":{},"id":"1279","type":"AllLabels"},{"attributes":{"coordinates":null,"data_source":{"id":"1232"},"glyph":{"id":"1270"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1272"},"nonselection_glyph":{"id":"1271"},"view":{"id":"1274"}},"id":"1273","type":"GlyphRenderer"},{"attributes":{"coordinates":null,"data_source":{"id":"1232"},"glyph":{"id":"1285"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1287"},"nonselection_glyph":{"id":"1286"},"view":{"id":"1289"}},"id":"1288","type":"GlyphRenderer"},{"attributes":{},"id":"1329","type":"UnionRenderers"},{"attributes":{"coordinates":null,"data_source":{"id":"1233"},"glyph":{"id":"1311"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1313"},"nonselection_glyph":{"id":"1312"},"view":{"id":"1315"}},"id":"1314","type":"GlyphRenderer"},{"attributes":{"source":{"id":"1233"}},"id":"1315","type":"CDSView"},{"attributes":{"label":{"value":"Baseline"},"renderers":[{"id":"1273"},{"id":"1288"},{"id":"1301"}]},"id":"1283","type":"LegendItem"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"hatch_alpha":{"value":0.1},"hatch_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1299","type":"Circle"},{"attributes":{"source":{"id":"1232"}},"id":"1289","type":"CDSView"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"value":"#e84d60"},"hatch_alpha":{"value":0.2},"hatch_color":{"value":"#e84d60"},"line_alpha":{"value":0.2},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1350","type":"Circle"},{"attributes":{"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1265","type":"Segment"},{"attributes":{"coordinates":null,"data_source":{"id":"1232"},"glyph":{"id":"1298"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1300"},"nonselection_glyph":{"id":"1299"},"view":{"id":"1302"}},"id":"1301","type":"GlyphRenderer"},{"attributes":{},"id":"1278","type":"AllLabels"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"value":"#e84d60"},"hatch_alpha":{"value":0.2},"hatch_color":{"value":"#e84d60"},"line_alpha":{"value":0.2},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1319","type":"Circle"},{"attributes":{},"id":"1330","type":"Selection"},{"attributes":{"axis_label":"Marginal Effective Tax Rate","coordinates":null,"formatter":{"id":"1257"},"group":null,"major_label_policy":{"id":"1278"},"ticker":{"id":"1248"}},"id":"1247","type":"LinearAxis"},{"attributes":{"axis":{"id":"1243"},"coordinates":null,"grid_line_color":null,"group":null,"ticker":null},"id":"1246","type":"Grid"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"hatch_alpha":{"value":0.1},"hatch_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1349","type":"Circle"},{"attributes":{"end":2.5,"start":-0.5},"id":"1235","type":"Range1d"},{"attributes":{},"id":"1280","type":"UnionRenderers"},{"attributes":{"axis":{"id":"1247"},"coordinates":null,"dimension":1,"grid_line_color":null,"group":null,"ticker":null},"id":"1250","type":"Grid"},{"attributes":{"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1312","type":"Segment"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#e84d60"},"hatch_alpha":{"value":0.1},"hatch_color":{"value":"#e84d60"},"line_alpha":{"value":0.1},"line_color":{"value":"#e84d60"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1334","type":"Circle"},{"attributes":{"source":{"id":"1233"}},"id":"1352","type":"CDSView"},{"attributes":{"data":{"max_asset":["Inventories","Inventories","Inventories"],"maxes":[0.2930542097668927,-0.13096339112672467,0.3828060809571457],"mean_asset":["Overall","Overall","Overall"],"means":[0.1560221115131041,-0.41306259807735984,0.27215617091603245],"min_asset":["Intellectual Property","Intellectual Property","Intellectual Property"],"mins":[-0.044764641890598596,-0.7815749655421983,0.10026430338666585],"positions":[0.1,1.1,2.1],"types":["Typically Financed","Debt Financed","Equity Financed"]},"selected":{"id":"1330"},"selection_policy":{"id":"1329"}},"id":"1233","type":"ColumnDataSource"},{"attributes":{"ticks":[0,1,2]},"id":"1253","type":"FixedTicker"},{"attributes":{"source":{"id":"1233"}},"id":"1337","type":"CDSView"},{"attributes":{"line_color":{"value":"#718dbf"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1264","type":"Segment"},{"attributes":{"line_color":{"value":"#e84d60"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1311","type":"Segment"},{"attributes":{},"id":"1239","type":"LinearScale"},{"attributes":{"coordinates":null,"data_source":{"id":"1233"},"glyph":{"id":"1333"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1335"},"nonselection_glyph":{"id":"1334"},"view":{"id":"1337"}},"id":"1336","type":"GlyphRenderer"},{"attributes":{"fill_color":{"value":"#718dbf"},"hatch_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"means"}},"id":"1270","type":"Circle"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"value":"#718dbf"},"hatch_alpha":{"value":0.2},"hatch_color":{"value":"#718dbf"},"line_alpha":{"value":0.2},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1300","type":"Circle"},{"attributes":{"source":{"id":"1232"}},"id":"1302","type":"CDSView"},{"attributes":{"line_alpha":{"value":0.2},"line_color":{"value":"#e84d60"},"line_width":{"value":2},"x0":{"field":"positions"},"x1":{"field":"positions"},"y0":{"field":"mins"},"y1":{"field":"maxes"}},"id":"1313","type":"Segment"},{"attributes":{"coordinates":null,"group":null,"items":[{"id":"1283"},{"id":"1331"}],"location":"bottom_right"},"id":"1282","type":"Legend"},{"attributes":{},"id":"1251","type":"Toolbar"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#718dbf"},"hatch_alpha":{"value":0.1},"hatch_color":{"value":"#718dbf"},"line_alpha":{"value":0.1},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1286","type":"Circle"},{"attributes":{"source":{"id":"1232"}},"id":"1274","type":"CDSView"},{"attributes":{"fill_color":{"value":"#718dbf"},"hatch_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"maxes"}},"id":"1298","type":"Circle"},{"attributes":{"fill_color":{"value":"#718dbf"},"hatch_color":{"value":"#718dbf"},"line_color":{"value":"#718dbf"},"size":{"value":12},"x":{"field":"positions"},"y":{"field":"mins"}},"id":"1285","type":"Circle"},{"attributes":{"axis_label":"Method of Financing","coordinates":null,"formatter":{"id":"1255"},"group":null,"major_label_policy":{"id":"1279"},"ticker":{"id":"1253"}},"id":"1243","type":"LinearAxis"}],"root_ids":["1234"]},"title":"Bokeh Application","version":"2.4.2"}};
-  const render_items = [{"docid":"f9ffa6b6-e04f-448f-891e-a0b7ba90b2fb","root_ids":["1234"],"roots":{"1234":"5a925981-37f3-41a3-a8ff-fbee3fb8c6aa"}}];
+  const docs_json = {"2861bed4-854f-47cd-b043-be372c49ace6":{"version":"3.2.2","title":"Bokeh Application","roots":[{"type":"object","name":"Figure","id":"p1113","attributes":{"width":500,"height":500,"x_range":{"type":"object","name":"Range1d","id":"p1122","attributes":{"start":-0.5,"end":2.5}},"y_range":{"type":"object","name":"DataRange1d","id":"p1115"},"x_scale":{"type":"object","name":"LinearScale","id":"p1123"},"y_scale":{"type":"object","name":"LinearScale","id":"p1124"},"title":{"type":"object","name":"Title","id":"p1120","attributes":{"text_font":"Helvetica"}},"renderers":[{"type":"object","name":"Span","id":"p1138","attributes":{"location":0,"line_alpha":0.2,"line_width":2,"line_dash":[6]}},{"type":"object","name":"GlyphRenderer","id":"p1148","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1107","attributes":{"selected":{"type":"object","name":"Selection","id":"p1108","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1109"},"data":{"type":"map","entries":[["mins",[-0.09155606847470654,-0.4364303178484108,-1.1963610179150395e-16]],["maxes",[0.1715367123714358,-0.06578788226151037,0.23626733773084946]],["means",[0.0372852157964054,-0.262084258806486,0.1173614878798862]],["min_asset",["Intellectual Property","Intellectual Property","Intellectual Property"]],["max_asset",["Inventories","Inventories","Inventories"]],["mean_asset",["Overall","Overall","Overall"]],["types",["Typically Financed","Debt Financed","Equity Financed"]],["positions",[-0.1,0.9,1.9]]]}}},"view":{"type":"object","name":"CDSView","id":"p1149","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1150"}}},"glyph":{"type":"object","name":"Segment","id":"p1145","attributes":{"x0":{"type":"field","field":"positions"},"y0":{"type":"field","field":"mins"},"x1":{"type":"field","field":"positions"},"y1":{"type":"field","field":"maxes"},"line_color":{"type":"value","value":"#718dbf"},"line_width":{"type":"value","value":2}}},"nonselection_glyph":{"type":"object","name":"Segment","id":"p1146","attributes":{"x0":{"type":"field","field":"positions"},"y0":{"type":"field","field":"mins"},"x1":{"type":"field","field":"positions"},"y1":{"type":"field","field":"maxes"},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.1},"line_width":{"type":"value","value":2}}},"muted_glyph":{"type":"object","name":"Segment","id":"p1147","attributes":{"x0":{"type":"field","field":"positions"},"y0":{"type":"field","field":"mins"},"x1":{"type":"field","field":"positions"},"y1":{"type":"field","field":"maxes"},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.2},"line_width":{"type":"value","value":2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1157","attributes":{"data_source":{"id":"p1107"},"view":{"type":"object","name":"CDSView","id":"p1158","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1159"}}},"glyph":{"type":"object","name":"Circle","id":"p1154","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"means"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"fill_color":{"type":"value","value":"#718dbf"},"hatch_color":{"type":"value","value":"#718dbf"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1155","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"means"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1156","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"means"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1168","attributes":{"data_source":{"id":"p1107"},"view":{"type":"object","name":"CDSView","id":"p1169","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1170"}}},"glyph":{"type":"object","name":"Circle","id":"p1165","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"mins"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"fill_color":{"type":"value","value":"#718dbf"},"hatch_color":{"type":"value","value":"#718dbf"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1166","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"mins"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1167","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"mins"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1177","attributes":{"data_source":{"id":"p1107"},"view":{"type":"object","name":"CDSView","id":"p1178","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1179"}}},"glyph":{"type":"object","name":"Circle","id":"p1174","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"maxes"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"fill_color":{"type":"value","value":"#718dbf"},"hatch_color":{"type":"value","value":"#718dbf"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1175","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"maxes"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1176","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"maxes"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1186","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1110","attributes":{"selected":{"type":"object","name":"Selection","id":"p1111","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1112"},"data":{"type":"map","entries":[["mins",[-0.044764641890598596,-0.7815749655421983,0.10026430338666585]],["maxes",[0.2930542097668988,-0.13096339112672467,0.3828060809571521]],["means",[0.15602211151310463,-0.41306259807735984,0.27215617091603306]],["min_asset",["Intellectual Property","Intellectual Property","Intellectual Property"]],["max_asset",["Inventories","Inventories","Inventories"]],["mean_asset",["Overall","Overall","Overall"]],["types",["Typically Financed","Debt Financed","Equity Financed"]],["positions",[0.1,1.1,2.1]]]}}},"view":{"type":"object","name":"CDSView","id":"p1187","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1188"}}},"glyph":{"type":"object","name":"Segment","id":"p1183","attributes":{"x0":{"type":"field","field":"positions"},"y0":{"type":"field","field":"mins"},"x1":{"type":"field","field":"positions"},"y1":{"type":"field","field":"maxes"},"line_color":{"type":"value","value":"#e84d60"},"line_width":{"type":"value","value":2}}},"nonselection_glyph":{"type":"object","name":"Segment","id":"p1184","attributes":{"x0":{"type":"field","field":"positions"},"y0":{"type":"field","field":"mins"},"x1":{"type":"field","field":"positions"},"y1":{"type":"field","field":"maxes"},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.1},"line_width":{"type":"value","value":2}}},"muted_glyph":{"type":"object","name":"Segment","id":"p1185","attributes":{"x0":{"type":"field","field":"positions"},"y0":{"type":"field","field":"mins"},"x1":{"type":"field","field":"positions"},"y1":{"type":"field","field":"maxes"},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.2},"line_width":{"type":"value","value":2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1195","attributes":{"data_source":{"id":"p1110"},"view":{"type":"object","name":"CDSView","id":"p1196","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1197"}}},"glyph":{"type":"object","name":"Circle","id":"p1192","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"means"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"fill_color":{"type":"value","value":"#e84d60"},"hatch_color":{"type":"value","value":"#e84d60"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1193","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"means"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1194","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"means"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1205","attributes":{"data_source":{"id":"p1110"},"view":{"type":"object","name":"CDSView","id":"p1206","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1207"}}},"glyph":{"type":"object","name":"Circle","id":"p1202","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"mins"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"fill_color":{"type":"value","value":"#e84d60"},"hatch_color":{"type":"value","value":"#e84d60"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1203","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"mins"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1204","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"mins"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1214","attributes":{"data_source":{"id":"p1110"},"view":{"type":"object","name":"CDSView","id":"p1215","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1216"}}},"glyph":{"type":"object","name":"Circle","id":"p1211","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"maxes"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"fill_color":{"type":"value","value":"#e84d60"},"hatch_color":{"type":"value","value":"#e84d60"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1212","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"maxes"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1213","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"maxes"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.2}}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1121"},"toolbar_location":null,"left":[{"type":"object","name":"LinearAxis","id":"p1130","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1131","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"NumeralTickFormatter","id":"p1137","attributes":{"format":"0%"}},"axis_label":"Marginal Effective Tax Rate","major_label_policy":{"type":"object","name":"AllLabels","id":"p1133"}}}],"below":[{"type":"object","name":"LinearAxis","id":"p1125","attributes":{"ticker":{"type":"object","name":"FixedTicker","id":"p1135","attributes":{"ticks":[0,1,2],"minor_ticks":[]}},"formatter":{"type":"object","name":"CustomJSTickFormatter","id":"p1136","attributes":{"code":"\n        var types = [\"Typically Financed\", \"Debt Financed\", \"Equity Financed\"]\n        return types[tick]\n        "}},"axis_label":"Method of Financing","major_label_policy":{"type":"object","name":"AllLabels","id":"p1128"}}}],"center":[{"type":"object","name":"Grid","id":"p1129","attributes":{"axis":{"id":"p1125"},"grid_line_color":null}},{"type":"object","name":"Grid","id":"p1134","attributes":{"dimension":1,"axis":{"id":"p1130"},"grid_line_color":null}},{"type":"object","name":"BoxAnnotation","id":"p1139","attributes":{"right":0.5,"fill_color":"white","fill_alpha":0.2}},{"type":"object","name":"BoxAnnotation","id":"p1140","attributes":{"left":0.5,"right":1.5,"fill_color":"white","fill_alpha":0.1}},{"type":"object","name":"BoxAnnotation","id":"p1141","attributes":{"left":1.5,"fill_color":"white","fill_alpha":0.2}},{"type":"object","name":"Legend","id":"p1160","attributes":{"location":"bottom_right","items":[{"type":"object","name":"LegendItem","id":"p1161","attributes":{"label":{"type":"value","value":"Baseline"},"renderers":[{"id":"p1157"},{"id":"p1168"},{"id":"p1177"}]}},{"type":"object","name":"LegendItem","id":"p1198","attributes":{"label":{"type":"value","value":"Reform"},"renderers":[{"id":"p1195"},{"id":"p1205"},{"id":"p1214"}]}}]}}]}}]}};
+  const render_items = [{"docid":"2861bed4-854f-47cd-b043-be372c49ace6","roots":{"p1113":"dc429246-0299-4138-bef1-e2ac9b09140e"},"root_ids":["p1113"]}];
   root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
-
   }
   if (root.Bokeh !== undefined) {
     embed_document(root);
@@ -1896,6 +2356,33 @@ year:  2022
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="ef5a17d1-7d83-4d65-9351-4c7b38dab933" data-root-id="p1113" style="display: contents;"></div>
+</div><script type="application/javascript">(function(root) {
+  function embed_document(root) {
+  const docs_json = {"45bcd313-2417-4d92-8789-0f4c63d517de":{"version":"3.2.2","title":"Bokeh Application","roots":[{"type":"object","name":"Figure","id":"p1113","attributes":{"width":500,"height":500,"x_range":{"type":"object","name":"Range1d","id":"p1122","attributes":{"start":-0.5,"end":2.5}},"y_range":{"type":"object","name":"DataRange1d","id":"p1115"},"x_scale":{"type":"object","name":"LinearScale","id":"p1123"},"y_scale":{"type":"object","name":"LinearScale","id":"p1124"},"title":{"type":"object","name":"Title","id":"p1120","attributes":{"text_font":"Helvetica"}},"renderers":[{"type":"object","name":"Span","id":"p1138","attributes":{"location":0,"line_alpha":0.2,"line_width":2,"line_dash":[6]}},{"type":"object","name":"GlyphRenderer","id":"p1148","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1107","attributes":{"selected":{"type":"object","name":"Selection","id":"p1108","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1109"},"data":{"type":"map","entries":[["mins",[-0.09155606847470654,-0.4364303178484108,-1.1963610179150395e-16]],["maxes",[0.1715367123714358,-0.06578788226151037,0.23626733773084946]],["means",[0.0372852157964054,-0.262084258806486,0.1173614878798862]],["min_asset",["Intellectual Property","Intellectual Property","Intellectual Property"]],["max_asset",["Inventories","Inventories","Inventories"]],["mean_asset",["Overall","Overall","Overall"]],["types",["Typically Financed","Debt Financed","Equity Financed"]],["positions",[-0.1,0.9,1.9]]]}}},"view":{"type":"object","name":"CDSView","id":"p1149","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1150"}}},"glyph":{"type":"object","name":"Segment","id":"p1145","attributes":{"x0":{"type":"field","field":"positions"},"y0":{"type":"field","field":"mins"},"x1":{"type":"field","field":"positions"},"y1":{"type":"field","field":"maxes"},"line_color":{"type":"value","value":"#718dbf"},"line_width":{"type":"value","value":2}}},"nonselection_glyph":{"type":"object","name":"Segment","id":"p1146","attributes":{"x0":{"type":"field","field":"positions"},"y0":{"type":"field","field":"mins"},"x1":{"type":"field","field":"positions"},"y1":{"type":"field","field":"maxes"},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.1},"line_width":{"type":"value","value":2}}},"muted_glyph":{"type":"object","name":"Segment","id":"p1147","attributes":{"x0":{"type":"field","field":"positions"},"y0":{"type":"field","field":"mins"},"x1":{"type":"field","field":"positions"},"y1":{"type":"field","field":"maxes"},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.2},"line_width":{"type":"value","value":2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1157","attributes":{"data_source":{"id":"p1107"},"view":{"type":"object","name":"CDSView","id":"p1158","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1159"}}},"glyph":{"type":"object","name":"Circle","id":"p1154","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"means"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"fill_color":{"type":"value","value":"#718dbf"},"hatch_color":{"type":"value","value":"#718dbf"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1155","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"means"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1156","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"means"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1168","attributes":{"data_source":{"id":"p1107"},"view":{"type":"object","name":"CDSView","id":"p1169","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1170"}}},"glyph":{"type":"object","name":"Circle","id":"p1165","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"mins"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"fill_color":{"type":"value","value":"#718dbf"},"hatch_color":{"type":"value","value":"#718dbf"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1166","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"mins"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1167","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"mins"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1177","attributes":{"data_source":{"id":"p1107"},"view":{"type":"object","name":"CDSView","id":"p1178","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1179"}}},"glyph":{"type":"object","name":"Circle","id":"p1174","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"maxes"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"fill_color":{"type":"value","value":"#718dbf"},"hatch_color":{"type":"value","value":"#718dbf"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1175","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"maxes"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1176","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"maxes"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1186","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1110","attributes":{"selected":{"type":"object","name":"Selection","id":"p1111","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1112"},"data":{"type":"map","entries":[["mins",[-0.044764641890598596,-0.7815749655421983,0.10026430338666585]],["maxes",[0.2930542097668988,-0.13096339112672467,0.3828060809571521]],["means",[0.15602211151310463,-0.41306259807735984,0.27215617091603306]],["min_asset",["Intellectual Property","Intellectual Property","Intellectual Property"]],["max_asset",["Inventories","Inventories","Inventories"]],["mean_asset",["Overall","Overall","Overall"]],["types",["Typically Financed","Debt Financed","Equity Financed"]],["positions",[0.1,1.1,2.1]]]}}},"view":{"type":"object","name":"CDSView","id":"p1187","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1188"}}},"glyph":{"type":"object","name":"Segment","id":"p1183","attributes":{"x0":{"type":"field","field":"positions"},"y0":{"type":"field","field":"mins"},"x1":{"type":"field","field":"positions"},"y1":{"type":"field","field":"maxes"},"line_color":{"type":"value","value":"#e84d60"},"line_width":{"type":"value","value":2}}},"nonselection_glyph":{"type":"object","name":"Segment","id":"p1184","attributes":{"x0":{"type":"field","field":"positions"},"y0":{"type":"field","field":"mins"},"x1":{"type":"field","field":"positions"},"y1":{"type":"field","field":"maxes"},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.1},"line_width":{"type":"value","value":2}}},"muted_glyph":{"type":"object","name":"Segment","id":"p1185","attributes":{"x0":{"type":"field","field":"positions"},"y0":{"type":"field","field":"mins"},"x1":{"type":"field","field":"positions"},"y1":{"type":"field","field":"maxes"},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.2},"line_width":{"type":"value","value":2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1195","attributes":{"data_source":{"id":"p1110"},"view":{"type":"object","name":"CDSView","id":"p1196","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1197"}}},"glyph":{"type":"object","name":"Circle","id":"p1192","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"means"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"fill_color":{"type":"value","value":"#e84d60"},"hatch_color":{"type":"value","value":"#e84d60"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1193","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"means"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1194","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"means"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1205","attributes":{"data_source":{"id":"p1110"},"view":{"type":"object","name":"CDSView","id":"p1206","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1207"}}},"glyph":{"type":"object","name":"Circle","id":"p1202","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"mins"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"fill_color":{"type":"value","value":"#e84d60"},"hatch_color":{"type":"value","value":"#e84d60"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1203","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"mins"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1204","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"mins"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1214","attributes":{"data_source":{"id":"p1110"},"view":{"type":"object","name":"CDSView","id":"p1215","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1216"}}},"glyph":{"type":"object","name":"Circle","id":"p1211","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"maxes"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"fill_color":{"type":"value","value":"#e84d60"},"hatch_color":{"type":"value","value":"#e84d60"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1212","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"maxes"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1213","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"maxes"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.2}}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1121"},"toolbar_location":null,"left":[{"type":"object","name":"LinearAxis","id":"p1130","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1131","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"NumeralTickFormatter","id":"p1137","attributes":{"format":"0%"}},"axis_label":"Marginal Effective Tax Rate","major_label_policy":{"type":"object","name":"AllLabels","id":"p1133"}}}],"below":[{"type":"object","name":"LinearAxis","id":"p1125","attributes":{"ticker":{"type":"object","name":"FixedTicker","id":"p1135","attributes":{"ticks":[0,1,2],"minor_ticks":[]}},"formatter":{"type":"object","name":"CustomJSTickFormatter","id":"p1136","attributes":{"code":"\n        var types = [\"Typically Financed\", \"Debt Financed\", \"Equity Financed\"]\n        return types[tick]\n        "}},"axis_label":"Method of Financing","major_label_policy":{"type":"object","name":"AllLabels","id":"p1128"}}}],"center":[{"type":"object","name":"Grid","id":"p1129","attributes":{"axis":{"id":"p1125"},"grid_line_color":null}},{"type":"object","name":"Grid","id":"p1134","attributes":{"dimension":1,"axis":{"id":"p1130"},"grid_line_color":null}},{"type":"object","name":"BoxAnnotation","id":"p1139","attributes":{"right":0.5,"fill_color":"white","fill_alpha":0.2}},{"type":"object","name":"BoxAnnotation","id":"p1140","attributes":{"left":0.5,"right":1.5,"fill_color":"white","fill_alpha":0.1}},{"type":"object","name":"BoxAnnotation","id":"p1141","attributes":{"left":1.5,"fill_color":"white","fill_alpha":0.2}},{"type":"object","name":"Legend","id":"p1160","attributes":{"location":"bottom_right","items":[{"type":"object","name":"LegendItem","id":"p1161","attributes":{"label":{"type":"value","value":"Baseline"},"renderers":[{"id":"p1157"},{"id":"p1168"},{"id":"p1177"}]}},{"type":"object","name":"LegendItem","id":"p1198","attributes":{"label":{"type":"value","value":"Reform"},"renderers":[{"id":"p1195"},{"id":"p1205"},{"id":"p1214"}]}}]}}]}}]}};
+  const render_items = [{"docid":"45bcd313-2417-4d92-8789-0f4c63d517de","roots":{"p1113":"ef5a17d1-7d83-4d65-9351-4c7b38dab933"},"root_ids":["p1113"]}];
+  root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
+  }
+  if (root.Bokeh !== undefined) {
+    embed_document(root);
+  } else {
+    let attempts = 0;
+    const timer = setInterval(function(root) {
+      if (root.Bokeh !== undefined) {
+        clearInterval(timer);
+        embed_document(root);
+      } else {
+        attempts++;
+        if (attempts > 100) {
+          clearInterval(timer);
+          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+        }
+      }
+    }, 10, root)
+  }
+})(window);</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1906,6 +2393,378 @@ year:  2022
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+        .bk-notebook-logo {
+            display: block;
+            width: 20px;
+            height: 20px;
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAOkSURBVDiNjZRtaJVlGMd/1/08zzln5zjP1LWcU9N0NkN8m2CYjpgQYQXqSs0I84OLIC0hkEKoPtiH3gmKoiJDU7QpLgoLjLIQCpEsNJ1vqUOdO7ppbuec5+V+rj4ctwzd8IIbbi6u+8f1539dt3A78eXC7QizUF7gyV1fD1Yqg4JWz84yffhm0qkFqBogB9rM8tZdtwVsPUhWhGcFJngGeWrPzHm5oaMmkfEg1usvLFyc8jLRqDOMru7AyC8saQr7GG7f5fvDeH7Ej8CM66nIF+8yngt6HWaKh7k49Soy9nXurCi1o3qUbS3zWfrYeQDTB/Qj6kX6Ybhw4B+bOYoLKCC9H3Nu/leUTZ1JdRWkkn2ldcCamzrcf47KKXdAJllSlxAOkRgyHsGC/zRday5Qld9DyoM4/q/rUoy/CXh3jzOu3bHUVZeU+DEn8FInkPBFlu3+nW3Nw0mk6vCDiWg8CeJaxEwuHS3+z5RgY+YBR6V1Z1nxSOfoaPa4LASWxxdNp+VWTk7+4vzaou8v8PN+xo+KY2xsw6une2frhw05CTYOmQvsEhjhWjn0bmXPjpE1+kplmmkP3suftwTubK9Vq22qKmrBhpY4jvd5afdRA3wGjFAgcnTK2s4hY0/GPNIb0nErGMCRxWOOX64Z8RAC4oCXdklmEvcL8o0BfkNK4lUg9HTl+oPlQxdNo3Mg4Nv175e/1LDGzZen30MEjRUtmXSfiTVu1kK8W4txyV6BMKlbgk3lMwYCiusNy9fVfvvwMxv8Ynl6vxoByANLTWplvuj/nF9m2+PDtt1eiHPBr1oIfhCChQMBw6Aw0UulqTKZdfVvfG7VcfIqLG9bcldL/+pdWTLxLUy8Qq38heUIjh4XlzZxzQm19lLFlr8vdQ97rjZVOLf8nclzckbcD4wxXMidpX30sFd37Fv/GtwwhzhxGVAprjbg0gCAEeIgwCZyTV2Z1REEW8O4py0wsjeloKoMr6iCY6dP92H6Vw/oTyICIthibxjm/DfN9lVz8IqtqKYLUXfoKVMVQVVJOElGjrnnUt9T9wbgp8AyYKaGlqingHZU/uG2NTZSVqwHQTWkx9hxjkpWDaCg6Ckj5qebgBVbT3V3NNXMSiWSDdGV3hrtzla7J+duwPOToIg42ChPQOQjspnSlp1V+Gjdged7+8UN5CRAV7a5EdFNwCjEaBR27b3W890TE7g24NAP/mMDXRWrGoFPQI9ls/MWO2dWFAar/xcOIImbbpA3zgAAAABJRU5ErkJggg==);
+        }
+    </style>
+    <div>
+        <a href="https://bokeh.org" target="_blank" class="bk-notebook-logo"></a>
+        <span id="a4430fae-f1b1-404f-b930-2e116147fd44">Loading BokehJS ...</span>
+    </div>
+</div><script type="application/javascript">(function(root) {
+  function now() {
+    return new Date();
+  }
+
+  const force = true;
+
+  if (typeof root._bokeh_onload_callbacks === "undefined" || force === true) {
+    root._bokeh_onload_callbacks = [];
+    root._bokeh_is_loading = undefined;
+  }
+
+const JS_MIME_TYPE = 'application/javascript';
+  const HTML_MIME_TYPE = 'text/html';
+  const EXEC_MIME_TYPE = 'application/vnd.bokehjs_exec.v0+json';
+  const CLASS_NAME = 'output_bokeh rendered_html';
+
+  /**
+   * Render data to the DOM node
+   */
+  function render(props, node) {
+    const script = document.createElement("script");
+    node.appendChild(script);
+  }
+
+  /**
+   * Handle when an output is cleared or removed
+   */
+  function handleClearOutput(event, handle) {
+    const cell = handle.cell;
+
+    const id = cell.output_area._bokeh_element_id;
+    const server_id = cell.output_area._bokeh_server_id;
+    // Clean up Bokeh references
+    if (id != null && id in Bokeh.index) {
+      Bokeh.index[id].model.document.clear();
+      delete Bokeh.index[id];
+    }
+
+    if (server_id !== undefined) {
+      // Clean up Bokeh references
+      const cmd_clean = "from bokeh.io.state import curstate; print(curstate().uuid_to_server['" + server_id + "'].get_sessions()[0].document.roots[0]._id)";
+      cell.notebook.kernel.execute(cmd_clean, {
+        iopub: {
+          output: function(msg) {
+            const id = msg.content.text.trim();
+            if (id in Bokeh.index) {
+              Bokeh.index[id].model.document.clear();
+              delete Bokeh.index[id];
+            }
+          }
+        }
+      });
+      // Destroy server and session
+      const cmd_destroy = "import bokeh.io.notebook as ion; ion.destroy_server('" + server_id + "')";
+      cell.notebook.kernel.execute(cmd_destroy);
+    }
+  }
+
+  /**
+   * Handle when a new output is added
+   */
+  function handleAddOutput(event, handle) {
+    const output_area = handle.output_area;
+    const output = handle.output;
+
+    // limit handleAddOutput to display_data with EXEC_MIME_TYPE content only
+    if ((output.output_type != "display_data") || (!Object.prototype.hasOwnProperty.call(output.data, EXEC_MIME_TYPE))) {
+      return
+    }
+
+    const toinsert = output_area.element.find("." + CLASS_NAME.split(' ')[0]);
+
+    if (output.metadata[EXEC_MIME_TYPE]["id"] !== undefined) {
+      toinsert[toinsert.length - 1].firstChild.textContent = output.data[JS_MIME_TYPE];
+      // store reference to embed id on output_area
+      output_area._bokeh_element_id = output.metadata[EXEC_MIME_TYPE]["id"];
+    }
+    if (output.metadata[EXEC_MIME_TYPE]["server_id"] !== undefined) {
+      const bk_div = document.createElement("div");
+      bk_div.innerHTML = output.data[HTML_MIME_TYPE];
+      const script_attrs = bk_div.children[0].attributes;
+      for (let i = 0; i < script_attrs.length; i++) {
+        toinsert[toinsert.length - 1].firstChild.setAttribute(script_attrs[i].name, script_attrs[i].value);
+        toinsert[toinsert.length - 1].firstChild.textContent = bk_div.children[0].textContent
+      }
+      // store reference to server id on output_area
+      output_area._bokeh_server_id = output.metadata[EXEC_MIME_TYPE]["server_id"];
+    }
+  }
+
+  function register_renderer(events, OutputArea) {
+
+    function append_mime(data, metadata, element) {
+      // create a DOM node to render to
+      const toinsert = this.create_output_subarea(
+        metadata,
+        CLASS_NAME,
+        EXEC_MIME_TYPE
+      );
+      this.keyboard_manager.register_events(toinsert);
+      // Render to node
+      const props = {data: data, metadata: metadata[EXEC_MIME_TYPE]};
+      render(props, toinsert[toinsert.length - 1]);
+      element.append(toinsert);
+      return toinsert
+    }
+
+    /* Handle when an output is cleared or removed */
+    events.on('clear_output.CodeCell', handleClearOutput);
+    events.on('delete.Cell', handleClearOutput);
+
+    /* Handle when a new output is added */
+    events.on('output_added.OutputArea', handleAddOutput);
+
+    /**
+     * Register the mime type and append_mime function with output_area
+     */
+    OutputArea.prototype.register_mime_type(EXEC_MIME_TYPE, append_mime, {
+      /* Is output safe? */
+      safe: true,
+      /* Index of renderer in `output_area.display_order` */
+      index: 0
+    });
+  }
+
+  // register the mime type if in Jupyter Notebook environment and previously unregistered
+  if (root.Jupyter !== undefined) {
+    const events = require('base/js/events');
+    const OutputArea = require('notebook/js/outputarea').OutputArea;
+
+    if (OutputArea.prototype.mime_types().indexOf(EXEC_MIME_TYPE) == -1) {
+      register_renderer(events, OutputArea);
+    }
+  }
+  if (typeof (root._bokeh_timeout) === "undefined" || force === true) {
+    root._bokeh_timeout = Date.now() + 5000;
+    root._bokeh_failed_load = false;
+  }
+
+  const NB_LOAD_WARNING = {'data': {'text/html':
+     "<div style='background-color: #fdd'>\n"+
+     "<p>\n"+
+     "BokehJS does not appear to have successfully loaded. If loading BokehJS from CDN, this \n"+
+     "may be due to a slow or bad network connection. Possible fixes:\n"+
+     "</p>\n"+
+     "<ul>\n"+
+     "<li>re-rerun `output_notebook()` to attempt to load from CDN again, or</li>\n"+
+     "<li>use INLINE resources instead, as so:</li>\n"+
+     "</ul>\n"+
+     "<code>\n"+
+     "from bokeh.resources import INLINE\n"+
+     "output_notebook(resources=INLINE)\n"+
+     "</code>\n"+
+     "</div>"}};
+
+  function display_loaded() {
+    const el = document.getElementById("a4430fae-f1b1-404f-b930-2e116147fd44");
+    if (el != null) {
+      el.textContent = "BokehJS is loading...";
+    }
+    if (root.Bokeh !== undefined) {
+      if (el != null) {
+        el.textContent = "BokehJS " + root.Bokeh.version + " successfully loaded.";
+      }
+    } else if (Date.now() < root._bokeh_timeout) {
+      setTimeout(display_loaded, 100)
+    }
+  }
+
+  function run_callbacks() {
+    try {
+      root._bokeh_onload_callbacks.forEach(function(callback) {
+        if (callback != null)
+          callback();
+      });
+    } finally {
+      delete root._bokeh_onload_callbacks
+    }
+    console.debug("Bokeh: all callbacks have finished");
+  }
+
+  function load_libs(css_urls, js_urls, callback) {
+    if (css_urls == null) css_urls = [];
+    if (js_urls == null) js_urls = [];
+
+    root._bokeh_onload_callbacks.push(callback);
+    if (root._bokeh_is_loading > 0) {
+      console.debug("Bokeh: BokehJS is being loaded, scheduling callback at", now());
+      return null;
+    }
+    if (js_urls == null || js_urls.length === 0) {
+      run_callbacks();
+      return null;
+    }
+    console.debug("Bokeh: BokehJS not loaded, scheduling load and callback at", now());
+    root._bokeh_is_loading = css_urls.length + js_urls.length;
+
+    function on_load() {
+      root._bokeh_is_loading--;
+      if (root._bokeh_is_loading === 0) {
+        console.debug("Bokeh: all BokehJS libraries/stylesheets loaded");
+        run_callbacks()
+      }
+    }
+
+    function on_error(url) {
+      console.error("failed to load " + url);
+    }
+
+    for (let i = 0; i < css_urls.length; i++) {
+      const url = css_urls[i];
+      const element = document.createElement("link");
+      element.onload = on_load;
+      element.onerror = on_error.bind(null, url);
+      element.rel = "stylesheet";
+      element.type = "text/css";
+      element.href = url;
+      console.debug("Bokeh: injecting link tag for BokehJS stylesheet: ", url);
+      document.body.appendChild(element);
+    }
+
+    for (let i = 0; i < js_urls.length; i++) {
+      const url = js_urls[i];
+      const element = document.createElement('script');
+      element.onload = on_load;
+      element.onerror = on_error.bind(null, url);
+      element.async = false;
+      element.src = url;
+      console.debug("Bokeh: injecting script tag for BokehJS library: ", url);
+      document.head.appendChild(element);
+    }
+  };
+
+  function inject_raw_css(css) {
+    const element = document.createElement("style");
+    element.appendChild(document.createTextNode(css));
+    document.body.appendChild(element);
+  }
+
+  const js_urls = ["https://cdn.bokeh.org/bokeh/release/bokeh-3.2.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-gl-3.2.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-3.2.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-3.2.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-3.2.2.min.js"];
+  const css_urls = [];
+
+  const inline_js = [    function(Bokeh) {
+      Bokeh.set_log_level("info");
+    },
+function(Bokeh) {
+    }
+  ];
+
+  function run_inline_js() {
+    if (root.Bokeh !== undefined || force === true) {
+          for (let i = 0; i < inline_js.length; i++) {
+      inline_js[i].call(root, root.Bokeh);
+    }
+if (force === true) {
+        display_loaded();
+      }} else if (Date.now() < root._bokeh_timeout) {
+      setTimeout(run_inline_js, 100);
+    } else if (!root._bokeh_failed_load) {
+      console.log("Bokeh: BokehJS failed to load within specified timeout.");
+      root._bokeh_failed_load = true;
+    } else if (force !== true) {
+      const cell = $(document.getElementById("a4430fae-f1b1-404f-b930-2e116147fd44")).parents('.cell').data().cell;
+      cell.output_area.append_execute_result(NB_LOAD_WARNING)
+    }
+  }
+
+  if (root._bokeh_is_loading === 0) {
+    console.debug("Bokeh: BokehJS loaded, going straight to plotting");
+    run_inline_js();
+  } else {
+    load_libs(css_urls, js_urls, function() {
+      console.debug("Bokeh: BokehJS plotting callback run at", now());
+      run_inline_js();
+    });
+  }
+}(window));</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deprec_df                                 value  asset_name BEA_code  \
+0  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}  Mainframes     EP1A   
+1  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}         PCs     EP1B   
+2  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}       DASDs     EP1C   
+3  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}    Printers     EP1D   
+4  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}   Terminals     EP1E   
+
+        minor_asset_group major_asset_group  ADS_life  GDS_life system  year  
+0  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+1  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+2  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+3  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+4  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+deprec_df 2    asset_name BEA_code       minor_asset_group major_asset_group  ADS_life  \
+0  Mainframes     EP1A  Computers and Software         Equipment       5.0   
+1         PCs     EP1B  Computers and Software         Equipment       5.0   
+2       DASDs     EP1C  Computers and Software         Equipment       5.0   
+3    Printers     EP1D  Computers and Software         Equipment       5.0   
+4   Terminals     EP1E  Computers and Software         Equipment       5.0   
+
+   GDS_life system  year  life   method  
+0       5.0    GDS  2020   5.0  DB 200%  
+1       5.0    GDS  2020   5.0  DB 200%  
+2       5.0    GDS  2020   5.0  DB 200%  
+3       5.0    GDS  2020   5.0  DB 200%  
+4       5.0    GDS  2020   5.0  DB 200%  
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deprec_df                                 value  asset_name BEA_code  \
+0  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}  Mainframes     EP1A   
+1  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}         PCs     EP1B   
+2  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}       DASDs     EP1C   
+3  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}    Printers     EP1D   
+4  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}   Terminals     EP1E   
+
+        minor_asset_group major_asset_group  ADS_life  GDS_life system  year  
+0  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+1  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+2  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+3  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+4  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+deprec_df 2    asset_name BEA_code       minor_asset_group major_asset_group  ADS_life  \
+0  Mainframes     EP1A  Computers and Software         Equipment       5.0   
+1         PCs     EP1B  Computers and Software         Equipment       5.0   
+2       DASDs     EP1C  Computers and Software         Equipment       5.0   
+3    Printers     EP1D  Computers and Software         Equipment       5.0   
+4   Terminals     EP1E  Computers and Software         Equipment       5.0   
+
+   GDS_life system  year  life   method  
+0       5.0    GDS  2020   5.0  DB 200%  
+1       5.0    GDS  2020   5.0  DB 200%  
+2       5.0    GDS  2020   5.0  DB 200%  
+3       5.0    GDS  2020   5.0  DB 200%  
+4       5.0    GDS  2020   5.0  DB 200%  
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="f6e8e35b-c67f-44e1-9e5d-fb02eef4e3ea" data-root-id="p1223" style="display: contents;"></div>
+</div><script type="application/javascript">(function(root) {
+  function embed_document(root) {
+  const docs_json = {"c85626e9-c4e5-4aa3-b81a-b8a9651db94b":{"version":"3.2.2","title":"Bokeh Application","roots":[{"type":"object","name":"Figure","id":"p1223","attributes":{"width":500,"height":500,"x_range":{"type":"object","name":"Range1d","id":"p1232","attributes":{"start":-0.5,"end":2.5}},"y_range":{"type":"object","name":"DataRange1d","id":"p1225"},"x_scale":{"type":"object","name":"LinearScale","id":"p1233"},"y_scale":{"type":"object","name":"LinearScale","id":"p1234"},"title":{"type":"object","name":"Title","id":"p1230","attributes":{"text_font":"Helvetica"}},"renderers":[{"type":"object","name":"Span","id":"p1248","attributes":{"location":0,"line_alpha":0.2,"line_width":2,"line_dash":[6]}},{"type":"object","name":"GlyphRenderer","id":"p1258","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1217","attributes":{"selected":{"type":"object","name":"Selection","id":"p1218","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1219"},"data":{"type":"map","entries":[["mins",[0.01961380518731942,0.09535622518117375,0.0]],["maxes",[0.25284934394230096,0.32317512117434327,0.23414672509906992]],["means",[0.1900744063434108,0.25389257896198214,0.17366140080813267]],["min_asset",["Intellectual Property","Equipment","Intellectual Property"]],["max_asset",["Inventories","Inventories","Inventories"]],["mean_asset",["Overall","Overall","Overall"]],["types",["Typically Financed","Debt Financed","Equity Financed"]],["positions",[-0.1,0.9,1.9]]]}}},"view":{"type":"object","name":"CDSView","id":"p1259","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1260"}}},"glyph":{"type":"object","name":"Segment","id":"p1255","attributes":{"x0":{"type":"field","field":"positions"},"y0":{"type":"field","field":"mins"},"x1":{"type":"field","field":"positions"},"y1":{"type":"field","field":"maxes"},"line_color":{"type":"value","value":"#718dbf"},"line_width":{"type":"value","value":2}}},"nonselection_glyph":{"type":"object","name":"Segment","id":"p1256","attributes":{"x0":{"type":"field","field":"positions"},"y0":{"type":"field","field":"mins"},"x1":{"type":"field","field":"positions"},"y1":{"type":"field","field":"maxes"},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.1},"line_width":{"type":"value","value":2}}},"muted_glyph":{"type":"object","name":"Segment","id":"p1257","attributes":{"x0":{"type":"field","field":"positions"},"y0":{"type":"field","field":"mins"},"x1":{"type":"field","field":"positions"},"y1":{"type":"field","field":"maxes"},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.2},"line_width":{"type":"value","value":2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1267","attributes":{"data_source":{"id":"p1217"},"view":{"type":"object","name":"CDSView","id":"p1268","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1269"}}},"glyph":{"type":"object","name":"Circle","id":"p1264","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"means"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"fill_color":{"type":"value","value":"#718dbf"},"hatch_color":{"type":"value","value":"#718dbf"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1265","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"means"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1266","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"means"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1278","attributes":{"data_source":{"id":"p1217"},"view":{"type":"object","name":"CDSView","id":"p1279","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1280"}}},"glyph":{"type":"object","name":"Circle","id":"p1275","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"mins"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"fill_color":{"type":"value","value":"#718dbf"},"hatch_color":{"type":"value","value":"#718dbf"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1276","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"mins"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1277","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"mins"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1287","attributes":{"data_source":{"id":"p1217"},"view":{"type":"object","name":"CDSView","id":"p1288","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1289"}}},"glyph":{"type":"object","name":"Circle","id":"p1284","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"maxes"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"fill_color":{"type":"value","value":"#718dbf"},"hatch_color":{"type":"value","value":"#718dbf"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1285","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"maxes"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1286","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"maxes"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#718dbf"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1296","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1220","attributes":{"selected":{"type":"object","name":"Selection","id":"p1221","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1222"},"data":{"type":"map","entries":[["mins",[0.06965591540885105,0.1073340807100194,0.06060027444109623]],["maxes",[0.294710491330277,0.33950426644170084,0.28340964701450294]],["means",[0.23670677626297182,0.2689805545280031,0.22916817814726334]],["min_asset",["Intellectual Property","Intellectual Property","Intellectual Property"]],["max_asset",["Inventories","Inventories","Inventories"]],["mean_asset",["Overall","Overall","Overall"]],["types",["Typically Financed","Debt Financed","Equity Financed"]],["positions",[0.1,1.1,2.1]]]}}},"view":{"type":"object","name":"CDSView","id":"p1297","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1298"}}},"glyph":{"type":"object","name":"Segment","id":"p1293","attributes":{"x0":{"type":"field","field":"positions"},"y0":{"type":"field","field":"mins"},"x1":{"type":"field","field":"positions"},"y1":{"type":"field","field":"maxes"},"line_color":{"type":"value","value":"#e84d60"},"line_width":{"type":"value","value":2}}},"nonselection_glyph":{"type":"object","name":"Segment","id":"p1294","attributes":{"x0":{"type":"field","field":"positions"},"y0":{"type":"field","field":"mins"},"x1":{"type":"field","field":"positions"},"y1":{"type":"field","field":"maxes"},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.1},"line_width":{"type":"value","value":2}}},"muted_glyph":{"type":"object","name":"Segment","id":"p1295","attributes":{"x0":{"type":"field","field":"positions"},"y0":{"type":"field","field":"mins"},"x1":{"type":"field","field":"positions"},"y1":{"type":"field","field":"maxes"},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.2},"line_width":{"type":"value","value":2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1305","attributes":{"data_source":{"id":"p1220"},"view":{"type":"object","name":"CDSView","id":"p1306","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1307"}}},"glyph":{"type":"object","name":"Circle","id":"p1302","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"means"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"fill_color":{"type":"value","value":"#e84d60"},"hatch_color":{"type":"value","value":"#e84d60"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1303","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"means"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1304","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"means"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1315","attributes":{"data_source":{"id":"p1220"},"view":{"type":"object","name":"CDSView","id":"p1316","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1317"}}},"glyph":{"type":"object","name":"Circle","id":"p1312","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"mins"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"fill_color":{"type":"value","value":"#e84d60"},"hatch_color":{"type":"value","value":"#e84d60"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1313","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"mins"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1314","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"mins"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.2}}}}},{"type":"object","name":"GlyphRenderer","id":"p1324","attributes":{"data_source":{"id":"p1220"},"view":{"type":"object","name":"CDSView","id":"p1325","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1326"}}},"glyph":{"type":"object","name":"Circle","id":"p1321","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"maxes"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"fill_color":{"type":"value","value":"#e84d60"},"hatch_color":{"type":"value","value":"#e84d60"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1322","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"maxes"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1323","attributes":{"x":{"type":"field","field":"positions"},"y":{"type":"field","field":"maxes"},"size":{"type":"value","value":12},"line_color":{"type":"value","value":"#e84d60"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.2}}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1231"},"toolbar_location":null,"left":[{"type":"object","name":"LinearAxis","id":"p1240","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1241","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"NumeralTickFormatter","id":"p1247","attributes":{"format":"0%"}},"axis_label":"Marginal Effective Total Tax Rate","major_label_policy":{"type":"object","name":"AllLabels","id":"p1243"}}}],"below":[{"type":"object","name":"LinearAxis","id":"p1235","attributes":{"ticker":{"type":"object","name":"FixedTicker","id":"p1245","attributes":{"ticks":[0,1,2],"minor_ticks":[]}},"formatter":{"type":"object","name":"CustomJSTickFormatter","id":"p1246","attributes":{"code":"\n        var types = [\"Typically Financed\", \"Debt Financed\", \"Equity Financed\"]\n        return types[tick]\n        "}},"axis_label":"Method of Financing","major_label_policy":{"type":"object","name":"AllLabels","id":"p1238"}}}],"center":[{"type":"object","name":"Grid","id":"p1239","attributes":{"axis":{"id":"p1235"},"grid_line_color":null}},{"type":"object","name":"Grid","id":"p1244","attributes":{"dimension":1,"axis":{"id":"p1240"},"grid_line_color":null}},{"type":"object","name":"BoxAnnotation","id":"p1249","attributes":{"right":0.5,"fill_color":"white","fill_alpha":0.2}},{"type":"object","name":"BoxAnnotation","id":"p1250","attributes":{"left":0.5,"right":1.5,"fill_color":"white","fill_alpha":0.1}},{"type":"object","name":"BoxAnnotation","id":"p1251","attributes":{"left":1.5,"fill_color":"white","fill_alpha":0.2}},{"type":"object","name":"Legend","id":"p1270","attributes":{"location":"bottom_right","items":[{"type":"object","name":"LegendItem","id":"p1271","attributes":{"label":{"type":"value","value":"Baseline"},"renderers":[{"id":"p1267"},{"id":"p1278"},{"id":"p1287"}]}},{"type":"object","name":"LegendItem","id":"p1308","attributes":{"label":{"type":"value","value":"Reform"},"renderers":[{"id":"p1305"},{"id":"p1315"},{"id":"p1324"}]}}]}}]}}]}};
+  const render_items = [{"docid":"c85626e9-c4e5-4aa3-b81a-b8a9651db94b","roots":{"p1223":"f6e8e35b-c67f-44e1-9e5d-fb02eef4e3ea"},"root_ids":["p1223"]}];
+  root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
+  }
+  if (root.Bokeh !== undefined) {
+    embed_document(root);
+  } else {
+    let attempts = 0;
+    const timer = setInterval(function(root) {
+      if (root.Bokeh !== undefined) {
+        clearInterval(timer);
+        embed_document(root);
+      } else {
+        attempts++;
+        if (attempts > 100) {
+          clearInterval(timer);
+          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+        }
+      }
+    }, 10, root)
+  }
+})(window);</script></div>
 </div>
 <p>There’s a bubble plot too, though it doesn’t yet allow for many options (currently only plots METTRs for corporate entities):</p>
 <div class="cell docutils container">
@@ -1915,6 +2774,67 @@ year:  2022
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deprec_df                                 value  asset_name BEA_code  \
+0  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}  Mainframes     EP1A   
+1  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}         PCs     EP1B   
+2  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}       DASDs     EP1C   
+3  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}    Printers     EP1D   
+4  {&#39;life&#39;: 5.0, &#39;method&#39;: &#39;DB 200%&#39;}   Terminals     EP1E   
+
+        minor_asset_group major_asset_group  ADS_life  GDS_life system  year  
+0  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+1  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+2  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+3  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+4  Computers and Software         Equipment       5.0       5.0    GDS  2020  
+deprec_df 2    asset_name BEA_code       minor_asset_group major_asset_group  ADS_life  \
+0  Mainframes     EP1A  Computers and Software         Equipment       5.0   
+1         PCs     EP1B  Computers and Software         Equipment       5.0   
+2       DASDs     EP1C  Computers and Software         Equipment       5.0   
+3    Printers     EP1D  Computers and Software         Equipment       5.0   
+4   Terminals     EP1E  Computers and Software         Equipment       5.0   
+
+   GDS_life system  year  life   method  
+0       5.0    GDS  2020   5.0  DB 200%  
+1       5.0    GDS  2020   5.0  DB 200%  
+2       5.0    GDS  2020   5.0  DB 200%  
+3       5.0    GDS  2020   5.0  DB 200%  
+4       5.0    GDS  2020   5.0  DB 200%  
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:bokeh.core.validation.check:W-1000 (MISSING_RENDERERS): Plot has no renderers: figure(id=&#39;p1373&#39;, ...)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:bokeh.core.validation.check:W-1000 (MISSING_RENDERERS): Plot has no renderers: figure(id=&#39;p1434&#39;, ...)
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="cddf2fb3-0140-4c0a-97e6-52b9b79cc9c8" data-root-id="p1461" style="display: contents;"></div>
+</div><script type="application/javascript">(function(root) {
+  function embed_document(root) {
+  const docs_json = {"d144b654-d316-4f16-bd66-2b0a42472ff5":{"version":"3.2.2","title":"Bokeh Application","roots":[{"type":"object","name":"Tabs","id":"p1461","attributes":{"tabs":[{"type":"object","name":"TabPanel","id":"p1458","attributes":{"title":"Equipment","child":{"type":"object","name":"Column","id":"p1457","attributes":{"children":[{"type":"object","name":"Figure","id":"p1333","attributes":{"width":990,"height":540,"x_range":{"type":"object","name":"Range1d","id":"p1342","attributes":{"start":-0.05,"end":0.51}},"y_range":{"type":"object","name":"FactorRange","id":"p1343","attributes":{"factors":["Other","Other Industrial","Industrial Machinery","Transportation","Office and Residential","Instruments and Communications","Computers and Software"]}},"x_scale":{"type":"object","name":"LinearScale","id":"p1344"},"y_scale":{"type":"object","name":"CategoricalScale","id":"p1345"},"title":{"type":"object","name":"Title","id":"p1340"},"outline_line_color":"black","outline_line_width":1,"renderers":[{"type":"object","name":"GlyphRenderer","id":"p1367","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1358","attributes":{"selected":{"type":"object","name":"Selection","id":"p1359","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1360"},"data":{"type":"map","entries":[["index",{"type":"ndarray","array":{"type":"bytes","data":"AAAAAAEAAAACAAAAAwAAAAQAAAAFAAAABgAAAAcAAAAIAAAACQAAAAoAAAALAAAADAAAAA0AAAAOAAAADwAAABAAAAARAAAAEgAAABMAAAAUAAAAFQAAABYAAAAXAAAAGAAAABkAAAAaAAAAGwAAABwAAAAdAAAAHgAAAB8AAAAgAAAAIQAAACIAAAAjAAAAJAAAACUAAAAmAAAAJwAAACgAAADGAAAAxwAAAMgAAADOAAAAzwAAANAAAADTAAAA"},"shape":[48],"dtype":"int32","order":"little"}],["baseline",{"type":"ndarray","array":{"type":"bytes","data":"EHXT6LtGsT+7dNPou0axP8V00+i7RrE/u3TT6LtGsT+ydNPou0axP6l00+i7RrE/u3TT6LtGsT+ydNPou0axP6l00+i7RrE/u3TT6LtGsT/hdNPou0axP7t00+i7RrE/qXTT6LtGsT/XdNPou0axP+F00+i7RrE/4XTT6LtGsT/OdNPou0axP9d00+i7RrE/znTT6LtGsT/FdNPou0axP8V00+i7RrE/4XTT6LtGsT/OdNPou0axP9d00+i7RrE/BnXT6LtGsT/hdNPou0axP+F00+i7RrE/xXTT6LtGsT/OdNPou0axP+F00+i7RrE/13TT6LtGsT/qdNPou0axP8500+i7RrE/6nTT6LtGsT/hdNPou0axP9d00+i7RrE/znTT6LtGsT+7dNPou0axP9d00+i7RrE/6nTT6LtGsT/XdNPou0axP8V00+i7RrE/xXTT6LtGsT/XdNPou0axP8V00+i7RrE/4XTT6LtGsT/XdNPou0axP9d00+i7RrE/"},"shape":[48],"dtype":"float64","order":"little"}],["size",{"type":"ndarray","array":{"type":"bytes","data":"IwAAADIAAAAUAAAAIwAAABQAAAAUAAAAFAAAABQAAAAUAAAAIwAAADIAAABBAAAAFAAAAEEAAAAUAAAAMgAAACMAAAAjAAAAFAAAADIAAAAUAAAAIwAAABQAAAAyAAAAFAAAACMAAAAyAAAAQQAAABQAAAAUAAAAIwAAADIAAAAjAAAAIwAAABQAAAAyAAAAIwAAADIAAAAyAAAAIwAAACMAAABBAAAAQQAAAEEAAAAyAAAAMgAAAEEAAABBAAAA"},"shape":[48],"dtype":"int32","order":"little"}],["hover",{"type":"ndarray","array":["6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%"],"shape":[48],"dtype":"object","order":"little"}],["assets",{"type":"ndarray","array":{"type":"bytes","data":"guiTRJDTMELUVaUIN/ZGQh+VzBinNxBCqeCRDsHvKEIAAAAAAAAAAFNzOHSIPwFCsBvVAVkXB0IAAAAAAAAAADUokQduzP1BeWM0iaxdGkIJ/Fm/uylQQqBKFSw0u1tCugfwReMT+0EDAkHtxwFdQiG4dVx1TRdCKpXJY/oEP0K8yX5/UXkxQqw/XGX+OjlCI5M5K0SUAEIHwQQ+J3hHQgIRiof0juRB9Dhz5OZvN0Jh54bUKFUPQnIrSU8wkElC4ljVPToM+EF4baBsU147Qvrg35pve0lCuZZFXPKlWELZEUQaZeAWQg5fNzePbgJC/EhZQAzFJULNGx/XE8Y8QpXTvLf6wTNCZi6+73dWNULjDFXOJQcHQrt8k/J2g0NCIy4brJ/VO0J1opjchrg/QoQzxAY9905CcwcfBRFDLUJ6zQEMnmM5QsKhOLU1MVdCVaO39XfyZUKkoiSxoKhoQn2C1lKn00hCMZtlJ7ueU0KCjHryx7tuQkmqbzYCGGxC"},"shape":[48],"dtype":"float64","order":"little"}],["short_category",{"type":"ndarray","array":["Computers and Software","Computers and Software","Computers and Software","Computers and Software","Computers and Software","Computers and Software","Computers and Software","Computers and Software","Computers and Software","Computers and Software","Industrial Machinery","Industrial Machinery","Instruments and Communications","Instruments and Communications","Instruments and Communications","Instruments and Communications","Instruments and Communications","Instruments and Communications","Office and Residential","Office and Residential","Office and Residential","Other","Other","Other","Other Industrial","Other Industrial","Other Industrial","Other Industrial","Other Industrial","Other Industrial","Other Industrial","Other Industrial","Other Industrial","Transportation","Transportation","Transportation","Transportation","Transportation","Transportation","Transportation","Transportation","Computers and Software","Industrial Machinery","Instruments and Communications","Office and Residential","Other","Other Industrial","Transportation"],"shape":[48],"dtype":"object","order":"little"}],["asset_name",{"type":"ndarray","array":["Prepackaged software","Custom software","Mainframes","PCs","DASDs","Printers","Terminals","Tape drives","Storage devices","System integrators","Special industrial machinery","General industrial equipment","Office and accounting equipment","Communications","Photocopy and related equipment","Nonelectro medical instruments","Electro medical instruments","Nonmedical instruments","Household furniture","Other furniture","Household appliances","Service industry machinery","Other electrical","Other","Nuclear fuel","Other fabricated metals","Metalworking machinery","Electric transmission and distribution","Farm tractors","Construction tractors","Other agricultural machinery","Other construction machinery","Mining and oilfield machinery","Steam engines","Internal combustion engines","Light trucks (including utility vehicles)","Other trucks, buses and truck trailers","Autos","Aircraft","Ships and boats","Railroad equipment","Computers and Software","Industrial Machinery","Instruments and Communications Equipment","Office and Residential Equipment","Other Equipment","Other Industrial Equipment","Transportation Equipment"],"shape":[48],"dtype":"object","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1368","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1369"}}},"glyph":{"type":"object","name":"Circle","id":"p1364","attributes":{"x":{"type":"field","field":"baseline"},"y":{"type":"field","field":"short_category"},"size":{"type":"field","field":"size"},"line_color":{"type":"value","value":"#333333"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.4},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.4}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1365","attributes":{"x":{"type":"field","field":"baseline"},"y":{"type":"field","field":"short_category"},"size":{"type":"field","field":"size"},"line_color":{"type":"value","value":"#333333"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1366","attributes":{"x":{"type":"field","field":"baseline"},"y":{"type":"field","field":"short_category"},"size":{"type":"field","field":"size"},"line_color":{"type":"value","value":"#333333"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#718dbf"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#718dbf"},"hatch_alpha":{"type":"value","value":0.2}}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1341","attributes":{"tools":[{"type":"object","name":"HoverTool","id":"p1356","attributes":{"renderers":"auto","tooltips":[["Asset"," @asset_name (@hover)"]]}}]}},"toolbar_location":null,"left":[{"type":"object","name":"CategoricalAxis","id":"p1351","attributes":{"ticker":{"type":"object","name":"CategoricalTicker","id":"p1352"},"formatter":{"type":"object","name":"CategoricalTickFormatter","id":"p1353"},"major_label_policy":{"type":"object","name":"AllLabels","id":"p1354"}}}],"below":[{"type":"object","name":"LinearAxis","id":"p1346","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1347","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"NumeralTickFormatter","id":"p1357","attributes":{"format":"0.1%"}},"axis_label":"Marginal Effective Tax Rate","major_label_policy":{"type":"object","name":"AllLabels","id":"p1349"},"major_tick_line_color":"firebrick","major_tick_line_width":3,"minor_tick_line_color":"orange"}}],"center":[{"type":"object","name":"Grid","id":"p1350","attributes":{"axis":{"id":"p1346"}}},{"type":"object","name":"Grid","id":"p1355","attributes":{"dimension":1,"axis":{"id":"p1351"}}}],"background_fill_alpha":0,"border_fill_alpha":0,"min_border_top":5,"min_border_bottom":0,"min_border_left":0,"min_border_right":5}},{"type":"object","name":"Figure","id":"p1373","attributes":{"width":380,"height":150,"x_range":{"type":"object","name":"Range1d","id":"p1383","attributes":{"start":-0.075,"end":75}},"y_range":{"type":"object","name":"DataRange1d","id":"p1375"},"x_scale":{"type":"object","name":"LinearScale","id":"p1384"},"y_scale":{"type":"object","name":"LinearScale","id":"p1385"},"title":{"type":"object","name":"Title","id":"p1376","attributes":{"text":"Asset Amount"}},"toolbar":{"type":"object","name":"Toolbar","id":"p1382","attributes":{"active_drag":null}},"left":[{"type":"object","name":"LinearAxis","id":"p1391","attributes":{"visible":false,"ticker":{"type":"object","name":"BasicTicker","id":"p1392","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1393"},"major_label_policy":{"type":"object","name":"AllLabels","id":"p1394"}}}],"below":[{"type":"object","name":"LinearAxis","id":"p1386","attributes":{"visible":false,"ticker":{"type":"object","name":"BasicTicker","id":"p1387","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1388"},"major_label_policy":{"type":"object","name":"AllLabels","id":"p1389"}}}],"center":[{"type":"object","name":"Grid","id":"p1390","attributes":{"axis":{"id":"p1386"},"grid_line_color":null}},{"type":"object","name":"Grid","id":"p1395","attributes":{"dimension":1,"axis":{"id":"p1391"},"grid_line_color":null}}]}}]}}}},{"type":"object","name":"TabPanel","id":"p1460","attributes":{"title":"Structures","child":{"type":"object","name":"Column","id":"p1459","attributes":{"children":[{"type":"object","name":"Figure","id":"p1396","attributes":{"width":990,"height":540,"x_range":{"type":"object","name":"Range1d","id":"p1405","attributes":{"start":-0.05,"end":0.51}},"y_range":{"type":"object","name":"FactorRange","id":"p1406","attributes":{"factors":["Other","Mining and Drilling","Nonresidential Bldgs","Residential Bldgs"]}},"x_scale":{"type":"object","name":"LinearScale","id":"p1407"},"y_scale":{"type":"object","name":"CategoricalScale","id":"p1408"},"title":{"type":"object","name":"Title","id":"p1403"},"outline_line_color":"black","outline_line_width":1,"renderers":[{"type":"object","name":"GlyphRenderer","id":"p1431","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1422","attributes":{"selected":{"type":"object","name":"Selection","id":"p1423","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1424"},"data":{"type":"map","entries":[["index",{"type":"ndarray","array":{"type":"bytes","data":"QgAAAEMAAABEAAAARQAAAEYAAABHAAAASAAAAEkAAABKAAAASwAAAEwAAABNAAAATgAAAE8AAABQAAAAUQAAAFIAAABTAAAAVAAAAFUAAABWAAAAVwAAAFgAAABZAAAAWgAAAFsAAABcAAAAXQAAAF4AAABfAAAAYAAAAGEAAABiAAAAzAAAAM0AAADRAAAA0gAAAOYAAAA="},"shape":[38],"dtype":"int32","order":"little"}],["baseline",{"type":"ndarray","array":{"type":"bytes","data":"13TT6LtGsT/OdNPou0axP9d00+i7RrE/13TT6LtGsT/OdNPou0axP+fhFPjmNc0/JwMdP1Hkzz8kAx0/UeTPPx4DHT9R5M8/c4J8FjUu0T/2RZxYuprQP/ZFnFi6mtA/Ha0mzt9x0D/7B24X9+7QP/sHbhf37tA/+AduF/fu0D9KDPNEfJrRP/ZFnFi6mtA/BA2fU5C80D8BDZ9TkLzQP8V00+i7RrE/9kWcWLqa0D/hdNPou0axP+p00+i7RrE/xXTT6LtGsT/FdNPou0axP9d00+i7RrE/6nTT6LtGsT/XdNPou0axP+F00+i7RrE/4XTT6LtGsT/XdNPou0axPzoRzCBzVMw/4XTT6LtGsT8XCmvq8dPQPwABULYJlbE/OhHMIHNUzD/NcB+Rlo7HPw=="},"shape":[38],"dtype":"float64","order":"little"}],["size",{"type":"ndarray","array":{"type":"bytes","data":"QQAAACMAAABBAAAAQQAAACMAAAAjAAAAMgAAADIAAAAjAAAAMgAAABQAAAAUAAAAMgAAAEEAAABBAAAAMgAAAEEAAAAUAAAAQQAAACMAAAAyAAAAFAAAABQAAAAjAAAAIwAAACMAAAAUAAAAFAAAADIAAAAyAAAAQQAAACMAAAAyAAAAQQAAAEEAAABBAAAAMgAAAEEAAAA="},"shape":[38],"dtype":"int32","order":"little"}],["hover",{"type":"ndarray","array":["6.7%","6.7%","6.7%","6.7%","6.7%","22.8%","24.9%","24.9%","24.9%","26.8%","25.9%","25.9%","25.7%","26.5%","26.5%","26.5%","27.5%","25.9%","26.2%","26.2%","6.7%","25.9%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","6.7%","22.1%","6.7%","26.3%","6.9%","22.1%","18.4%"],"shape":[38],"dtype":"object","order":"little"}],["assets",{"type":"ndarray","array":{"type":"bytes","data":"CutnFoQQbkIn2/YTB08zQmsOf4v/12BCfauIB/JGVUICaE2K2zg6Qk6mU7+xazdCQFAJgQd1UELL3wr5NbZSQuSjwho4UzBCbQ/IMFIAREI5PljRFdgYQr7TSpuZbOpBQLCdyW9hUEIrC9WI/fVTQm1dNBnYtFhCHnzs81WwREK1mcrM+/VvQv0QKJNU2QxCXSWGDU5gcEJ2TVJnIE45QiF+yETx/kJCtoo7oTY8AUJRGk1QREH6QY43N1HrfzlClBEs+aI5I0LOPwst3IghQlFkGCc/VBVCBWWY6mqK8UE2nye97J4/Qr7Hx03mYENCXZBtIAehbkJKsbxg2MY7QgCAUcSobVNCzOu5fHyef0J4LdDolo6QQh0CxpuCNHtCAIBRxKhtU0J4oJqdGD2gQg=="},"shape":[38],"dtype":"float64","order":"little"}],["short_category",{"type":"ndarray","array":["Mining and Drilling","Mining and Drilling","Mining and Drilling","Mining and Drilling","Mining and Drilling","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Nonresidential Bldgs","Other","Other","Other","Other","Other","Other","Other","Other","Other","Other","Other","Other","                          Residential Bldgs","Mining and Drilling","Nonresidential Bldgs","Other","                          Residential Bldgs","Structures"],"shape":[38],"dtype":"object","order":"little"}],["asset_name",{"type":"ndarray","array":["Petroleum and natural gas","Mining","Communication","Gas","Petroleum pipelines","Religious","Educational and vocational","Hospitals","Special care","Lodging","Air transportation","Other transportation","Warehouses","Other commercial","Multimerchandise shopping","Food and beverage establishments","Manufacturing","Public safety","Office","Medical buildings","Amusement and recreation","Local transit structures","Other land transportation","Farm","Water supply","Sewage and waste disposal","Highway and conservation and development","Mobile structures","Other railroad","Track replacement","Electric","Wind and solar","Residential","Mining and Drilling Structures","Nonresidential Buildings","Other Structures","Residential Buildings","Structures"],"shape":[38],"dtype":"object","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1432","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1433"}}},"glyph":{"type":"object","name":"Circle","id":"p1428","attributes":{"x":{"type":"field","field":"baseline"},"y":{"type":"field","field":"short_category"},"size":{"type":"field","field":"size"},"line_color":{"type":"value","value":"#333333"},"line_alpha":{"type":"value","value":0.4},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.4},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.4}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1429","attributes":{"x":{"type":"field","field":"baseline"},"y":{"type":"field","field":"short_category"},"size":{"type":"field","field":"size"},"line_color":{"type":"value","value":"#333333"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1430","attributes":{"x":{"type":"field","field":"baseline"},"y":{"type":"field","field":"short_category"},"size":{"type":"field","field":"size"},"line_color":{"type":"value","value":"#333333"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"#e84d60"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"#e84d60"},"hatch_alpha":{"type":"value","value":0.2}}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1404","attributes":{"tools":[{"type":"object","name":"HoverTool","id":"p1419","attributes":{"renderers":"auto","tooltips":[["Asset"," @asset_name (@hover)"]]}}]}},"toolbar_location":null,"left":[{"type":"object","name":"CategoricalAxis","id":"p1414","attributes":{"ticker":{"type":"object","name":"CategoricalTicker","id":"p1415"},"formatter":{"type":"object","name":"CategoricalTickFormatter","id":"p1416"},"major_label_policy":{"type":"object","name":"AllLabels","id":"p1417"}}}],"above":[{"type":"object","name":"Title","id":"p1420","attributes":{"text":"Marginal Effective Tax Rates on Corporate Investments in Structures","text_color":"#6B6B73","text_font":"Helvetica","text_font_size":"9pt","align":"center"}}],"below":[{"type":"object","name":"LinearAxis","id":"p1409","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1410","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"NumeralTickFormatter","id":"p1421","attributes":{"format":"0.1%"}},"axis_label":"Marginal Effective Tax Rate","major_label_policy":{"type":"object","name":"AllLabels","id":"p1412"},"major_tick_line_color":"firebrick","major_tick_line_width":3,"minor_tick_line_color":"orange"}}],"center":[{"type":"object","name":"Grid","id":"p1413","attributes":{"axis":{"id":"p1409"}}},{"type":"object","name":"Grid","id":"p1418","attributes":{"dimension":1,"axis":{"id":"p1414"}}}],"background_fill_alpha":0,"border_fill_alpha":0,"min_border_top":5,"min_border_bottom":0,"min_border_left":0,"min_border_right":5}},{"type":"object","name":"Figure","id":"p1434","attributes":{"width":380,"height":150,"x_range":{"type":"object","name":"Range1d","id":"p1444","attributes":{"start":-0.075,"end":0.75}},"y_range":{"type":"object","name":"DataRange1d","id":"p1436"},"x_scale":{"type":"object","name":"LinearScale","id":"p1445"},"y_scale":{"type":"object","name":"LinearScale","id":"p1446"},"title":{"type":"object","name":"Title","id":"p1437","attributes":{"text":"Asset Amount"}},"toolbar":{"type":"object","name":"Toolbar","id":"p1443","attributes":{"active_drag":null}},"left":[{"type":"object","name":"LinearAxis","id":"p1452","attributes":{"visible":false,"ticker":{"type":"object","name":"BasicTicker","id":"p1453","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1454"},"major_label_policy":{"type":"object","name":"AllLabels","id":"p1455"}}}],"below":[{"type":"object","name":"LinearAxis","id":"p1447","attributes":{"visible":false,"ticker":{"type":"object","name":"BasicTicker","id":"p1448","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1449"},"major_label_policy":{"type":"object","name":"AllLabels","id":"p1450"}}}],"center":[{"type":"object","name":"Grid","id":"p1451","attributes":{"axis":{"id":"p1447"},"grid_line_color":null}},{"type":"object","name":"Grid","id":"p1456","attributes":{"dimension":1,"axis":{"id":"p1452"},"grid_line_color":null}}]}}]}}}}]}}]}};
+  const render_items = [{"docid":"d144b654-d316-4f16-bd66-2b0a42472ff5","roots":{"p1461":"cddf2fb3-0140-4c0a-97e6-52b9b79cc9c8"},"root_ids":["p1461"]}];
+  root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
+  }
+  if (root.Bokeh !== undefined) {
+    embed_document(root);
+  } else {
+    let attempts = 0;
+    const timer = setInterval(function(root) {
+      if (root.Bokeh !== undefined) {
+        clearInterval(timer);
+        embed_document(root);
+      } else {
+        attempts++;
+        if (attempts > 100) {
+          clearInterval(timer);
+          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+        }
+      }
+    }, 10, root)
+  }
+})(window);</script></div>
 </div>
 </section>
 <section id="summary">

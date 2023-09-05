@@ -170,7 +170,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../content/api/public_api.html">Cost-of-Capital-Calculator API</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/calcfunctions.html">Cost of Capital Calculation Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/calculator.html">Cost of Capital Calculator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../content/api/data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../content/api/data.html">Cost of Capital Calculator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/get_taxcalc_rates.html">Get marginal tax rates from Tax-Calculator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/parameters.html">Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/paramfunctions.html">Parameter Calculation Functions</a></li>
@@ -1697,7 +1697,7 @@ document.write(`
         <span class="c1"># p_legend.add_layout(l1)</span>
         <span class="n">p_legend</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">p_legend</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">grid_line_color</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">p_legend</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">active_drag</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># p_legend.toolbar.active_drag = None</span>
 
         <span class="c1"># data_sources[&#39;equip_plot&#39;] = p</span>
 
@@ -1742,7 +1742,7 @@ document.write(`
         <span class="c1"># p2_legend.add_layout(l2)</span>
         <span class="n">p2_legend</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">p2_legend</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">grid_line_color</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">p2_legend</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">active_drag</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># p2_legend.toolbar.active_drag = None</span>
 
         <span class="c1"># add buttons</span>
         <span class="n">controls_callback</span> <span class="o">=</span> <span class="n">CustomJS</span><span class="p">(</span>

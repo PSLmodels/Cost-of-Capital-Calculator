@@ -170,7 +170,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../content/api/public_api.html">Cost-of-Capital-Calculator API</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/calcfunctions.html">Cost of Capital Calculation Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/calculator.html">Cost of Capital Calculator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../content/api/data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../content/api/data.html">Cost of Capital Calculator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/get_taxcalc_rates.html">Get marginal tax rates from Tax-Calculator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/parameters.html">Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/paramfunctions.html">Parameter Calculation Functions</a></li>
@@ -430,7 +430,7 @@ document.write(`
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dim</span>
 
-<div class="viewcode-block" id="Assets.read_var_info"><a class="viewcode-back" href="../../content/api/data.html#ccc.data.Assets.read_var_info">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">read_var_info</span><span class="p">():</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Read Assets variables metadata from JSON file; returns</span>
@@ -455,7 +455,7 @@ document.write(`
                                     <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;required&#39;</span><span class="p">))</span>
         <span class="n">Assets</span><span class="o">.</span><span class="n">USABLE_READ_VARS</span> <span class="o">=</span> <span class="n">Assets</span><span class="o">.</span><span class="n">INTEGER_READ_VARS</span> <span class="o">|</span> <span class="n">FLOAT_READ_VARS</span>
         <span class="n">Assets</span><span class="o">.</span><span class="n">INTEGER_VARS</span> <span class="o">=</span> <span class="n">Assets</span><span class="o">.</span><span class="n">INTEGER_READ_VARS</span>
-        <span class="k">return</span> <span class="n">vardict</span></div>
+        <span class="k">return</span> <span class="n">vardict</span>
 
     <span class="c1"># specify various sets of variable names</span>
     <span class="n">INTEGER_READ_VARS</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
