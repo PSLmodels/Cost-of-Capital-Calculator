@@ -1345,7 +1345,7 @@ class Calculator():
         # p_legend.add_layout(l1)
         p_legend.axis.visible = False
         p_legend.grid.grid_line_color = None
-        p_legend.toolbar.active_drag = None
+        # p_legend.toolbar.active_drag = None
 
         # data_sources['equip_plot'] = p
 
@@ -1390,7 +1390,7 @@ class Calculator():
         # p2_legend.add_layout(l2)
         p2_legend.axis.visible = False
         p2_legend.grid.grid_line_color = None
-        p2_legend.toolbar.active_drag = None
+        # p2_legend.toolbar.active_drag = None
 
         # add buttons
         controls_callback = CustomJS(

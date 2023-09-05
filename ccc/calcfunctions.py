@@ -25,9 +25,11 @@ def update_depr_methods(df, p, dp):
     # update tax_deprec_rates based on user defined parameters
     # create dataframe with depreciation policy parameters
     deprec_df = pd.DataFrame(dp.asset)
+    print("deprec_df", deprec_df.head())
     # split out value into two columns
-    deprec_df = pd.concat([deprec_df.drop(['value'], axis=1),
-                           deprec_df['value'].apply(pd.Series)], axis=1)
+    deprec_df = deprec_df.join(
+        pd.DataFrame(deprec_df.pop('value').values.tolist()))
+    print("deprec_df 2", deprec_df.head())
     # drop information duplicated in asset dataframe
     deprec_df.drop(columns=['asset_name', 'minor_asset_group',
                             'major_asset_group'], inplace=True)
