@@ -27,7 +27,8 @@ def update_depr_methods(df, p, dp):
     deprec_df = pd.DataFrame(dp.asset)
     print("deprec_df", deprec_df.head())
     # split out value into two columns
-    deprec_df = deprec_df.join(pd.DataFrame(deprec_df.pop('value').values.tolist()))
+    deprec_df = deprec_df.join(
+        pd.DataFrame(deprec_df.pop('value').values.tolist()))
     print("deprec_df 2", deprec_df.head())
     # drop information duplicated in asset dataframe
     deprec_df.drop(columns=['asset_name', 'minor_asset_group',
