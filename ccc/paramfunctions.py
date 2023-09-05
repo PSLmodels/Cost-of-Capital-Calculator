@@ -34,7 +34,7 @@ def calc_s_c_d_td(sprime_c_td, gamma, i, pi):
     Compute the after-tax return on corprate debt investments made
     through tax-deferred accounts.
 
-    ..math::
+    .. math::
         s_{c,d,td} = \gamma(i-\pi) + (1-\gamma)s^{'}_{c,td}
 
     Args:
@@ -60,7 +60,7 @@ def calc_s__d(s_d_td, alpha_d_ft, alpha_d_td, alpha_d_nt, tau_int,
     r'''
     Compute the after-tax return to debt investments.
 
-    ..math::
+    .. math::
         s_{j,d} = \alpha_{j,d,ft}((1-\tau_{int})i - \pi) +
             \alpha_{j,d,td}s_{j,d,td} + \alpha_{j,d,nt}(i-\pi) - \tau_{w}
 
@@ -92,7 +92,7 @@ def calc_g__g(Y_g, tau_cg, m, E_c, pi):
     Calculate the real, after-tax annualized return on short or long-
     term capital gains
 
-    ..math::
+    .. math::
         g_{icg} = \frac{1}{Y_{icg}}\ln\biggl[(1-\tau_{icg})e^{(\pi+mE)
             Y_{icg}}+\tau_{icg}\biggr] + \pi
 
@@ -119,7 +119,7 @@ def calc_g(g_scg, g_lcg, g_xcg, omega_scg, omega_lcg, omega_xcg, m, E_c):
     Calculate the after-tax, annualized, real rate of return on all
     capital gains
 
-    ..math::
+    .. math::
         g = \omega_{scg}\times g_{scg} + \omega_{lcg}\times g_{lcg} +
             \omega_{xcg}\times mE
 
@@ -153,7 +153,7 @@ def calc_s_c_e_td(Y_td, tau_td, i, pi, E_c):
     Calculate the after-tax return on investmentes in corporate equity
     in tax-deferred accounts.
 
-    ..math::
+    .. math::
         s_{c,e,td} = \frac{1}{Y_{td}}\ln((1-\tau_{td})e^{(\pi+E)Y_{td}}
             +\tau_{td}) - \pi
 
@@ -182,7 +182,7 @@ def calc_s_c_e(s_c_e_ft, s_c_e_td, alpha_c_e_ft, alpha_c_e_td,
     r'''
     Calculate the after-tax return on investments in corporate equity
 
-    ..math::
+    .. math::
         s_{c,e} = \alpha_{c,e,ft}\times s_{c,e,ft} + \alpha_{c,e,td}
             \times s_{c,e,td} + \alpha_{c,e,nt}\times E - \tau_{w}
 
@@ -212,10 +212,8 @@ def calc_s_c_e(s_c_e_ft, s_c_e_td, alpha_c_e_ft, alpha_c_e_td,
 
 def calc_s(p):
     '''
-    Compute the after-tax rate of return to savers, s.
-
-    .. math::
-        s = ...
+    Compute the after-tax rate of return to savers, s. Calls other
+    `calc_s_x_y` functions to compute various rates of return.
 
     Args:
         p (CCC Specification Object): model parameters
@@ -294,7 +292,7 @@ def calc_r(u, nominal_int_rate, inflation_rate, ace_int_rate, f,
     r'''
     Compute firm nominal discount rates
 
-    ..math::
+    .. math::
         r_{m,j} = f_{m,j}\[i(1-(1-i_{hc})u_{j})] + (1-f_{m,j})
         (E_{j} + \pi - ACE_{j})
 
@@ -324,7 +322,7 @@ def calc_r_prime(nominal_int_rate, inflation_rate, f, E):
     r'''
     Compute firm nominal, after-tax rates of return
 
-    ..math::
+    .. math::
         r^{'}_{m,j} = f_{m,j}(i-\pi) + (1-f_{m,j})E_{j} + \pi
 
     Args:
