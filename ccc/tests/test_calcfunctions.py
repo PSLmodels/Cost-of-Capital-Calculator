@@ -168,6 +168,7 @@ def test_update_depr_methods(monkeypatch):
         index=expected_df.index)
     print('Expected df =', expected_df)
     test_df = cf.update_depr_methods(asset_df, p, dp)
+    print('Test df =', test_df)
 
     assert_frame_equal(test_df, expected_df, check_like=True)
 

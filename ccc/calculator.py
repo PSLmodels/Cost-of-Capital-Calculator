@@ -97,7 +97,7 @@ class Calculator():
         Calculates variables that depend on z and rho such as metr, ucc
 
         Args:
-            df (Pandas DataFrame): assets by indusry and tax_treatment
+            df (Pandas DataFrame): assets by industry and tax_treatment
                 with depreciation rates, cost of capital, etc.
 
         Returns:
@@ -259,7 +259,7 @@ class Calculator():
              'tax_treat']).apply(self.__f, include_groups=False)).reset_index()
         ind_df = self.calc_other(ind_df)
         major_ind_df = pd.DataFrame(df1.groupby(
-            ['major_industry', 'tax_treat']).apply(self.__f)).reset_index()
+            ['major_industry', 'tax_treat']).apply(self.__f, include_groups=False)).reset_index()
         major_ind_df['Industry'] = major_ind_df['major_industry']
         major_ind_df = self.calc_other(major_ind_df)
         # Can put some if statements here if want to exclude land/inventory/etc
@@ -341,7 +341,6 @@ class Calculator():
                                      sort=True).reset_index())
         base_tab = dfs_out[0]
         reform_tab = dfs_out[1]
-        # print('reform table = ', reform_tab)
         diff_tab = diff_two_tables(reform_tab, base_tab)
         table_dict = {
             '': ['Overall', 'Corporations', '   Equity Financed',
@@ -1231,12 +1230,12 @@ class Calculator():
 
                 equipment_df['short_category'] =\
                     equipment_df['minor_asset_group']
-                equipment_df['short_category'].replace(make_short,
-                                                       inplace=True)
+                equipment_df['short_category'] = equipment_df['short_category'].replace(make_short,
+                                                       )
                 structure_df['short_category'] =\
                     structure_df['minor_asset_group']
-                structure_df['short_category'].replace(make_short,
-                                                       inplace=True)
+                structure_df['short_category'] = structure_df['short_category'].replace(make_short,
+                                                       )
 
                 # Add the Reform and the Baseline to Equipment Asset
                 for f in format_fields:
@@ -1525,24 +1524,36 @@ class Calculator():
 
         equipment_df['short_category'] =\
             equipment_df['minor_asset_group']
-        equipment_df['short_category'].replace(make_short,
-                                               inplace=True)
+        # equipment_df['short_category'].replace(make_short,
+        #                                        inplace=True)
+        equipment_df.replace({'short_category': make_short}, regex=True, inplace=True)
         structure_df['short_category'] =\
             structure_df['minor_asset_group']
-        structure_df['short_category'].replace(make_short,
+        # structure_df['short_category'].replace(make_short,
+        #                                        inplace=True)
+        structure_df.replace({'short_category': make_short}, regex=True,
                                                inplace=True)
         # Set up datasources
         data_sources = {}
         format_fields = [output_variable]
-        # Add the Reform and the Baseline to Equipment Asset
-        for f in format_fields:
-            equipment_copy = equipment_df.copy()
-            equipment_copy['baseline'] = equipment_copy[f]
-            equipment_copy['hover'] = equipment_copy.apply(
-                lambda x: "{0:.1f}%".format(x[f] * 100), axis=1)
-            data_sources['equipment_' + f] = ColumnDataSource(
-                equipment_copy[['baseline', 'size', 'hover', 'assets',
-                                'short_category', 'asset_name']])
+        # # Add the Reform and the Baseline to Equipment Asset
+        # for f in format_fields:
+        #     equipment_copy = equipment_df.copy()
+        #     equipment_copy['baseline'] = equipment_copy[f]
+        #     equipment_copy['hover'] = equipment_copy.apply(
+        #         lambda x: "{0:.1f}%".format(x[f] * 100), axis=1)
+        #     data_sources['equipment_' + f] = ColumnDataSource(
+        #         equipment_copy[['baseline', 'size', 'hover', 'assets',
+        #                         'short_category', 'asset_name']])
+
+        equipment_copy = equipment_df.copy()
+        equipment_copy['baseline'] = equipment_copy[output_variable]
+        equipment_copy['hover'] = equipment_copy[output_variable].astype(str).apply(
+            lambda x: "{:.2}%".format(x))
+        data_sources['equipment_' + output_variable] = ColumnDataSource(
+            equipment_copy[['baseline', 'size', 'hover', 'assets',
+                            'short_category', 'asset_name']])
+
         # A spacer for the y-axis label
         fudge_factor = '                          '
 
@@ -1550,8 +1561,10 @@ class Calculator():
         for f in format_fields:
             structure_copy = structure_df.copy()
             structure_copy['baseline'] = structure_copy[f]
-            structure_copy['hover'] = structure_copy.apply(
-                lambda x: "{0:.1f}%".format(x[f] * 100), axis=1)
+            # structure_copy['hover'] = structure_copy.apply(
+            #     lambda x: "{0:.1f}%".format(x[f] * 100), axis=1)
+            structure_copy['hover'] = structure_copy.astype(str).apply(
+                lambda x: "{0:.1}%".format(x[f]), axis=1)
             structure_copy['short_category'] =\
                 structure_copy['short_category'].str.replace(
                     'Residential Bldgs', fudge_factor +

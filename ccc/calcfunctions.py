@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from ccc.constants import TAX_METHODS
 from ccc.utils import str_modified
+pd.set_option('future.no_silent_downcasting', True)
 
 ENFORCE_CHECKS = True
 
@@ -25,11 +26,9 @@ def update_depr_methods(df, p, dp):
     # update tax_deprec_rates based on user defined parameters
     # create dataframe with depreciation policy parameters
     deprec_df = pd.DataFrame(dp.asset)
-    print("deprec_df", deprec_df.head())
     # split out value into two columns
     deprec_df = deprec_df.join(
         pd.DataFrame(deprec_df.pop('value').values.tolist()))
-    print("deprec_df 2", deprec_df.head())
     # drop information duplicated in asset dataframe
     deprec_df.drop(columns=['asset_name', 'minor_asset_group',
                             'major_asset_group'], inplace=True)
@@ -40,10 +39,12 @@ def update_depr_methods(df, p, dp):
     # add bonus depreciation to tax deprec parameters dataframe
     # ** UPDATE THIS  - maybe including bonus in new asset deprec JSON**
     df['bonus'] = df['GDS_life'].apply(str_modified)
-    df['bonus'].replace(p.bonus_deprec, inplace=True)
+    df.replace({"bonus": p.bonus_deprec}, inplace=True)
+    # make bonus float format
+    df['bonus'] = df['bonus'].astype(float)
     # Compute b
     df['b'] = df['method']
-    df['b'].replace(TAX_METHODS, inplace=True)
+    df.replace({"b": TAX_METHODS}, regex=True, inplace=True)
     df.loc[df['system'] == 'ADS', 'Y'] = df.loc[df['system'] == 'ADS',
                                                 'ADS_life']
     df.loc[df['system'] == 'GDS', 'Y'] = df.loc[df['system'] == 'GDS',

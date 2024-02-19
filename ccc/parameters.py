@@ -151,7 +151,7 @@ class Specification(paramtools.Parameters):
         self.bonus_deprec = {}
         for cl in class_list_str:
             self.bonus_deprec[cl] = getattr(
-                self, 'BonusDeprec_{}yr'.format(cl))
+                self, 'BonusDeprec_{}yr'.format(cl))[0]
         # to handle land and inventories
         # this is fixed later, but should work on this
         self.bonus_deprec['100'] = 0.0
