@@ -6,7 +6,9 @@ from ccc.parameters import DepreciationParams
 test_data = [(27.5, "27_5"), (30, "30")]
 
 
-@pytest.mark.parametrize("call_tc", [False, True], ids=["Not use TC", "Use TC"])
+@pytest.mark.parametrize(
+    "call_tc", [False, True], ids=["Not use TC", "Use TC"]
+)
 def test_create_specification_object(call_tc):
     spec = Specification(call_tc=call_tc)
     assert spec
@@ -189,7 +191,9 @@ def test_update_depreciation_params_with_dict():
         ]
     }
     dp.adjust(new_dp_dict)
-    test_result = dp.select_eq(param="asset", strict=False, year=2020, BEA_code="ENS2")
+    test_result = dp.select_eq(
+        param="asset", strict=False, year=2020, BEA_code="ENS2"
+    )
     assert test_result == expected_result
 
 
@@ -215,7 +219,9 @@ def test_update_depreciation_params_with_json():
          "value": {"life": 5, "method": "Expensing"}}]}
          """
     dp.adjust(new_dp_json)
-    test_result = dp.select_eq(param="asset", strict=False, year=2020, BEA_code="ENS2")
+    test_result = dp.select_eq(
+        param="asset", strict=False, year=2020, BEA_code="ENS2"
+    )
     assert test_result == expected_result
 
 

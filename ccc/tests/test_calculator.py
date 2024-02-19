@@ -151,7 +151,9 @@ def test_summary_table(include_land, include_inventories):
     calc2 = Calculator(p, dp, assets)
     assert calc2.current_year == cyr
     summary_df = calc1.summary_table(
-        calc2, include_land=include_land, include_inventories=include_inventories
+        calc2,
+        include_land=include_land,
+        include_inventories=include_inventories,
     )
     assert isinstance(summary_df, pd.DataFrame)
 
@@ -196,7 +198,9 @@ def test_asset_summary_table(include_land, include_inventories):
     calc2 = Calculator(p, dp, assets)
     assert calc2.current_year == cyr
     asset_df = calc1.asset_summary_table(
-        calc2, include_land=include_land, include_inventories=include_inventories
+        calc2,
+        include_land=include_land,
+        include_inventories=include_inventories,
     )
     assert isinstance(asset_df, pd.DataFrame)
 
@@ -220,12 +224,16 @@ def test_industry_summary_table(include_land, include_inventories):
     calc2 = Calculator(p, dp, assets)
     assert calc2.current_year == cyr
     ind_df = calc1.industry_summary_table(
-        calc2, include_land=include_land, include_inventories=include_inventories
+        calc2,
+        include_land=include_land,
+        include_inventories=include_inventories,
     )
     assert isinstance(ind_df, pd.DataFrame)
 
 
-@pytest.mark.parametrize("corporate", [True, False], ids=["Corporate", "Non-Corporate"])
+@pytest.mark.parametrize(
+    "corporate", [True, False], ids=["Corporate", "Non-Corporate"]
+)
 def test_range_plot(corporate):
     """
     Test range_plot method.
@@ -245,7 +253,9 @@ def test_range_plot(corporate):
     assert fig
 
 
-@pytest.mark.parametrize("corporate", [True, False], ids=["Corporate", "Non-Corporate"])
+@pytest.mark.parametrize(
+    "corporate", [True, False], ids=["Corporate", "Non-Corporate"]
+)
 def test_grouped_bar(corporate):
     """
     Test grouped_bar method.
@@ -278,7 +288,9 @@ def test_asset_bubble():
     calc2 = Calculator(p2, dp, assets)
     fig = calc.asset_bubble(calc2, include_title=True)
     assert fig
-    fig = calc.asset_bubble(calc2, output_variable="rho_mix", include_title=True)
+    fig = calc.asset_bubble(
+        calc2, output_variable="rho_mix", include_title=True
+    )
     assert fig
 
 

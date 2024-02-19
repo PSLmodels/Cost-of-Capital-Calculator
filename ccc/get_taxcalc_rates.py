@@ -43,7 +43,10 @@ def get_calculator(
         records1.e01100 = np.zeros(records1.e01100.shape[0])
     elif data is not None:  # pragma: no cover
         records1 = Records(
-            data=data, gfactors=gfactors, weights=weights, start_year=records_start_year
+            data=data,
+            gfactors=gfactors,
+            weights=weights,
+            start_year=records_start_year,
         )  # pragma: no cover
     else:
         records1 = Records()  # pragma: no cover
@@ -69,7 +72,9 @@ def get_calculator(
     return calc1
 
 
-def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={}, data="cps"):
+def get_rates(
+    baseline=False, start_year=DEFAULT_START_YEAR, reform={}, data="cps"
+):
     """
     This function computes weighted average marginal tax rates using
     micro data from the tax calculator
@@ -85,7 +90,10 @@ def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={}, data="cp
 
     """
     calc1 = get_calculator(
-        baseline=baseline, calculator_start_year=start_year, reform=reform, data=data
+        baseline=baseline,
+        calculator_start_year=start_year,
+        reform=reform,
+        data=data,
     )
 
     # running all the functions and calculates taxes
@@ -123,7 +131,9 @@ def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={}, data="cp
         # pension distributions
         # does PUF have e01500?  Do we want IRA distributions here?
         # Weird - I see e01500 in PUF, but error when try to call it
-        [mtr_fica_pension, mtr_iit_pension, mtr_combined_pension] = calc1.mtr("e01700")
+        [mtr_fica_pension, mtr_iit_pension, mtr_combined_pension] = calc1.mtr(
+            "e01700"
+        )
         # mortgage interest and property tax deductions
         # do we also want mtg ins premiums here?
         # mtg interest
@@ -134,7 +144,10 @@ def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={}, data="cp
         individual_rates["tau_pt"][year - start_year] = (
             (
                 (mtr_iit_schC * np.abs(calc1.array("e00900p")))
-                + (mtr_iit_schE * np.abs(calc1.array("e02000") - calc1.array("e26270")))
+                + (
+                    mtr_iit_schE
+                    * np.abs(calc1.array("e02000") - calc1.array("e26270"))
+                )
                 + (mtr_iit_PT * np.abs(calc1.array("e26270")))
             )
             * pos_ti
@@ -149,12 +162,17 @@ def get_rates(baseline=False, start_year=DEFAULT_START_YEAR, reform={}, data="cp
             * calc1.array("s006")
         ).sum()
         individual_rates["tau_td"][year - start_year] = (
-            mtr_iit_pension * calc1.array("e01500") * pos_ti * calc1.array("s006")
+            mtr_iit_pension
+            * calc1.array("e01500")
+            * pos_ti
+            * calc1.array("s006")
         ).sum() / (calc1.array("e01500") * pos_ti * calc1.array("s006")).sum()
         individual_rates["tau_h"][year - start_year] = -1 * (
             (
                 (mtr_iit_mtg * calc1.array("e19200"))
-                + (mtr_iit_prop * calc1.array("e18500")) * pos_ti * calc1.array("s006")
+                + (mtr_iit_prop * calc1.array("e18500"))
+                * pos_ti
+                * calc1.array("s006")
             ).sum()
             / (
                 (calc1.array("e19200"))

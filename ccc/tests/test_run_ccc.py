@@ -26,13 +26,16 @@ def test_calc_by_methods():
     actual_by_asset = calc.calc_by_asset()
     actual_by_industry = calc.calc_by_industry()
     # load expected results from the calc_by_ methods
-    expect_by_asset = pd.read_json(os.path.join(TDIR, "run_ccc_asset_output.json"))
+    expect_by_asset = pd.read_json(
+        os.path.join(TDIR, "run_ccc_asset_output.json")
+    )
     expect_by_industry = pd.read_json(
         os.path.join(TDIR, "run_ccc_industry_output.json")
     )
     # compare the actual and expect DataFrames
     for actual_df, expect_df in zip(
-        [actual_by_asset, actual_by_industry], [expect_by_asset, expect_by_industry]
+        [actual_by_asset, actual_by_industry],
+        [expect_by_asset, expect_by_industry],
     ):
         actual_df.sort_index(inplace=True)
         actual_df.reset_index(inplace=True)
@@ -81,7 +84,9 @@ def test_example_output():
     reform_assets_df = calc2.calc_by_asset()
     baseline_industry_df = calc1.calc_by_industry()
     reform_industry_df = calc2.calc_by_industry()
-    diff_assets_df = ccc.utils.diff_two_tables(reform_assets_df, baseline_assets_df)
+    diff_assets_df = ccc.utils.diff_two_tables(
+        reform_assets_df, baseline_assets_df
+    )
     diff_industry_df = ccc.utils.diff_two_tables(
         reform_industry_df, baseline_industry_df
     )

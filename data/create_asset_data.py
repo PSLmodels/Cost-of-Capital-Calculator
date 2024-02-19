@@ -53,14 +53,26 @@ asset_data_by_tax_treat = pd.DataFrame(
 asset_data_by_tax_treat.drop(columns=["level_0", "index"], inplace=True)
 # Merge in major industry and asset grouping names...
 # Add major asset group
-asset_data_by_tax_treat["major_asset_group"] = asset_data_by_tax_treat["Asset Type"]
-asset_data_by_tax_treat["major_asset_group"].replace(MAJOR_ASSET_GROUPS, inplace=True)
+asset_data_by_tax_treat["major_asset_group"] = asset_data_by_tax_treat[
+    "Asset Type"
+]
+asset_data_by_tax_treat["major_asset_group"].replace(
+    MAJOR_ASSET_GROUPS, inplace=True
+)
 # Add minor asset group
-asset_data_by_tax_treat["minor_asset_group"] = asset_data_by_tax_treat["Asset Type"]
-asset_data_by_tax_treat["minor_asset_group"].replace(MINOR_ASSET_GROUPS, inplace=True)
+asset_data_by_tax_treat["minor_asset_group"] = asset_data_by_tax_treat[
+    "Asset Type"
+]
+asset_data_by_tax_treat["minor_asset_group"].replace(
+    MINOR_ASSET_GROUPS, inplace=True
+)
 # Add major industry groupings
-asset_data_by_tax_treat["Industry"] = asset_data_by_tax_treat["Industry"].str.strip()
-asset_data_by_tax_treat["major_industry"] = asset_data_by_tax_treat["bea_ind_code"]
+asset_data_by_tax_treat["Industry"] = asset_data_by_tax_treat[
+    "Industry"
+].str.strip()
+asset_data_by_tax_treat["major_industry"] = asset_data_by_tax_treat[
+    "bea_ind_code"
+]
 asset_data_by_tax_treat["major_industry"].replace(BEA_CODE_DICT, inplace=True)
 # Merge in economic depreciation rates and tax depreciation systems
 deprec_info = pull_depreciation.get_depr()
@@ -71,7 +83,9 @@ asset_data_by_tax_treat = asset_data_by_tax_treat.merge(
 # Give land and inventories depreciation info?
 
 # clean up
-asset_data_by_tax_treat.drop(columns=["Asset Type_x", "Asset Type_y"], inplace=True)
+asset_data_by_tax_treat.drop(
+    columns=["Asset Type_x", "Asset Type_y"], inplace=True
+)
 asset_data_by_tax_treat.rename(columns={"Asset": "asset_name"}, inplace=True)
 
 # save result to csv

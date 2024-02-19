@@ -22,7 +22,9 @@ def calc_sprime_c_td(Y_td, tau_td, i, pi):
         sprime_c_td (scalar): the after-tax return on corporate
             investments made through tax-deferred accounts
     """
-    sprime_c_td = (1 / Y_td) * np.log(((1 - tau_td) * np.exp(i * Y_td)) + tau_td) - pi
+    sprime_c_td = (1 / Y_td) * np.log(
+        ((1 - tau_td) * np.exp(i * Y_td)) + tau_td
+    ) - pi
 
     return sprime_c_td
 
@@ -53,7 +55,9 @@ def calc_s_c_d_td(sprime_c_td, gamma, i, pi):
     return s_c_d_td
 
 
-def calc_s__d(s_d_td, alpha_d_ft, alpha_d_td, alpha_d_nt, tau_int, tau_w, i, pi):
+def calc_s__d(
+    s_d_td, alpha_d_ft, alpha_d_td, alpha_d_nt, tau_int, tau_w, i, pi
+):
     r"""
     Compute the after-tax return to debt investments.
 
@@ -207,7 +211,10 @@ def calc_s_c_e(
             corporate equity
     """
     s_c_e = (
-        alpha_c_e_ft * s_c_e_ft + alpha_c_e_td * s_c_e_td + alpha_c_e_nt * E_c - tau_w
+        alpha_c_e_ft * s_c_e_ft
+        + alpha_c_e_td * s_c_e_td
+        + alpha_c_e_nt * E_c
+        - tau_w
     )
 
     return s_c_e
@@ -275,7 +282,9 @@ def calc_s(p):
     # death
     g_xcg = calc_g__g(p.Y_xcg, p.tau_xcg, p.m, p.E_c, p.inflation_rate)
     # The after-tax real, annualized return on all capital gains
-    g = calc_g(g_scg, g_lcg, g_xcg, p.omega_scg, p.omega_lcg, p.omega_xcg, p.m, p.E_c)
+    g = calc_g(
+        g_scg, g_lcg, g_xcg, p.omega_scg, p.omega_lcg, p.omega_xcg, p.m, p.E_c
+    )
     # The after-tax return on corporate equity investments made in fully
     # taxable accounts
     s_c_e_ft = (1 - p.m) * p.E_c * (1 - p.tau_div) + g
@@ -313,7 +322,9 @@ def calc_s(p):
     return s_dict, E_pt
 
 
-def calc_r(u, nominal_int_rate, inflation_rate, ace_int_rate, f, int_haircut, E, ace):
+def calc_r(
+    u, nominal_int_rate, inflation_rate, ace_int_rate, f, int_haircut, E, ace
+):
     r"""
     Compute firm nominal discount rates
 

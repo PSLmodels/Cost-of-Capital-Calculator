@@ -72,7 +72,9 @@ def load_partner_data(entity_dfs):
     # and land for partnerhsips
     xwalk = pd.read_csv(_DETAIL_PART_CROSS_PATH)
     xwalk.rename({k: str(k) for k in xwalk.columns}, inplace=True)
-    xwalk["Industry:"] = xwalk["Industry:"].apply(lambda x: re.sub(r"[\s+]", "", x))
+    xwalk["Industry:"] = xwalk["Industry:"].apply(
+        lambda x: re.sub(r"[\s+]", "", x)
+    )
     # keep only codes that help to identify complete industries
     xwalk = xwalk[xwalk["complete"] == 1]
     # read in partner data - partner assets
@@ -88,7 +90,8 @@ def load_partner_data(entity_dfs):
     df03.columns = [to_str(c) for c in df03.columns]
     try:
         df03["Fixed Assets"] = (
-            df03["Depreciable assets"] - df03["Less:  Accumulated depreciation"]
+            df03["Depreciable assets"]
+            - df03["Less:  Accumulated depreciation"]
         )
     except Exception:
         print(df03.columns)
@@ -117,7 +120,9 @@ def load_partner_data(entity_dfs):
         xwalk, how="inner", left_on=["Item"], right_on=["Industry:"], copy=True
     )
     df03.drop(
-        ["Item", "Industry:", "Codes:", "Notes:", "complete"], axis=1, inplace=True
+        ["Item", "Industry:", "Codes:", "Notes:", "complete"],
+        axis=1,
+        inplace=True,
     )
 
     # Sums together the repeated codes into one industry
@@ -126,7 +131,9 @@ def load_partner_data(entity_dfs):
 
     # create ratios for minor industry assets using corporate
     # data read in crosswalk for bea and soi industry codes
-    soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS, dtype={"bea_ind_code": str})
+    soi_bea_ind_codes = pd.read_csv(
+        _SOI_BEA_CROSS, dtype={"bea_ind_code": str}
+    )
     soi_bea_ind_codes.columns = [to_str(c) for c in soi_bea_ind_codes.columns]
     soi_bea_ind_codes.drop("notes", axis=1, inplace=True)
     # drop one repeated minor ind code in crosswalk
@@ -166,7 +173,9 @@ def load_partner_data(entity_dfs):
         .copy()
         .reset_index()
     )
-    part_data.drop(["bea_inv_name", "bea_code", "_merge"], axis=1, inplace=True)
+    part_data.drop(
+        ["bea_inv_name", "bea_code", "_merge"], axis=1, inplace=True
+    )
 
     # merge codes to total corp data
     # inner join means that we keep only rows that match in both datasets
@@ -194,7 +203,11 @@ def load_partner_data(entity_dfs):
 
     # merge these ratios to the partner data
     part_data = part_data.merge(
-        corp, how="right", on=["minor_code_alt"], suffixes=("_x", "_y"), copy=True
+        corp,
+        how="right",
+        on=["minor_code_alt"],
+        suffixes=("_x", "_y"),
+        copy=True,
     )
 
     # allocate capital based on ratios
@@ -282,7 +295,11 @@ def load_partner_data(entity_dfs):
     typ_cross["Industry:"] = typ_cross["Industry:"].str.strip()
     df05["Item"] = df05["Item"].str.strip()
     df05 = df05.merge(
-        typ_cross, how="inner", left_on=["Item"], right_on=["Industry:"], copy=True
+        typ_cross,
+        how="inner",
+        left_on=["Item"],
+        right_on=["Industry:"],
+        copy=True,
     )
 
     # # create sums by group
@@ -300,18 +317,20 @@ def load_partner_data(entity_dfs):
 
     # manufacturing is missing data for 2013, so use overall partnership splits
     for key in part_types:
-        df05.loc[(df05["Codes:"] == 31) & (df05["part_type"] == key), "inc_ratio"] = (
-            df05.loc[
-                (df05["Codes:"] == 1) & (df05["part_type"] == key), "inc_ratio"
-            ].values
-        )
+        df05.loc[
+            (df05["Codes:"] == 31) & (df05["part_type"] == key), "inc_ratio"
+        ] = df05.loc[
+            (df05["Codes:"] == 1) & (df05["part_type"] == key), "inc_ratio"
+        ].values
     # add other sector codes for manufacturing
     manu = df05[df05["Codes:"] == 31]
     df_manu = (manu.append(manu, sort=True)).reset_index(drop=True)
     df_manu.loc[: len(part_types), "Codes:"] = 32
     df_manu.loc[len(part_types) :, "Codes:"] = 33
     df05 = (
-        df05.append(df_manu, sort=True, ignore_index=True).reset_index(drop=True).copy()
+        df05.append(df_manu, sort=True, ignore_index=True)
+        .reset_index(drop=True)
+        .copy()
     )
     # # Merge SOI codes to BEA data
     df05_sector = df05[(df05["Codes:"] > 9) & (df05["Codes:"] < 100)]
@@ -355,10 +374,16 @@ def load_partner_data(entity_dfs):
     part_assets.drop(["Codes:", "_merge"], axis=1, inplace=True)
 
     # allocate across partner type
-    part_assets["Fixed Assets"] = part_assets["Fixed Assets"] * part_assets["inc_ratio"]
-    part_assets["Inventories"] = part_assets["Inventories"] * part_assets["inc_ratio"]
+    part_assets["Fixed Assets"] = (
+        part_assets["Fixed Assets"] * part_assets["inc_ratio"]
+    )
+    part_assets["Inventories"] = (
+        part_assets["Inventories"] * part_assets["inc_ratio"]
+    )
     part_assets["Land"] = part_assets["Land"] * part_assets["inc_ratio"]
-    part_assets["Depreciation"] = part_assets["Depreciation"] * part_assets["inc_ratio"]
+    part_assets["Depreciation"] = (
+        part_assets["Depreciation"] * part_assets["inc_ratio"]
+    )
     part_data = {"part_data": part_assets}
 
     return part_data
@@ -401,7 +426,9 @@ def format_excel(df):
     df.dropna(inplace=True)
     df = df.T
     column_names = df.iloc[0, :].tolist()
-    column_names = [x.encode("ascii", "ignore").lstrip().rstrip() for x in column_names]
+    column_names = [
+        x.encode("ascii", "ignore").lstrip().rstrip() for x in column_names
+    ]
     df.columns = column_names
     df = df.drop(df.index[[0, len(df) - 1]])
     df = df.fillna(0)

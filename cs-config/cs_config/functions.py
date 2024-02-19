@@ -117,14 +117,19 @@ def get_inputs(meta_params_dict):
     iit_params = Policy()
     iit_params.set_state(year=meta_params.year.tolist())
 
-    filtered_iit_params = cs2tc.convert_policy_defaults(meta_params, iit_params)
+    filtered_iit_params = cs2tc.convert_policy_defaults(
+        meta_params, iit_params
+    )
 
     default_params = {
         "Business Tax Parameters": filtered_ccc_params,
         "Individual and Payroll Tax Parameters": filtered_iit_params,
     }
 
-    return {"meta_parameters": meta_params.dump(), "model_parameters": default_params}
+    return {
+        "meta_parameters": meta_params.dump(),
+        "model_parameters": default_params,
+    }
 
 
 def validate_inputs(meta_param_dict, adjustment, errors_warnings):
@@ -134,7 +139,9 @@ def validate_inputs(meta_param_dict, adjustment, errors_warnings):
     # Validate meta parameter inputs
     meta_params = MetaParams()
     meta_params.adjust(meta_param_dict, raise_errors=False)
-    errors_warnings["Business Tax Parameters"]["errors"].update(meta_params.errors)
+    errors_warnings["Business Tax Parameters"]["errors"].update(
+        meta_params.errors
+    )
     # Validate CCC parameter inputs
     params = Specification()
     params.adjust(adjustment["Business Tax Parameters"], raise_errors=False)
@@ -233,11 +240,18 @@ def comp_output(calc1, calc2, out_var="mettr"):
     reform_assets_df = calc2.calc_by_asset()
     baseln_industry_df = calc1.calc_by_industry()
     reform_industry_df = calc2.calc_by_industry()
-    html_table = calc1.summary_table(calc2, output_variable=out_var, output_type="html")
-    plt1 = calc1.grouped_bar(calc2, output_variable=out_var, include_title=True)
+    html_table = calc1.summary_table(
+        calc2, output_variable=out_var, output_type="html"
+    )
+    plt1 = calc1.grouped_bar(
+        calc2, output_variable=out_var, include_title=True
+    )
     plot_data1 = json_item(plt1)
     plt2 = calc1.grouped_bar(
-        calc2, output_variable=out_var, group_by_asset=False, include_title=True
+        calc2,
+        output_variable=out_var,
+        group_by_asset=False,
+        include_title=True,
     )
     plot_data2 = json_item(plt2)
     plt3 = calc1.range_plot(calc2, output_variable="mettr", include_title=True)

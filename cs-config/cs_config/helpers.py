@@ -23,14 +23,22 @@ POLICY_SCHEMA = {
         "year": {
             "type": "int",
             "validators": {
-                "choice": {"choices": [yr for yr in range(2013, TC_LAST_YEAR + 1)]}
+                "choice": {
+                    "choices": [yr for yr in range(2013, TC_LAST_YEAR + 1)]
+                }
             },
         },
         "MARS": {
             "type": "str",
             "validators": {
                 "choice": {
-                    "choices": ["single", "mjoint", "mseparate", "headhh", "widow"]
+                    "choices": [
+                        "single",
+                        "mjoint",
+                        "mseparate",
+                        "headhh",
+                        "widow",
+                    ]
                 }
             },
         },
@@ -38,13 +46,23 @@ POLICY_SCHEMA = {
             "type": "str",
             "validators": {
                 "choice": {
-                    "choices": ["med", "sltx", "retx", "cas", "misc", "int", "char"]
+                    "choices": [
+                        "med",
+                        "sltx",
+                        "retx",
+                        "cas",
+                        "misc",
+                        "int",
+                        "char",
+                    ]
                 }
             },
         },
         "EIC": {
             "type": "str",
-            "validators": {"choice": {"choices": ["0kids", "1kid", "2kids", "3+kids"]}},
+            "validators": {
+                "choice": {"choices": ["0kids", "1kid", "2kids", "3+kids"]}
+            },
         },
         "data_source": {
             "type": "str",
@@ -61,7 +79,8 @@ POLICY_SCHEMA = {
 
 
 def retrieve_puf(
-    aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
 ):
     """
     Function for retrieving the PUF from the OSPC S3 bucket

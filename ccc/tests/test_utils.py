@@ -26,7 +26,9 @@ def test_to_str_decode():
 test_data = [(27.5, "27_5"), (30, "30")]
 
 
-@pytest.mark.parametrize("number,expected", test_data, ids=["Decimal", "Integer"])
+@pytest.mark.parametrize(
+    "number,expected", test_data, ids=["Decimal", "Integer"]
+)
 def test_str_modified(number, expected):
     """
     Test of the str_modified() function
@@ -199,4 +201,6 @@ def test_save_return_table_exception():
     dict1 = {"var1": [1, 2, 3, 4, 5], "var2": [2, 4, 6, 8, 10]}
     df1 = pd.DataFrame.from_dict(dict1)
     with pytest.raises(Exception):
-        assert utils.save_return_table(df1, output_type="xls", path="filename.tex")
+        assert utils.save_return_table(
+            df1, output_type="xls", path="filename.tex"
+        )

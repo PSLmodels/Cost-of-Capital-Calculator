@@ -96,7 +96,9 @@ class Assets:
             vardict = json_to_dict(json_text)
         else:
             # cannot call read_egg_ function in unit tests
-            vardict = read_egg_json(Assets.VAR_INFO_FILENAME)  # pragma: no cover
+            vardict = read_egg_json(
+                Assets.VAR_INFO_FILENAME
+            )  # pragma: no cover
         Assets.INTEGER_READ_VARS = set(
             k for k, v in vardict["read"].items() if v["type"] == "int"
         )

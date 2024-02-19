@@ -28,14 +28,19 @@ def update_depr_methods(df, p, dp):
     # create dataframe with depreciation policy parameters
     deprec_df = pd.DataFrame(dp.asset)
     # split out value into two columns
-    deprec_df = deprec_df.join(pd.DataFrame(deprec_df.pop("value").values.tolist()))
+    deprec_df = deprec_df.join(
+        pd.DataFrame(deprec_df.pop("value").values.tolist())
+    )
     # drop information duplicated in asset dataframe
     deprec_df.drop(
-        columns=["asset_name", "minor_asset_group", "major_asset_group"], inplace=True
+        columns=["asset_name", "minor_asset_group", "major_asset_group"],
+        inplace=True,
     )
     # merge depreciation policy parameters to asset dataframe
     df.drop(columns=deprec_df.keys(), inplace=True, errors="ignore")
-    df = df.merge(deprec_df, how="left", left_on="bea_asset_code", right_on="BEA_code")
+    df = df.merge(
+        deprec_df, how="left", left_on="bea_asset_code", right_on="BEA_code"
+    )
     # add bonus depreciation to tax deprec parameters dataframe
     # ** UPDATE THIS  - maybe including bonus in new asset deprec JSON**
     df["bonus"] = df["GDS_life"].apply(str_modified)
@@ -45,8 +50,12 @@ def update_depr_methods(df, p, dp):
     # Compute b
     df["b"] = df["method"]
     df.replace({"b": TAX_METHODS}, regex=True, inplace=True)
-    df.loc[df["system"] == "ADS", "Y"] = df.loc[df["system"] == "ADS", "ADS_life"]
-    df.loc[df["system"] == "GDS", "Y"] = df.loc[df["system"] == "GDS", "GDS_life"]
+    df.loc[df["system"] == "ADS", "Y"] = df.loc[
+        df["system"] == "ADS", "ADS_life"
+    ]
+    df.loc[df["system"] == "GDS", "Y"] = df.loc[
+        df["system"] == "GDS", "GDS_life"
+    ]
     return df
 
 
@@ -148,7 +157,9 @@ def npv_tax_depr(df, r, pi, land_expensing):
 
     """
     idx = (df["method"] == "DB 200%") | (df["method"] == "DB 150%")
-    df.loc[idx, "z"] = dbsl(df.loc[idx, "Y"], df.loc[idx, "b"], df.loc[idx, "bonus"], r)
+    df.loc[idx, "z"] = dbsl(
+        df.loc[idx, "Y"], df.loc[idx, "b"], df.loc[idx, "bonus"], r
+    )
     idx = df["method"] == "SL"
     df.loc[idx, "z"] = sl(df.loc[idx, "Y"], df.loc[idx, "bonus"], r)
     idx = df["method"] == "Economic"
@@ -186,7 +197,9 @@ def eq_coc(delta, z, w, u, inv_tax_credit, pi, r):
         rho (array_like): the cost of capital
 
     """
-    rho = ((r - pi + delta) / (1 - u)) * (1 - inv_tax_credit - u * z) + w - delta
+    rho = (
+        ((r - pi + delta) / (1 - u)) * (1 - inv_tax_credit - u * z) + w - delta
+    )
 
     return rho
 

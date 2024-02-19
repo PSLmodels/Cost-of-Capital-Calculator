@@ -57,7 +57,9 @@ def test_calc_g():
     omega_scg, omega_lcg, omega_xcg = 0.7, 0.1, 0.2
     m, E_c = 0.4, 0.09
     g_xcg = m * E_c
-    test_value = pf.calc_g(g_scg, g_lcg, g_xcg, omega_scg, omega_lcg, omega_xcg, m, E_c)
+    test_value = pf.calc_g(
+        g_scg, g_lcg, g_xcg, omega_scg, omega_lcg, omega_xcg, m, E_c
+    )
 
     assert np.allclose(test_value, 0.022206588)
 
@@ -80,7 +82,13 @@ def test_calc_s_c_e():
     alpha_c_e_ft, alpha_c_e_td, alpha_c_e_nt = 0.6, 0.3, 0.1
     tau_w, E_c = 0.02, 0.09
     test_value = pf.calc_s_c_e(
-        s_c_e_ft, s_c_e_td, alpha_c_e_ft, alpha_c_e_td, alpha_c_e_nt, tau_w, E_c
+        s_c_e_ft,
+        s_c_e_td,
+        alpha_c_e_ft,
+        alpha_c_e_td,
+        alpha_c_e_nt,
+        tau_w,
+        E_c,
     )
 
     assert np.allclose(test_value, 0.048955981)
@@ -157,12 +165,22 @@ revisions = {
 }
 p.update_specification(revisions)
 expected_r_dict = {
-    "c": {"mix": np.array([0.075]), "d": np.array([0.0375]), "e": np.array([0.1])},
-    "pt": {"mix": np.array([0.0798]), "d": np.array([0.039]), "e": np.array([0.09])},
+    "c": {
+        "mix": np.array([0.075]),
+        "d": np.array([0.0375]),
+        "e": np.array([0.1]),
+    },
+    "pt": {
+        "mix": np.array([0.0798]),
+        "d": np.array([0.039]),
+        "e": np.array([0.09]),
+    },
 }
 
 
-@pytest.mark.parametrize("p,expected_dict", [(p, expected_r_dict)], ids=["Test 1"])
+@pytest.mark.parametrize(
+    "p,expected_dict", [(p, expected_r_dict)], ids=["Test 1"]
+)
 def test_calc_r(p, expected_dict):
     """
     Test of the calculation of the discount rate function
@@ -199,12 +217,22 @@ def test_calc_r(p, expected_dict):
 
 
 expected_rprime_dict = {
-    "c": {"mix": np.array([0.08]), "d": np.array([0.05]), "e": np.array([0.1])},
-    "pt": {"mix": np.array([0.082]), "d": np.array([0.05]), "e": np.array([0.09])},
+    "c": {
+        "mix": np.array([0.08]),
+        "d": np.array([0.05]),
+        "e": np.array([0.1]),
+    },
+    "pt": {
+        "mix": np.array([0.082]),
+        "d": np.array([0.05]),
+        "e": np.array([0.09]),
+    },
 }
 
 
-@pytest.mark.parametrize("p,expected_dict", [(p, expected_rprime_dict)], ids=["Test 1"])
+@pytest.mark.parametrize(
+    "p,expected_dict", [(p, expected_rprime_dict)], ids=["Test 1"]
+)
 def test_calc_rprime(p, expected_dict):
     """
     Test of the calculation of the after-tax rate of return function
@@ -219,7 +247,10 @@ def test_calc_rprime(p, expected_dict):
         test_dict[t] = {}
         for f in p.financing_list:
             test_dict[t][f] = pf.calc_r_prime(
-                p.nominal_interest_rate, p.inflation_rate, f_dict[t][f], E_dict[t]
+                p.nominal_interest_rate,
+                p.inflation_rate,
+                f_dict[t][f],
+                E_dict[t],
             )
 
     for k, v in test_dict.items():

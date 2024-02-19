@@ -14,7 +14,9 @@ def test_get_calculator_cps():
 
 
 @pytest.mark.needs_puf
-@pytest.mark.parametrize("data", ["puf.csv", None], ids=["data=PUF", "data=None"])
+@pytest.mark.parametrize(
+    "data", ["puf.csv", None], ids=["data=PUF", "data=None"]
+)
 def test_get_calculator(data):
     """
     Test the get_calculator() function
@@ -36,7 +38,9 @@ def test_get_rates():
     Test of the get_rates() functions
     """
     p = Specification(year=2020)  # has default tax rates, with should equal TC
-    test_dict = tc.get_rates(baseline=False, start_year=2020, reform={}, data="cps")
+    test_dict = tc.get_rates(
+        baseline=False, start_year=2020, reform={}, data="cps"
+    )
     for k, v in test_dict.items():
         print("Tax rate = ", k)
         assert np.allclose(v, p.__dict__[k], atol=1e-4)

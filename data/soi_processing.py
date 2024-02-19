@@ -54,7 +54,9 @@ def pull_soi_data():
     sole_prop.loc[:, "entity_type"] = "sole_prop"
 
     soi_data = (
-        c_corp.append([s_corp, partner, sole_prop], sort=True, ignore_index=True)
+        c_corp.append(
+            [s_corp, partner, sole_prop], sort=True, ignore_index=True
+        )
         .copy()
         .reset_index()
     )
@@ -64,12 +66,16 @@ def pull_soi_data():
     # with BEA data
     # create ratios for minor industry assets using corporate data
     # read in crosswalk for bea and soi industry codes
-    soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS, dtype={"bea_ind_code": str})
+    soi_bea_ind_codes = pd.read_csv(
+        _SOI_BEA_CROSS, dtype={"bea_ind_code": str}
+    )
     soi_bea_ind_codes.drop("notes", axis=1, inplace=True)
     # drop one repeated minor ind code in crosswalk
     soi_bea_ind_codes.drop_duplicates(subset=["minor_code_alt"], inplace=True)
     soi_data["tax_treat"] = "non-corporate"
-    soi_data.loc[soi_data["entity_type"] == "c_corp", "tax_treat"] = "corporate"
+    soi_data.loc[soi_data["entity_type"] == "c_corp", "tax_treat"] = (
+        "corporate"
+    )
     soi_data.loc[
         (soi_data["entity_type"] == "partnership")
         & (soi_data["part_type"] == "Corporate general partners"),

@@ -148,7 +148,8 @@ class Specification(paramtools.Parameters):
             # keep debt and equity financing ratio the same even though now
             # entity level tax that might now favor debt
             self.s["pt"]["mix"] = (
-                self.f_pt * self.s["pt"]["d"] + (1 - self.f_pt) * self.s["c"]["e"]
+                self.f_pt * self.s["pt"]["d"]
+                + (1 - self.f_pt) * self.s["c"]["e"]
             )
         self.r_prime = r_prime
 
@@ -164,10 +165,14 @@ class Specification(paramtools.Parameters):
         # Create dictionaries with depreciation system and rate of bonus
         # depreciation by asset class
         class_list = [3, 5, 7, 10, 15, 20, 25, 27.5, 39]
-        class_list_str = [(str(i) if i != 27.5 else "27_5") for i in class_list]
+        class_list_str = [
+            (str(i) if i != 27.5 else "27_5") for i in class_list
+        ]
         self.bonus_deprec = {}
         for cl in class_list_str:
-            self.bonus_deprec[cl] = getattr(self, "BonusDeprec_{}yr".format(cl))[0]
+            self.bonus_deprec[cl] = getattr(
+                self, "BonusDeprec_{}yr".format(cl)
+            )[0]
         # to handle land and inventories
         # this is fixed later, but should work on this
         self.bonus_deprec["100"] = 0.0

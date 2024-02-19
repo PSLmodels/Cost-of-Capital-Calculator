@@ -171,9 +171,13 @@ class Calculator:
 
         """
         # conducts static analysis of Calculator object for current_year
-        self.__assets.df = update_depr_methods(self.__assets.df, self.__p, self.__dp)
+        self.__assets.df = update_depr_methods(
+            self.__assets.df, self.__p, self.__dp
+        )
         dfs = {
-            "c": self.__assets.df[self.__assets.df["tax_treat"] == "corporate"].copy(),
+            "c": self.__assets.df[
+                self.__assets.df["tax_treat"] == "corporate"
+            ].copy(),
             "pt": self.__assets.df[
                 self.__assets.df["tax_treat"] == "non-corporate"
             ].copy(),
@@ -207,7 +211,9 @@ class Calculator:
                             self.__p.r[t][f],
                         )
                     )
-        self.__assets.df = pd.concat(dfs, ignore_index=True, copy=True, sort=True)
+        self.__assets.df = pd.concat(
+            dfs, ignore_index=True, copy=True, sort=True
+        )
 
     def calc_all(self):
         """
@@ -260,7 +266,9 @@ class Calculator:
                 self.__f, include_groups=False
             )
         ).reset_index()
-        major_asset_df["minor_asset_group"] = major_asset_df["major_asset_group"]
+        major_asset_df["minor_asset_group"] = major_asset_df[
+            "major_asset_group"
+        ]
         major_asset_df["asset_name"] = major_asset_df["major_asset_group"]
         major_asset_df = self.calc_other(major_asset_df)
         # Drop land and inventories if conditions met
@@ -339,7 +347,10 @@ class Calculator:
         overall_df["Industry"] = "Overall"
         overall_df = self.calc_other(overall_df)
         df = pd.concat(
-            [ind_df, major_ind_df, overall_df], ignore_index=True, copy=True, sort=True
+            [ind_df, major_ind_df, overall_df],
+            ignore_index=True,
+            copy=True,
+            sort=True,
         ).reset_index()
         # Drop duplicate rows in case, e.g., only one industry in major
         # industry group
@@ -406,7 +417,9 @@ class Calculator:
             # continute to use groupby
             df["include"] = 1
             all_df = pd.DataFrame.from_dict(
-                df.groupby(["include"]).apply(self.__f, include_groups=False).to_dict()
+                df.groupby(["include"])
+                .apply(self.__f, include_groups=False)
+                .to_dict()
             )
             # set tax_treat to corporate b/c only corp and non-corp
             # recognized in calc_other()
@@ -515,7 +528,11 @@ class Calculator:
         return table
 
     def asset_share_table(
-        self, include_land=True, include_inventories=True, output_type=None, path=None
+        self,
+        include_land=True,
+        include_inventories=True,
+        output_type=None,
+        path=None,
     ):
         """
         Create table summarizing the output_variable under the baseline
@@ -549,7 +566,9 @@ class Calculator:
         df2 = df1.pivot(
             index="major_industry", columns="tax_treat", values="assets"
         ).reset_index()
-        df2["c_share"] = df2["corporate"] / (df2["corporate"] + df2["non-corporate"])
+        df2["c_share"] = df2["corporate"] / (
+            df2["corporate"] + df2["non-corporate"]
+        )
         df2["nc_share"] = df2["non-corporate"] / (
             df2["corporate"] + df2["non-corporate"]
         )
@@ -648,7 +667,9 @@ class Calculator:
             # continute to use groupby
             df["include"] = 1
             all_df = pd.DataFrame.from_dict(
-                df.groupby(["include"]).apply(self.__f, include_groups=False).to_dict()
+                df.groupby(["include"])
+                .apply(self.__f, include_groups=False)
+                .to_dict()
             )
             # set tax_treat to corporate b/c only corp and non-corp
             # recognized in calc_other()
@@ -762,8 +783,10 @@ class Calculator:
             )
         table_dict = {
             "Category": category_list,
-            VAR_DICT[output_variable] + " Under Baseline Policy": base_out_list,
-            VAR_DICT[output_variable] + " Under Reform Policy": reform_out_list,
+            VAR_DICT[output_variable]
+            + " Under Baseline Policy": base_out_list,
+            VAR_DICT[output_variable]
+            + " Under Reform Policy": reform_out_list,
             "Change from Baseline (pp)": diff_out_list,
         }
         # Make df with dict so can use pandas functions
@@ -847,7 +870,9 @@ class Calculator:
             # continute to use groupby
             df["include"] = 1
             all_df = pd.DataFrame.from_dict(
-                df.groupby(["include"]).apply(self.__f, include_groups=False).to_dict()
+                df.groupby(["include"])
+                .apply(self.__f, include_groups=False)
+                .to_dict()
             )
             # set tax_treat to corporate b/c only corp and non-corp
             # recognized in calc_other()
@@ -956,8 +981,10 @@ class Calculator:
             )
         table_dict = {
             "Category": category_list,
-            VAR_DICT[output_variable] + " Under Baseline Policy": base_out_list,
-            VAR_DICT[output_variable] + " Under Reform Policy": reform_out_list,
+            VAR_DICT[output_variable]
+            + " Under Baseline Policy": base_out_list,
+            VAR_DICT[output_variable]
+            + " Under Reform Policy": reform_out_list,
             "Change from Baseline (pp)": diff_out_list,
         }
         # Make df with dict so can use pandas functions
@@ -1014,33 +1041,42 @@ class Calculator:
         assert output_variable in OUTPUT_VAR_LIST
         if group_by_asset:
             base_df = self.calc_by_asset(
-                include_land=include_land, include_inventories=include_inventories
+                include_land=include_land,
+                include_inventories=include_inventories,
             )
             reform_df = calc.calc_by_asset(
-                include_land=include_land, include_inventories=include_inventories
+                include_land=include_land,
+                include_inventories=include_inventories,
             )
             base_df.drop(
                 base_df[base_df.asset_name != base_df.major_asset_group].index,
                 inplace=True,
             )
             reform_df.drop(
-                reform_df[reform_df.asset_name != reform_df.major_asset_group].index,
+                reform_df[
+                    reform_df.asset_name != reform_df.major_asset_group
+                ].index,
                 inplace=True,
             )
             plot_label = "major_asset_group"
             plot_title = VAR_DICT[output_variable] + " by Asset Category"
         else:
             base_df = self.calc_by_industry(
-                include_land=include_land, include_inventories=include_inventories
+                include_land=include_land,
+                include_inventories=include_inventories,
             )
             reform_df = calc.calc_by_industry(
-                include_land=include_land, include_inventories=include_inventories
+                include_land=include_land,
+                include_inventories=include_inventories,
             )
             base_df.drop(
-                base_df[base_df.Industry != base_df.major_industry].index, inplace=True
+                base_df[base_df.Industry != base_df.major_industry].index,
+                inplace=True,
             )
             reform_df.drop(
-                reform_df[reform_df.Industry != reform_df.major_industry].index,
+                reform_df[
+                    reform_df.Industry != reform_df.major_industry
+                ].index,
                 inplace=True,
             )
             plot_label = "major_industry"
@@ -1057,18 +1093,20 @@ class Calculator:
             df.drop(df[df.tax_treat == "corporate"].index, inplace=True)
             plot_title = plot_title + " for Pass-Through Investments"
         # Get mean overall for baseline and reform
-        mean_base = df[(df[plot_label] == "Overall") & (df.policy == "Baseline")][
-            output_variable + "_" + financing
-        ].values[0]
-        mean_reform = df[(df[plot_label] == "Overall") & (df.policy == "Reform")][
-            output_variable + "_" + financing
-        ].values[0]
+        mean_base = df[
+            (df[plot_label] == "Overall") & (df.policy == "Baseline")
+        ][output_variable + "_" + financing].values[0]
+        mean_reform = df[
+            (df[plot_label] == "Overall") & (df.policy == "Reform")
+        ][output_variable + "_" + financing].values[0]
         # Drop overall means from df
         df.drop(df[df[plot_label] == "Overall"].index, inplace=True)
         # Drop extra vars and make wide format
         df1 = df[[plot_label, output_variable + "_mix", "policy"]]
         df2 = df1.pivot(
-            index=plot_label, columns="policy", values=output_variable + "_" + financing
+            index=plot_label,
+            columns="policy",
+            values=output_variable + "_" + financing,
         )
         df2.reset_index(inplace=True)
         # Create grouped barplot
@@ -1191,16 +1229,21 @@ class Calculator:
         # Drop corporate or non-corporate per arguments
         if corporate:
             base_df.drop(
-                base_df[base_df.tax_treat == "non-corporate"].index, inplace=True
+                base_df[base_df.tax_treat == "non-corporate"].index,
+                inplace=True,
             )
             reform_df.drop(
-                reform_df[reform_df.tax_treat == "non-corporate"].index, inplace=True
+                reform_df[reform_df.tax_treat == "non-corporate"].index,
+                inplace=True,
             )
             plot_subtitle = "Corporate Investments"
         else:
-            base_df.drop(base_df[base_df.tax_treat == "corporate"].index, inplace=True)
+            base_df.drop(
+                base_df[base_df.tax_treat == "corporate"].index, inplace=True
+            )
             reform_df.drop(
-                reform_df[reform_df.tax_treat == "corporate"].index, inplace=True
+                reform_df[reform_df.tax_treat == "corporate"].index,
+                inplace=True,
             )
             plot_subtitle = "Pass-Through Investments"
         dfs = [base_df, reform_df]
@@ -1214,7 +1257,11 @@ class Calculator:
                 "min_asset": [],
                 "max_asset": [],
                 "mean_asset": [],
-                "types": ["Typically Financed", "Debt Financed", "Equity Financed"],
+                "types": [
+                    "Typically Financed",
+                    "Debt Financed",
+                    "Equity Financed",
+                ],
                 "positions": [-0.1, 0.9, 1.9],
             },
             "reform": {
@@ -1224,7 +1271,11 @@ class Calculator:
                 "min_asset": [],
                 "max_asset": [],
                 "mean_asset": [],
-                "types": ["Typically Financed", "Debt Financed", "Equity Financed"],
+                "types": [
+                    "Typically Financed",
+                    "Debt Financed",
+                    "Equity Financed",
+                ],
                 "positions": [0.1, 1.1, 2.1],
             },
         }
@@ -1236,9 +1287,9 @@ class Calculator:
                 minval = df.loc[min_index][output_variable + fin]
                 minasset = df.loc[min_index]["asset_name"]
                 maxasset = df.loc[max_index]["asset_name"]
-                meanval = df[df.asset_name == "Overall"][output_variable + fin].values[
-                    0
-                ]
+                meanval = df[df.asset_name == "Overall"][
+                    output_variable + fin
+                ].values[0]
                 meanasset = "Overall"
 
                 # put values in dictionary
@@ -1254,15 +1305,22 @@ class Calculator:
 
         # Create figure on which to plot
         p = figure(
-            width=500, height=500, x_range=(-0.5, 2.5), toolbar_location=None, tools=""
+            width=500,
+            height=500,
+            x_range=(-0.5, 2.5),
+            toolbar_location=None,
+            tools="",
         )
 
         # Format graph title and features
         # Add title
         if include_title:
-            p.add_layout(Title(text=plot_subtitle, text_font_style="italic"), "above")
             p.add_layout(
-                Title(text=VAR_DICT[output_variable], text_font_size="16pt"), "above"
+                Title(text=plot_subtitle, text_font_style="italic"), "above"
+            )
+            p.add_layout(
+                Title(text=VAR_DICT[output_variable], text_font_size="16pt"),
+                "above",
             )
         # p.title.text = plot_title
         # p.title.align = 'center'
@@ -1296,11 +1354,15 @@ class Calculator:
         p.renderers.extend([zline])
 
         # Color different regions
-        standard_region = BoxAnnotation(right=0.5, fill_alpha=0.2, fill_color="white")
+        standard_region = BoxAnnotation(
+            right=0.5, fill_alpha=0.2, fill_color="white"
+        )
         debt_region = BoxAnnotation(
             left=0.5, right=1.5, fill_alpha=0.1, fill_color="white"
         )
-        equity_region = BoxAnnotation(left=1.5, fill_alpha=0.2, fill_color="white")
+        equity_region = BoxAnnotation(
+            left=1.5, fill_alpha=0.2, fill_color="white"
+        )
 
         p.add_layout(standard_region)
         p.add_layout(debt_region)
@@ -1440,22 +1502,30 @@ class Calculator:
                 if t == "c":
                     df = df_i.drop(df_i[df_i.tax_treat != "corporate"].index)
                 else:
-                    df = df_i.drop(df_i[df_i.tax_treat != "non-corporate"].index)
+                    df = df_i.drop(
+                        df_i[df_i.tax_treat != "non-corporate"].index
+                    )
                 # Remove data from Intellectual Property, Land, and
                 # Inventories Categories
                 if not include_land:
                     df.drop(df[df.asset_name == "Land"].index, inplace=True)
                 if not include_inventories:
-                    df.drop(df[df.asset_name == "Inventories"].index, inplace=True)
+                    df.drop(
+                        df[df.asset_name == "Inventories"].index, inplace=True
+                    )
                 if not include_IP:
                     df.drop(
-                        df[df.major_asset_group == "Intellectual Property"].index,
+                        df[
+                            df.major_asset_group == "Intellectual Property"
+                        ].index,
                         inplace=True,
                     )
                 # define the size DataFrame, if change, use base sizes
                 if list_string[i] != "change":
                     SIZES = list(range(20, 80, 15))
-                    size = pd.qcut(df["assets"].values, len(SIZES), labels=SIZES)
+                    size = pd.qcut(
+                        df["assets"].values, len(SIZES), labels=SIZES
+                    )
                     df["size"] = size
                 else:
                     df["size"] = size
@@ -1465,7 +1535,9 @@ class Calculator:
                 ).copy()
                 equipment_df.drop(
                     equipment_df[
-                        equipment_df.major_asset_group.str.contains("Buildings")
+                        equipment_df.major_asset_group.str.contains(
+                            "Buildings"
+                        )
                     ].index,
                     inplace=True,
                 )
@@ -1479,11 +1551,17 @@ class Calculator:
                     inplace=True,
                 )
                 structure_df = df.drop(
-                    df[~df.major_asset_group.str.contains("Structures|Buildings")].index
+                    df[
+                        ~df.major_asset_group.str.contains(
+                            "Structures|Buildings"
+                        )
+                    ].index
                 ).copy()
                 # Drop value for all structures
                 structure_df.drop(
-                    structure_df[structure_df.asset_name == "Structures"].index,
+                    structure_df[
+                        structure_df.asset_name == "Structures"
+                    ].index,
                     inplace=True,
                 )
 
@@ -1518,12 +1596,20 @@ class Calculator:
                     "Industrial Machinery": "Industrial Machinery",
                 }
 
-                equipment_df["short_category"] = equipment_df["minor_asset_group"]
-                equipment_df["short_category"] = equipment_df["short_category"].replace(
+                equipment_df["short_category"] = equipment_df[
+                    "minor_asset_group"
+                ]
+                equipment_df["short_category"] = equipment_df[
+                    "short_category"
+                ].replace(
                     make_short,
                 )
-                structure_df["short_category"] = structure_df["minor_asset_group"]
-                structure_df["short_category"] = structure_df["short_category"].replace(
+                structure_df["short_category"] = structure_df[
+                    "minor_asset_group"
+                ]
+                structure_df["short_category"] = structure_df[
+                    "short_category"
+                ].replace(
                     make_short,
                 )
 
@@ -1535,11 +1621,17 @@ class Calculator:
                         lambda x: "{0:.1f}%".format(x[f] * 100), axis=1
                     )
                     simple_equipment_copy = equipment_copy.filter(
-                        items=["size", "rate", "hover", "short_category", "asset_name"]
+                        items=[
+                            "size",
+                            "rate",
+                            "hover",
+                            "short_category",
+                            "asset_name",
+                        ]
                     )
-                    data_sources[list_string[i] + "_equipment_" + f + "_" + t] = (
-                        ColumnDataSource(simple_equipment_copy)
-                    )
+                    data_sources[
+                        list_string[i] + "_equipment_" + f + "_" + t
+                    ] = ColumnDataSource(simple_equipment_copy)
 
                 # Add the Reform and the Baseline to Structures Asset
                 for f in format_fields:
@@ -1549,21 +1641,34 @@ class Calculator:
                         lambda x: "{0:.1f}%".format(x[f] * 100), axis=1
                     )
                     simple_structure_copy = structure_copy.filter(
-                        items=["size", "rate", "hover", "short_category", "asset_name"]
+                        items=[
+                            "size",
+                            "rate",
+                            "hover",
+                            "short_category",
+                            "asset_name",
+                        ]
                     )
-                    data_sources[list_string[i] + "_structure_" + f + "_" + t] = (
-                        ColumnDataSource(simple_structure_copy)
-                    )
+                    data_sources[
+                        list_string[i] + "_structure_" + f + "_" + t
+                    ] = ColumnDataSource(simple_structure_copy)
 
                 # Create initial data sources to plot on load
                 if list_string[i] == "base" and t == "c":
                     equipment_copy = equipment_df.copy()
                     equipment_copy["rate"] = equipment_copy["mettr_mix"]
                     equipment_copy["hover"] = equipment_copy.apply(
-                        lambda x: "{0:.1f}%".format(x["mettr_mix"] * 100), axis=1
+                        lambda x: "{0:.1f}%".format(x["mettr_mix"] * 100),
+                        axis=1,
                     )
                     simple_equipment_copy = equipment_copy.filter(
-                        items=["size", "rate", "hover", "short_category", "asset_name"]
+                        items=[
+                            "size",
+                            "rate",
+                            "hover",
+                            "short_category",
+                            "asset_name",
+                        ]
                     )
                     data_sources["equip_source"] = ColumnDataSource(
                         simple_equipment_copy
@@ -1572,10 +1677,17 @@ class Calculator:
                     structure_copy = structure_df.copy()
                     structure_copy["rate"] = structure_copy["mettr_mix"]
                     structure_copy["hover"] = structure_copy.apply(
-                        lambda x: "{0:.1f}%".format(x["mettr_mix"] * 100), axis=1
+                        lambda x: "{0:.1f}%".format(x["mettr_mix"] * 100),
+                        axis=1,
                     )
                     simple_structure_copy = structure_copy.filter(
-                        items=["size", "rate", "hover", "short_category", "asset_name"]
+                        items=[
+                            "size",
+                            "rate",
+                            "hover",
+                            "short_category",
+                            "asset_name",
+                        ]
                     )
                     data_sources["struc_source"] = ColumnDataSource(
                         simple_structure_copy
@@ -1652,7 +1764,11 @@ class Calculator:
             }
         )
         p_legend = figure(
-            height=150, width=380, x_range=(-0.075, 75), title="Asset Amount", tools=""
+            height=150,
+            width=380,
+            x_range=(-0.075, 75),
+            title="Asset Amount",
+            tools="",
         )
         # p_legend.circle(y=None, x='x', size='size', source=legend_cds,
         #                 color=BLUE, fill_alpha=.4, alpha=.4,
@@ -1726,8 +1842,12 @@ class Calculator:
         # p2_legend.toolbar.active_drag = None
 
         # add buttons
-        controls_callback = CustomJS(args=data_sources, code=CONTROLS_CALLBACK_SCRIPT)
-        c_pt_buttons = RadioButtonGroup(labels=["Corporate", "Noncorporate"], active=0)
+        controls_callback = CustomJS(
+            args=data_sources, code=CONTROLS_CALLBACK_SCRIPT
+        )
+        c_pt_buttons = RadioButtonGroup(
+            labels=["Corporate", "Noncorporate"], active=0
+        )
         c_pt_buttons.js_on_change("value", controls_callback)
         controls_callback.args["c_pt_buttons"] = c_pt_buttons
         format_buttons = RadioButtonGroup(
@@ -1825,7 +1945,8 @@ class Calculator:
             df.drop(df[df.asset_name == "Inventories"].index, inplace=True)
         if not include_IP:
             df.drop(
-                df[df.major_asset_group == "Intellectual Property"].index, inplace=True
+                df[df.major_asset_group == "Intellectual Property"].index,
+                inplace=True,
             )
 
         # define the size DataFrame
@@ -1844,13 +1965,17 @@ class Calculator:
         )
         # Drop overall category and overall equipment
         equipment_df.drop(
-            equipment_df[equipment_df.asset_name == "Overall"].index, inplace=True
+            equipment_df[equipment_df.asset_name == "Overall"].index,
+            inplace=True,
         )
         equipment_df.drop(
-            equipment_df[equipment_df.asset_name == "Equipment"].index, inplace=True
+            equipment_df[equipment_df.asset_name == "Equipment"].index,
+            inplace=True,
         )
         structure_df = df.drop(
-            df[~df.minor_asset_group.str.contains("Structures|Buildings")].index
+            df[
+                ~df.minor_asset_group.str.contains("Structures|Buildings")
+            ].index
         ).copy()
 
         # Make short category
@@ -1871,11 +1996,15 @@ class Calculator:
         equipment_df["short_category"] = equipment_df["minor_asset_group"]
         # equipment_df['short_category'].replace(make_short,
         #                                        inplace=True)
-        equipment_df.replace({"short_category": make_short}, regex=True, inplace=True)
+        equipment_df.replace(
+            {"short_category": make_short}, regex=True, inplace=True
+        )
         structure_df["short_category"] = structure_df["minor_asset_group"]
         # structure_df['short_category'].replace(make_short,
         #                                        inplace=True)
-        structure_df.replace({"short_category": make_short}, regex=True, inplace=True)
+        structure_df.replace(
+            {"short_category": make_short}, regex=True, inplace=True
+        )
         # Set up datasources
         data_sources = {}
         # Add the Reform and the Baseline to Equipment Asset
@@ -1888,7 +2017,14 @@ class Calculator:
         )
         data_sources["equipment_" + output_variable] = ColumnDataSource(
             equipment_copy[
-                ["baseline", "size", "hover", "assets", "short_category", "asset_name"]
+                [
+                    "baseline",
+                    "size",
+                    "hover",
+                    "assets",
+                    "short_category",
+                    "asset_name",
+                ]
             ]
         )
 
@@ -1903,12 +2039,19 @@ class Calculator:
         structure_copy["hover"] = structure_copy.astype(str).apply(
             lambda x: "{0:.1}%".format(x[output_variable]), axis=1
         )
-        structure_copy["short_category"] = structure_copy["short_category"].str.replace(
-            "Residential Bldgs", fudge_factor + "Residential Bldgs"
-        )
+        structure_copy["short_category"] = structure_copy[
+            "short_category"
+        ].str.replace("Residential Bldgs", fudge_factor + "Residential Bldgs")
         data_sources["structure_" + output_variable] = ColumnDataSource(
             structure_copy[
-                ["baseline", "size", "hover", "assets", "short_category", "asset_name"]
+                [
+                    "baseline",
+                    "size",
+                    "hover",
+                    "assets",
+                    "short_category",
+                    "asset_name",
+                ]
             ]
         )
 
@@ -1985,7 +2128,9 @@ class Calculator:
             line_color="#333333",
             line_alpha=0.1,
             fill_alpha=0.4,
-            source=ColumnDataSource(data_sources["equipment_" + output_variable].data),
+            source=ColumnDataSource(
+                data_sources["equipment_" + output_variable].data
+            ),
             alpha=0.4,
         )
 
@@ -1998,7 +2143,11 @@ class Calculator:
             }
         )
         p_legend = figure(
-            height=150, width=380, x_range=(-0.075, 75), title="Asset Amount", tools=""
+            height=150,
+            width=380,
+            x_range=(-0.075, 75),
+            title="Asset Amount",
+            tools="",
         )
         # p_legend.circle(y=None, x='x', size='size', source=legend_cds,
         #                 color=BLUE, fill_alpha=.4, alpha=.4,
@@ -2060,7 +2209,9 @@ class Calculator:
             line_color="#333333",
             # line_alpha=.1,
             fill_alpha=0.4,
-            source=ColumnDataSource(data_sources["structure_" + output_variable].data),
+            source=ColumnDataSource(
+                data_sources["structure_" + output_variable].data
+            ),
             alpha=0.4,
         )
 

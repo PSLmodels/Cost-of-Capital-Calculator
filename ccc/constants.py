@@ -7,7 +7,16 @@ VAR_DICT = {
     "z": "NPV of Depreciation Deductions",
 }
 
-OUTPUT_VAR_LIST = ["metr", "mettr", "rho", "ucc", "z", "delta", "tax_wedge", "eatr"]
+OUTPUT_VAR_LIST = [
+    "metr",
+    "mettr",
+    "rho",
+    "ucc",
+    "z",
+    "delta",
+    "tax_wedge",
+    "eatr",
+]
 
 OUTPUT_DATA_FORMATS = ["csv", "tex", "excel", "json", "html", None]
 
@@ -114,10 +123,13 @@ MINOR_ASSET_GROUPS.update(
 )
 MINOR_ASSET_GROUPS.update(
     dict.fromkeys(
-        ["Service industry machinery", "Other electrical", "Other"], "Other Equipment"
+        ["Service industry machinery", "Other electrical", "Other"],
+        "Other Equipment",
     )
 )
-MINOR_ASSET_GROUPS.update(dict.fromkeys(["Residential"], "Residential Buildings"))
+MINOR_ASSET_GROUPS.update(
+    dict.fromkeys(["Residential"], "Residential Buildings")
+)
 MINOR_ASSET_GROUPS.update(
     dict.fromkeys(
         [
@@ -407,7 +419,10 @@ IND_DICT.update(
 )
 IND_DICT.update(
     dict.fromkeys(
-        ["Real estate", "Rental and leasing services and lessors of intangible assets"],
+        [
+            "Real estate",
+            "Rental and leasing services and lessors of intangible assets",
+        ],
         "Real estate and rental and leasing",
     )
 )
@@ -436,7 +451,9 @@ IND_DICT.update(
         "Administrative and waste management services",
     )
 )
-IND_DICT.update(dict.fromkeys(["Educational services"], "Educational services"))
+IND_DICT.update(
+    dict.fromkeys(["Educational services"], "Educational services")
+)
 IND_DICT.update(
     dict.fromkeys(
         [
@@ -465,7 +482,8 @@ IND_DICT.update(
 )
 IND_DICT.update(
     dict.fromkeys(
-        ["Other services, except government"], "Other services, except government"
+        ["Other services, except government"],
+        "Other services, except government",
     )
 )
 
@@ -509,28 +527,43 @@ BEA_CODE_DICT.update(
         "Transportation and warehousing",
     )
 )
-BEA_CODE_DICT.update(dict.fromkeys(["5110", "5120", "5130", "5140"], "Information"))
 BEA_CODE_DICT.update(
-    dict.fromkeys(["5210", "5220", "5230", "5240", "5250"], "Finance and insurance")
+    dict.fromkeys(["5110", "5120", "5130", "5140"], "Information")
+)
+BEA_CODE_DICT.update(
+    dict.fromkeys(
+        ["5210", "5220", "5230", "5240", "5250"], "Finance and insurance"
+    )
 )
 BEA_CODE_DICT.update(
     dict.fromkeys(["5310", "5320"], "Real estate and rental and leasing")
 )
 BEA_CODE_DICT.update(
     dict.fromkeys(
-        ["5411", "5415", "5412"], "Professional, scientific, and technical services"
+        ["5411", "5415", "5412"],
+        "Professional, scientific, and technical services",
     )
 )
-BEA_CODE_DICT.update(dict.fromkeys(["5500"], "Management of companies and enterprises"))
 BEA_CODE_DICT.update(
-    dict.fromkeys(["5610", "5620"], "Administrative and waste management services")
+    dict.fromkeys(["5500"], "Management of companies and enterprises")
+)
+BEA_CODE_DICT.update(
+    dict.fromkeys(
+        ["5610", "5620"], "Administrative and waste management services"
+    )
 )
 BEA_CODE_DICT.update(dict.fromkeys(["6100"], "Educational services"))
 BEA_CODE_DICT.update(
-    dict.fromkeys(["6210", "622H", "6230", "6240"], "Health care and social assistance")
+    dict.fromkeys(
+        ["6210", "622H", "6230", "6240"], "Health care and social assistance"
+    )
 )
 BEA_CODE_DICT.update(
     dict.fromkeys(["711A", "7130"], "Arts, entertainment, and recreation")
 )
-BEA_CODE_DICT.update(dict.fromkeys(["7210", "7220"], "Accommodation and food services"))
-BEA_CODE_DICT.update(dict.fromkeys(["8100"], "Other services, except government"))
+BEA_CODE_DICT.update(
+    dict.fromkeys(["7210", "7220"], "Accommodation and food services")
+)
+BEA_CODE_DICT.update(
+    dict.fromkeys(["8100"], "Other services, except government")
+)

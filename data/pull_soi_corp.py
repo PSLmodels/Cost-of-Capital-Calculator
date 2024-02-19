@@ -79,7 +79,9 @@ def load_corp_data():
         raise
 
     # read in crosswalk for bea and soi industry codes
-    soi_bea_ind_codes = pd.read_csv(_SOI_BEA_CROSS, dtype={"bea_ind_code": str})
+    soi_bea_ind_codes = pd.read_csv(
+        _SOI_BEA_CROSS, dtype={"bea_ind_code": str}
+    )
     soi_bea_ind_codes.drop("notes", axis=1, inplace=True)
     # drop one repeated minor ind code in crosswalk
     soi_bea_ind_codes.drop_duplicates(subset=["minor_code_alt"], inplace=True)
@@ -176,9 +178,9 @@ def calc_proportions(tot_corp, s_corp, columns):
     # in total corp data
     corp_ratios = tot_corp[["INDY_CD", "sector_code"] + columns].copy()
     for var in columns:
-        corp_ratios[var + "_ratio"] = tot_corp.groupby(["sector_code"])[var].apply(
-            lambda x: x / float(x.sum())
-        )
+        corp_ratios[var + "_ratio"] = tot_corp.groupby(["sector_code"])[
+            var
+        ].apply(lambda x: x / float(x.sum()))
 
     corp_ratios.drop(columns, axis=1, inplace=True)
 
@@ -201,7 +203,9 @@ def calc_proportions(tot_corp, s_corp, columns):
         s_corp[var + "_final"] = s_corp[var] * s_corp[var + "_ratio"]
 
     # clean up data by dropping and renaming columns
-    s_corp.drop(["INDY_CD_y", "_merge", "sector_code"] + columns, axis=1, inplace=True)
+    s_corp.drop(
+        ["INDY_CD_y", "_merge", "sector_code"] + columns, axis=1, inplace=True
+    )
     s_corp.drop(list(x + "_ratio" for x in columns), axis=1, inplace=True)
     s_corp.rename(columns={"INDY_CD_x": "INDY_CD"}, inplace=True)
     s_corp.columns = s_corp.columns.str.replace("_final", "")
