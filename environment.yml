@@ -15,6 +15,7 @@ dependencies:
 - pycodestyle
 - pylint
 - coverage
+- black
 - pip:
   - jupyter-book>=0.9.1
   - "cs-kit>=1.16.8"

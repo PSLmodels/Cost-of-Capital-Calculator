@@ -1,9 +1,11 @@
 """
 Functions used to help CCC configure to COMP
 """
+
 import os
 from pathlib import Path
 import warnings
+
 try:
     from s3fs import S3FileSystem
 except ImportError:
@@ -22,45 +24,63 @@ POLICY_SCHEMA = {
             "type": "int",
             "validators": {
                 "choice": {
-                    "choices": [
-                        yr for yr in range(2013, TC_LAST_YEAR + 1)
-                    ]
+                    "choices": [yr for yr in range(2013, TC_LAST_YEAR + 1)]
                 }
-            }
+            },
         },
         "MARS": {
             "type": "str",
-            "validators": {"choice": {"choices": ["single", "mjoint",
-                                                  "mseparate", "headhh",
-                                                  "widow"]}}
+            "validators": {
+                "choice": {
+                    "choices": [
+                        "single",
+                        "mjoint",
+                        "mseparate",
+                        "headhh",
+                        "widow",
+                    ]
+                }
+            },
         },
         "idedtype": {
             "type": "str",
-            "validators": {"choice": {"choices": ["med", "sltx", "retx", "cas",
-                                                  "misc", "int", "char"]}}
+            "validators": {
+                "choice": {
+                    "choices": [
+                        "med",
+                        "sltx",
+                        "retx",
+                        "cas",
+                        "misc",
+                        "int",
+                        "char",
+                    ]
+                }
+            },
         },
         "EIC": {
             "type": "str",
-            "validators": {"choice": {"choices": ["0kids", "1kid",
-                                                  "2kids", "3+kids"]}}
+            "validators": {
+                "choice": {"choices": ["0kids", "1kid", "2kids", "3+kids"]}
+            },
         },
         "data_source": {
             "type": "str",
-            "validators": {"choice": {"choices": ["PUF", "CPS", "other"]}}
-        }
+            "validators": {"choice": {"choices": ["PUF", "CPS", "other"]}},
+        },
     },
     "additional_members": {
         "section_1": {"type": "str"},
         "section_2": {"type": "str"},
         "start_year": {"type": "int"},
-        "checkbox": {"type": "bool"}
-    }
+        "checkbox": {"type": "bool"},
+    },
 }
 
 
 def retrieve_puf(
     aws_access_key_id=AWS_ACCESS_KEY_ID,
-    aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
 ):
     """
     Function for retrieving the PUF from the OSPC S3 bucket
@@ -71,8 +91,10 @@ def retrieve_puf(
     )
     if has_credentials and s3_reader_installed:
         print("Reading puf from S3 bucket.")
-        fs = S3FileSystem(key=AWS_ACCESS_KEY_ID,
-                          secret=AWS_SECRET_ACCESS_KEY,)
+        fs = S3FileSystem(
+            key=AWS_ACCESS_KEY_ID,
+            secret=AWS_SECRET_ACCESS_KEY,
+        )
         with fs.open(f"s3://ospc-data-files/{PUF_S3_FILE_NAME}") as f:
             # Skips over header from top of file.
             puf_df = pd.read_csv(f, compression="gzip")

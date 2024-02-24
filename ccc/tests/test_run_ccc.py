@@ -27,14 +27,16 @@ def test_calc_by_methods():
     actual_by_industry = calc.calc_by_industry()
     # load expected results from the calc_by_ methods
     expect_by_asset = pd.read_json(
-        os.path.join(TDIR, 'run_ccc_asset_output.json')
+        os.path.join(TDIR, "run_ccc_asset_output.json")
     )
     expect_by_industry = pd.read_json(
-        os.path.join(TDIR, 'run_ccc_industry_output.json')
+        os.path.join(TDIR, "run_ccc_industry_output.json")
     )
     # compare the actual and expect DataFrames
-    for actual_df, expect_df in zip([actual_by_asset, actual_by_industry],
-                                    [expect_by_asset, expect_by_industry]):
+    for actual_df, expect_df in zip(
+        [actual_by_asset, actual_by_industry],
+        [expect_by_asset, expect_by_industry],
+    ):
         actual_df.sort_index(inplace=True)
         actual_df.reset_index(inplace=True)
         expect_df.sort_index(inplace=True)
@@ -45,8 +47,9 @@ def test_calc_by_methods():
                 example = getattr(actual_df, col).iloc[0]
                 can_diff = isinstance(example, numbers.Number)
                 if can_diff:
-                    assert np.allclose(actual_df[col].values,
-                                       expect_df[col].values, atol=1e-5)
+                    assert np.allclose(
+                        actual_df[col].values, expect_df[col].values, atol=1e-5
+                    )
                 else:
                     pass
             except AttributeError:
@@ -66,9 +69,14 @@ def test_example_output():
     calc1 = Calculator(baseline_parameters, dp, assets)
     reform_parameters = Specification(year=cyr)
     business_tax_adjustments = {
-        'CIT_rate': 0.35, 'BonusDeprec_3yr': 0.50, 'BonusDeprec_5yr': 0.50,
-        'BonusDeprec_7yr': 0.50, 'BonusDeprec_10yr': 0.50,
-        'BonusDeprec_15yr': 0.50, 'BonusDeprec_20yr': 0.50}
+        "CIT_rate": 0.35,
+        "BonusDeprec_3yr": 0.50,
+        "BonusDeprec_5yr": 0.50,
+        "BonusDeprec_7yr": 0.50,
+        "BonusDeprec_10yr": 0.50,
+        "BonusDeprec_15yr": 0.50,
+        "BonusDeprec_20yr": 0.50,
+    }
     reform_parameters.update_specification(business_tax_adjustments)
     calc2 = Calculator(reform_parameters, dp, assets)
     # ... calculation by asset and by industry
@@ -76,38 +84,51 @@ def test_example_output():
     reform_assets_df = calc2.calc_by_asset()
     baseline_industry_df = calc1.calc_by_industry()
     reform_industry_df = calc2.calc_by_industry()
-    diff_assets_df = ccc.utils.diff_two_tables(reform_assets_df,
-                                               baseline_assets_df)
-    diff_industry_df = ccc.utils.diff_two_tables(reform_industry_df,
-                                                 baseline_industry_df)
+    diff_assets_df = ccc.utils.diff_two_tables(
+        reform_assets_df, baseline_assets_df
+    )
+    diff_industry_df = ccc.utils.diff_two_tables(
+        reform_industry_df, baseline_industry_df
+    )
     # ... save calculated results as csv files in ccc/test directory
-    baseline_industry_df.to_csv(os.path.join(TDIR, 'baseline_byindustry.csv'),
-                                float_format='%.5f')
-    reform_industry_df.to_csv(os.path.join(TDIR, 'reform_byindustry.csv'),
-                              float_format='%.5f')
-    baseline_assets_df.to_csv(os.path.join(TDIR, 'baseline_byasset.csv'),
-                              float_format='%.5f')
-    reform_assets_df.to_csv(os.path.join(TDIR, 'reform_byasset.csv'),
-                            float_format='%.5f')
-    diff_industry_df.to_csv(os.path.join(TDIR, 'changed_byindustry.csv'),
-                            float_format='%.5f')
-    diff_assets_df.to_csv(os.path.join(TDIR, 'changed_byasset.csv'),
-                          float_format='%.5f')
+    baseline_industry_df.to_csv(
+        os.path.join(TDIR, "baseline_byindustry.csv"), float_format="%.5f"
+    )
+    reform_industry_df.to_csv(
+        os.path.join(TDIR, "reform_byindustry.csv"), float_format="%.5f"
+    )
+    baseline_assets_df.to_csv(
+        os.path.join(TDIR, "baseline_byasset.csv"), float_format="%.5f"
+    )
+    reform_assets_df.to_csv(
+        os.path.join(TDIR, "reform_byasset.csv"), float_format="%.5f"
+    )
+    diff_industry_df.to_csv(
+        os.path.join(TDIR, "changed_byindustry.csv"), float_format="%.5f"
+    )
+    diff_assets_df.to_csv(
+        os.path.join(TDIR, "changed_byasset.csv"), float_format="%.5f"
+    )
     # compare actual calculated results to expected results
-    failmsg = ''
-    expect_output_dir = os.path.join(TDIR, '..', '..', 'example_output')
-    for fname in ['baseline_byasset', 'baseline_byindustry',
-                  'reform_byasset', 'reform_byindustry',
-                  'changed_byasset', 'changed_byindustry']:
-        actual_path = os.path.join(TDIR, fname + '.csv')
+    failmsg = ""
+    expect_output_dir = os.path.join(TDIR, "..", "..", "example_output")
+    for fname in [
+        "baseline_byasset",
+        "baseline_byindustry",
+        "reform_byasset",
+        "reform_byindustry",
+        "changed_byasset",
+        "changed_byindustry",
+    ]:
+        actual_path = os.path.join(TDIR, fname + ".csv")
         actual_df = pd.read_csv(actual_path)
-        expect_path = os.path.join(expect_output_dir, fname + '_expected.csv')
+        expect_path = os.path.join(expect_output_dir, fname + "_expected.csv")
         expect_df = pd.read_csv(expect_path)
         try:
             assert_frame_equal(actual_df, expect_df)
             # cleanup actual results if it has same  contents as expected file
             os.remove(actual_path)
         except AssertionError:
-            failmsg += 'ACTUAL-vs-EXPECT DIFFERENCES FOR {}\n'.format(fname)
+            failmsg += "ACTUAL-vs-EXPECT DIFFERENCES FOR {}\n".format(fname)
     if failmsg:
-        raise AssertionError('\n' + failmsg)
+        raise AssertionError("\n" + failmsg)

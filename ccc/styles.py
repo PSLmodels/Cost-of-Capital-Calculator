@@ -15,10 +15,10 @@ FONT_SIZE = "10pt"
 NODATA_COLOR = "#eeeeee"
 GRAY = "#CCCCCC"
 DARK_GRAY = "#6B6B73"
-BLUE = '#718dbf'
-RED = '#e84d60'
-GREEN = '#32CD32'
-PURPLE = '#C5007C'
+BLUE = "#718dbf"
+RED = "#e84d60"
+GREEN = "#32CD32"
+PURPLE = "#C5007C"
 
 AXIS_FORMATS = dict(
     minor_tick_in=None,
@@ -29,11 +29,9 @@ AXIS_FORMATS = dict(
     axis_label_text_font=FONT,
     axis_label_text_font_style="italic",
     axis_label_text_font_size="8pt",
-
     axis_line_color=DARK_GRAY,
     major_tick_line_color=DARK_GRAY,
     major_label_text_color=DARK_GRAY,
-
     major_tick_line_cap="round",
     axis_line_cap="round",
     axis_line_width=1,
@@ -50,31 +48,27 @@ PLOT_FORMATS = dict(
 
 TITLE_FORMATS = dict(
     text_font=FONT,
-    align='center',
+    align="center",
     text_color=DARK_GRAY,
     text_font_size="9pt",
     # text_baseline='bottom',
 )
 
-LINE_FORMATS = dict(
-    line_cap='round',
-    line_join='round',
-    line_width=2
-)
+LINE_FORMATS = dict(line_cap="round", line_join="round", line_width=2)
 
 FONT_PROPS_SM = dict(
     text_font=FONT,
-    text_font_size='8pt',
+    text_font_size="8pt",
 )
 
 FONT_PROPS_MD = dict(
     text_font=FONT,
-    text_font_size='10pt',
+    text_font_size="10pt",
 )
 
 FONT_PROPS_LG = dict(
     text_font=FONT,
-    text_font_size='12pt',
+    text_font_size="12pt",
 )
 
 BLANK_AXIS = dict(
@@ -86,12 +80,10 @@ BLANK_AXIS = dict(
     axis_label_text_font=FONT,
     axis_label_text_font_style="italic",
     axis_label_text_font_size="8pt",
-
-    axis_line_color='white',
-    major_tick_line_color='white',
-    major_label_text_color='white',
-    axis_label_text_color='white',
-
+    axis_line_color="white",
+    major_tick_line_color="white",
+    major_label_text_color="white",
+    axis_label_text_color="white",
     major_tick_line_cap="round",
     axis_line_cap="round",
     axis_line_width=1,
