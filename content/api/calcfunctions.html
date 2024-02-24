@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Cost of Capital Calculation Functions &#8212; Cost-of-Capital-Calculator</title>
   
@@ -19,48 +18,45 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/clipboard.min.js"></script>
-    <script src="../../_static/copybutton.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/api/calcfunctions';</script>
@@ -77,7 +73,15 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -112,11 +116,14 @@ const thebe_selector_output = ".output, .cell_output"
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -131,9 +138,11 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../intro.html">
+  
   
   
   
@@ -143,12 +152,23 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="../../_static/ccc.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../../_static/ccc.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../../_static/ccc.png" class="logo__image only-light" alt="Cost-of-Capital-Calculator - Home"/>
+    <script>document.write(`<img src="../../_static/ccc.png" class="logo__image only-dark" alt="Cost-of-Capital-Calculator - Home"/>`);</script>
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -360,20 +380,22 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -400,7 +422,21 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ccc.calcfunctions">ccc.calcfunctions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ccc.calcfunctions">ccc.calcfunctions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.dbsl"><code class="docutils literal notranslate"><span class="pre">dbsl()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.econ"><code class="docutils literal notranslate"><span class="pre">econ()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.eq_coc"><code class="docutils literal notranslate"><span class="pre">eq_coc()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.eq_coc_inventory"><code class="docutils literal notranslate"><span class="pre">eq_coc_inventory()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.eq_eatr"><code class="docutils literal notranslate"><span class="pre">eq_eatr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.eq_metr"><code class="docutils literal notranslate"><span class="pre">eq_metr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.eq_mettr"><code class="docutils literal notranslate"><span class="pre">eq_mettr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.eq_tax_wedge"><code class="docutils literal notranslate"><span class="pre">eq_tax_wedge()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.eq_ucc"><code class="docutils literal notranslate"><span class="pre">eq_ucc()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.npv_tax_depr"><code class="docutils literal notranslate"><span class="pre">npv_tax_depr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.sl"><code class="docutils literal notranslate"><span class="pre">sl()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.update_depr_methods"><code class="docutils literal notranslate"><span class="pre">update_depr_methods()</span></code></a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -410,16 +446,16 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section id="cost-of-capital-calculation-functions">
-<span id="calcfunctions"></span><h1>Cost of Capital Calculation Functions<a class="headerlink" href="#cost-of-capital-calculation-functions" title="Permalink to this heading">#</a></h1>
+<span id="calcfunctions"></span><h1>Cost of Capital Calculation Functions<a class="headerlink" href="#cost-of-capital-calculation-functions" title="Link to this heading">#</a></h1>
 <p><strong>calcfunctions</strong></p>
 <section id="module-ccc.calcfunctions">
-<span id="ccc-calcfunctions"></span><h2>ccc.calcfunctions<a class="headerlink" href="#module-ccc.calcfunctions" title="Permalink to this heading">#</a></h2>
+<span id="ccc-calcfunctions"></span><h2>ccc.calcfunctions<a class="headerlink" href="#module-ccc.calcfunctions" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="ccc.calcfunctions.dbsl">
-<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">dbsl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#dbsl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.dbsl" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">dbsl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#dbsl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.dbsl" title="Link to this definition">#</a></dt>
 <dd><p>Makes the calculation for the declining balance with a switch to
 straight line (DBSL) method of depreciation.</p>
 <div class="math notranslate nohighlight">
@@ -451,7 +487,7 @@ double declining balance)</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ccc.calcfunctions.econ">
-<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">econ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#econ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.econ" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">econ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#econ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.econ" title="Link to this definition">#</a></dt>
 <dd><p>Makes the calculation for the NPV of depreciation deductions using
 economic depreciation rates.</p>
 <div class="math notranslate nohighlight">
@@ -480,7 +516,7 @@ economic depreciation rates.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ccc.calcfunctions.eq_coc">
-<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_coc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_tax_credit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_coc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_coc" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_coc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_tax_credit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_coc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_coc" title="Link to this definition">#</a></dt>
 <dd><p>Compute the cost of capital</p>
 <div class="math notranslate nohighlight">
 \[\rho = \frac{(r-\pi+\delta)}{1-u}(1-uz)+w-\delta\]</div>
@@ -509,7 +545,7 @@ income taxes</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ccc.calcfunctions.eq_coc_inventory">
-<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_coc_inventory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y_v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_coc_inventory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_coc_inventory" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_coc_inventory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y_v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_coc_inventory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_coc_inventory" title="Link to this definition">#</a></dt>
 <dd><p>Compute the cost of capital for inventories</p>
 <div class="math notranslate nohighlight">
 \[\rho = \phi \rho_{FIFO} + (1-\phi)\rho_{LIFO}\]</div>
@@ -535,7 +571,7 @@ income taxes</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ccc.calcfunctions.eq_eatr">
-<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_eatr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_eatr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_eatr" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_eatr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_eatr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_eatr" title="Link to this definition">#</a></dt>
 <dd><p>Compute the effective average tax rate (EATR).</p>
 <div class="math notranslate nohighlight">
 \[eatr = \left(\frac{p - rho}{p}\right)u +
@@ -561,7 +597,7 @@ income taxes</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ccc.calcfunctions.eq_metr">
-<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_metr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_prime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_metr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_metr" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_metr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_prime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_metr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_metr" title="Link to this definition">#</a></dt>
 <dd><p>Compute the marginal effective tax rate (METR)</p>
 <div class="math notranslate nohighlight">
 \[metr = \frac{\rho - (r^{'}-\pi)}{\rho}\]</div>
@@ -584,7 +620,7 @@ income taxes</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ccc.calcfunctions.eq_mettr">
-<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_mettr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_mettr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_mettr" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_mettr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_mettr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_mettr" title="Link to this definition">#</a></dt>
 <dd><p>Compute the marginal effective total tax rate (METTR)</p>
 <div class="math notranslate nohighlight">
 \[mettr = \frac{\rho - s}{\rho}\]</div>
@@ -606,7 +642,7 @@ income taxes</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ccc.calcfunctions.eq_tax_wedge">
-<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_tax_wedge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_tax_wedge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_tax_wedge" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_tax_wedge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_tax_wedge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_tax_wedge" title="Link to this definition">#</a></dt>
 <dd><p>Compute the tax wedge</p>
 <div class="math notranslate nohighlight">
 \[wedge = \rho - s\]</div>
@@ -628,7 +664,7 @@ income taxes</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ccc.calcfunctions.eq_ucc">
-<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_ucc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_ucc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_ucc" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_ucc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_ucc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_ucc" title="Link to this definition">#</a></dt>
 <dd><p>Compute the user cost of capital</p>
 <div class="math notranslate nohighlight">
 \[ucc = \rho + \delta\]</div>
@@ -650,7 +686,7 @@ income taxes</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ccc.calcfunctions.npv_tax_depr">
-<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">npv_tax_depr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">land_expensing</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#npv_tax_depr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.npv_tax_depr" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">npv_tax_depr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">land_expensing</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#npv_tax_depr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.npv_tax_depr" title="Link to this definition">#</a></dt>
 <dd><p>Depending on the method of depreciation, makes calls to either
 the straight line or declining balance calculations.</p>
 <dl class="field-list simple">
@@ -677,7 +713,7 @@ the straight line or declining balance calculations.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ccc.calcfunctions.sl">
-<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">sl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#sl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.sl" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">sl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#sl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.sl" title="Link to this definition">#</a></dt>
 <dd><p>Makes the calculation for straight line (SL) method of depreciation.</p>
 <div class="math notranslate nohighlight">
 \[z = \frac{1 - e^{-rY}}{Yr}\]</div>
@@ -704,7 +740,7 @@ the straight line or declining balance calculations.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ccc.calcfunctions.update_depr_methods">
-<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">update_depr_methods</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#update_depr_methods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.update_depr_methods" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">update_depr_methods</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#update_depr_methods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.update_depr_methods" title="Link to this definition">#</a></dt>
 <dd><p>Updates depreciation methods per changes from defaults that are
 specified by user.</p>
 <dl class="field-list simple">
@@ -757,11 +793,10 @@ parameters</p></li>
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="public_api.html"
@@ -781,10 +816,7 @@ parameters</p></li>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -793,13 +825,28 @@ parameters</p></li>
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ccc.calcfunctions">ccc.calcfunctions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ccc.calcfunctions">ccc.calcfunctions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.dbsl"><code class="docutils literal notranslate"><span class="pre">dbsl()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.econ"><code class="docutils literal notranslate"><span class="pre">econ()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.eq_coc"><code class="docutils literal notranslate"><span class="pre">eq_coc()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.eq_coc_inventory"><code class="docutils literal notranslate"><span class="pre">eq_coc_inventory()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.eq_eatr"><code class="docutils literal notranslate"><span class="pre">eq_eatr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.eq_metr"><code class="docutils literal notranslate"><span class="pre">eq_metr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.eq_mettr"><code class="docutils literal notranslate"><span class="pre">eq_mettr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.eq_tax_wedge"><code class="docutils literal notranslate"><span class="pre">eq_tax_wedge()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.eq_ucc"><code class="docutils literal notranslate"><span class="pre">eq_ucc()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.npv_tax_depr"><code class="docutils literal notranslate"><span class="pre">npv_tax_depr()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.sl"><code class="docutils literal notranslate"><span class="pre">sl()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccc.calcfunctions.update_depr_methods"><code class="docutils literal notranslate"><span class="pre">update_depr_methods()</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
@@ -821,6 +868,7 @@ By Jason DeBacker
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2020.
@@ -847,8 +895,8 @@ By Jason DeBacker
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>
