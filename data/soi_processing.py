@@ -73,9 +73,9 @@ def pull_soi_data():
     # drop one repeated minor ind code in crosswalk
     soi_bea_ind_codes.drop_duplicates(subset=["minor_code_alt"], inplace=True)
     soi_data["tax_treat"] = "non-corporate"
-    soi_data.loc[
-        soi_data["entity_type"] == "c_corp", "tax_treat"
-    ] = "corporate"
+    soi_data.loc[soi_data["entity_type"] == "c_corp", "tax_treat"] = (
+        "corporate"
+    )
     soi_data.loc[
         (soi_data["entity_type"] == "partnership")
         & (soi_data["part_type"] == "Corporate general partners"),
