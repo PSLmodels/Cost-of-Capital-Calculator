@@ -5,18 +5,20 @@ Functions used to help CCC configure to COMP
 import os
 from pathlib import Path
 import warnings
+import os
 
 try:
     from s3fs import S3FileSystem
-except ImportError:
+except ImportError as ie:
     S3FileSystem = None
 import pandas as pd
 from ccc.utils import TC_LAST_YEAR
 
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-
-PUF_S3_FILE_NAME = "puf.20210720.csv.gz"
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", None)
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", None)
+PUF_S3_FILE_LOCATION = os.environ.get(
+    "PUF_S3_LOCATION", "s3://ospc-data-files/puf.20210720.csv.gz"
+)
 
 POLICY_SCHEMA = {
     "labels": {
@@ -79,6 +81,7 @@ POLICY_SCHEMA = {
 
 
 def retrieve_puf(
+    puf_s3_file_location=PUF_S3_FILE_LOCATION,
     aws_access_key_id=AWS_ACCESS_KEY_ID,
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
 ):
@@ -89,15 +92,15 @@ def retrieve_puf(
     has_credentials = (
         aws_access_key_id is not None and aws_secret_access_key is not None
     )
-    if has_credentials and s3_reader_installed:
-        print("Reading puf from S3 bucket.")
+    if puf_s3_file_location and has_credentials and s3_reader_installed:
+        print("Reading puf from S3 bucket.", puf_s3_file_location)
         fs = S3FileSystem(
             key=AWS_ACCESS_KEY_ID,
             secret=AWS_SECRET_ACCESS_KEY,
         )
-        with fs.open(f"s3://ospc-data-files/{PUF_S3_FILE_NAME}") as f:
+        with fs.open(puf_s3_file_location) as f:
             # Skips over header from top of file.
-            puf_df = pd.read_csv(f, compression="gzip")
+            puf_df = pd.read_csv(f)
         return puf_df
     elif Path("puf.csv.gz").exists():
         print("Reading puf from puf.csv.gz.")
@@ -107,7 +110,8 @@ def retrieve_puf(
         return pd.read_csv("puf.csv")
     else:
         warnings.warn(
-            f"PUF file not available (has_credentials={has_credentials}, "
+            f"PUF file not available (puf_location={puf_s3_file_location}, "
+            f"has_credentials={has_credentials}, "
             f"s3_reader_installed={s3_reader_installed})"
         )
         return None
