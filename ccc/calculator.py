@@ -249,21 +249,21 @@ class Calculator:
                     "asset_name",
                     "tax_treat",
                 ]
-            ).apply(self.__f, include_groups=False)
+            ).apply(lambda x: self.__f(x), include_groups=False)
         ).reset_index()
         asset_df = self.calc_other(asset_df)
         # Find values across minor asset groups
         minor_asset_df = pd.DataFrame(
             self.__assets.df.groupby(
                 ["minor_asset_group", "major_asset_group", "tax_treat"]
-            ).apply(self.__f, include_groups=False)
+            ).apply(lambda x: self.__f(x), include_groups=False)
         ).reset_index()
         minor_asset_df["asset_name"] = minor_asset_df["minor_asset_group"]
         minor_asset_df = self.calc_other(minor_asset_df)
         # Find values across major asset_groups
         major_asset_df = pd.DataFrame(
             self.__assets.df.groupby(["major_asset_group", "tax_treat"]).apply(
-                self.__f, include_groups=False
+                lambda x: self.__f(x), include_groups=False
             )
         ).reset_index()
         major_asset_df["minor_asset_group"] = major_asset_df[
@@ -278,7 +278,7 @@ class Calculator:
         if not include_inventories:
             df1.drop(df1[df1.asset_name == "Inventories"].index, inplace=True)
         overall_df = pd.DataFrame(
-            df1.groupby(["tax_treat"]).apply(self.__f, include_groups=False)
+            df1.groupby(["tax_treat"]).apply(lambda x: self.__f(x), include_groups=False)
         ).reset_index()
         overall_df["major_asset_group"] = "Overall"
         overall_df["minor_asset_group"] = "Overall"
@@ -329,19 +329,19 @@ class Calculator:
         ind_df = pd.DataFrame(
             df1.groupby(
                 ["major_industry", "bea_ind_code", "Industry", "tax_treat"]
-            ).apply(self.__f, include_groups=False)
+            ).apply(lambda x: self.__f(x), include_groups=False)
         ).reset_index()
         ind_df = self.calc_other(ind_df)
         major_ind_df = pd.DataFrame(
             df1.groupby(["major_industry", "tax_treat"]).apply(
-                self.__f, include_groups=False
+                lambda x: self.__f(x), include_groups=False
             )
         ).reset_index()
         major_ind_df["Industry"] = major_ind_df["major_industry"]
         major_ind_df = self.calc_other(major_ind_df)
         # Can put some if statements here if want to exclude land/inventory/etc
         overall_df = pd.DataFrame(
-            df1.groupby(["tax_treat"]).apply(self.__f, include_groups=False)
+            df1.groupby(["tax_treat"]).apply(lambda x: self.__f(x), include_groups=False)
         ).reset_index()
         overall_df["major_industry"] = "Overall"
         overall_df["Industry"] = "Overall"
@@ -409,7 +409,7 @@ class Calculator:
                 df.drop(df[df.asset_name == "Inventories"].index, inplace=True)
             # Compute overall separately by tax treatment
             treat_df = pd.DataFrame(
-                df.groupby(["tax_treat"]).apply(self.__f, include_groups=False)
+                df.groupby(["tax_treat"]).apply(lambda x: self.__f(x), include_groups=False)
             ).reset_index()
             treat_df = self.calc_other(treat_df)
             # Compute overall values, across corp and non-corp
@@ -418,7 +418,7 @@ class Calculator:
             df["include"] = 1
             all_df = pd.DataFrame.from_dict(
                 df.groupby(["include"])
-                .apply(self.__f, include_groups=False)
+                .apply(lambda x: self.__f(x), include_groups=False)
                 .to_dict()
             )
             # set tax_treat to corporate b/c only corp and non-corp
@@ -651,14 +651,14 @@ class Calculator:
             # Make dataframe with just results for major asset categories
             major_asset_df = pd.DataFrame(
                 df.groupby(["major_asset_group", "tax_treat"]).apply(
-                    self.__f, include_groups=False
+                    lambda x: self.__f(x), include_groups=False
                 )
             ).reset_index()
             major_asset_df["asset_name"] = major_asset_df["major_asset_group"]
             major_asset_df = self.calc_other(major_asset_df)
             # Compute overall separately by tax treatment
             treat_df = pd.DataFrame(
-                df.groupby(["tax_treat"]).apply(self.__f, include_groups=False)
+                df.groupby(["tax_treat"]).apply(lambda x: self.__f(x), include_groups=False)
             ).reset_index()
             treat_df = self.calc_other(treat_df)
             treat_df["major_asset_group"] = "Overall"
@@ -668,7 +668,7 @@ class Calculator:
             df["include"] = 1
             all_df = pd.DataFrame.from_dict(
                 df.groupby(["include"])
-                .apply(self.__f, include_groups=False)
+                .apply(lambda x: self.__f(x), include_groups=False)
                 .to_dict()
             )
             # set tax_treat to corporate b/c only corp and non-corp
@@ -854,14 +854,14 @@ class Calculator:
             # Make dataframe with just results for major industry
             major_ind_df = pd.DataFrame(
                 df.groupby(["major_industry", "tax_treat"]).apply(
-                    self.__f, include_groups=False
+                    lambda x: self.__f(x), include_groups=False
                 )
             ).reset_index()
             major_ind_df["Industry"] = major_ind_df["major_industry"]
             major_ind_df = self.calc_other(major_ind_df)
             # Compute overall separately by tax treatment
             treat_df = pd.DataFrame(
-                df.groupby(["tax_treat"]).apply(self.__f, include_groups=False)
+                df.groupby(["tax_treat"]).apply(lambda x: self.__f(x), include_groups=False)
             ).reset_index()
             treat_df = self.calc_other(treat_df)
             treat_df["major_industry"] = "Overall"
@@ -871,7 +871,7 @@ class Calculator:
             df["include"] = 1
             all_df = pd.DataFrame.from_dict(
                 df.groupby(["include"])
-                .apply(self.__f, include_groups=False)
+                .apply(lambda x: self.__f(x), include_groups=False)
                 .to_dict()
             )
             # set tax_treat to corporate b/c only corp and non-corp
