@@ -1,1 +1,2 @@
-conda install -c conda-forge ccc s3fs
+conda install -c conda-forge s3fs
+pip install -e .

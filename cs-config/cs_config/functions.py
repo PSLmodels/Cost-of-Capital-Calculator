@@ -11,9 +11,11 @@ from collections import OrderedDict
 from .helpers import retrieve_puf
 import cs2tc
 
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
-
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+PUF_S3_FILE_LOCATION = os.environ.get(
+    "PUF_S3_LOCATION", "s3://ospc-data-files/puf.20210720.csv.gz"
+)
 
 class MetaParams(paramtools.Parameters):
     """
@@ -174,7 +176,9 @@ def run_model(meta_param_dict, adjustment):
     meta_params.adjust(meta_param_dict)
     # Get data chosen by user
     if meta_params.data_source == "PUF":
-        data = retrieve_puf(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+        data = retrieve_puf(
+            PUF_S3_FILE_LOCATION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
+        )
     else:
         data = "cps"
     # Get TC params adjustments
