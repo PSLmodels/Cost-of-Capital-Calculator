@@ -10,7 +10,7 @@ PACKAGE_NAME = "ccc"
 PYPI_PACKAGE_NAME = "cost-of-capital-calculator"
 
 # Default year for model runs
-DEFAULT_START_YEAR = 2022
+DEFAULT_START_YEAR = 2024
 
 # Year of asset data
 ASSET_DATA_CSV_YEAR = 2013
