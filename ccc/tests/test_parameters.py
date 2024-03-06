@@ -76,7 +76,7 @@ def test_update_specification_with_json():
 
 
 def test_update_bad_revision1():
-    spec = Specification()
+    spec = Specification(year=2022)
     # profit rate has an upper bound at 1.0
     revs = {"profit_rate": [{"year": spec.year, "value": 1.2}]}
     spec.update_specification(revs, raise_errors=False)

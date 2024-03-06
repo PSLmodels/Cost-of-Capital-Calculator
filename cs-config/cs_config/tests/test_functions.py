@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import io
 from cs_config import functions
+from ccc.utils import DEFAULT_START_YEAR
 
 
 def test_start_year_with_data_source():
@@ -47,10 +48,10 @@ class TestFunctions1(CoreTestFunctions):
     run_model = functions.run_model
     ok_adjustment = {
         "Business Tax Parameters": {
-            "CIT_rate": [{"year": 2022, "value": 0.25}]
+            "CIT_rate": [{"year": DEFAULT_START_YEAR, "value": 0.25}]
         },
         "Individual and Payroll Tax Parameters": {
-            "FICA_ss_trt": [{"year": 2022, "value": 0.14}]
+            "FICA_ss_trt": [{"year": DEFAULT_START_YEAR, "value": 0.14}]
         },
     }
     bad_adjustment = {

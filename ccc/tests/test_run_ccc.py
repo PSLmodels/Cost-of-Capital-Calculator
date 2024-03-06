@@ -19,7 +19,7 @@ def test_calc_by_methods():
     comparing actual and expect dataframes
     """
     # execute Calculator calc_by methods to get actual results
-    p = Specification()
+    p = Specification(year=2022)
     dp = DepreciationParams()
     assets = Assets()
     calc = Calculator(p, dp, assets)

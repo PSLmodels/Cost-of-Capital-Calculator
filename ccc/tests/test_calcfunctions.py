@@ -10,7 +10,7 @@ def test_update_depr_methods(monkeypatch):
     """
     Test of calcfunctions.update_depr_methods
     """
-    p = Specification()
+    p = Specification(year=2020)
     json_str = """
         {"schema": {
             "labels": {
