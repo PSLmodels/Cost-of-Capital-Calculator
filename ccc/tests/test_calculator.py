@@ -330,7 +330,7 @@ def test_restore_assets():
 
 def test_p_param_return_value():
     assets = Assets()
-    p = Specification()
+    p = Specification(year=2022)
     dp = DepreciationParams()
     calc1 = Calculator(p, dp, assets)
     obj = calc1.p_param("tau_int")
