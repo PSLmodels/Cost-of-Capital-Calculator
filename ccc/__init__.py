@@ -6,4 +6,4 @@ from ccc.parameters import *
 from ccc.data import *
 from ccc.calculator import *
 
-__version__ = "0.0.0"
+__version__ = "1.3.0"
