@@ -140,6 +140,49 @@ def econ(delta, bonus, r, pi):
     return z
 
 
+def income_forecast(Y, delta, bonus, r):
+    r"""
+    Makes the calculation for the income forecast method.
+
+    The income forecast method involved deducting expenses in relation
+    to forecasted income over the next 10 years. CCC follows the CBO
+    methodology (CBO, 2018:
+    https://www.cbo.gov/system/files/2018-11/54648-Intangible_Assets.pdf)
+    and approximate this method with the DBSL method, but with a the "b"
+    factor determined by economic depreciation rates.
+
+    .. math::
+        z = \frac{\beta}{\beta+r}\left[1-e^{-(\beta+r)Y^{*}}\right]+
+            \frac{e^{-\beta Y^{*}}}{(Y-Y^{*})r}
+            \left[e^{-rY^{*}}-e^{-rY}\right]
+
+    Args:
+        Y (array_like): asset life in years
+        delta (array_like): rate of economic depreciation
+        bonus (array_like): rate of bonus depreciation
+        r (scalar): discount rate
+
+    Returns:
+        z (array_like): net present value of depreciation deductions for
+            $1 of investment
+
+    """
+    b = 10 * delta
+    beta = b / Y
+    Y_star = Y * (1 - (1 / b))
+    z = bonus + (
+        (1 - bonus)
+        * (
+            ((beta / (beta + r)) * (1 - np.exp(-1 * (beta + r) * Y_star)))
+            + (
+                (np.exp(-1 * beta * Y_star) / ((Y - Y_star) * r))
+                * (np.exp(-1 * r * Y_star) - np.exp(-1 * r * Y))
+            )
+        )
+    )
+    return z
+
+
 def npv_tax_depr(df, r, pi, land_expensing):
     """
     Depending on the method of depreciation, makes calls to either
