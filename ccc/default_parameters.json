@@ -145,7 +145,7 @@
             }
         }
     },
-    "pt_tax_rate_ded": {
+    "pt_scale_tax_rate_ded": {
         "title": "Ratio of marginal tax rate on deductions by pass-through businesses to marginal tax rate on their income",
         "description": "Ratio of marginal tax rate on deductions by pass-through businesses to marginal tax rate on their income",
         "section_1": "Business-entity level taxes",
@@ -842,6 +842,44 @@
             {
                 "year": 2013,
                 "value": 0.0
+            }
+        ],
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "psi": {
+        "title": "Share of investment tax credit that can't be claimed for cost recovery",
+        "description": "Share of investment tax credit that can't be claimed for cost recovery",
+        "section_1": "Investment Tax Credits and Property Tax",
+        "notes": "This parameter gives the share of the investment tax credit that can't also be claimed for cost recovery.  Some policies allow the credit to not offset the basis of the investment (or only partially do so).  Setting this parameter to a value < 1 will do that.",
+        "type": "float",
+        "value": [
+            {
+                "year": 2013,
+                "value": 1.0
+            }
+        ],
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "nu": {
+        "title": "NPV of the investment tax credit per unit of investment",
+        "description": "NPV of the investment tax credit per unit of investment",
+        "section_1": "Investment Tax Credits and Property Tax",
+        "notes": "For cases when the rate of return is ntn constant and losses prevent use of ITC immediately, this parameter will reflect the lower NPV of the credit by taking a value < 1.",
+        "type": "float",
+        "value": [
+            {
+                "year": 2013,
+                "value": 1.0
             }
         ],
         "validators": {
