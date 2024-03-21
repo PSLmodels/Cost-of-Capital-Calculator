@@ -196,7 +196,10 @@ class Calculator:
                     dfs[t]["z_" + str(f)],
                     self.__p.property_tax,
                     self.__p.u[t],
+                    self.__p.u_d[t],
                     self.__p.inv_tax_credit,
+                    self.__p.psi,
+                    self.__p.nu,
                     self.__p.inflation_rate,
                     self.__p.r[t][f],
                 )

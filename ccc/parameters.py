@@ -85,12 +85,13 @@ class Specification(paramtools.Parameters):
         self.s, E_pt = pf.calc_s(self)
 
         # Set rate of 1st layer of taxation on investment income
-        self.u = {"c": self.CIT_rate, "c_ded": self.CIT_rate_ded}
+        self.u = {"c": self.CIT_rate}
+        self.u_d = {"c": self.CIT_rate_ded}
         if not self.pt_entity_tax_ind.all():
             self.u["pt"] = self.tau_pt
         else:
             self.u["pt"] = self.pt_entity_tax_rate
-        self.u["pt_ded"] = self.pt_scale_tax_rate_ded * self.u["pt"]
+        self.u_d["pt"] = self.pt_scale_tax_rate_ded * self.u["pt"]
         E_dict = {"c": self.E_c, "pt": E_pt}
 
         # Allowance for Corporate Equity

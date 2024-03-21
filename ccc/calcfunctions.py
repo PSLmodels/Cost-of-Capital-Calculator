@@ -175,7 +175,7 @@ def npv_tax_depr(df, r, pi, land_expensing):
     return z
 
 
-def eq_coc(delta, z, w, u, u_ded, inv_tax_credit, psi, nu, pi, r):
+def eq_coc(delta, z, w, u, u_d, inv_tax_credit, psi, nu, pi, r):
     r"""
     Compute the cost of capital
 
@@ -189,7 +189,7 @@ def eq_coc(delta, z, w, u, u_ded, inv_tax_credit, psi, nu, pi, r):
         w (scalar): property tax rate
         u (scalar): marginal tax rate for the first layer of
             income taxes
-        u_ded (scalar): marginal tax rate on deductions
+        u_d (scalar): marginal tax rate on deductions
         inv_tax_credit (scalar): investment tax credit rate
         psi (scalar): fraction investment tax credit that affects
             depreciable basis of the investment
@@ -202,7 +202,10 @@ def eq_coc(delta, z, w, u, u_ded, inv_tax_credit, psi, nu, pi, r):
 
     """
     rho = (
-        ((r - pi + delta) / (1 - u)) * (1 - inv_tax_credit * nu - u_ded * z * (1 - psi * inv_tax_credit)) + w - delta
+        ((r - pi + delta) / (1 - u))
+        * (1 - inv_tax_credit * nu - u_d * z * (1 - psi * inv_tax_credit))
+        + w
+        - delta
     )
 
     return rho
