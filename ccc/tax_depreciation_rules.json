@@ -154,7 +154,7 @@
               "type": "str",
               "validators": {
                       "choice": {
-                          "choices": ["ADS", "GDS", "Economic"]
+                          "choices": ["ADS", "GDS", "Economic", "Income Forecast"]
                       }
                   }
                 },

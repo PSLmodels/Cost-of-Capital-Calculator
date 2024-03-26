@@ -140,6 +140,49 @@ def econ(delta, bonus, r, pi):
     return z
 
 
+def income_forecast(Y, delta, bonus, r):
+    r"""
+    Makes the calculation for the income forecast method.
+
+    The income forecast method involved deducting expenses in relation
+    to forecasted income over the next 10 years. CCC follows the CBO
+    methodology (CBO, 2018:
+    https://www.cbo.gov/system/files/2018-11/54648-Intangible_Assets.pdf)
+    and approximate this method with the DBSL method, but with a the "b"
+    factor determined by economic depreciation rates.
+
+    .. math::
+        z = \frac{\beta}{\beta+r}\left[1-e^{-(\beta+r)Y^{*}}\right]+
+            \frac{e^{-\beta Y^{*}}}{(Y-Y^{*})r}
+            \left[e^{-rY^{*}}-e^{-rY}\right]
+
+    Args:
+        Y (array_like): asset life in years
+        delta (array_like): rate of economic depreciation
+        bonus (array_like): rate of bonus depreciation
+        r (scalar): discount rate
+
+    Returns:
+        z (array_like): net present value of depreciation deductions for
+            $1 of investment
+
+    """
+    b = 10 * delta
+    beta = b / Y
+    Y_star = Y * (1 - (1 / b))
+    z = bonus + (
+        (1 - bonus)
+        * (
+            ((beta / (beta + r)) * (1 - np.exp(-1 * (beta + r) * Y_star)))
+            + (
+                (np.exp(-1 * beta * Y_star) / ((Y - Y_star) * r))
+                * (np.exp(-1 * r * Y_star) - np.exp(-1 * r * Y))
+            )
+        )
+    )
+    return z
+
+
 def npv_tax_depr(df, r, pi, land_expensing):
     """
     Depending on the method of depreciation, makes calls to either
@@ -175,21 +218,25 @@ def npv_tax_depr(df, r, pi, land_expensing):
     return z
 
 
-def eq_coc(delta, z, w, u, inv_tax_credit, pi, r):
+def eq_coc(delta, z, w, u, u_d, inv_tax_credit, psi, nu, pi, r):
     r"""
     Compute the cost of capital
 
     .. math::
-        \rho = \frac{(r-\pi+\delta)}{1-u}(1-uz)+w-\delta
+        \rho = \frac{(r-\pi+\delta)}{1-u}(1-u_dz(1-\psi k) - k\nu)+w-\delta
 
     Args:
         delta (array_like): rate of economic depreciation
         z (array_like): net present value of depreciation deductions for
             $1 of investment
         w (scalar): property tax rate
-        u (scalar): statutory marginal tax rate for the first layer of
+        u (scalar): marginal tax rate for the first layer of
             income taxes
+        u_d (scalar): marginal tax rate on deductions
         inv_tax_credit (scalar): investment tax credit rate
+        psi (scalar): fraction investment tax credit that affects
+            depreciable basis of the investment
+        nu (scalar): NPV of the investment tax credit
         pi (scalar): inflation rate
         r (scalar): discount rate
 
@@ -198,7 +245,10 @@ def eq_coc(delta, z, w, u, inv_tax_credit, pi, r):
 
     """
     rho = (
-        ((r - pi + delta) / (1 - u)) * (1 - inv_tax_credit - u * z) + w - delta
+        ((r - pi + delta) / (1 - u))
+        * (1 - inv_tax_credit * nu - u_d * z * (1 - psi * inv_tax_credit))
+        + w
+        - delta
     )
 
     return rho
