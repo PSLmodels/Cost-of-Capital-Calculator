@@ -231,6 +231,30 @@ def test_econ(delta, bonus, r, pi, expected_val):
     assert np.allclose(test_val, expected_val)
 
 
+Y = np.array([40, 3, 10, 20, 8])
+delta = np.array([0.12, 0.10, 0.15, 0.2, 0.18])
+bonus = np.array([0.0, 0.0, 0.4, 1.0, 0.9])
+r = np.array([0.03, 0.03, 0.03, 0.03, 0.03])
+expected_val = np.array([0.588563059, 0.956320164, 0.924042198, 1, 0.99041001])
+test_data = [(Y, delta, bonus, r, expected_val)]
+
+
+@pytest.mark.parametrize("Y,delta,bonus,r,expected_val", test_data, ids=["Test 0"])
+def test_income_forecast(Y, delta, bonus, r, expected_val):
+    test_val = cf.income_forecast(Y, delta, bonus, r)
+
+    assert np.allclose(test_val, expected_val)
+
+
+Y = np.array([40, 1, 10, 20, 8])
+bonus = np.array([0, 0, 0.4, 1, 1.2])
+r = np.array([0.12, 0.12, 0.12, 0.12, 0.12])
+expected_val = np.array(
+    [0.206618803, 0.942329694, 0.749402894, 1, 1.071436018]
+)
+test_data = [(Y, bonus, r, expected_val)]
+
+
 df = pd.DataFrame.from_dict(
     {
         "asset_name": [
