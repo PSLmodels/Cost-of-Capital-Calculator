@@ -1087,7 +1087,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 15, "method": "Economic"}
+                  "year": 2020, "value": {"life": 15, "method": "Income Forecast"}
               },
               {
                   "ADS_life": 15.0,
@@ -1097,7 +1097,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 15, "method": "Economic"}
+                  "year": 2020, "value": {"life": 15, "method": "Income Forecast"}
               },
               {
                   "ADS_life": 15.0,
