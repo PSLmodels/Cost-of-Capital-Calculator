@@ -239,7 +239,9 @@ expected_val = np.array([0.588563059, 0.956320164, 0.924042198, 1, 0.99041001])
 test_data = [(Y, delta, bonus, r, expected_val)]
 
 
-@pytest.mark.parametrize("Y,delta,bonus,r,expected_val", test_data, ids=["Test 0"])
+@pytest.mark.parametrize(
+    "Y,delta,bonus,r,expected_val", test_data, ids=["Test 0"]
+)
 def test_income_forecast(Y, delta, bonus, r, expected_val):
     test_val = cf.income_forecast(Y, delta, bonus, r)
 

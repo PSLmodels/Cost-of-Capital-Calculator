@@ -207,6 +207,10 @@ def npv_tax_depr(df, r, pi, land_expensing):
     df.loc[idx, "z"] = sl(df.loc[idx, "Y"], df.loc[idx, "bonus"], r)
     idx = df["method"] == "Economic"
     df.loc[idx, "z"] = econ(df.loc[idx, "delta"], df.loc[idx, "bonus"], r, pi)
+    idx = df["method"] == "Income Forecast"
+    df.loc[idx, "z"] = income_forecast(
+        df.loc[idx, "Y"], df.loc[idx, "delta"], df.loc[idx, "bonus"], r
+    )
     idx = df["method"] == "Expensing"
     df.loc[idx, "z"] = 1.0
     idx = df["asset_name"] == "Land"

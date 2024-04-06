@@ -254,7 +254,14 @@ class DepreciationRules(ma.Schema):
     life = ma.fields.Float(validate=ma.validate.Range(min=0, max=100))
     method = ma.fields.String(
         validate=ma.validate.OneOf(
-            choices=["SL", "Expensing", "DB 150%", "DB 200%", "Economic"]
+            choices=[
+                "SL",
+                "Expensing",
+                "DB 150%",
+                "DB 200%",
+                "Economic",
+                "Income Forecast",
+            ]
         )
     )
 
