@@ -851,6 +851,25 @@
             }
         }
     },
+    "re_credit": {
+        "title": "Research and experimentation tax credit",
+        "description": "Effective research and experimentation tax credit rate.",
+        "section_1": "Investment Tax Credits and Property Tax",
+        "notes": "This parameter captures the effective research and experimentation tax credit rate. Therefore, the value of this parameter will differ from the statutory rate based on the amount of investment that is eligible for the credit.",
+        "type": "float",
+        "value": [
+            {
+                "year": 2013,
+                "value": 0.0
+            }
+        ],
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
     "psi": {
         "title": "Share of investment tax credit that can't be claimed for cost recovery",
         "description": "Share of investment tax credit that can't be claimed for cost recovery",
