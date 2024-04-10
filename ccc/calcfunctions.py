@@ -222,7 +222,7 @@ def npv_tax_depr(df, r, pi, land_expensing):
     return z
 
 
-def eq_coc(delta, z, w, u, u_d, inv_tax_credit, psi, nu, pi, r):
+def eq_coc(delta, z, w, u, u_d, inv_tax_credit, psi, nu, pi, r, asset_type="None"):
     r"""
     Compute the cost of capital
 
@@ -243,6 +243,7 @@ def eq_coc(delta, z, w, u, u_d, inv_tax_credit, psi, nu, pi, r):
         nu (scalar): NPV of the investment tax credit
         pi (scalar): inflation rate
         r (scalar): discount rate
+        asset_type (str): type of asset (used to trigger RE credit)
 
     Returns:
         rho (array_like): the cost of capital
