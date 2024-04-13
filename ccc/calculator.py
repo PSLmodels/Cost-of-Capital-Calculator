@@ -1808,7 +1808,7 @@ class Calculator:
         p2.xaxis.major_tick_line_width = 3
         p2.xaxis.minor_tick_line_color = "orange"
 
-        p2.circle(
+        p2.scatter(
             x="rate",
             y="short_category",
             color=RED,
@@ -2201,7 +2201,7 @@ class Calculator:
         p2.xaxis.major_tick_line_width = 3
         p2.xaxis.minor_tick_line_color = "orange"
 
-        p2.circle(
+        p2.scatter(
             x="baseline",
             y="short_category",
             color=RED,
