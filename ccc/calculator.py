@@ -202,6 +202,8 @@ class Calculator:
                     self.__p.nu,
                     self.__p.inflation_rate,
                     self.__p.r[t][f],
+                    self.__p.re_credit,
+                    dfs[t]["asset_type"] #TODO: check that this is consistent with list if constants
                 )
                 if not self.__p.inventory_expensing:
                     idx = dfs[t]["asset_name"] == "Inventories"

@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from ccc.constants import TAX_METHODS
+from ccc.constants import TAX_METHODS, RE_ASSETS
 from ccc.utils import str_modified
 
 pd.set_option("future.no_silent_downcasting", True)
@@ -222,7 +222,7 @@ def npv_tax_depr(df, r, pi, land_expensing):
     return z
 
 
-def eq_coc(delta, z, w, u, u_d, inv_tax_credit, psi, nu, pi, r, asset_type="None"):
+def eq_coc(delta, z, w, u, u_d, inv_tax_credit, psi, nu, pi, r, re_credit=None, asset_type="None"):
     r"""
     Compute the cost of capital
 
@@ -249,6 +249,9 @@ def eq_coc(delta, z, w, u, u_d, inv_tax_credit, psi, nu, pi, r, asset_type="None
         rho (array_like): the cost of capital
 
     """
+    # case for assets eligible for R&E credit
+    if (asset_type in RE_ASSETS) and (re_credit is not None):
+        inv_tax_credit += re_credit
     rho = (
         ((r - pi + delta) / (1 - u))
         * (1 - inv_tax_credit * nu - u_d * z * (1 - psi * inv_tax_credit))
