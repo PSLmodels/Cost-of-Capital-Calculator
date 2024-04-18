@@ -23,13 +23,13 @@ OUTPUT_DATA_FORMATS = ["csv", "tex", "excel", "json", "html", None]
 # TODO: perhaps make as a dict so that can vary across years?
 # And if policy variant, maybe move to default params?
 RE_ASSETS = [
-    "Credit-eligible own account software",
-    "Credit-eligible research and development",
-    "Wind and solar power structures",
+    "ENS3",  # "Credit-eligible own account software",
+    "RD70",  # "Credit-eligible research and development",
+    "SU60",  # "Wind and solar power structures",
 ]
 
 RE_INDUSTRIES = [
-    "Computer_and_Electronic_Product_Manufacturing",
+    "3340",  # "Computer_and_Electronic_Product_Manufacturing",
 ]
 
 MAJOR_IND_ORDERED = [

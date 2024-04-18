@@ -203,7 +203,7 @@ class Calculator:
                     self.__p.inflation_rate,
                     self.__p.r[t][f],
                     self.__p.re_credit,
-                    dfs[t]["asset_type"] #TODO: check that this is consistent with list if constants
+                    dfs[t]["bea_asset_code"],
                 )
                 if not self.__p.inventory_expensing:
                     idx = dfs[t]["asset_name"] == "Inventories"

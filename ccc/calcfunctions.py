@@ -222,7 +222,20 @@ def npv_tax_depr(df, r, pi, land_expensing):
     return z
 
 
-def eq_coc(delta, z, w, u, u_d, inv_tax_credit, psi, nu, pi, r, re_credit=None, asset_type="None"):
+def eq_coc(
+    delta,
+    z,
+    w,
+    u,
+    u_d,
+    inv_tax_credit,
+    psi,
+    nu,
+    pi,
+    r,
+    re_credit=None,
+    asset_code="None",
+):
     r"""
     Compute the cost of capital
 
@@ -250,8 +263,12 @@ def eq_coc(delta, z, w, u, u_d, inv_tax_credit, psi, nu, pi, r, re_credit=None, 
 
     """
     # case for assets eligible for R&E credit
-    if (asset_type in RE_ASSETS) and (re_credit is not None):
-        inv_tax_credit += re_credit
+    if (asset_code is not None) and (re_credit is not None) & isinstance(
+        delta, np.ndarray
+    ):
+        idx = [element in RE_ASSETS for element in asset_code]
+        inv_tax_credit = np.ones_like(delta)
+        inv_tax_credit[idx] += re_credit
     rho = (
         ((r - pi + delta) / (1 - u))
         * (1 - inv_tax_credit * nu - u_d * z * (1 - psi * inv_tax_credit))
