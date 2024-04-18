@@ -20,6 +20,18 @@ OUTPUT_VAR_LIST = [
 
 OUTPUT_DATA_FORMATS = ["csv", "tex", "excel", "json", "html", None]
 
+# TODO: perhaps make as a dict so that can vary across years?
+# And if policy variant, maybe move to default params?
+RE_ASSETS = [
+    "Credit-eligible own account software",
+    "Credit-eligible research and development",
+    "Wind and solar power structures",
+]
+
+RE_INDUSTRIES = [
+    "Computer_and_Electronic_Product_Manufacturing",
+]
+
 MAJOR_IND_ORDERED = [
     "Agriculture, forestry, fishing, and hunting",
     "Mining",
