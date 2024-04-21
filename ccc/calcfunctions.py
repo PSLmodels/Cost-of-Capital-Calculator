@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from ccc.constants import TAX_METHODS, RE_ASSETS
+from ccc.constants import TAX_METHODS, RE_ASSETS, RE_INDUSTRIES
 from ccc.utils import str_modified
 
 pd.set_option("future.no_silent_downcasting", True)
@@ -234,7 +234,8 @@ def eq_coc(
     pi,
     r,
     re_credit=None,
-    asset_code="None",
+    asset_code=None,
+    ind_code=None,
 ):
     r"""
     Compute the cost of capital
@@ -256,7 +257,9 @@ def eq_coc(
         nu (scalar): NPV of the investment tax credit
         pi (scalar): inflation rate
         r (scalar): discount rate
-        asset_type (str): type of asset (used to trigger RE credit)
+        re_credit (scalar): rate of R&E credit
+        asset_code (array_like): asset code
+        ind_code (array_like): industry code
 
     Returns:
         rho (array_like): the cost of capital
@@ -267,8 +270,10 @@ def eq_coc(
         delta, np.ndarray
     ):
         idx = [element in RE_ASSETS for element in asset_code]
+        if ind_code is not None:
+            idx2 = [element in RE_INDUSTRIES for element in ind_code]
         inv_tax_credit = np.ones_like(delta)
-        inv_tax_credit[idx] += re_credit
+        inv_tax_credit[np.maximum(idx, idx2)] += re_credit
     rho = (
         ((r - pi + delta) / (1 - u))
         * (1 - inv_tax_credit * nu - u_d * z * (1 - psi * inv_tax_credit))
