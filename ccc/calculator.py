@@ -1379,7 +1379,7 @@ class Calculator:
             source=base_source,
         )
         # Add circles for means
-        p.circle(
+        p.scatter(
             "positions",
             "means",
             size=12,
@@ -1388,7 +1388,7 @@ class Calculator:
             legend_label="Baseline",
         )
         # Add circles for maxes and mins
-        p.circle(
+        p.scatter(
             "positions",
             "mins",
             size=12,
@@ -1396,7 +1396,7 @@ class Calculator:
             source=base_source,
             legend_label="Baseline",
         )
-        p.circle(
+        p.scatter(
             "positions",
             "maxes",
             size=12,
@@ -1416,7 +1416,7 @@ class Calculator:
             source=reform_source,
         )
         # Add circles for means
-        p.circle(
+        p.scatter(
             "positions",
             "means",
             size=12,
@@ -1425,7 +1425,7 @@ class Calculator:
             legend_label="Reform",
         )
         # Add circles for maxes and mins
-        p.circle(
+        p.scatter(
             "positions",
             "mins",
             size=12,
@@ -1433,7 +1433,7 @@ class Calculator:
             source=reform_source,
             legend_label="Reform",
         )
-        p.circle(
+        p.scatter(
             "positions",
             "maxes",
             size=12,
@@ -1744,7 +1744,7 @@ class Calculator:
         p.outline_line_alpha = 1
         p.outline_line_color = "black"
 
-        p.circle(
+        p.scatter(
             x="rate",
             y="short_category",
             color=BLUE,
@@ -1808,7 +1808,7 @@ class Calculator:
         p2.xaxis.major_tick_line_width = 3
         p2.xaxis.minor_tick_line_color = "orange"
 
-        p2.circle(
+        p2.scatter(
             x="rate",
             y="short_category",
             color=RED,
@@ -2120,7 +2120,7 @@ class Calculator:
         p.outline_line_alpha = 1
         p.outline_line_color = "black"
 
-        p.circle(
+        p.scatter(
             x="baseline",
             y="short_category",
             color=BLUE,
@@ -2201,7 +2201,7 @@ class Calculator:
         p2.xaxis.major_tick_line_width = 3
         p2.xaxis.minor_tick_line_color = "orange"
 
-        p2.circle(
+        p2.scatter(
             x="baseline",
             y="short_category",
             color=RED,
