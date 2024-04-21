@@ -2120,7 +2120,7 @@ class Calculator:
         p.outline_line_alpha = 1
         p.outline_line_color = "black"
 
-        p.circle(
+        p.scatter(
             x="baseline",
             y="short_category",
             color=BLUE,
