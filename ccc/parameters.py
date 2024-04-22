@@ -97,6 +97,12 @@ class Specification(paramtools.Parameters):
         # Allowance for Corporate Equity
         ace_dict = {"c": self.ace_c, "pt": self.ace_pt}
 
+        # Handle R&E credits which vary by industry and asset type
+        self.re_credit = {
+            "By asset": self.re_credit_asset,
+            "By industry": self.re_credit_industry,
+        }
+
         # Limitation on interest deduction
         int_haircut_dict = {
             "c": self.interest_deduct_haircut_c,
