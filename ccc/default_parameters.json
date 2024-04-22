@@ -4,29 +4,30 @@
             "year": {
                 "type": "int",
                 "validators": {
+                    "range": {
+                        "min": 2013,
+                        "max": 2034
+                    }
+                }
+            },
+            "bea_asset_code": {
+                "type": "str",
+                "validators": {
                     "choice": {
                         "choices": [
-                            2013,
-                            2014,
-                            2015,
-                            2016,
-                            2017,
-                            2018,
-                            2019,
-                            2020,
-                            2021,
-                            2022,
-                            2023,
-                            2024,
-                            2025,
-                            2026,
-                            2027,
-                            2028,
-                            2029,
-                            2030,
-                            2031,
-                            2032,
-                            2033
+                            "ENS3",
+                            "RD70",
+                            "SU60"
+                        ]
+                    }
+                }
+            },
+            "bea_ind_code": {
+                "type": "str",
+                "validators": {
+                    "choice": {
+                        "choices": [
+                            "3340"
                         ]
                     }
                 }
@@ -75,8 +76,46 @@
             }
         }
     },
+    "CIT_rate_ded": {
+        "title": "Marginal corporate income tax rate applied to deductions",
+        "description": "Top statutory corporate income tax rate",
+        "section_1": "Business-entity level taxes",
+        "type": "float",
+        "value": [
+            {
+                "year": 2013,
+                "value": 0.35
+            },
+            {
+                "year": 2014,
+                "value": 0.35
+            },
+            {
+                "year": 2015,
+                "value": 0.35
+            },
+            {
+                "year": 2016,
+                "value": 0.35
+            },
+            {
+                "year": 2017,
+                "value": 0.35
+            },
+            {
+                "year": 2018,
+                "value": 0.21
+            }
+        ],
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
     "pt_entity_tax_ind": {
-        "title": "Pass-through businss entity-level tax indicator",
+        "title": "Pass-through business entity-level tax indicator",
         "description": "Indicator variable indicating whether or not there is an entity-level tax on pass-through businesses. This tax is levied on entity-level profits.  Owners also pay individual income taxes on the distributions.",
         "section_1": "Business-entity level taxes",
         "notes": "Note that is this indicator is True, then the METR calculation for pass-through businesses will represent the effects of the entity-level tax and not the indvidiual-level tax.  This is becaue the METR represents the effective tax rate from the first layer of taxation.  The statutory rate on pass-through entities is set with the pt_entity_tax_rate parameter.",
@@ -98,6 +137,24 @@
             {
                 "year": 2013,
                 "value": 0.0
+            }
+        ],
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "pt_scale_tax_rate_ded": {
+        "title": "Ratio of marginal tax rate on deductions by pass-through businesses to marginal tax rate on their income",
+        "description": "Ratio of marginal tax rate on deductions by pass-through businesses to marginal tax rate on their income",
+        "section_1": "Business-entity level taxes",
+        "type": "float",
+        "value": [
+            {
+                "year": 2013,
+                "value": 1.0
             }
         ],
         "validators": {
@@ -786,6 +843,159 @@
             {
                 "year": 2013,
                 "value": 0.0
+            }
+        ],
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "re_credit_asset": {
+        "title": "Research and experimentation tax credit",
+        "description": "Effective research and experimentation tax credit rate for asset types.",
+        "section_1": "Investment Tax Credits and Property Tax",
+        "notes": "This parameter captures the effective research and experimentation tax credit rate. Therefore, the value of this parameter will differ from the statutory rate based on the amount of investment that is eligible for the credit. Also note that this parameter specifies the R&E credit by eligible asset. See re_credit_industry for R&E credits assigned by industry.",
+        "type": "float",
+        "value": [
+            {
+                "year": 2013,
+                "bea_asset_code": "ENS3",
+                "value": 0.0851
+            },
+            {
+                "year": 2013,
+                "bea_asset_code": "RD70",
+                "value": 0.0851
+            },
+            {
+                "year": 2013,
+                "bea_asset_code": "SU60",
+                "value": 0.0
+            },
+            {
+                "year": 2022,
+                "bea_asset_code": "SU60",
+                "value": 0.3328
+            },
+            {
+                "year": 2023,
+                "bea_asset_code": "SU60",
+                "value": 0.3328
+            },
+            {
+                "year": 2024,
+                "bea_asset_code": "SU60",
+                "value": 0.3328
+            },
+            {
+                "year": 2025,
+                "bea_asset_code": "SU60",
+                "value": 0.3437
+            },
+            {
+                "year": 2026,
+                "bea_asset_code": "SU60",
+                "value": 0.3476
+            },
+            {
+                "year": 2027,
+                "bea_asset_code": "SU60",
+                "value": 0.3547
+            },
+            {
+                "year": 2028,
+                "bea_asset_code": "SU60",
+                "value": 0.3641
+            },
+            {
+                "year": 2029,
+                "bea_asset_code": "SU60",
+                "value": 0.3712
+            },
+            {
+                "year": 2030,
+                "bea_asset_code": "SU60",
+                "value": 0.3737
+            },
+            {
+                "year": 2031,
+                "bea_asset_code": "SU60",
+                "value": 0.3667
+            },
+            {
+                "year": 2032,
+                "bea_asset_code": "SU60",
+                "value": 0.3667
+            },
+            {
+                "year": 2033,
+                "bea_asset_code": "SU60",
+                "value": 0.3775
+            },
+            {
+                "year": 2034,
+                "bea_asset_code": "SU60",
+                "value": 0.3709
+            }
+        ],
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "re_credit_industry": {
+        "title": "Research and experimentation tax credit",
+        "description": "Effective research and experimentation tax credit rate for certain industries.",
+        "section_1": "Investment Tax Credits and Property Tax",
+        "notes": "This parameter captures the effective research and experimentation tax credit rate. Therefore, the value of this parameter will differ from the statutory rate based on the amount of investment that is eligible for the credit.",
+        "type": "float",
+        "value": [
+            {
+                "year": 2013,
+                "bea_ind_code": "3340",
+                "value": 0.1175
+            }
+        ],
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "psi": {
+        "title": "Share of investment tax credit that can't be claimed for cost recovery",
+        "description": "Share of investment tax credit that can't be claimed for cost recovery",
+        "section_1": "Investment Tax Credits and Property Tax",
+        "notes": "This parameter gives the share of the investment tax credit that can't also be claimed for cost recovery.  Some policies allow the credit to not offset the basis of the investment (or only partially do so).  Setting this parameter to a value < 1 will do that.",
+        "type": "float",
+        "value": [
+            {
+                "year": 2013,
+                "value": 1.0
+            }
+        ],
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "nu": {
+        "title": "NPV of the investment tax credit per unit of investment",
+        "description": "NPV of the investment tax credit per unit of investment",
+        "section_1": "Investment Tax Credits and Property Tax",
+        "notes": "For cases when the rate of return is ntn constant and losses prevent use of ITC immediately, this parameter will reflect the lower NPV of the credit by taking a value < 1.",
+        "type": "float",
+        "value": [
+            {
+                "year": 2013,
+                "value": 1.0
             }
         ],
         "validators": {

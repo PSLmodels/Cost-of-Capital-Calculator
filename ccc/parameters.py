@@ -86,14 +86,22 @@ class Specification(paramtools.Parameters):
 
         # Set rate of 1st layer of taxation on investment income
         self.u = {"c": self.CIT_rate}
+        self.u_d = {"c": self.CIT_rate_ded}
         if not self.pt_entity_tax_ind.all():
             self.u["pt"] = self.tau_pt
         else:
             self.u["pt"] = self.pt_entity_tax_rate
+        self.u_d["pt"] = self.pt_scale_tax_rate_ded * self.u["pt"]
         E_dict = {"c": self.E_c, "pt": E_pt}
 
         # Allowance for Corporate Equity
         ace_dict = {"c": self.ace_c, "pt": self.ace_pt}
+
+        # Handle R&E credits which vary by industry and asset type
+        self.re_credit = {
+            "By asset": self.re_credit_asset,
+            "By industry": self.re_credit_industry,
+        }
 
         # Limitation on interest deduction
         int_haircut_dict = {
@@ -252,7 +260,14 @@ class DepreciationRules(ma.Schema):
     life = ma.fields.Float(validate=ma.validate.Range(min=0, max=100))
     method = ma.fields.String(
         validate=ma.validate.OneOf(
-            choices=["SL", "Expensing", "DB 150%", "DB 200%", "Economic"]
+            choices=[
+                "SL",
+                "Expensing",
+                "DB 150%",
+                "DB 200%",
+                "Economic",
+                "Income Forecast",
+            ]
         )
     )
 

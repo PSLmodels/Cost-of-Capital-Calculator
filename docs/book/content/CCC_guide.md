@@ -19,10 +19,12 @@ This guide is organized as follows.  Section {ref}`sec:METR` and Section {ref}`s
 
 ```{math}
 :label: eqn:coc
-\rho_{i,m,j} = \frac{(r_{m,j}-\pi+\delta_{i})}{1-u_{j}}(1-u_{j}z_{i})+w_{i,m,j}-\delta_{i},
+\rho_{i,m,j} = \frac{(r_{m,j}-\pi+\delta_{i})}{1-u_{j}}(1-u^d_{j}z_{i}(1-\phi k) - k\nu)+w_{i,m,j}-\delta_{i},
 ```
 
- where $\delta_{i}$ is the rate of economic depreciation, $u_{j}$ is the statutory income tax rate at the first level of taxation (e.g., at the business entity level for C-corporations and at the individual level for pass-through business entities), $z_{i}$ is the net present value of deprecation deductions from a dollar of new investment, and $w_{i,m,j}$ is the property tax rate.
+ where $\delta_{i}$ is the rate of economic depreciation, $u_{j}$ is the statutory income tax rate at the first level of taxation (e.g., at the business entity level for C-corporations and at the individual level for pass-through business entities), $u^d_j$ is the marginal tax rate on deductions,  $z_{i}$ is the net present value of deprecation deductions from a dollar of new investment, $k$ is the investment tax credit rate, and  and $w_{i,m,j}$ is the property tax rate.  The parameter $\psi$ represents the fraction of the investment tax credit that **does not** affect the tax basis of the investment. Thus, if $\psi$, the investing taxpayer benefits from the credit amount immediately, and gets to depreciate an amount that is greater than the difference between the cost of the investment and the investment tax credit amount. The parameter $\nu$ reflects the present value per dollar of investment tax credit and is useful for cases when one is thinking about taxpayers whose returns fluctuate and whose loss positions may prevent them from using investment tax credits immediately, given non-refundability of such a credit.
+
+ Note that R\&E credits are modeled exactly as the general investment tax credit. However, in setting values for the R\&E credit, one must look beyond the statutory rate since only a fraction of R\&D expenses are eligible. The model further allows the R\&E credit values to vary by asset type or industry.
 
 
 The `Cost-of-Capital-Calculator` calculates the cost of capital, $\rho_{i,m,j}$, separately for each type of asset, production industry, and tax treatment (corporate or non-corporate).

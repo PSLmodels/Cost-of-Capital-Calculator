@@ -196,9 +196,15 @@ class Calculator:
                     dfs[t]["z_" + str(f)],
                     self.__p.property_tax,
                     self.__p.u[t],
+                    self.__p.u_d[t],
                     self.__p.inv_tax_credit,
+                    self.__p.psi,
+                    self.__p.nu,
                     self.__p.inflation_rate,
                     self.__p.r[t][f],
+                    self.__p.re_credit,
+                    dfs[t]["bea_asset_code"],
+                    dfs[t]["bea_ind_code"],
                 )
                 if not self.__p.inventory_expensing:
                     idx = dfs[t]["asset_name"] == "Inventories"
