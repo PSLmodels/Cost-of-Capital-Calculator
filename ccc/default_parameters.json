@@ -4,30 +4,30 @@
             "year": {
                 "type": "int",
                 "validators": {
+                    "range": {
+                        "min": 2013,
+                        "max": 2034
+                    }
+                }
+            },
+            "bea_asset_code": {
+                "type": "str",
+                "validators": {
                     "choice": {
                         "choices": [
-                            2013,
-                            2014,
-                            2015,
-                            2016,
-                            2017,
-                            2018,
-                            2019,
-                            2020,
-                            2021,
-                            2022,
-                            2023,
-                            2024,
-                            2025,
-                            2026,
-                            2027,
-                            2028,
-                            2029,
-                            2030,
-                            2031,
-                            2032,
-                            2033,
-                            2034
+                            "ENS3",
+                            "RD70",
+                            "SU60"
+                        ]
+                    }
+                }
+            },
+            "bea_ind_code": {
+                "type": "str",
+                "validators": {
+                    "choice": {
+                        "choices": [
+                            "3340"
                         ]
                     }
                 }
@@ -852,16 +852,112 @@
             }
         }
     },
-    "re_credit": {
+    "re_credit_asset": {
         "title": "Research and experimentation tax credit",
-        "description": "Effective research and experimentation tax credit rate.",
+        "description": "Effective research and experimentation tax credit rate for asset types.",
+        "section_1": "Investment Tax Credits and Property Tax",
+        "notes": "This parameter captures the effective research and experimentation tax credit rate. Therefore, the value of this parameter will differ from the statutory rate based on the amount of investment that is eligible for the credit. Also note that this parameter specifies the R&E credit by eligible asset. See re_credit_industry for R&E credits assigned by industry.",
+        "type": "float",
+        "value": [
+            {
+                "year": 2013,
+                "bea_asset_code": "ENS3",
+                "value": 0.0851
+            },
+            {
+                "year": 2013,
+                "bea_asset_code": "RD70",
+                "value": 0.0851
+            },
+            {
+                "year": 2013,
+                "bea_asset_code": "SU60",
+                "value": 0.0
+            },
+            {
+                "year": 2022,
+                "bea_asset_code": "SU60",
+                "value": 0.3328
+            },
+            {
+                "year": 2023,
+                "bea_asset_code": "SU60",
+                "value": 0.3328
+            },
+            {
+                "year": 2024,
+                "bea_asset_code": "SU60",
+                "value": 0.3328
+            },
+            {
+                "year": 2025,
+                "bea_asset_code": "SU60",
+                "value": 0.3437
+            },
+            {
+                "year": 2026,
+                "bea_asset_code": "SU60",
+                "value": 0.3476
+            },
+            {
+                "year": 2027,
+                "bea_asset_code": "SU60",
+                "value": 0.3547
+            },
+            {
+                "year": 2028,
+                "bea_asset_code": "SU60",
+                "value": 0.3641
+            },
+            {
+                "year": 2029,
+                "bea_asset_code": "SU60",
+                "value": 0.3712
+            },
+            {
+                "year": 2030,
+                "bea_asset_code": "SU60",
+                "value": 0.3737
+            },
+            {
+                "year": 2031,
+                "bea_asset_code": "SU60",
+                "value": 0.3667
+            },
+            {
+                "year": 2032,
+                "bea_asset_code": "SU60",
+                "value": 0.3667
+            },
+            {
+                "year": 2033,
+                "bea_asset_code": "SU60",
+                "value": 0.3775
+            },
+            {
+                "year": 2034,
+                "bea_asset_code": "SU60",
+                "value": 0.3709
+            }
+        ],
+        "validators": {
+            "range": {
+                "min": 0.0,
+                "max": 1.0
+            }
+        }
+    },
+    "re_credit_industry": {
+        "title": "Research and experimentation tax credit",
+        "description": "Effective research and experimentation tax credit rate for certain industries.",
         "section_1": "Investment Tax Credits and Property Tax",
         "notes": "This parameter captures the effective research and experimentation tax credit rate. Therefore, the value of this parameter will differ from the statutory rate based on the amount of investment that is eligible for the credit.",
         "type": "float",
         "value": [
             {
                 "year": 2013,
-                "value": 0.0851
+                "bea_ind_code": "3340",
+                "value": 0.1175
             }
         ],
         "validators": {
