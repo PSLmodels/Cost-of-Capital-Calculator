@@ -360,6 +360,30 @@ def test_eq_coc(
     assert np.allclose(test_val, expected_val)
 
 
+def test_eq_coc_asset_ind():
+    """
+    A test of calcfunctions.eq_coc when passing arguments for asset and
+    industry
+    """
+    delta = np.array([0.1])
+    z = np.array([0.1])
+    w = np.array([0.01])
+    u = np.array([0.3])
+    u_d = np.array([0.3])
+    inv_tax_credit = np.array([0.00])
+    psi = np.array([1.0])
+    nu = np.array([1.0])
+    pi = np.array([0.02])
+    r = np.array([0.05])
+    re_credit = np.array([0.08])
+    test_val = cf.eq_coc(delta, z, w, u, u_d, inv_tax_credit, psi, nu,
+                         pi, r, re_credit=re_credit,
+                         asset_code=["ENS3"],
+                         ind_code=["3340"])
+
+    assert np.allclose(test_val, 0.07573143)
+
+
 u = np.array([0.3, 0, 0.3, 0, 0.3, 0])
 phi = np.array([0.33, 0.33, 0.33, 0.33, 0.33, 0.33])
 Y_v = np.array([8, 8, 8, 8, 8, 8])
