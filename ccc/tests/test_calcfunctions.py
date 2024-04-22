@@ -376,10 +376,21 @@ def test_eq_coc_asset_ind():
     pi = np.array([0.02])
     r = np.array([0.05])
     re_credit = np.array([0.08])
-    test_val = cf.eq_coc(delta, z, w, u, u_d, inv_tax_credit, psi, nu,
-                         pi, r, re_credit=re_credit,
-                         asset_code=["ENS3"],
-                         ind_code=["3340"])
+    test_val = cf.eq_coc(
+        delta,
+        z,
+        w,
+        u,
+        u_d,
+        inv_tax_credit,
+        psi,
+        nu,
+        pi,
+        r,
+        re_credit=re_credit,
+        asset_code=["ENS3"],
+        ind_code=["3340"],
+    )
 
     assert np.allclose(test_val, 0.07573143)
 
