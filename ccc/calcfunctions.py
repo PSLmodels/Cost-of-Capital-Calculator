@@ -272,7 +272,7 @@ def eq_coc(
         idx = [element in RE_ASSETS for element in asset_code]
         if ind_code is not None:
             idx2 = [element in RE_INDUSTRIES for element in ind_code]
-        inv_tax_credit = np.ones_like(delta)
+        inv_tax_credit = np.zeros_like(delta)
         inv_tax_credit[np.maximum(idx, idx2)] += re_credit
     rho = (
         ((r - pi + delta) / (1 - u))
