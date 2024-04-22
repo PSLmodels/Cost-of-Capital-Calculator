@@ -365,17 +365,17 @@ def test_eq_coc_asset_ind():
     A test of calcfunctions.eq_coc when passing arguments for asset and
     industry
     """
-    delta = np.array([0.1])
-    z = np.array([0.1])
-    w = np.array([0.01])
-    u = np.array([0.3])
-    u_d = np.array([0.3])
-    inv_tax_credit = np.array([0.00])
-    psi = np.array([1.0])
-    nu = np.array([1.0])
-    pi = np.array([0.02])
-    r = np.array([0.05])
-    re_credit = np.array([0.08])
+    delta = np.array([0.1, 0.1])
+    z = np.array([0.1, 0.1])
+    w = np.array([0.01, 0.01])
+    u = np.array([0.3, 0.3])
+    u_d = np.array([0.3, 0.3])
+    inv_tax_credit = np.array([0.00, 0.00])
+    psi = np.array([1.0, 1.0])
+    nu = np.array([1.0, 1.0])
+    pi = np.array([0.02, 0.02])
+    r = np.array([0.05, 0.05])
+    re_credit = {"By asset": {"ENS3": 0.08}, "By industry": {"3340": 0.08}}
     test_val = cf.eq_coc(
         delta,
         z,
@@ -388,11 +388,11 @@ def test_eq_coc_asset_ind():
         pi,
         r,
         re_credit=re_credit,
-        asset_code=["ENS3"],
-        ind_code=["3340"],
+        asset_code=["ET11", "ENS3"],
+        ind_code=["3340", "100C"],
     )
 
-    assert np.allclose(test_val, 0.07573143)
+    assert np.allclose(test_val, np.array([0.07573143, 0.07573143]))
 
 
 u = np.array([0.3, 0, 0.3, 0, 0.3, 0])

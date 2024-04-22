@@ -257,7 +257,7 @@ def eq_coc(
         nu (scalar): NPV of the investment tax credit
         pi (scalar): inflation rate
         r (scalar): discount rate
-        re_credit (scalar): rate of R&E credit
+        re_credit (dict): rate of R&E credit by asset or industry
         asset_code (array_like): asset code
         ind_code (array_like): industry code
 
@@ -265,15 +265,40 @@ def eq_coc(
         rho (array_like): the cost of capital
 
     """
-    # case for assets eligible for R&E credit
-    if (asset_code is not None) and (re_credit is not None) & isinstance(
-        delta, np.ndarray
-    ):
-        idx = [element in RE_ASSETS for element in asset_code]
-        if ind_code is not None:
-            idx2 = [element in RE_INDUSTRIES for element in ind_code]
-        inv_tax_credit = np.zeros_like(delta)
-        inv_tax_credit[np.maximum(idx, idx2)] += re_credit
+    # Initialize re_credit_rate (only needed if arrays are passed in --
+    # if not, can include the R&E credit in the inv_tax_credit object)
+    if isinstance(delta, np.ndarray):
+        re_credit_rate_ind = np.zeros_like(delta)
+        re_credit_rate_asset = np.zeros_like(delta)
+        # Update by R&E credit rate amounts by industry
+        if (ind_code is not None) and (re_credit is not None):
+            idx = [
+                index
+                for index, element in enumerate(ind_code)
+                if element in re_credit["By industry"].keys()
+            ]
+            print("Keys = ", re_credit["By industry"].keys())
+            print("Ind idx = ", idx)
+            print("Dict = ", re_credit["By industry"], re_credit)
+            ind_code_idx = [ind_code[i] for i in idx]
+            re_credit_rate_ind[idx] = [
+                re_credit["By industry"][ic] for ic in ind_code_idx
+            ]
+        # Update by R&E credit rate amounts by asset
+        if (asset_code is not None) and (re_credit is not None):
+            idx = [
+                index
+                for index, element in enumerate(asset_code)
+                if element in re_credit["By asset"].keys()
+            ]
+            asset_code_idx = [asset_code[i] for i in idx]
+            re_credit_rate_asset[idx] = [
+                re_credit["By asset"][ac] for ac in asset_code_idx
+            ]
+        # take the larger of the two R&E credit rates
+        inv_tax_credit += np.maximum(re_credit_rate_asset, re_credit_rate_ind)
+        print("RE_credit object =", re_credit)
+        print("inv_tax_credit object =", inv_tax_credit)
     rho = (
         ((r - pi + delta) / (1 - u))
         * (1 - inv_tax_credit * nu - u_d * z * (1 - psi * inv_tax_credit))
