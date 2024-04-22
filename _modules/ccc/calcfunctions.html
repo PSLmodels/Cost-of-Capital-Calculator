@@ -376,7 +376,7 @@ document.write(`
   <h1>Source code for ccc.calcfunctions</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">ccc.constants</span> <span class="kn">import</span> <span class="n">TAX_METHODS</span>
+<span class="kn">from</span> <span class="nn">ccc.constants</span> <span class="kn">import</span> <span class="n">TAX_METHODS</span><span class="p">,</span> <span class="n">RE_ASSETS</span><span class="p">,</span> <span class="n">RE_INDUSTRIES</span>
 <span class="kn">from</span> <span class="nn">ccc.utils</span> <span class="kn">import</span> <span class="n">str_modified</span>
 
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;future.no_silent_downcasting&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
@@ -528,6 +528,49 @@ document.write(`
 
 
 
+<span class="k">def</span> <span class="nf">income_forecast</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">bonus</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Makes the calculation for the income forecast method.</span>
+
+<span class="sd">    The income forecast method involved deducting expenses in relation</span>
+<span class="sd">    to forecasted income over the next 10 years. CCC follows the CBO</span>
+<span class="sd">    methodology (CBO, 2018:</span>
+<span class="sd">    https://www.cbo.gov/system/files/2018-11/54648-Intangible_Assets.pdf)</span>
+<span class="sd">    and approximate this method with the DBSL method, but with a the &quot;b&quot;</span>
+<span class="sd">    factor determined by economic depreciation rates.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        z = \frac{\beta}{\beta+r}\left[1-e^{-(\beta+r)Y^{*}}\right]+</span>
+<span class="sd">            \frac{e^{-\beta Y^{*}}}{(Y-Y^{*})r}</span>
+<span class="sd">            \left[e^{-rY^{*}}-e^{-rY}\right]</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        Y (array_like): asset life in years</span>
+<span class="sd">        delta (array_like): rate of economic depreciation</span>
+<span class="sd">        bonus (array_like): rate of bonus depreciation</span>
+<span class="sd">        r (scalar): discount rate</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        z (array_like): net present value of depreciation deductions for</span>
+<span class="sd">            $1 of investment</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">delta</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">b</span> <span class="o">/</span> <span class="n">Y</span>
+    <span class="n">Y_star</span> <span class="o">=</span> <span class="n">Y</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">b</span><span class="p">))</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">bonus</span> <span class="o">+</span> <span class="p">(</span>
+        <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">bonus</span><span class="p">)</span>
+        <span class="o">*</span> <span class="p">(</span>
+            <span class="p">((</span><span class="n">beta</span> <span class="o">/</span> <span class="p">(</span><span class="n">beta</span> <span class="o">+</span> <span class="n">r</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">beta</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">Y_star</span><span class="p">)))</span>
+            <span class="o">+</span> <span class="p">(</span>
+                <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">Y_star</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">Y</span> <span class="o">-</span> <span class="n">Y_star</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span><span class="p">))</span>
+                <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">Y_star</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">Y</span><span class="p">))</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">z</span>
+
+
 <div class="viewcode-block" id="npv_tax_depr">
 <a class="viewcode-back" href="../../content/api/calcfunctions.html#ccc.calcfunctions.npv_tax_depr">[docs]</a>
 <span class="k">def</span> <span class="nf">npv_tax_depr</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">land_expensing</span><span class="p">):</span>
@@ -554,6 +597,10 @@ document.write(`
     <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sl</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s2">&quot;bonus&quot;</span><span class="p">],</span> <span class="n">r</span><span class="p">)</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Economic&quot;</span>
     <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">econ</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s2">&quot;delta&quot;</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s2">&quot;bonus&quot;</span><span class="p">],</span> <span class="n">r</span><span class="p">,</span> <span class="n">pi</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Income Forecast&quot;</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">income_forecast</span><span class="p">(</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s2">&quot;delta&quot;</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s2">&quot;bonus&quot;</span><span class="p">],</span> <span class="n">r</span>
+    <span class="p">)</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Expensing&quot;</span>
     <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;asset_name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Land&quot;</span>
@@ -568,30 +615,88 @@ document.write(`
 
 <div class="viewcode-block" id="eq_coc">
 <a class="viewcode-back" href="../../content/api/calcfunctions.html#ccc.calcfunctions.eq_coc">[docs]</a>
-<span class="k">def</span> <span class="nf">eq_coc</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">inv_tax_credit</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">eq_coc</span><span class="p">(</span>
+    <span class="n">delta</span><span class="p">,</span>
+    <span class="n">z</span><span class="p">,</span>
+    <span class="n">w</span><span class="p">,</span>
+    <span class="n">u</span><span class="p">,</span>
+    <span class="n">u_d</span><span class="p">,</span>
+    <span class="n">inv_tax_credit</span><span class="p">,</span>
+    <span class="n">psi</span><span class="p">,</span>
+    <span class="n">nu</span><span class="p">,</span>
+    <span class="n">pi</span><span class="p">,</span>
+    <span class="n">r</span><span class="p">,</span>
+    <span class="n">re_credit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">asset_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">ind_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the cost of capital</span>
 
 <span class="sd">    .. math::</span>
-<span class="sd">        \rho = \frac{(r-\pi+\delta)}{1-u}(1-uz)+w-\delta</span>
+<span class="sd">        \rho = \frac{(r-\pi+\delta)}{1-u}(1-u_dz(1-\psi k) - k\nu)+w-\delta</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        delta (array_like): rate of economic depreciation</span>
 <span class="sd">        z (array_like): net present value of depreciation deductions for</span>
 <span class="sd">            $1 of investment</span>
 <span class="sd">        w (scalar): property tax rate</span>
-<span class="sd">        u (scalar): statutory marginal tax rate for the first layer of</span>
+<span class="sd">        u (scalar): marginal tax rate for the first layer of</span>
 <span class="sd">            income taxes</span>
+<span class="sd">        u_d (scalar): marginal tax rate on deductions</span>
 <span class="sd">        inv_tax_credit (scalar): investment tax credit rate</span>
+<span class="sd">        psi (scalar): fraction investment tax credit that affects</span>
+<span class="sd">            depreciable basis of the investment</span>
+<span class="sd">        nu (scalar): NPV of the investment tax credit</span>
 <span class="sd">        pi (scalar): inflation rate</span>
 <span class="sd">        r (scalar): discount rate</span>
+<span class="sd">        re_credit (dict): rate of R&amp;E credit by asset or industry</span>
+<span class="sd">        asset_code (array_like): asset code</span>
+<span class="sd">        ind_code (array_like): industry code</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        rho (array_like): the cost of capital</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Initialize re_credit_rate (only needed if arrays are passed in --</span>
+    <span class="c1"># if not, can include the R&amp;E credit in the inv_tax_credit object)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="n">re_credit_rate_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+        <span class="n">re_credit_rate_asset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+        <span class="c1"># Update by R&amp;E credit rate amounts by industry</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ind_code</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">re_credit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">index</span>
+                <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ind_code</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">re_credit</span><span class="p">[</span><span class="s2">&quot;By industry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+            <span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Keys = &quot;</span><span class="p">,</span> <span class="n">re_credit</span><span class="p">[</span><span class="s2">&quot;By industry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ind idx = &quot;</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dict = &quot;</span><span class="p">,</span> <span class="n">re_credit</span><span class="p">[</span><span class="s2">&quot;By industry&quot;</span><span class="p">],</span> <span class="n">re_credit</span><span class="p">)</span>
+            <span class="n">ind_code_idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">ind_code</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">]</span>
+            <span class="n">re_credit_rate_ind</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">re_credit</span><span class="p">[</span><span class="s2">&quot;By industry&quot;</span><span class="p">][</span><span class="n">ic</span><span class="p">]</span> <span class="k">for</span> <span class="n">ic</span> <span class="ow">in</span> <span class="n">ind_code_idx</span>
+            <span class="p">]</span>
+        <span class="c1"># Update by R&amp;E credit rate amounts by asset</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">asset_code</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">re_credit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">index</span>
+                <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">asset_code</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">re_credit</span><span class="p">[</span><span class="s2">&quot;By asset&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+            <span class="p">]</span>
+            <span class="n">asset_code_idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">asset_code</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">]</span>
+            <span class="n">re_credit_rate_asset</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">re_credit</span><span class="p">[</span><span class="s2">&quot;By asset&quot;</span><span class="p">][</span><span class="n">ac</span><span class="p">]</span> <span class="k">for</span> <span class="n">ac</span> <span class="ow">in</span> <span class="n">asset_code_idx</span>
+            <span class="p">]</span>
+        <span class="c1"># take the larger of the two R&amp;E credit rates</span>
+        <span class="n">inv_tax_credit</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">re_credit_rate_asset</span><span class="p">,</span> <span class="n">re_credit_rate_ind</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;RE_credit object =&quot;</span><span class="p">,</span> <span class="n">re_credit</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inv_tax_credit object =&quot;</span><span class="p">,</span> <span class="n">inv_tax_credit</span><span class="p">)</span>
     <span class="n">rho</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="p">((</span><span class="n">r</span> <span class="o">-</span> <span class="n">pi</span> <span class="o">+</span> <span class="n">delta</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">u</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">inv_tax_credit</span> <span class="o">-</span> <span class="n">u</span> <span class="o">*</span> <span class="n">z</span><span class="p">)</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="n">delta</span>
+        <span class="p">((</span><span class="n">r</span> <span class="o">-</span> <span class="n">pi</span> <span class="o">+</span> <span class="n">delta</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">u</span><span class="p">))</span>
+        <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">inv_tax_credit</span> <span class="o">*</span> <span class="n">nu</span> <span class="o">-</span> <span class="n">u_d</span> <span class="o">*</span> <span class="n">z</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">psi</span> <span class="o">*</span> <span class="n">inv_tax_credit</span><span class="p">))</span>
+        <span class="o">+</span> <span class="n">w</span>
+        <span class="o">-</span> <span class="n">delta</span>
     <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">rho</span></div>

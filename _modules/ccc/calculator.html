@@ -579,9 +579,15 @@ document.write(`
                     <span class="n">dfs</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="s2">&quot;z_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">)],</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">__p</span><span class="o">.</span><span class="n">property_tax</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">__p</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">t</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__p</span><span class="o">.</span><span class="n">u_d</span><span class="p">[</span><span class="n">t</span><span class="p">],</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">__p</span><span class="o">.</span><span class="n">inv_tax_credit</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__p</span><span class="o">.</span><span class="n">psi</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__p</span><span class="o">.</span><span class="n">nu</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">__p</span><span class="o">.</span><span class="n">inflation_rate</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">__p</span><span class="o">.</span><span class="n">r</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">f</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__p</span><span class="o">.</span><span class="n">re_credit</span><span class="p">,</span>
+                    <span class="n">dfs</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="s2">&quot;bea_asset_code&quot;</span><span class="p">],</span>
+                    <span class="n">dfs</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="s2">&quot;bea_ind_code&quot;</span><span class="p">],</span>
                 <span class="p">)</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__p</span><span class="o">.</span><span class="n">inventory_expensing</span><span class="p">:</span>
                     <span class="n">idx</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="s2">&quot;asset_name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Inventories&quot;</span>

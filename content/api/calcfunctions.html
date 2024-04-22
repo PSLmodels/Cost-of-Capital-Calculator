@@ -516,10 +516,10 @@ economic depreciation rates.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ccc.calcfunctions.eq_coc">
-<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_coc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_tax_credit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_coc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_coc" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ccc.calcfunctions.</span></span><span class="sig-name descname"><span class="pre">eq_coc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_tax_credit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">re_credit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ind_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ccc/calcfunctions.html#eq_coc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ccc.calcfunctions.eq_coc" title="Link to this definition">#</a></dt>
 <dd><p>Compute the cost of capital</p>
 <div class="math notranslate nohighlight">
-\[\rho = \frac{(r-\pi+\delta)}{1-u}(1-uz)+w-\delta\]</div>
+\[\rho = \frac{(r-\pi+\delta)}{1-u}(1-u_dz(1-\psi k) - k\nu)+w-\delta\]</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -527,11 +527,18 @@ economic depreciation rates.</p>
 <li><p><strong>z</strong> (<em>array_like</em>) – net present value of depreciation deductions for
 $1 of investment</p></li>
 <li><p><strong>w</strong> (<em>scalar</em>) – property tax rate</p></li>
-<li><p><strong>u</strong> (<em>scalar</em>) – statutory marginal tax rate for the first layer of
+<li><p><strong>u</strong> (<em>scalar</em>) – marginal tax rate for the first layer of
 income taxes</p></li>
+<li><p><strong>u_d</strong> (<em>scalar</em>) – marginal tax rate on deductions</p></li>
 <li><p><strong>inv_tax_credit</strong> (<em>scalar</em>) – investment tax credit rate</p></li>
+<li><p><strong>psi</strong> (<em>scalar</em>) – fraction investment tax credit that affects
+depreciable basis of the investment</p></li>
+<li><p><strong>nu</strong> (<em>scalar</em>) – NPV of the investment tax credit</p></li>
 <li><p><strong>pi</strong> (<em>scalar</em>) – inflation rate</p></li>
 <li><p><strong>r</strong> (<em>scalar</em>) – discount rate</p></li>
+<li><p><strong>re_credit</strong> (<em>dict</em>) – rate of R&amp;E credit by asset or industry</p></li>
+<li><p><strong>asset_code</strong> (<em>array_like</em>) – asset code</p></li>
+<li><p><strong>ind_code</strong> (<em>array_like</em>) – industry code</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

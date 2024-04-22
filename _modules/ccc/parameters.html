@@ -469,14 +469,22 @@ document.write(`
 
         <span class="c1"># Set rate of 1st layer of taxation on investment income</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">CIT_rate</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">u_d</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">CIT_rate_ded</span><span class="p">}</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pt_entity_tax_ind</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;pt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau_pt</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;pt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pt_entity_tax_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">u_d</span><span class="p">[</span><span class="s2">&quot;pt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pt_scale_tax_rate_ded</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;pt&quot;</span><span class="p">]</span>
         <span class="n">E_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">E_c</span><span class="p">,</span> <span class="s2">&quot;pt&quot;</span><span class="p">:</span> <span class="n">E_pt</span><span class="p">}</span>
 
         <span class="c1"># Allowance for Corporate Equity</span>
         <span class="n">ace_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ace_c</span><span class="p">,</span> <span class="s2">&quot;pt&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ace_pt</span><span class="p">}</span>
+
+        <span class="c1"># Handle R&amp;E credits which vary by industry and asset type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">re_credit</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;By asset&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">re_credit_asset</span><span class="p">,</span>
+            <span class="s2">&quot;By industry&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">re_credit_industry</span><span class="p">,</span>
+        <span class="p">}</span>
 
         <span class="c1"># Limitation on interest deduction</span>
         <span class="n">int_haircut_dict</span> <span class="o">=</span> <span class="p">{</span>
@@ -646,7 +654,14 @@ document.write(`
     <span class="n">life</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="n">validate</span><span class="o">=</span><span class="n">ma</span><span class="o">.</span><span class="n">validate</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">))</span>
     <span class="n">method</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">String</span><span class="p">(</span>
         <span class="n">validate</span><span class="o">=</span><span class="n">ma</span><span class="o">.</span><span class="n">validate</span><span class="o">.</span><span class="n">OneOf</span><span class="p">(</span>
-            <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;SL&quot;</span><span class="p">,</span> <span class="s2">&quot;Expensing&quot;</span><span class="p">,</span> <span class="s2">&quot;DB 150%&quot;</span><span class="p">,</span> <span class="s2">&quot;DB 200%&quot;</span><span class="p">,</span> <span class="s2">&quot;Economic&quot;</span><span class="p">]</span>
+            <span class="n">choices</span><span class="o">=</span><span class="p">[</span>
+                <span class="s2">&quot;SL&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Expensing&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;DB 150%&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;DB 200%&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Economic&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Income Forecast&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
         <span class="p">)</span>
     <span class="p">)</span>
 
