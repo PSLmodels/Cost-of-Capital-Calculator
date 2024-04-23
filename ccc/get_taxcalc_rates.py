@@ -7,6 +7,7 @@ from ccc.utils import DEFAULT_START_YEAR, TC_LAST_YEAR, RECORDS_START_YEAR
 def get_calculator(
     baseline,
     calculator_start_year,
+    baseline_policy=None,
     reform=None,
     data="cps",
     gfactors=None,
@@ -19,6 +20,7 @@ def get_calculator(
     Args:
         baseline (bool): `True` if baseline tax policy
         calculator_start_year (integer): first year of budget window
+        baseline_policy (dictionary): IIT baseline parameters
         reform (dictionary): IIT reform parameters
         data (string or Pandas DataFrame): path to file or DataFrame
             for Tax-Calculator Records object (optional)
@@ -54,8 +56,14 @@ def get_calculator(
     if baseline:
         # Should not be a reform if baseline is True
         assert not reform
+        if (
+            baseline_policy
+        ):  # if something other than current law policy baseline
+            update_policy(policy1, baseline_policy)
 
     if not baseline:
+        if baseline_policy:  # update baseline policy to layer reform on top
+            update_policy(policy1, baseline_policy)
         update_policy(policy1, reform)
 
     # the default set up increments year to 2013
@@ -73,7 +81,11 @@ def get_calculator(
 
 
 def get_rates(
-    baseline=False, start_year=DEFAULT_START_YEAR, reform={}, data="cps"
+    baseline=False,
+    start_year=DEFAULT_START_YEAR,
+    baseline_policy=None,
+    reform={},
+    data="cps",
 ):
     """
     This function computes weighted average marginal tax rates using
@@ -92,6 +104,7 @@ def get_rates(
     calc1 = get_calculator(
         baseline=baseline,
         calculator_start_year=start_year,
+        baseline_policy=baseline_policy,
         reform=reform,
         data=data,
     )

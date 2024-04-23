@@ -39,7 +39,11 @@ def test_get_rates():
     """
     p = Specification(year=2020)  # has default tax rates, with should equal TC
     test_dict = tc.get_rates(
-        baseline=False, start_year=2020, reform={}, data="cps"
+        baseline=False,
+        start_year=2020,
+        baseline_policy={},
+        reform={},
+        data="cps",
     )
     for k, v in test_dict.items():
         print("Tax rate = ", k)
@@ -53,7 +57,7 @@ def test_get_rates():
 )
 def test_is_paramtools_format(reform, expected):
     """
-    Test get_taxcalc_rates.is_parametools_format function.
+    Test get_taxcalc_rates.is_paramtools_format function.
     """
     returned_value = tc.is_paramtools_format(reform)
 
