@@ -15,13 +15,17 @@ def test_get_calculator_cps():
 
 @pytest.mark.needs_puf
 @pytest.mark.parametrize(
-    "data", ["puf.csv", None], ids=["data=PUF", "data=None"]
+    "baseline,data",
+    [(True, "puf.csv"), (True, None), (False, None)],
+    ids=["baseline,data=PUF", "baseline,data=None", "reform,data=None"],
 )
-def test_get_calculator(data):
+def test_get_calculator(baseline, data):
     """
     Test the get_calculator() function
     """
-    calc1 = tc.get_calculator(True, 2019, data=data)
+    calc1 = tc.get_calculator(
+        baseline, 2019, baseline_policy={}, reform={}, data=data
+    )
     assert calc1.current_year == 2019
 
 
