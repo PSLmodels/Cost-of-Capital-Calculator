@@ -54,8 +54,6 @@ def get_calculator(
         records1 = Records()  # pragma: no cover
 
     if baseline:
-        # Should not be a reform if baseline is True
-        assert not reform
         if (
             baseline_policy
         ):  # if something other than current law policy baseline

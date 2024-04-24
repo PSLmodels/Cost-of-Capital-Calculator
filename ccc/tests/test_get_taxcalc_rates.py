@@ -24,7 +24,11 @@ def test_get_calculator(baseline, data):
     Test the get_calculator() function
     """
     calc1 = tc.get_calculator(
-        baseline, 2019, baseline_policy={}, reform={}, data=data
+        baseline,
+        2019,
+        baseline_policy={"FICA_ss_trt": {2018: 0.15}},
+        reform={"FICA_ss_trt": {2018: 0.125}},
+        data=data,
     )
     assert calc1.current_year == 2019
 
