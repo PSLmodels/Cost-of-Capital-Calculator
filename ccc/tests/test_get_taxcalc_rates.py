@@ -15,13 +15,21 @@ def test_get_calculator_cps():
 
 @pytest.mark.needs_puf
 @pytest.mark.parametrize(
-    "data", ["puf.csv", None], ids=["data=PUF", "data=None"]
+    "baseline,data",
+    [(True, "puf.csv"), (True, None), (False, None)],
+    ids=["baseline,data=PUF", "baseline,data=None", "reform,data=None"],
 )
-def test_get_calculator(data):
+def test_get_calculator(baseline, data):
     """
     Test the get_calculator() function
     """
-    calc1 = tc.get_calculator(True, 2019, data=data)
+    calc1 = tc.get_calculator(
+        baseline,
+        2019,
+        baseline_policy={"FICA_ss_trt": {2018: 0.15}},
+        reform={"FICA_ss_trt": {2018: 0.125}},
+        data=data,
+    )
     assert calc1.current_year == 2019
 
 
@@ -39,7 +47,11 @@ def test_get_rates():
     """
     p = Specification(year=2020)  # has default tax rates, with should equal TC
     test_dict = tc.get_rates(
-        baseline=False, start_year=2020, reform={}, data="cps"
+        baseline=False,
+        start_year=2020,
+        baseline_policy={},
+        reform={},
+        data="cps",
     )
     for k, v in test_dict.items():
         print("Tax rate = ", k)
@@ -53,7 +65,7 @@ def test_get_rates():
 )
 def test_is_paramtools_format(reform, expected):
     """
-    Test get_taxcalc_rates.is_parametools_format function.
+    Test get_taxcalc_rates.is_paramtools_format function.
     """
     returned_value = tc.is_paramtools_format(reform)
 

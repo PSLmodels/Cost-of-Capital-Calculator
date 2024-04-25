@@ -26,6 +26,7 @@ class Specification(paramtools.Parameters):
         baseline=False,
         year=DEFAULT_START_YEAR,
         call_tc=False,
+        baseline_policy=None,
         iit_reform={},
         data="cps",
     ):
@@ -34,6 +35,7 @@ class Specification(paramtools.Parameters):
         self.test = test
         self.baseline = baseline
         self.year = year
+        self.baseline_policy = baseline_policy
         self.iit_reform = iit_reform
         self.data = data
         # initialize parameter values from JSON
@@ -55,7 +57,11 @@ class Specification(paramtools.Parameters):
         if call_tc:
             # Find individual income tax rates from Tax-Calculator
             indiv_rates = get_rates(
-                self.baseline, self.year, self.iit_reform, self.data
+                self.baseline,
+                self.year,
+                self.baseline_policy,
+                self.iit_reform,
+                self.data,
             )
             self.tau_pt = indiv_rates["tau_pt"]
             self.tau_div = indiv_rates["tau_div"]
