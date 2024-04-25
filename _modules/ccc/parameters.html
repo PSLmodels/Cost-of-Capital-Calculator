@@ -404,6 +404,7 @@ document.write(`
         <span class="n">baseline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">year</span><span class="o">=</span><span class="n">DEFAULT_START_YEAR</span><span class="p">,</span>
         <span class="n">call_tc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">baseline_policy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">iit_reform</span><span class="o">=</span><span class="p">{},</span>
         <span class="n">data</span><span class="o">=</span><span class="s2">&quot;cps&quot;</span><span class="p">,</span>
     <span class="p">):</span>
@@ -412,6 +413,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">test</span> <span class="o">=</span> <span class="n">test</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">baseline</span> <span class="o">=</span> <span class="n">baseline</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">year</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">baseline_policy</span> <span class="o">=</span> <span class="n">baseline_policy</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">iit_reform</span> <span class="o">=</span> <span class="n">iit_reform</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
         <span class="c1"># initialize parameter values from JSON</span>
@@ -435,7 +437,11 @@ document.write(`
         <span class="k">if</span> <span class="n">call_tc</span><span class="p">:</span>
             <span class="c1"># Find individual income tax rates from Tax-Calculator</span>
             <span class="n">indiv_rates</span> <span class="o">=</span> <span class="n">get_rates</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">baseline</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iit_reform</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">baseline</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">baseline_policy</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">iit_reform</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tau_pt</span> <span class="o">=</span> <span class="n">indiv_rates</span><span class="p">[</span><span class="s2">&quot;tau_pt&quot;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tau_div</span> <span class="o">=</span> <span class="n">indiv_rates</span><span class="p">[</span><span class="s2">&quot;tau_div&quot;</span><span class="p">]</span>

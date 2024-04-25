@@ -385,6 +385,7 @@ document.write(`
 <span class="k">def</span> <span class="nf">get_calculator</span><span class="p">(</span>
     <span class="n">baseline</span><span class="p">,</span>
     <span class="n">calculator_start_year</span><span class="p">,</span>
+    <span class="n">baseline_policy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">reform</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">data</span><span class="o">=</span><span class="s2">&quot;cps&quot;</span><span class="p">,</span>
     <span class="n">gfactors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -397,6 +398,7 @@ document.write(`
 <span class="sd">    Args:</span>
 <span class="sd">        baseline (bool): `True` if baseline tax policy</span>
 <span class="sd">        calculator_start_year (integer): first year of budget window</span>
+<span class="sd">        baseline_policy (dictionary): IIT baseline parameters</span>
 <span class="sd">        reform (dictionary): IIT reform parameters</span>
 <span class="sd">        data (string or Pandas DataFrame): path to file or DataFrame</span>
 <span class="sd">            for Tax-Calculator Records object (optional)</span>
@@ -430,10 +432,14 @@ document.write(`
         <span class="n">records1</span> <span class="o">=</span> <span class="n">Records</span><span class="p">()</span>  <span class="c1"># pragma: no cover</span>
 
     <span class="k">if</span> <span class="n">baseline</span><span class="p">:</span>
-        <span class="c1"># Should not be a reform if baseline is True</span>
-        <span class="k">assert</span> <span class="ow">not</span> <span class="n">reform</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">baseline_policy</span>
+        <span class="p">):</span>  <span class="c1"># if something other than current law policy baseline</span>
+            <span class="n">update_policy</span><span class="p">(</span><span class="n">policy1</span><span class="p">,</span> <span class="n">baseline_policy</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">baseline</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">baseline_policy</span><span class="p">:</span>  <span class="c1"># update baseline policy to layer reform on top</span>
+            <span class="n">update_policy</span><span class="p">(</span><span class="n">policy1</span><span class="p">,</span> <span class="n">baseline_policy</span><span class="p">)</span>
         <span class="n">update_policy</span><span class="p">(</span><span class="n">policy1</span><span class="p">,</span> <span class="n">reform</span><span class="p">)</span>
 
     <span class="c1"># the default set up increments year to 2013</span>
@@ -454,7 +460,11 @@ document.write(`
 <div class="viewcode-block" id="get_rates">
 <a class="viewcode-back" href="../../content/api/get_taxcalc_rates.html#ccc.get_taxcalc_rates.get_rates">[docs]</a>
 <span class="k">def</span> <span class="nf">get_rates</span><span class="p">(</span>
-    <span class="n">baseline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">start_year</span><span class="o">=</span><span class="n">DEFAULT_START_YEAR</span><span class="p">,</span> <span class="n">reform</span><span class="o">=</span><span class="p">{},</span> <span class="n">data</span><span class="o">=</span><span class="s2">&quot;cps&quot;</span>
+    <span class="n">baseline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">start_year</span><span class="o">=</span><span class="n">DEFAULT_START_YEAR</span><span class="p">,</span>
+    <span class="n">baseline_policy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">reform</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">data</span><span class="o">=</span><span class="s2">&quot;cps&quot;</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function computes weighted average marginal tax rates using</span>
@@ -473,6 +483,7 @@ document.write(`
     <span class="n">calc1</span> <span class="o">=</span> <span class="n">get_calculator</span><span class="p">(</span>
         <span class="n">baseline</span><span class="o">=</span><span class="n">baseline</span><span class="p">,</span>
         <span class="n">calculator_start_year</span><span class="o">=</span><span class="n">start_year</span><span class="p">,</span>
+        <span class="n">baseline_policy</span><span class="o">=</span><span class="n">baseline_policy</span><span class="p">,</span>
         <span class="n">reform</span><span class="o">=</span><span class="n">reform</span><span class="p">,</span>
         <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
     <span class="p">)</span>
