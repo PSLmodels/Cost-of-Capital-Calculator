@@ -40,9 +40,17 @@ class Specification(paramtools.Parameters):
         self.iit_reform = iit_reform
         self.data = data
         # initialize parameter values from JSON
-        self.ccc_initialize(call_tc=call_tc, gfactors=gfactors, weights=weights)
+        self.ccc_initialize(
+            call_tc=call_tc, gfactors=gfactors, weights=weights
+        )
 
-    def ccc_initialize(self, call_tc=False, gfactors=None, weights=None, records_start_year=RECORDS_START_YEAR):
+    def ccc_initialize(
+        self,
+        call_tc=False,
+        gfactors=None,
+        weights=None,
+        records_start_year=RECORDS_START_YEAR,
+    ):
         """
         ParametersBase reads JSON file and sets attributes to self
         Next call self.compute_default_params for further initialization
@@ -73,7 +81,7 @@ class Specification(paramtools.Parameters):
                 self.data,
                 gfactors,
                 weights,
-                records_start_year
+                records_start_year,
             )
             self.tau_pt = indiv_rates["tau_pt"]
             self.tau_div = indiv_rates["tau_div"]
