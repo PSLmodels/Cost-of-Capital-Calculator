@@ -5,12 +5,26 @@ from ccc.parameters import Specification
 from ccc.utils import TC_LAST_YEAR
 
 
-def test_get_calculator_cps():
+@pytest.mark.parametrize(
+    "baseline",
+    [(True), (False, None)],
+    ids=["baseline", "reform"],
+)
+def test_get_calculator_cps(baseline):
     """
     Test the get_calculator() function
     """
-    calc1 = tc.get_calculator(True, 2019)
+    calc1 = tc.get_calculator(
+        baseline,
+        2019,
+        baseline_policy={"FICA_ss_trt": {2018: 0.15}},
+        reform={"FICA_ss_trt": {2018: 0.125}},
+    )
     assert calc1.current_year == 2019
+    if baseline:
+        assert calc1.policy_param("FICA_ss_trt") == 0.15
+    else:
+        assert calc1.policy_param("FICA_ss_trt") == 0.125
 
 
 @pytest.mark.needs_puf
