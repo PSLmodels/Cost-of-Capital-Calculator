@@ -1,6 +1,6 @@
 # imports
 import numpy as np
-from taxcalc import Policy, Records, Calculator
+from taxcalc import Policy, Records, Calculator, GrowFactors
 from ccc.utils import DEFAULT_START_YEAR, TC_LAST_YEAR, RECORDS_START_YEAR
 
 
@@ -34,6 +34,7 @@ def get_calculator(
     # create a calculator
     policy1 = Policy()
     if data is not None and "cps" in data:
+        print("Using CPS")
         records1 = Records.cps_constructor()
         # impute short and long term capital gains if using CPS data
         # in 2012 SOI data 6.587% of CG as short-term gains
@@ -42,6 +43,9 @@ def get_calculator(
         # set total capital gains to zero
         records1.e01100 = np.zeros(records1.e01100.shape[0])
     elif data is not None:  # pragma: no cover
+        print("Data is ", data)
+        print("Weights are ", weights)
+        print("Records start year is ", records_start_year)
         records1 = Records(
             data=data,
             gfactors=gfactors,
@@ -106,7 +110,7 @@ def get_rates(
         data=data,
         gfactors=None,
         weights=None,
-        records_start_year=RECORDS_START_YEAR,
+        records_start_year=records_start_year,
     )
 
     # running all the functions and calculates taxes

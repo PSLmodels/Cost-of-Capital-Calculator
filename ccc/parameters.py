@@ -41,7 +41,10 @@ class Specification(paramtools.Parameters):
         self.data = data
         # initialize parameter values from JSON
         self.ccc_initialize(
-            call_tc=call_tc, gfactors=gfactors, weights=weights
+            call_tc=call_tc,
+            gfactors=gfactors,
+            weights=weights,
+            records_start_year=records_start_year,
         )
 
     def ccc_initialize(
