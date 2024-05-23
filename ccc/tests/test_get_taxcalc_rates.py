@@ -6,22 +6,21 @@ from ccc.utils import TC_LAST_YEAR
 
 
 @pytest.mark.parametrize(
-    "baseline",
-    [(True), (False)],
+    "reform",
+    [(None), ({"FICA_ss_trt": {2018: 0.125}})],
     ids=["baseline", "reform"],
 )
-def test_get_calculator_cps(baseline):
+def test_get_calculator_cps(reform):
     """
     Test the get_calculator() function
     """
     calc1 = tc.get_calculator(
-        baseline,
         2019,
         baseline_policy={"FICA_ss_trt": {2018: 0.15}},
-        reform={"FICA_ss_trt": {2018: 0.125}},
+        reform=reform,
     )
     assert calc1.current_year == 2019
-    if baseline:
+    if reform is None:
         assert calc1.policy_param("FICA_ss_trt") == 0.15
     else:
         assert calc1.policy_param("FICA_ss_trt") == 0.125
@@ -29,16 +28,15 @@ def test_get_calculator_cps(baseline):
 
 @pytest.mark.needs_puf
 @pytest.mark.parametrize(
-    "baseline,data",
-    [(True, "puf.csv"), (True, None), (False, None)],
-    ids=["baseline,data=PUF", "baseline,data=None", "reform,data=None"],
+    "data",
+    [("puf.csv"), (None)],
+    ids=["baseline,data=PUF", "baseline,data=None"],
 )
-def test_get_calculator(baseline, data):
+def test_get_calculator(data):
     """
     Test the get_calculator() function
     """
     calc1 = tc.get_calculator(
-        baseline,
         2019,
         baseline_policy={"FICA_ss_trt": {2018: 0.15}},
         reform={"FICA_ss_trt": {2018: 0.125}},
@@ -61,7 +59,6 @@ def test_get_rates():
     """
     p = Specification(year=2020)  # has default tax rates, with should equal TC
     test_dict = tc.get_rates(
-        baseline=False,
         start_year=2020,
         baseline_policy={},
         reform={},

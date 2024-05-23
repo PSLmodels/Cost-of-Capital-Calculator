@@ -5,7 +5,6 @@ from ccc.utils import DEFAULT_START_YEAR, TC_LAST_YEAR, RECORDS_START_YEAR
 
 
 def get_calculator(
-    baseline,
     calculator_start_year,
     baseline_policy=None,
     reform=None,
@@ -18,7 +17,6 @@ def get_calculator(
     This function creates the tax calculator object for the microsim
 
     Args:
-        baseline (bool): `True` if baseline tax policy
         calculator_start_year (integer): first year of budget window
         baseline_policy (dictionary): IIT baseline parameters
         reform (dictionary): IIT reform parameters
@@ -73,20 +71,28 @@ def get_calculator(
 
 
 def get_rates(
-    baseline=False,
     start_year=DEFAULT_START_YEAR,
     baseline_policy=None,
     reform={},
     data="cps",
+    gfactors=None,
+    weights=None,
+    records_start_year=RECORDS_START_YEAR,
 ):
     """
     This function computes weighted average marginal tax rates using
     micro data from the tax calculator
 
     Args:
-        baseline (bool): `True` if baseline tax policy, `False` if reform
-        start_year (integer): first year of budget window
+        start_year (integer): start year for the simulations
+        baseline_policy (dict): baseline parameters
         reform (dict): reform parameters
+        data (string or Pandas DataFrame): path to file or DataFrame
+            for Tax-Calculator Records object (optional)
+        gfactors (Tax-Calculator GrowFactors object): grow factors
+        weights (str): path to weights file for Tax-Calculator
+            Records object
+        records_start_year (integer): the start year for the microdata
 
     Returns:
         individual_rates (dict): individual income (IIT+payroll)
@@ -94,11 +100,13 @@ def get_rates(
 
     """
     calc1 = get_calculator(
-        baseline=baseline,
         calculator_start_year=start_year,
         baseline_policy=baseline_policy,
         reform=reform,
         data=data,
+        gfactors=None,
+        weights=None,
+        records_start_year=RECORDS_START_YEAR,
     )
 
     # running all the functions and calculates taxes
