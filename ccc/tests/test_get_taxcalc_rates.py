@@ -7,7 +7,7 @@ from ccc.utils import TC_LAST_YEAR
 
 @pytest.mark.parametrize(
     "baseline",
-    [(True), (False, None)],
+    [(True), (False)],
     ids=["baseline", "reform"],
 )
 def test_get_calculator_cps(baseline):
