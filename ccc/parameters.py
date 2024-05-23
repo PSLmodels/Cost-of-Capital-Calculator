@@ -4,7 +4,7 @@ import marshmallow as ma
 
 # import ccc
 from ccc.get_taxcalc_rates import get_rates
-from ccc.utils import DEFAULT_START_YEAR
+from ccc.utils import DEFAULT_START_YEAR, RECORDS_START_YEAR
 import ccc.paramfunctions as pf
 
 CURRENT_PATH = os.path.abspath(os.path.dirname(__file__))
@@ -23,32 +23,42 @@ class Specification(paramtools.Parameters):
     def __init__(
         self,
         test=False,
-        baseline=False,
         year=DEFAULT_START_YEAR,
         call_tc=False,
         baseline_policy=None,
-        iit_reform={},
+        iit_reform=None,
         data="cps",
+        gfactors=None,
+        weights=None,
+        records_start_year=RECORDS_START_YEAR,
     ):
         super().__init__()
         self.set_state(year=year)
         self.test = test
-        self.baseline = baseline
         self.year = year
         self.baseline_policy = baseline_policy
         self.iit_reform = iit_reform
         self.data = data
         # initialize parameter values from JSON
-        self.ccc_initialize(call_tc=call_tc)
+        self.ccc_initialize(call_tc=call_tc, gfactors=gfactors, weights=weights)
 
-    def ccc_initialize(self, call_tc=False):
+    def ccc_initialize(self, call_tc=False, gfactors=None, weights=None, records_start_year=RECORDS_START_YEAR):
         """
         ParametersBase reads JSON file and sets attributes to self
         Next call self.compute_default_params for further initialization
 
         Args:
+            test (bool): whether to run in test mode
+            year (int): start year for simulation
             call_tc (bool): whether to use Tax-Calculator to estimate
                 marginal tax rates
+            baseline_policy (dict): individual income tax baseline
+                policy parameters, reform dict makes changes relative
+                to this baseline
+            iit_reform (dict): individual income tax reform parameters
+            data (str): data source for Tax-Calculator
+            gfactors (dict): growth factors for Tax-Calculator
+            weights (str): weights for Tax-Calculator
 
         Returns:
             None
@@ -57,11 +67,13 @@ class Specification(paramtools.Parameters):
         if call_tc:
             # Find individual income tax rates from Tax-Calculator
             indiv_rates = get_rates(
-                self.baseline,
                 self.year,
                 self.baseline_policy,
                 self.iit_reform,
                 self.data,
+                gfactors,
+                weights,
+                records_start_year
             )
             self.tau_pt = indiv_rates["tau_pt"]
             self.tau_div = indiv_rates["tau_div"]

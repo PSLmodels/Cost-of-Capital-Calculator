@@ -53,15 +53,9 @@ def get_calculator(
     else:
         records1 = Records()  # pragma: no cover
 
-    if baseline:
-        if (
-            baseline_policy
-        ):  # if something other than current law policy baseline
-            update_policy(policy1, baseline_policy)
-
-    if not baseline:
-        if baseline_policy:  # update baseline policy to layer reform on top
-            update_policy(policy1, baseline_policy)
+    if baseline_policy:  # if something other than current law policy baseline
+        update_policy(policy1, baseline_policy)
+    if reform:  # if there is a reform
         update_policy(policy1, reform)
 
     # the default set up increments year to 2013
