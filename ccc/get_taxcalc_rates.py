@@ -15,6 +15,11 @@ def get_calculator(
 ):
     """
     This function creates the tax calculator object for the microsim
+    model.
+
+    Note: gfactors and weights are only used if provide custom data
+    path or file with those gfactors and weights.  Otherwise, the
+    model defaults to those gfactors and weights from Tax-Calculator.
 
     Args:
         calculator_start_year (integer): first year of budget window
@@ -22,6 +27,7 @@ def get_calculator(
         reform (dictionary): IIT reform parameters
         data (string or Pandas DataFrame): path to file or DataFrame
             for Tax-Calculator Records object (optional)
+        gfactors (str or DataFrame): grow factors to extrapolate data
         weights (DataFrame): weights DataFrame for Tax-Calculator
             Records object (optional)
         records_start_year (integer): the start year for the data and
@@ -42,6 +48,12 @@ def get_calculator(
         records1.p23250 = (1 - 0.06587) * records1.e01100
         # set total capital gains to zero
         records1.e01100 = np.zeros(records1.e01100.shape[0])
+    elif data is None or "puf" in data:  # pragma: no cover
+        print("Using PUF")
+        records1 = Records()
+    elif data is not None and "tmd" in data:  # pragma: no cover
+        print("Using TMD")
+        records1 = Records.tmd_constructor()
     elif data is not None:  # pragma: no cover
         print("Data is ", data)
         print("Weights are ", weights)
@@ -52,8 +64,8 @@ def get_calculator(
             weights=weights,
             start_year=records_start_year,
         )  # pragma: no cover
-    else:
-        records1 = Records()  # pragma: no cover
+    else:  # pragma: no cover
+        raise ValueError("Please provide data or use CPS, PUF, or TMD.")
 
     if baseline_policy:  # if something other than current law policy baseline
         update_policy(policy1, baseline_policy)
