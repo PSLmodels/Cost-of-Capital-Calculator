@@ -32,7 +32,7 @@ def test_get_calculator_cps(reform):
     [("puf.csv"), (None)],
     ids=["baseline,data=PUF", "baseline,data=None"],
 )
-def test_get_calculator(data):
+def test_get_calculator_puf(data):
     """
     Test the get_calculator() function
     """
@@ -43,6 +43,25 @@ def test_get_calculator(data):
         data=data,
     )
     assert calc1.current_year == 2019
+
+
+@pytest.mark.needs_tmd
+@pytest.mark.parametrize(
+    "data",
+    [("tmd.csv")],
+    ids=["baseline,data=TMD"],
+)
+def test_get_calculator_tmd(data):
+    """
+    Test the get_calculator() function
+    """
+    calc1 = tc.get_calculator(
+        2021,
+        baseline_policy={"FICA_ss_trt": {2021: 0.15}},
+        reform={"FICA_ss_trt": {2022: 0.125}},
+        data=data,
+    )
+    assert calc1.current_year == 2021
 
 
 def test_get_calculator_exception():

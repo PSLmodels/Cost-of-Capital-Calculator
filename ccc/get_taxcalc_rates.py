@@ -53,7 +53,7 @@ def get_calculator(
         records1 = Records()
     elif data is not None and "tmd" in data:  # pragma: no cover
         print("Using TMD")
-        records1 = Records.tmd_constructor()
+        records1 = Records.tmd_constructor("tmd.csv.gz")
     elif data is not None:  # pragma: no cover
         print("Data is ", data)
         print("Weights are ", weights)
