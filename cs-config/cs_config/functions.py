@@ -6,15 +6,19 @@ from ccc.utils import TC_LAST_YEAR, DEFAULT_START_YEAR
 from bokeh.embed import json_item
 import os
 import paramtools
-from taxcalc import Policy
+import pandas as pd
+from taxcalc import Policy, Records, Growfactors
 from collections import OrderedDict
-from .helpers import retrieve_puf
+from .helpers import retrieve_puf, retrieve_tmd
 import cs2tc
 
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 PUF_S3_FILE_LOCATION = os.environ.get(
     "PUF_S3_LOCATION", "s3://ospc-data-files/puf.20210720.csv.gz"
+)
+TMD_S3_FILE_LOCATION = os.environ.get(
+    "TMD_S3_LOCATION", "s3://ospc-data-files/puf.20210720.csv.gz"
 )
 
 
@@ -45,7 +49,7 @@ class MetaParams(paramtools.Parameters):
             "description": "Data source for Tax-Calculator to use",
             "type": "str",
             "value": "CPS",
-            "validators": {"choice": {"choices": ["PUF", "CPS"]}},
+            "validators": {"choice": {"choices": ["PUF", "CPS", "TMD"]}},
         },
     }
 
@@ -180,8 +184,35 @@ def run_model(meta_param_dict, adjustment):
         data = retrieve_puf(
             PUF_S3_FILE_LOCATION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
         )
-    else:
+        weights = Records.PUF_WEIGHTS_FILENAME
+        records_start_year = Records.PUFCSV_YEAR
+        if data is not None:
+            if not isinstance(data, pd.DataFrame):
+                raise TypeError("'data' must be a Pandas DataFrame.")
+        else:
+            # Access keys are not available. Default to the CPS.
+            print("Defaulting to the CPS")
+            meta_params.adjust({"data_source": "CPS"})
+    elif meta_params.data_source == "TMD":
+        data = retrieve_tmd(
+            TMD_S3_FILE_LOCATION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
+        )
+        weights = Records.TMD_WEIGHTS_FILENAME
+        records_start_year = Records.TMDCSV_YEAR
+        if data is not None:
+            if not isinstance(data, pd.DataFrame):
+                raise TypeError("'data' must be a Pandas DataFrame.")
+        else:
+            # Access keys are not available. Default to the CPS.
+            print("Defaulting to the CPS")
+            meta_params.adjust({"data_source": "CPS"})
+    elif meta_params.data_source == "CPS":
         data = "cps"
+        weights = Records.PUF_WEIGHTS_FILENAME
+    else:
+        raise ValueError(
+            f"Data source '{meta_params.data_source}' is not supported."
+        )
     # Get TC params adjustments
     iit_mods = cs2tc.convert_policy_adjustment(
         adjustment["Individual and Payroll Tax Parameters"]
@@ -228,7 +259,13 @@ def run_model(meta_param_dict, adjustment):
     calc1 = Calculator(params, dp, assets)
     # Reform CCC calculator - includes TC adjustments
     params2 = Specification(
-        year=meta_params.year, call_tc=True, iit_reform=iit_mods, data=data
+        year=meta_params.year,
+        call_tc=True,
+        iit_reform=iit_mods,
+        data=data,
+        gfactors=Growfactors.FILE_NAME,
+        weights=weights,
+        records_start_year=records_start_year,
     )
     params2.update_specification(adjustment["Business Tax Parameters"])
     calc2 = Calculator(params2, dp, assets)
