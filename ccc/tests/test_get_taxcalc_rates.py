@@ -69,7 +69,7 @@ def test_get_calculator_exception():
     Test the get_calculator() function
     """
     with pytest.raises(Exception):
-        assert tc.get_calculator(True, TC_LAST_YEAR + 1)
+        assert tc.get_calculator(TC_LAST_YEAR + 1)
 
 
 def test_get_rates():
