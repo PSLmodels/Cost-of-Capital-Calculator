@@ -7,7 +7,7 @@ from bokeh.embed import json_item
 import os
 import paramtools
 import pandas as pd
-from taxcalc import Policy, Records, Growfactors
+from taxcalc import Policy, Records, GrowFactors
 from collections import OrderedDict
 from .helpers import retrieve_puf, retrieve_tmd
 import cs2tc
@@ -209,6 +209,7 @@ def run_model(meta_param_dict, adjustment):
     elif meta_params.data_source == "CPS":
         data = "cps"
         weights = Records.PUF_WEIGHTS_FILENAME
+        records_start_year = Records.CPSCSV_YEAR
     else:
         raise ValueError(
             f"Data source '{meta_params.data_source}' is not supported."
@@ -263,7 +264,7 @@ def run_model(meta_param_dict, adjustment):
         call_tc=True,
         iit_reform=iit_mods,
         data=data,
-        gfactors=Growfactors.FILE_NAME,
+        gfactors=GrowFactors.FILE_NAME,
         weights=weights,
         records_start_year=records_start_year,
     )
