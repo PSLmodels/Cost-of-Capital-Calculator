@@ -7,7 +7,7 @@ from ccc.utils import TC_LAST_YEAR
 
 @pytest.mark.parametrize(
     "reform",
-    [(None), ({"FICA_ss_trt": {2018: 0.125}})],
+    [(None), ({"FICA_ss_trt_employee": {2018: 0.0625}})],
     ids=["baseline", "reform"],
 )
 def test_get_calculator_cps(reform):
@@ -16,14 +16,14 @@ def test_get_calculator_cps(reform):
     """
     calc1 = tc.get_calculator(
         2019,
-        baseline_policy={"FICA_ss_trt": {2018: 0.15}},
+        baseline_policy={"FICA_ss_trt_employee": {2018: 0.075}},
         reform=reform,
     )
     assert calc1.current_year == 2019
     if reform is None:
-        assert calc1.policy_param("FICA_ss_trt") == 0.15
+        assert calc1.policy_param("FICA_ss_trt_employee") == 0.075
     else:
-        assert calc1.policy_param("FICA_ss_trt") == 0.125
+        assert calc1.policy_param("FICA_ss_trt_employee") == 0.0625
 
 
 @pytest.mark.needs_puf
@@ -38,8 +38,8 @@ def test_get_calculator_puf(data):
     """
     calc1 = tc.get_calculator(
         2019,
-        baseline_policy={"FICA_ss_trt": {2018: 0.15}},
-        reform={"FICA_ss_trt": {2018: 0.125}},
+        baseline_policy={"FICA_ss_trt_employee": {2018: 0.075}},
+        reform={"FICA_ss_trt_employee": {2018: 0.0625}},
         data=data,
     )
     assert calc1.current_year == 2019
@@ -57,8 +57,8 @@ def test_get_calculator_tmd(data):
     """
     calc1 = tc.get_calculator(
         2021,
-        baseline_policy={"FICA_ss_trt": {2021: 0.15}},
-        reform={"FICA_ss_trt": {2022: 0.125}},
+        baseline_policy={"FICA_ss_trt_employee": {2021: 0.075}},
+        reform={"FICA_ss_trt_employee": {2022: 0.0625}},
         data=data,
     )
     assert calc1.current_year == 2021
