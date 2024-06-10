@@ -12,7 +12,7 @@ def test_tc_start_year(year):
     Test that different start years work in functions calling
     Tax-Calculator
     """
-    get_rates(True, year)
+    get_rates(year)
 
 
 @pytest.mark.parametrize(

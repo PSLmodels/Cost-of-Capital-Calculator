@@ -1,11 +1,10 @@
 # imports
 import numpy as np
-from taxcalc import Policy, Records, Calculator
+from taxcalc import Policy, Records, Calculator, GrowFactors
 from ccc.utils import DEFAULT_START_YEAR, TC_LAST_YEAR, RECORDS_START_YEAR
 
 
 def get_calculator(
-    baseline,
     calculator_start_year,
     baseline_policy=None,
     reform=None,
@@ -16,14 +15,19 @@ def get_calculator(
 ):
     """
     This function creates the tax calculator object for the microsim
+    model.
+
+    Note: gfactors and weights are only used if provide custom data
+    path or file with those gfactors and weights.  Otherwise, the
+    model defaults to those gfactors and weights from Tax-Calculator.
 
     Args:
-        baseline (bool): `True` if baseline tax policy
         calculator_start_year (integer): first year of budget window
         baseline_policy (dictionary): IIT baseline parameters
         reform (dictionary): IIT reform parameters
         data (string or Pandas DataFrame): path to file or DataFrame
             for Tax-Calculator Records object (optional)
+        gfactors (str or DataFrame): grow factors to extrapolate data
         weights (DataFrame): weights DataFrame for Tax-Calculator
             Records object (optional)
         records_start_year (integer): the start year for the data and
@@ -36,6 +40,7 @@ def get_calculator(
     # create a calculator
     policy1 = Policy()
     if data is not None and "cps" in data:
+        print("Using CPS")
         records1 = Records.cps_constructor()
         # impute short and long term capital gains if using CPS data
         # in 2012 SOI data 6.587% of CG as short-term gains
@@ -43,25 +48,28 @@ def get_calculator(
         records1.p23250 = (1 - 0.06587) * records1.e01100
         # set total capital gains to zero
         records1.e01100 = np.zeros(records1.e01100.shape[0])
+    elif data is None or "puf" in data:  # pragma: no cover
+        print("Using PUF")
+        records1 = Records()
+    elif data is not None and "tmd" in data:  # pragma: no cover
+        print("Using TMD")
+        records1 = Records.tmd_constructor("tmd.csv.gz")
     elif data is not None:  # pragma: no cover
+        print("Data is ", data)
+        print("Weights are ", weights)
+        print("Records start year is ", records_start_year)
         records1 = Records(
             data=data,
             gfactors=gfactors,
             weights=weights,
             start_year=records_start_year,
         )  # pragma: no cover
-    else:
-        records1 = Records()  # pragma: no cover
+    else:  # pragma: no cover
+        raise ValueError("Please provide data or use CPS, PUF, or TMD.")
 
-    if baseline:
-        if (
-            baseline_policy
-        ):  # if something other than current law policy baseline
-            update_policy(policy1, baseline_policy)
-
-    if not baseline:
-        if baseline_policy:  # update baseline policy to layer reform on top
-            update_policy(policy1, baseline_policy)
+    if baseline_policy:  # if something other than current law policy baseline
+        update_policy(policy1, baseline_policy)
+    if reform:  # if there is a reform
         update_policy(policy1, reform)
 
     # the default set up increments year to 2013
@@ -79,20 +87,28 @@ def get_calculator(
 
 
 def get_rates(
-    baseline=False,
     start_year=DEFAULT_START_YEAR,
     baseline_policy=None,
     reform={},
     data="cps",
+    gfactors=None,
+    weights=None,
+    records_start_year=RECORDS_START_YEAR,
 ):
     """
     This function computes weighted average marginal tax rates using
     micro data from the tax calculator
 
     Args:
-        baseline (bool): `True` if baseline tax policy, `False` if reform
-        start_year (integer): first year of budget window
+        start_year (integer): start year for the simulations
+        baseline_policy (dict): baseline parameters
         reform (dict): reform parameters
+        data (string or Pandas DataFrame): path to file or DataFrame
+            for Tax-Calculator Records object (optional)
+        gfactors (Tax-Calculator GrowFactors object): grow factors
+        weights (str): path to weights file for Tax-Calculator
+            Records object
+        records_start_year (integer): the start year for the microdata
 
     Returns:
         individual_rates (dict): individual income (IIT+payroll)
@@ -100,11 +116,13 @@ def get_rates(
 
     """
     calc1 = get_calculator(
-        baseline=baseline,
         calculator_start_year=start_year,
         baseline_policy=baseline_policy,
         reform=reform,
         data=data,
+        gfactors=None,
+        weights=None,
+        records_start_year=records_start_year,
     )
 
     # running all the functions and calculates taxes
