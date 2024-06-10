@@ -51,7 +51,7 @@ class TestFunctions1(CoreTestFunctions):
             "CIT_rate": [{"year": DEFAULT_START_YEAR, "value": 0.25}]
         },
         "Individual and Payroll Tax Parameters": {
-            "FICA_ss_trt": [{"year": DEFAULT_START_YEAR, "value": 0.14}]
+            "FICA_ss_trt_employee": [{"year": DEFAULT_START_YEAR, "value": 0.07}]
         },
     }
     bad_adjustment = {
