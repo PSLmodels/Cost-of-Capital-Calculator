@@ -5,7 +5,7 @@
                 "type": "int",
                 "validators": {
                     "range": {
-                        "min": 2013,
+                        "min": 1953,
                         "max": 2034
                     }
                 }
@@ -45,6 +45,358 @@
         "type": "float",
         "value": [
             {
+                "year": 1925,
+                "value": 0.13
+            },
+            {
+                "year": 1926,
+                "value": 0.135
+            },
+            {
+                "year": 1927,
+                "value": 0.135
+            },
+            {
+                "year": 1928,
+                "value": 0.12
+            },
+            {
+                "year": 1929,
+                "value": 0.11
+            },
+            {
+                "year": 1930,
+                "value": 0.12
+            },
+            {
+                "year": 1931,
+                "value": 0.12
+            },
+            {
+                "year": 1932,
+                "value": 0.1375
+            },
+            {
+                "year": 1933,
+                "value": 0.1375
+            },
+            {
+                "year": 1934,
+                "value": 0.1375
+            },
+            {
+                "year": 1935,
+                "value": 0.1375
+            },
+            {
+                "year": 1936,
+                "value": 0.15
+            },
+            {
+                "year": 1937,
+                "value": 0.15
+            },
+            {
+                "year": 1938,
+                "value": 0.19
+            },
+            {
+                "year": 1939,
+                "value": 0.19
+            },
+            {
+                "year": 1940,
+                "value": 0.24
+            },
+            {
+                "year": 1941,
+                "value": 0.31
+            },
+            {
+                "year": 1942,
+                "value": 0.4
+            },
+            {
+                "year": 1943,
+                "value": 0.4
+            },
+            {
+                "year": 1944,
+                "value": 0.4
+            },
+            {
+                "year": 1945,
+                "value": 0.4
+            },
+            {
+                "year": 1946,
+                "value": 0.38
+            },
+            {
+                "year": 1947,
+                "value": 0.38
+            },
+            {
+                "year": 1948,
+                "value": 0.38
+            },
+            {
+                "year": 1949,
+                "value": 0.38
+            },
+            {
+                "year": 1950,
+                "value": 0.42
+            },
+            {
+                "year": 1951,
+                "value": 0.5075
+            },
+            {
+                "year": 1952,
+                "value": 0.52
+            },
+            {
+                "year": 1953,
+                "value": 0.52
+            },
+            {
+                "year": 1954,
+                "value": 0.52
+            },
+            {
+                "year": 1955,
+                "value": 0.52
+            },
+            {
+                "year": 1956,
+                "value": 0.52
+            },
+            {
+                "year": 1957,
+                "value": 0.52
+            },
+            {
+                "year": 1958,
+                "value": 0.52
+            },
+            {
+                "year": 1959,
+                "value": 0.52
+            },
+            {
+                "year": 1960,
+                "value": 0.52
+            },
+            {
+                "year": 1961,
+                "value": 0.52
+            },
+            {
+                "year": 1962,
+                "value": 0.52
+            },
+            {
+                "year": 1963,
+                "value": 0.52
+            },
+            {
+                "year": 1964,
+                "value": 0.5
+            },
+            {
+                "year": 1965,
+                "value": 0.48
+            },
+            {
+                "year": 1966,
+                "value": 0.48
+            },
+            {
+                "year": 1967,
+                "value": 0.48
+            },
+            {
+                "year": 1968,
+                "value": 0.528
+            },
+            {
+                "year": 1969,
+                "value": 0.528
+            },
+            {
+                "year": 1970,
+                "value": 0.492
+            },
+            {
+                "year": 1971,
+                "value": 0.48
+            },
+            {
+                "year": 1972,
+                "value": 0.48
+            },
+            {
+                "year": 1973,
+                "value": 0.48
+            },
+            {
+                "year": 1974,
+                "value": 0.48
+            },
+            {
+                "year": 1975,
+                "value": 0.48
+            },
+            {
+                "year": 1976,
+                "value": 0.48
+            },
+            {
+                "year": 1977,
+                "value": 0.48
+            },
+            {
+                "year": 1978,
+                "value": 0.48
+            },
+            {
+                "year": 1979,
+                "value": 0.46
+            },
+            {
+                "year": 1980,
+                "value": 0.46
+            },
+            {
+                "year": 1981,
+                "value": 0.46
+            },
+            {
+                "year": 1982,
+                "value": 0.46
+            },
+            {
+                "year": 1983,
+                "value": 0.46
+            },
+            {
+                "year": 1984,
+                "value": 0.46
+            },
+            {
+                "year": 1985,
+                "value": 0.46
+            },
+            {
+                "year": 1986,
+                "value": 0.46
+            },
+            {
+                "year": 1987,
+                "value": 0.4
+            },
+            {
+                "year": 1988,
+                "value": 0.34
+            },
+            {
+                "year": 1989,
+                "value": 0.34
+            },
+            {
+                "year": 1990,
+                "value": 0.34
+            },
+            {
+                "year": 1991,
+                "value": 0.34
+            },
+            {
+                "year": 1992,
+                "value": 0.34
+            },
+            {
+                "year": 1993,
+                "value": 0.35
+            },
+            {
+                "year": 1994,
+                "value": 0.35
+            },
+            {
+                "year": 1995,
+                "value": 0.35
+            },
+            {
+                "year": 1996,
+                "value": 0.35
+            },
+            {
+                "year": 1997,
+                "value": 0.35
+            },
+            {
+                "year": 1998,
+                "value": 0.35
+            },
+            {
+                "year": 1999,
+                "value": 0.35
+            },
+            {
+                "year": 2000,
+                "value": 0.35
+            },
+            {
+                "year": 2001,
+                "value": 0.35
+            },
+            {
+                "year": 2002,
+                "value": 0.35
+            },
+            {
+                "year": 2003,
+                "value": 0.35
+            },
+            {
+                "year": 2004,
+                "value": 0.35
+            },
+            {
+                "year": 2005,
+                "value": 0.35
+            },
+            {
+                "year": 2006,
+                "value": 0.35
+            },
+            {
+                "year": 2007,
+                "value": 0.35
+            },
+            {
+                "year": 2008,
+                "value": 0.35
+            },
+            {
+                "year": 2009,
+                "value": 0.35
+            },
+            {
+                "year": 2010,
+                "value": 0.35
+            },
+            {
+                "year": 2011,
+                "value": 0.35
+            },
+            {
+                "year": 2012,
+                "value": 0.35
+            },
+            {
                 "year": 2013,
                 "value": 0.35
             },
@@ -66,6 +418,26 @@
             },
             {
                 "year": 2018,
+                "value": 0.21
+            },
+            {
+                "year": 2019,
+                "value": 0.21
+            },
+            {
+                "year": 2020,
+                "value": 0.21
+            },
+            {
+                "year": 2021,
+                "value": 0.21
+            },
+            {
+                "year": 2022,
+                "value": 0.21
+            },
+            {
+                "year": 2023,
                 "value": 0.21
             }
         ],
@@ -83,6 +455,358 @@
         "type": "float",
         "value": [
             {
+                "year": 1925,
+                "value": 0.13
+            },
+            {
+                "year": 1926,
+                "value": 0.135
+            },
+            {
+                "year": 1927,
+                "value": 0.135
+            },
+            {
+                "year": 1928,
+                "value": 0.12
+            },
+            {
+                "year": 1929,
+                "value": 0.11
+            },
+            {
+                "year": 1930,
+                "value": 0.12
+            },
+            {
+                "year": 1931,
+                "value": 0.12
+            },
+            {
+                "year": 1932,
+                "value": 0.1375
+            },
+            {
+                "year": 1933,
+                "value": 0.1375
+            },
+            {
+                "year": 1934,
+                "value": 0.1375
+            },
+            {
+                "year": 1935,
+                "value": 0.1375
+            },
+            {
+                "year": 1936,
+                "value": 0.15
+            },
+            {
+                "year": 1937,
+                "value": 0.15
+            },
+            {
+                "year": 1938,
+                "value": 0.19
+            },
+            {
+                "year": 1939,
+                "value": 0.19
+            },
+            {
+                "year": 1940,
+                "value": 0.24
+            },
+            {
+                "year": 1941,
+                "value": 0.31
+            },
+            {
+                "year": 1942,
+                "value": 0.4
+            },
+            {
+                "year": 1943,
+                "value": 0.4
+            },
+            {
+                "year": 1944,
+                "value": 0.4
+            },
+            {
+                "year": 1945,
+                "value": 0.4
+            },
+            {
+                "year": 1946,
+                "value": 0.38
+            },
+            {
+                "year": 1947,
+                "value": 0.38
+            },
+            {
+                "year": 1948,
+                "value": 0.38
+            },
+            {
+                "year": 1949,
+                "value": 0.38
+            },
+            {
+                "year": 1950,
+                "value": 0.42
+            },
+            {
+                "year": 1951,
+                "value": 0.5075
+            },
+            {
+                "year": 1952,
+                "value": 0.52
+            },
+            {
+                "year": 1953,
+                "value": 0.52
+            },
+            {
+                "year": 1954,
+                "value": 0.52
+            },
+            {
+                "year": 1955,
+                "value": 0.52
+            },
+            {
+                "year": 1956,
+                "value": 0.52
+            },
+            {
+                "year": 1957,
+                "value": 0.52
+            },
+            {
+                "year": 1958,
+                "value": 0.52
+            },
+            {
+                "year": 1959,
+                "value": 0.52
+            },
+            {
+                "year": 1960,
+                "value": 0.52
+            },
+            {
+                "year": 1961,
+                "value": 0.52
+            },
+            {
+                "year": 1962,
+                "value": 0.52
+            },
+            {
+                "year": 1963,
+                "value": 0.52
+            },
+            {
+                "year": 1964,
+                "value": 0.5
+            },
+            {
+                "year": 1965,
+                "value": 0.48
+            },
+            {
+                "year": 1966,
+                "value": 0.48
+            },
+            {
+                "year": 1967,
+                "value": 0.48
+            },
+            {
+                "year": 1968,
+                "value": 0.528
+            },
+            {
+                "year": 1969,
+                "value": 0.528
+            },
+            {
+                "year": 1970,
+                "value": 0.492
+            },
+            {
+                "year": 1971,
+                "value": 0.48
+            },
+            {
+                "year": 1972,
+                "value": 0.48
+            },
+            {
+                "year": 1973,
+                "value": 0.48
+            },
+            {
+                "year": 1974,
+                "value": 0.48
+            },
+            {
+                "year": 1975,
+                "value": 0.48
+            },
+            {
+                "year": 1976,
+                "value": 0.48
+            },
+            {
+                "year": 1977,
+                "value": 0.48
+            },
+            {
+                "year": 1978,
+                "value": 0.48
+            },
+            {
+                "year": 1979,
+                "value": 0.46
+            },
+            {
+                "year": 1980,
+                "value": 0.46
+            },
+            {
+                "year": 1981,
+                "value": 0.46
+            },
+            {
+                "year": 1982,
+                "value": 0.46
+            },
+            {
+                "year": 1983,
+                "value": 0.46
+            },
+            {
+                "year": 1984,
+                "value": 0.46
+            },
+            {
+                "year": 1985,
+                "value": 0.46
+            },
+            {
+                "year": 1986,
+                "value": 0.46
+            },
+            {
+                "year": 1987,
+                "value": 0.4
+            },
+            {
+                "year": 1988,
+                "value": 0.34
+            },
+            {
+                "year": 1989,
+                "value": 0.34
+            },
+            {
+                "year": 1990,
+                "value": 0.34
+            },
+            {
+                "year": 1991,
+                "value": 0.34
+            },
+            {
+                "year": 1992,
+                "value": 0.34
+            },
+            {
+                "year": 1993,
+                "value": 0.35
+            },
+            {
+                "year": 1994,
+                "value": 0.35
+            },
+            {
+                "year": 1995,
+                "value": 0.35
+            },
+            {
+                "year": 1996,
+                "value": 0.35
+            },
+            {
+                "year": 1997,
+                "value": 0.35
+            },
+            {
+                "year": 1998,
+                "value": 0.35
+            },
+            {
+                "year": 1999,
+                "value": 0.35
+            },
+            {
+                "year": 2000,
+                "value": 0.35
+            },
+            {
+                "year": 2001,
+                "value": 0.35
+            },
+            {
+                "year": 2002,
+                "value": 0.35
+            },
+            {
+                "year": 2003,
+                "value": 0.35
+            },
+            {
+                "year": 2004,
+                "value": 0.35
+            },
+            {
+                "year": 2005,
+                "value": 0.35
+            },
+            {
+                "year": 2006,
+                "value": 0.35
+            },
+            {
+                "year": 2007,
+                "value": 0.35
+            },
+            {
+                "year": 2008,
+                "value": 0.35
+            },
+            {
+                "year": 2009,
+                "value": 0.35
+            },
+            {
+                "year": 2010,
+                "value": 0.35
+            },
+            {
+                "year": 2011,
+                "value": 0.35
+            },
+            {
+                "year": 2012,
+                "value": 0.35
+            },
+            {
                 "year": 2013,
                 "value": 0.35
             },
@@ -105,6 +829,26 @@
             {
                 "year": 2018,
                 "value": 0.21
+            },
+            {
+                "year": 2019,
+                "value": 0.21
+            },
+            {
+                "year": 2020,
+                "value": 0.21
+            },
+            {
+                "year": 2021,
+                "value": 0.21
+            },
+            {
+                "year": 2022,
+                "value": 0.21
+            },
+            {
+                "year": 2023,
+                "value": 0.21
             }
         ],
         "validators": {
@@ -118,7 +862,7 @@
         "title": "Pass-through business entity-level tax indicator",
         "description": "Indicator variable indicating whether or not there is an entity-level tax on pass-through businesses. This tax is levied on entity-level profits.  Owners also pay individual income taxes on the distributions.",
         "section_1": "Business-entity level taxes",
-        "notes": "Note that is this indicator is True, then the METR calculation for pass-through businesses will represent the effects of the entity-level tax and not the indvidiual-level tax.  This is becaue the METR represents the effective tax rate from the first layer of taxation.  The statutory rate on pass-through entities is set with the pt_entity_tax_rate parameter.",
+        "notes": "Note that if this indicator is True, then the METR calculation for pass-through businesses will represent the effects of the entity-level tax and not the indvidiual-level tax.  This is becaue the METR represents the effective tax rate from the first layer of taxation.  The statutory rate on pass-through entities is set with the pt_entity_tax_rate parameter.",
         "type": "bool",
         "value": [
             {
@@ -171,6 +915,246 @@
         "section_2": "Bonus Depreciation",
         "type": "float",
         "value": [
+            {
+                "year": 1953,
+                "value": 0
+            },
+            {
+                "year": 1954,
+                "value": 0
+            },
+            {
+                "year": 1955,
+                "value": 0
+            },
+            {
+                "year": 1956,
+                "value": 0
+            },
+            {
+                "year": 1957,
+                "value": 0
+            },
+            {
+                "year": 1958,
+                "value": 0
+            },
+            {
+                "year": 1959,
+                "value": 0
+            },
+            {
+                "year": 1960,
+                "value": 0
+            },
+            {
+                "year": 1961,
+                "value": 0
+            },
+            {
+                "year": 1962,
+                "value": 0
+            },
+            {
+                "year": 1963,
+                "value": 0
+            },
+            {
+                "year": 1964,
+                "value": 0
+            },
+            {
+                "year": 1965,
+                "value": 0
+            },
+            {
+                "year": 1966,
+                "value": 0
+            },
+            {
+                "year": 1967,
+                "value": 0
+            },
+            {
+                "year": 1968,
+                "value": 0
+            },
+            {
+                "year": 1969,
+                "value": 0
+            },
+            {
+                "year": 1970,
+                "value": 0
+            },
+            {
+                "year": 1971,
+                "value": 0
+            },
+            {
+                "year": 1972,
+                "value": 0
+            },
+            {
+                "year": 1973,
+                "value": 0
+            },
+            {
+                "year": 1974,
+                "value": 0
+            },
+            {
+                "year": 1975,
+                "value": 0
+            },
+            {
+                "year": 1976,
+                "value": 0
+            },
+            {
+                "year": 1977,
+                "value": 0
+            },
+            {
+                "year": 1978,
+                "value": 0
+            },
+            {
+                "year": 1979,
+                "value": 0
+            },
+            {
+                "year": 1980,
+                "value": 0
+            },
+            {
+                "year": 1981,
+                "value": 0
+            },
+            {
+                "year": 1982,
+                "value": 0
+            },
+            {
+                "year": 1983,
+                "value": 0
+            },
+            {
+                "year": 1984,
+                "value": 0
+            },
+            {
+                "year": 1985,
+                "value": 0
+            },
+            {
+                "year": 1986,
+                "value": 0
+            },
+            {
+                "year": 1987,
+                "value": 0
+            },
+            {
+                "year": 1988,
+                "value": 0
+            },
+            {
+                "year": 1989,
+                "value": 0
+            },
+            {
+                "year": 1990,
+                "value": 0
+            },
+            {
+                "year": 1991,
+                "value": 0
+            },
+            {
+                "year": 1992,
+                "value": 0
+            },
+            {
+                "year": 1993,
+                "value": 0
+            },
+            {
+                "year": 1994,
+                "value": 0
+            },
+            {
+                "year": 1995,
+                "value": 0
+            },
+            {
+                "year": 1996,
+                "value": 0
+            },
+            {
+                "year": 1997,
+                "value": 0
+            },
+            {
+                "year": 1998,
+                "value": 0
+            },
+            {
+                "year": 1999,
+                "value": 0
+            },
+            {
+                "year": 2000,
+                "value": 0
+            },
+            {
+                "year": 2001,
+                "value": 0.3
+            },
+            {
+                "year": 2002,
+                "value": 0.3
+            },
+            {
+                "year": 2003,
+                "value": 0.5
+            },
+            {
+                "year": 2004,
+                "value": 0.5
+            },
+            {
+                "year": 2005,
+                "value": 0
+            },
+            {
+                "year": 2006,
+                "value": 0
+            },
+            {
+                "year": 2007,
+                "value": 0
+            },
+            {
+                "year": 2008,
+                "value": 0.5
+            },
+            {
+                "year": 2009,
+                "value": 0.5
+            },
+            {
+                "year": 2010,
+                "value": 0.5
+            },
+            {
+                "year": 2011,
+                "value": 1
+            },
+            {
+                "year": 2012,
+                "value": 0.5
+            },
             {
                 "year": 2013,
                 "value": 0.5
@@ -255,6 +1239,246 @@
         "type": "float",
         "value": [
             {
+                "year": 1953,
+                "value": 0
+            },
+            {
+                "year": 1954,
+                "value": 0
+            },
+            {
+                "year": 1955,
+                "value": 0
+            },
+            {
+                "year": 1956,
+                "value": 0
+            },
+            {
+                "year": 1957,
+                "value": 0
+            },
+            {
+                "year": 1958,
+                "value": 0
+            },
+            {
+                "year": 1959,
+                "value": 0
+            },
+            {
+                "year": 1960,
+                "value": 0
+            },
+            {
+                "year": 1961,
+                "value": 0
+            },
+            {
+                "year": 1962,
+                "value": 0
+            },
+            {
+                "year": 1963,
+                "value": 0
+            },
+            {
+                "year": 1964,
+                "value": 0
+            },
+            {
+                "year": 1965,
+                "value": 0
+            },
+            {
+                "year": 1966,
+                "value": 0
+            },
+            {
+                "year": 1967,
+                "value": 0
+            },
+            {
+                "year": 1968,
+                "value": 0
+            },
+            {
+                "year": 1969,
+                "value": 0
+            },
+            {
+                "year": 1970,
+                "value": 0
+            },
+            {
+                "year": 1971,
+                "value": 0
+            },
+            {
+                "year": 1972,
+                "value": 0
+            },
+            {
+                "year": 1973,
+                "value": 0
+            },
+            {
+                "year": 1974,
+                "value": 0
+            },
+            {
+                "year": 1975,
+                "value": 0
+            },
+            {
+                "year": 1976,
+                "value": 0
+            },
+            {
+                "year": 1977,
+                "value": 0
+            },
+            {
+                "year": 1978,
+                "value": 0
+            },
+            {
+                "year": 1979,
+                "value": 0
+            },
+            {
+                "year": 1980,
+                "value": 0
+            },
+            {
+                "year": 1981,
+                "value": 0
+            },
+            {
+                "year": 1982,
+                "value": 0
+            },
+            {
+                "year": 1983,
+                "value": 0
+            },
+            {
+                "year": 1984,
+                "value": 0
+            },
+            {
+                "year": 1985,
+                "value": 0
+            },
+            {
+                "year": 1986,
+                "value": 0
+            },
+            {
+                "year": 1987,
+                "value": 0
+            },
+            {
+                "year": 1988,
+                "value": 0
+            },
+            {
+                "year": 1989,
+                "value": 0
+            },
+            {
+                "year": 1990,
+                "value": 0
+            },
+            {
+                "year": 1991,
+                "value": 0
+            },
+            {
+                "year": 1992,
+                "value": 0
+            },
+            {
+                "year": 1993,
+                "value": 0
+            },
+            {
+                "year": 1994,
+                "value": 0
+            },
+            {
+                "year": 1995,
+                "value": 0
+            },
+            {
+                "year": 1996,
+                "value": 0
+            },
+            {
+                "year": 1997,
+                "value": 0
+            },
+            {
+                "year": 1998,
+                "value": 0
+            },
+            {
+                "year": 1999,
+                "value": 0
+            },
+            {
+                "year": 2000,
+                "value": 0
+            },
+            {
+                "year": 2001,
+                "value": 0.3
+            },
+            {
+                "year": 2002,
+                "value": 0.3
+            },
+            {
+                "year": 2003,
+                "value": 0.5
+            },
+            {
+                "year": 2004,
+                "value": 0.5
+            },
+            {
+                "year": 2005,
+                "value": 0
+            },
+            {
+                "year": 2006,
+                "value": 0
+            },
+            {
+                "year": 2007,
+                "value": 0
+            },
+            {
+                "year": 2008,
+                "value": 0.5
+            },
+            {
+                "year": 2009,
+                "value": 0.5
+            },
+            {
+                "year": 2010,
+                "value": 0.5
+            },
+            {
+                "year": 2011,
+                "value": 1
+            },
+            {
+                "year": 2012,
+                "value": 0.5
+            },
+            {
                 "year": 2013,
                 "value": 0.5
             },
@@ -337,6 +1561,246 @@
         "section_2": "Bonus Depreciation",
         "type": "float",
         "value": [
+            {
+                "year": 1953,
+                "value": 0
+            },
+            {
+                "year": 1954,
+                "value": 0
+            },
+            {
+                "year": 1955,
+                "value": 0
+            },
+            {
+                "year": 1956,
+                "value": 0
+            },
+            {
+                "year": 1957,
+                "value": 0
+            },
+            {
+                "year": 1958,
+                "value": 0
+            },
+            {
+                "year": 1959,
+                "value": 0
+            },
+            {
+                "year": 1960,
+                "value": 0
+            },
+            {
+                "year": 1961,
+                "value": 0
+            },
+            {
+                "year": 1962,
+                "value": 0
+            },
+            {
+                "year": 1963,
+                "value": 0
+            },
+            {
+                "year": 1964,
+                "value": 0
+            },
+            {
+                "year": 1965,
+                "value": 0
+            },
+            {
+                "year": 1966,
+                "value": 0
+            },
+            {
+                "year": 1967,
+                "value": 0
+            },
+            {
+                "year": 1968,
+                "value": 0
+            },
+            {
+                "year": 1969,
+                "value": 0
+            },
+            {
+                "year": 1970,
+                "value": 0
+            },
+            {
+                "year": 1971,
+                "value": 0
+            },
+            {
+                "year": 1972,
+                "value": 0
+            },
+            {
+                "year": 1973,
+                "value": 0
+            },
+            {
+                "year": 1974,
+                "value": 0
+            },
+            {
+                "year": 1975,
+                "value": 0
+            },
+            {
+                "year": 1976,
+                "value": 0
+            },
+            {
+                "year": 1977,
+                "value": 0
+            },
+            {
+                "year": 1978,
+                "value": 0
+            },
+            {
+                "year": 1979,
+                "value": 0
+            },
+            {
+                "year": 1980,
+                "value": 0
+            },
+            {
+                "year": 1981,
+                "value": 0
+            },
+            {
+                "year": 1982,
+                "value": 0
+            },
+            {
+                "year": 1983,
+                "value": 0
+            },
+            {
+                "year": 1984,
+                "value": 0
+            },
+            {
+                "year": 1985,
+                "value": 0
+            },
+            {
+                "year": 1986,
+                "value": 0
+            },
+            {
+                "year": 1987,
+                "value": 0
+            },
+            {
+                "year": 1988,
+                "value": 0
+            },
+            {
+                "year": 1989,
+                "value": 0
+            },
+            {
+                "year": 1990,
+                "value": 0
+            },
+            {
+                "year": 1991,
+                "value": 0
+            },
+            {
+                "year": 1992,
+                "value": 0
+            },
+            {
+                "year": 1993,
+                "value": 0
+            },
+            {
+                "year": 1994,
+                "value": 0
+            },
+            {
+                "year": 1995,
+                "value": 0
+            },
+            {
+                "year": 1996,
+                "value": 0
+            },
+            {
+                "year": 1997,
+                "value": 0
+            },
+            {
+                "year": 1998,
+                "value": 0
+            },
+            {
+                "year": 1999,
+                "value": 0
+            },
+            {
+                "year": 2000,
+                "value": 0
+            },
+            {
+                "year": 2001,
+                "value": 0.3
+            },
+            {
+                "year": 2002,
+                "value": 0.3
+            },
+            {
+                "year": 2003,
+                "value": 0.5
+            },
+            {
+                "year": 2004,
+                "value": 0.5
+            },
+            {
+                "year": 2005,
+                "value": 0
+            },
+            {
+                "year": 2006,
+                "value": 0
+            },
+            {
+                "year": 2007,
+                "value": 0
+            },
+            {
+                "year": 2008,
+                "value": 0.5
+            },
+            {
+                "year": 2009,
+                "value": 0.5
+            },
+            {
+                "year": 2010,
+                "value": 0.5
+            },
+            {
+                "year": 2011,
+                "value": 1
+            },
+            {
+                "year": 2012,
+                "value": 0.5
+            },
             {
                 "year": 2013,
                 "value": 0.5
@@ -421,6 +1885,246 @@
         "type": "float",
         "value": [
             {
+                "year": 1953,
+                "value": 0
+            },
+            {
+                "year": 1954,
+                "value": 0
+            },
+            {
+                "year": 1955,
+                "value": 0
+            },
+            {
+                "year": 1956,
+                "value": 0
+            },
+            {
+                "year": 1957,
+                "value": 0
+            },
+            {
+                "year": 1958,
+                "value": 0
+            },
+            {
+                "year": 1959,
+                "value": 0
+            },
+            {
+                "year": 1960,
+                "value": 0
+            },
+            {
+                "year": 1961,
+                "value": 0
+            },
+            {
+                "year": 1962,
+                "value": 0
+            },
+            {
+                "year": 1963,
+                "value": 0
+            },
+            {
+                "year": 1964,
+                "value": 0
+            },
+            {
+                "year": 1965,
+                "value": 0
+            },
+            {
+                "year": 1966,
+                "value": 0
+            },
+            {
+                "year": 1967,
+                "value": 0
+            },
+            {
+                "year": 1968,
+                "value": 0
+            },
+            {
+                "year": 1969,
+                "value": 0
+            },
+            {
+                "year": 1970,
+                "value": 0
+            },
+            {
+                "year": 1971,
+                "value": 0
+            },
+            {
+                "year": 1972,
+                "value": 0
+            },
+            {
+                "year": 1973,
+                "value": 0
+            },
+            {
+                "year": 1974,
+                "value": 0
+            },
+            {
+                "year": 1975,
+                "value": 0
+            },
+            {
+                "year": 1976,
+                "value": 0
+            },
+            {
+                "year": 1977,
+                "value": 0
+            },
+            {
+                "year": 1978,
+                "value": 0
+            },
+            {
+                "year": 1979,
+                "value": 0
+            },
+            {
+                "year": 1980,
+                "value": 0
+            },
+            {
+                "year": 1981,
+                "value": 0
+            },
+            {
+                "year": 1982,
+                "value": 0
+            },
+            {
+                "year": 1983,
+                "value": 0
+            },
+            {
+                "year": 1984,
+                "value": 0
+            },
+            {
+                "year": 1985,
+                "value": 0
+            },
+            {
+                "year": 1986,
+                "value": 0
+            },
+            {
+                "year": 1987,
+                "value": 0
+            },
+            {
+                "year": 1988,
+                "value": 0
+            },
+            {
+                "year": 1989,
+                "value": 0
+            },
+            {
+                "year": 1990,
+                "value": 0
+            },
+            {
+                "year": 1991,
+                "value": 0
+            },
+            {
+                "year": 1992,
+                "value": 0
+            },
+            {
+                "year": 1993,
+                "value": 0
+            },
+            {
+                "year": 1994,
+                "value": 0
+            },
+            {
+                "year": 1995,
+                "value": 0
+            },
+            {
+                "year": 1996,
+                "value": 0
+            },
+            {
+                "year": 1997,
+                "value": 0
+            },
+            {
+                "year": 1998,
+                "value": 0
+            },
+            {
+                "year": 1999,
+                "value": 0
+            },
+            {
+                "year": 2000,
+                "value": 0
+            },
+            {
+                "year": 2001,
+                "value": 0.3
+            },
+            {
+                "year": 2002,
+                "value": 0.3
+            },
+            {
+                "year": 2003,
+                "value": 0.5
+            },
+            {
+                "year": 2004,
+                "value": 0.5
+            },
+            {
+                "year": 2005,
+                "value": 0
+            },
+            {
+                "year": 2006,
+                "value": 0
+            },
+            {
+                "year": 2007,
+                "value": 0
+            },
+            {
+                "year": 2008,
+                "value": 0.5
+            },
+            {
+                "year": 2009,
+                "value": 0.5
+            },
+            {
+                "year": 2010,
+                "value": 0.5
+            },
+            {
+                "year": 2011,
+                "value": 1
+            },
+            {
+                "year": 2012,
+                "value": 0.5
+            },
+            {
                 "year": 2013,
                 "value": 0.5
             },
@@ -503,6 +2207,246 @@
         "section_2": "Bonus Depreciation",
         "type": "float",
         "value": [
+            {
+                "year": 1953,
+                "value": 0
+            },
+            {
+                "year": 1954,
+                "value": 0
+            },
+            {
+                "year": 1955,
+                "value": 0
+            },
+            {
+                "year": 1956,
+                "value": 0
+            },
+            {
+                "year": 1957,
+                "value": 0
+            },
+            {
+                "year": 1958,
+                "value": 0
+            },
+            {
+                "year": 1959,
+                "value": 0
+            },
+            {
+                "year": 1960,
+                "value": 0
+            },
+            {
+                "year": 1961,
+                "value": 0
+            },
+            {
+                "year": 1962,
+                "value": 0
+            },
+            {
+                "year": 1963,
+                "value": 0
+            },
+            {
+                "year": 1964,
+                "value": 0
+            },
+            {
+                "year": 1965,
+                "value": 0
+            },
+            {
+                "year": 1966,
+                "value": 0
+            },
+            {
+                "year": 1967,
+                "value": 0
+            },
+            {
+                "year": 1968,
+                "value": 0
+            },
+            {
+                "year": 1969,
+                "value": 0
+            },
+            {
+                "year": 1970,
+                "value": 0
+            },
+            {
+                "year": 1971,
+                "value": 0
+            },
+            {
+                "year": 1972,
+                "value": 0
+            },
+            {
+                "year": 1973,
+                "value": 0
+            },
+            {
+                "year": 1974,
+                "value": 0
+            },
+            {
+                "year": 1975,
+                "value": 0
+            },
+            {
+                "year": 1976,
+                "value": 0
+            },
+            {
+                "year": 1977,
+                "value": 0
+            },
+            {
+                "year": 1978,
+                "value": 0
+            },
+            {
+                "year": 1979,
+                "value": 0
+            },
+            {
+                "year": 1980,
+                "value": 0
+            },
+            {
+                "year": 1981,
+                "value": 0
+            },
+            {
+                "year": 1982,
+                "value": 0
+            },
+            {
+                "year": 1983,
+                "value": 0
+            },
+            {
+                "year": 1984,
+                "value": 0
+            },
+            {
+                "year": 1985,
+                "value": 0
+            },
+            {
+                "year": 1986,
+                "value": 0
+            },
+            {
+                "year": 1987,
+                "value": 0
+            },
+            {
+                "year": 1988,
+                "value": 0
+            },
+            {
+                "year": 1989,
+                "value": 0
+            },
+            {
+                "year": 1990,
+                "value": 0
+            },
+            {
+                "year": 1991,
+                "value": 0
+            },
+            {
+                "year": 1992,
+                "value": 0
+            },
+            {
+                "year": 1993,
+                "value": 0
+            },
+            {
+                "year": 1994,
+                "value": 0
+            },
+            {
+                "year": 1995,
+                "value": 0
+            },
+            {
+                "year": 1996,
+                "value": 0
+            },
+            {
+                "year": 1997,
+                "value": 0
+            },
+            {
+                "year": 1998,
+                "value": 0
+            },
+            {
+                "year": 1999,
+                "value": 0
+            },
+            {
+                "year": 2000,
+                "value": 0
+            },
+            {
+                "year": 2001,
+                "value": 0.3
+            },
+            {
+                "year": 2002,
+                "value": 0.3
+            },
+            {
+                "year": 2003,
+                "value": 0.5
+            },
+            {
+                "year": 2004,
+                "value": 0.5
+            },
+            {
+                "year": 2005,
+                "value": 0
+            },
+            {
+                "year": 2006,
+                "value": 0
+            },
+            {
+                "year": 2007,
+                "value": 0
+            },
+            {
+                "year": 2008,
+                "value": 0.5
+            },
+            {
+                "year": 2009,
+                "value": 0.5
+            },
+            {
+                "year": 2010,
+                "value": 0.5
+            },
+            {
+                "year": 2011,
+                "value": 1
+            },
+            {
+                "year": 2012,
+                "value": 0.5
+            },
             {
                 "year": 2013,
                 "value": 0.5
@@ -587,6 +2531,246 @@
         "type": "float",
         "value": [
             {
+                "year": 1953,
+                "value": 0
+            },
+            {
+                "year": 1954,
+                "value": 0
+            },
+            {
+                "year": 1955,
+                "value": 0
+            },
+            {
+                "year": 1956,
+                "value": 0
+            },
+            {
+                "year": 1957,
+                "value": 0
+            },
+            {
+                "year": 1958,
+                "value": 0
+            },
+            {
+                "year": 1959,
+                "value": 0
+            },
+            {
+                "year": 1960,
+                "value": 0
+            },
+            {
+                "year": 1961,
+                "value": 0
+            },
+            {
+                "year": 1962,
+                "value": 0
+            },
+            {
+                "year": 1963,
+                "value": 0
+            },
+            {
+                "year": 1964,
+                "value": 0
+            },
+            {
+                "year": 1965,
+                "value": 0
+            },
+            {
+                "year": 1966,
+                "value": 0
+            },
+            {
+                "year": 1967,
+                "value": 0
+            },
+            {
+                "year": 1968,
+                "value": 0
+            },
+            {
+                "year": 1969,
+                "value": 0
+            },
+            {
+                "year": 1970,
+                "value": 0
+            },
+            {
+                "year": 1971,
+                "value": 0
+            },
+            {
+                "year": 1972,
+                "value": 0
+            },
+            {
+                "year": 1973,
+                "value": 0
+            },
+            {
+                "year": 1974,
+                "value": 0
+            },
+            {
+                "year": 1975,
+                "value": 0
+            },
+            {
+                "year": 1976,
+                "value": 0
+            },
+            {
+                "year": 1977,
+                "value": 0
+            },
+            {
+                "year": 1978,
+                "value": 0
+            },
+            {
+                "year": 1979,
+                "value": 0
+            },
+            {
+                "year": 1980,
+                "value": 0
+            },
+            {
+                "year": 1981,
+                "value": 0
+            },
+            {
+                "year": 1982,
+                "value": 0
+            },
+            {
+                "year": 1983,
+                "value": 0
+            },
+            {
+                "year": 1984,
+                "value": 0
+            },
+            {
+                "year": 1985,
+                "value": 0
+            },
+            {
+                "year": 1986,
+                "value": 0
+            },
+            {
+                "year": 1987,
+                "value": 0
+            },
+            {
+                "year": 1988,
+                "value": 0
+            },
+            {
+                "year": 1989,
+                "value": 0
+            },
+            {
+                "year": 1990,
+                "value": 0
+            },
+            {
+                "year": 1991,
+                "value": 0
+            },
+            {
+                "year": 1992,
+                "value": 0
+            },
+            {
+                "year": 1993,
+                "value": 0
+            },
+            {
+                "year": 1994,
+                "value": 0
+            },
+            {
+                "year": 1995,
+                "value": 0
+            },
+            {
+                "year": 1996,
+                "value": 0
+            },
+            {
+                "year": 1997,
+                "value": 0
+            },
+            {
+                "year": 1998,
+                "value": 0
+            },
+            {
+                "year": 1999,
+                "value": 0
+            },
+            {
+                "year": 2000,
+                "value": 0
+            },
+            {
+                "year": 2001,
+                "value": 0.3
+            },
+            {
+                "year": 2002,
+                "value": 0.3
+            },
+            {
+                "year": 2003,
+                "value": 0.5
+            },
+            {
+                "year": 2004,
+                "value": 0.5
+            },
+            {
+                "year": 2005,
+                "value": 0
+            },
+            {
+                "year": 2006,
+                "value": 0
+            },
+            {
+                "year": 2007,
+                "value": 0
+            },
+            {
+                "year": 2008,
+                "value": 0.5
+            },
+            {
+                "year": 2009,
+                "value": 0.5
+            },
+            {
+                "year": 2010,
+                "value": 0.5
+            },
+            {
+                "year": 2011,
+                "value": 1
+            },
+            {
+                "year": 2012,
+                "value": 0.5
+            },
+            {
                 "year": 2013,
                 "value": 0.5
             },
@@ -670,7 +2854,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2013,
+                "year": 1953,
                 "value": 0.0
             }
         ],
@@ -689,7 +2873,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2013,
+                "year": 1953,
                 "value": 0.0
             }
         ],
@@ -708,7 +2892,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2013,
+                "year": 1953,
                 "value": 0.0
             }
         ],
@@ -975,7 +3159,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2013,
+                "year": 1953,
                 "value": 1.0
             }
         ],
@@ -994,7 +3178,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2013,
+                "year": 1953,
                 "value": 1.0
             }
         ],
@@ -1802,53 +3986,294 @@
         "title": "Inflation rate",
         "description": "Inflation rate.",
         "section_1": "Economic Assumptions",
-        "notes": "The default inflation rate is determined by the forecast of the Congressional Budget Office (CBO) for the PCE price index.",
+        "notes": "The default inflation rate is determined by the forecast of the Congressional Budget Office (CBO) for the PCE price index for 2024 - 2029 (these need to be updated). 1953-2023 inflation data accessed from the US Bureau of Economic Analysis through the St. Louis FED.",
         "type": "float",
         "value": [
             {
-                "year": 2013,
+                "year": 1953,
                 "value": 0.012
             },
             {
-                "year": 2014,
-                "value": 0.013
+                "year": 1954,
+                "value": 0.009
             },
             {
-                "year": 2015,
-                "value": 0.011
-            },
-            {
-                "year": 2016,
-                "value": 0.008
-            },
-            {
-                "year": 2017,
+                "year": 1955,
                 "value": 0.017
             },
             {
-                "year": 2018,
+                "year": 1956,
+                "value": 0.034
+            },
+            {
+                "year": 1957,
+                "value": 0.033
+            },
+            {
+                "year": 1958,
+                "value": 0.023
+            },
+            {
+                "year": 1959,
+                "value": 0.014
+            },
+            {
+                "year": 1960,
+                "value": 0.014
+            },
+            {
+                "year": 1961,
+                "value": 0.011
+            },
+            {
+                "year": 1962,
+                "value": 0.012
+            },
+            {
+                "year": 1963,
+                "value": 0.011
+            },
+            {
+                "year": 1964,
+                "value": 0.015
+            },
+            {
+                "year": 1965,
+                "value": 0.018
+            },
+            {
+                "year": 1966,
+                "value": 0.028
+            },
+            {
+                "year": 1967,
+                "value": 0.029
+            },
+            {
+                "year": 1968,
+                "value": 0.043
+            },
+            {
+                "year": 1969,
+                "value": 0.049
+            },
+            {
+                "year": 1970,
+                "value": 0.053
+            },
+            {
+                "year": 1971,
+                "value": 0.051
+            },
+            {
+                "year": 1972,
+                "value": 0.043
+            },
+            {
+                "year": 1973,
+                "value": 0.055
+            },
+            {
+                "year": 1974,
+                "value": 0.09
+            },
+            {
+                "year": 1975,
+                "value": 0.093
+            },
+            {
+                "year": 1976,
+                "value": 0.055
+            },
+            {
+                "year": 1977,
+                "value": 0.062
+            },
+            {
+                "year": 1978,
+                "value": 0.07
+            },
+            {
+                "year": 1979,
+                "value": 0.083
+            },
+            {
+                "year": 1980,
+                "value": 0.09
+            },
+            {
+                "year": 1981,
+                "value": 0.095
+            },
+            {
+                "year": 1982,
+                "value": 0.062
+            },
+            {
+                "year": 1983,
+                "value": 0.039
+            },
+            {
+                "year": 1984,
+                "value": 0.036
+            },
+            {
+                "year": 1985,
+                "value": 0.032
+            },
+            {
+                "year": 1986,
+                "value": 0.02
+            },
+            {
+                "year": 1987,
+                "value": 0.025
+            },
+            {
+                "year": 1988,
+                "value": 0.035
+            },
+            {
+                "year": 1989,
+                "value": 0.039
+            },
+            {
+                "year": 1990,
+                "value": 0.037
+            },
+            {
+                "year": 1991,
+                "value": 0.034
+            },
+            {
+                "year": 1992,
+                "value": 0.023
+            },
+            {
+                "year": 1993,
+                "value": 0.024
+            },
+            {
+                "year": 1994,
                 "value": 0.021
             },
             {
-                "year": 2019,
+                "year": 1995,
+                "value": 0.021
+            },
+            {
+                "year": 1996,
+                "value": 0.018
+            },
+            {
+                "year": 1997,
+                "value": 0.017
+            },
+            {
+                "year": 1998,
+                "value": 0.011
+            },
+            {
+                "year": 1999,
+                "value": 0.014
+            },
+            {
+                "year": 2000,
+                "value": 0.023
+            },
+            {
+                "year": 2001,
+                "value": 0.023
+            },
+            {
+                "year": 2002,
                 "value": 0.016
             },
             {
-                "year": 2020,
+                "year": 2003,
+                "value": 0.02
+            },
+            {
+                "year": 2004,
+                "value": 0.027
+            },
+            {
+                "year": 2005,
+                "value": 0.031
+            },
+            {
+                "year": 2006,
+                "value": 0.031
+            },
+            {
+                "year": 2007,
+                "value": 0.027
+            },
+            {
+                "year": 2008,
+                "value": 0.019
+            },
+            {
+                "year": 2009,
+                "value": 0.006
+            },
+            {
+                "year": 2010,
+                "value": 0.012
+            },
+            {
+                "year": 2011,
                 "value": 0.021
+            },
+            {
+                "year": 2012,
+                "value": 0.019
+            },
+            {
+                "year": 2013,
+                "value": 0.017
+            },
+            {
+                "year": 2014,
+                "value": 0.017
+            },
+            {
+                "year": 2015,
+                "value": 0.009
+            },
+            {
+                "year": 2016,
+                "value": 0.01
+            },
+            {
+                "year": 2017,
+                "value": 0.018
+            },
+            {
+                "year": 2018,
+                "value": 0.023
+            },
+            {
+                "year": 2019,
+                "value": 0.017
+            },
+            {
+                "year": 2020,
+                "value": 0.013
             },
             {
                 "year": 2021,
-                "value": 0.021
+                "value": 0.046
             },
             {
                 "year": 2022,
-                "value": 0.021
+                "value": 0.07
             },
             {
                 "year": 2023,
-                "value": 0.02
+                "value": 0.036
             },
+                        
             {
                 "year": 2024,
                 "value": 0.02
@@ -1886,41 +4311,294 @@
         "title": "Nominal interest rate paid on business debt",
         "description": "Nominal interest rate paid on business debt.",
         "section_1": "Economic Assumptions",
-        "notes": "The default nominal interest rate is taken as the yeild on BBB corporate bonds.  Default value taken from CBO (2014): https://www.cbo.gov/sites/default/files/113th-congress-2013-2014/reports/49817-taxingcapitalincome0.pdf",
+        "notes": "The default nominal interest rate is taken as the Moody's yield on Baa corporate bonds.",
         "type": "float",
         "value": [
             {
-                "year": 2013,
+                "year": 1953,
+                "value": 0.037
+            },
+            {
+                "year": 1954,
+                "value": 0.035
+            },
+            {
+                "year": 1955,
+                "value": 0.035
+            },
+            {
+                "year": 1956,
+                "value": 0.039
+            },
+            {
+                "year": 1957,
+                "value": 0.047
+            },
+            {
+                "year": 1958,
+                "value": 0.047
+            },
+            {
+                "year": 1959,
+                "value": 0.051
+            },
+            {
+                "year": 1960,
+                "value": 0.052
+            },
+            {
+                "year": 1961,
+                "value": 0.051
+            },
+            {
+                "year": 1962,
+                "value": 0.050
+            },
+            {
+                "year": 1963,
+                "value": 0.049
+            },
+            {
+                "year": 1964,
+                "value": 0.048
+            },
+            {
+                "year": 1965,
+                "value": 0.049
+            },
+            {
+                "year": 1966,
+                "value": 0.057
+            },
+            {
+                "year": 1967,
+                "value": 0.062
+            },
+            {
+                "year": 1968,
+                "value": 0.069
+            },
+            {
+                "year": 1969,
+                "value": 0.078
+            },
+            {
+                "year": 1970,
+                "value": 0.091
+            },
+            {
+                "year": 1971,
+                "value": 0.086
+            },
+            {
+                "year": 1972,
+                "value": 0.082
+            },
+            {
+                "year": 1973,
+                "value": 0.082
+            },
+            {
+                "year": 1974,
+                "value": 0.095
+            },
+            {
+                "year": 1975,
+                "value": 0.106
+            },
+            {
+                "year": 1976,
+                "value": 0.097
+            },
+            {
+                "year": 1977,
+                "value": 0.090
+            },
+            {
+                "year": 1978,
+                "value": 0.095
+            },
+            {
+                "year": 1979,
+                "value": 0.107
+            },
+            {
+                "year": 1980,
+                "value": 0.137
+            },
+            {
+                "year": 1981,
+                "value": 0.160
+            },
+            {
+                "year": 1982,
+                "value": 0.161
+            },
+            {
+                "year": 1983,
+                "value": 0.136
+            },
+            {
+                "year": 1984,
+                "value": 0.142
+            },
+            {
+                "year": 1985,
+                "value": 0.127
+            },
+            {
+                "year": 1986,
+                "value": 0.104
+            },
+            {
+                "year": 1987,
+                "value": 0.106
+            },
+            {
+                "year": 1988,
+                "value": 0.108
+            },
+            {
+                "year": 1989,
+                "value": 0.102
+            },
+            {
+                "year": 1990,
+                "value": 0.104
+            },
+            {
+                "year": 1991,
+                "value": 0.098
+            },
+            {
+                "year": 1992,
+                "value": 0.090
+            },
+            {
+                "year": 1993,
+                "value": 0.079
+            },
+            {
+                "year": 1994,
+                "value": 0.086
+            },
+            {
+                "year": 1995,
+                "value": 0.082
+            },
+            {
+                "year": 1996,
+                "value": 0.081
+            },
+            {
+                "year": 1997,
+                "value": 0.079
+            },
+            {
+                "year": 1998,
+                "value": 0.072
+            },
+            {
+                "year": 1999,
+                "value": 0.079
+            },
+            {
+                "year": 2000,
+                "value": 0.084
+            },
+            {
+                "year": 2001,
+                "value": 0.079
+            },
+            {
+                "year": 2002,
+                "value": 0.078
+            },
+            {
+                "year": 2003,
                 "value": 0.068
+            },
+            {
+                "year": 2004,
+                "value": 0.064
+            },
+            {
+                "year": 2005,
+                "value": 0.061
+            },
+            {
+                "year": 2006,
+                "value": 0.065
+            },
+            {
+                "year": 2007,
+                "value": 0.065
+            },
+            {
+                "year": 2008,
+                "value": 0.074
+            },
+            {
+                "year": 2009,
+                "value": 0.073
+            },
+            {
+                "year": 2010,
+                "value": 0.060
+            },
+            {
+                "year": 2011,
+                "value": 0.057
+            },
+            {
+                "year": 2012,
+                "value": 0.049
+            },
+            {
+                "year": 2013,
+                "value": 0.051
             },
             {
                 "year": 2014,
-                "value": 0.068
+                "value": 0.049
             },
             {
                 "year": 2015,
-                "value": 0.068
+                "value": 0.050
             },
             {
                 "year": 2016,
-                "value": 0.068
+                "value": 0.047
             },
             {
                 "year": 2017,
-                "value": 0.068
+                "value": 0.044
             },
             {
                 "year": 2018,
-                "value": 0.068
+                "value": 0.048
             },
             {
                 "year": 2019,
-                "value": 0.068
+                "value": 0.044
             },
             {
                 "year": 2020,
-                "value": 0.068
+                "value": 0.036
+            },
+            {
+                "year": 2021,
+                "value": 0.034
+            },
+            {
+                "year": 2022,
+                "value": 0.051
+            },
+            {
+                "year": 2023,
+                "value": 0.059
             }
+            
 
         ],
         "validators": {
