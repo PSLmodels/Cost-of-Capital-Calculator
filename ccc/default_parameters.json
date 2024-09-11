@@ -3025,7 +3025,139 @@
         "type": "float",
         "value": [
             {
-                "year": 2013,
+                "year": 1953,
+                "value": 0.0
+            },
+            {
+                "year": 1954,
+                "value": 0.0
+            },
+            {
+                "year": 1955,
+                "value": 0.0
+            },
+            {
+                "year": 1956,
+                "value": 0.0
+            },
+            {
+                "year": 1957,
+                "value": 0.0
+            },
+            {
+                "year": 1958,
+                "value": 0.0
+            },
+            {
+                "year": 1959,
+                "value": 0.0
+            },
+            {
+                "year": 1960,
+                "value": 0.0
+            },
+            {
+                "year": 1961,
+                "value": 0.0
+            },
+            {
+                "year": 1962,
+                "value": 0.07
+            },
+            {
+                "year": 1963,
+                "value": 0.07
+            },
+            {
+                "year": 1964,
+                "value": 0.07
+            },
+            {
+                "year": 1965,
+                "value": 0.07
+            },
+            {
+                "year": 1966,
+                "value": 0.07
+            },
+            {
+                "year": 1967,
+                "value": 0.07
+            },
+            {
+                "year": 1968,
+                "value": 0.07
+            },
+            {
+                "year": 1969,
+                "value": 0.07
+            },
+            {
+                "year": 1970,
+                "value": 0
+            },
+            {
+                "year": 1971,
+                "value": 0
+            },
+            {
+                "year": 1972,
+                "value": 0
+            },
+            {
+                "year": 1973,
+                "value": 0.07
+            },
+            {
+                "year": 1974,
+                "value": 0.1
+            },
+            {
+                "year": 1975,
+                "value": 0.1
+            },
+            {
+                "year": 1976,
+                "value": 0.1
+            },
+            {
+                "year": 1977,
+                "value": 0.1
+            },
+            {
+                "year": 1978,
+                "value": 0.1
+            },
+            {
+                "year": 1979,
+                "value": 0.1
+            },
+            {
+                "year": 1980,
+                "value": 0.1
+            },
+            {
+                "year": 1981,
+                "value": 0.1
+            },
+            {
+                "year": 1982,
+                "value": 0.1
+            },
+            {
+                "year": 1983,
+                "value": 0.1
+            },
+            {
+                "year": 1984,
+                "value": 0.1
+            },
+            {
+                "year": 1985,
+                "value": 0.1
+            },
+            {
+                "year": 1986,
                 "value": 0.0
             }
         ],
@@ -3197,7 +3329,7 @@
         "type": "float",
         "value": [
             {
-                "year": 2013,
+                "year": 1953,
                 "value": 0.0
             }
         ],
