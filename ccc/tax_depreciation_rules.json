@@ -160,7 +160,7 @@
                 },
             "year": {
                 "type": "int",
-                "validators": {"range": {"min": 2013, "max": 2034}}
+                "validators": {"range": {"min": 1953, "max": 2034}}
             }
     }
   },
