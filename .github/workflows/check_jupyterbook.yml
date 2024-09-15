@@ -16,7 +16,7 @@ jobs:
           miniforge-variant: Mambaforge
           activate-environment: ccc-dev
           environment-file: environment.yml
-          python-version: 3.9
+          python-version: 3.12
           auto-activate-base: false
 
       - name: Build # Build Jupyter Book
