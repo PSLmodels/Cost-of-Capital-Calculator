@@ -482,10 +482,10 @@ Requirement already satisfied: setuptools in /usr/share/miniconda3/envs/ccc-dev/
 Requirement already satisfied: numba in /usr/share/miniconda3/envs/ccc-dev/lib/python3.12/site-packages (from taxcalc-&gt;cost-of-capital-calculator) (0.60.0)
 Requirement already satisfied: requests in /usr/share/miniconda3/envs/ccc-dev/lib/python3.12/site-packages (from taxcalc-&gt;cost-of-capital-calculator) (2.32.3)
 Requirement already satisfied: MarkupSafe&gt;=2.0 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.12/site-packages (from Jinja2&gt;=2.9-&gt;bokeh-&gt;cost-of-capital-calculator) (2.1.5)
+Requirement already satisfied: six&gt;=1.5 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.12/site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas-&gt;cost-of-capital-calculator) (1.16.0)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: six&gt;=1.5 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.12/site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas-&gt;cost-of-capital-calculator) (1.16.0)
-Requirement already satisfied: llvmlite&lt;0.44,&gt;=0.43.0dev0 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.12/site-packages (from numba-&gt;taxcalc-&gt;cost-of-capital-calculator) (0.43.0)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: llvmlite&lt;0.44,&gt;=0.43.0dev0 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.12/site-packages (from numba-&gt;taxcalc-&gt;cost-of-capital-calculator) (0.43.0)
 Requirement already satisfied: charset-normalizer&lt;4,&gt;=2 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.12/site-packages (from requests-&gt;taxcalc-&gt;cost-of-capital-calculator) (3.3.2)
 Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.12/site-packages (from requests-&gt;taxcalc-&gt;cost-of-capital-calculator) (3.9)
 Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/share/miniconda3/envs/ccc-dev/lib/python3.12/site-packages (from requests-&gt;taxcalc-&gt;cost-of-capital-calculator) (2.2.2)
@@ -522,7 +522,7 @@ Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/share/miniconda3/en
     </style>
     <div>
         <a href="https://bokeh.org" target="_blank" class="bk-notebook-logo"></a>
-        <span id="e067ef40-69ba-4e83-bcaa-3e5be8926e73">Loading BokehJS ...</span>
+        <span id="ed61e063-55bf-4bba-aa0c-b1412fadea5e">Loading BokehJS ...</span>
     </div>
 </div><script type="application/javascript">'use strict';
 (function(root) {
@@ -687,7 +687,7 @@ const JS_MIME_TYPE = 'application/javascript';
      "</div>"}};
 
   function display_loaded(error = null) {
-    const el = document.getElementById("e067ef40-69ba-4e83-bcaa-3e5be8926e73");
+    const el = document.getElementById("ed61e063-55bf-4bba-aa0c-b1412fadea5e");
     if (el != null) {
       const html = (() => {
         if (typeof root.Bokeh === "undefined") {
@@ -821,7 +821,7 @@ function(Bokeh) {
       console.log("Bokeh: BokehJS failed to load within specified timeout.");
       root._bokeh_failed_load = true;
     } else if (force !== true) {
-      const cell = $(document.getElementById("e067ef40-69ba-4e83-bcaa-3e5be8926e73")).parents('.cell').data().cell;
+      const cell = $(document.getElementById("ed61e063-55bf-4bba-aa0c-b1412fadea5e")).parents('.cell').data().cell;
       cell.output_area.append_execute_result(NB_LOAD_WARNING)
     }
   }
