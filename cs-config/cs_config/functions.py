@@ -264,7 +264,7 @@ def run_model(meta_param_dict, adjustment):
         call_tc=True,
         iit_reform=iit_mods,
         data=data,
-        gfactors=GrowFactors.FILE_NAME,
+        gfactors=GrowFactors.FILE_PATH,
         weights=weights,
         records_start_year=records_start_year,
     )
