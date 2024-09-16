@@ -2091,7 +2091,7 @@ class Calculator:
             tools="hover",
             background_fill_alpha=0,
             # change things on all axes
-            **PLOT_FORMATS
+            **PLOT_FORMATS,
         )
         if include_title:
             p.add_layout(
@@ -2100,7 +2100,7 @@ class Calculator:
                         "Marginal Effective Tax Rates on Corporate Investments"
                         + " in Equipment"
                     ),
-                    **TITLE_FORMATS
+                    **TITLE_FORMATS,
                 ),
                 "above",
             )
@@ -2179,7 +2179,7 @@ class Calculator:
             # toolbar_location=None,
             tools="hover",
             background_fill_alpha=0,
-            **PLOT_FORMATS
+            **PLOT_FORMATS,
         )
         p2.add_layout(
             Title(
@@ -2187,7 +2187,7 @@ class Calculator:
                     "Marginal Effective Tax Rates on Corporate "
                     + "Investments in Structures"
                 ),
-                **TITLE_FORMATS
+                **TITLE_FORMATS,
             ),
             "above",
         )
