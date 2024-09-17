@@ -177,7 +177,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Computers and Software",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 5.0,
@@ -187,7 +187,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Computers and Software",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 5.0,
@@ -197,7 +197,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Computers and Software",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 5.0,
@@ -207,7 +207,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Computers and Software",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 5.0,
@@ -217,7 +217,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Computers and Software",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 5.0,
@@ -227,7 +227,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Computers and Software",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 5.0,
@@ -237,7 +237,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Computers and Software",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 5.0,
@@ -247,7 +247,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Computers and Software",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 10.0,
@@ -257,7 +257,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Instruments and Communications Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 9.0,
@@ -267,7 +267,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Instruments and Communications Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 5.0,
@@ -277,7 +277,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Instruments and Communications Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 7.0,
@@ -287,7 +287,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Instruments and Communications Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 5.0,
@@ -297,7 +297,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Instruments and Communications Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 10.0,
@@ -307,7 +307,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Instruments and Communications Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 5.0,
@@ -317,7 +317,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Other Industrial Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 15.0,
@@ -327,7 +327,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Other Industrial Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 28.0,
@@ -337,7 +337,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Transportation Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 15, "method": "DB 150%"}
+                  "year": 1987, "value": {"life": 15, "method": "DB 150%"}
               },
               {
                   "ADS_life": 20.0,
@@ -347,7 +347,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Transportation Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 14.0,
@@ -357,7 +357,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Other Industrial Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 4.0,
@@ -367,7 +367,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Industrial Machinery",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 9.0,
@@ -377,7 +377,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Industrial Machinery",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 30.0,
@@ -387,7 +387,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Other Industrial Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 15, "method": "DB 150%"}
+                  "year": 1987, "value": {"life": 15, "method": "DB 150%"}
               },
               {
                   "ADS_life": 5.0,
@@ -397,7 +397,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Transportation Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 6.0,
@@ -407,7 +407,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Transportation Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 5.0,
@@ -417,7 +417,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Transportation Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 6.0,
@@ -427,7 +427,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Transportation Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 18.0,
@@ -437,7 +437,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Transportation Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 10, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 10, "method": "DB 200%"}
               },
               {
                   "ADS_life": 14.0,
@@ -447,7 +447,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Transportation Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 9.0,
@@ -457,7 +457,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Office and Residential Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 10.0,
@@ -467,7 +467,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Office and Residential Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 10.0,
@@ -477,7 +477,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Other Industrial Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 10.0,
@@ -487,7 +487,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Other Industrial Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 6.0,
@@ -497,7 +497,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Other Industrial Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 4.0,
@@ -507,7 +507,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Other Industrial Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 10.0,
@@ -517,7 +517,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Other Industrial Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 9.0,
@@ -527,7 +527,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Service industry machinery",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 9.0,
@@ -537,7 +537,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Office and Residential Equipment",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 9.0,
@@ -547,7 +547,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Service industry machinery",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 9.0,
@@ -557,7 +557,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Service industry machinery",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 40.0,
@@ -567,7 +567,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Nonresidential Buildings",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 39, "method": "SL"}
+                  "year": 1987, "value": {"life": 39, "method": "SL"}
               },
               {
                   "ADS_life": 40.0,
@@ -577,7 +577,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Nonresidential Buildings",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 39, "method": "SL"}
+                  "year": 1987, "value": {"life": 39, "method": "SL"}
               },
               {
                   "ADS_life": 40.0,
@@ -587,7 +587,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Nonresidential Buildings",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 39, "method": "SL"}
+                  "year": 1987, "value": {"life": 39, "method": "SL"}
               },
               {
                   "ADS_life": 40.0,
@@ -597,7 +597,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Nonresidential Buildings",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 39, "method": "SL"}
+                  "year": 1987, "value": {"life": 39, "method": "SL"}
               },
               {
                   "ADS_life": 40.0,
@@ -607,7 +607,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Nonresidential Buildings",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 39, "method": "SL"}
+                  "year": 1987, "value": {"life": 39, "method": "SL"}
               },
               {
                   "ADS_life": 40.0,
@@ -617,7 +617,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Nonresidential Buildings",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 39, "method": "SL"}
+                  "year": 1987, "value": {"life": 39, "method": "SL"}
               },
               {
                   "ADS_life": 40.0,
@@ -627,7 +627,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Nonresidential Buildings",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 39, "method": "SL"}
+                  "year": 1987, "value": {"life": 39, "method": "SL"}
               },
               {
                   "ADS_life": 14.0,
@@ -637,7 +637,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Other Structures",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 40.0,
@@ -647,7 +647,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Nonresidential Buildings",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 39, "method": "SL"}
+                  "year": 1987, "value": {"life": 39, "method": "SL"}
               },
               {
                   "ADS_life": 40.0,
@@ -657,7 +657,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Nonresidential Buildings",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 39, "method": "SL"}
+                  "year": 1987, "value": {"life": 39, "method": "SL"}
               },
               {
                   "ADS_life": 19.0,
@@ -667,7 +667,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Other Structures",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 15, "method": "DB 150%"}
+                  "year": 1987, "value": {"life": 15, "method": "DB 150%"}
               },
               {
                   "ADS_life": 5.0,
@@ -677,7 +677,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Other Structures",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 14.0,
@@ -687,7 +687,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Mining and Drilling Structures",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 14.0,
@@ -697,7 +697,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Mining and Drilling Structures",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 6.0,
@@ -707,7 +707,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Mining and Drilling Structures",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 15, "method": "DB 150%"}
+                  "year": 1987, "value": {"life": 15, "method": "DB 150%"}
               },
               {
                   "ADS_life": 14.0,
@@ -717,7 +717,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Mining and Drilling Structures",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 10.0,
@@ -727,7 +727,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Mining and Drilling Structures",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 40.0,
@@ -737,7 +737,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Nonresidential Buildings",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 39, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 39, "method": "DB 200%"}
               },
               {
                   "ADS_life": 40.0,
@@ -747,7 +747,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Nonresidential Buildings",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 39, "method": "SL"}
+                  "year": 1987, "value": {"life": 39, "method": "SL"}
               },
               {
                   "ADS_life": 40.0,
@@ -757,7 +757,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Nonresidential Buildings",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 39, "method": "SL"}
+                  "year": 1987, "value": {"life": 39, "method": "SL"}
               },
               {
                   "ADS_life": 10.0,
@@ -767,7 +767,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Other Structures",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 40.0,
@@ -777,7 +777,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Nonresidential Buildings",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 39, "method": "SL"}
+                  "year": 1987, "value": {"life": 39, "method": "SL"}
               },
               {
                   "ADS_life": 40.0,
@@ -787,7 +787,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Nonresidential Buildings",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 39, "method": "SL"}
+                  "year": 1987, "value": {"life": 39, "method": "SL"}
               },
               {
                   "ADS_life": 30.0,
@@ -797,7 +797,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Other Structures",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 20, "method": "DB 150%"}
+                  "year": 1987, "value": {"life": 20, "method": "DB 150%"}
               },
               {
                   "ADS_life": 10.0,
@@ -807,7 +807,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Other Structures",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 7, "method": "DB 200%"}
               },
               {
                   "ADS_life": 40.0,
@@ -817,7 +817,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Other Structures",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 39, "method": "SL"}
+                  "year": 1987, "value": {"life": 39, "method": "SL"}
               },
               {
                   "ADS_life": 5.0,
@@ -827,7 +827,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Other Structures",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "DB 200%"}
+                  "year": 1987, "value": {"life": 5, "method": "DB 200%"}
               },
               {
                   "ADS_life": 25.0,
@@ -837,7 +837,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Other Structures",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 20, "method": "DB 150%"}
+                  "year": 1987, "value": {"life": 20, "method": "DB 150%"}
               },
               {
                   "ADS_life": 50.0,
@@ -847,7 +847,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Other Structures",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 20, "method": "DB 150%"}
+                  "year": 1987, "value": {"life": 20, "method": "DB 150%"}
               },
               {
                   "ADS_life": 50.0,
@@ -857,7 +857,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Other Structures",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 20, "method": "DB 150%"}
+                  "year": 1987, "value": {"life": 20, "method": "DB 150%"}
               },
               {
                   "ADS_life": 40.0,
@@ -867,7 +867,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Nonresidential Buildings",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 39, "method": "SL"}
+                  "year": 1987, "value": {"life": 39, "method": "SL"}
               },
               {
                   "ADS_life": 20.0,
@@ -877,7 +877,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Other Structures",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 15, "method": "DB 150%"}
+                  "year": 1987, "value": {"life": 15, "method": "DB 150%"}
               },
               {
                   "ADS_life": 3.0,
@@ -887,7 +887,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Computers and Software",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 3, "method": "SL"}
+                  "year": 1987, "value": {"life": 3, "method": "SL"}
               },
               {
                   "ADS_life": 3.0,
@@ -897,7 +897,7 @@
                   "major_asset_group": "Equipment",
                   "minor_asset_group": "Computers and Software",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 3, "method": "SL"}
+                  "year": 1987, "value": {"life": 3, "method": "SL"}
               },
               {
                   "ADS_life": 3.0,
@@ -907,7 +907,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 3, "method": "Expensing"}
+                  "year": 1987, "value": {"life": 3, "method": "Expensing"}
               },
               {
                   "ADS_life": 9.0,
@@ -917,7 +917,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+                  "year": 1987, "value": {"life": 5, "method": "Expensing"}
               },
               {
                   "ADS_life": 9.5,
@@ -927,7 +927,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+                  "year": 1987, "value": {"life": 5, "method": "Expensing"}
               },
               {
                   "ADS_life": 5.0,
@@ -937,7 +937,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+                  "year": 1987, "value": {"life": 5, "method": "Expensing"}
               },
               {
                   "ADS_life": 6.0,
@@ -947,7 +947,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+                  "year": 1987, "value": {"life": 5, "method": "Expensing"}
               },
               {
                   "ADS_life": 6.0,
@@ -957,7 +957,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+                  "year": 1987, "value": {"life": 5, "method": "Expensing"}
               },
               {
                   "ADS_life": 6.0,
@@ -967,7 +967,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+                  "year": 1987, "value": {"life": 5, "method": "Expensing"}
               },
               {
                   "ADS_life": 6.0,
@@ -977,7 +977,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+                  "year": 1987, "value": {"life": 5, "method": "Expensing"}
               },
               {
                   "ADS_life": 12.0,
@@ -987,7 +987,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "Expensing"}
+                  "year": 1987, "value": {"life": 7, "method": "Expensing"}
               },
               {
                   "ADS_life": 10.0,
@@ -997,7 +997,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "Expensing"}
+                  "year": 1987, "value": {"life": 7, "method": "Expensing"}
               },
               {
                   "ADS_life": 12.0,
@@ -1007,7 +1007,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 7, "method": "Expensing"}
+                  "year": 1987, "value": {"life": 7, "method": "Expensing"}
               },
               {
                   "ADS_life": 6.0,
@@ -1017,7 +1017,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+                  "year": 1987, "value": {"life": 5, "method": "Expensing"}
               },
               {
                   "ADS_life": 3.0,
@@ -1027,7 +1027,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 3, "method": "SL"}
+                  "year": 1987, "value": {"life": 3, "method": "SL"}
               },
               {
                   "ADS_life": 6.0,
@@ -1037,7 +1037,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+                  "year": 1987, "value": {"life": 5, "method": "Expensing"}
               },
               {
                   "ADS_life": 3.0,
@@ -1047,7 +1047,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 3, "method": "SL"}
+                  "year": 1987, "value": {"life": 3, "method": "SL"}
               },
               {
                   "ADS_life": 6.0,
@@ -1057,7 +1057,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 5, "method": "Expensing"}
+                  "year": 1987, "value": {"life": 5, "method": "Expensing"}
               },
               {
                   "ADS_life": 3.0,
@@ -1067,7 +1067,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 3, "method": "SL"}
+                  "year": 1987, "value": {"life": 3, "method": "SL"}
               },
               {
                   "ADS_life": 3.0,
@@ -1077,7 +1077,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 3, "method": "SL"}
+                  "year": 1987, "value": {"life": 3, "method": "SL"}
               },
               {
                   "ADS_life": 15.0,
@@ -1087,7 +1087,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 15, "method": "Income Forecast"}
+                  "year": 1987, "value": {"life": 15, "method": "Income Forecast"}
               },
               {
                   "ADS_life": 15.0,
@@ -1097,7 +1097,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 15, "method": "Income Forecast"}
+                  "year": 1987, "value": {"life": 15, "method": "Income Forecast"}
               },
               {
                   "ADS_life": 15.0,
@@ -1107,7 +1107,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 15, "method": "Economic"}
+                  "year": 1987, "value": {"life": 15, "method": "Economic"}
               },
               {
                   "ADS_life": 15.0,
@@ -1117,7 +1117,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 15, "method": "Economic"}
+                  "year": 1987, "value": {"life": 15, "method": "Economic"}
               },
               {
                   "ADS_life": 15.0,
@@ -1127,7 +1127,7 @@
                   "major_asset_group": "Intellectual Property",
                   "minor_asset_group": "Intellectual Property",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 15, "method": "Economic"}
+                  "year": 1987, "value": {"life": 15, "method": "Economic"}
               },
               {
                   "ADS_life": 30.0,
@@ -1137,7 +1137,7 @@
                   "major_asset_group": "Structures",
                   "minor_asset_group": "Residential Buildings",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 27.5, "method": "SL"}
+                  "year": 1987, "value": {"life": 27.5, "method": "SL"}
               },
               {
                   "ADS_life": 100.0,
@@ -1147,7 +1147,7 @@
                   "major_asset_group": "Land",
                   "minor_asset_group": "Land",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 100, "method": "SL"}
+                  "year": 1987, "value": {"life": 100, "method": "SL"}
               },
               {
                   "ADS_life": 100.0,
@@ -1157,7 +1157,7 @@
                   "major_asset_group": "Inventories",
                   "minor_asset_group": "Inventories",
                   "system": "GDS",
-                  "year": 2020, "value": {"life": 100, "method": "SL"}
+                  "year": 1987, "value": {"life": 100, "method": "SL"}
               }
           ]
       }
