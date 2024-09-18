@@ -3,8 +3,6 @@ import pandas as pd
 from ccc.constants import TAX_METHODS, RE_ASSETS, RE_INDUSTRIES
 from ccc.utils import str_modified
 
-pd.set_option("future.no_silent_downcasting", True)
-
 ENFORCE_CHECKS = True
 
 

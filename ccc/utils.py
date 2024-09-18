@@ -1,4 +1,4 @@
-import pkg_resources
+import importlib.resources as pkg_resources
 from collections import OrderedDict
 import warnings
 import numbers
