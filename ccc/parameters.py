@@ -206,13 +206,13 @@ class Specification(paramtools.Parameters):
             (str(i) if i != 27.5 else "27_5") for i in class_list
         ]
         self.bonus_deprec = {}
-        for cl in class_list_str:
-            self.bonus_deprec[cl] = getattr(
+        for i, cl in enumerate(class_list_str):
+            self.bonus_deprec[class_list[i]] = getattr(
                 self, "BonusDeprec_{}yr".format(cl)
             )[0]
         # to handle land and inventories
         # this is fixed later, but should work on this
-        self.bonus_deprec["100"] = 0.0
+        self.bonus_deprec[100] = 0.0
 
     def default_parameters(self):
         """
