@@ -119,15 +119,9 @@ def read_egg_csv(fname, index_col=None):
     Returns:
         vdf (Pandas DataFrame): data from csv file
     """
-    # try:
-    path_in_egg = os.path.join(PACKAGE_NAME, fname)
     try:
-        vdf = pd.read_csv(
-            pkg_resources.resource_stream(
-                pkg_resources.Requirement.parse(PYPI_PACKAGE_NAME), path_in_egg
-            ),
-            index_col=index_col,
-        )
+        with pkg_resources.open_text(PACKAGE_NAME, fname) as file:
+            vdf = pd.read_csv(file, index_col=index_col)
     except Exception:
         raise ValueError("could not read {} data from egg".format(fname))
     # cannot call read_egg_ function in unit tests
@@ -147,15 +141,8 @@ def read_egg_json(fname):
 
     """
     try:
-        path_in_egg = os.path.join(PACKAGE_NAME, fname)
-        pdict = json.loads(
-            pkg_resources.resource_stream(
-                pkg_resources.Requirement.parse(PYPI_PACKAGE_NAME), path_in_egg
-            )
-            .read()
-            .decode("utf-8"),
-            object_pairs_hook=OrderedDict,
-        )
+        with pkg_resources.open_text(PACKAGE_NAME, fname) as file:
+            pdict = json.loads(file.read(), object_pairs_hook=OrderedDict)
     except Exception:
         raise ValueError("could not read {} data from egg".format(fname))
     # cannot call read_egg_ function in unit tests
