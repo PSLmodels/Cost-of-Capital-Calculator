@@ -40,14 +40,19 @@ def update_depr_methods(df, p, dp):
         deprec_df, how="left", left_on="bea_asset_code", right_on="BEA_code"
     )
     # add bonus depreciation to tax deprec parameters dataframe
-    # ** UPDATE THIS  - maybe including bonus in new asset deprec JSON**
-    df["bonus"] = df["GDS_life"].apply(str_modified)
+    df["bonus"] = df["GDS_life"]
+    # update tax_deprec_rates based on user defined parameters
     df.replace({"bonus": p.bonus_deprec}, inplace=True)
-    # make bonus float format
-    df["bonus"] = df["bonus"].astype(float)
     # Compute b
     df["b"] = df["method"]
     df.replace({"b": TAX_METHODS}, regex=True, inplace=True)
+    # use b value of 1 if method is not in TAX_METHODS
+    # NOTE: not sure why the replae method doesn't work for this method
+    # Related: had to comment this out in TAX_METHODS
+    df.loc[df["b"] == "Income Forecast", "b"] = 1.0
+    # cast b as float
+    df["b"] = df["b"].astype(float)
+
     df.loc[df["system"] == "ADS", "Y"] = df.loc[
         df["system"] == "ADS", "ADS_life"
     ]
@@ -140,9 +145,9 @@ def econ(delta, bonus, r, pi):
 
 def income_forecast(Y, delta, bonus, r):
     r"""
-    Makes the calculation for the income forecast method.
+    Makes the calculation for the Income Forecast method.
 
-    The income forecast method involved deducting expenses in relation
+    The Income Forecast method involved deducting expenses in relation
     to forecasted income over the next 10 years. CCC follows the CBO
     methodology (CBO, 2018:
     https://www.cbo.gov/system/files/2018-11/54648-Intangible_Assets.pdf)
