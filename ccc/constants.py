@@ -60,7 +60,7 @@ TAX_METHODS = {
     "SL": 1.0,
     "Economic": 1.0,
     "Expensing": 1.0,
-    "Income Forecast": 1.0,
+    # "Income Forecast": 1.0,
 }
 
 MINOR_ASSET_GROUPS = dict.fromkeys(
