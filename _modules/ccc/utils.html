@@ -377,7 +377,7 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for ccc.utils</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pkg_resources</span>
+<span></span><span class="kn">import</span> <span class="nn">importlib.resources</span> <span class="k">as</span> <span class="nn">pkg_resources</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">numbers</span>
@@ -512,15 +512,9 @@ document.write(`
 <span class="sd">    Returns:</span>
 <span class="sd">        vdf (Pandas DataFrame): data from csv file</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># try:</span>
-    <span class="n">path_in_egg</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PACKAGE_NAME</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">vdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-            <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_stream</span><span class="p">(</span>
-                <span class="n">pkg_resources</span><span class="o">.</span><span class="n">Requirement</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">PYPI_PACKAGE_NAME</span><span class="p">),</span> <span class="n">path_in_egg</span>
-            <span class="p">),</span>
-            <span class="n">index_col</span><span class="o">=</span><span class="n">index_col</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="k">with</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">open_text</span><span class="p">(</span><span class="n">PACKAGE_NAME</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">vdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="n">index_col</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;could not read </span><span class="si">{}</span><span class="s2"> data from egg&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
     <span class="c1"># cannot call read_egg_ function in unit tests</span>
@@ -543,15 +537,8 @@ document.write(`
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">path_in_egg</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PACKAGE_NAME</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
-        <span class="n">pdict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span>
-            <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_stream</span><span class="p">(</span>
-                <span class="n">pkg_resources</span><span class="o">.</span><span class="n">Requirement</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">PYPI_PACKAGE_NAME</span><span class="p">),</span> <span class="n">path_in_egg</span>
-            <span class="p">)</span>
-            <span class="o">.</span><span class="n">read</span><span class="p">()</span>
-            <span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">),</span>
-            <span class="n">object_pairs_hook</span><span class="o">=</span><span class="n">OrderedDict</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="k">with</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">open_text</span><span class="p">(</span><span class="n">PACKAGE_NAME</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">pdict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">object_pairs_hook</span><span class="o">=</span><span class="n">OrderedDict</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;could not read </span><span class="si">{}</span><span class="s2"> data from egg&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
     <span class="c1"># cannot call read_egg_ function in unit tests</span>

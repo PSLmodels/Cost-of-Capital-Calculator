@@ -592,13 +592,13 @@ document.write(`
             <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mf">27.5</span> <span class="k">else</span> <span class="s2">&quot;27_5&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">class_list</span>
         <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bonus_deprec</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">cl</span> <span class="ow">in</span> <span class="n">class_list_str</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">bonus_deprec</span><span class="p">[</span><span class="n">cl</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">cl</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">class_list_str</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bonus_deprec</span><span class="p">[</span><span class="n">class_list</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
                 <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;BonusDeprec_</span><span class="si">{}</span><span class="s2">yr&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cl</span><span class="p">)</span>
             <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="c1"># to handle land and inventories</span>
         <span class="c1"># this is fixed later, but should work on this</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bonus_deprec</span><span class="p">[</span><span class="s2">&quot;100&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bonus_deprec</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span></div>
 
 
 <div class="viewcode-block" id="Specification.default_parameters">

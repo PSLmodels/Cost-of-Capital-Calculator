@@ -382,8 +382,6 @@ document.write(`
 <span class="kn">from</span> <span class="nn">ccc.constants</span> <span class="kn">import</span> <span class="n">TAX_METHODS</span><span class="p">,</span> <span class="n">RE_ASSETS</span><span class="p">,</span> <span class="n">RE_INDUSTRIES</span>
 <span class="kn">from</span> <span class="nn">ccc.utils</span> <span class="kn">import</span> <span class="n">str_modified</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;future.no_silent_downcasting&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-
 <span class="n">ENFORCE_CHECKS</span> <span class="o">=</span> <span class="kc">True</span>
 
 
@@ -423,14 +421,19 @@ document.write(`
         <span class="n">deprec_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;bea_asset_code&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;BEA_code&quot;</span>
     <span class="p">)</span>
     <span class="c1"># add bonus depreciation to tax deprec parameters dataframe</span>
-    <span class="c1"># ** UPDATE THIS  - maybe including bonus in new asset deprec JSON**</span>
-    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;bonus&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;GDS_life&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">str_modified</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;bonus&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;GDS_life&quot;</span><span class="p">]</span>
+    <span class="c1"># update tax_deprec_rates based on user defined parameters</span>
     <span class="n">df</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s2">&quot;bonus&quot;</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">bonus_deprec</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="c1"># make bonus float format</span>
-    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;bonus&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;bonus&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
     <span class="c1"># Compute b</span>
     <span class="n">df</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">]</span>
     <span class="n">df</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="n">TAX_METHODS</span><span class="p">},</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># use b value of 1 if method is not in TAX_METHODS</span>
+    <span class="c1"># NOTE: not sure why the replae method doesn&#39;t work for this method</span>
+    <span class="c1"># Related: had to comment this out in TAX_METHODS</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Income Forecast&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="c1"># cast b as float</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
     <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;system&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ADS&quot;</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
         <span class="n">df</span><span class="p">[</span><span class="s2">&quot;system&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ADS&quot;</span><span class="p">,</span> <span class="s2">&quot;ADS_life&quot;</span>
     <span class="p">]</span>
@@ -533,9 +536,9 @@ document.write(`
 
 <span class="k">def</span> <span class="nf">income_forecast</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">bonus</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Makes the calculation for the income forecast method.</span>
+<span class="sd">    Makes the calculation for the Income Forecast method.</span>
 
-<span class="sd">    The income forecast method involved deducting expenses in relation</span>
+<span class="sd">    The Income Forecast method involved deducting expenses in relation</span>
 <span class="sd">    to forecasted income over the next 10 years. CCC follows the CBO</span>
 <span class="sd">    methodology (CBO, 2018:</span>
 <span class="sd">    https://www.cbo.gov/system/files/2018-11/54648-Intangible_Assets.pdf)</span>

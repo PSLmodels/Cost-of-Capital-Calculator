@@ -2419,14 +2419,10 @@ document.write(`
         <span class="p">}</span>
 
         <span class="n">equipment_df</span><span class="p">[</span><span class="s2">&quot;short_category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">equipment_df</span><span class="p">[</span><span class="s2">&quot;minor_asset_group&quot;</span><span class="p">]</span>
-        <span class="c1"># equipment_df[&#39;short_category&#39;].replace(make_short,</span>
-        <span class="c1">#                                        inplace=True)</span>
         <span class="n">equipment_df</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
             <span class="p">{</span><span class="s2">&quot;short_category&quot;</span><span class="p">:</span> <span class="n">make_short</span><span class="p">},</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
         <span class="n">structure_df</span><span class="p">[</span><span class="s2">&quot;short_category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">structure_df</span><span class="p">[</span><span class="s2">&quot;minor_asset_group&quot;</span><span class="p">]</span>
-        <span class="c1"># structure_df[&#39;short_category&#39;].replace(make_short,</span>
-        <span class="c1">#                                        inplace=True)</span>
         <span class="n">structure_df</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
             <span class="p">{</span><span class="s2">&quot;short_category&quot;</span><span class="p">:</span> <span class="n">make_short</span><span class="p">},</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
