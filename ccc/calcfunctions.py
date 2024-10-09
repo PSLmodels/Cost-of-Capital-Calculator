@@ -1,9 +1,6 @@
 import numpy as np
 import pandas as pd
-from ccc.constants import TAX_METHODS, RE_ASSETS, RE_INDUSTRIES
-from ccc.utils import str_modified
-
-ENFORCE_CHECKS = True
+from ccc.constants import TAX_METHODS
 
 
 def update_depr_methods(df, p, dp):
@@ -280,9 +277,6 @@ def eq_coc(
                 for index, element in enumerate(ind_code)
                 if element in re_credit["By industry"].keys()
             ]
-            print("Keys = ", re_credit["By industry"].keys())
-            print("Ind idx = ", idx)
-            print("Dict = ", re_credit["By industry"], re_credit)
             ind_code_idx = [ind_code[i] for i in idx]
             re_credit_rate_ind[idx] = [
                 re_credit["By industry"][ic] for ic in ind_code_idx
@@ -300,8 +294,6 @@ def eq_coc(
             ]
         # take the larger of the two R&E credit rates
         inv_tax_credit += np.maximum(re_credit_rate_asset, re_credit_rate_ind)
-        print("RE_credit object =", re_credit)
-        print("inv_tax_credit object =", inv_tax_credit)
     rho = (
         ((r - pi + delta) / (1 - u))
         * (1 - inv_tax_credit * nu - u_d * z * (1 - psi * inv_tax_credit))
