@@ -177,7 +177,7 @@ Some investment decisions are discrete: build the new plant or not, pursue this 
 
 ```{math}
 :label: eqn:eatr
-EATR = \left(\frac{p_{i,m,j} - rho_{i,m,j}}{p_{i,m,j}}\right)u_{j} + \left(\frac{\rho_{i,m,j}}{p_{i,m,j}}\right)METR_{i,m,j},
+EATR = \left(\frac{p_{i,m,j} - \rho_{i,m,j}}{p_{i,m,j}}\right)u_{j} + \left(\frac{\rho_{i,m,j}}{p_{i,m,j}}\right)METR_{i,m,j},
 ```
 
 where $p_{i,m,j}$ is the rate of profit on the project.  Note that the $EATR$ is equal to the $METR$ for marginal projects - those who's rate of profit is equal to the cost of capital.
