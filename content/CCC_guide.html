@@ -481,7 +481,7 @@ The after-tax rate of return is given by:</p>
 <p>where <span class="math notranslate nohighlight">\(f_{m,j}\)</span> represents the fraction of the marginal investment financed with debt by firms in industry <span class="math notranslate nohighlight">\(m\)</span> and of tax entity type <span class="math notranslate nohighlight">\(j\)</span>.</p>
 <p>In addition to the cost of capital, the <code class="docutils literal notranslate"><span class="pre">Cost-of-Capital-Calculator</span></code> reports two related measures:</p>
 <ul class="simple">
-<li><p>The user cost of capital (ucc): <span class="math notranslate nohighlight">\(ucc_{i,m,j} = \rho_{i,m,j} + delta_{i}\)</span></p></li>
+<li><p>The user cost of capital (ucc): <span class="math notranslate nohighlight">\(ucc_{i,m,j} = \rho_{i,m,j} + \delta_{i}\)</span></p></li>
 <li><p>The tax wedge, which is the difference between the before tax rate of return (which is equivalent to the cost of capital for marginal investments) and the after-tax return top savings. The tax wedge = <span class="math notranslate nohighlight">\(\rho_{i,m,j}-s_{m,j}\)</span></p></li>
 </ul>
 </section>
@@ -508,10 +508,10 @@ The after-tax rate of return is given by:</p>
 <span class="eqno">(6)<a class="headerlink" href="#equation-eqn-coc-inventory" title="Link to this equation">#</a></span>\[\rho = \phi \rho_{FIFO} + (1-\phi)\rho_{LIFO},\]</div>
 <p>where <span class="math notranslate nohighlight">\(phi\)</span> are the fraction of inventories that use FIFO accounting and <span class="math notranslate nohighlight">\(\rho_{FIFO}\)</span> and <span class="math notranslate nohighlight">\(\rho_{LIFO}\)</span> are given as:</p>
 <div class="math notranslate nohighlight" id="equation-eqn-inventory-fifo">
-<span class="eqno">(7)<a class="headerlink" href="#equation-eqn-inventory-fifo" title="Link to this equation">#</a></span>\[\rho_{FIFO} = \frac{1}{Y_v} log(\frac{e^{(Y_v} - u_{j}}{(1 - u_{j})} - \pi,\]</div>
+<span class="eqno">(7)<a class="headerlink" href="#equation-eqn-inventory-fifo" title="Link to this equation">#</a></span>\[\rho_{FIFO} = \frac{1}{Y_v} ln \left(\frac{e^{rY_v} - u_{j}}{(1 - u_{j})} \right) - \pi,\]</div>
 <p>and</p>
 <div class="math notranslate nohighlight" id="equation-eqn-inventory-lifo">
-<span class="eqno">(8)<a class="headerlink" href="#equation-eqn-inventory-lifo" title="Link to this equation">#</a></span>\[\rho_{LIFO} = \frac{1}{Y_v} log(\frac{e^{(r_{m,j}-\pi)Y_v} - u_{j}}{(1 - u_{j})} - \pi,\]</div>
+<span class="eqno">(8)<a class="headerlink" href="#equation-eqn-inventory-lifo" title="Link to this equation">#</a></span>\[\rho_{LIFO} = \frac{1}{Y_v} ln \left(\frac{e^{(r_{m,j}-\pi)Y_v} - u_{j}}{(1 - u_{j})} \right) - \pi,\]</div>
 <p>where <span class="math notranslate nohighlight">\(Y_{v}\)</span> is the average number of years that inventories are held.</p>
 </section>
 <section id="land">
@@ -555,7 +555,7 @@ The after-tax rate of return is given by:</p>
 <span id="sec-eatr"></span><h1>Effective Average Tax Rates<a class="headerlink" href="#effective-average-tax-rates" title="Link to this heading">#</a></h1>
 <p>Some investment decisions are discrete: build the new plant or not, pursue this R&amp;D effort or another, and so on.  For discrete investment decisions, firms will compare the after tax rates of returns each of the possible choices.  In such cases, the relevant measure of the impact of the tax system on their investment choices will be measured by the effective average tax rate (<span class="math notranslate nohighlight">\(EATR\)</span>).  <span id="id4">[<a class="reference internal" href="references.html#id3" title="Michael P Devereux and Rachel Griffith. Evaluating Tax Policy for Location Decisions. International Tax and Public Finance, 10(2):107-126, March 2003. URL: https://ideas.repec.org/a/kap/itaxpf/v10y2003i2p107-26.html, doi:.">DG03</a>]</span> propose a forward  measure of the EATR, which the <code class="docutils literal notranslate"><span class="pre">Cost-of-Capital-Calculator</span></code> also produces estimates.  The <span class="math notranslate nohighlight">\(EATR\)</span> is computed as:</p>
 <div class="math notranslate nohighlight" id="equation-eqn-eatr">
-<span class="eqno">(15)<a class="headerlink" href="#equation-eqn-eatr" title="Link to this equation">#</a></span>\[EATR = \left(\frac{p_{i,m,j} - rho_{i,m,j}}{p_{i,m,j}}\right)u_{j} + \left(\frac{\rho_{i,m,j}}{p_{i,m,j}}\right)METR_{i,m,j},\]</div>
+<span class="eqno">(15)<a class="headerlink" href="#equation-eqn-eatr" title="Link to this equation">#</a></span>\[EATR = \left(\frac{p_{i,m,j} - \rho_{i,m,j}}{p_{i,m,j}}\right)u_{j} + \left(\frac{\rho_{i,m,j}}{p_{i,m,j}}\right)METR_{i,m,j},\]</div>
 <p>where <span class="math notranslate nohighlight">\(p_{i,m,j}\)</span> is the rate of profit on the project.  Note that the <span class="math notranslate nohighlight">\(EATR\)</span> is equal to the <span class="math notranslate nohighlight">\(METR\)</span> for marginal projects - those who’s rate of profit is equal to the cost of capital.</p>
 <section id="computing-after-tax-capital-gains">
 <h2>Computing After-Tax Capital Gains<a class="headerlink" href="#computing-after-tax-capital-gains" title="Link to this heading">#</a></h2>
