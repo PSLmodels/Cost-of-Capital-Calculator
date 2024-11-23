@@ -38,7 +38,7 @@ r^{'}_{m,j}-\pi = f_{m,j}\left[i-\pi\right] + (1-f_{m,j})E_{j},
  where $f_{m,j}$ represents the fraction of the marginal investment financed with debt by firms in industry $m$ and of tax entity type $j$.
 
 In addition to the cost of capital, the `Cost-of-Capital-Calculator` reports two related measures:
-* The user cost of capital (ucc): $ucc_{i,m,j} = \rho_{i,m,j} + delta_{i}$
+* The user cost of capital (ucc): $ucc_{i,m,j} = \rho_{i,m,j} + \delta_{i}$
 * The tax wedge, which is the difference between the before tax rate of return (which is equivalent to the cost of capital for marginal investments) and the after-tax return top savings. The tax wedge = $\rho_{i,m,j}-s_{m,j}$
 
 (sec:METR)=
@@ -86,14 +86,14 @@ where $phi$ are the fraction of inventories that use FIFO accounting and $\rho_{
 
 ```{math}
 :label: eqn:inventory_fifo
-\rho_{FIFO} = \frac{1}{Y_v} log(\frac{e^{(Y_v} - u_{j}}{(1 - u_{j})} - \pi,
+\rho_{FIFO} = \frac{1}{Y_v} ln \left(\frac{e^{rY_v} - u_{j}}{(1 - u_{j})} \right) - \pi,
 ```
 
 and
 
 ```{math}
 :label: eqn:inventory_lifo
-\rho_{LIFO} = \frac{1}{Y_v} log(\frac{e^{(r_{m,j}-\pi)Y_v} - u_{j}}{(1 - u_{j})} - \pi,
+\rho_{LIFO} = \frac{1}{Y_v} ln \left(\frac{e^{(r_{m,j}-\pi)Y_v} - u_{j}}{(1 - u_{j})} \right) - \pi,
 ```
 
 where $Y_{v}$ is the average number of years that inventories are held.
@@ -177,7 +177,7 @@ Some investment decisions are discrete: build the new plant or not, pursue this 
 
 ```{math}
 :label: eqn:eatr
-EATR = \left(\frac{p_{i,m,j} - rho_{i,m,j}}{p_{i,m,j}}\right)u_{j} + \left(\frac{\rho_{i,m,j}}{p_{i,m,j}}\right)METR_{i,m,j},
+EATR = \left(\frac{p_{i,m,j} - \rho_{i,m,j}}{p_{i,m,j}}\right)u_{j} + \left(\frac{\rho_{i,m,j}}{p_{i,m,j}}\right)METR_{i,m,j},
 ```
 
 where $p_{i,m,j}$ is the rate of profit on the project.  Note that the $EATR$ is equal to the $METR$ for marginal projects - those who's rate of profit is equal to the cost of capital.
