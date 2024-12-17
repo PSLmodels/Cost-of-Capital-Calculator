@@ -286,6 +286,17 @@ class Specification(paramtools.Parameters):
 
 class DepreciationRules(ma.Schema):
     # set some field validation ranges that can't set in JSON
+    system = ma.fields.String(
+        validate=ma.validate.OneOf(
+            choices=[
+                "GDS",
+                "ADS",
+                "Economic",
+                "Expensing",
+                "Income Forecast",
+            ]
+        )
+    )
     life = ma.fields.Float(validate=ma.validate.Range(min=0, max=100))
     method = ma.fields.String(
         validate=ma.validate.OneOf(
@@ -315,6 +326,8 @@ class DepreciationParams(paramtools.Parameters):
     """
 
     defaults = os.path.join(CURRENT_PATH, "tax_depreciation_rules.json")
+    # label_to_extend = "year"
+    # array_first = True
 
 
 def revision_warnings_errors(spec_revision):
