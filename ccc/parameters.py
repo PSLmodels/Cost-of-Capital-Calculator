@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 import paramtools
 import marshmallow as ma
 
@@ -326,8 +327,33 @@ class DepreciationParams(paramtools.Parameters):
     """
 
     defaults = os.path.join(CURRENT_PATH, "tax_depreciation_rules.json")
-    # label_to_extend = "year"
-    # array_first = True
+
+    def to_df(self):
+        """
+        Return a DataFrame containing the depreciation parameters.
+        """
+        nested_dict = self.to_dict()
+        # Prepare lists to collect data
+        data = []
+        # Iterate through the nested dictionary
+        for key, value_list in nested_dict.items():
+            # Extract the OrderedDict(s) in the list
+            for item in value_list:
+                # Prepare a dictionary to hold the row data
+                row_data = {}
+                # Extract 'value' dictionary contents
+                row_data.update(item['value'])
+                # Add the year
+                row_data['year'] = item['year']
+                # Add the asset code
+                row_data['BEA_code'] = key
+                # Append the row data and index key
+                data.append(row_data)
+
+        # Create DataFrame with the extracted data and specified index
+        df = pd.DataFrame(data)
+
+        return df
 
 
 def revision_warnings_errors(spec_revision):
