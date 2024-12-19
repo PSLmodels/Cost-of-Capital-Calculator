@@ -20,24 +20,18 @@ def update_depr_methods(df, p, dp):
 
     """
     # update tax_deprec_rates based on user defined parameters
-    # create dataframe with depreciation policy parameters
-    deprec_df = pd.DataFrame(dp.asset)
-    # split out value into two columns
-    deprec_df = deprec_df.join(
-        pd.DataFrame(deprec_df.pop("value").values.tolist())
-    )
-    # drop information duplicated in asset dataframe
-    deprec_df.drop(
-        columns=["asset_name", "minor_asset_group", "major_asset_group"],
-        inplace=True,
-    )
+    # create dataframe with depreciation policy parameters for all
+    # known years
+    deprec_df = dp.expanded_df()
+    # keep just the current year in the CCC parameters object
+    deprec_df = deprec_df[deprec_df.year == p.year]
     # merge depreciation policy parameters to asset dataframe
     df.drop(columns=deprec_df.keys(), inplace=True, errors="ignore")
     df = df.merge(
         deprec_df, how="left", left_on="bea_asset_code", right_on="BEA_code"
     )
     # add bonus depreciation to tax deprec parameters dataframe
-    df["bonus"] = df["GDS_life"]
+    df["bonus"] = df["life"]
     # update tax_deprec_rates based on user defined parameters
     df.replace({"bonus": p.bonus_deprec}, inplace=True)
     # Compute b
@@ -49,13 +43,9 @@ def update_depr_methods(df, p, dp):
     df.loc[df["b"] == "Income Forecast", "b"] = 1.0
     # cast b as float
     df["b"] = df["b"].astype(float)
+    # Set Y to length of depreciable life
+    df["Y"] = df["life"]
 
-    df.loc[df["system"] == "ADS", "Y"] = df.loc[
-        df["system"] == "ADS", "ADS_life"
-    ]
-    df.loc[df["system"] == "GDS", "Y"] = df.loc[
-        df["system"] == "GDS", "GDS_life"
-    ]
     return df
 
 
