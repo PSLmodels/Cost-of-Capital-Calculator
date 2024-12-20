@@ -12,137 +12,225 @@ def test_update_depr_methods(monkeypatch):
     """
     p = Specification(year=2020)
     json_str = """
-        {"schema": {
+        {
+        "schema": {
             "labels": {
-                "asset_name": {"type": "str"},
-                "BEA_code": {"type": "str"},
-                "minor_asset_group": {"type": "str"},
-                "major_asset_group": {"type": "str"},
-                "ADS_life": {"type": "float"},
-                "GDS_life": {"type": "float"},
-                "system": {"type": "str"},
                 "year": {
                     "type": "int",
-                    "validators": {"range": {"min": 2013, "max": 2030}}
+                    "validators": {"range": {"min": 2013, "max": 2034}}
+                },
+                "system": {
+                    "type": "str",
+                    "validators": {
+                        "choice": {
+                            "choices": ["GDS", "ADS"]
+                        }
+                    }
+                },
+                "method": {
+                    "type": "str",
+                    "validators": {
+                        "choice": {
+                            "choices": ["DB 200%", "DB 150%", "SL"]
+                        }
+                    }
                 }
+            },
+            "additional_members": {
+                "asset_name": {
+                    "type": "str"
+                },
+                "BEA_code": {
+                "type": "str"
+                },
+                "minor_asset_group": {
+                "type": "str"
+                    },
+                "major_asset_group": {
+                "type": "str"
+                    }
             }
         },
-        "asset": {
-            "title": "Tax depreciation rules for assets",
-            "description": "Tax depreciation rules for assets",
+        "1": {
+            "title": "Depreciation rules for Steam engines",
+            "BEA_code": "1",
+            "asset_name": "Steam engines",
+            "major_asset_group": "Group1",
+            "minor_asset_group": "Group1",
             "type": "depreciation_rules",
             "value": [
-                  {
-                      "ADS_life": 10.0,
-                      "BEA_code": "1",
-                      "GDS_life": 10.0,
-                      "asset_name": "Steam engines",
-                      "major_asset_group": "Group1",
-                      "minor_asset_group": "Group1",
-                      "system": "GDS",
-                      "year": 2020, "value": {"life": 10,
-                                              "method": "DB 200%"}
-                  },
-                  {
-                      "ADS_life": 10.0,
-                      "BEA_code": "2",
-                      "GDS_life": 10.0,
-                      "asset_name": "Custom software",
-                      "major_asset_group": "Group1",
-                      "minor_asset_group": "Group1",
-                      "system": "GDS",
-                      "year": 2020, "value": {"life": 10,
-                                              "method": "DB 150%"}
-                  },
-                  {
-                      "ADS_life": 3.0,
-                      "BEA_code": "3",
-                      "GDS_life": 3.0,
-                      "asset_name": "Other furniture",
-                      "major_asset_group": "Group1",
-                      "minor_asset_group": "Group1",
-                      "system": "GDS",
-                      "year": 2020, "value": {"life": 3,
-                                              "method": "SL"}
-                  },
-                  {
-                      "ADS_life": 15.0,
-                      "BEA_code": "4",
-                      "GDS_life": 15.0,
-                      "asset_name": "Mining and oilfield machinery",
-                      "major_asset_group": "Group1",
-                      "minor_asset_group": "Group1",
-                      "system": "GDS",
-                      "year": 2020, "value": {"life": 15,
-                                              "method": "Economic"}
-                  },
-                  {
-                      "ADS_life": 27.5,
-                      "BEA_code": "5",
-                      "GDS_life": 27.5,
-                      "asset_name": "Expensing",
-                      "major_asset_group": "Group1",
-                      "minor_asset_group": "Group1",
-                      "system": "GDS",
-                      "year": 2020, "value": {"life": 27.5,
-                                              "method": "Expensing"}
-                  },
-                  {
-                      "ADS_life": 27.5,
-                      "BEA_code": "6",
-                      "GDS_life": 27.5,
-                      "asset_name": "PCs",
-                      "major_asset_group": "Group1",
-                      "minor_asset_group": "Group1",
-                      "system": "GDS",
-                      "year": 2020, "value": {"life": 27.5,
-                                              "method": "DB 200%"}
-                  },
-                  {
-                      "ADS_life": 10.0,
-                      "BEA_code": "7",
-                      "GDS_life": 10.0,
-                      "asset_name": "Terminals",
-                      "major_asset_group": "Group1",
-                      "minor_asset_group": "Group1",
-                      "system": "GDS",
-                      "year": 2020, "value": {"life": 10,
-                                              "method": "DB 150%"}
-                  },
-                  {
-                      "ADS_life": 3.0,
-                      "BEA_code": "8",
-                      "GDS_life": 3.0,
-                      "asset_name": "Manufacturing",
-                      "major_asset_group": "Group1",
-                      "minor_asset_group": "Group1",
-                      "system": "GDS",
-                      "year": 2020, "value": {"life": 3,
-                                              "method": "SL"}
-                  },
-                  {
-                      "ADS_life": 15.0,
-                      "BEA_code": "9",
-                      "GDS_life": 15.0,
-                      "asset_name": "Wind and solar",
-                      "major_asset_group": "Group1",
-                      "minor_asset_group": "Group1",
-                      "system": "GDS",
-                      "year": 2020, "value": {"life": 15,
-                                              "method": "Economic"}
-                  },
-                  {
-                      "ADS_life": 7.0,
-                      "BEA_code": "10",
-                      "GDS_life": 7.0,
-                      "asset_name": "Equipment",
-                      "major_asset_group": "Group1",
-                      "minor_asset_group": "Group1",
-                      "system": "GDS",
-                      "year": 2020, "value": {"life": 7,
-                                              "method": "Expensing"}
-                  }]
-            }
+                {
+                    "year": 2020,
+                    "value": {
+                        "system": "GDS",
+                        "life": 10,
+                        "method": "DB 200%"
+                    }
+                }
+            ]
+        },
+        "2": {
+            "title": "Depreciation rules for Custom software",
+            "BEA_code": "2",
+            "asset_name": "Custom software",
+            "major_asset_group": "Group1",
+            "minor_asset_group": "Group1",
+            "type": "depreciation_rules",
+            "value": [
+                {
+                    "year": 2020,
+                    "value": {
+                        "system": "GDS",
+                        "life": 10,
+                        "method": "DB 150%"
+                    }
+                }
+            ]
+        },
+        "3": {
+            "title": "Depreciation rules for Other furniture",
+            "BEA_code": "3",
+            "asset_name": "Other furniture",
+            "major_asset_group": "Group1",
+            "minor_asset_group": "Group1",
+            "type": "depreciation_rules",
+            "value": [
+                {
+                    "year": 2020,
+                    "value": {
+                        "system": "GDS",
+                        "life": 3,
+                        "method": "SL"
+                    }
+                }
+            ]
+        },
+        "4": {
+            "title": "Depreciation rules for Mining and oilfield machinery",
+            "BEA_code": "4",
+            "asset_name": "Mining and oilfield machinery",
+            "major_asset_group": "Group1",
+            "minor_asset_group": "Group1",
+            "type": "depreciation_rules",
+            "value": [
+                {
+                    "year": 2020,
+                    "value": {
+                        "system": "GDS",
+                        "life": 15,
+                        "method": "Economic"
+                    }
+                }
+            ]
+        },
+        "5": {
+            "title": "Depreciation rules for Expensing",
+            "BEA_code": "5",
+            "asset_name": "Expensing",
+            "major_asset_group": "Group1",
+            "minor_asset_group": "Group1",
+            "type": "depreciation_rules",
+            "value": [
+                {
+                    "year": 2020,
+                    "value": {
+                        "system": "GDS",
+                        "life": 27.5,
+                        "method": "Expensing"
+                    }
+                }
+            ]
+        },
+        "6": {
+            "title": "Depreciation rules for PCs",
+            "BEA_code": "6",
+            "asset_name": "PCs",
+            "major_asset_group": "Group1",
+            "minor_asset_group": "Group1",
+            "type": "depreciation_rules",
+            "value": [
+                {
+                    "year": 2020,
+                    "value": {
+                        "system": "GDS",
+                        "life": 27.5,
+                        "method": "DB 200%"
+                    }
+                }
+            ]
+        },
+        "7": {
+            "title": "Depreciation rules for Terminals",
+            "BEA_code": "7",
+            "asset_name": "Terminals",
+            "major_asset_group": "Group1",
+            "minor_asset_group": "Group1",
+            "type": "depreciation_rules",
+            "value": [
+                {
+                    "year": 2020,
+                    "value": {
+                        "system": "GDS",
+                        "life": 10,
+                        "method": "DB 150%"
+                    }
+                }
+            ]
+        },
+        "8": {
+            "title": "Depreciation rules for Manufacturing",
+            "BEA_code": "8",
+            "asset_name": "Manufacturing",
+            "major_asset_group": "Group1",
+            "minor_asset_group": "Group1",
+            "type": "depreciation_rules",
+            "value": [
+                {
+                    "year": 2020,
+                    "value": {
+                        "system": "GDS",
+                        "life": 3,
+                        "method": "SL"
+                    }
+                }
+            ]
+        },
+        "9": {
+            "title": "Depreciation rules for Wind and solar",
+            "BEA_code": "9",
+            "asset_name": "Wind and solar",
+            "major_asset_group": "Group1",
+            "minor_asset_group": "Group1",
+            "type": "depreciation_rules",
+            "value": [
+                {
+                    "year": 2020,
+                    "value": {
+                        "system": "GDS",
+                        "life": 15,
+                        "method": "Economic"
+                    }
+                }
+            ]
+        },
+        "10": {
+            "title": "Depreciation rules for Equipment",
+            "BEA_code": "10",
+            "asset_name": "Equipment",
+            "major_asset_group": "Group1",
+            "minor_asset_group": "Group1",
+            "type": "depreciation_rules",
+            "value": [
+                {
+                    "year": 2020,
+                    "value": {
+                        "system": "GDS",
+                        "life": 7,
+                        "method": "Expensing"
+                    }
+                }
+            ]
+        }
         }
         """
     monkeypatch.setattr(DepreciationParams, "defaults", json_str)
@@ -150,18 +238,7 @@ def test_update_depr_methods(monkeypatch):
     asset_df = pd.DataFrame.from_dict(
         {"bea_asset_code": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]}
     )
-    expected_df = pd.DataFrame(dp.asset)
-    expected_df = pd.concat(
-        [
-            expected_df.drop(["value"], axis=1),
-            expected_df["value"].apply(pd.Series),
-        ],
-        axis=1,
-    )
-    expected_df.drop(
-        columns=["asset_name", "minor_asset_group", "major_asset_group"],
-        inplace=True,
-    )
+    expected_df = dp.to_df()
     expected_df["bea_asset_code"] = pd.Series(
         ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
         index=expected_df.index,
