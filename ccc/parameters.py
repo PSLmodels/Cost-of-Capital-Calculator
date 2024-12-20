@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+import itertools
 import paramtools
 import marshmallow as ma
 
@@ -354,6 +355,27 @@ class DepreciationParams(paramtools.Parameters):
         df = pd.DataFrame(data)
 
         return df
+
+    def expanded_df(self):
+        df = self.to_df()
+        unique_bea_codes = df['BEA_code'].unique()
+        years = self.label_grid["year"]
+        # Create all combinations of years and BEA codes
+        combinations = list(itertools.product(years, unique_bea_codes))
+        # Create a new DataFrame with these combinations
+        expanded_df = pd.DataFrame(combinations, columns=['year', 'BEA_code'])
+        # Merge with the original DataFrame to preserve known values
+        expanded_df = expanded_df.merge(df, on=['year', 'BEA_code'], how='left')
+        # Sort the DataFrame to ensure we can forward fill from the last known year
+        expanded_df = expanded_df.sort_values(['BEA_code', 'year'])
+        # Group by BEA_code and forward fill missing values
+        expanded_df = expanded_df[['life', 'method', 'system', 'year', 'BEA_code']].groupby('BEA_code').apply(
+            lambda group: group.ffill(), include_groups=False
+        ).reset_index()
+        column_order = ['life', 'method', 'system', 'year', 'BEA_code']
+        expanded_df = expanded_df[column_order]
+
+        return expanded_df
 
 
 def revision_warnings_errors(spec_revision):
