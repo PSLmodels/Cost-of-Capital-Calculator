@@ -174,15 +174,17 @@ def test_update_depreciation_params_with_dict():
     }
     dp = DepreciationParams()
     new_dp_dict = {
-        "ENS2": [{
-            "year": 2020,
-            "value": {"life": 5.0, "method": "Expensing", "system": "GDS"}
-            }]
+        "ENS2": [
+            {
+                "year": 2020,
+                "value": {"life": 5.0, "method": "Expensing", "system": "GDS"},
             }
+        ]
+    }
     dp.adjust(new_dp_dict)
-    test_result = dp.select_eq(
-        param="ENS2", strict=False, year=2020
-    )[0]["value"]
+    test_result = dp.select_eq(param="ENS2", strict=False, year=2020)[0][
+        "value"
+    ]
     print("test", test_result)
     print("expected", expected_result)
     assert test_result == expected_result
@@ -201,9 +203,9 @@ def test_update_depreciation_params_with_json():
          "value": {"life": 5, "method": "Expensing", "system": "GDS"}}]}
          """
     dp.adjust(new_dp_json)
-    test_result = dp.select_eq(
-        param="ENS2", strict=False, year=2020
-    )[0]["value"]
+    test_result = dp.select_eq(param="ENS2", strict=False, year=2020)[0][
+        "value"
+    ]
     assert test_result == expected_result
 
 
@@ -235,11 +237,17 @@ def test_update_depreciation_bad_revision():
     """
     dp = DepreciationParams()
     new_dp_dict = {
-        "ENS2": [{
-            "year": 2020,
-            "value": {"life": 5.0, "method": "Expensing2", "system": "GDS"}
-            }]
+        "ENS2": [
+            {
+                "year": 2020,
+                "value": {
+                    "life": 5.0,
+                    "method": "Expensing2",
+                    "system": "GDS",
+                },
             }
+        ]
+    }
     with pytest.raises(Exception):
         assert dp.adjust(new_dp_dict)
 
@@ -250,10 +258,16 @@ def test_update_depreciation_bad_revision2():
     """
     dp = DepreciationParams()
     new_dp_dict = {
-        "ENS2": [{
-            "year": 2020,
-            "value": {"life": 105.0, "method": "Expensing2", "system": "GDS"}
-            }]
+        "ENS2": [
+            {
+                "year": 2020,
+                "value": {
+                    "life": 105.0,
+                    "method": "Expensing2",
+                    "system": "GDS",
+                },
             }
+        ]
+    }
     with pytest.raises(Exception):
         assert dp.adjust(new_dp_dict)

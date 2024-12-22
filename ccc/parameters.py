@@ -343,11 +343,11 @@ class DepreciationParams(paramtools.Parameters):
                 # Prepare a dictionary to hold the row data
                 row_data = {}
                 # Extract 'value' dictionary contents
-                row_data.update(item['value'])
+                row_data.update(item["value"])
                 # Add the year
-                row_data['year'] = item['year']
+                row_data["year"] = item["year"]
                 # Add the asset code
-                row_data['BEA_code'] = key
+                row_data["BEA_code"] = key
                 # Append the row data and index key
                 data.append(row_data)
 
@@ -358,21 +358,26 @@ class DepreciationParams(paramtools.Parameters):
 
     def expanded_df(self):
         df = self.to_df()
-        unique_bea_codes = df['BEA_code'].unique()
+        unique_bea_codes = df["BEA_code"].unique()
         years = self.label_grid["year"]
         # Create all combinations of years and BEA codes
         combinations = list(itertools.product(years, unique_bea_codes))
         # Create a new DataFrame with these combinations
-        expanded_df = pd.DataFrame(combinations, columns=['year', 'BEA_code'])
+        expanded_df = pd.DataFrame(combinations, columns=["year", "BEA_code"])
         # Merge with the original DataFrame to preserve known values
-        expanded_df = expanded_df.merge(df, on=['year', 'BEA_code'], how='left')
+        expanded_df = expanded_df.merge(
+            df, on=["year", "BEA_code"], how="left"
+        )
         # Sort the DataFrame to ensure we can forward fill from the last known year
-        expanded_df = expanded_df.sort_values(['BEA_code', 'year'])
+        expanded_df = expanded_df.sort_values(["BEA_code", "year"])
         # Group by BEA_code and forward fill missing values
-        expanded_df = expanded_df[['life', 'method', 'system', 'year', 'BEA_code']].groupby('BEA_code').apply(
-            lambda group: group.ffill(), include_groups=False
-        ).reset_index()
-        column_order = ['life', 'method', 'system', 'year', 'BEA_code']
+        expanded_df = (
+            expanded_df[["life", "method", "system", "year", "BEA_code"]]
+            .groupby("BEA_code")
+            .apply(lambda group: group.ffill(), include_groups=False)
+            .reset_index()
+        )
+        column_order = ["life", "method", "system", "year", "BEA_code"]
         expanded_df = expanded_df[column_order]
 
         return expanded_df
