@@ -3,7 +3,7 @@ channels:
 - conda-forge
 dependencies:
 - python
-- "taxcalc>=4.0.0"
+- "taxcalc>=4.4.0"
 - "paramtools>=0.18.3"
 - "pandas>=2.2.0"
 - bokeh>=3.1.1
