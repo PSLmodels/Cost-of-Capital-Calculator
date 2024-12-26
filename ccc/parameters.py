@@ -382,6 +382,38 @@ class DepreciationParams(paramtools.Parameters):
 
         return expanded_df
 
+    def adjust_from_csv(self, fname):
+        """
+        Read from a CSV file and adjust the parameter values.
+
+        CSV must have columns for year, BEA_code, year, life, method, and system.
+
+        Args:
+            fname (str): name of the CSV file
+
+        Returns:
+            None
+
+        """
+        df = pd.read_csv(fname)
+        # set the index to BEA_code
+        df.set_index("BEA_code", inplace=True)
+        # convert to dictionary
+        df_dict = df.to_dict(orient="index")
+        # put life, method, and system in a value dictionary
+        for k, v in df_dict.items():
+            df_dict[k] = [
+                {
+                    "year": int(v["year"]),
+                    "value": {
+                        "life": v["life"],
+                        "method": v["method"],
+                        "system": v["system"],
+                    },
+                }
+            ]
+        self.adjust(df_dict)
+
 
 def revision_warnings_errors(spec_revision):
     """

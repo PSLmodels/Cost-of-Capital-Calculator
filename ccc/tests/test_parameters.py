@@ -1,8 +1,10 @@
 import pytest
+import os
 from ccc.parameters import Specification, revision_warnings_errors
 from ccc.parameters import DepreciationParams
 
 
+CUR_DIR = os.path.abspath(os.path.dirname(__file__))
 test_data = [(27.5, "27_5"), (30, "30")]
 
 
@@ -271,3 +273,20 @@ def test_update_depreciation_bad_revision2():
     }
     with pytest.raises(Exception):
         assert dp.adjust(new_dp_dict)
+
+
+def test_adjust_from_csv():
+    """
+    Test that can adjust parameters from a csv file
+    """
+    dp = DepreciationParams()
+    dp.adjust_from_csv(os.path.join(CUR_DIR, "csv_adjust_testing.csv"))
+    test_result = dp.select_eq(param="ENS2", strict=False, year=2016)[0][
+        "value"
+    ]
+    expected_result = {
+        "life": 12.0,
+        "method": "Expensing",
+        "system": "GDS",
+    }
+    assert test_result == expected_result
