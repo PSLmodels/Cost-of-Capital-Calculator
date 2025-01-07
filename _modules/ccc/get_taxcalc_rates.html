@@ -15,8 +15,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -26,10 +26,10 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -38,10 +38,10 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
@@ -224,9 +224,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -359,14 +364,14 @@
                   
   <h1>Source code for ccc.get_taxcalc_rates</h1><div class="highlight"><pre>
 <span></span><span class="c1"># imports</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">taxcalc</span> <span class="kn">import</span> <span class="n">Policy</span><span class="p">,</span> <span class="n">Records</span><span class="p">,</span> <span class="n">Calculator</span><span class="p">,</span> <span class="n">GrowFactors</span>
-<span class="kn">from</span> <span class="nn">ccc.utils</span> <span class="kn">import</span> <span class="n">DEFAULT_START_YEAR</span><span class="p">,</span> <span class="n">TC_LAST_YEAR</span><span class="p">,</span> <span class="n">RECORDS_START_YEAR</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">taxcalc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Policy</span><span class="p">,</span> <span class="n">Records</span><span class="p">,</span> <span class="n">Calculator</span><span class="p">,</span> <span class="n">GrowFactors</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ccc.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">DEFAULT_START_YEAR</span><span class="p">,</span> <span class="n">TC_LAST_YEAR</span><span class="p">,</span> <span class="n">RECORDS_START_YEAR</span>
 
 
 <div class="viewcode-block" id="get_calculator">
 <a class="viewcode-back" href="../../content/api/get_taxcalc_rates.html#ccc.get_taxcalc_rates.get_calculator">[docs]</a>
-<span class="k">def</span> <span class="nf">get_calculator</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_calculator</span><span class="p">(</span>
     <span class="n">calculator_start_year</span><span class="p">,</span>
     <span class="n">baseline_policy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">reform</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -401,7 +406,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># create a calculator</span>
     <span class="n">policy1</span> <span class="o">=</span> <span class="n">Policy</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s2">&quot;cps&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s2">&quot;cps&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using CPS&quot;</span><span class="p">)</span>
         <span class="n">records1</span> <span class="o">=</span> <span class="n">Records</span><span class="o">.</span><span class="n">cps_constructor</span><span class="p">()</span>
         <span class="c1"># impute short and long term capital gains if using CPS data</span>
@@ -410,12 +415,12 @@
         <span class="n">records1</span><span class="o">.</span><span class="n">p23250</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.06587</span><span class="p">)</span> <span class="o">*</span> <span class="n">records1</span><span class="o">.</span><span class="n">e01100</span>
         <span class="c1"># set total capital gains to zero</span>
         <span class="n">records1</span><span class="o">.</span><span class="n">e01100</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">records1</span><span class="o">.</span><span class="n">e01100</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="k">elif</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="s2">&quot;puf&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+    <span class="k">elif</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="s2">&quot;puf&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using PUF&quot;</span><span class="p">)</span>
         <span class="n">records1</span> <span class="o">=</span> <span class="n">Records</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s2">&quot;tmd&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+    <span class="k">elif</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s2">&quot;tmd&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using TMD&quot;</span><span class="p">)</span>
-        <span class="n">records1</span> <span class="o">=</span> <span class="n">Records</span><span class="o">.</span><span class="n">tmd_constructor</span><span class="p">(</span><span class="s2">&quot;tmd.csv.gz&quot;</span><span class="p">)</span>
+        <span class="n">records1</span> <span class="o">=</span> <span class="n">Records</span><span class="o">.</span><span class="n">tmd_constructor</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">gfactors</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data is &quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Weights are &quot;</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
@@ -451,7 +456,7 @@
 
 <div class="viewcode-block" id="get_rates">
 <a class="viewcode-back" href="../../content/api/get_taxcalc_rates.html#ccc.get_taxcalc_rates.get_rates">[docs]</a>
-<span class="k">def</span> <span class="nf">get_rates</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_rates</span><span class="p">(</span>
     <span class="n">start_year</span><span class="o">=</span><span class="n">DEFAULT_START_YEAR</span><span class="p">,</span>
     <span class="n">baseline_policy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">reform</span><span class="o">=</span><span class="p">{},</span>
@@ -585,7 +590,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">update_policy</span><span class="p">(</span><span class="n">policy_obj</span><span class="p">,</span> <span class="n">reform</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_policy</span><span class="p">(</span><span class="n">policy_obj</span><span class="p">,</span> <span class="n">reform</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convenience method that updates the Policy object with the reform</span>
 <span class="sd">    dict using the appropriate method, given the reform format.</span>
@@ -596,7 +601,7 @@
         <span class="n">policy_obj</span><span class="o">.</span><span class="n">implement_reform</span><span class="p">(</span><span class="n">reform</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">is_paramtools_format</span><span class="p">(</span><span class="n">reform</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_paramtools_format</span><span class="p">(</span><span class="n">reform</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Check first item in reform to determine if it is using the ParamTools</span>
 <span class="sd">    adjustment or the Tax-Calculator reform format.</span>
@@ -653,7 +658,7 @@ By Jason DeBacker
 
   <p class="copyright">
     
-      © Copyright 2020.
+      © Copyright 2025.
       <br/>
     
   </p>
@@ -677,8 +682,8 @@ By Jason DeBacker
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>

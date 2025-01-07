@@ -15,8 +15,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -26,10 +26,10 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -38,10 +38,10 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
@@ -224,9 +224,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -358,13 +363,13 @@
                 <article class="bd-article">
                   
   <h1>Source code for ccc.utils</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">importlib.resources</span> <span class="k">as</span> <span class="nn">pkg_resources</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">import</span> <span class="nn">numbers</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">importlib.resources</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pkg_resources</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numbers</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="n">PACKAGE_NAME</span> <span class="o">=</span> <span class="s2">&quot;ccc&quot;</span>
 <span class="n">PYPI_PACKAGE_NAME</span> <span class="o">=</span> <span class="s2">&quot;cost-of-capital-calculator&quot;</span>
@@ -379,12 +384,12 @@
 <span class="n">RECORDS_START_YEAR</span> <span class="o">=</span> <span class="mi">2011</span>
 
 <span class="c1"># Latest year TaxData extrapolates to</span>
-<span class="n">TC_LAST_YEAR</span> <span class="o">=</span> <span class="mi">2033</span>
+<span class="n">TC_LAST_YEAR</span> <span class="o">=</span> <span class="mi">2034</span>
 
 
 <div class="viewcode-block" id="to_str">
 <a class="viewcode-back" href="../../content/api/utils.html#ccc.utils.to_str">[docs]</a>
-<span class="k">def</span> <span class="nf">to_str</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">to_str</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function to decode string.</span>
 
@@ -403,7 +408,7 @@
 
 <div class="viewcode-block" id="str_modified">
 <a class="viewcode-back" href="../../content/api/utils.html#ccc.utils.str_modified">[docs]</a>
-<span class="k">def</span> <span class="nf">str_modified</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">str_modified</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function to deal with conversion of a decimal number to a string.</span>
 
@@ -424,7 +429,7 @@
 
 <div class="viewcode-block" id="diff_two_tables">
 <a class="viewcode-back" href="../../content/api/utils.html#ccc.utils.diff_two_tables">[docs]</a>
-<span class="k">def</span> <span class="nf">diff_two_tables</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">diff_two_tables</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create the difference between two dataframes.</span>
 
@@ -456,7 +461,7 @@
 
 <div class="viewcode-block" id="wavg">
 <a class="viewcode-back" href="../../content/api/utils.html#ccc.utils.wavg">[docs]</a>
-<span class="k">def</span> <span class="nf">wavg</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">avg_name</span><span class="p">,</span> <span class="n">weight_name</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">wavg</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">avg_name</span><span class="p">,</span> <span class="n">weight_name</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes a weighted average.</span>
 
@@ -481,7 +486,7 @@
 
 <div class="viewcode-block" id="read_egg_csv">
 <a class="viewcode-back" href="../../content/api/utils.html#ccc.utils.read_egg_csv">[docs]</a>
-<span class="k">def</span> <span class="nf">read_egg_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_egg_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Read from egg the file named fname that contains CSV data and</span>
 <span class="sd">    return pandas DataFrame containing the data.</span>
@@ -505,7 +510,7 @@
 
 <div class="viewcode-block" id="read_egg_json">
 <a class="viewcode-back" href="../../content/api/utils.html#ccc.utils.read_egg_json">[docs]</a>
-<span class="k">def</span> <span class="nf">read_egg_json</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_egg_json</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Read from egg the file named fname that contains JSON data and</span>
 <span class="sd">    return dictionary containing the data.</span>
@@ -529,7 +534,7 @@
 
 <div class="viewcode-block" id="json_to_dict">
 <a class="viewcode-back" href="../../content/api/utils.html#ccc.utils.json_to_dict">[docs]</a>
-<span class="k">def</span> <span class="nf">json_to_dict</span><span class="p">(</span><span class="n">json_text</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">json_to_dict</span><span class="p">(</span><span class="n">json_text</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert specified JSON text into an ordered Python dictionary.</span>
 
@@ -569,7 +574,7 @@
 
 <div class="viewcode-block" id="save_return_table">
 <a class="viewcode-back" href="../../content/api/utils.html#ccc.utils.save_return_table">[docs]</a>
-<span class="k">def</span> <span class="nf">save_return_table</span><span class="p">(</span><span class="n">table_df</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">save_return_table</span><span class="p">(</span><span class="n">table_df</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function to save or return a table of data.</span>
 
@@ -678,7 +683,7 @@ By Jason DeBacker
 
   <p class="copyright">
     
-      © Copyright 2020.
+      © Copyright 2025.
       <br/>
     
   </p>
@@ -702,8 +707,8 @@ By Jason DeBacker
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>

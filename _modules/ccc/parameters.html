@@ -15,8 +15,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -26,10 +26,10 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -38,10 +38,10 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
@@ -224,9 +224,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -358,21 +363,23 @@
                 <article class="bd-article">
                   
   <h1>Source code for ccc.parameters</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">paramtools</span>
-<span class="kn">import</span> <span class="nn">marshmallow</span> <span class="k">as</span> <span class="nn">ma</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">paramtools</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">marshmallow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ma</span>
 
 <span class="c1"># import ccc</span>
-<span class="kn">from</span> <span class="nn">ccc.get_taxcalc_rates</span> <span class="kn">import</span> <span class="n">get_rates</span>
-<span class="kn">from</span> <span class="nn">ccc.utils</span> <span class="kn">import</span> <span class="n">DEFAULT_START_YEAR</span><span class="p">,</span> <span class="n">RECORDS_START_YEAR</span>
-<span class="kn">import</span> <span class="nn">ccc.paramfunctions</span> <span class="k">as</span> <span class="nn">pf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ccc.get_taxcalc_rates</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_rates</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ccc.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">DEFAULT_START_YEAR</span><span class="p">,</span> <span class="n">RECORDS_START_YEAR</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ccc.paramfunctions</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pf</span>
 
 <span class="n">CURRENT_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
 
 
 <div class="viewcode-block" id="Specification">
 <a class="viewcode-back" href="../../content/api/parameters.html#ccc.parameters.Specification">[docs]</a>
-<span class="k">class</span> <span class="nc">Specification</span><span class="p">(</span><span class="n">paramtools</span><span class="o">.</span><span class="n">Parameters</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Specification</span><span class="p">(</span><span class="n">paramtools</span><span class="o">.</span><span class="n">Parameters</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Specification class, contains model parameters.</span>
 <span class="sd">    Inherits ParamTools Parameters abstract base class.</span>
@@ -382,7 +389,7 @@
     <span class="n">label_to_extend</span> <span class="o">=</span> <span class="s2">&quot;year&quot;</span>
     <span class="n">array_first</span> <span class="o">=</span> <span class="kc">True</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">test</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">year</span><span class="o">=</span><span class="n">DEFAULT_START_YEAR</span><span class="p">,</span>
@@ -411,7 +418,7 @@
 
 <div class="viewcode-block" id="Specification.ccc_initialize">
 <a class="viewcode-back" href="../../content/api/parameters.html#ccc.parameters.Specification.ccc_initialize">[docs]</a>
-    <span class="k">def</span> <span class="nf">ccc_initialize</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ccc_initialize</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">call_tc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">gfactors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -463,7 +470,7 @@
 
 <div class="viewcode-block" id="Specification.compute_default_params">
 <a class="viewcode-back" href="../../content/api/parameters.html#ccc.parameters.Specification.compute_default_params">[docs]</a>
-    <span class="k">def</span> <span class="nf">compute_default_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_default_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Does cheap calculations to return parameter values</span>
 
@@ -584,7 +591,7 @@
 
 <div class="viewcode-block" id="Specification.default_parameters">
 <a class="viewcode-back" href="../../content/api/parameters.html#ccc.parameters.Specification.default_parameters">[docs]</a>
-    <span class="k">def</span> <span class="nf">default_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">default_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return Specification object same as self except it contains</span>
 <span class="sd">        default values of all the parameters.</span>
@@ -600,7 +607,7 @@
 
 <div class="viewcode-block" id="Specification.update_specification">
 <a class="viewcode-back" href="../../content/api/parameters.html#ccc.parameters.Specification.update_specification">[docs]</a>
-    <span class="k">def</span> <span class="nf">update_specification</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">,</span> <span class="n">raise_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_specification</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revision</span><span class="p">,</span> <span class="n">raise_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates parameter specification with values in revision dictionary.</span>
 
@@ -644,7 +651,7 @@
 <div class="viewcode-block" id="Specification._read_json_revision">
 <a class="viewcode-back" href="../../content/api/parameters.html#ccc.parameters.Specification._read_json_revision">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_read_json_revision</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_read_json_revision</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a revision dictionary, which is suitable for use with the</span>
 <span class="sd">        update_specification method, that is derived from the specified</span>
@@ -662,8 +669,19 @@
 <span class="c1"># end of Specification class</span>
 
 
-<span class="k">class</span> <span class="nc">DepreciationRules</span><span class="p">(</span><span class="n">ma</span><span class="o">.</span><span class="n">Schema</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DepreciationRules</span><span class="p">(</span><span class="n">ma</span><span class="o">.</span><span class="n">Schema</span><span class="p">):</span>
     <span class="c1"># set some field validation ranges that can&#39;t set in JSON</span>
+    <span class="n">system</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">String</span><span class="p">(</span>
+        <span class="n">validate</span><span class="o">=</span><span class="n">ma</span><span class="o">.</span><span class="n">validate</span><span class="o">.</span><span class="n">OneOf</span><span class="p">(</span>
+            <span class="n">choices</span><span class="o">=</span><span class="p">[</span>
+                <span class="s2">&quot;GDS&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;ADS&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Economic&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Expensing&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Income Forecast&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
     <span class="n">life</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="n">validate</span><span class="o">=</span><span class="n">ma</span><span class="o">.</span><span class="n">validate</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">))</span>
     <span class="n">method</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">String</span><span class="p">(</span>
         <span class="n">validate</span><span class="o">=</span><span class="n">ma</span><span class="o">.</span><span class="n">validate</span><span class="o">.</span><span class="n">OneOf</span><span class="p">(</span>
@@ -687,20 +705,105 @@
 
 <div class="viewcode-block" id="DepreciationParams">
 <a class="viewcode-back" href="../../content/api/parameters.html#ccc.parameters.DepreciationParams">[docs]</a>
-<span class="k">class</span> <span class="nc">DepreciationParams</span><span class="p">(</span><span class="n">paramtools</span><span class="o">.</span><span class="n">Parameters</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DepreciationParams</span><span class="p">(</span><span class="n">paramtools</span><span class="o">.</span><span class="n">Parameters</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Depreciation parameters class, contains model depreciation</span>
 <span class="sd">    parameters.</span>
 <span class="sd">    Inherits ParamTools Parameters abstract base class.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">defaults</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CURRENT_PATH</span><span class="p">,</span> <span class="s2">&quot;tax_depreciation_rules.json&quot;</span><span class="p">)</span></div>
+    <span class="n">defaults</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CURRENT_PATH</span><span class="p">,</span> <span class="s2">&quot;tax_depreciation_rules.json&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_df</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a DataFrame containing the depreciation parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">nested_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="c1"># Prepare lists to collect data</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Iterate through the nested dictionary</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value_list</span> <span class="ow">in</span> <span class="n">nested_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># Extract the OrderedDict(s) in the list</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">value_list</span><span class="p">:</span>
+                <span class="c1"># Prepare a dictionary to hold the row data</span>
+                <span class="n">row_data</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="c1"># Extract &#39;value&#39; dictionary contents</span>
+                <span class="n">row_data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">])</span>
+                <span class="c1"># Add the year</span>
+                <span class="n">row_data</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span>
+                <span class="c1"># Add the asset code</span>
+                <span class="n">row_data</span><span class="p">[</span><span class="s2">&quot;BEA_code&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+                <span class="c1"># Append the row data and index key</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row_data</span><span class="p">)</span>
+
+        <span class="c1"># Create DataFrame with the extracted data and specified index</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">df</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">expanded_df</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_df</span><span class="p">()</span>
+        <span class="n">unique_bea_codes</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;BEA_code&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+        <span class="n">years</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_grid</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span>
+        <span class="c1"># Create all combinations of years and BEA codes</span>
+        <span class="n">combinations</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> <span class="n">unique_bea_codes</span><span class="p">))</span>
+        <span class="c1"># Create a new DataFrame with these combinations</span>
+        <span class="n">expanded_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">combinations</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;BEA_code&quot;</span><span class="p">])</span>
+        <span class="c1"># Merge with the original DataFrame to preserve known values</span>
+        <span class="n">expanded_df</span> <span class="o">=</span> <span class="n">expanded_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+            <span class="n">df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;BEA_code&quot;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>
+        <span class="p">)</span>
+        <span class="c1"># Sort the DataFrame to ensure we can forward fill from the last known year</span>
+        <span class="n">expanded_df</span> <span class="o">=</span> <span class="n">expanded_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">&quot;BEA_code&quot;</span><span class="p">,</span> <span class="s2">&quot;year&quot;</span><span class="p">])</span>
+        <span class="c1"># Group by BEA_code and forward fill missing values</span>
+        <span class="n">expanded_df</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">expanded_df</span><span class="p">[[</span><span class="s2">&quot;life&quot;</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;BEA_code&quot;</span><span class="p">]]</span>
+            <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;BEA_code&quot;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">group</span><span class="p">:</span> <span class="n">group</span><span class="o">.</span><span class="n">ffill</span><span class="p">(),</span> <span class="n">include_groups</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">column_order</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;life&quot;</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;BEA_code&quot;</span><span class="p">]</span>
+        <span class="n">expanded_df</span> <span class="o">=</span> <span class="n">expanded_df</span><span class="p">[</span><span class="n">column_order</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">expanded_df</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">adjust_from_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read from a CSV file and adjust the parameter values.</span>
+
+<span class="sd">        CSV must have columns for year, BEA_code, year, life, method, and system.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            fname (str): name of the CSV file</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+        <span class="c1"># set the index to BEA_code</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;BEA_code&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># convert to dictionary</span>
+        <span class="n">df_dict</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;index&quot;</span><span class="p">)</span>
+        <span class="c1"># put life, method, and system in a value dictionary</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">df_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">df_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]),</span>
+                    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;life&quot;</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="s2">&quot;life&quot;</span><span class="p">],</span>
+                        <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">],</span>
+                        <span class="s2">&quot;system&quot;</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="s2">&quot;system&quot;</span><span class="p">],</span>
+                    <span class="p">},</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adjust</span><span class="p">(</span><span class="n">df_dict</span><span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="revision_warnings_errors">
 <a class="viewcode-back" href="../../content/api/parameters.html#ccc.parameters.revision_warnings_errors">[docs]</a>
-<span class="k">def</span> <span class="nf">revision_warnings_errors</span><span class="p">(</span><span class="n">spec_revision</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">revision_warnings_errors</span><span class="p">(</span><span class="n">spec_revision</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return warnings and errors for the specified Cost-of-Capital-Calculator</span>
 <span class="sd">    Specificaton revision in parameter values.</span>
@@ -761,7 +864,7 @@ By Jason DeBacker
 
   <p class="copyright">
     
-      © Copyright 2020.
+      © Copyright 2025.
       <br/>
     
   </p>
@@ -785,8 +888,8 @@ By Jason DeBacker
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>
