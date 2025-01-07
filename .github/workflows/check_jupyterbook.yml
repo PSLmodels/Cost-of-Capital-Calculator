@@ -6,14 +6,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
 
       - name: Setup Miniconda
         uses: conda-incubator/setup-miniconda@v2
         with:
-          miniforge-variant: Mambaforge
+          miniconda-version: "latest"
+          auto-update-conda: true
           activate-environment: ccc-dev
           environment-file: environment.yml
           python-version: 3.12
