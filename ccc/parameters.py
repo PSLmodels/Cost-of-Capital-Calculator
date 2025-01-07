@@ -1,4 +1,6 @@
 import os
+import pandas as pd
+import itertools
 import paramtools
 import marshmallow as ma
 
@@ -286,6 +288,17 @@ class Specification(paramtools.Parameters):
 
 class DepreciationRules(ma.Schema):
     # set some field validation ranges that can't set in JSON
+    system = ma.fields.String(
+        validate=ma.validate.OneOf(
+            choices=[
+                "GDS",
+                "ADS",
+                "Economic",
+                "Expensing",
+                "Income Forecast",
+            ]
+        )
+    )
     life = ma.fields.Float(validate=ma.validate.Range(min=0, max=100))
     method = ma.fields.String(
         validate=ma.validate.OneOf(
@@ -315,6 +328,91 @@ class DepreciationParams(paramtools.Parameters):
     """
 
     defaults = os.path.join(CURRENT_PATH, "tax_depreciation_rules.json")
+
+    def to_df(self):
+        """
+        Return a DataFrame containing the depreciation parameters.
+        """
+        nested_dict = self.to_dict()
+        # Prepare lists to collect data
+        data = []
+        # Iterate through the nested dictionary
+        for key, value_list in nested_dict.items():
+            # Extract the OrderedDict(s) in the list
+            for item in value_list:
+                # Prepare a dictionary to hold the row data
+                row_data = {}
+                # Extract 'value' dictionary contents
+                row_data.update(item["value"])
+                # Add the year
+                row_data["year"] = item["year"]
+                # Add the asset code
+                row_data["BEA_code"] = key
+                # Append the row data and index key
+                data.append(row_data)
+
+        # Create DataFrame with the extracted data and specified index
+        df = pd.DataFrame(data)
+
+        return df
+
+    def expanded_df(self):
+        df = self.to_df()
+        unique_bea_codes = df["BEA_code"].unique()
+        years = self.label_grid["year"]
+        # Create all combinations of years and BEA codes
+        combinations = list(itertools.product(years, unique_bea_codes))
+        # Create a new DataFrame with these combinations
+        expanded_df = pd.DataFrame(combinations, columns=["year", "BEA_code"])
+        # Merge with the original DataFrame to preserve known values
+        expanded_df = expanded_df.merge(
+            df, on=["year", "BEA_code"], how="left"
+        )
+        # Sort the DataFrame to ensure we can forward fill from the last known year
+        expanded_df = expanded_df.sort_values(["BEA_code", "year"])
+        # Group by BEA_code and forward fill missing values
+        expanded_df = (
+            expanded_df[["life", "method", "system", "year", "BEA_code"]]
+            .groupby("BEA_code")
+            .apply(lambda group: group.ffill(), include_groups=False)
+            .reset_index()
+        )
+        column_order = ["life", "method", "system", "year", "BEA_code"]
+        expanded_df = expanded_df[column_order]
+
+        return expanded_df
+
+    def adjust_from_csv(self, fname):
+        """
+        Read from a CSV file and adjust the parameter values.
+
+        CSV must have columns for year, BEA_code, year, life, method, and system.
+
+        Args:
+            fname (str): name of the CSV file
+
+        Returns:
+            None
+
+        """
+        df = pd.read_csv(fname)
+        # set the index to BEA_code
+        df.set_index("BEA_code", inplace=True)
+        # convert to dictionary
+        df_dict = df.to_dict(orient="index")
+        # put life, method, and system in a value dictionary
+        for k, v in df_dict.items():
+            df_dict[k] = [
+                {
+                    "year": int(v["year"]),
+                    "value": {
+                        "life": v["life"],
+                        "method": v["method"],
+                        "system": v["system"],
+                    },
+                }
+            ]
+        self.adjust(df_dict)
 
 
 def revision_warnings_errors(spec_revision):

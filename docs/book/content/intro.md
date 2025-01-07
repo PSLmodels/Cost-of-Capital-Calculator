@@ -22,4 +22,4 @@ Results will change as the underlying models improve. A fundamental reason for a
 
 
 ## Citing the Cost-of-Capital-Calculator Model
-Cost-of-Capital-Calculator (Version 1.5.2)[Source code], https://github.com/PSLmodels/Cost-of-Capital-Calculator
+Cost-of-Capital-Calculator (Version 2.0.0)[Source code], https://github.com/PSLmodels/Cost-of-Capital-Calculator

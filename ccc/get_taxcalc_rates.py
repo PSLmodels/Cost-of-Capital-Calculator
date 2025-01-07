@@ -39,7 +39,7 @@ def get_calculator(
     """
     # create a calculator
     policy1 = Policy()
-    if data is not None and "cps" in data:
+    if data is not None and "cps" in str(data):
         print("Using CPS")
         records1 = Records.cps_constructor()
         # impute short and long term capital gains if using CPS data
@@ -48,12 +48,12 @@ def get_calculator(
         records1.p23250 = (1 - 0.06587) * records1.e01100
         # set total capital gains to zero
         records1.e01100 = np.zeros(records1.e01100.shape[0])
-    elif data is None or "puf" in data:  # pragma: no cover
+    elif data is None or "puf" in str(data):  # pragma: no cover
         print("Using PUF")
         records1 = Records()
-    elif data is not None and "tmd" in data:  # pragma: no cover
+    elif data is not None and "tmd" in str(data):  # pragma: no cover
         print("Using TMD")
-        records1 = Records.tmd_constructor("tmd.csv.gz")
+        records1 = Records.tmd_constructor(data, weights, gfactors)
     elif data is not None:  # pragma: no cover
         print("Data is ", data)
         print("Weights are ", weights)

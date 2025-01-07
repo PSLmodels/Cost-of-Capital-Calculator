@@ -17,8 +17,10 @@ jobs:
           persist-credentials: false
 
       - name: Setup Miniconda using Python ${{ matrix.python-version }}
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
+          miniconda-version: "latest"
+          auto-update-conda: true
           activate-environment: ccc-dev
           environment-file: environment.yml
           python-version: ${{ matrix.python-version }}
