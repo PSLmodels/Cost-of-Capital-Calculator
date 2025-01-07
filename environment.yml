@@ -18,7 +18,6 @@ dependencies:
 - pip:
   - jupyter-book>=0.9.1
   - taxcalc>=4.4.0
-  - marshmallow<4.0.0
   - paramtools>=0.18.3
   - "cs-kit>=1.16.8"
   - cs2tc

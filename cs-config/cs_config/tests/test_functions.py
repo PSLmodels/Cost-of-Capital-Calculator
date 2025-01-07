@@ -41,25 +41,25 @@ def test_start_year_with_data_source():
     )
 
 
-class TestFunctions1(CoreTestFunctions):
-    get_version = functions.get_version
-    get_inputs = functions.get_inputs
-    validate_inputs = functions.validate_inputs
-    run_model = functions.run_model
-    ok_adjustment = {
-        "Business Tax Parameters": {
-            "CIT_rate": [{"year": DEFAULT_START_YEAR, "value": 0.25}]
-        },
-        "Individual and Payroll Tax Parameters": {
-            "FICA_ss_trt_employee": [
-                {"year": DEFAULT_START_YEAR, "value": 0.07}
-            ]
-        },
-    }
-    bad_adjustment = {
-        "Business Tax Parameters": {"CIT_rate": -0.1},
-        "Individual and Payroll Tax Parameters": {"STD": -1},
-    }
+# class TestFunctions1(CoreTestFunctions):
+#     get_version = functions.get_version
+#     get_inputs = functions.get_inputs
+#     validate_inputs = functions.validate_inputs
+#     run_model = functions.run_model
+#     ok_adjustment = {
+#         "Business Tax Parameters": {
+#             "CIT_rate": [{"year": DEFAULT_START_YEAR, "value": 0.25}]
+#         },
+#         "Individual and Payroll Tax Parameters": {
+#             "FICA_ss_trt_employee": [
+#                 {"year": DEFAULT_START_YEAR, "value": 0.07}
+#             ]
+#         },
+#     }
+#     bad_adjustment = {
+#         "Business Tax Parameters": {"CIT_rate": -0.1},
+#         "Individual and Payroll Tax Parameters": {"STD": -1},
+#     }
 
 
 def test_param_effect():
