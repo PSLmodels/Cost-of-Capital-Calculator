@@ -2005,14 +2005,10 @@ class Calculator:
         }
 
         equipment_df["short_category"] = equipment_df["minor_asset_group"]
-        # equipment_df['short_category'].replace(make_short,
-        #                                        inplace=True)
         equipment_df.replace(
             {"short_category": make_short}, regex=True, inplace=True
         )
         structure_df["short_category"] = structure_df["minor_asset_group"]
-        # structure_df['short_category'].replace(make_short,
-        #                                        inplace=True)
         structure_df.replace(
             {"short_category": make_short}, regex=True, inplace=True
         )

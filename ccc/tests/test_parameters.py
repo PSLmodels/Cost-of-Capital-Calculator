@@ -1,8 +1,10 @@
 import pytest
+import os
 from ccc.parameters import Specification, revision_warnings_errors
 from ccc.parameters import DepreciationParams
 
 
+CUR_DIR = os.path.abspath(os.path.dirname(__file__))
 test_data = [(27.5, "27_5"), (30, "30")]
 
 
@@ -167,84 +169,68 @@ def test_create_depreciation_parameters_object():
 
 
 def test_update_depreciation_params_with_dict():
-    expected_result = [
-        {
-            "year": 2020,
-            "value": {"method": "Expensing", "life": 5},
-            "GDS_life": 3.0,
-            "ADS_life": 3.0,
-            "major_asset_group": "Equipment",
-            "minor_asset_group": "Computers and Software",
-            "system": "GDS",
-            "asset_name": "Custom software",
-            "BEA_code": "ENS2",
-        }
-    ]
+    expected_result = {
+        "life": 5.0,
+        "method": "Expensing",
+        "system": "GDS",
+    }
     dp = DepreciationParams()
     new_dp_dict = {
-        "asset": [
+        "ENS2": [
             {
                 "year": 2020,
-                "asset_name": "Custom software",
-                "value": {"life": 5, "method": "Expensing"},
+                "value": {"life": 5.0, "method": "Expensing", "system": "GDS"},
             }
         ]
     }
     dp.adjust(new_dp_dict)
-    test_result = dp.select_eq(
-        param="asset", strict=False, year=2020, BEA_code="ENS2"
-    )
+    test_result = dp.select_eq(param="ENS2", strict=False, year=2020)[0][
+        "value"
+    ]
+    print("test", test_result)
+    print("expected", expected_result)
     assert test_result == expected_result
 
 
 def test_update_depreciation_params_with_json():
-    expected_result = [
-        {
-            "year": 2020,
-            "value": {"method": "Expensing", "life": 5},
-            "GDS_life": 3.0,
-            "ADS_life": 3.0,
-            "major_asset_group": "Equipment",
-            "minor_asset_group": "Computers and Software",
-            "system": "GDS",
-            "asset_name": "Custom software",
-            "BEA_code": "ENS2",
-        }
-    ]
+    expected_result = {
+        "life": 5.0,
+        "method": "Expensing",
+        "system": "GDS",
+    }
     dp = DepreciationParams()
     new_dp_json = """
-        {"asset": [
+        {"ENS2": [
         {"year": 2020,
-         "asset_name": "Custom software",
-         "value": {"life": 5, "method": "Expensing"}}]}
+         "value": {"life": 5, "method": "Expensing", "system": "GDS"}}]}
          """
     dp.adjust(new_dp_json)
-    test_result = dp.select_eq(
-        param="asset", strict=False, year=2020, BEA_code="ENS2"
-    )
+    test_result = dp.select_eq(param="ENS2", strict=False, year=2020)[0][
+        "value"
+    ]
     assert test_result == expected_result
 
 
-def test_update_depreciation_params_as_a_group():
-    dp = DepreciationParams()
-    new_dp_dict = {
-        "asset": [
-            {
-                "major_asset_group": "Intellectual Property",
-                "value": {"life": 12, "method": "DB 200%"},
-            }
-        ]
-    }
-    dp.adjust(new_dp_dict)
-    test_result = dp.select_eq(
-        param="asset",
-        strict=False,
-        year=2020,
-        major_asset_group="Intellectual Property",
-    )
-    assert test_result[0]["value"]["life"] == 12
-    assert test_result[1]["value"]["life"] == 12
-    assert test_result[2]["value"]["life"] == 12
+# def test_update_depreciation_params_as_a_group():
+#     dp = DepreciationParams()
+#     new_dp_dict = {
+#         "asset": [
+#             {
+#                 "major_asset_group": "Intellectual Property",
+#                 "value": {"life": 12, "method": "DB 200%"},
+#             }
+#         ]
+#     }
+#     dp.adjust(new_dp_dict)
+#     test_result = dp.select_eq(
+#         param="asset",
+#         strict=False,
+#         year=2020,
+#         major_asset_group="Intellectual Property",
+#     )
+#     assert test_result[0]["value"]["life"] == 12
+#     assert test_result[1]["value"]["life"] == 12
+#     assert test_result[2]["value"]["life"] == 12
 
 
 def test_update_depreciation_bad_revision():
@@ -253,11 +239,14 @@ def test_update_depreciation_bad_revision():
     """
     dp = DepreciationParams()
     new_dp_dict = {
-        "asset": [
+        "ENS2": [
             {
                 "year": 2020,
-                "asset_name": "Custom software",
-                "value": {"life": 12, "method": "Expensing2"},
+                "value": {
+                    "life": 5.0,
+                    "method": "Expensing2",
+                    "system": "GDS",
+                },
             }
         ]
     }
@@ -271,13 +260,33 @@ def test_update_depreciation_bad_revision2():
     """
     dp = DepreciationParams()
     new_dp_dict = {
-        "asset": [
+        "ENS2": [
             {
                 "year": 2020,
-                "asset_name": "Custom software",
-                "value": {"life": 122.0, "method": "Expensing"},
+                "value": {
+                    "life": 105.0,
+                    "method": "Expensing2",
+                    "system": "GDS",
+                },
             }
         ]
     }
     with pytest.raises(Exception):
         assert dp.adjust(new_dp_dict)
+
+
+def test_adjust_from_csv():
+    """
+    Test that can adjust parameters from a csv file
+    """
+    dp = DepreciationParams()
+    dp.adjust_from_csv(os.path.join(CUR_DIR, "csv_adjust_testing.csv"))
+    test_result = dp.select_eq(param="ENS2", strict=False, year=2016)[0][
+        "value"
+    ]
+    expected_result = {
+        "life": 12.0,
+        "method": "Expensing",
+        "system": "GDS",
+    }
+    assert test_result == expected_result

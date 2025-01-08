@@ -38,7 +38,7 @@ r^{'}_{m,j}-\pi = f_{m,j}\left[i-\pi\right] + (1-f_{m,j})E_{j},
  where $f_{m,j}$ represents the fraction of the marginal investment financed with debt by firms in industry $m$ and of tax entity type $j$.
 
 In addition to the cost of capital, the `Cost-of-Capital-Calculator` reports two related measures:
-* The user cost of capital (ucc): $ucc_{i,m,j} = \rho_{i,m,j} + delta_{i}$
+* The user cost of capital (ucc): $ucc_{i,m,j} = \rho_{i,m,j} + \delta_{i}$
 * The tax wedge, which is the difference between the before tax rate of return (which is equivalent to the cost of capital for marginal investments) and the after-tax return top savings. The tax wedge = $\rho_{i,m,j}-s_{m,j}$
 
 (sec:METR)=
@@ -86,14 +86,14 @@ where $phi$ are the fraction of inventories that use FIFO accounting and $\rho_{
 
 ```{math}
 :label: eqn:inventory_fifo
-\rho_{FIFO} = \frac{1}{Y_v} log(\frac{e^{(Y_v} - u_{j}}{(1 - u_{j})} - \pi,
+\rho_{FIFO} = \frac{1}{Y_v} ln \left(\frac{e^{rY_v} - u_{j}}{(1 - u_{j})} \right) - \pi,
 ```
 
 and
 
 ```{math}
 :label: eqn:inventory_lifo
-\rho_{LIFO} = \frac{1}{Y_v} log(\frac{e^{(r_{m,j}-\pi)Y_v} - u_{j}}{(1 - u_{j})} - \pi,
+\rho_{LIFO} = \frac{1}{Y_v} ln \left(\frac{e^{(r_{m,j}-\pi)Y_v} - u_{j}}{(1 - u_{j})} \right) - \pi,
 ```
 
 where $Y_{v}$ is the average number of years that inventories are held.
@@ -177,7 +177,7 @@ Some investment decisions are discrete: build the new plant or not, pursue this 
 
 ```{math}
 :label: eqn:eatr
-EATR = \left(\frac{p_{i,m,j} - rho_{i,m,j}}{p_{i,m,j}}\right)u_{j} + \left(\frac{\rho_{i,m,j}}{p_{i,m,j}}\right)METR_{i,m,j},
+EATR = \left(\frac{p_{i,m,j} - \rho_{i,m,j}}{p_{i,m,j}}\right)u_{j} + \left(\frac{\rho_{i,m,j}}{p_{i,m,j}}\right)METR_{i,m,j},
 ```
 
 where $p_{i,m,j}$ is the rate of profit on the project.  Note that the $EATR$ is equal to the $METR$ for marginal projects - those who's rate of profit is equal to the cost of capital.
@@ -376,21 +376,21 @@ r_{m,j}-\pi = f_{m,j}\left[i(1-u_{j})-\pi\right] + (1-f_{m,j})E_{j},
 (sec:step3)=
 ### Measuring Debt by Industry and Tax Treatment
 
-We measure total debt from the [Financial Accounts of the United States](http://www.federalreserve.gov/apps/fof/FOFTables.aspx).  In particular, we use the following tables to capture debt, which we measure separately for corporate financial and nonfinancial businesss, noncorporate business, and household mortgage debt:
+We measure total debt from the [Financial Accounts of the United States](http://www.federalreserve.gov/apps/fof/FOFTables.aspx).  In particular, we use the following tables to capture debt, which we measure separately for corporate financial and non-financial businesss, non-corporate business, and household mortgage debt:
 
 * B.100: Value of owner-occupied houses;
-* L.103: Liabilities of nonfinancial corporations, by type of instrument;
-* L.104: Liabilities of nonfinancial noncorporate business, by type of instrument;
+* L.103: Liabilities of non-financial corporations, by type of instrument;
+* L.104: Liabilities of non-financial non-corporate business, by type of instrument;
 * L.208: Total liabilities (financial corporations);
-* L.223: Corporate equity outstanding, by sector (nonfinancial, financial);
+* L.223: Corporate equity outstanding, by sector (non-financial, financial);
 * L.218: Home mortgages (households); and
-* L.229: Proprietors equity in noncorporate business
+* L.229: Proprietors equity in non-corporate business
 
-To allocate debt across tax treatment, we use SOI Tax Stats Data.  The Financial Account Data combine both S corporations and C corporations in the "corporation" definition.  We thus use SOI data to identify the portion of debt and equity attributable to S corporations. Debt is assigned in proportion to interest deductions. Equity is assigned in proportion to the sum of capital stock, additional paid-in capital, and retained earnings minus treasury stock. The resulting S corporation amounts were subtracted from corporate totals (leaving the amount for C corporations) and added to noncorporate businesses.  We do the same to allocate the noncorporate across sole proprietorships and partnerships.  We further allocate the amount of debt and equity attributable to corporate partnerships using a similar method.
+To allocate debt across tax treatment, we use SOI Tax Stats Data.  The Financial Account Data combine both S corporations and C corporations in the "corporation" definition.  We thus use SOI data to identify the portion of debt and equity attributable to S corporations. Debt is assigned in proportion to interest deductions. Equity is assigned in proportion to the sum of capital stock, additional paid-in capital, and retained earnings minus treasury stock. The resulting S corporation amounts were subtracted from corporate totals (leaving the amount for C corporations) and added to non-corporate businesses.  We do the same to allocate the non-corporate across sole proprietorships and partnerships.  We further allocate the amount of debt and equity attributable to corporate partnerships using a similar method.
 
 Specifically, we make the following calculations:
 
-Let $debt_{corp}$ be the total amount of nonfinancial corporate debt reported in the Financial Accounts of the Untied States Table L.103, variable FL104122005.  We then allocate this total across S-corporations and C-corporations and industry $m$ as follows:
+Let $debt_{corp}$ be the total amount of non-financial corporate debt reported in the Financial Accounts of the Untied States Table L.103, variable FL104122005.  We then allocate this total across S-corporations and C-corporations and industry $m$ as follows:
 
 ```{math}
 :label: eqn:debt_ccorp
@@ -412,7 +412,7 @@ Similarly, for equity, let
   COMP\_RTND\_ERNGS\_UNAPPR - CST\_TRSRY\_STCK
 ```
 
-and let $equity_{corp}$ be total nonfinancial corporate equity from the Financial Accounts of the United States Table L.223, series LM103164103.  For C-corps, we have:
+and let $equity_{corp}$ be total non-financial corporate equity from the Financial Accounts of the United States Table L.223, series LM103164103.  For C-corps, we have:
 
 ```{math}
 :label: eqn:equity_ccorp
@@ -430,7 +430,7 @@ For financial businesses, we use Table L.208, series FL794122005 for corporate d
 
 For the corporate financial services industry, we use Table L.208 series FL794122005 for debt and Table L.223 series LM793164105 for equity.
 
-Noncorporate, nonfinancial debt totals come from Table L.104, series FL114123005.  For non-corporate debt, we can divide between partnerships and sole props by industry using
+non-corporate, non-financial debt totals come from Table L.104, series FL114123005.  For non-corporate debt, we can divide between partnerships and sole props by industry using
 
 ```{math}
 :label: eqn:debt_pt_minor
@@ -439,7 +439,7 @@ debt_{m,j} = debt_{noncorp}\frac{INTRST\_PD_{m,j}}{\sum_{m=1}^{M}INTRST\_PD_{m,j
 
 <!-- %\textcolor{red}{Note that we do have partnerships and sole proprietorships in the tax data that are financial firms.  I don't know where this debt is in the Financial Accounts.  Because of this (and for now), let's exclude the finance industry from the above calculation (thus the sum is over $m\neq finance$).} -->
 
-Noncorporate equity total comes from Table L.229, series FL152090205.  We can see partners' capital accounts for partnerships, but for sole props we don't have a good measure of the equity of proprietors.  We thus make the assumption that the equity of sole proprietors is distributed across industries in the same way that the equity of partnerships is.
+non-corporate equity total comes from Table L.229, series FL152090205.  We can see partners' capital accounts for partnerships, but for sole props we don't have a good measure of the equity of proprietors.  We thus make the assumption that the equity of sole proprietors is distributed across industries in the same way that the equity of partnerships is.
 
 ```{math}
 :label: eqn:equity_pt_minor
@@ -448,7 +448,7 @@ equity_{m,p+sp} = equity_{noncorp}\frac{PCA_{m,p}}{sum_{m=1}^{M}PCA_{m,p}},
 
 Where $PCA_{p,m}$ are the "partnership capital accounts" for partnerships in industry $m$.  $equity_{m,p+sp}$ denotes the total amount of equity for partnerships and sole proprietorships in industry $m$.  We then find total non-corporate equity for industry $m$ as $equity_{NC,m} = equity_{p+sp,m} + equity_{s,m}$.
 
-We then calculate the fraction of investment financed with debt by industry $m$ and entity type $j$ as: $f_{m,j} = \frac{debt_{m,j}}{equity_{m,j}+debt_{m,j}}$.  Due to the data limitations stemming from data on sole proprietors, we calculate the ratio for partnerships and sole proprietorships as being: $f_{m,p} = f_{m,sp} = \frac{debt_{m,p}+debt_{m,sp}}{equity_{m,p+sp}}$  The exception here are financial, noncorporate businesses (see issue above with debt for these businesses).  Because of this limitation, we let $f_{finance,j}=f_{finance,s}, \forall j\in\{p,sp\}$ (i.e., we take the financial policy of S-corp financial businesses and apply it to all non-corporate financial businesses).
+We then calculate the fraction of investment financed with debt by industry $m$ and entity type $j$ as: $f_{m,j} = \frac{debt_{m,j}}{equity_{m,j}+debt_{m,j}}$.  Due to the data limitations stemming from data on sole proprietors, we calculate the ratio for partnerships and sole proprietorships as being: $f_{m,p} = f_{m,sp} = \frac{debt_{m,p}+debt_{m,sp}}{equity_{m,p+sp}}$  The exception here are financial, non-corporate businesses (see issue above with debt for these businesses).  Because of this limitation, we let $f_{finance,j}=f_{finance,s}, \forall j\in\{p,sp\}$ (i.e., we take the financial policy of S-corp financial businesses and apply it to all non-corporate financial businesses).
 
 
 ## NPV of Depreciation Deductions
@@ -590,7 +590,7 @@ One may alter the macroeconomic assumptions regarding rates of interest and infl
 
 *Business Taxation*: Users to adjust the statutory marginal tax rates at the entity level, tax depreciation schedules, allowances for deductibility of interest or equity, and property tax rates.
 
-*Individual Income Taxation*: `Cost of Capital Calculator` has the ability to allow for changes in individual income tax rates on pass-through business income, interest, dividends, and capital gains. In addition, policies affecting the deductibility of property taxes or mortgage interest affect the after-tax costs of owner-occupied housing.  To find the effect of such policy changes on the marginal investor, `Cost of Capital Calculator `interacts with OSPC's `Tax-Calculator`. Once the reform policies are specified, the `Tax-Calculator` computes the marginal tax rates on non-corporate business income, dividend income, interest income, capital gains income, and tax-deferred retirement account income.  The rates we apply to the "marginal investor" in the model are then computed as:
+*Individual Income Taxation*: `Cost of Capital Calculator` has the ability to allow for changes in individual income tax rates on pass-through business income, interest, dividends, and capital gains. In addition, policies affecting the deductibility of property taxes or mortgage interest affect the after-tax costs of owner-occupied housing.  To find the effect of such policy changes on the marginal investor, `Cost of Capital Calculator `interacts with `Tax-Calculator`. Once the reform policies are specified, the `Tax-Calculator` computes the marginal tax rates on non-corporate business income, dividend income, interest income, capital gains income, and tax-deferred retirement account income.  The rates we apply to the "marginal investor" in the model are then computed as:
 
 * $\tau_{pt}$ = weighted average marginal tax rate on ordinary, non-corporate business income (weighted by amount of non-corporate business income)
 * $\tau_{div}$ = weighted average marginal tax rate on dividend income (weighted by amount of dividend income received)

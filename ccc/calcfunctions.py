@@ -1,11 +1,6 @@
 import numpy as np
 import pandas as pd
-from ccc.constants import TAX_METHODS, RE_ASSETS, RE_INDUSTRIES
-from ccc.utils import str_modified
-
-pd.set_option("future.no_silent_downcasting", True)
-
-ENFORCE_CHECKS = True
+from ccc.constants import TAX_METHODS
 
 
 def update_depr_methods(df, p, dp):
@@ -25,37 +20,32 @@ def update_depr_methods(df, p, dp):
 
     """
     # update tax_deprec_rates based on user defined parameters
-    # create dataframe with depreciation policy parameters
-    deprec_df = pd.DataFrame(dp.asset)
-    # split out value into two columns
-    deprec_df = deprec_df.join(
-        pd.DataFrame(deprec_df.pop("value").values.tolist())
-    )
-    # drop information duplicated in asset dataframe
-    deprec_df.drop(
-        columns=["asset_name", "minor_asset_group", "major_asset_group"],
-        inplace=True,
-    )
+    # create dataframe with depreciation policy parameters for all
+    # known years
+    deprec_df = dp.expanded_df()
+    # keep just the current year in the CCC parameters object
+    deprec_df = deprec_df[deprec_df.year == p.year]
     # merge depreciation policy parameters to asset dataframe
     df.drop(columns=deprec_df.keys(), inplace=True, errors="ignore")
     df = df.merge(
         deprec_df, how="left", left_on="bea_asset_code", right_on="BEA_code"
     )
     # add bonus depreciation to tax deprec parameters dataframe
-    # ** UPDATE THIS  - maybe including bonus in new asset deprec JSON**
-    df["bonus"] = df["GDS_life"].apply(str_modified)
+    df["bonus"] = df["life"]
+    # update tax_deprec_rates based on user defined parameters
     df.replace({"bonus": p.bonus_deprec}, inplace=True)
-    # make bonus float format
-    df["bonus"] = df["bonus"].astype(float)
     # Compute b
     df["b"] = df["method"]
     df.replace({"b": TAX_METHODS}, regex=True, inplace=True)
-    df.loc[df["system"] == "ADS", "Y"] = df.loc[
-        df["system"] == "ADS", "ADS_life"
-    ]
-    df.loc[df["system"] == "GDS", "Y"] = df.loc[
-        df["system"] == "GDS", "GDS_life"
-    ]
+    # use b value of 1 if method is not in TAX_METHODS
+    # NOTE: not sure why the replae method doesn't work for this method
+    # Related: had to comment this out in TAX_METHODS
+    df.loc[df["b"] == "Income Forecast", "b"] = 1.0
+    # cast b as float
+    df["b"] = df["b"].astype(float)
+    # Set Y to length of depreciable life
+    df["Y"] = df["life"]
+
     return df
 
 
@@ -142,9 +132,9 @@ def econ(delta, bonus, r, pi):
 
 def income_forecast(Y, delta, bonus, r):
     r"""
-    Makes the calculation for the income forecast method.
+    Makes the calculation for the Income Forecast method.
 
-    The income forecast method involved deducting expenses in relation
+    The Income Forecast method involved deducting expenses in relation
     to forecasted income over the next 10 years. CCC follows the CBO
     methodology (CBO, 2018:
     https://www.cbo.gov/system/files/2018-11/54648-Intangible_Assets.pdf)
@@ -277,9 +267,6 @@ def eq_coc(
                 for index, element in enumerate(ind_code)
                 if element in re_credit["By industry"].keys()
             ]
-            print("Keys = ", re_credit["By industry"].keys())
-            print("Ind idx = ", idx)
-            print("Dict = ", re_credit["By industry"], re_credit)
             ind_code_idx = [ind_code[i] for i in idx]
             re_credit_rate_ind[idx] = [
                 re_credit["By industry"][ic] for ic in ind_code_idx
@@ -297,8 +284,6 @@ def eq_coc(
             ]
         # take the larger of the two R&E credit rates
         inv_tax_credit += np.maximum(re_credit_rate_asset, re_credit_rate_ind)
-        print("RE_credit object =", re_credit)
-        print("inv_tax_credit object =", inv_tax_credit)
     rho = (
         ((r - pi + delta) / (1 - u))
         * (1 - inv_tax_credit * nu - u_d * z * (1 - psi * inv_tax_credit))

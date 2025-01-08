@@ -1,8 +1,13 @@
 import numpy as np
 import pytest
+import os
+from pathlib import Path
 from ccc import get_taxcalc_rates as tc
 from ccc.parameters import Specification
 from ccc.utils import TC_LAST_YEAR
+
+
+CUR_DIR = os.path.abspath(os.path.dirname(__file__))
 
 
 @pytest.mark.parametrize(
@@ -47,11 +52,17 @@ def test_get_calculator_puf(data):
 
 @pytest.mark.needs_tmd
 @pytest.mark.parametrize(
-    "data",
-    [("tmd.csv")],
+    "data,weights,growfactors",
+    [
+        (
+            Path(os.path.join(CUR_DIR, "tmd.csv")),
+            Path(os.path.join(CUR_DIR, "tmd_weights.csv.gz")),
+            Path(os.path.join(CUR_DIR, "tmd_growfactors.csv")),
+        )
+    ],
     ids=["baseline,data=TMD"],
 )
-def test_get_calculator_tmd(data):
+def test_get_calculator_tmd(data, weights, growfactors):
     """
     Test the get_calculator() function
     """
@@ -60,6 +71,8 @@ def test_get_calculator_tmd(data):
         baseline_policy={"FICA_ss_trt_employee": {2021: 0.075}},
         reform={"FICA_ss_trt_employee": {2022: 0.0625}},
         data=data,
+        weights=weights,
+        gfactors=growfactors,
     )
     assert calc1.current_year == 2021
 
