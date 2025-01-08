@@ -21,6 +21,7 @@ from ccc.calcfunctions import (
     eq_mettr,
     eq_tax_wedge,
     eq_eatr,
+    eq_tax_adjusted_q,
 )
 from ccc.parameters import Specification, DepreciationParams
 from ccc.data import Assets
@@ -155,6 +156,10 @@ class Calculator:
                     dfs[t]["rho_" + str(f)],
                     dfs[t]["metr_" + str(f)],
                     self.__p.profit_rate,
+                    self.__p.u[t],
+                )
+                dfs[t]["tax_adjusted_q_" + str(f)] = eq_tax_adjusted_q(
+                    dfs[t]["z_" + str(f)],
                     self.__p.u[t],
                 )
         df = pd.concat(dfs, ignore_index=True, copy=True)

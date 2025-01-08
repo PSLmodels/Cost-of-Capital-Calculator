@@ -433,3 +433,24 @@ def eq_eatr(rho, metr, p, u):
     """
     eatr = ((p - rho) / p) * u + (rho / p) * metr
     return eatr
+
+def eq_tax_adjusted_q(z, u):
+    r"""
+    Compute the tax-adjusted q
+
+    .. math::
+        tax_adjusted_q = 
+
+    Args:
+        z (array_like): net present value of depreciation deductions for
+            $1 of investment
+        u (scalar): marginal tax rate for the first layer of
+            income taxes
+
+    Returns:
+        tax_adjusted_q (array_like): TAX_ADJUSTED_Q
+
+    """
+    q = 0.5
+    tax_adjusted_q = (q - 1 * (1 - z)) / (1 - u)
+    return tax_adjusted_q
