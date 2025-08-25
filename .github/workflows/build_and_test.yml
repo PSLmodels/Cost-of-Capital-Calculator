@@ -16,6 +16,10 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Setup Miniconda using Python ${{ matrix.python-version }}
         uses: conda-incubator/setup-miniconda@v3
         with:
