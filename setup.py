@@ -14,7 +14,14 @@ setuptools.setup(
     packages=["ccc"],
     include_package_data=True,
     name="cost-of-capital-calculator",
-    install_requires=["taxcalc", "pandas", "bokeh", "numpy", "paramtools"],
+    install_requires=[
+        "taxcalc",
+        "pandas",
+        "bokeh",
+        "numpy",
+        "numba",
+        "paramtools",
+    ],
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
