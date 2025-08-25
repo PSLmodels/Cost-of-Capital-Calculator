@@ -4,6 +4,7 @@ channels:
 dependencies:
 - python>3.10, <3.14
 - pandas>=2.2.0
+- numba
 - paramtools>=0.20.0
 - taxcalc>=5.2.0
 - bokeh>=3.1.1
