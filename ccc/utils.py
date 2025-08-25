@@ -10,7 +10,7 @@ PACKAGE_NAME = "ccc"
 PYPI_PACKAGE_NAME = "cost-of-capital-calculator"
 
 # Default year for model runs
-DEFAULT_START_YEAR = 2024
+DEFAULT_START_YEAR = 2026
 
 # Year of asset data
 ASSET_DATA_CSV_YEAR = 2013
@@ -19,7 +19,7 @@ ASSET_DATA_CSV_YEAR = 2013
 RECORDS_START_YEAR = 2011
 
 # Latest year TaxData extrapolates to
-TC_LAST_YEAR = 2034
+TC_LAST_YEAR = 2035
 
 
 def to_str(x):

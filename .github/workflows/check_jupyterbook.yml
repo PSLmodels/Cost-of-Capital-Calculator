@@ -11,13 +11,12 @@ jobs:
           persist-credentials: false
 
       - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
           miniconda-version: "latest"
-          auto-update-conda: true
           activate-environment: ccc-dev
           environment-file: environment.yml
-          python-version: 3.12
+          python-version: "3.13"
           auto-activate-base: false
 
       - name: Build # Build Jupyter Book
