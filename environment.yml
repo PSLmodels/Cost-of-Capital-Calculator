@@ -6,7 +6,6 @@ dependencies:
 - pandas
 - numba
 - paramtools>=0.20.0
-- taxcalc>=5.2.0
 - bokeh
 - setuptools
 - pip
@@ -19,6 +18,7 @@ dependencies:
 - coverage
 - black
 - pip:
+  - taxcalc>=5.2.0
   - jupyter-book
   - "cs-kit>=1.16.8"
   - cs2tc
