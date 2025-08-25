@@ -3,11 +3,11 @@ channels:
 - conda-forge
 dependencies:
 - python>3.10, <3.14
-- pandas>=2.2.0
+- pandas
 - numba
 - paramtools>=0.20.0
 - taxcalc>=5.2.0
-- bokeh>=3.1.1
+- bokeh
 - setuptools
 - pip
 - xlrd
@@ -19,6 +19,6 @@ dependencies:
 - coverage
 - black
 - pip:
-  - jupyter-book>=0.9.1
+  - jupyter-book
   - "cs-kit>=1.16.8"
   - cs2tc
