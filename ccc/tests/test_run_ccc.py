@@ -9,7 +9,6 @@ from ccc.parameters import Specification, DepreciationParams
 from ccc.calculator import Calculator
 from ccc.data import Assets
 
-
 TDIR = os.path.abspath(os.path.dirname(__file__))
 
 

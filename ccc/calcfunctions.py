@@ -38,7 +38,7 @@ def update_depr_methods(df, p, dp):
     df["b"] = df["method"]
     df.replace({"b": TAX_METHODS}, regex=True, inplace=True)
     # use b value of 1 if method is not in TAX_METHODS
-    # NOTE: not sure why the replae method doesn't work for this method
+    # NOTE: not sure why the replace method doesn't work for this method
     # Related: had to comment this out in TAX_METHODS
     df.loc[df["b"] == "Income Forecast", "b"] = 1.0
     # cast b as float

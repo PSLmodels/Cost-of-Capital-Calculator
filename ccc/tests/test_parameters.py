@@ -3,7 +3,6 @@ import os
 from ccc.parameters import Specification, revision_warnings_errors
 from ccc.parameters import DepreciationParams
 
-
 CUR_DIR = os.path.abspath(os.path.dirname(__file__))
 test_data = [(27.5, "27_5"), (30, "30")]
 

@@ -6,7 +6,6 @@ from ccc import get_taxcalc_rates as tc
 from ccc.parameters import Specification
 from ccc.utils import TC_LAST_YEAR
 
-
 CUR_DIR = os.path.abspath(os.path.dirname(__file__))
 
 

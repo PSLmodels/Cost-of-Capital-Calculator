@@ -257,6 +257,9 @@ def test_update_depr_methods(monkeypatch):
     test_df = cf.update_depr_methods(asset_df, p, dp)
     print("Test df =", test_df)
 
+    print("DP = ")
+    print(dp.to_df())
+
     assert_frame_equal(test_df, expected_df, check_like=True)
 
 

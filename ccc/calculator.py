@@ -53,7 +53,6 @@ from bokeh.models.widgets import RadioButtonGroup
 from bokeh.models.tickers import FixedTicker
 from bokeh.layouts import gridplot, column
 
-
 # import styles and callback
 from ccc.styles import PLOT_FORMATS, TITLE_FORMATS, RED, BLUE
 from ccc.controls_callback_script import CONTROLS_CALLBACK_SCRIPT
@@ -1340,12 +1339,10 @@ class Calculator:
         p.xaxis[0].ticker = FixedTicker(ticks=[0, 1, 2])
         # Done as a custom function instead of a categorical axis because
         # categorical axes do not work well with other features
-        p.xaxis.formatter = CustomJSTickFormatter(
-            code="""
+        p.xaxis.formatter = CustomJSTickFormatter(code="""
         var types = ["Typically Financed", "Debt Financed", "Equity Financed"]
         return types[tick]
-        """
-        )
+        """)
         p.yaxis.axis_label = VAR_DICT[output_variable]
         p.yaxis[0].formatter = NumeralTickFormatter(format="0%")
 
