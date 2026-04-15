@@ -50,7 +50,12 @@ def get_calculator(
         records1.e01100 = np.zeros(records1.e01100.shape[0])
     elif data is None or "puf" in str(data):  # pragma: no cover
         print("Using PUF")
-        records1 = Records()
+        gf_base = GrowFactors()
+        records1 = Records.puf_constructor(
+            data="puf.csv",
+            gfactors=gf_base,
+            weights="puf_weights.csv.gz",
+        )
     elif data is not None and "tmd" in str(data):  # pragma: no cover
         print("Using TMD")
         records1 = Records.tmd_constructor(data, weights, gfactors)
