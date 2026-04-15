@@ -73,7 +73,7 @@ def test_get_calculator_tmd(data, weights, growfactors):
         weights=weights,
         gfactors=growfactors,
     )
-    assert calc1.current_year == 2021
+    assert calc1.current_year == 2022
 
 
 def test_get_calculator_exception():
