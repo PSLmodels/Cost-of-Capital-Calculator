@@ -36,7 +36,7 @@ def update_depr_methods(df, p, dp):
     df.replace({"bonus": p.bonus_deprec}, inplace=True)
     # Compute b
     df["b"] = df["method"]
-    df.replace({"b": TAX_METHODS}, regex=True, inplace=True)
+    df["b"] = df["b"].map(TAX_METHODS)
     # use b value of 1 if method is not in TAX_METHODS
     # NOTE: not sure why the replace method doesn't work for this method
     # Related: had to comment this out in TAX_METHODS
