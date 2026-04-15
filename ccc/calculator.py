@@ -156,7 +156,7 @@ class Calculator:
                     self.__p.profit_rate,
                     self.__p.u[t],
                 )
-        df = pd.concat(dfs, ignore_index=True, copy=True)
+        df = pd.concat(dfs, ignore_index=True)
 
         return df
 
@@ -217,7 +217,7 @@ class Calculator:
                         )
                     )
         self.__assets.df = pd.concat(
-            dfs, ignore_index=True, copy=True, sort=True
+            dfs, ignore_index=True, sort=True
         )
 
     def calc_all(self):
@@ -292,7 +292,6 @@ class Calculator:
         df = pd.concat(
             [asset_df, minor_asset_df, major_asset_df, overall_df],
             ignore_index=True,
-            copy=True,
             sort=True,
         ).reset_index()
         # Drop duplicate rows in case, e.g., only one asset in major
@@ -354,7 +353,6 @@ class Calculator:
         df = pd.concat(
             [ind_df, major_ind_df, overall_df],
             ignore_index=True,
-            copy=True,
             sort=True,
         ).reset_index()
         # Drop duplicate rows in case, e.g., only one industry in major
@@ -434,7 +432,7 @@ class Calculator:
             # Put df's together
             dfs_out.append(
                 pd.concat(
-                    [treat_df, all_df], ignore_index=True, copy=True, sort=True
+                    [treat_df, all_df], ignore_index=True, sort=True
                 ).reset_index()
             )
         base_tab = dfs_out[0]
@@ -687,7 +685,6 @@ class Calculator:
                 pd.concat(
                     [major_asset_df, treat_df, all_df],
                     ignore_index=True,
-                    copy=True,
                     sort=True,
                 ).reset_index()
             )
@@ -890,7 +887,6 @@ class Calculator:
                 pd.concat(
                     [major_ind_df, treat_df, all_df],
                     ignore_index=True,
-                    copy=True,
                     sort=True,
                 ).reset_index()
             )
