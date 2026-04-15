@@ -216,9 +216,7 @@ class Calculator:
                             self.__p.r[t][f],
                         )
                     )
-        self.__assets.df = pd.concat(
-            dfs, ignore_index=True, sort=True
-        )
+        self.__assets.df = pd.concat(dfs, ignore_index=True, sort=True)
 
     def calc_all(self):
         """

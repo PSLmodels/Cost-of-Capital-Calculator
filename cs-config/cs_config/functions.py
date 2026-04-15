@@ -15,7 +15,8 @@ import cs2tc
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 PUF_WEIGHTS_S3_FILE_LOCATION = os.environ.get(
-    "PUF_WEIGHTS_S3_LOCATION", "s3://ospc-data-files/puf_weights.20210720.csv.gz"  ## This needs to be updated
+    "PUF_WEIGHTS_S3_LOCATION",
+    "s3://ospc-data-files/puf_weights.20210720.csv.gz",  ## This needs to be updated
 )
 PUF_S3_FILE_LOCATION = os.environ.get(
     "PUF_S3_LOCATION", "s3://ospc-data-files/puf.20210720.csv.gz"
@@ -188,7 +189,9 @@ def run_model(meta_param_dict, adjustment):
             PUF_S3_FILE_LOCATION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
         )
         weights = retrieve_puf(
-            PUF_WEIGHTS_S3_FILE_LOCATION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
+            PUF_WEIGHTS_S3_FILE_LOCATION,
+            AWS_ACCESS_KEY_ID,
+            AWS_SECRET_ACCESS_KEY,
         )
         records_start_year = Records.PUFCSV_YEAR
         if data is not None:
@@ -213,7 +216,7 @@ def run_model(meta_param_dict, adjustment):
             meta_params.adjust({"data_source": "CPS"})
     elif meta_params.data_source == "CPS":
         data = "cps"
-        weights = os.path.join(Records.CODE_PATH, 'cps_weights.csv.gz')
+        weights = os.path.join(Records.CODE_PATH, "cps_weights.csv.gz")
         records_start_year = Records.CPSCSV_YEAR
     else:
         raise ValueError(
