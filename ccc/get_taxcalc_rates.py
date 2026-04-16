@@ -51,10 +51,12 @@ def get_calculator(
     elif data is None or "puf" in str(data):  # pragma: no cover
         print("Using PUF")
         gf_base = GrowFactors()
+        data = "puf.csv" if data is None else data
+        weights = "puf_weights.csv.gz" if weights is None else weights
         records1 = Records.puf_constructor(
-            data="puf.csv",
+            data=data,
             gfactors=gf_base,
-            weights="puf_weights.csv.gz",
+            weights=weights,
         )
     elif data is not None and "tmd" in str(data):  # pragma: no cover
         print("Using TMD")
