@@ -16,7 +16,7 @@ AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 PUF_WEIGHTS_S3_FILE_LOCATION = os.environ.get(
     "PUF_WEIGHTS_S3_LOCATION",
-    "s3://ospc-data-files/puf_weights.20210720.csv.gz",  ## This needs to be updated
+    "s3://ospc-data-files/puf_weights.20210720.csv.gz",  # TODO: This needs to be updated
 )
 PUF_S3_FILE_LOCATION = os.environ.get(
     "PUF_S3_LOCATION", "s3://ospc-data-files/puf.20210720.csv.gz"
@@ -197,6 +197,8 @@ def run_model(meta_param_dict, adjustment):
         if data is not None:
             if not isinstance(data, pd.DataFrame):
                 raise TypeError("'data' must be a Pandas DataFrame.")
+        if weights is None:
+            raise ValueError("Weights data could not be retrieved.")
         else:
             # Access keys are not available. Default to the CPS.
             print("Defaulting to the CPS")
