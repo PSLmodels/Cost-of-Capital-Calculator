@@ -9,7 +9,7 @@ setuptools.setup(
     download_url="https://github.com/PSLmodels/Cost-of-Capital-Calculator",
     long_description_content_type="text/markdown",
     long_description=longdesc,
-    version="2.1.0",
+    version="2.1.1",
     license="CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
     packages=["ccc"],
     include_package_data=True,

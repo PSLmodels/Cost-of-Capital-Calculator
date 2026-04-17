@@ -2,7 +2,6 @@ import importlib.resources as pkg_resources
 from collections import OrderedDict
 import warnings
 import numbers
-import os
 import json
 import pandas as pd
 
@@ -19,7 +18,7 @@ ASSET_DATA_CSV_YEAR = 2013
 RECORDS_START_YEAR = 2011
 
 # Latest year TaxData extrapolates to
-TC_LAST_YEAR = 2035
+TC_LAST_YEAR = 2036
 
 
 def to_str(x):

@@ -6,7 +6,6 @@ from ccc import get_taxcalc_rates as tc
 from ccc.parameters import Specification
 from ccc.utils import TC_LAST_YEAR
 
-
 CUR_DIR = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -74,7 +73,7 @@ def test_get_calculator_tmd(data, weights, growfactors):
         weights=weights,
         gfactors=growfactors,
     )
-    assert calc1.current_year == 2021
+    assert calc1.current_year == 2022
 
 
 def test_get_calculator_exception():

@@ -3,7 +3,7 @@
         "labels": {
             "year": {
                 "type": "int",
-                "validators": {"range": {"min": 2013, "max": 2035}}
+                "validators": {"range": {"min": 2013, "max": 2036}}
             },
             "system": {
                 "type": "str",

@@ -18,7 +18,7 @@ dependencies:
 - coverage
 - black
 - pip:
-  - taxcalc>=5.2.0
-  - jupyter-book
+  - taxcalc>=6.0.0
+  - "jupyter-book<2.0.0"
   - "cs-kit>=1.16.8"
   - cs2tc
