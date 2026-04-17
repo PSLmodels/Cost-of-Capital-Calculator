@@ -14,12 +14,12 @@ or with PyPI via:
 
 
 ## Web Application
-You can also use Cost-of-Capital-Calculator through a web
-application, hosted on [Compute Studio](https://compute.studio/PSLmodels/Cost-of-Capital-Calculator/). The web application is limited in that you cannot consider policy reforms to the individual income tax code, but it is an easy to use alternative to the Python API.
+Previously, you could also use Cost-of-Capital-Calculator through a web
+application, hosted on [Compute Studio](https://compute.studio/PSLmodels/Cost-of-Capital-Calculator/). The web application is limited in that you cannot consider policy reforms to the individual income tax code, but it is an easy to use alternative to the Python API.  Please reach out if you have funding to help support the hosting of the web application, which is currently not being maintained.
 
 ## Disclaimer
 Results will change as the underlying models improve. A fundamental reason for adopting open source methods in this project is so that people from all backgrounds can contribute to the models that our society uses to assess economic policy; when community-contributed improvements are incorporated, the model will produce different results.
 
 
 ## Citing the Cost-of-Capital-Calculator Model
-Cost-of-Capital-Calculator (Version 2.1.0)[Source code], https://github.com/PSLmodels/Cost-of-Capital-Calculator
+Cost-of-Capital-Calculator (Version 2.1.1)[Source code], https://github.com/PSLmodels/Cost-of-Capital-Calculator
